@@ -11,6 +11,9 @@ Also features a new subset of character-specific items that can only drop if one
 `mysticsitems_grantall` - grants all achievements  
 `mysticsitems_unlocklogs` - unlocks all logbook entries  
 
+### Bug reports and suggestions
+Please visit the issue tracker on the mod's GitHub repository! https://github.com/TheMysticSword/MysticsItems/issues
+
 ### To-do
 * More character-specific items  
 * Missing item displays on characters  
