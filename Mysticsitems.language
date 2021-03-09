@@ -44,7 +44,7 @@
 
     "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_NAME": "Nuclear Accelerator",
     "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_PICKUP": "Temporary damage increase upon reaching high speed.",
-    "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_DESC": "After exceeding base sprint speed, increase <style=cIsDamage>damage by 10%</style> per <style=cIsUtility>25% extra movement speed</style> for <style=cIsUtility>2s <style=cStack>(+2s per stack)</style></style>.",
+    "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_DESC": "After exceeding base movement speed, increase <style=cIsDamage>damage by 10%</style> per <style=cIsUtility>100% extra movement speed</style> for <style=cIsUtility>6s <style=cStack>(+4s per stack)</style></style>.",
 
     "ITEM_MYSTICSITEMS_EXTRASHRINEUSE_NAME": "Hexahedral Monolith",
     "ITEM_MYSTICSITEMS_EXTRASHRINEUSE_PICKUP": "All Shrines can be used one more time.",
@@ -181,7 +181,7 @@
 
     "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_NAME": "Ядерный ускоритель",
     "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_PICKUP": "Временно увеличивает урон при достижении высокой скорости.",
-    "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_DESC": "При преодолении базовой скорости бега увеличивает <style=cIsDamage>урон на 10%</style> за каждые <style=cIsUtility>25% дополнительной скорости передвижения</style> на <style=cIsUtility>2 сек. <style=cStack>(+2 сек. за шт.)</style></style>.",
+    "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_DESC": "При преодолении базовой скорости передвижения увеличивает <style=cIsDamage>урон на 10%</style> за каждые <style=cIsUtility>100% дополнительной скорости передвижения</style> на <style=cIsUtility>6 сек. <style=cStack>(+4 сек. за шт.)</style></style>.",
 
     "ITEM_MYSTICSITEMS_EXTRASHRINEUSE_NAME": "Шестигранный монолит",
     "ITEM_MYSTICSITEMS_EXTRASHRINEUSE_PICKUP": "Все святилища можно использовать ещё раз.",
