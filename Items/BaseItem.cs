@@ -17,6 +17,7 @@ namespace MysticsItems.Items
         public ItemDisplayRuleDict itemDisplayRuleDict = new ItemDisplayRuleDict();
         public ItemIndex itemIndex;
         public static Dictionary<System.Type, BaseItem> registeredItems = new Dictionary<System.Type, BaseItem>();
+        public static List<BaseItem> deployableBanned = new List<BaseItem>();
         public CharacterItem characterItemComponent;
 
         public static BaseItem GetFromType(System.Type type)
@@ -222,6 +223,23 @@ namespace MysticsItems.Items
             });
         }
 
+        public void BanFromDeployables()
+        {
+            deployableBanned.Add(this);
+        }
+
+        public static void RemoveDeployableBannedItems(Deployable deployable)
+        {
+            CharacterMaster master = deployable.gameObject.GetComponent<CharacterMaster>();
+            if (master && master.hasBody && deployable.ownerMaster)
+            {
+                foreach (BaseItem item in deployableBanned)
+                {
+                    master.GetBody().inventory.ResetItem(item.itemIndex);
+                }
+            }
+        }
+
         public virtual void PreAdd() { }
 
         public virtual void OnAdd() { }
@@ -398,6 +416,22 @@ namespace MysticsItems.Items
             {
                 orig(self);
                 self.gameObject.AddComponent<MysticsItemsCharacterItemsTracker>();
+            };
+
+            On.RoR2.CharacterBody.OnInventoryChanged += (orig, self) =>
+            {
+                orig(self);
+                if (self.master)
+                {
+                    Deployable deployable = self.master.GetComponent<Deployable>();
+                    if (deployable) RemoveDeployableBannedItems(deployable);
+                }
+            };
+
+            On.RoR2.CharacterMaster.AddDeployable += (orig, self, deployable, slot) =>
+            {
+                orig(self, deployable, slot);
+                RemoveDeployableBannedItems(deployable);
             };
         }
 
