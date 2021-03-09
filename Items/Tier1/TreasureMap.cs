@@ -24,6 +24,7 @@ namespace MysticsItems.Items
                 ItemTag.Utility,
                 ItemTag.AIBlacklist
             };
+            BanFromDeployables();
             SetAssets("Treasure Map");
             SetModelPanelDistance(3f, 6f);
             AddDisplayRule((int)Main.CommonBodyIndices.Commando, "LowerArmR", new Vector3(-0.084F, 0.183F, -0.006F), new Vector3(83.186F, 36.557F, 131.348F), new Vector3(0.053F, 0.053F, 0.053F));
@@ -94,25 +95,6 @@ namespace MysticsItems.Items
                         {
                             placementMode = DirectorPlacementRule.PlacementMode.Random
                         }, xoroshiro128Plus));
-                    });
-                }
-            };
-
-            IL.RoR2.CharacterBody.HandleConstructTurret += (il) =>
-            {
-                ILCursor c = new ILCursor(il);
-
-                if (c.TryGotoNext(
-                    x => x.MatchDup(),
-                    x => x.MatchLdloc(2),
-                    x => x.MatchCallOrCallvirt<CharacterMaster>("get_inventory"),
-                    x => x.MatchCallOrCallvirt<Inventory>("CopyItemsFrom")
-                ))
-                {
-                    c.Emit(OpCodes.Ldloc, 2);
-                    c.EmitDelegate<System.Action<Inventory>>((inventory) =>
-                    {
-                        inventory.ResetItem(itemIndex);
                     });
                 }
             };
