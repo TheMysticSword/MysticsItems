@@ -97,7 +97,7 @@ namespace MysticsItems.Items
                     if (characterMotor)
                     {
                         float speed = characterMotor.velocity.magnitude;
-                        float threshold = body.baseMoveSpeed * body.sprintingSpeedMultiplier;
+                        float threshold = body.baseMoveSpeed;
                         if (speed > threshold)
                         {
                             int buffStack = Mathf.FloorToInt(((speed - threshold) / threshold) / (speedRequirementPerBuffStack / 100f));
