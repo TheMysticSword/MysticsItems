@@ -131,7 +131,7 @@ namespace MysticsItems.Items
                             bouncesRemaining = 0,
                             teamIndex = characterInfo.teamIndex,
                             attacker = characterInfo.gameObject,
-                            procCoefficient = 1f,
+                            procCoefficient = 0f,
                             lightningType = LightningOrb.LightningType.Ukulele,
                             damageColorIndex = DamageColorIndex.Item,
                             range = radius,
