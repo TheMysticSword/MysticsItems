@@ -27,7 +27,7 @@ Tuning fork SFX for Ratio Equalizer provided by Martin Chappell (https://freesou
 Other sounds made with sfxia by rxi (https://rxi.itch.io/sfxia)  
   
 ### Changelog
-#### 1.1.0:
+#### 1.0.1:
 * Nuclear Accelerator:
     * ~~10% damage increase per 25% extra speed~~ ⇒ 10% damage increase per 100% extra speed
     * Buff Time: ~~2s (+2s per stack)~~ ⇒ 6s (+4s per stack)
