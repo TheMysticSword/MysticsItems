@@ -12,7 +12,8 @@ Also features a new subset of character-specific items that can only drop if one
 `mysticsitems_unlocklogs` - unlocks all logbook entries  
 
 ### Bug reports and suggestions
-Please visit the issue tracker on the mod's GitHub repository! https://github.com/TheMysticSword/MysticsItems/issues
+Please visit the issue tracker on the mod's GitHub repository! https://github.com/TheMysticSword/MysticsItems/issues  
+Before creating an issue, please make sure that a similar one hasn't already been created using the search bar!
 
 ### To-do
 * More character-specific items  
