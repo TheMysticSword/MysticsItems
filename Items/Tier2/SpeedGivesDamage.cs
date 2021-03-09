@@ -104,7 +104,7 @@ namespace MysticsItems.Items
                             if (buffStack > maxStack)
                             {
                                 int newStacks = buffStack;
-                                float buffTime = 2f + 2f * (float)(stack - 1);
+                                float buffTime = 6f + 4f * (float)(stack - 1);
                                 // Refresh old stacks
                                 foreach (var timedBuff in timedBuffs)
                                 {
