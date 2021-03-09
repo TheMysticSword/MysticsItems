@@ -6,6 +6,10 @@ using MysticsItems.Items;
 using MysticsItems.Equipment;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
+using System.Reflection;
+using MonoMod.Cil;
+using Mono.Cecil.Cil;
 
 // ItemDropAPI adds WorldUnique and achievement-locked items to the available drops list
 // This class fixes these issues by removing this mod's items from the drop pools right after ItemDropAPI adds them
@@ -27,66 +31,75 @@ namespace MysticsItems
                 }
             };
 
-            new Hook(typeof(ItemDropAPI).GetMethod("RunOnBuildDropTable", Main.bindingFlagAll), typeof(ItemDropFixes).GetMethod("Run_BuildDropTable", Main.bindingFlagAll));
+            new Hook(typeof(ItemDropAPI).GetMethod("GetDefaultDropList", Main.bindingFlagAll, null, new System.Type[] { typeof(ItemTier) }, null), typeof(ItemDropFixes).GetMethod("GetDefaultDropList", Main.bindingFlagAll));
+            new Hook(typeof(ItemDropAPI).GetMethod("GetDefaultLunarDropList", Main.bindingFlagAll, null, new System.Type[] { }, null), typeof(ItemDropFixes).GetMethod("GetDefaultLunarDropList", Main.bindingFlagAll));
+            new Hook(typeof(ItemDropAPI).GetMethod("GetDefaultEquipmentDropList", Main.bindingFlagAll, null, new System.Type[] { }, null), typeof(ItemDropFixes).GetMethod("GetDefaultEquipmentDropList", Main.bindingFlagAll));
         }
 
-        public static void Run_BuildDropTable(On.RoR2.Run.orig_BuildDropTable orig, Run self)
+        public static List<ItemIndex> GetDefaultDropList(System.Func<ItemTier, List<ItemIndex>> orig, ItemTier itemTier)
         {
-            orig(self);
+            List<ItemIndex> result = orig(itemTier);
             foreach (BaseItem item in BaseItem.registeredItems.Values)
             {
-                List<PickupIndex> list = null;
-                switch (item.itemDef.tier)
-                {
-                    case ItemTier.Tier1:
-                        list = self.availableTier1DropList;
-                        break;
-                    case ItemTier.Tier2:
-                        list = self.availableTier2DropList;
-                        break;
-                    case ItemTier.Tier3:
-                        list = self.availableTier3DropList;
-                        break;
-                    case ItemTier.Lunar:
-                        list = self.availableLunarDropList;
-                        break;
-                    case ItemTier.Boss:
-                        list = self.availableBossDropList;
-                        break;
-                }
                 bool cannotDrop = item.itemDef.ContainsTag(ItemTag.WorldUnique);
                 bool isLocked = item.itemDef.unlockableName != "" && preGameUnlockables.ContainsKey(item.itemDef.unlockableName) && !preGameUnlockables[item.itemDef.unlockableName];
                 if (cannotDrop || isLocked)
                 {
-                    if (list != null)
+                    if (item.itemDef.tier == itemTier && result.Contains(item.itemIndex))
                     {
-                        PickupIndex pickupIndex = item.GetPickupIndex();
-                        while (list.Contains(pickupIndex)) list.Remove(pickupIndex);
+                        result.Remove(item.itemIndex);
                     }
-                    while (self.availableItems.Contains(item.itemIndex)) self.availableItems.Remove(item.itemIndex);
                 }
             }
+            return result;
+        }
 
+        public static List<PickupIndex> GetDefaultLunarDropList(System.Func<List<PickupIndex>> orig)
+        {
+            List<PickupIndex> result = orig();
+            foreach (BaseItem item in BaseItem.registeredItems.Values)
+            {
+                bool cannotDrop = item.itemDef.ContainsTag(ItemTag.WorldUnique);
+                bool isLocked = item.itemDef.unlockableName != "" && preGameUnlockables.ContainsKey(item.itemDef.unlockableName) && !preGameUnlockables[item.itemDef.unlockableName];
+                if (cannotDrop || isLocked)
+                {
+                    if (result.Contains(item.GetPickupIndex()))
+                    {
+                        result.Remove(item.GetPickupIndex());
+                    }
+                }
+            }
             foreach (BaseEquipment equipment in BaseEquipment.registeredEquipment.Values)
             {
                 bool cannotDrop = true;
                 bool isLocked = equipment.equipmentDef.unlockableName != "" && preGameUnlockables.ContainsKey(equipment.equipmentDef.unlockableName) && !preGameUnlockables[equipment.equipmentDef.unlockableName];
                 if (cannotDrop || isLocked)
                 {
-                    PickupIndex pickupIndex = equipment.GetPickupIndex();
-                    if (!equipment.equipmentDef.isLunar)
+                    if (result.Contains(equipment.GetPickupIndex()))
                     {
-                        while (self.availableEquipmentDropList.Contains(pickupIndex)) self.availableEquipmentDropList.Remove(pickupIndex);
-                        while (self.availableNormalEquipmentDropList.Contains(pickupIndex)) self.availableNormalEquipmentDropList.Remove(pickupIndex);
+                        result.Remove(equipment.GetPickupIndex());
                     }
-                    else
-                    {
-                        while (self.availableLunarDropList.Contains(pickupIndex)) self.availableLunarDropList.Remove(pickupIndex);
-                        while (self.availableLunarEquipmentDropList.Contains(pickupIndex)) self.availableLunarEquipmentDropList.Remove(pickupIndex);
-                    }
-                    while (self.availableEquipment.Contains(equipment.equipmentIndex)) self.availableEquipment.Remove(equipment.equipmentIndex);
                 }
             }
+            return result;
+        }
+
+        public static List<EquipmentIndex> GetDefaultEquipmentDropList(System.Func<List<EquipmentIndex>> orig)
+        {
+            List<EquipmentIndex> result = orig();
+            foreach (BaseEquipment equipment in BaseEquipment.registeredEquipment.Values)
+            {
+                bool cannotDrop = true;
+                bool isLocked = equipment.equipmentDef.unlockableName != "" && preGameUnlockables.ContainsKey(equipment.equipmentDef.unlockableName) && !preGameUnlockables[equipment.equipmentDef.unlockableName];
+                if (cannotDrop || isLocked)
+                {
+                    if (result.Contains(equipment.equipmentIndex))
+                    {
+                        result.Remove(equipment.equipmentIndex);
+                    }
+                }
+            }
+            return result;
         }
     }
 }
