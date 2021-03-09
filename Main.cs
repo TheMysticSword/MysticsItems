@@ -44,7 +44,7 @@ namespace MysticsItems
         
         public const string AssetPrefix = "@" + MysticsItemsPlugin.PluginName;
         public const string AssetPathRoot = "Assets/";
-        public static AssetBundle AssetBundle = AssetBundle.LoadFromStream(Assembly.GetExecutingAssembly().GetManifestResourceStream("MysticsItems.assets"));
+        public static AssetBundle AssetBundle = AssetBundle.LoadFromStream(Assembly.GetExecutingAssembly().GetManifestResourceStream("MysticsItems.mysticsitemsunityassetbundle"));
 
         internal const BindingFlags bindingFlagAll = (BindingFlags)(-1);
         internal static BepInEx.Logging.ManualLogSource logger;
@@ -56,7 +56,7 @@ namespace MysticsItems
             logger = MysticsItemsPlugin.logger;
             ResourcesAPI.AddProvider(new AssetBundleResourcesProvider(AssetPrefix, AssetBundle));
 
-            using (var soundBankStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("MysticsItems.Sounds.bnk"))
+            using (var soundBankStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("MysticsItems.MysticsItemsWwiseSoundbank.bnk"))
             {
                 var bytes = new byte[soundBankStream.Length];
                 soundBankStream.Read(bytes, 0, bytes.Length);

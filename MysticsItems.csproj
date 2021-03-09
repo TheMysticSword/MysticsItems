@@ -8,12 +8,14 @@
 
   <ItemGroup>
     <None Remove="assets" />
+    <None Remove="mysticsitemsunityassetbundle" />
+    <None Remove="MysticsItemsWwiseSoundbank.bnk" />
     <None Remove="Sounds.bnk" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="assets" />
-    <EmbeddedResource Include="Sounds.bnk" />
+    <EmbeddedResource Include="mysticsitemsunityassetbundle" />
+    <EmbeddedResource Include="MysticsItemsWwiseSoundbank.bnk" />
   </ItemGroup>
 
   <ItemGroup>
