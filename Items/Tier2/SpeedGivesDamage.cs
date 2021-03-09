@@ -15,8 +15,8 @@ namespace MysticsItems.Items
         public static int maxDamageBoost = 10;
         public static float maxSpeedMultiplierRequirement = 7f;
 
-        public static float damageIncreasePerSpeedPercent = 1f / 25f;
         public static float percentPerBuffStack = 10f;
+        public static float speedRequirementPerBuffStack = 100f;
 
         public override void PreAdd()
         {
@@ -100,7 +100,7 @@ namespace MysticsItems.Items
                         float threshold = body.baseMoveSpeed * body.sprintingSpeedMultiplier;
                         if (speed > threshold)
                         {
-                            int buffStack = Mathf.FloorToInt((speed - threshold) / threshold * damageIncreasePerSpeedPercent / percentPerBuffStack * 100f);
+                            int buffStack = Mathf.FloorToInt(((speed - threshold) / threshold) / (speedRequirementPerBuffStack / 100f));
                             if (buffStack > maxStack)
                             {
                                 int newStacks = buffStack;
