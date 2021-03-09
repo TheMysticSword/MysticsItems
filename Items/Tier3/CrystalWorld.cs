@@ -38,6 +38,7 @@ namespace MysticsItems.Items
                 ItemTag.Utility,
                 ItemTag.AIBlacklist
             };
+            BanFromDeployables();
             SetAssets("Crystal World");
             model.AddComponent<CrystalWorldContainer>();
             CopyModelToFollower();

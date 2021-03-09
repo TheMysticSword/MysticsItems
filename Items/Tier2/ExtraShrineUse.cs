@@ -21,6 +21,7 @@ namespace MysticsItems.Items
                 ItemTag.Utility,
                 ItemTag.AIBlacklist
             };
+            BanFromDeployables();
             SetAssets("Hexahedral Monolith");
             Main.HopooShaderToMaterial.Standard.Gloss(GetModelMaterial());
             GetModelMaterial().SetFloat("_Smoothness", 0.5f);

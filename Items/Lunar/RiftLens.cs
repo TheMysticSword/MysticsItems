@@ -28,6 +28,7 @@ namespace MysticsItems.Items
                 ItemTag.Utility,
                 ItemTag.AIBlacklist
             };
+            BanFromDeployables();
             SetAssets("Rift Lens");
             SetModelPanelDistance(2f, 6f);
             AddDisplayRule((int)Main.CommonBodyIndices.Commando, "Head", new Vector3(0.1f, 0.25f, 0.15f), new Vector3(20f, 210f, 0f), new Vector3(0.06f, 0.06f, 0.06f));
