@@ -17,6 +17,7 @@ namespace MysticsItems.Items
         public ItemDisplayRuleDict itemDisplayRuleDict = new ItemDisplayRuleDict();
         public ItemIndex itemIndex;
         public static Dictionary<System.Type, BaseItem> registeredItems = new Dictionary<System.Type, BaseItem>();
+        public CharacterItem characterItemComponent;
 
         public static BaseItem GetFromType(System.Type type)
         {
@@ -316,7 +317,13 @@ namespace MysticsItems.Items
             On.RoR2.CharacterMaster.Respawn += (orig, self, footPosition, rotation, tryToGroundSafely) =>
             {
                 CharacterBody result = orig(self, footPosition, rotation, tryToGroundSafely);
-                if (NetworkServer.active) AdjustDropTableForCharacterItems();
+                if (NetworkServer.active)
+                {
+                    if (MysticsItemsCharacterItemsTracker.instance)
+                    {
+                        MysticsItemsCharacterItemsTracker.instance.Refresh();
+                    }
+                }
                 return result;
             };
 
@@ -386,6 +393,12 @@ namespace MysticsItems.Items
                 bodyName = "CaptainBody",
                 color = new Color32(57, 60, 90, 255)
             });
+
+            On.RoR2.Run.Awake += (orig, self) =>
+            {
+                orig(self);
+                self.gameObject.AddComponent<MysticsItemsCharacterItemsTracker>();
+            };
         }
 
         public static void PostGameLoad()
@@ -409,45 +422,74 @@ namespace MysticsItems.Items
             idrs.SetItemDisplayRuleGroup(itemDef.name, displayRuleGroup);
         }
 
-        public static void AdjustDropTableForCharacterItems()
+        public class MysticsItemsCharacterItemsTracker : MonoBehaviour
         {
-            List<string> bodyNames = new List<string>();
-            foreach (PlayerCharacterMasterController player in PlayerCharacterMasterController.instances)
+            public List<string> bodyNames = new List<string>();
+
+            public static MysticsItemsCharacterItemsTracker instance;
+
+            public void OnEnable()
             {
-                if (player.master.hasBody)
+                instance = this;
+            }
+
+            public void OnDisable()
+            {
+                instance = null;
+            }
+
+            public void Refresh()
+            {
+                if (!NetworkServer.active) return;
+                bodyNames.Clear();
+                foreach (PlayerCharacterMasterController player in PlayerCharacterMasterController.instances)
                 {
-                    CharacterBody body = player.master.GetBody();
-                    bodyNames.Add(BodyCatalog.GetBodyName(body.bodyIndex));
+                    if (player.master.hasBody)
+                    {
+                        CharacterBody body = player.master.GetBody();
+                        bodyNames.Add(BodyCatalog.GetBodyName(body.bodyIndex));
+                    }
+                }
+
+                foreach (CharacterItem characterItem in characterItems)
+                {
+                    PickupIndex pickupIndex = PickupCatalog.FindPickupIndex(characterItem.itemIndex);
+
+                    List<PickupIndex> list = null;
+                    switch (characterItem.itemTier)
+                    {
+                        case ItemTier.Tier1:
+                            list = Run.instance.availableTier1DropList;
+                            break;
+                        case ItemTier.Tier2:
+                            list = Run.instance.availableTier2DropList;
+                            break;
+                        case ItemTier.Tier3:
+                            list = Run.instance.availableTier3DropList;
+                            break;
+                        case ItemTier.Lunar:
+                            list = Run.instance.availableLunarDropList;
+                            break;
+                        case ItemTier.Boss:
+                            list = Run.instance.availableBossDropList;
+                            break;
+                    }
+                    if (list != null)
+                    {
+                        while (bodyNames.Contains(characterItem.bodyName) && !list.Contains(pickupIndex)) list.Add(pickupIndex);
+                        while (!bodyNames.Contains(characterItem.bodyName) && list.Contains(pickupIndex)) list.Remove(pickupIndex);
+                    }
                 }
             }
-            foreach (CharacterItem characterItem in characterItems)
-            {
-                PickupIndex pickupIndex = PickupCatalog.FindPickupIndex(characterItem.itemIndex);
+        }
 
-                List<PickupIndex> list = null;
-                switch (characterItem.itemTier)
-                {
-                    case ItemTier.Tier1:
-                        list = Run.instance.availableTier1DropList;
-                        break;
-                    case ItemTier.Tier2:
-                        list = Run.instance.availableTier2DropList;
-                        break;
-                    case ItemTier.Tier3:
-                        list = Run.instance.availableTier3DropList;
-                        break;
-                    case ItemTier.Lunar:
-                        list = Run.instance.availableLunarDropList;
-                        break;
-                    case ItemTier.Boss:
-                        list = Run.instance.availableBossDropList;
-                        break;
-                }
-                if (list != null)
-                {
-                    while (bodyNames.Contains(characterItem.bodyName) && !list.Contains(pickupIndex)) list.Add(pickupIndex);
-                    while (!bodyNames.Contains(characterItem.bodyName) && list.Contains(pickupIndex)) list.Remove(pickupIndex);
-                }
+        public bool CharacterItemCanDrop
+        {
+            get
+            {
+                if (!characterItemComponent || !MysticsItemsCharacterItemsTracker.instance) return true;
+                if (MysticsItemsCharacterItemsTracker.instance.bodyNames.Contains(characterItemComponent.bodyName)) return true;
+                return false;
             }
         }
 
@@ -484,7 +526,6 @@ namespace MysticsItems.Items
         {
             HG.ArrayUtils.ArrayAppend(ref itemDef.tags, ItemTag.AIBlacklist);
             HG.ArrayUtils.ArrayAppend(ref itemDef.tags, ItemTag.BrotherBlacklist);
-            HG.ArrayUtils.ArrayAppend(ref itemDef.tags, ItemTag.WorldUnique);
 
             CharacterInfo currentCharacterInfo = FindCharacterInfo(bodyName);
 
@@ -493,6 +534,7 @@ namespace MysticsItems.Items
             characterItem.itemIndex = itemDef.itemIndex;
             characterItem.itemTier = itemDef.tier;
             characterItems.Add(characterItem);
+            characterItemComponent = characterItem;
 
             Reskinner reskinner = model.AddComponent<Reskinner>();
             reskinner.defaultBodyName = currentCharacterInfo.bodyName;
