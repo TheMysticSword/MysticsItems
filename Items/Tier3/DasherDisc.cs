@@ -342,7 +342,7 @@ namespace MysticsItems.Items
                                 controller.body.AddTimedBuff(buffCooldown, cooldown / (float)cooldownSeconds * (i + 1));
                             }
 
-                            if (controller.body.HasBuff(buffActive)) controller.body.AddBuff(buffActive);
+                            if (controller.body.HasBuff(buffActive)) controller.body.RemoveBuff(buffActive);
                         }
                     }
                 }
