@@ -32,7 +32,7 @@ namespace MysticsItems.Items
             On.RoR2.ShrineChanceBehavior.AddShrineStack += (orig, self, activator) =>
             {
                 orig(self, activator);
-                if (self.GetFieldValue<int>("successfulPurchaseCount") >= 2)
+                if (self.GetFieldValue<int>("successfulPurchaseCount") == 2)
                 {
                     CharacterBody body = activator.GetComponent<CharacterBody>();
                     if (body)
