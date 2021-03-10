@@ -106,19 +106,32 @@ namespace MysticsItems
 
             SceneDirector.onGenerateInteractableCardSelection += (sceneDirector, dccs) =>
             {
-                if (SceneInfo.instance.sceneDef.baseSceneName == "wispgraveyard")
-                {
-                    dccs.AddCard(dccs.categories.ToList().FindIndex(x => x.name == "Shrines"), new DirectorCard
-                    {
-                        spawnCard = spawnCard,
-                        selectionWeight = 1,
-                        spawnDistance = 0f,
-                        allowAmbushSpawn = true,
-                        preventOverhead = false,
-                        minimumStageCompletions = 1,
-                        requiredUnlockable = "",
-                        forbiddenUnlockable = ""
-                    });
+                SceneInfo sceneInfo = SceneInfo.instance;
+                if (sceneInfo) {
+                    SceneDef sceneDef = sceneInfo.sceneDef;
+                    if (sceneDef) {
+                        if (sceneDef.baseSceneName == "wispgraveyard")
+                        {
+                            DirectorCardCategorySelection.Category[] categories = dccs.categories;
+                            if (categories != null) {
+                                int categoryIndex = categories.ToList().FindIndex(x => x.name == "Shrines");
+                                if (categoryIndex != -1)
+                                {
+                                    dccs.AddCard(categoryIndex, new DirectorCard
+                                    {
+                                        spawnCard = spawnCard,
+                                        selectionWeight = 1,
+                                        spawnDistance = 0f,
+                                        allowAmbushSpawn = true,
+                                        preventOverhead = false,
+                                        minimumStageCompletions = 1,
+                                        requiredUnlockable = "",
+                                        forbiddenUnlockable = ""
+                                    });
+                                }
+                            }
+                        }
+                    }
                 }
             };
 
