@@ -2,6 +2,7 @@ using RoR2;
 using R2API;
 using R2API.Utils;
 using UnityEngine;
+using UnityEngine.Networking;
 using System.Collections.Generic;
 
 namespace MysticsItems.Equipment
@@ -31,9 +32,12 @@ namespace MysticsItems.Equipment
             OnAdd();
             On.RoR2.EquipmentSlot.PerformEquipmentAction += (orig, self, equipmentIndex2) =>
             {
-                if (equipmentIndex2 == equipmentIndex)
+                if (NetworkServer.active)
                 {
-                    return OnUse(self);
+                    if (equipmentIndex2 == equipmentIndex)
+                    {
+                        return OnUse(self);
+                    }
                 }
                 return orig(self, equipmentIndex2);
             };
