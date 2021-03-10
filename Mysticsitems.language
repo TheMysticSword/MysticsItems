@@ -17,8 +17,8 @@
     "ITEM_MYSTICSITEMS_COMMANDOSCOPE_DESC": "<style=cIsDamage>'Double Tap'</style> effective range increased by <style=cIsDamage>5m <style=cStack>(+5m per stack)</style></style>.",
 
     "ITEM_MYSTICSITEMS_TREASUREMAP_NAME": "Treasure Map",
-    "ITEM_MYSTICSITEMS_TREASUREMAP_PICKUP": "Gain access to a special spot that grants gold over time.",
-    "ITEM_MYSTICSITEMS_TREASUREMAP_DESC": "Each stage contains a 20m <style=cIsUtility>treasure spot</style>. Gain <style=cIsUtility>$2 <style=cStack>(+$1 per stack)</style></style> gold while standing inside the treasure spot. <style=cIsUtility>Scales over time.</style>",
+    "ITEM_MYSTICSITEMS_TREASUREMAP_PICKUP": "Gain access to a treasure spot that grants gold after excavation.",
+    "ITEM_MYSTICSITEMS_TREASUREMAP_DESC": "Each stage contains a 15m <style=cIsUtility>treasure spot</style>. Gain <style=cIsUtility>$100</style> gold after standing inside the treasure spot for <style=cIsUtility>60s <style=cStack>(-5s per stack)</style></style>. <style=cIsUtility>Scales over time.</style>",
 
     "ITEM_MYSTICSITEMS_BACKARMOR_NAME": "Spine Implant",
     "ITEM_MYSTICSITEMS_BACKARMOR_PICKUP": "Less damage from attacks from behind.",
@@ -154,8 +154,8 @@
     "ITEM_MYSTICSITEMS_COMMANDOSCOPE_DESC": "Эффективная дальность <style=cIsDamage>'Двойного выстрела'</style> увеличена на <style=cIsDamage>5м <style=cStack>(+5м за шт.)</style></style>.",
 
     "ITEM_MYSTICSITEMS_TREASUREMAP_NAME": "Карта сокровищ",
-    "ITEM_MYSTICSITEMS_TREASUREMAP_PICKUP": "Получите доступ к особой зоне, которая даёт золото со временем.",
-    "ITEM_MYSTICSITEMS_TREASUREMAP_DESC": "Каждый этап содержит <style=cIsUtility>зону сокровищ</style> радиусом в 20м. Находясь в зоне, вы получаете <style=cIsUtility>$2 <style=cStack>(+$1 за шт.)</style></style> золота. <style=cIsUtility>Увеличивается со временем.</style>",
+    "ITEM_MYSTICSITEMS_TREASUREMAP_PICKUP": "Получите доступ к зоне с сокровищем, которая даёт золото после раскопки.",
+    "ITEM_MYSTICSITEMS_TREASUREMAP_DESC": "Каждый этап содержит <style=cIsUtility>зону с сокровищем</style> радиусом в 15м. Получите <style=cIsUtility>$100</style> золота после <style=cIsUtility>60 сек. <style=cStack>(-5 сек. за шт.)</style></style> нахождения в зоне. <style=cIsUtility>Увеличивается со временем.</style>",
 
     "ITEM_MYSTICSITEMS_BACKARMOR_NAME": "Позвоночный имплант",
     "ITEM_MYSTICSITEMS_BACKARMOR_PICKUP": "Меньше урона от атак по спине.",
