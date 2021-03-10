@@ -382,23 +382,30 @@ namespace MysticsItems.Items
                 if (Main.isDedicatedServer) return;
                 camera.fieldOfView = parentCamera.fieldOfView;
                 camera.aspect = parentCamera.aspect;
+                int renderedCount = 0;
                 foreach (GameObject crystalWorldContainer in CrystalWorldContainer.list)
                 {
                     CrystalWorldContainer component = crystalWorldContainer.GetComponent<CrystalWorldContainer>();
                     if (component && component.HasWorld)
                     {
-                        component.world.cameraComponent.Render(camera);
-
                         GameObject rendererObject = crystalWorldContainer.transform.Find("Projection Renderer").gameObject;
                         MeshRenderer renderer = rendererObject.GetComponent<MeshRenderer>();
-                        rendererObject.transform.LookAt(rendererObject.transform.position + Vector3.Normalize(camera.transform.forward), Vector3.up);
-                        rendererObject.transform.Rotate(new Vector3(90f, 180f, 0f), Space.Self);
-                        rendererObject.SetActive(true);
-                        rendererObject.layer = layerIndex.intVal;
-                        renderer.material.mainTexture = component.world.renderTexture;
+                        Renderer shapeRenderer = crystalWorldContainer.GetComponentInChildren<Renderer>();
+                        if (shapeRenderer.isVisible)
+                        {
+                            renderedCount++;
+
+                            component.world.cameraComponent.Render(camera);
+
+                            rendererObject.transform.LookAt(rendererObject.transform.position + Vector3.Normalize(camera.transform.forward), Vector3.up);
+                            rendererObject.transform.Rotate(new Vector3(90f, 180f, 0f), Space.Self);
+                            rendererObject.SetActive(true);
+                            rendererObject.layer = layerIndex.intVal;
+                            renderer.material.mainTexture = component.world.renderTexture;
+                        }
                     }
                 }
-                camera.Render();
+                if (renderedCount > 0) camera.Render();
                 foreach (GameObject crystalWorldContainer in CrystalWorldContainer.list)
                 {
                     GameObject rendererObject = crystalWorldContainer.transform.Find("Projection Renderer").gameObject;
