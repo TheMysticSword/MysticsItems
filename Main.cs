@@ -73,6 +73,7 @@ namespace MysticsItems
             Overlays.Init();
             Unlockables.Init();
             ItemDropFixes.Init();
+            PlainHologram.Init();
 
             //LaserTurret.Init();
             ShrineLegendary.Init();
