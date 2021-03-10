@@ -135,26 +135,14 @@ namespace MysticsItems.Equipment
             }
         }
 
-        public override void OnAdd()
-        {
-            On.RoR2.EquipmentSlot.Awake += (orig, self) =>
-            {
-                orig(self);
-                self.gameObject.AddComponent<MicrophoneSoundwaveLauncher>();
-            };
-        }
-
         public override bool OnUse(EquipmentSlot equipmentSlot)
         {
             MicrophoneSoundwaveLauncher component = equipmentSlot.GetComponent<MicrophoneSoundwaveLauncher>();
-            if (component)
-            {
-                Util.PlaySound("MysticsItems_Play_item_use_microphone", equipmentSlot.characterBody.gameObject);
-                component.ammo += 3;
-                component.aimRay = GetAimRay(equipmentSlot);
-                return true;
-            }
-            return false;
+            if (!component) component = equipmentSlot.gameObject.AddComponent<MicrophoneSoundwaveLauncher>();
+            Util.PlaySound("MysticsItems_Play_item_use_microphone", equipmentSlot.characterBody.gameObject);
+            component.ammo += 3;
+            component.aimRay = GetAimRay(equipmentSlot);
+            return true;
         }
 
         public class MicrophoneSoundwaveLauncher : MonoBehaviour
