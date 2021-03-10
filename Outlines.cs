@@ -15,11 +15,11 @@ namespace MysticsItems
             On.RoR2.SceneCamera.Awake += (orig, self) =>
             {
                 orig(self);
-                self.gameObject.AddComponent<OutlineRenderer>();
+                self.gameObject.AddComponent<MysticsItemsOutlineRenderer>();
             };
         }
 
-        public class OutlineRenderer : MonoBehaviour
+        public class MysticsItemsOutlineRenderer : MonoBehaviour
         {
             public CommandBuffer commandBuffer;
             public Material outlineMaterial;
@@ -42,7 +42,7 @@ namespace MysticsItems
                 outlineMaterial.SetTexture("_SceneTex", source);
                 outlineMaterial.SetTexture("_OutlineTex", renderTexture);
                 Dictionary<Renderer, float> rendererDictionary = new Dictionary<Renderer, float>();
-                foreach (Outline outline in Outline.list)
+                foreach (MysticsItemsOutline outline in MysticsItemsOutline.list)
                 {
                     if (outline.isOn && outline.targetRenderer)
                     {
@@ -70,9 +70,9 @@ namespace MysticsItems
             }
         }
 
-        public class Outline : MonoBehaviour
+        public class MysticsItemsOutline : MonoBehaviour
         {
-            public static List<Outline> list = new List<Outline>();
+            public static List<MysticsItemsOutline> list = new List<MysticsItemsOutline>();
 
             public bool isOn = true;
             public float thickness = 1f;

@@ -585,7 +585,7 @@ namespace MysticsItems.Items
             public void Awake()
             {
                 CharacterInfo characterInfo = FindCharacterInfo(bodyName);
-                Outlines.Outline outline = gameObject.AddComponent<Outlines.Outline>();
+                Outlines.MysticsItemsOutline outline = gameObject.AddComponent<Outlines.MysticsItemsOutline>();
                 outline.offset = 1f;
                 outline.color = characterInfo.color;
                 outline.isOn = false;
@@ -593,7 +593,7 @@ namespace MysticsItems.Items
 
             public void SetOutlineVisibility(bool visible)
             {
-                foreach (Outlines.Outline outline in GetComponentsInChildren<Outlines.Outline>())
+                foreach (Outlines.MysticsItemsOutline outline in GetComponentsInChildren<Outlines.MysticsItemsOutline>())
                 {
                     outline.isOn = visible;
                 }
