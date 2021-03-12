@@ -55,11 +55,11 @@ namespace MysticsItems.Items
                 orig(self, body);
                 if (NetworkServer.active)
                 {
-                    TeamIndex teamIndex = body.teamComponent.teamIndex;
+                    TeamIndex teamIndex = TeamComponent.GetObjectTeam(body.gameObject);
                     foreach (CharacterBody body2 in CharacterBody.readOnlyInstancesList)
                     {
                         Inventory inventory = body2.inventory;
-                        if (inventory && inventory.GetItemCount(itemIndex) > 0 && body2.teamComponent.teamIndex == teamIndex)
+                        if (inventory && inventory.GetItemCount(itemIndex) > 0 && TeamComponent.GetObjectTeam(body2.gameObject) == teamIndex)
                         {
                             float time = 15f + 5f * (inventory.GetItemCount(itemIndex) - 1);
                             if (body.master)
