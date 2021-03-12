@@ -72,11 +72,10 @@ namespace MysticsItems.Achievements
 				public void OnCharacterDeathGlobal(DamageReport damageReport)
 				{
 					CharacterBody currentBody = serverAchievementTracker.networkUser.GetCurrentBody();
-					if (currentBody && currentBody == damageReport.victimBody)
+					if (currentBody)
 					{
-						MysticsItemsDiscDeath component = damageReport.victimBody.GetComponent<MysticsItemsDiscDeath>();
-						if (!component) component = damageReport.victimBody.gameObject.AddComponent<MysticsItemsDiscDeath>();
-						if (component.eligible)
+						MysticsItemsDiscDeath component = currentBody.GetComponent<MysticsItemsDiscDeath>();
+						if (component && component.eligible)
                         {
 							Grant();
                         }
