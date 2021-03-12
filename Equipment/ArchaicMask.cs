@@ -18,7 +18,7 @@ namespace MysticsItems.Equipment
         public override void PreAdd()
         {
             equipmentDef.name = "ArchaicMask";
-            equipmentDef.cooldown = 90f;
+            equipmentDef.cooldown = 140f;
             equipmentDef.canDrop = true;
             equipmentDef.enigmaCompatible = true;
             SetUnlockable();
@@ -187,7 +187,7 @@ namespace MysticsItems.Equipment
                     {
                         CharacterMaster wispMaster = wisp.GetComponent<CharacterMaster>();
                         wispMaster.inventory.GiveItem(ItemIndex.HealthDecay, 45);
-                        wispMaster.inventory.GiveItem(ItemIndex.BoostDamage, 15);
+                        wispMaster.inventory.GiveItem(ItemIndex.BoostDamage, 20);
                         wispMaster.inventory.GiveItem(ItemIndex.BoostHp, 10);
                         wispMaster.inventory.GiveItem(ItemIndex.AlienHead, 10);
                         wispMaster.GetComponent<RoR2.CharacterAI.BaseAI>().currentEnemy.gameObject = targetHB.healthComponent.gameObject;

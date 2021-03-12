@@ -31,7 +31,7 @@
 
     "ITEM_MYSTICSITEMS_EXPLOSIVEPICKUPS_NAME": "Contraband Gunpowder",
     "ITEM_MYSTICSITEMS_EXPLOSIVEPICKUPS_PICKUP": "Creates explosions when collecting pickups.",
-    "ITEM_MYSTICSITEMS_EXPLOSIVEPICKUPS_DESC": "<style=cIsUtility>7%</style> chance on hit to drop a powder flask. Collection of pickups (healing orbs, treasure, powder flasks, etc.) creates a <style=cIsDamage>8m <style=cStack>(+1.5m per stack)</style></style> explosion that deals <style=cIsDamage>350% <style=cStack>(+80% per stack)</style></style> base damage.",
+    "ITEM_MYSTICSITEMS_EXPLOSIVEPICKUPS_DESC": "<style=cIsUtility>7%</style> chance on hit to drop a powder flask. Collection of pickups (healing orbs, treasure, powder flasks, etc.) creates a <style=cIsDamage>13m <style=cStack>(+3m per stack)</style></style> explosion that deals <style=cIsDamage>200% <style=cStack>(+150% per stack)</style></style> base damage.",
     "ITEM_MYSTICSITEMS_EXPLOSIVEPICKUPS_LORE": "<style=cMono>\n//--AUTO-TRANSCRIPTION FROM STORAGE ROOM 4 OF UES CONTACT LIGHT --//</style>\n\nLook who's finally here. What took you so long?\n\nSorry, dropped the keycard on my way here, had to go back and-\n\nWhat? We're on a special operation and you let yourself lose things?!\n\n...\n\nWell, hope you didn't lose our equipment.\n\nYeah, don't worry, I got everything. Mechanical spiders, parachutes, ammo, gunpowder...\n\nPerfect. See all these crates?\n\nEverything in here will be ours, right?\n\nEvery. Single. Thing. Don't forget about our plan: we hide the mechs around the storage, then we \"borrow\" room 1407A and act as like regular passengers until five minutes before the arrival, then we turn on the spiders and escape with the loot.\n\nGot it. Let Operation Crate Rain begin!",
 
     "ITEM_MYSTICSITEMS_ALLYDEATHREVENGE_NAME": "Relentless Vendetta",
@@ -44,7 +44,7 @@
 
     "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_NAME": "Nuclear Accelerator",
     "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_PICKUP": "Speed-increasing effects also increase damage.",
-    "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_DESC": "Increase <style=cIsDamage>damage by 10% <style=cStack>(+1% per stack)</style></style> per <style=cIsUtility>25% movement speed</style> increase.",
+    "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_DESC": "Increase <style=cIsDamage>damage by 10% <style=cStack>(+5% per stack)</style></style> per <style=cIsUtility>25% movement speed</style> increase.",
 
     "ITEM_MYSTICSITEMS_EXTRASHRINEUSE_NAME": "Mysterious Monolith",
     "ITEM_MYSTICSITEMS_EXTRASHRINEUSE_PICKUP": "All Shrines can be used one more time.",
@@ -54,12 +54,12 @@
     //[TIER3]
     "ITEM_MYSTICSITEMS_VOLTMETER_NAME": "Wireless Voltmeter",
     "ITEM_MYSTICSITEMS_VOLTMETER_PICKUP": "Reflect taken damage to nearby enemies while shield is active.",
-    "ITEM_MYSTICSITEMS_VOLTMETER_DESC": "Gain a <style=cIsHealing>shield</style> equal to <style=cIsHealing>4%</style> of your maximum health. Getting hit while your <style=cIsUtility>shield</style> is active causes you to zap nearby enemies in a <style=cIsDamage>25m</style> radius, dealing <style=cIsDamage>800% <style=cStack>(+100% per stack)</style></style> of damage taken.",
+    "ITEM_MYSTICSITEMS_VOLTMETER_DESC": "Gain a <style=cIsHealing>shield</style> equal to <style=cIsHealing>4%</style> of your maximum health. Getting hit while your <style=cIsUtility>shield</style> is active causes you to zap nearby enemies in a <style=cIsDamage>25m</style> radius, dealing <style=cIsDamage>800% <style=cStack>(+800% per stack)</style></style> of damage taken.",
     "ITEM_MYSTICSITEMS_VOLTMETER_LORE": "WV-1 PROTOTYPE USAGE MANUAL\n\nDo not disassemble the WV under any circumstances, or your warranty will be void. In case of a problem, contact the manufacturer (refer to p. 9).\nDo not expose to liquids.\nDo not expose to another active WV.\nDo not hold near electronic devices for more than 7200 hours.\nMaintain a distance of 30+ metres when throwing the WV against a solid object to avoid getting caught in the discharge blast.\n\nPAGE 4 - SAFETY MEASURES",
 
     "ITEM_MYSTICSITEMS_THOUGHTPROCESSOR_NAME": "Thought Processor",
     "ITEM_MYSTICSITEMS_THOUGHTPROCESSOR_PICKUP": "Each skill use reduces the cooldown of other skills.",
-    "ITEM_MYSTICSITEMS_THOUGHTPROCESSOR_DESC": "Every time you use one of your skills that has a cooldown, the <style=cIsUtility>cooldown</style> of all other skills is reduced by <style=cIsUtility>12% <style=cStack>(+2% per stack)</style></style>.",
+    "ITEM_MYSTICSITEMS_THOUGHTPROCESSOR_DESC": "Every time you use one of your skills that has a cooldown, the <style=cIsUtility>cooldown</style> of all other skills is reduced by <style=cIsUtility>10% <style=cStack>(+5% per stack)</style></style>.",
     "ITEM_MYSTICSITEMS_THOUGHTPROCESSOR_LORE": "Order: Minzz Blender 14-QS\r\nTracking Number: 359*****\r\nEstimated Delivery: 02\/06\/2056\r\nShipping Method: High Priority\r\nShipping Address: Cooper's Repair, Highground, Venus\r\nShipping Details:\r\n\r\nSorry for doing all of this through mail. I'll explain. You've probably already noticed the whirring sound coming from the package. It's the broken blender, and it doesn't turn off anymore. I tried to fix it on my own, but then, uh... a hand chop accident happened. I'm in the hospital right now. I won't be able to come in person for a long time for this very reason.\r\n",
 
     "ITEM_MYSTICSITEMS_CRYSTALWORLD_NAME": "Crystallized World",
@@ -80,7 +80,7 @@
     //[EQUIPMENT]
     "EQUIPMENT_MYSTICSITEMS_ARCHAICMASK_NAME": "Legendary Mask",
     "EQUIPMENT_MYSTICSITEMS_ARCHAICMASK_PICKUP": "Recruit an Archaic Wisp. Lasts 45 seconds.",
-    "EQUIPMENT_MYSTICSITEMS_ARCHAICMASK_DESC": "Recruit an <style=cIsDamage>Archaic Wisp</style> with <style=cIsDamage>250% damage</style>, <style=cIsHealing>200% health</style> and <style=cIsUtility>100% cooldown reduction</style>. Lasts 45 seconds.",
+    "EQUIPMENT_MYSTICSITEMS_ARCHAICMASK_DESC": "Recruit an <style=cIsDamage>Archaic Wisp</style> with <style=cIsDamage>300% damage</style>, <style=cIsHealing>200% health</style> and <style=cIsUtility>100% cooldown reduction</style>. Lasts 45 seconds.",
     "EQUIPMENT_MYSTICSITEMS_ARCHAICMASK_LORE": "<style=cMono>\r\nAudio transcription complete from portable recorder.</style>\r\n\r\nThe mask is still burning hot, but the rest of the body has already cooled down. Is it holding on to its life?\r\n\r\nCan I... 'resurrect' the wisp by applying fire to this mask? This may be a grave mistake, but it's my only chance to get an ally.\r\n\r\nThere's no time for asking questions. Time to find out...\r\n\r\n[Fire bursts]\r\n\r\n<style=cMono>End of requested transcript.</style>\r\n",
 
     "EQUIPMENT_MYSTICSITEMS_PRINTERHACKER_NAME": "Wirehack Wrench",
@@ -168,7 +168,7 @@
 
     "ITEM_MYSTICSITEMS_EXPLOSIVEPICKUPS_NAME": "Контрабандный порох",
     "ITEM_MYSTICSITEMS_EXPLOSIVEPICKUPS_PICKUP": "Сбор выпадаемых объектов создаёт взрыв.",
-    "ITEM_MYSTICSITEMS_EXPLOSIVEPICKUPS_DESC": "<style=cIsUtility>7%</style> вероятности выбить из врага мешок с порохом. Сбор выпадаемых объектов (сфер исцеления, сокровища, мешков с порохом и т.п.) создаёт взрыв радиусом <style=cIsDamage>8м <style=cStack>(+1.5м за шт.)</style></style>, наносящий <style=cIsDamage>350% <style=cStack>(+80% за шт.)</style></style> базового урона.",
+    "ITEM_MYSTICSITEMS_EXPLOSIVEPICKUPS_DESC": "<style=cIsUtility>7%</style> вероятности выбить из врага мешок с порохом. Сбор выпадаемых объектов (сфер исцеления, сокровища, мешков с порохом и т.п.) создаёт взрыв радиусом <style=cIsDamage>13м <style=cStack>(+3м за шт.)</style></style>, наносящий <style=cIsDamage>200% <style=cStack>(+150% за шт.)</style></style> базового урона.",
     "ITEM_MYSTICSITEMS_EXPLOSIVEPICKUPS_LORE": "<style=cMono>\n//--АВТОМАТИЧЕСКАЯ ЗАПИСЬ ИЗ ХРАНИЛИЩА 4 В UES СВЕТ КОНТАКТА --//</style>\n\nВы только посмотрите, кто явился. Что заняло так много времени?\n\nИзвини, уронил ключ-карту по пути сюда, пришлось вернуться и-\n\nЧто? Мы на спецмиссии и ты позволяешь себе терять вещи?!\n\n...\n\nНу, надеюсь, ты не потерял снаряжение.\n\nНе волнуйся, я всё принёс. Механические пауки, парашюты, патроны, порох...\n\nИдеально. Видишь все эти ящики?\n\nВсё здесь станет нашим, не так ли?\n\nИменно. Всё станет нашим. Не забывай про план: мы прячем мехов по хранилищу, затем мы \"арендуем\" комнату 1407A и ведём себя, как пассажиры корабля, до тех пор, пока не останется пять минут до прибытия, после этого мы активируем паучков и сбегаем с добычей.\n\nПонял. Да начнётся операция \"Дождь из ящиков\"!",
 
     "ITEM_MYSTICSITEMS_ALLYDEATHREVENGE_NAME": "Беспощадная вендетта",
@@ -181,7 +181,7 @@
 
     "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_NAME": "Ядерный ускоритель",
     "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_PICKUP": "Эффекты, увеличивающие скорость, также увеличивают урон.",
-    "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_DESC": "Увеличивает <style=cIsDamage>урон на 10% <style=cStack>(+1% за шт.)</style></style> за каждые <style=cIsUtility>25%</style> увеличения <style=cIsUtility>скорости передвижения</style>.",
+    "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_DESC": "Увеличивает <style=cIsDamage>урон на 10% <style=cStack>(+5% за шт.)</style></style> за каждые <style=cIsUtility>25%</style> увеличения <style=cIsUtility>скорости передвижения</style>.",
 
     "ITEM_MYSTICSITEMS_EXTRASHRINEUSE_NAME": "Таинственный монолит",
     "ITEM_MYSTICSITEMS_EXTRASHRINEUSE_PICKUP": "Все святилища можно использовать ещё раз.",
@@ -196,7 +196,7 @@
 
     "ITEM_MYSTICSITEMS_THOUGHTPROCESSOR_NAME": "Стимулятор мыслей",
     "ITEM_MYSTICSITEMS_THOUGHTPROCESSOR_PICKUP": "Каждое использование навыка снижает время восстановления других навыков.",
-    "ITEM_MYSTICSITEMS_THOUGHTPROCESSOR_DESC": "Каждый раз, как вы применяете навык, у которого есть время восстановления, <style=cIsUtility>время восстановления</style> всех других навыков снижается на <style=cIsUtility>12% <style=cStack>(+2% за шт.)</style></style>.",
+    "ITEM_MYSTICSITEMS_THOUGHTPROCESSOR_DESC": "Каждый раз, как вы применяете навык, у которого есть время восстановления, <style=cIsUtility>время восстановления</style> всех других навыков снижается на <style=cIsUtility>10% <style=cStack>(+5% за шт.)</style></style>.",
     "ITEM_MYSTICSITEMS_THOUGHTPROCESSOR_LORE": "Посылка: Блендер Minzz 14-QS\r\nНомер для отслеживания: 359*****\r\nПримерный срок доставки: 06.02.2056\r\nСпособ доставки: высокий приоритет\r\nАдрес доставки: Ремонт у Купера, Хайграунд, Венера\r\nДетали доставки:\r\n\r\nИзвините, что делаю всё это по почте. Сейчас объясню. Вы, скорее всего, уже заметили жужжащий звук, исходящий из посылки. Это сломанный блендер, и он больше не выключается. Я попытался починить его своими руками, но потом, ну... скажем, произошёл несчастный случай с рукой. Я сейчас в больнице. Именно по этой причине я долгое время не смогу приходить к вам лично.\r\n",
 
     "ITEM_MYSTICSITEMS_CRYSTALWORLD_NAME": "Кристаллизованный мир",
@@ -212,7 +212,7 @@
     //[EQUIPMENT]
     "EQUIPMENT_MYSTICSITEMS_ARCHAICMASK_NAME": "Легендарная маска",
     "EQUIPMENT_MYSTICSITEMS_ARCHAICMASK_PICKUP": "Нанять Архаический сгусток. Действует 45 секунд.",
-    "EQUIPMENT_MYSTICSITEMS_ARCHAICMASK_DESC": "Нанимает <style=cIsDamage>Архаический сгусток</style> с <style=cIsDamage>200% урона</style>, <style=cIsHealing>250% здоровья</style> и <style=cIsUtility>100% уменьшением времени восстановления навыков</style>. Действует 45 секунд.",
+    "EQUIPMENT_MYSTICSITEMS_ARCHAICMASK_DESC": "Нанимает <style=cIsDamage>Архаический сгусток</style> с <style=cIsDamage>300% урона</style>, <style=cIsHealing>200% здоровья</style> и <style=cIsUtility>100% уменьшением времени восстановления навыков</style>. Действует 45 секунд.",
     "EQUIPMENT_MYSTICSITEMS_ARCHAICMASK_LORE": "<style=cMono>\r\nАудиотранскрипция с переносного магнитофона завершена.</style>\r\n\r\nМаска всё ещё горячая, хоть остальная часть тела уже остыла. Неужели он всё ещё борется за свою жизнь?\r\n\r\nМогу ли я... 'возродить' сгусток, поджёгши маску? Это может стать смертельной ошибкой, но это мой единственный шанс обрести союзника.\r\n\r\nНет времени задавать вопросы. Пора действовать...\r\n\r\n[Вспышка огня]\r\n\r\n<style=cMono>Конец расшифровки.</style>\r\n",
 
     "EQUIPMENT_MYSTICSITEMS_PRINTERHACKER_NAME": "Ключ взломщика",

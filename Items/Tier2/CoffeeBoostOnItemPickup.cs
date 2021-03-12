@@ -105,7 +105,7 @@ namespace MysticsItems.Items
             On.RoR2.CharacterBody.OnInventoryChanged += (orig, self) =>
             {
                 orig(self);
-                if (NetworkServer.active && self.inventory.GetItemCount(itemIndex) <= 0)
+                if (NetworkServer.active && self.inventory && self.inventory.GetItemCount(itemIndex) <= 0)
                 {
                     while (self.HasBuff(buffIndex)) self.RemoveBuff(buffIndex);
                 }
