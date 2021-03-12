@@ -184,7 +184,7 @@ namespace MysticsItems.Items
             On.RoR2.CharacterBody.Start += (orig, self) =>
             {
                 orig(self);
-                if (NetworkServer.active && self.teamComponent.teamIndex == TeamIndex.Player)
+                if (NetworkServer.active && TeamComponent.GetObjectTeam(self.gameObject) == TeamIndex.Player)
                 {
                     Inventory inventory = self.inventory;
                     if (inventory && inventory.GetItemCount(itemIndex) > 0)
