@@ -66,6 +66,7 @@ namespace MysticsItems
             //DebugTools.Init();
 
             AssetManager.Init();
+            CharacterStats.Init();
             Items.BaseItem.Init();
             Equipment.BaseEquipment.Init();
             Achievements.BaseAchievement.Init();
