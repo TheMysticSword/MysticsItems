@@ -53,6 +53,16 @@ namespace MysticsItems.Items
 
         public override void OnAdd()
         {
+            CharacterStats.damageModifiers.Add(new CharacterStats.StatModifier
+            {
+                multiplier = 1f,
+                times = (genericCharacterInfo) =>
+                {
+                    int itemCount = genericCharacterInfo.inventory.GetItemCount(itemIndex);
+                    return itemCount != 0 ? Mathf.Max((0.01f + 0.001f * (float)(itemCount - 1)) * ((genericCharacterInfo.body.moveSpeed / (genericCharacterInfo.body.baseMoveSpeed + genericCharacterInfo.body.levelMoveSpeed * genericCharacterInfo.body.level) - 1f) / 0.025f), 0f) : 0f;
+                }
+            });
+            /* Old behaviour
             On.RoR2.CharacterBody.Awake += (orig, self) =>
             {
                 orig(self);
@@ -61,6 +71,7 @@ namespace MysticsItems.Items
                     if (NetworkServer.active) self.AddItemBehavior<SpeedGivesDamageBehaviour>(self.inventory.GetItemCount(itemIndex));
                 };
             };
+            */
         }
 
         public class MysticsItemsNuclearAcceleratorGlow : MonoBehaviour
