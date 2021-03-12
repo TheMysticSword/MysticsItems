@@ -102,5 +102,30 @@ namespace MysticsItems.Buffs
                 times = StatModifierTimes
             });
         }
+        public void AddCritModifier(float amount)
+        {
+            CharacterStats.critModifiers.Add(new CharacterStats.FlatStatModifier
+            {
+                amount = amount,
+                times = StatModifierTimes
+            });
+        }
+        public void AddArmorModifier(float amount)
+        {
+            CharacterStats.armorModifiers.Add(new CharacterStats.FlatStatModifier
+            {
+                amount = amount,
+                times = StatModifierTimes
+            });
+        }
+        public void AddCooldownModifier(float multiplier = 0f, float flat = 0f)
+        {
+            CharacterStats.cooldownModifiers.Add(new CharacterStats.StatModifier
+            {
+                multiplier = multiplier,
+                flat = flat,
+                times = StatModifierTimes
+            });
+        }
     }
 }

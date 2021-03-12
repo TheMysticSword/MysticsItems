@@ -31,6 +31,9 @@ namespace MysticsItems
         public static List<StatModifier> moveSpeedModifiers = new List<StatModifier>();
         public static List<StatModifier> damageModifiers = new List<StatModifier>();
         public static List<StatModifier> attackSpeedModifiers = new List<StatModifier>();
+        public static List<FlatStatModifier> critModifiers = new List<FlatStatModifier>();
+        public static List<FlatStatModifier> armorModifiers = new List<FlatStatModifier>();
+        public static List<StatModifier> cooldownModifiers = new List<StatModifier>();
 
         public static void ErrorHookFailed(string name)
         {
@@ -56,8 +59,7 @@ namespace MysticsItems
                     x => x.MatchStloc(0)
                 ))
                 {
-                    c.Emit(OpCodes.Ldarg_0);
-                    c.EmitDelegate<System.Action<CharacterBody>>((characterBody) =>
+                    c.EmitDelegate<System.Action>(() =>
                     {
                         int num = 0;
                         foreach (FlatStatModifier statModifier in levelModifiers)
@@ -68,7 +70,7 @@ namespace MysticsItems
                                 num += (int)statModifier.amount * times;
                             }
                         }
-                        if (num != 0) characterBody.SetPropertyValue("level", characterBody.level + num);
+                        if (num != 0) genericCharacterInfo.body.SetPropertyValue("level", genericCharacterInfo.body.level + num);
                     });
                 }
                 else ErrorHookFailed("level");
@@ -129,15 +131,14 @@ namespace MysticsItems
                     x => x.MatchStloc(43)
                 ))
                 {
-                    c.Emit(OpCodes.Ldarg_0);
-                    c.EmitDelegate<System.Func<CharacterBody, float>>((characterBody) =>
+                    c.EmitDelegate<System.Func<float>>(() =>
                     {
                         float num = 0;
                         foreach (StatModifier statModifier in shieldModifiers) {
                             float times = statModifier.times(genericCharacterInfo);
                             if (times != 0f)
                             {
-                                num += characterBody.maxHealth * statModifier.multiplier * times + statModifier.flat * times;
+                                num += genericCharacterInfo.body.maxHealth * statModifier.multiplier * times + statModifier.flat * times;
                             }
                         }
                         return num;
@@ -323,6 +324,111 @@ namespace MysticsItems
                     c.Emit(OpCodes.Stloc, 60);
                 }
                 else ErrorHookFailed("attack speed");
+
+                // crit
+                if (c.TryGotoNext(
+                    MoveType.After,
+                    x => x.MatchLdarg(0),
+                    x => x.MatchLdfld<CharacterBody>("baseCrit"),
+                    x => x.MatchLdarg(0),
+                    x => x.MatchLdfld<CharacterBody>("levelCrit"),
+                    x => x.MatchLdloc(35),
+                    x => x.MatchMul(),
+                    x => x.MatchAdd(),
+                    x => x.MatchStloc(62)
+                ))
+                {
+                    c.EmitDelegate<System.Func<float>>(() =>
+                    {
+                        float num = 0;
+                        foreach (FlatStatModifier statModifier in critModifiers)
+                        {
+                            float times = statModifier.times(genericCharacterInfo);
+                            if (times != 0f && statModifier.amount != 0f)
+                            {
+                                num += statModifier.amount * times;
+                            }
+                        }
+                        return num;
+                    });
+                    c.Emit(OpCodes.Ldloc, 62);
+                    c.Emit(OpCodes.Add);
+                    c.Emit(OpCodes.Stloc, 62);
+                }
+                else ErrorHookFailed("crit");
+
+                // armor
+                if (c.TryGotoNext(
+                    MoveType.After,
+                    x => x.MatchLdarg(0),
+                    x => x.MatchLdarg(0),
+                    x => x.MatchCallOrCallvirt<CharacterBody>("get_armor"),
+                    x => x.MatchLdloc(22),
+                    x => x.MatchConvR4(),
+                    x => x.MatchLdcR4(70),
+                    x => x.MatchMul(),
+                    x => x.MatchAdd(),
+                    x => x.MatchCallOrCallvirt<CharacterBody>("set_armor")
+                ))
+                {
+                    c.EmitDelegate<System.Action>(() =>
+                    {
+                        float num = 0;
+                        foreach (FlatStatModifier statModifier in armorModifiers)
+                        {
+                            float times = statModifier.times(genericCharacterInfo);
+                            if (times != 0f && statModifier.amount != 0f)
+                            {
+                                num += statModifier.amount * times;
+                            }
+                        }
+                        if (num != 0) genericCharacterInfo.body.SetPropertyValue("armor", genericCharacterInfo.body.armor + num);
+                    });
+                }
+                else ErrorHookFailed("armor");
+
+                // cooldown
+                if (c.TryGotoNext(
+                    MoveType.After,
+                    x => x.MatchLdcR4(1),
+                    x => x.MatchStloc(64)
+                ))
+                {
+                    c.EmitDelegate<System.Func<float>>(() =>
+                    {
+                        float num = 0;
+                        foreach (StatModifier statModifier in cooldownModifiers)
+                        {
+                            float times = statModifier.times(genericCharacterInfo);
+                            if (times != 0f && statModifier.multiplier != 0f)
+                            {
+                                num += statModifier.multiplier * times;
+                            }
+                        }
+                        return num;
+                    });
+                    c.Emit(OpCodes.Ldloc, 64);
+                    c.Emit(OpCodes.Add);
+                    c.Emit(OpCodes.Stloc, 64);
+
+                    c.EmitDelegate<System.Func<float>>(() =>
+                    {
+                        float num = 0;
+                        foreach (StatModifier statModifier in cooldownModifiers)
+                        {
+                            float times = statModifier.times(genericCharacterInfo);
+                            if (times != 0f && statModifier.flat != 0f)
+                            {
+                                num += statModifier.flat * times;
+                            }
+                        }
+                        return num;
+                    });
+                    c.Emit(OpCodes.Ldloc, 63);
+                    c.Emit(OpCodes.Add);
+                    c.Emit(OpCodes.Stloc, 63);
+                }
+                else ErrorHookFailed("cooldown");
             };
         }
     }
