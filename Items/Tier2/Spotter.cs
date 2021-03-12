@@ -454,7 +454,8 @@ namespace MysticsItems.Items
             {
                 for (int i = 0; i < enemyFollowers.Count; i++)
                 {
-                    Object.Destroy(enemyFollowers[i]);
+                    enemyFollowers[i].ClearTarget();
+                    Object.Destroy(enemyFollowers[i].gameObject);
                 }
             }
         }
