@@ -58,8 +58,13 @@ namespace MysticsItems.Items
                 multiplier = 1f,
                 times = (genericCharacterInfo) =>
                 {
-                    int itemCount = genericCharacterInfo.inventory.GetItemCount(itemIndex);
-                    return itemCount != 0 ? Mathf.Max((0.01f + 0.001f * (float)(itemCount - 1)) * ((genericCharacterInfo.body.moveSpeed / (genericCharacterInfo.body.baseMoveSpeed + genericCharacterInfo.body.levelMoveSpeed * genericCharacterInfo.body.level) - 1f) / 0.025f), 0f) : 0f;
+                    Inventory inventory = genericCharacterInfo.inventory;
+                    if (inventory)
+                    {
+                        int itemCount = inventory.GetItemCount(itemIndex);
+                        return itemCount != 0 ? Mathf.Max((0.01f + 0.001f * (float)(itemCount - 1)) * ((genericCharacterInfo.body.moveSpeed / (genericCharacterInfo.body.baseMoveSpeed + genericCharacterInfo.body.levelMoveSpeed * genericCharacterInfo.body.level) - 1f) / 0.025f), 0f) : 0f;
+                    }
+                    return 0f;
                 }
             });
             /* Old behaviour
