@@ -170,6 +170,7 @@ namespace MysticsItems.Items
 
                 visuals.transform.localScale = Vector3.one * radius * 2f;
                 hologramProjector.displayDistance = radius + 15f;
+                if (targetRadius <= 0f) hologramProjector.displayDistance = 0f;
                 hologramProjector.hologramPivot.position = transform.position + Vector3.up * radius * 0.5f;
 
                 if (!captured)
