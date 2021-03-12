@@ -1,4 +1,5 @@
 using RoR2;
+using R2API.Utils;
 using UnityEngine;
 using System;
 
@@ -50,14 +51,15 @@ namespace MysticsItems.Items
                 Inventory inventory = self.inventory;
                 if (inventory && inventory.GetItemCount(itemIndex) > 0) {
                     float coeff = CalculateCoefficient(inventory.GetItemCount(itemIndex));
-                    if (skill.baseRechargeInterval > 0f)
+                    if (skill.baseRechargeInterval > 0f && skill.skillDef.stockToConsume > 0)
                     {
                         foreach (SkillSlot skillSlot in Enum.GetValues(typeof(SkillSlot)))
                         {
                             GenericSkill otherSkill = self.skillLocator.GetSkill(skillSlot);
                             if (skill != otherSkill && otherSkill != null)
                             {
-                                otherSkill.rechargeStopwatch += otherSkill.CalculateFinalRechargeInterval() * coeff;
+                                float finalRechargeInterval = otherSkill.GetFieldValue<float>("finalRechargeInterval");
+                                otherSkill.rechargeStopwatch = Mathf.Min(otherSkill.rechargeStopwatch + finalRechargeInterval * coeff, finalRechargeInterval);
                             }
                         }
                     }
