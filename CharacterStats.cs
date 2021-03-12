@@ -18,10 +18,16 @@ namespace MysticsItems
             public System.Func<Main.GenericCharacterInfo, float> times;
         }
 
-        public static List<StatModifier> levelModifiers = new List<StatModifier>(); // only flat
+        public struct FlatStatModifier
+        {
+            public float amount;
+            public System.Func<Main.GenericCharacterInfo, float> times;
+        }
+
+        public static List<FlatStatModifier> levelModifiers = new List<FlatStatModifier>();
         public static List<StatModifier> healthModifiers = new List<StatModifier>();
         public static List<StatModifier> shieldModifiers = new List<StatModifier>();
-        public static List<StatModifier> regenModifiers = new List<StatModifier>(); // only flat
+        public static List<FlatStatModifier> regenModifiers = new List<FlatStatModifier>();
         public static List<StatModifier> moveSpeedModifiers = new List<StatModifier>();
         public static List<StatModifier> damageModifiers = new List<StatModifier>();
         public static List<StatModifier> attackSpeedModifiers = new List<StatModifier>();
@@ -54,12 +60,12 @@ namespace MysticsItems
                     c.EmitDelegate<System.Action<CharacterBody>>((characterBody) =>
                     {
                         int num = 0;
-                        foreach (StatModifier statModifier in levelModifiers)
+                        foreach (FlatStatModifier statModifier in levelModifiers)
                         {
                             int times = (int)statModifier.times(genericCharacterInfo);
-                            if (times != 0f && statModifier.flat != 0f)
+                            if (times != 0f && statModifier.amount != 0f)
                             {
-                                num += (int)statModifier.flat * times;
+                                num += (int)statModifier.amount * times;
                             }
                         }
                         if (num != 0) characterBody.SetPropertyValue("level", characterBody.level + num);
@@ -156,12 +162,12 @@ namespace MysticsItems
                     c.EmitDelegate<System.Func<float, float, float>>((levelMultiplier, regenMultiplier) =>
                     {
                         float num = 0;
-                        foreach (StatModifier statModifier in regenModifiers)
+                        foreach (FlatStatModifier statModifier in regenModifiers)
                         {
                             float times = statModifier.times(genericCharacterInfo);
-                            if (times != 0f && statModifier.flat != 0f)
+                            if (times != 0f && statModifier.amount != 0f)
                             {
-                                num += statModifier.flat * levelMultiplier * regenMultiplier * times;
+                                num += statModifier.amount * levelMultiplier * regenMultiplier * times;
                             }
                         }
                         return num;

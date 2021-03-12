@@ -43,9 +43,9 @@ namespace MysticsItems.Buffs
         }
         public void AddLevelModifier(int amount)
         {
-            CharacterStats.levelModifiers.Add(new CharacterStats.StatModifier
+            CharacterStats.levelModifiers.Add(new CharacterStats.FlatStatModifier
             {
-                flat = amount,
+                amount = amount,
                 times = StatModifierTimes
             });
         }
@@ -67,11 +67,11 @@ namespace MysticsItems.Buffs
                 times = StatModifierTimes
             });
         }
-        public void AddRegenModifier(float flat)
+        public void AddRegenModifier(float amount)
         {
-            CharacterStats.regenModifiers.Add(new CharacterStats.StatModifier
+            CharacterStats.regenModifiers.Add(new CharacterStats.FlatStatModifier
             {
-                flat = flat,
+                amount = amount,
                 times = StatModifierTimes
             });
         }
