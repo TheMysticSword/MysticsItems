@@ -41,91 +41,70 @@ namespace MysticsItems.Buffs
         {
             return genericCharacterInfo.body.HasBuff(buffIndex) ? genericCharacterInfo.body.GetBuffCount(buffIndex) : 0f;
         }
-        public void AddLevelModifier(int amount)
+        private float StatModifierTimesNoStack(Main.GenericCharacterInfo genericCharacterInfo)
         {
-            CharacterStats.levelModifiers.Add(new CharacterStats.FlatStatModifier
+            return genericCharacterInfo.body.HasBuff(buffIndex) ? 1f : 0f;
+        }
+        public void AddModifier(List<CharacterStats.StatModifier> list, float multiplier, float flat, bool stacks)
+        {
+            CharacterStats.StatModifier statModifier = new CharacterStats.StatModifier
+            {
+                multiplier = multiplier,
+                flat = flat,
+                times = StatModifierTimes
+            };
+            if (!stacks) statModifier.times = StatModifierTimesNoStack;
+            list.Add(statModifier);
+        }
+        public void AddModifier(List<CharacterStats.FlatStatModifier> list, float amount, bool stacks)
+        {
+            CharacterStats.FlatStatModifier statModifier = new CharacterStats.FlatStatModifier
             {
                 amount = amount,
                 times = StatModifierTimes
-            });
+            };
+            if (!stacks) statModifier.times = StatModifierTimesNoStack;
+            list.Add(statModifier);
         }
-        public void AddHealthModifier(float multiplier = 0f, float flat = 0f)
+        public void AddLevelModifier(int amount, bool stacks = true)
         {
-            CharacterStats.healthModifiers.Add(new CharacterStats.StatModifier
-            {
-                multiplier = multiplier,
-                flat = flat,
-                times = StatModifierTimes
-            });
+            AddModifier(CharacterStats.levelModifiers, amount, stacks);
         }
-        public void AddShieldModifier(float multiplier = 0f, float flat = 0f)
+        public void AddHealthModifier(float multiplier = 0f, float flat = 0f, bool stacks = true)
         {
-            CharacterStats.shieldModifiers.Add(new CharacterStats.StatModifier
-            {
-                multiplier = multiplier,
-                flat = flat,
-                times = StatModifierTimes
-            });
+            AddModifier(CharacterStats.healthModifiers, multiplier, flat, stacks);
         }
-        public void AddRegenModifier(float amount)
+        public void AddShieldModifier(float multiplier = 0f, float flat = 0f, bool stacks = true)
         {
-            CharacterStats.regenModifiers.Add(new CharacterStats.FlatStatModifier
-            {
-                amount = amount,
-                times = StatModifierTimes
-            });
+            AddModifier(CharacterStats.shieldModifiers, multiplier, flat, stacks);
         }
-        public void AddMoveSpeedModifier(float multiplier = 0f, float flat = 0f)
+        public void AddRegenModifier(float amount, bool stacks = true)
         {
-            CharacterStats.moveSpeedModifiers.Add(new CharacterStats.StatModifier
-            {
-                multiplier = multiplier,
-                flat = flat,
-                times = StatModifierTimes
-            });
+            AddModifier(CharacterStats.regenModifiers, amount, stacks);
         }
-        public void AddDamageModifier(float multiplier = 0f, float flat = 0f)
+        public void AddMoveSpeedModifier(float multiplier = 0f, float flat = 0f, bool stacks = true)
         {
-            CharacterStats.damageModifiers.Add(new CharacterStats.StatModifier
-            {
-                multiplier = multiplier,
-                flat = flat,
-                times = StatModifierTimes
-            });
+            AddModifier(CharacterStats.moveSpeedModifiers, multiplier, flat, stacks);
         }
-        public void AddAttackSpeedModifier(float multiplier = 0f, float flat = 0f)
+        public void AddDamageModifier(float multiplier = 0f, float flat = 0f, bool stacks = true)
         {
-            CharacterStats.attackSpeedModifiers.Add(new CharacterStats.StatModifier
-            {
-                multiplier = multiplier,
-                flat = flat,
-                times = StatModifierTimes
-            });
+            AddModifier(CharacterStats.damageModifiers, multiplier, flat, stacks);
         }
-        public void AddCritModifier(float amount)
+        public void AddAttackSpeedModifier(float multiplier = 0f, float flat = 0f, bool stacks = true)
         {
-            CharacterStats.critModifiers.Add(new CharacterStats.FlatStatModifier
-            {
-                amount = amount,
-                times = StatModifierTimes
-            });
+            AddModifier(CharacterStats.attackSpeedModifiers, multiplier, flat, stacks);
         }
-        public void AddArmorModifier(float amount)
+        public void AddCritModifier(float amount, bool stacks = true)
         {
-            CharacterStats.armorModifiers.Add(new CharacterStats.FlatStatModifier
-            {
-                amount = amount,
-                times = StatModifierTimes
-            });
+            AddModifier(CharacterStats.critModifiers, amount, stacks);
         }
-        public void AddCooldownModifier(float multiplier = 0f, float flat = 0f)
+        public void AddArmorModifier(float amount, bool stacks = true)
         {
-            CharacterStats.cooldownModifiers.Add(new CharacterStats.StatModifier
-            {
-                multiplier = multiplier,
-                flat = flat,
-                times = StatModifierTimes
-            });
+            AddModifier(CharacterStats.armorModifiers, amount, stacks);
+        }
+        public void AddCooldownModifier(float multiplier = 0f, float flat = 0f, bool stacks = true)
+        {
+            AddModifier(CharacterStats.cooldownModifiers, multiplier, flat, stacks);
         }
     }
 }
