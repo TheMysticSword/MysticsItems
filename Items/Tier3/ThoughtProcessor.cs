@@ -39,11 +39,6 @@ namespace MysticsItems.Items
 
         public float CalculateCoefficient(int itemCount)
         {
-            /*
-            float firstStack = 0.15f;
-            float extraStack = 0.05f;
-            return 1f - Mathf.Pow(1f - firstStack, (firstStack + extraStack * (float)(itemCount - 1)) / firstStack);
-            */
             return 0.1f + 0.05f * (float)(itemCount - 1);
         }
 
