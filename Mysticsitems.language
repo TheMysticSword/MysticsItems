@@ -5,20 +5,20 @@
     //[TIER1]
     "ITEM_MYSTICSITEMS_HEALORBONBARREL_NAME": "Donut",
     "ITEM_MYSTICSITEMS_HEALORBONBARREL_PICKUP": "Barrels contain healing orbs.",
-    "ITEM_MYSTICSITEMS_HEALORBONBARREL_DESC": "Opening a barrel spawns a <style=cIsHealing>healing orb</style> that heals for <style=cIsHealing>8</style> plus an additional <style=cIsHealing>25% <style=cStack>(+5% per stack)</style></style> of <style=cIsHealing>maximum health</style>.",
+    "ITEM_MYSTICSITEMS_HEALORBONBARREL_DESC": "Opening a barrel spawns a <style=cIsHealing>healing orb</style> that heals for <style=cIsHealing>8</style> plus an additional <style=cIsHealing>10% <style=cStack>(+10% per stack)</style></style> of <style=cIsHealing>maximum health</style>.",
 
     "ITEM_MYSTICSITEMS_SCRATCHTICKET_NAME": "Scratch Ticket",
     "ITEM_MYSTICSITEMS_SCRATCHTICKET_PICKUP": "Gain gold after winning in a Shrine of Chance two times.",
-    "ITEM_MYSTICSITEMS_SCRATCHTICKET_DESC": "Gain <style=cIsUtility>$40 <style=cStack>(+$10 per stack)</style></style> gold after winning in a Shrine of Chance two times. <style=cIsUtility>Scales over time.</style>",
+    "ITEM_MYSTICSITEMS_SCRATCHTICKET_DESC": "Gain <style=cIsUtility>$30 <style=cStack>(+$20 per stack)</style></style> gold after winning in a Shrine of Chance two times. <style=cIsUtility>Scales over time.</style>",
     "ITEM_MYSTICSITEMS_SCRATCHTICKET_LORE": "<style=cMono>\n//--REPLAYING PHONE CALL #731 --//</style>\n\n- Good morning. May I ask who is calling?\n\n- Good morning! This is Carl Shade of Star Seven. I am calling you to congratulate you on winning the $100.000 lottery!\n\n- Wow, what a surprise!\n\n- Have you ever won a lottery before?\n\n- Oh, uh... no.\n\n- Well, there's a first time for everything! Here's how it works: in order to receive your prize, we need your credit card details, including the three numbers on the back.\n\n- [THIS PORTION OF THE CALL WAS REDACTED FOR PRIVACY]\n\n- Got it!\n\n- ...\n\n- ...\n\n- Hmm, I haven't received anything yet. Are the numbers correct?\n\n<style=cMono>\n//--END OF CONVERSATION --//</style>",
 
     "ITEM_MYSTICSITEMS_COMMANDOSCOPE_NAME": "Tactical Scope",
     "ITEM_MYSTICSITEMS_COMMANDOSCOPE_PICKUP": "Reduce damage falloff of 'Double Tap'.",
-    "ITEM_MYSTICSITEMS_COMMANDOSCOPE_DESC": "<style=cIsDamage>'Double Tap'</style> effective range increased by <style=cIsDamage>5m <style=cStack>(+5m per stack)</style></style>.",
+    "ITEM_MYSTICSITEMS_COMMANDOSCOPE_DESC": "<style=cIsDamage>'Double Tap'</style> effective range increased by <style=cIsDamage>10m <style=cStack>(+10m per stack)</style></style>.",
 
     "ITEM_MYSTICSITEMS_TREASUREMAP_NAME": "Treasure Map",
     "ITEM_MYSTICSITEMS_TREASUREMAP_PICKUP": "Gain access to a treasure spot that grants gold after excavation.",
-    "ITEM_MYSTICSITEMS_TREASUREMAP_DESC": "Each stage contains a 15m <style=cIsUtility>treasure spot</style>. Gain <style=cIsUtility>$100</style> gold after standing inside the treasure spot for <style=cIsUtility>60s <style=cStack>(-5s per stack)</style></style>. <style=cIsUtility>Scales over time.</style>",
+    "ITEM_MYSTICSITEMS_TREASUREMAP_DESC": "Each stage contains a 15m <style=cIsUtility>treasure spot</style>. Gain <style=cIsUtility>$100</style> gold after standing inside the treasure spot for <style=cIsUtility>60s <style=cStack>(-10s per stack)</style></style>. <style=cIsUtility>Scales over time.</style>",
 
     "ITEM_MYSTICSITEMS_BACKARMOR_NAME": "Spine Implant",
     "ITEM_MYSTICSITEMS_BACKARMOR_PICKUP": "Less damage from attacks from behind.",
@@ -142,20 +142,20 @@
     //[TIER1]
     "ITEM_MYSTICSITEMS_HEALORBONBARREL_NAME": "Пончик",
     "ITEM_MYSTICSITEMS_HEALORBONBARREL_PICKUP": "Бочки содержат сферы исцеления.",
-    "ITEM_MYSTICSITEMS_HEALORBONBARREL_DESC": "При открытии бочки появляется <style=cIsHealing>сфера исцеления</style>, восстанавливающая <style=cIsHealing>8</style> ед. здоровья и дополнительно <style=cIsHealing>25% <style=cStack>(+5% за шт.)</style></style> от <style=cIsHealing>максимального запаса здоровья</style>.",
+    "ITEM_MYSTICSITEMS_HEALORBONBARREL_DESC": "При открытии бочки появляется <style=cIsHealing>сфера исцеления</style>, восстанавливающая <style=cIsHealing>8</style> ед. здоровья и дополнительно <style=cIsHealing>10% <style=cStack>(+10% за шт.)</style></style> от <style=cIsHealing>максимального запаса здоровья</style>.",
 
     "ITEM_MYSTICSITEMS_SCRATCHTICKET_NAME": "Лотерейный билет",
     "ITEM_MYSTICSITEMS_SCRATCHTICKET_PICKUP": "Получите золото после двух выигрышей в Святилище Удачи.",
-    "ITEM_MYSTICSITEMS_SCRATCHTICKET_DESC": "Вы получаете <style=cIsUtility>$40 <style=cStack>(+$10 за шт.)</style></style> золота после двух побед в Святилище Удачи. <style=cIsUtility>Увеличивается со временем.</style>",
+    "ITEM_MYSTICSITEMS_SCRATCHTICKET_DESC": "Вы получаете <style=cIsUtility>$30 <style=cStack>(+$20 за шт.)</style></style> золота после двух побед в Святилище Удачи. <style=cIsUtility>Увеличивается со временем.</style>",
     "ITEM_MYSTICSITEMS_SCRATCHTICKET_LORE": "<style=cMono>\n//--ПОВТОР ТЕЛЕФОННОГО ЗВОНКА #731 --//</style>\n\n- Доброе утро. Могу ли я узнать, кто звонит?\n\n- Доброе утро! Это Карл Шейд из Star Seven. Я позвонил вам, чтобы поздравить вас с победой в лотерее на $100.000!\n\n- Ого, вот это сюрприз!\n\n- Вы когда-нибудь прежде побеждали в лотерее?\n\n- Э-э-э, ну... нет.\n\n- Что ж, всё бывает впервые! Вот, как это работает: чтобы вы получили ваш приз, нам нужны данные вашей банковской карты, включая три цифры на обратной стороне.\n\n- [ДАННЫЙ ОТРЫВОК ЗВОНКА БЫЛ УДАЛЁН ДЛЯ КОНФИДЕНЦИАЛЬНОСТИ]\n\n- Отлично!\n\n- ...\n\n- ...\n\n- Хмм, мне до сих пор ничего не пришло. Все номера ведь правильные?\n\n<style=cMono>\n//--КОНЕЦ РАЗГОВОРА --//</style>",
 
     "ITEM_MYSTICSITEMS_COMMANDOSCOPE_NAME": "Тактический прицел",
     "ITEM_MYSTICSITEMS_COMMANDOSCOPE_PICKUP": "Снижает потерю урона 'Двойного выстрела' от дальности.",
-    "ITEM_MYSTICSITEMS_COMMANDOSCOPE_DESC": "Эффективная дальность <style=cIsDamage>'Двойного выстрела'</style> увеличена на <style=cIsDamage>5м <style=cStack>(+5м за шт.)</style></style>.",
+    "ITEM_MYSTICSITEMS_COMMANDOSCOPE_DESC": "Эффективная дальность <style=cIsDamage>'Двойного выстрела'</style> увеличена на <style=cIsDamage>10м <style=cStack>(+10м за шт.)</style></style>.",
 
     "ITEM_MYSTICSITEMS_TREASUREMAP_NAME": "Карта сокровищ",
     "ITEM_MYSTICSITEMS_TREASUREMAP_PICKUP": "Получите доступ к зоне с сокровищем, которая даёт золото после раскопки.",
-    "ITEM_MYSTICSITEMS_TREASUREMAP_DESC": "Каждый этап содержит <style=cIsUtility>зону с сокровищем</style> радиусом в 15м. Получите <style=cIsUtility>$100</style> золота после <style=cIsUtility>60 сек. <style=cStack>(-5 сек. за шт.)</style></style> нахождения в зоне. <style=cIsUtility>Увеличивается со временем.</style>",
+    "ITEM_MYSTICSITEMS_TREASUREMAP_DESC": "Каждый этап содержит <style=cIsUtility>зону с сокровищем</style> радиусом в 15м. Получите <style=cIsUtility>$100</style> золота после <style=cIsUtility>60 сек. <style=cStack>(-10 сек. за шт.)</style></style> нахождения в зоне. <style=cIsUtility>Увеличивается со временем.</style>",
 
     "ITEM_MYSTICSITEMS_BACKARMOR_NAME": "Позвоночный имплант",
     "ITEM_MYSTICSITEMS_BACKARMOR_PICKUP": "Меньше урона от атак по спине.",

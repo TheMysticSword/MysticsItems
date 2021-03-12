@@ -41,7 +41,7 @@ namespace MysticsItems.Items
                         Inventory inventory = body.inventory;
                         if (inventory && inventory.GetItemCount(itemIndex) > 0)
                         {
-                            uint goldReward = (uint)((40u + 10u * (inventory.GetItemCount(itemIndex) - 1)) * Run.instance.difficultyCoefficient);
+                            uint goldReward = (uint)((30u + 20u * (inventory.GetItemCount(itemIndex) - 1)) * Run.instance.difficultyCoefficient);
                             TeamManager.instance.GiveTeamMoney(body.teamComponent.teamIndex, goldReward);
                             EffectManager.SpawnEffect(coinEffect, new EffectData
                             {

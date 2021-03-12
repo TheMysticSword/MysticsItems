@@ -160,7 +160,7 @@ namespace MysticsItems.Items
                     {
                         itemCount += characterMaster.inventory.GetItemCount(itemIndex);
                     }
-                captureTimeMax = baseCaptureTimeMax * 1f / (1f + 0.1f * (itemCount - 1));
+                captureTimeMax = baseCaptureTimeMax * 1f / (1f + 0.2f * (itemCount - 1));
                 bool anyoneHasItem = itemCount > 0;
 
                 float targetRadius = baseRadius;
