@@ -74,6 +74,8 @@ namespace MysticsItems.Items
 
             GameObject sparks = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/NetworkedObjects/RadarTower").transform.Find("mdlRadar").Find("Sparks").gameObject, "Sparks", false);
             sparks.transform.localPosition = new Vector3(0f, 1f, 0f);
+            ParticleSystem.MainModule particleSystem = sparks.GetComponentInChildren<ParticleSystem>().main;
+            particleSystem.scalingMode = ParticleSystemScalingMode.Hierarchy;
             sparks.transform.SetParent(unlockInteractablePrefab.transform);
 
             Highlight highlight = unlockInteractablePrefab.AddComponent<Highlight>();
