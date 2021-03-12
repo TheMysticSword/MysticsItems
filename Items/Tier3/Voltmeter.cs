@@ -20,7 +20,8 @@ namespace MysticsItems.Items
             itemDef.tags = new ItemTag[]
             {
                 ItemTag.Damage,
-                ItemTag.Utility
+                ItemTag.Utility,
+                ItemTag.BrotherBlacklist
             };
             SetAssets("Voltmeter");
             Material matVoltmeterCoil = model.transform.Find("Цилиндр.001").GetComponent<MeshRenderer>().sharedMaterial;
