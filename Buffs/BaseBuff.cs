@@ -36,5 +36,71 @@ namespace MysticsItems.Buffs
         public virtual void PreAdd() { }
 
         public virtual void OnAdd() { }
+
+        private float StatModifierTimes(Main.GenericCharacterInfo genericCharacterInfo)
+        {
+            return genericCharacterInfo.body.HasBuff(buffIndex) ? genericCharacterInfo.body.GetBuffCount(buffIndex) : 0f;
+        }
+        public void AddLevelModifier(int amount)
+        {
+            CharacterStats.levelModifiers.Add(new CharacterStats.StatModifier
+            {
+                flat = amount,
+                times = StatModifierTimes
+            });
+        }
+        public void AddHealthModifier(float multiplier = 0f, float flat = 0f)
+        {
+            CharacterStats.healthModifiers.Add(new CharacterStats.StatModifier
+            {
+                multiplier = multiplier,
+                flat = flat,
+                times = StatModifierTimes
+            });
+        }
+        public void AddShieldModifier(float multiplier = 0f, float flat = 0f)
+        {
+            CharacterStats.shieldModifiers.Add(new CharacterStats.StatModifier
+            {
+                multiplier = multiplier,
+                flat = flat,
+                times = StatModifierTimes
+            });
+        }
+        public void AddRegenModifier(float flat)
+        {
+            CharacterStats.regenModifiers.Add(new CharacterStats.StatModifier
+            {
+                flat = flat,
+                times = StatModifierTimes
+            });
+        }
+        public void AddMoveSpeedModifier(float multiplier = 0f, float flat = 0f)
+        {
+            CharacterStats.moveSpeedModifiers.Add(new CharacterStats.StatModifier
+            {
+                multiplier = multiplier,
+                flat = flat,
+                times = StatModifierTimes
+            });
+        }
+        public void AddDamageModifier(float multiplier = 0f, float flat = 0f)
+        {
+            CharacterStats.damageModifiers.Add(new CharacterStats.StatModifier
+            {
+                multiplier = multiplier,
+                flat = flat,
+                times = StatModifierTimes
+            });
+        }
+        public void AddAttackSpeedModifier(float multiplier = 0f, float flat = 0f)
+        {
+            CharacterStats.attackSpeedModifiers.Add(new CharacterStats.StatModifier
+            {
+                multiplier = multiplier,
+                flat = flat,
+                times = StatModifierTimes
+            });
+        }
     }
 }
