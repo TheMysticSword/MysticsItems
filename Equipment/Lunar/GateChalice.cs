@@ -169,7 +169,7 @@ namespace MysticsItems.Equipment
                         {
                             BuffIndex buffIndex = Buffs.BaseBuff.GetFromType(typeof(Buffs.GateChalice));
                             while (self.GetBuffCount(buffIndex) < component.count) self.AddBuff(buffIndex);
-                            while (self.GetBuffCount(buffIndex) > component.count) self.AddBuff(buffIndex);
+                            while (self.GetBuffCount(buffIndex) > component.count) self.RemoveBuff(buffIndex);
                         }
                     }
                 }
