@@ -46,7 +46,7 @@
     "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_PICKUP": "Temporary damage increase upon reaching high speed.",
     "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_DESC": "After exceeding base movement speed, increase <style=cIsDamage>damage by 10%</style> per <style=cIsUtility>100% extra movement speed</style> for <style=cIsUtility>6s <style=cStack>(+4s per stack)</style></style>.",
 
-    "ITEM_MYSTICSITEMS_EXTRASHRINEUSE_NAME": "Hexahedral Monolith",
+    "ITEM_MYSTICSITEMS_EXTRASHRINEUSE_NAME": "Mysterious Monolith",
     "ITEM_MYSTICSITEMS_EXTRASHRINEUSE_PICKUP": "All Shrines can be used one more time.",
     "ITEM_MYSTICSITEMS_EXTRASHRINEUSE_DESC": "All Shrines can be used <style=cIsUtility>+1 <style=cStack>(+1 per stack)</style></style> more time.",
     "ITEM_MYSTICSITEMS_EXTRASHRINEUSE_LORE": "\"In the past few days, people from all over the world reported sightings of mysterious monoliths appearing for a brief period of time. The credibility of these reports is debatable, as there is no photo or video evidence of the monoliths (the reason being that \"they disappear too quickly\"), however, it's important to notice that each report happened on an individual day. Scientists are debating: is the monolith a sentient entity? Could this be the confirmation of the existence of parallel universes? Or is it just a hoax?\"\n- News report",
@@ -183,7 +183,7 @@
     "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_PICKUP": "Временно увеличивает урон при достижении высокой скорости.",
     "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_DESC": "При преодолении базовой скорости передвижения увеличивает <style=cIsDamage>урон на 10%</style> за каждые <style=cIsUtility>100% дополнительной скорости передвижения</style> на <style=cIsUtility>6 сек. <style=cStack>(+4 сек. за шт.)</style></style>.",
 
-    "ITEM_MYSTICSITEMS_EXTRASHRINEUSE_NAME": "Шестигранный монолит",
+    "ITEM_MYSTICSITEMS_EXTRASHRINEUSE_NAME": "Таинственный монолит",
     "ITEM_MYSTICSITEMS_EXTRASHRINEUSE_PICKUP": "Все святилища можно использовать ещё раз.",
     "ITEM_MYSTICSITEMS_EXTRASHRINEUSE_DESC": "Все святилища можно использовать <style=cIsUtility>+1 <style=cStack>(+1 за шт.)</style></style> раз.",
     "ITEM_MYSTICSITEMS_EXTRASHRINEUSE_LORE": "\"Последние несколько дней люди со всего мира сообщают о появлении таинственных монолитов на небольшой отрезок времени. Достоверность этих сообщений довольно спорна, так как нет никаких фото- или видеодоказательств существования монолитов (причиной тому является то, что \"они слишком быстро исчезают\"), однако, стоит заметить, что каждое сообщение о монолите произошло в отдельный день. Учёные спорят: монолит - это разумное существо? Может ли это быть доказательством существования параллельных вселенных? Или это всего лишь розыгрыш?\"\n- Новостной репортаж",
