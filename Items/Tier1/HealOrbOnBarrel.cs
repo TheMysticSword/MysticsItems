@@ -9,21 +9,6 @@ namespace MysticsItems.Items
 {
     public class HealOrbOnBarrel : BaseItem
     {
-        public class RandomizeSprinkleHue : MonoBehaviour
-        {
-            public void Awake()
-            {
-                foreach (Transform childTransform in transform.Find("Torus.001"))
-                {
-                    GameObject child = childTransform.gameObject;
-                    Renderer renderer = child.GetComponentInChildren<Renderer>();
-                    Color.RGBToHSV(renderer.material.color, out float h, out float s, out float v);
-                    h += Random.value;
-                    renderer.material.color = Color.HSVToRGB(h % 1, s, v);
-                }
-            }
-        }
-
         public override void PreAdd()
         {
             this.itemDef.name = "HealOrbOnBarrel";
@@ -35,7 +20,14 @@ namespace MysticsItems.Items
                 ItemTag.AIBlacklist
             };
             this.SetAssets("Donut");
-            model.AddComponent<RandomizeSprinkleHue>();
+            foreach (Transform childTransform in model.transform.Find("Torus.001"))
+            {
+                GameObject child = childTransform.gameObject;
+                Renderer renderer = child.GetComponentInChildren<Renderer>();
+                Color.RGBToHSV(renderer.material.color, out float h, out float s, out float v);
+                h += Random.value;
+                renderer.material.color = Color.HSVToRGB(h % 1, s, v);
+            }
             CopyModelToFollower();
             AddDisplayRule((int)Main.CommonBodyIndices.Commando, "Head", new Vector3(0f, 0.35f, 0f), new Vector3(0f, 180f, 0f), new Vector3(0.15f, 0.15f, 0.15f));
             AddDisplayRule("mdlHuntress", "Head", new Vector3(0F, 0.302F, -0.049F), new Vector3(0F, 180F, 0F), new Vector3(0.12F, 0.12F, 0.12F));

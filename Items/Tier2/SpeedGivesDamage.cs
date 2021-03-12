@@ -76,17 +76,29 @@ namespace MysticsItems.Items
 
         public class MysticsItemsNuclearAcceleratorGlow : MonoBehaviour
         {
+            public Material material;
             public float stopwatch;
+
+            public void Awake()
+            {
+                Renderer renderer = GetComponentInChildren<Renderer>();
+                material = Object.Instantiate(renderer.material);
+                renderer.material = material;
+            }
 
             public void Update()
             {
                 stopwatch += Time.deltaTime;
 
-                Material material = GetComponentInChildren<MeshRenderer>().material;
                 float wave = Mathf.Sin(stopwatch * Mathf.PI * 2f);
                 material.SetFloat("_EmPower", 1f * (0.75f + wave * 0.25f));
                 float rgb = 0.75f + 0.25f * wave;
                 material.SetColor("_EmColor", new Color(rgb, rgb, rgb, 1f));
+            }
+
+            public void OnDestroy()
+            {
+                Object.Destroy(material);
             }
         }
 
