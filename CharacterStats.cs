@@ -37,7 +37,7 @@ namespace MysticsItems
 
         public static void ErrorHookFailed(string name)
         {
-            Main.logger.LogError(MysticsItemsPlugin.PluginName + ": \"" + name + "\" hook failed");
+            Main.logger.LogError(name + " hook failed");
         }
         public static void Init()
         {
@@ -78,7 +78,11 @@ namespace MysticsItems
                 // max health
                 if (c.TryGotoNext(
                     MoveType.After,
-                    x => x.MatchLdcR4(1),
+                    x => x.MatchLdfld<CharacterBody>("baseMaxHealth"),
+                    x => x.MatchLdarg(0),
+                    x => x.MatchLdfld<CharacterBody>("levelMaxHealth")
+                ) && c.TryGotoNext(
+                    MoveType.After,
                     x => x.MatchStloc(42)
                 ))
                 {
@@ -124,10 +128,9 @@ namespace MysticsItems
                     x => x.MatchLdarg(0),
                     x => x.MatchLdfld<CharacterBody>("baseMaxShield"),
                     x => x.MatchLdarg(0),
-                    x => x.MatchLdfld<CharacterBody>("levelMaxShield"),
-                    x => x.MatchLdloc(35),
-                    x => x.MatchMul(),
-                    x => x.MatchAdd(),
+                    x => x.MatchLdfld<CharacterBody>("levelMaxShield")
+                ) && c.TryGotoNext(
+                    MoveType.After,
                     x => x.MatchStloc(43)
                 ))
                 {
@@ -152,9 +155,12 @@ namespace MysticsItems
                 // regen
                 if (c.TryGotoNext(
                     MoveType.After,
-                    x => x.MatchLdloc(52),
-                    x => x.MatchLdloc(49),
-                    x => x.MatchAdd(),
+                    x => x.MatchLdarg(0),
+                    x => x.MatchLdfld<CharacterBody>("baseRegen"),
+                    x => x.MatchLdarg(0),
+                    x => x.MatchLdfld<CharacterBody>("levelRegen")
+                ) && c.TryGotoNext(
+                    MoveType.After,
                     x => x.MatchStloc(52)
                 ))
                 {
@@ -173,9 +179,9 @@ namespace MysticsItems
                         }
                         return num;
                     });
-                    c.Emit(OpCodes.Ldloc, 43);
+                    c.Emit(OpCodes.Ldloc, 52);
                     c.Emit(OpCodes.Add);
-                    c.Emit(OpCodes.Stloc, 43);
+                    c.Emit(OpCodes.Stloc, 52);
                 }
                 else ErrorHookFailed("regen");
 
@@ -242,7 +248,12 @@ namespace MysticsItems
                 // damage
                 if (c.TryGotoNext(
                     MoveType.After,
-                    x => x.MatchLdcR4(1),
+                    x => x.MatchLdarg(0),
+                    x => x.MatchLdfld<CharacterBody>("baseDamage"),
+                    x => x.MatchLdarg(0),
+                    x => x.MatchLdfld<CharacterBody>("levelDamage")
+                ) && c.TryGotoNext(
+                    MoveType.After,
                     x => x.MatchStloc(58)
                 ))
                 {
@@ -285,7 +296,12 @@ namespace MysticsItems
                 // attack speed
                 if (c.TryGotoNext(
                     MoveType.After,
-                    x => x.MatchLdcR4(1),
+                    x => x.MatchLdarg(0),
+                    x => x.MatchLdfld<CharacterBody>("baseAttackSpeed"),
+                    x => x.MatchLdarg(0),
+                    x => x.MatchLdfld<CharacterBody>("levelAttackSpeed")
+                ) && c.TryGotoNext(
+                    MoveType.After,
                     x => x.MatchStloc(61)
                 ))
                 {
@@ -361,13 +377,11 @@ namespace MysticsItems
                 if (c.TryGotoNext(
                     MoveType.After,
                     x => x.MatchLdarg(0),
+                    x => x.MatchLdfld<CharacterBody>("baseArmor"),
                     x => x.MatchLdarg(0),
-                    x => x.MatchCallOrCallvirt<CharacterBody>("get_armor"),
-                    x => x.MatchLdloc(22),
-                    x => x.MatchConvR4(),
-                    x => x.MatchLdcR4(70),
-                    x => x.MatchMul(),
-                    x => x.MatchAdd(),
+                    x => x.MatchLdfld<CharacterBody>("levelArmor")
+                ) && c.TryGotoNext(
+                    MoveType.After,
                     x => x.MatchCallOrCallvirt<CharacterBody>("set_armor")
                 ))
                 {
