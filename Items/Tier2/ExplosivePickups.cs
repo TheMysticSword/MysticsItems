@@ -11,6 +11,7 @@ namespace MysticsItems.Items
     public class ExplosivePickups : BaseItem
     {
         public static GameObject gunpowderPickup;
+        public static GameObject explosionPrefab;
 
         public override void PreAdd()
         {
@@ -70,6 +71,52 @@ namespace MysticsItems.Items
             gravitatePickup.maxSpeed = 40f;
 
             PrefabAPI.RegisterNetworkPrefab(gunpowderPickup);
+
+            /*
+            explosionPrefab = Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Contraband Gunpowder/Explosion.prefab");
+            EffectComponent effectComponent = explosionPrefab.AddComponent<EffectComponent>();
+            effectComponent.applyScale = true;
+            effectComponent.soundName = "Play_mage_m1_impact";
+            VFXAttributes vfxAttributes = explosionPrefab.AddComponent<VFXAttributes>();
+            vfxAttributes.vfxPriority = VFXAttributes.VFXPriority.Medium;
+            vfxAttributes.vfxIntensity = VFXAttributes.VFXIntensity.Medium;
+            vfxAttributes.optionalLights = new Light[]
+            {
+                explosionPrefab.transform.Find("Point Light").gameObject.GetComponent<Light>()
+            };
+            vfxAttributes.secondaryParticleSystem = new ParticleSystem[]
+            {
+                explosionPrefab.transform.Find("Big Circle").gameObject.GetComponent<ParticleSystem>(),
+                explosionPrefab.transform.Find("Small Circles").gameObject.GetComponent<ParticleSystem>()
+            };
+            DestroyOnTimer destroyOnTimer1 = explosionPrefab.AddComponent<DestroyOnTimer>();
+            destroyOnTimer1.duration = 2f;
+            ShakeEmitter shakeEmitter = explosionPrefab.AddComponent<ShakeEmitter>();
+            shakeEmitter.shakeOnStart = true;
+            shakeEmitter.wave = new Wave
+            {
+                amplitude = 1f,
+                frequency = 180f,
+                cycleOffset = 0f
+            };
+            shakeEmitter.duration = 0.15f;
+            shakeEmitter.radius = 10f;
+            shakeEmitter.scaleShakeRadiusWithLocalScale = true;
+            shakeEmitter.amplitudeTimeDecay = true;
+            explosionPrefab.transform.Find("Point Light").gameObject.GetComponent<Light>().gameObject.AddComponent<MysticsItemsScaleLight>();
+
+            AssetManager.RegisterEffect(explosionPrefab);
+            */
+
+            explosionPrefab = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/Effects/OmniEffect/OmniExplosionVFXQuick"), Main.TokenPrefix + "OmiExplosionVFXExplosivePickups", false);
+            Object.Destroy(explosionPrefab.transform.Find("ScaledHitsparks 1").gameObject);
+            Object.Destroy(explosionPrefab.transform.Find("UnscaledHitsparks 1").gameObject);
+            Object.Destroy(explosionPrefab.transform.Find("Physics Sparks").gameObject);
+            Object.Destroy(explosionPrefab.transform.Find("Flash, Soft Glow").gameObject);
+            Object.Destroy(explosionPrefab.transform.Find("Unscaled Flames").gameObject);
+            Object.Destroy(explosionPrefab.transform.Find("Dash, Bright").gameObject);
+            Object.Destroy(explosionPrefab.transform.Find("Point Light").gameObject);
+            AssetManager.RegisterEffect(explosionPrefab);
         }
 
         public static void Explode(CharacterBody body)
@@ -84,7 +131,7 @@ namespace MysticsItems.Items
         {
             if (NetworkServer.active)
             {
-                EffectManager.SpawnEffect(Resources.Load<GameObject>("Prefabs/Effects/OmniEffect/OmniExplosionVFXQuick"), new EffectData
+                EffectManager.SpawnEffect(explosionPrefab, new EffectData
                 {
                     origin = position,
                     scale = radius,
