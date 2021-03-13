@@ -77,35 +77,35 @@ namespace MysticsItems.Items
                 orig(self, body);
             };
 
-            On.RoR2.GenericPickupController.GetDisplayName += (orig, self) =>
+            On.RoR2.Language.GetLocalizedStringByToken += (orig, self, token) =>
             {
-                string displayName = orig(self);
-                if (self.pickupDisplay)
+                string result = orig(self, token);
+                MysticsItemsCharacterItem characterItem = characterItems.Find(x => ItemCatalog.GetItemDef(x.itemIndex).nameToken == token);
+                if (characterItem != null)
                 {
-                    GameObject modelObject = self.pickupDisplay.GetFieldValue<GameObject>("modelObject");
-                    if (modelObject)
-                    {
-                        MysticsItemsCharacterItem characterItem = modelObject.GetComponent<MysticsItemsCharacterItem>();
-                        if (characterItem)
-                        {
-                            CharacterInfo characterInfo = FindCharacterInfo(characterItem.bodyName);
-                            globalStringBuilder.Clear();
-                            globalStringBuilder.Append(" <nobr>");
-                            globalStringBuilder.Append("<color=#");
-                            globalStringBuilder.AppendColor32RGBHexValues(characterInfo.color);
-                            globalStringBuilder.Append(">");
-                            globalStringBuilder.Append("(");
-                            globalStringBuilder.Append(string.Format(Language.GetString("MYSTICSITEMS_CHARACTERITEM_PICKUP_FORMAT"), Language.GetString(characterInfo.nameToken)));
-                            globalStringBuilder.Append(")");
-                            globalStringBuilder.Append("</color>");
-                            globalStringBuilder.Append("</nobr>");
-                            displayName += globalStringBuilder.ToString();
-                        }
-                    }
+                    CharacterInfo characterInfo = FindCharacterInfo(characterItem.bodyName);
+                    ItemDef itemDef = ItemCatalog.GetItemDef(characterItem.itemIndex);
+                    string formatToken = "MYSTICSITEMS_CHARACTERITEM_PICKUP_FORMAT";
+                    globalStringBuilder.Clear();
+                    globalStringBuilder.Append(" <nobr>");
+                    globalStringBuilder.Append("<color=#");
+                    globalStringBuilder.AppendColor32RGBHexValues(characterInfo.color);
+                    globalStringBuilder.Append(">");
+                    globalStringBuilder.Append("(");
+                    globalStringBuilder.Append(
+                        string.Format(
+                            self.TokenIsRegistered(formatToken) ? self.GetLocalizedStringByToken(formatToken) : Language.english.GetLocalizedStringByToken(formatToken),
+                            self.TokenIsRegistered(characterInfo.nameToken) ? self.GetLocalizedStringByToken(characterInfo.nameToken) : Language.english.GetLocalizedStringByToken(characterInfo.nameToken)
+                        )
+                    );
+                    globalStringBuilder.Append(")");
+                    globalStringBuilder.Append("</color>");
+                    globalStringBuilder.Append("</nobr>");
+                    result += globalStringBuilder.ToString();
                 }
-                return displayName;
+                return result;
             };
-
+            
             characterInfo.Add(new CharacterInfo
             {
                 nameToken = "UNDEFINED",
