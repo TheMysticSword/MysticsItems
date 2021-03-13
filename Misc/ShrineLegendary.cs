@@ -135,31 +135,34 @@ namespace MysticsItems
                 }
             };
 
-            On.RoR2.SceneDirector.PopulateScene += (orig, self) =>
+            if (DebugTools.enabled)
             {
-                orig(self);
-                if (SceneCatalog.GetSceneDefForCurrentScene().baseSceneName == "golemplains" && BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("com.addOns.DebuggingPlains"))
+                On.RoR2.SceneDirector.PopulateScene += (orig, self) =>
                 {
-                    Vector3 position = new Vector3(346.2198f, -51.98051f - 0.7f, -209.0303f - 6f);
-                    Vector3 rotation = new Vector3(0f, 180f, 0f);
-                    SpawnCard.SpawnResult result = spawnCard.DoSpawn(position, Quaternion.Euler(rotation), new DirectorSpawnRequest(
-                        spawnCard,
-                        new DirectorPlacementRule
-                        {
-                            placementMode = DirectorPlacementRule.PlacementMode.NearestNode,
-                            maxDistance = 100f,
-                            minDistance = 20f,
-                            position = position,
-                            preventOverhead = true
-                        },
-                        RoR2Application.rng)
-                    );
-                    if (result.success)
+                    orig(self);
+                    if (SceneCatalog.GetSceneDefForCurrentScene().baseSceneName == "golemplains")
                     {
-                        result.spawnedInstance.transform.rotation = Quaternion.Euler(rotation);
+                        Vector3 position = new Vector3(346.2198f, -51.98051f - 0.7f, -209.0303f - 6f);
+                        Vector3 rotation = new Vector3(0f, 180f, 0f);
+                        SpawnCard.SpawnResult result = spawnCard.DoSpawn(position, Quaternion.Euler(rotation), new DirectorSpawnRequest(
+                            spawnCard,
+                            new DirectorPlacementRule
+                            {
+                                placementMode = DirectorPlacementRule.PlacementMode.NearestNode,
+                                maxDistance = 100f,
+                                minDistance = 20f,
+                                position = position,
+                                preventOverhead = true
+                            },
+                            RoR2Application.rng)
+                        );
+                        if (result.success)
+                        {
+                            result.spawnedInstance.transform.rotation = Quaternion.Euler(rotation);
+                        }
                     }
-                }
-            };
+                };
+            }
         }
 
         public class ShrineLegendaryBehaviour : NetworkBehaviour
