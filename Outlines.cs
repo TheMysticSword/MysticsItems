@@ -82,7 +82,7 @@ namespace MysticsItems
 
             public void Awake()
             {
-                targetRenderer = gameObject.GetComponentInChildren<Renderer>();
+                if (!targetRenderer) targetRenderer = gameObject.GetComponentInChildren<Renderer>();
             }
 
             public void OnEnable()
