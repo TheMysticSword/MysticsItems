@@ -21,7 +21,7 @@ namespace MysticsItems.Items
 
         public static float CalculateExtraDistance(int stacks)
         {
-            return 5f + 5f * (stacks - 1);
+            return 10f + 10f * (stacks - 1);
         }
 
         public override void OnAdd()
