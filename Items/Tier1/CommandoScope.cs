@@ -13,11 +13,6 @@ namespace MysticsItems.Items
         {
             itemDef.name = "CommandoScope";
             itemDef.tier = ItemTier.Tier1;
-            itemDef.tags = new ItemTag[]
-            {
-                ItemTag.Damage,
-                ItemTag.Utility
-            };
             BanFromDeployables();
             SetAssets("Commando Scope");
             AddDisplayRule((int)Main.CommonBodyIndices.Commando, "MuzzleLeft", new Vector3(0.0617f, 0.0008f, -0.1063f), new Vector3(-80.871f, -161.934f, 69.76801f), new Vector3(0.023f, 0.023f, 0.023f));
