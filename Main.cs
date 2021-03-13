@@ -65,16 +65,17 @@ namespace MysticsItems
 
             //DebugTools.Init();
 
+            Achievements.BaseAchievement.Init();
             AssetManager.Init();
             CharacterStats.Init();
+            ItemDropFixes.Init();
             Items.BaseItem.Init();
+            Items.CharacterItems.Init();
             Equipment.BaseEquipment.Init();
-            Achievements.BaseAchievement.Init();
             Outlines.Init();
             Overlays.Init();
-            Unlockables.Init();
-            ItemDropFixes.Init();
             PlainHologram.Init();
+            Unlockables.Init();
 
             //LaserTurret.Init();
             ShrineLegendary.Init();

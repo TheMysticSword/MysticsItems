@@ -130,11 +130,15 @@
     "MYSTICSITEMS_SHRINE_LEGENDARY_USE_MESSAGE_2P": "<style=cShrine>You have become the embodiment of the legend.</color>",
     "MYSTICSITEMS_SHRINE_LEGENDARY_USE_MESSAGE": "<style=cShrine>{0} has become the embodiment of the legend.</color>",
 
+    "MYSTICSITEMS_CHARACTERITEMCHEST_NAME": "Supply Chest",
+    "MYSTICSITEMS_CHARACTERITEMCHEST_CONTEXT": "Open Supply Chest",
+
     //[COSTTYPES]
     "COST_MYSTICSITEMS_RIFTLENSDEBUFF_FORMAT": "{0} Rift Affliction",
 
     //[CUSTOM]
-    "MYSTICSITEMS_CHARACTERITEM_PICKUP_FORMAT": "{0} Item"
+    "MYSTICSITEMS_CHARACTERITEM_PICKUP_FORMAT": "{0} Item",
+    "MYSTICSITEMS_CHARACTERITEMCHEST_ANNOUNCE": "<style=cWorldEvent>A supply chest has been airdropped!</style>"
   },
   "RU": {
     //[ITEMS]
@@ -266,10 +270,14 @@
     "MYSTICSITEMS_SHRINE_LEGENDARY_USE_MESSAGE_2P": "<style=cShrine>Вы стали воплощением легенды.</color>",
     "MYSTICSITEMS_SHRINE_LEGENDARY_USE_MESSAGE": "<style=cShrine>{0} становится воплощением легенды.</color>",
 
+    "MYSTICSITEMS_CHARACTERITEMCHEST_NAME": "Сундук с припасами",
+    "MYSTICSITEMS_CHARACTERITEMCHEST_CONTEXT": "Открыть сундук с припасами",
+
     //[COSTTYPES]
     "COST_MYSTICSITEMS_RIFTLENSDEBUFF_FORMAT": "{0} Недуг разлома",
 
     //[CUSTOM]
-    "MYSTICSITEMS_CHARACTERITEM_PICKUP_FORMAT": "Предмет игрока {0}"
+    "MYSTICSITEMS_CHARACTERITEM_PICKUP_FORMAT": "Предмет игрока {0}",
+    "MYSTICSITEMS_CHARACTERITEMCHEST_ANNOUNCE": "<style=cWorldEvent>С воздуха был сброшен сундук с припасами!</style>"
   }
 }

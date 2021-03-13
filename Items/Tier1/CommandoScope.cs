@@ -26,7 +26,7 @@ namespace MysticsItems.Items
 
         public override void OnAdd()
         {
-            SetCharacterItem("CommandoBody");
+            CharacterItems.SetCharacterItem(this, "CommandoBody");
 
             On.RoR2.CharacterBody.Start += (orig, self) =>
             {

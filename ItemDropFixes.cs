@@ -41,7 +41,7 @@ namespace MysticsItems
             List<ItemIndex> result = orig(itemTier);
             foreach (BaseItem item in BaseItem.registeredItems.Values)
             {
-                bool cannotDrop = item.itemDef.ContainsTag(ItemTag.WorldUnique) || !item.CharacterItemCanDrop;
+                bool cannotDrop = item.itemDef.ContainsTag(ItemTag.WorldUnique);
                 bool isLocked = item.itemDef.unlockableName != "" && preGameUnlockables.ContainsKey(item.itemDef.unlockableName) && !preGameUnlockables[item.itemDef.unlockableName];
                 if (cannotDrop || isLocked)
                 {
@@ -59,7 +59,7 @@ namespace MysticsItems
             List<PickupIndex> result = orig();
             foreach (BaseItem item in BaseItem.registeredItems.Values)
             {
-                bool cannotDrop = item.itemDef.ContainsTag(ItemTag.WorldUnique) || !item.CharacterItemCanDrop;
+                bool cannotDrop = item.itemDef.ContainsTag(ItemTag.WorldUnique);
                 bool isLocked = item.itemDef.unlockableName != "" && preGameUnlockables.ContainsKey(item.itemDef.unlockableName) && !preGameUnlockables[item.itemDef.unlockableName];
                 if (cannotDrop || isLocked)
                 {
@@ -71,7 +71,7 @@ namespace MysticsItems
             }
             foreach (BaseEquipment equipment in BaseEquipment.registeredEquipment.Values)
             {
-                bool cannotDrop = !equipment.CharacterItemCanDrop;
+                bool cannotDrop = false;
                 bool isLocked = equipment.equipmentDef.unlockableName != "" && preGameUnlockables.ContainsKey(equipment.equipmentDef.unlockableName) && !preGameUnlockables[equipment.equipmentDef.unlockableName];
                 if (cannotDrop || isLocked)
                 {
@@ -89,7 +89,7 @@ namespace MysticsItems
             List<EquipmentIndex> result = orig();
             foreach (BaseEquipment equipment in BaseEquipment.registeredEquipment.Values)
             {
-                bool cannotDrop = !equipment.CharacterItemCanDrop;
+                bool cannotDrop = false;
                 bool isLocked = equipment.equipmentDef.unlockableName != "" && preGameUnlockables.ContainsKey(equipment.equipmentDef.unlockableName) && !preGameUnlockables[equipment.equipmentDef.unlockableName];
                 if (cannotDrop || isLocked)
                 {
