@@ -119,7 +119,7 @@ namespace MysticsItems.Items
 
         public class Spinner : MonoBehaviour
         {
-            public float baseSpeed = 90f;
+            public float baseSpeed = -90f;
             public float speedMultiplier = 1f;
             public GameObject trail;
 
