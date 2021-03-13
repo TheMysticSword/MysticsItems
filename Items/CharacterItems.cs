@@ -196,7 +196,7 @@ namespace MysticsItems.Items
             purchaseInteraction.requiredUnlockable = "";
             purchaseInteraction.ignoreSpherecastForInteractability = false;
             purchaseInteraction.purchaseStatNames = new string[] { };
-            purchaseInteraction.setUnavailableOnTeleporterActivated = true;
+            purchaseInteraction.setUnavailableOnTeleporterActivated = false;
             purchaseInteraction.isShrine = false;
             purchaseInteraction.isGoldShrine = false;
             RoR2.Hologram.HologramProjector hologramProjector = chestPrefab.AddComponent<RoR2.Hologram.HologramProjector>();
