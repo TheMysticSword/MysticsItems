@@ -323,6 +323,7 @@ namespace MysticsItems.Items
             HG.ArrayUtils.ArrayAppend(ref itemDef.tags, ItemTag.WorldUnique);
             HG.ArrayUtils.ArrayAppend(ref itemDef.tags, ItemTag.AIBlacklist);
             HG.ArrayUtils.ArrayAppend(ref itemDef.tags, ItemTag.BrotherBlacklist);
+            baseItem.BanFromDeployables();
 
             CharacterInfo currentCharacterInfo = FindCharacterInfo(bodyName);
 
