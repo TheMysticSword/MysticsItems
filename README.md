@@ -42,7 +42,7 @@ Other sounds made with sfxia by rxi (https://rxi.itch.io/sfxia)
     * Changed function: now increases damage by 1% for each 2.5% movement speed increase you have
 * Contraband Gunpowder:
     * Damage: ~~350% (+80% per stack)~~ ⇒ 200% (+150% per stack)
-    * Radius: ~~8m (+1.5m per stack)~~ ⇒ 13m (+3m per stack)
+    * Radius: ~~8m (+1.5m per stack)~~ ⇒ 10m (+1.5m per stack)
     * Reduced visual explosion intensity
 * Thought Processor:
     * Cooldown Reduction: ~~12% (+2% per stack)~~ ⇒ 10% (+5% per stack)
