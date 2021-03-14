@@ -8,6 +8,8 @@ using UnityEngine.Networking;
 using Mono.Cecil.Cil;
 using MonoMod.Cil;
 using System.Linq;
+using R2API.Networking.Interfaces;
+using R2API.Networking;
 
 namespace MysticsItems.Items
 {
@@ -75,13 +77,14 @@ namespace MysticsItems.Items
 			On.RoR2.GenericSkill.Awake += (orig, self) =>
             {
                 MysticsItemsCommandoRevolverDrumBehaviour component = self.gameObject.GetComponent<MysticsItemsCommandoRevolverDrumBehaviour>();
-                if (component && component.creatingSkill > 0)
+				bool makeSkill = component && component.creatingSkill > 0;
+				if (makeSkill)
                 {
                     component.creatingSkill--;
                     self.SetFieldValue("_skillFamily", skillFamily);
                 }
                 orig(self);
-                self.SetBaseSkill(skillDef);
+                if (makeSkill) self.SetBaseSkill(skillDef);
             };
 
             On.RoR2.CharacterBody.Awake += (orig, self) =>
@@ -89,17 +92,17 @@ namespace MysticsItems.Items
                 orig(self);
                 self.onInventoryChanged += () =>
                 {
-                    if (NetworkServer.active) self.AddItemBehavior<MysticsItemsCommandoRevolverDrumBehaviour>(self.inventory.GetItemCount(itemIndex));
+                    self.AddItemBehavior<MysticsItemsCommandoRevolverDrumBehaviour>(self.inventory.GetItemCount(itemIndex));
                 };
             };
 
             On.EntityStates.Commando.CommandoWeapon.FirePistol2.FireBullet += (orig, self, targetMuzzle) =>
             {
                 MysticsItemsCommandoRevolverDrumBehaviour component = self.outer.gameObject.GetComponent<MysticsItemsCommandoRevolverDrumBehaviour>();
-                if (component)
+				if (component)
                 {
                     component.applyAttackChanges++;
-                }
+				}
                 orig(self, targetMuzzle);
             };
             Main.OnHitEnemy += (damageInfo, attackerInfo, victimInfo) =>
@@ -107,7 +110,7 @@ namespace MysticsItems.Items
                 if (attackerInfo.inventory && attackerInfo.inventory.GetItemCount(itemIndex) > 0)
                 {
                     MysticsItemsCommandoRevolverDrumBehaviour component = attackerInfo.body.gameObject.GetComponent<MysticsItemsCommandoRevolverDrumBehaviour>();
-                    if (component && component.applyAttackChanges > 0)
+					if (component && component.applyAttackChanges > 0)
                     {
                         component.applyAttackChanges--;
                         if (Util.CheckRoll(10f, attackerInfo.master))
@@ -117,7 +120,9 @@ namespace MysticsItems.Items
                     }
                 }
             };
-        }
+
+			NetworkingAPI.RegisterMessageType<MysticsItemsCommandoRevolverDrumBehaviour.SyncProc>();
+		}
 
         public class MysticsItemsCommandoRevolverDrumBehaviour : CharacterBody.ItemBehavior
         {
@@ -135,13 +140,56 @@ namespace MysticsItems.Items
             public void FixedUpdate()
             {
 				if (!NetworkServer.active) return;
-                applyAttackChanges = 0;
-				if (procs > 0 && skillSlot.ExecuteIfReady())
+				if (procs > 0)
                 {
-					procs--;
+					if (Proc()) procs--;
 				}
             }
-        }
+
+			public bool Proc()
+            {
+				if (NetworkServer.active) new SyncProc(gameObject.GetComponent<NetworkIdentity>().netId).Send(NetworkDestination.Clients);
+				return skillSlot.ExecuteIfReady();
+			}
+
+			public class SyncProc : INetMessage
+			{
+				NetworkInstanceId objID;
+
+				public SyncProc()
+				{
+				}
+
+				public SyncProc(NetworkInstanceId objID)
+				{
+					this.objID = objID;
+				}
+
+				public void Deserialize(NetworkReader reader)
+				{
+					objID = reader.ReadNetworkId();
+				}
+
+				public void OnReceived()
+				{
+					if (NetworkServer.active) return;
+					GameObject obj = Util.FindNetworkObject(objID);
+					if (obj)
+					{
+						MysticsItemsCommandoRevolverDrumBehaviour component = obj.GetComponent<MysticsItemsCommandoRevolverDrumBehaviour>();
+						if (component)
+						{
+							component.Proc();
+						}
+					}
+				}
+
+				public void Serialize(NetworkWriter writer)
+				{
+					writer.Write(objID);
+				}
+			}
+		}
 
 		public class FireBarrageRevolverDrum : BaseState
 		{
