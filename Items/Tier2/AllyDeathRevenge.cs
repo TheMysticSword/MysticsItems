@@ -53,6 +53,7 @@ namespace MysticsItems.Items
             On.RoR2.CharacterMaster.OnBodyDeath += (orig, self, body) =>
             {
                 orig(self, body);
+                GameObject playSoundObject = null;
                 if (NetworkServer.active)
                 {
                     TeamIndex teamIndex = TeamComponent.GetObjectTeam(body.gameObject);
@@ -76,10 +77,11 @@ namespace MysticsItems.Items
                                 time = 2f;
                             }
                             body2.AddTimedBuff(buffIndex, time);
-                            Util.PlaySound("Play_item_allydeathrevenge_proc", body2.gameObject);
+                            playSoundObject = body2.gameObject;
                         }
                     }
                 }
+                if (playSoundObject) Util.PlaySound("Play_item_allydeathrevenge_proc", playSoundObject);
             };
 
             Main.Overlays.CreateOverlay(Main.AssetBundle.LoadAsset<Material>("Assets/Misc/Materials/matAllyDeathRevengeOverlay.mat"), delegate (CharacterModel model)
