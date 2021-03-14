@@ -170,6 +170,10 @@ namespace MysticsItems.Items
             Main.modifiedPrefabs.Add(teleporter);
             MysticsItemsCrystalWorldTeleporterEffect teleporterEffect = teleporter.AddComponent<MysticsItemsCrystalWorldTeleporterEffect>();
             teleporterEffect.offset = new Vector3(0f, 3f, 0f);
+
+            teleporter = Resources.Load<GameObject>("Prefabs/NetworkedObjects/Teleporters/LunarTeleporter Variant");
+            Main.modifiedPrefabs.Add(teleporter);
+            teleporterEffect = teleporter.AddComponent<MysticsItemsCrystalWorldTeleporterEffect>();
             teleporterEffect.offset = new Vector3(0f, 3f, 0f);
         }
 
