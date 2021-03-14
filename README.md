@@ -5,7 +5,7 @@ Adds 21 new items, with plenty more to come!
 
 ![](https://i.imgur.com/WYCK8vE.gif)  
 
-Also features a new subset of character-specific items that can only drop if one of the players are using a specific character and can only be picked up by that character. Currently, this only includes one Commando item.
+Also features a new Supply Airdrop system - every 10 minutes, a Supply Chest will drop in a random spot, containing character-specific items that can only be picked up by the respective characters. The airdrop doesn't occur if none of the current player characters have any items tied to them, or if the current stage is a Hidden Realm or a final stage. Currently, this includes two Commando items and one Artificer item.
 
 ### Console commands
 `mysticsitems_grantall` - grants all achievements  
