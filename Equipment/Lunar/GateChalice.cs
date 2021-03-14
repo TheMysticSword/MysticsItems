@@ -237,6 +237,11 @@ namespace MysticsItems.Equipment
             public void Start()
             {
                 controller = GetComponent<SceneExitController>();
+                if (SceneInfo.instance && SceneInfo.instance.sceneDef.isFinalStage)
+                {
+                    controller.useRunNextStageScene = false;
+                    controller.destinationScene = SceneInfo.instance.sceneDef;
+                }
                 controller.Begin();
             }
 
