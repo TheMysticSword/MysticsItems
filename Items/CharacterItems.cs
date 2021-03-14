@@ -584,6 +584,9 @@ namespace MysticsItems.Items
 
                     if (NetworkServer.active)
                     {
+                        if (!SceneInfo.instance) return;
+                        SceneDef sceneDef = SceneInfo.instance.sceneDef;
+                        if (sceneDef.sceneType != SceneType.Stage || sceneDef.isFinalStage) return;
                         bool atLeastOneCharacterEligibleForItems = false;
                         foreach (PlayerCharacterMasterController playerCharacterMasterController in PlayerCharacterMasterController.instances)
                         {
@@ -603,13 +606,11 @@ namespace MysticsItems.Items
                                 }
                             }
                         }
-                        if (atLeastOneCharacterEligibleForItems)
+                        if (!atLeastOneCharacterEligibleForItems) return;
+                        DirectorCore.instance.TrySpawnObject(new DirectorSpawnRequest(chestSpawnerSpawnCard, new DirectorPlacementRule
                         {
-                            DirectorCore.instance.TrySpawnObject(new DirectorSpawnRequest(chestSpawnerSpawnCard, new DirectorPlacementRule
-                            {
-                                placementMode = DirectorPlacementRule.PlacementMode.Random
-                            }, rng));
-                        }
+                            placementMode = DirectorPlacementRule.PlacementMode.Random
+                        }, rng));
                     }
                 }
             }
