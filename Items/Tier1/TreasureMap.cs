@@ -43,7 +43,7 @@ namespace MysticsItems.Items
             AddDisplayRule("mdlCaptain", "HandR", new Vector3(-0.066F, 0.087F, 0.011F), new Vector3(76.759F, 135.292F, 224.52F), new Vector3(0.059F, 0.053F, 0.059F));
             AddDisplayRule("mdlBrother", "HandR", BrotherInfection.white, new Vector3(0.051F, -0.072F, 0.004F), new Vector3(44.814F, 122.901F, 267.545F), new Vector3(0.063F, 0.063F, 0.063F));
 
-            NetworkingAPI.RegisterMessageType<MysticsItemsTreasureMapZone.SyncCaptured>();
+            NetworkingAPI.RegisterMessageType<MysticsItemsTreasureMapZone.SyncVariables>();
         }
 
         public override void OnAdd()
@@ -112,13 +112,15 @@ namespace MysticsItems.Items
             };
         }
 
-        public class MysticsItemsTreasureMapZone : NetworkBehaviour, IHologramContentProvider
+        public class MysticsItemsTreasureMapZone : MonoBehaviour, IHologramContentProvider
         {
             public TeamIndex teamIndex = TeamIndex.Player;
             public float baseReward = 100f;
             public float captureTime = 0f;
             public float baseCaptureTimeMax = 60f;
             public float captureTimeMax = 60f;
+            public float syncVarDelay = 0f;
+            public float syncVarDelayMax = 1f / 10f;
             public float CaptureProgress
             {
                 get
@@ -130,27 +132,14 @@ namespace MysticsItems.Items
                     captureTime = captureTimeMax * value;
                 }
             }
-            public bool _captured = false;
-            public bool captured {
-                get
-                {
-                    return _captured;
-                }
-                set
-                {
-                    if (NetworkServer.active)
-                    {
-                        _captured = value;
-                        new SyncCaptured(gameObject.GetComponent<NetworkIdentity>().netId, _captured).Send(NetworkDestination.Clients);
-                    }
-                }
-            }
+            public bool captured = false;
             public ItemIndex itemIndex;
             public GameObject visuals;
             public float baseRadius = 15f;
             public float radius = 0f;
             public float radiusVelocity = 0f;
             public HologramProjector hologramProjector;
+            public bool captureSoundPlayed = false;
 
             public void FixedUpdate()
             {
@@ -175,6 +164,7 @@ namespace MysticsItems.Items
 
                 if (!captured)
                 {
+                    captureSoundPlayed = false;
                     if (anyoneHasItem)
                     {
                         if (NetworkServer.active)
@@ -196,22 +186,34 @@ namespace MysticsItems.Items
                         }
                     }
 
-                    if (CaptureProgress >= 1f && !captured && NetworkServer.active)
+                    if (NetworkServer.active && CaptureProgress >= 1f && !captured)
                     {
                         captured = true;
 
-                        if (NetworkServer.active)
+                        uint goldReward = (uint)(baseReward * Run.instance.difficultyCoefficient);
+                        TeamManager.instance.GiveTeamMoney(teamIndex, goldReward);
+                        EffectManager.SpawnEffect(Resources.Load<GameObject>("Prefabs/Effects/CoinEmitter"), new EffectData
                         {
-                            uint goldReward = (uint)(baseReward * Run.instance.difficultyCoefficient);
-                            TeamManager.instance.GiveTeamMoney(teamIndex, goldReward);
-                            EffectManager.SpawnEffect(Resources.Load<GameObject>("Prefabs/Effects/CoinEmitter"), new EffectData
-                            {
-                                origin = transform.position,
-                                genericFloat = goldReward,
-                                scale = 1f
-                            }, true);
-                            Util.PlaySound("MysticsItems_Play_env_treasuremap", gameObject);
-                        }
+                            origin = transform.position,
+                            genericFloat = goldReward,
+                            scale = 1f
+                        }, true);
+                    }
+                }
+
+                if (captured && !captureSoundPlayed)
+                {
+                    captureSoundPlayed = true;
+                    Util.PlaySound("MysticsItems_Play_env_treasuremap", gameObject);
+                }
+
+                if (NetworkServer.active)
+                {
+                    syncVarDelay -= Time.fixedDeltaTime;
+                    if (syncVarDelay <= 0f)
+                    {
+                        syncVarDelay = syncVarDelayMax;
+                        new SyncVariables(gameObject.GetComponent<NetworkIdentity>().netId, captureTime, captured).Send(NetworkDestination.Clients);
                     }
                 }
             }
@@ -236,25 +238,27 @@ namespace MysticsItems.Items
                 }
             }
 
-
-            public class SyncCaptured : INetMessage
+            public class SyncVariables : INetMessage
             {
                 NetworkInstanceId objID;
+                float captureTime;
                 bool captured;
 
-                public SyncCaptured()
+                public SyncVariables()
                 {
                 }
 
-                public SyncCaptured(NetworkInstanceId objID, bool captured)
+                public SyncVariables(NetworkInstanceId objID, float captureTime, bool captured)
                 {
                     this.objID = objID;
+                    this.captureTime = captureTime;
                     this.captured = captured;
                 }
 
                 public void Deserialize(NetworkReader reader)
                 {
                     objID = reader.ReadNetworkId();
+                    captureTime = reader.ReadSingle();
                     captured = reader.ReadBoolean();
                 }
 
@@ -267,6 +271,7 @@ namespace MysticsItems.Items
                         MysticsItemsTreasureMapZone component = obj.GetComponent<MysticsItemsTreasureMapZone>();
                         if (component)
                         {
+                            component.captureTime = captureTime;
                             component.captured = captured;
                         }
                     }
@@ -275,6 +280,7 @@ namespace MysticsItems.Items
                 public void Serialize(NetworkWriter writer)
                 {
                     writer.Write(objID);
+                    writer.Write(captureTime);
                     writer.Write(captured);
                 }
             }
