@@ -123,7 +123,7 @@ namespace MysticsItems.Items
         {
             if (body.inventory) {
                 int itemCount = body.inventory.GetItemCount(GetFromType(typeof(ExplosivePickups)).itemIndex);
-                Explode(body.gameObject, body.corePosition, body.damage * 2f + 1.5f * (float)(itemCount - 1), 10f + 1.5f * (float)(itemCount - 1), body.RollCrit());
+                Explode(body.gameObject, body.corePosition, body.damage * 2f + 1.5f * (float)(itemCount - 1), 8f + 1.5f * (float)(itemCount - 1), body.RollCrit());
             }
         }
 
