@@ -57,7 +57,7 @@
 
     "ITEM_MYSTICSITEMS_COMMANDOREVOLVERDRUM_NAME": "Revolver Drum",
     "ITEM_MYSTICSITEMS_COMMANDOREVOLVERDRUM_PICKUP": "Chance on hit with 'Double Tap' to fire a barrage of bullets.",
-    "ITEM_MYSTICSITEMS_COMMANDOREVOLVERDRUM_DESC": "<style=cIsDamage>'Double Tap'</style> has a <style=cIsDamage>10%</style> chance on hit to fire a barrage of bullets, dealing <style=cIsDamage>6x100% <style=cStack>(+6x100% per stack)</style></style> damage.",
+    "ITEM_MYSTICSITEMS_COMMANDOREVOLVERDRUM_DESC": "<style=cIsDamage>'Double Tap'</style> has a <style=cIsDamage>10%</style> chance on hit to fire a barrage of bullets, dealing <style=cIsDamage>6x50% <style=cStack>(+6x50% per stack)</style></style> damage.",
 
     //[TIER3]
     "ITEM_MYSTICSITEMS_VOLTMETER_NAME": "Wireless Voltmeter",
@@ -206,7 +206,7 @@
 
     "ITEM_MYSTICSITEMS_COMMANDOREVOLVERDRUM_NAME": "Барабан револьвера",
     "ITEM_MYSTICSITEMS_COMMANDOREVOLVERDRUM_PICKUP": "Шанс при попадании 'Двойным выстрелом' выстрелить очередью пуль.",
-    "ITEM_MYSTICSITEMS_COMMANDOREVOLVERDRUM_DESC": "<style=cIsDamage>'Двойной выстрел'</style> имеет <style=cIsDamage>10%</style> шанс при попадании выстрелить очередью пуль, нанося <style=cIsDamage>6x100% <style=cStack>(+6x100% за шт.)</style></style> урона.",
+    "ITEM_MYSTICSITEMS_COMMANDOREVOLVERDRUM_DESC": "<style=cIsDamage>'Двойной выстрел'</style> имеет <style=cIsDamage>10%</style> шанс при попадании выстрелить очередью пуль, нанося <style=cIsDamage>6x50% <style=cStack>(+6x50% за шт.)</style></style> урона.",
 
     //[TIER3]
     "ITEM_MYSTICSITEMS_VOLTMETER_NAME": "Беспроводной вольтметр",
