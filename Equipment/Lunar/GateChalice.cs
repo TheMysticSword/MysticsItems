@@ -124,7 +124,7 @@ namespace MysticsItems.Equipment
 
             GameObject ppHolder = PrefabAPI.InstantiateClone(new GameObject(), "PP", false);
             ppHolder.layer = LayerIndex.postProcess.intVal;
-            ppHolder.AddComponent<PPController>().time = 3f;
+            ppHolder.AddComponent<MysticsItemsGateChalicePPController>().time = 3f;
             PostProcessVolume pp = ppHolder.AddComponent<PostProcessVolume>();
             pp.isGlobal = true;
             pp.weight = 0f;
@@ -148,12 +148,12 @@ namespace MysticsItems.Equipment
             PrefabAPI.RegisterNetworkPrefab(sceneExitControllerObject);
             SceneExitController sceneExitController = sceneExitControllerObject.AddComponent<SceneExitController>();
             sceneExitController.useRunNextStageScene = true;
-            sceneExitControllerObject.AddComponent<SceneExit>();
+            sceneExitControllerObject.AddComponent<MysticsItemsGateChaliceSceneExit>();
 
             On.RoR2.CharacterMaster.Awake += (orig, self) =>
             {
                 orig(self);
-                self.gameObject.AddComponent<DebuffOnSpawn>();
+                self.gameObject.AddComponent<MysticsItemsGateChaliceDebuffOnSpawn>();
             };
 
             On.RoR2.CharacterBody.RecalculateStats += (orig, self) =>
@@ -164,7 +164,7 @@ namespace MysticsItems.Equipment
                     CharacterMaster master = self.master;
                     if (master)
                     {
-                        DebuffOnSpawn component = master.GetComponent<DebuffOnSpawn>();
+                        MysticsItemsGateChaliceDebuffOnSpawn component = master.GetComponent<MysticsItemsGateChaliceDebuffOnSpawn>();
                         if (component)
                         {
                             BuffIndex buffIndex = Buffs.BaseBuff.GetFromType(typeof(Buffs.GateChalice));
@@ -182,7 +182,7 @@ namespace MysticsItems.Equipment
                     if (master.hasBody && master.teamIndex == TeamIndex.Player)
                     {
                         CharacterBody body = master.GetBody();
-                        DebuffOnSpawn component = master.GetComponent<DebuffOnSpawn>();
+                        MysticsItemsGateChaliceDebuffOnSpawn component = master.GetComponent<MysticsItemsGateChaliceDebuffOnSpawn>();
                         if (body && component && component.count > 0)
                         {
                             component.count = 0;
@@ -193,7 +193,7 @@ namespace MysticsItems.Equipment
             };
         }
 
-        private class PPController : MonoBehaviour
+        private class MysticsItemsGateChalicePPController : MonoBehaviour
         {
             public float stopwatch = 0f;
             public float time = 0f;
@@ -217,7 +217,7 @@ namespace MysticsItems.Equipment
             }
         }
 
-        public class DebuffOnSpawn : MonoBehaviour
+        public class MysticsItemsGateChaliceDebuffOnSpawn : MonoBehaviour
         {
             public CharacterMaster master;
             public int count = 0;
@@ -228,7 +228,7 @@ namespace MysticsItems.Equipment
             }
         }
 
-        private class SceneExit : MonoBehaviour
+        private class MysticsItemsGateChaliceSceneExit : MonoBehaviour
         {
             public SceneExitController controller;
             public Transform attach;
@@ -263,13 +263,13 @@ namespace MysticsItems.Equipment
             effectData.SetHurtBoxReference(characterBody.gameObject);
             EffectManager.SpawnEffect(visualEffectOnUse, effectData, true);
             GameObject sceneExit = Object.Instantiate(sceneExitControllerObject, characterBody.corePosition, Quaternion.identity);
-            sceneExit.GetComponent<SceneExit>().attach = characterBody.gameObject.transform;
+            sceneExit.GetComponent<MysticsItemsGateChaliceSceneExit>().attach = characterBody.gameObject.transform;
             foreach (CharacterMaster master in CharacterMaster.readOnlyInstancesList)
             {
                 if (master.hasBody && master.teamIndex == TeamIndex.Player)
                 {
                     CharacterBody body = master.GetBody();
-                    DebuffOnSpawn component = master.GetComponent<DebuffOnSpawn>();
+                    MysticsItemsGateChaliceDebuffOnSpawn component = master.GetComponent<MysticsItemsGateChaliceDebuffOnSpawn>();
                     if (body && component)
                     {
                         component.count++;
