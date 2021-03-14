@@ -359,7 +359,8 @@ namespace MysticsItems.Items
             public GameObject combinedObject;
             public GameObject baseObject;
             public GameObject lidObject;
-            public float lidThrowStrength = 200f;
+            public float lidThrowStrength = 300f;
+            public float lidThrowSpread = 30f;
             public float lidRotationStrength = 10f;
 
             public void Awake()
@@ -489,7 +490,7 @@ namespace MysticsItems.Items
                     scale = 2f
                 }, true);
                 Rigidbody rigidbody = lidObject.GetComponent<Rigidbody>();
-                Vector3 aimLid = Util.ApplySpread(transform.up, -5f, 5f, 1f, 1f);
+                Vector3 aimLid = Util.ApplySpread(transform.up, -lidThrowSpread, lidThrowSpread, 1f, 1f);
                 rigidbody.AddForce(aimLid * lidThrowStrength);
                 rigidbody.angularVelocity += Util.QuaternionSafeLookRotation(aimLid).eulerAngles * lidRotationStrength;
                 lidObject.AddComponent<DestroyOnTimer>().duration = 10f;
