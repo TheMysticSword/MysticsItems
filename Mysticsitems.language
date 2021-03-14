@@ -51,6 +51,10 @@
     "ITEM_MYSTICSITEMS_EXTRASHRINEUSE_DESC": "All Shrines can be used <style=cIsUtility>+1 <style=cStack>(+1 per stack)</style></style> more time.",
     "ITEM_MYSTICSITEMS_EXTRASHRINEUSE_LORE": "\"In the past few days, people from all over the world reported sightings of mysterious monoliths appearing for a brief period of time. The credibility of these reports is debatable, as there is no photo or video evidence of the monoliths (the reason being that \"they disappear too quickly\"), however, it's important to notice that each report happened on an individual day. Scientists are debating: is the monolith a sentient entity? Could this be the confirmation of the existence of parallel universes? Or is it just a hoax?\"\n- News report",
 
+    "ITEM_MYSTICSITEMS_COMMANDOREVOLVERDRUM_NAME": "Revolver Drum",
+    "ITEM_MYSTICSITEMS_COMMANDOREVOLVERDRUM_PICKUP": "Chance on hit with 'Double Tap' to fire a barrage of bullets.",
+    "ITEM_MYSTICSITEMS_COMMANDOREVOLVERDRUM_DESC": "<style=cIsDamage>'Double Tap'</style> has a <style=cIsDamage>10%</style> chance on hit to fire a barrage of bullets, dealing <style=cIsDamage>6x100% <style=cStack>(+6x100% per stack)</style></style> damage.",
+
     //[TIER3]
     "ITEM_MYSTICSITEMS_VOLTMETER_NAME": "Wireless Voltmeter",
     "ITEM_MYSTICSITEMS_VOLTMETER_PICKUP": "Reflect taken damage to nearby enemies while shield is active.",
@@ -191,6 +195,10 @@
     "ITEM_MYSTICSITEMS_EXTRASHRINEUSE_PICKUP": "Все святилища можно использовать ещё раз.",
     "ITEM_MYSTICSITEMS_EXTRASHRINEUSE_DESC": "Все святилища можно использовать <style=cIsUtility>+1 <style=cStack>(+1 за шт.)</style></style> раз.",
     "ITEM_MYSTICSITEMS_EXTRASHRINEUSE_LORE": "\"Последние несколько дней люди со всего мира сообщают о появлении таинственных монолитов на небольшой отрезок времени. Достоверность этих сообщений довольно спорна, так как нет никаких фото- или видеодоказательств существования монолитов (причиной тому является то, что \"они слишком быстро исчезают\"), однако, стоит заметить, что каждое сообщение о монолите произошло в отдельный день. Учёные спорят: монолит - это разумное существо? Может ли это быть доказательством существования параллельных вселенных? Или это всего лишь розыгрыш?\"\n- Новостной репортаж",
+
+    "ITEM_MYSTICSITEMS_COMMANDOREVOLVERDRUM_NAME": "Барабан револьвера",
+    "ITEM_MYSTICSITEMS_COMMANDOREVOLVERDRUM_PICKUP": "Шанс при попадании 'Двойным выстрелом' выстрелить очередью пуль.",
+    "ITEM_MYSTICSITEMS_COMMANDOREVOLVERDRUM_DESC": "<style=cIsDamage>'Двойной выстрел'</style> имеет <style=cIsDamage>10%</style> шанс при попадании выстрелить очередью пуль, нанося <style=cIsDamage>6x100% <style=cStack>(+6x100% за шт.)</style></style> урона.",
 
     //[TIER3]
     "ITEM_MYSTICSITEMS_VOLTMETER_NAME": "Беспроводной вольтметр",
