@@ -73,8 +73,11 @@ namespace MysticsItems.Items
 							if (inventory && inventory.GetItemCount(itemIndex) > 0)
 							{
 								damageCoefficient += (1f - 1f / (1f + stackDamageCoefficient * (inventory.GetItemCount(itemIndex) - 1))) * (maxDamageCoefficient - baseDamageCoefficient);
+								return;
 							}
 						}
+						Object.Destroy(this);
+						return;
 					}
 					return;
 				}
