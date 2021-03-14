@@ -422,9 +422,6 @@ namespace MysticsItems.Items
                 if (!NetworkServer.active) return;
 
                 drops.Clear();
-                int leftoverDrops = 0;
-                List<string> eligibleBodyNames = new List<string>();
-                List<WeightedSelection<List<PickupIndex>>> dropSelectors = new List<WeightedSelection<List<PickupIndex>>>();
 
                 // Get drops for current characters
                 foreach (PlayerCharacterMasterController playerCharacterMasterController in PlayerCharacterMasterController.instances)
@@ -448,33 +445,24 @@ namespace MysticsItems.Items
                                 list = itemsForThisChar.FindAll(x => ItemCatalog.GetItemDef(x.itemIndex).tier == ItemTier.Tier3).ConvertAll(x => PickupCatalog.FindPickupIndex(x.itemIndex));
                                 if (list.Count > 0) dropSelector.AddChoice(list, tier3Chance);
 
-                                dropSelectors.Add(dropSelector);
-
                                 for (var i = 0; i < dropsPerPlayer; i++)
                                 {
                                     drops.Add(rng.NextElementUniform(dropSelector.Evaluate(rng.nextNormalizedFloat)));
                                 }
-                                eligibleBodyNames.Add(bodyName);
                             }
-                            else // If there are no character items for this character, don't add any drops yet
+                            else // If there are no character items for this character, then drop scrap
                             {
-                                leftoverDrops++;
+                                WeightedSelection<PickupIndex> dropSelector = new WeightedSelection<PickupIndex>();
+                                dropSelector.AddChoice(PickupCatalog.FindPickupIndex(ItemIndex.ScrapWhite), tier1Chance);
+                                dropSelector.AddChoice(PickupCatalog.FindPickupIndex(ItemIndex.ScrapGreen), tier2Chance);
+                                dropSelector.AddChoice(PickupCatalog.FindPickupIndex(ItemIndex.ScrapRed), tier3Chance);
+
+                                for (var i = 0; i < dropsPerPlayer; i++)
+                                {
+                                    drops.Add(dropSelector.Evaluate(rng.nextNormalizedFloat));
+                                }
                             }
                         }
-                    }
-                }
-
-                // If there were no character items for characters, drop more items for those characters who do have character items for them
-                for (var i = 0; i < leftoverDrops; i++)
-                {
-                    if (eligibleBodyNames.Count > 0)
-                    {
-                        WeightedSelection<List<PickupIndex>> dropSelector = rng.NextElementUniform(dropSelectors);
-                        for (var j = 0; j < dropsPerPlayer; j++) drops.Add(rng.NextElementUniform(dropSelector.Evaluate(rng.nextNormalizedFloat)));
-                    }
-                    else // If, somehow, the chest dropped with no characters having character items for them, drop random items
-                    {
-                        for (var j = 0; j < dropsPerPlayer; j++) drops.Add(rng.NextElementUniform(Run.instance.availableTier1DropList));
                     }
                 }
             }
