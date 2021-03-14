@@ -24,6 +24,10 @@
     "ITEM_MYSTICSITEMS_BACKARMOR_PICKUP": "Less damage from attacks from behind.",
     "ITEM_MYSTICSITEMS_BACKARMOR_DESC": "Increase armor by <style=cIsUtility>5 <style=cStack>(+5 per stack)</style></style> against attacks from behind.",
 
+    "ITEM_MYSTICSITEMS_ARTIFICERNANOBOTS_NAME": "Proximity Nanobots",
+    "ITEM_MYSTICSITEMS_ARTIFICERNANOBOTS_PICKUP": "Bolts deal a little bit of damage to nearby enemies if you miss.",
+    "ITEM_MYSTICSITEMS_ARTIFICERNANOBOTS_DESC": "<style=cIsDamage>Bolts</style> deal <style=cIsDamage>20% <style=cStack>(+20% per stack)</style></style> of the bolt's damage to nearby enemies if they miss.",
+
     //[TIER2]
     "ITEM_MYSTICSITEMS_COFFEEBOOSTONITEMPICKUP_NAME": "Cup of Expresso",
     "ITEM_MYSTICSITEMS_COFFEEBOOSTONITEMPICKUP_PICKUP": "Gain a boost until the next stage on item pickup. Stacks 3 times.",
@@ -168,6 +172,10 @@
     "ITEM_MYSTICSITEMS_BACKARMOR_NAME": "Позвоночный имплант",
     "ITEM_MYSTICSITEMS_BACKARMOR_PICKUP": "Меньше урона от атак по спине.",
     "ITEM_MYSTICSITEMS_BACKARMOR_DESC": "Броня увеличена на <style=cIsUtility>5 <style=cStack>(+5 за шт.)</style></style> против атак по спине.",
+
+    "ITEM_MYSTICSITEMS_ARTIFICERNANOBOTS_NAME": "Наноботы ближнего действия",
+    "ITEM_MYSTICSITEMS_ARTIFICERNANOBOTS_PICKUP": "Выстрелы наносят немного урона близжайшим врагам, если вы промахнулись.",
+    "ITEM_MYSTICSITEMS_ARTIFICERNANOBOTS_DESC": "<style=cIsDamage>Выстрелы</style> наносят <style=cIsDamage>20% <style=cStack>(+20% за шт.)</style></style> урона выстрела близжайшим врагам, если они пролетают мимо.",
 
     //[TIER2]
     "ITEM_MYSTICSITEMS_COFFEEBOOSTONITEMPICKUP_NAME": "Кружка экспрессо",
