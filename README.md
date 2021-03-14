@@ -27,8 +27,9 @@ Tuning fork SFX for Ratio Equalizer provided by Martin Chappell (https://freesou
 Other sounds made with sfxia by rxi (https://rxi.itch.io/sfxia)  
   
 ### Changelog
-#### 1.0.2:
-* Character items are no longer found in regular drop pools. Instead, an airdrop will occur every 10 minutes in a random spot, containing one random character item for each person in the lobby. If one of the characters doesn't have any character items for them, the other characters get one extra. If nobody has any items tied to their character, the airdrop doesn't occur.
+#### 1.1.0:
+* Character items are no longer found in regular drop pools. Instead, an airdrop will occur every 10 minutes in a random spot, containing one random character item for each person in the lobby. If one of the characters doesn't have any character items for them, scrap is dropped. If nobody has any items tied to their character, the airdrop doesn't occur.
+* Added one new character item for Commando and Artificer
 * Donut:
     * Fractional Healing: ~~25% (+5% per stack)~~ ⇒ 10% (+10% per stack)
 * Treasure Map:
@@ -36,13 +37,10 @@ Other sounds made with sfxia by rxi (https://rxi.itch.io/sfxia)
     * Changed function: now grants $100 gold after standing in the zone for 60 seconds
 * Scratch Ticket;
     * Reward: ~~$40 (+$10 per stack)~~ ⇒ $30 (+$20 per stack)
-* Tactical Scope:
-    * Falloff Reduction: ~~5m (+5m per stack)~~ ⇒ 10m (+10m per stack)
 * Nuclear Accelerator:
     * Changed function: now increases damage by 1% for each 2.5% movement speed increase you have
 * Contraband Gunpowder:
     * Damage: ~~350% (+80% per stack)~~ ⇒ 200% (+150% per stack)
-    * Radius: ~~8m (+1.5m per stack)~~ ⇒ 10m (+1.5m per stack)
     * Reduced visual explosion intensity
 * Thought Processor:
     * Cooldown Reduction: ~~12% (+2% per stack)~~ ⇒ 10% (+5% per stack)
@@ -54,7 +52,7 @@ Other sounds made with sfxia by rxi (https://rxi.itch.io/sfxia)
 * Banned Wireless Voltmeter from Mithrix
 * The console will now print an error on mod load if one of the character stat hooks fails to activate for easier detection of mod incompatibilities
 * Reduced the amount of little gunpowder particles from Contraband Gunpowder pickups and disabled their collision with the world
-* Renamed the Hexahedral Monolith to Mysterious Monolith
+* Renamed Hexahedral Monolith to Mysterious Monolith
 * Fixed TILER2 incompatibility
 * Fixed CrystalWorldRender error
 * Fixed Treasure Map zone being visible even when nobody has the item
