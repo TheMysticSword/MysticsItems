@@ -335,7 +335,7 @@ namespace MysticsItems.Items
                             ModelSkinController modelSkinController = body.GetComponentInChildren<ModelSkinController>();
                             if (modelSkinController)
                             {
-                                Material mat = modelSkinController.skins[skinIndex].rendererInfos[0].defaultMaterial;
+                                Material mat = GetBestMaterial(modelSkinController.skins[skinIndex].rendererInfos.ToList());
                                 meshRenderer.material.shader = mat.shader;
                                 meshRenderer.material.CopyPropertiesFromMaterial(mat);
 
@@ -348,6 +348,18 @@ namespace MysticsItems.Items
                         }
                     }
                 }
+            }
+
+            public static Material GetBestMaterial(List<CharacterModel.RendererInfo> rendererInfos)
+            {
+                rendererInfos.Sort((x, y) => {
+                    Shader shaderX = x.defaultMaterial.shader;
+                    Shader shaderY = y.defaultMaterial.shader;
+                    if (shaderX == Main.HopooShaderToMaterial.Standard.shader && shaderY != Main.HopooShaderToMaterial.Standard.shader) return -1;
+                    if (shaderX.name.StartsWith("Hopoo Games/FX/") && !shaderY.name.StartsWith("Hopoo Games/FX/")) return 1;
+                    return 0;
+                });
+                return rendererInfos.First().defaultMaterial;
             }
         }
 
