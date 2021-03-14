@@ -139,10 +139,14 @@ namespace MysticsItems.Equipment
         {
             MicrophoneSoundwaveLauncher component = equipmentSlot.GetComponent<MicrophoneSoundwaveLauncher>();
             if (!component) component = equipmentSlot.gameObject.AddComponent<MicrophoneSoundwaveLauncher>();
-            Util.PlaySound("MysticsItems_Play_item_use_microphone", equipmentSlot.characterBody.gameObject);
             component.ammo += 3;
             component.aimRay = GetAimRay(equipmentSlot);
             return true;
+        }
+
+        public override void OnUseClient(EquipmentSlot equipmentSlot)
+        {
+            Util.PlaySound("MysticsItems_Play_item_use_microphone", equipmentSlot.characterBody.gameObject);
         }
 
         public class MicrophoneSoundwaveLauncher : MonoBehaviour

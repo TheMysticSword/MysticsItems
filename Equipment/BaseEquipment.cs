@@ -30,17 +30,6 @@ namespace MysticsItems.Equipment
             equipmentIndex = ItemAPI.Add(new CustomEquipment(equipmentDef, itemDisplayRuleDict));
             registeredEquipment.Add(GetType(), this);
             OnAdd();
-            On.RoR2.EquipmentSlot.PerformEquipmentAction += (orig, self, equipmentIndex2) =>
-            {
-                if (NetworkServer.active)
-                {
-                    if (equipmentIndex2 == equipmentIndex)
-                    {
-                        return OnUse(self);
-                    }
-                }
-                return orig(self, equipmentIndex2);
-            };
         }
 
         public override void SetAssets(string assetName)
@@ -77,12 +66,43 @@ namespace MysticsItems.Equipment
 
         public virtual bool OnUse(EquipmentSlot equipmentSlot) { return false; }
 
+        public virtual void OnUseClient(EquipmentSlot equipmentSlot) { }
+
         public static new void Init()
         {
-            On.RoR2.EquipmentSlot.Awake += (orig, self) =>
+            On.RoR2.EquipmentSlot.PerformEquipmentAction += (orig, self, equipmentIndex2) =>
+            {
+                if (NetworkServer.active)
+                {
+                    foreach (BaseEquipment equipment in registeredEquipment.Values)
+                    {
+                        if (equipmentIndex2 == equipment.equipmentIndex)
+                        {
+                            return equipment.OnUse(self);
+                        }
+                    }
+                }
+                return orig(self, equipmentIndex2);
+            };
+
+            On.RoR2.EquipmentSlot.RpcOnClientEquipmentActivationRecieved += (orig, self) =>
             {
                 orig(self);
-                self.gameObject.AddComponent<CurrentTarget>();
+                EquipmentIndex equipmentIndex2 = self.equipmentIndex;
+                foreach (BaseEquipment equipment in registeredEquipment.Values)
+                {
+                    if (equipmentIndex2 == equipment.equipmentIndex)
+                    {
+                        equipment.OnUseClient(self);
+                    }
+                }
+            };
+
+            On.RoR2.EquipmentSlot.FixedUpdate += (orig, self) =>
+            {
+                orig(self);
+                CurrentTarget currentTarget = self.GetComponent<CurrentTarget>();
+                if (!currentTarget) self.gameObject.AddComponent<CurrentTarget>();
             };
         }
 
