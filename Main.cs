@@ -239,6 +239,8 @@ namespace MysticsItems
         public static event System.Action<DamageInfo, GenericCharacterInfo> BeforeTakeDamage;
         public static event System.Action<DamageInfo, GenericCharacterInfo> OnTakeDamage;
 
+        public static List<GameObject> modifiedPrefabs = new List<GameObject>(); // Add to this list when modifying a base game prefab to keep Unity from destroying modified prefabs from cache
+
         public static class Overlays
         {
             public struct OverlayInfo
