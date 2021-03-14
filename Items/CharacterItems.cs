@@ -350,6 +350,9 @@ namespace MysticsItems.Items
             public float dropStrengthUpward = 20f;
             public float dropStrengthForward = 4f;
             public float dropTransformStepRotation = 0f;
+            public float tier1Chance = 0.6f;
+            public float tier2Chance = 0.3f;
+            public float tier3Chance = 0.1f;
 
             public int dropsPerPlayer = 1;
 
@@ -412,6 +415,7 @@ namespace MysticsItems.Items
                 drops.Clear();
                 int leftoverDrops = 0;
                 List<string> eligibleBodyNames = new List<string>();
+                List<WeightedSelection<List<PickupIndex>>> dropSelectors = new List<WeightedSelection<List<PickupIndex>>>();
 
                 // Get drops for current characters
                 foreach (PlayerCharacterMasterController playerCharacterMasterController in PlayerCharacterMasterController.instances)
@@ -426,7 +430,21 @@ namespace MysticsItems.Items
                             List<MysticsItemsCharacterItem> itemsForThisChar = characterItems.FindAll(x => x.bodyName == bodyName);
                             if (itemsForThisChar.Count > 0)
                             {
-                                for (var i = 0; i < dropsPerPlayer; i++) drops.Add(PickupCatalog.FindPickupIndex(rng.NextElementUniform(itemsForThisChar).itemIndex));
+                                WeightedSelection<List<PickupIndex>> dropSelector = new WeightedSelection<List<PickupIndex>>();
+                                List<PickupIndex> list;
+                                list = itemsForThisChar.FindAll(x => ItemCatalog.GetItemDef(x.itemIndex).tier == ItemTier.Tier1).ConvertAll(x => PickupCatalog.FindPickupIndex(x.itemIndex));
+                                if (list.Count > 0) dropSelector.AddChoice(list, tier1Chance);
+                                list = itemsForThisChar.FindAll(x => ItemCatalog.GetItemDef(x.itemIndex).tier == ItemTier.Tier2).ConvertAll(x => PickupCatalog.FindPickupIndex(x.itemIndex));
+                                if (list.Count > 0) dropSelector.AddChoice(list, tier2Chance);
+                                list = itemsForThisChar.FindAll(x => ItemCatalog.GetItemDef(x.itemIndex).tier == ItemTier.Tier3).ConvertAll(x => PickupCatalog.FindPickupIndex(x.itemIndex));
+                                if (list.Count > 0) dropSelector.AddChoice(list, tier3Chance);
+
+                                dropSelectors.Add(dropSelector);
+
+                                for (var i = 0; i < dropsPerPlayer; i++)
+                                {
+                                    drops.Add(rng.NextElementUniform(dropSelector.Evaluate(rng.nextNormalizedFloat)));
+                                }
                                 eligibleBodyNames.Add(bodyName);
                             }
                             else // If there are no character items for this character, don't add any drops yet
@@ -442,9 +460,8 @@ namespace MysticsItems.Items
                 {
                     if (eligibleBodyNames.Count > 0)
                     {
-                        string bodyName = eligibleBodyNames.ElementAt(Random.Range(0, eligibleBodyNames.Count));
-                        List<MysticsItemsCharacterItem> itemsForThisChar = characterItems.FindAll(x => x.bodyName == bodyName);
-                        for (var j = 0; j < dropsPerPlayer; j++) drops.Add(PickupCatalog.FindPickupIndex(rng.NextElementUniform(itemsForThisChar).itemIndex));
+                        WeightedSelection<List<PickupIndex>> dropSelector = rng.NextElementUniform(dropSelectors);
+                        for (var j = 0; j < dropsPerPlayer; j++) drops.Add(rng.NextElementUniform(dropSelector.Evaluate(rng.nextNormalizedFloat)));
                     }
                     else // If, somehow, the chest dropped with no characters having character items for them, drop random items
                     {
