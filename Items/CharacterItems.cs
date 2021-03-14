@@ -300,6 +300,9 @@ namespace MysticsItems.Items
                 CharacterInfo characterInfo = FindCharacterInfo(bodyName);
                 Outlines.MysticsItemsOutline outline = gameObject.AddComponent<Outlines.MysticsItemsOutline>();
                 outline.offset = 1f;
+                outline.targetRenderer = GetComponentInChildren<Renderer>();
+                Vector3 lossyScale = outline.targetRenderer.gameObject.transform.lossyScale;
+                outline.thickness = 100f / ((lossyScale.x + lossyScale.y + lossyScale.z) / 3f);
                 outline.color = characterInfo.color;
                 outline.isOn = false;
             }
