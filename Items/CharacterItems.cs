@@ -7,6 +7,8 @@ using UnityEngine.Events;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using R2API.Networking.Interfaces;
+using R2API.Networking;
 
 namespace MysticsItems.Items
 {
@@ -260,6 +262,8 @@ namespace MysticsItems.Items
                 if (NetworkServer.active) self.gameObject.AddComponent<MysticsItemsCharacterItemChestSpawningController>();
             };
 
+            NetworkingAPI.RegisterMessageType<MysticsItemsCharacterItemChest.SyncOpen>();
+
             openEffect = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/Effects/OmniEffect/OmniExplosionVFXQuick"), Main.TokenPrefix + "OmiExplosionVFXExplosivePickups", false);
             Object.Destroy(openEffect.transform.Find("ScaledHitsparks 1").gameObject);
             Object.Destroy(openEffect.transform.Find("UnscaledHitsparks 1").gameObject);
@@ -391,7 +395,7 @@ namespace MysticsItems.Items
 
             public void FixedUpdate()
             {
-                if (dropping)
+                if (NetworkServer.active && dropping)
                 {
                     dropAge += Time.fixedDeltaTime;
                     if (dropAge >= dropDelay)
@@ -477,7 +481,6 @@ namespace MysticsItems.Items
 
             public void Open()
             {
-                if (!NetworkServer.active) return;
                 Util.PlaySound("Play_UI_chest_unlock", gameObject);
                 dropping = true;
                 dropTransformStepRotation = 360f / (float)drops.Count;
@@ -488,16 +491,61 @@ namespace MysticsItems.Items
                 combinedObject.GetComponent<Renderer>().enabled = false;
                 baseObject.SetActive(true);
                 lidObject.SetActive(true);
-                EffectManager.SpawnEffect(openEffect, new EffectData
+                if (NetworkServer.active)
                 {
-                    origin = lidObject.transform.position,
-                    scale = 2f
-                }, true);
+                    EffectManager.SpawnEffect(openEffect, new EffectData
+                    {
+                        origin = lidObject.transform.position,
+                        scale = 2f
+                    }, true);
+                }
                 Rigidbody rigidbody = lidObject.GetComponent<Rigidbody>();
                 Vector3 aimLid = Util.ApplySpread(transform.up, -lidThrowSpread, lidThrowSpread, 1f, 1f);
                 rigidbody.AddForce(aimLid * lidThrowStrength);
                 rigidbody.angularVelocity += Util.QuaternionSafeLookRotation(aimLid).eulerAngles * lidRotationStrength;
                 lidObject.AddComponent<DestroyOnTimer>().duration = 10f;
+                if (NetworkServer.active)
+                {
+                    new SyncOpen(gameObject.GetComponent<NetworkIdentity>().netId).Send(NetworkDestination.Clients);
+                }
+            }
+
+            public class SyncOpen : INetMessage
+            {
+                NetworkInstanceId objID;
+
+                public SyncOpen()
+                {
+                }
+
+                public SyncOpen(NetworkInstanceId objID)
+                {
+                    this.objID = objID;
+                }
+
+                public void Deserialize(NetworkReader reader)
+                {
+                    objID = reader.ReadNetworkId();
+                }
+
+                public void OnReceived()
+                {
+                    if (NetworkServer.active) return;
+                    GameObject obj = Util.FindNetworkObject(objID);
+                    if (obj)
+                    {
+                        MysticsItemsCharacterItemChest component = obj.GetComponent<MysticsItemsCharacterItemChest>();
+                        if (component)
+                        {
+                            component.Open();
+                        }
+                    }
+                }
+
+                public void Serialize(NetworkWriter writer)
+                {
+                    writer.Write(objID);
+                }
             }
         }
 
@@ -525,9 +573,9 @@ namespace MysticsItems.Items
                     if (spawnTimer <= 0f)
                     {
                         spawned = true;
+                        Util.PlaySound("Play_captain_shift_impact", gameObject);
                         if (NetworkServer.active)
                         {
-                            Util.PlaySound("Play_captain_shift_impact", gameObject);
                             EffectManager.SimpleEffect(Resources.Load<GameObject>("Prefabs/Effects/ImpactEffects/CaptainAirstrikeImpact1"), transform.position, Quaternion.identity, true);
                             
                             RaycastHit raycastHit;
