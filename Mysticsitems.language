@@ -14,7 +14,7 @@
 
     "ITEM_MYSTICSITEMS_COMMANDOSCOPE_NAME": "Tactical Scope",
     "ITEM_MYSTICSITEMS_COMMANDOSCOPE_PICKUP": "Reduce damage falloff of 'Double Tap'.",
-    "ITEM_MYSTICSITEMS_COMMANDOSCOPE_DESC": "<style=cIsDamage>'Double Tap'</style> effective range increased by <style=cIsDamage>10m <style=cStack>(+10m per stack)</style></style>.",
+    "ITEM_MYSTICSITEMS_COMMANDOSCOPE_DESC": "<style=cIsDamage>'Double Tap'</style> effective range increased by <style=cIsDamage>5m <style=cStack>(+5m per stack)</style></style>.",
 
     "ITEM_MYSTICSITEMS_TREASUREMAP_NAME": "Treasure Map",
     "ITEM_MYSTICSITEMS_TREASUREMAP_PICKUP": "Gain access to a treasure spot that grants gold after excavation.",
@@ -155,7 +155,7 @@
 
     "ITEM_MYSTICSITEMS_COMMANDOSCOPE_NAME": "Тактический прицел",
     "ITEM_MYSTICSITEMS_COMMANDOSCOPE_PICKUP": "Снижает потерю урона 'Двойного выстрела' от дальности.",
-    "ITEM_MYSTICSITEMS_COMMANDOSCOPE_DESC": "Эффективная дальность <style=cIsDamage>'Двойного выстрела'</style> увеличена на <style=cIsDamage>10м <style=cStack>(+10м за шт.)</style></style>.",
+    "ITEM_MYSTICSITEMS_COMMANDOSCOPE_DESC": "Эффективная дальность <style=cIsDamage>'Двойного выстрела'</style> увеличена на <style=cIsDamage>5м <style=cStack>(+5м за шт.)</style></style>.",
 
     "ITEM_MYSTICSITEMS_TREASUREMAP_NAME": "Карта сокровищ",
     "ITEM_MYSTICSITEMS_TREASUREMAP_PICKUP": "Получите доступ к зоне с сокровищем, которая даёт золото после раскопки.",
