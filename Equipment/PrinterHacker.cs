@@ -171,13 +171,11 @@ namespace MysticsItems.Equipment
             public void OnEnable()
             {
                 InstanceTracker.Add<MysticsItemsDuplicatorLocator>(this);
-                Debug.Log("printer added");
             }
 
             public void OnDisable()
             {
                 InstanceTracker.Remove<MysticsItemsDuplicatorLocator>(this);
-                Debug.Log("printer removed");
             }
         }
     }
