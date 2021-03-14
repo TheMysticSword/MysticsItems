@@ -27,6 +27,10 @@ Tuning fork SFX for Ratio Equalizer provided by Martin Chappell (https://freesou
 Other sounds made with sfxia by rxi (https://rxi.itch.io/sfxia)  
   
 ### Changelog
+#### 1.1.1:
+* Fixed Wirehack Wrench and Crystallized World not working without DebugToolkit
+* Fixed Proximity Nanobots triggering even if you don't have the item in your inventory
+* Fixed Crystallized World missing on Primordial Teleporter
 #### 1.1.0:
 * Character items are no longer found in regular drop pools. Instead, an airdrop will occur every 10 minutes in a random spot, containing one random character item for each person in the lobby. If one of the characters doesn't have any character items for them, scrap is dropped. If nobody has any items tied to their character, the airdrop doesn't occur.
 * Added one new character item for Commando and Artificer
