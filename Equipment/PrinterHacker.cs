@@ -51,10 +51,16 @@ namespace MysticsItems.Equipment
             crosshairPrefab.GetComponentInChildren<ObjectScaleCurve>().overallCurve.AddKey(0.5f, 1f);
             crosshairPrefab.GetComponentInChildren<ObjectScaleCurve>().overallCurve.AddKey(1f, 1f);
 
-            Resources.Load<GameObject>("Prefabs/NetworkedObjects/Chest/Duplicator").GetComponentInChildren<EntityLocator>().gameObject.AddComponent<DuplicatorLocator>();
-            Resources.Load<GameObject>("Prefabs/NetworkedObjects/Chest/DuplicatorLarge").GetComponentInChildren<EntityLocator>().gameObject.AddComponent<DuplicatorLocator>();
-            Resources.Load<GameObject>("Prefabs/NetworkedObjects/Chest/DuplicatorMilitary").GetComponentInChildren<EntityLocator>().gameObject.AddComponent<DuplicatorLocator>();
-            Resources.Load<GameObject>("Prefabs/NetworkedObjects/Chest/DuplicatorWild").GetComponentInChildren<EntityLocator>().gameObject.AddComponent<DuplicatorLocator>();
+            SetupDuplicator(Resources.Load<GameObject>("Prefabs/NetworkedObjects/Chest/Duplicator"));
+            SetupDuplicator(Resources.Load<GameObject>("Prefabs/NetworkedObjects/Chest/DuplicatorLarge"));
+            SetupDuplicator(Resources.Load<GameObject>("Prefabs/NetworkedObjects/Chest/DuplicatorMilitary"));
+            SetupDuplicator(Resources.Load<GameObject>("Prefabs/NetworkedObjects/Chest/DuplicatorWild"));
+        }
+
+        public static void SetupDuplicator(GameObject gameObject)
+        {
+            Main.modifiedPrefabs.Add(gameObject);
+            gameObject.GetComponentInChildren<EntityLocator>().gameObject.AddComponent<MysticsItemsDuplicatorLocator>();
         }
 
         public override void OnAdd()
@@ -69,7 +75,7 @@ namespace MysticsItems.Equipment
                     {
                         DuplicatorSearch duplicatorSearch = new DuplicatorSearch();
                         float num;
-                        Ray aimRay = CameraRigController.ModifyAimRayIfApplicable(self.InvokeMethod<Ray>("GetAimRay"), self.gameObject, out num);
+                        Ray aimRay = CameraRigController.ModifyAimRayIfApplicable(GetAimRay(self), self.gameObject, out num);
                         duplicatorSearch.searchOrigin = aimRay.origin;
                         duplicatorSearch.searchDirection = aimRay.direction;
                         duplicatorSearch.minAngleFilter = 0f;
@@ -79,7 +85,7 @@ namespace MysticsItems.Equipment
                         duplicatorSearch.filterByDistinctEntity = false;
                         duplicatorSearch.filterByLoS = true;
                         duplicatorSearch.sortMode = SortMode.DistanceAndAngle;
-                        DuplicatorLocator duplicator = duplicatorSearch.SearchCandidatesForSingleTarget(InstanceTracker.GetInstancesList<DuplicatorLocator>());
+                        MysticsItemsDuplicatorLocator duplicator = duplicatorSearch.SearchCandidatesForSingleTarget(InstanceTracker.GetInstancesList<MysticsItemsDuplicatorLocator>());
                         if (duplicator)
                         {
                             targetInfo.obj = duplicator.gameObject;
@@ -103,10 +109,10 @@ namespace MysticsItems.Equipment
             {
                 if (targetInfo.obj)
                 {
-                    PurchaseInteraction purchaseInteraction = targetInfo.obj.GetComponent<DuplicatorLocator>().purchaseInteraction;
+                    PurchaseInteraction purchaseInteraction = targetInfo.obj.GetComponent<MysticsItemsDuplicatorLocator>().purchaseInteraction;
                     purchaseInteraction.SetAvailable(false);
                     purchaseInteraction.lockGameObject = null;
-                    ShopTerminalBehavior shopTerminalBehavior = targetInfo.obj.GetComponent<DuplicatorLocator>().shopTerminalBehavior;
+                    ShopTerminalBehavior shopTerminalBehavior = targetInfo.obj.GetComponent<MysticsItemsDuplicatorLocator>().shopTerminalBehavior;
                     EffectManager.SimpleEffect(Resources.Load<GameObject>("Prefabs/Effects/OmniEffect/OmniRecycleEffect"), shopTerminalBehavior.pickupDisplay.transform.position, Quaternion.identity, true);
                     shopTerminalBehavior.DropPickup();
                     shopTerminalBehavior.SetNoPickup();
@@ -117,7 +123,7 @@ namespace MysticsItems.Equipment
             return false;
         }
 
-        public class DuplicatorSearch : BaseDirectionalSearch<DuplicatorLocator, DuplicatorSearchSelector, DuplicatorSearchFilter>
+        public class DuplicatorSearch : BaseDirectionalSearch<MysticsItemsDuplicatorLocator, DuplicatorSearchSelector, DuplicatorSearchFilter>
         {
             public DuplicatorSearch() : base(default(DuplicatorSearchSelector), default(DuplicatorSearchFilter))
             {
@@ -128,28 +134,28 @@ namespace MysticsItems.Equipment
             }
         }
 
-        public struct DuplicatorSearchSelector : IGenericWorldSearchSelector<DuplicatorLocator>
+        public struct DuplicatorSearchSelector : IGenericWorldSearchSelector<MysticsItemsDuplicatorLocator>
         {
-            public Transform GetTransform(DuplicatorLocator source)
+            public Transform GetTransform(MysticsItemsDuplicatorLocator source)
             {
                 return source.transform;
             }
 
-            public GameObject GetRootObject(DuplicatorLocator source)
+            public GameObject GetRootObject(MysticsItemsDuplicatorLocator source)
             {
                 return source.entity.gameObject;
             }
         }
 
-        public struct DuplicatorSearchFilter : IGenericDirectionalSearchFilter<DuplicatorLocator>
+        public struct DuplicatorSearchFilter : IGenericDirectionalSearchFilter<MysticsItemsDuplicatorLocator>
         {
-            public bool PassesFilter(DuplicatorLocator source)
+            public bool PassesFilter(MysticsItemsDuplicatorLocator source)
             {
                 return source.purchaseInteraction.available && source.shopTerminalBehavior.CurrentPickupIndex() != PickupIndex.none;
             }
         }
 
-        public class DuplicatorLocator : MonoBehaviour
+        public class MysticsItemsDuplicatorLocator : MonoBehaviour
         {
             public GameObject entity;
             public PurchaseInteraction purchaseInteraction;
@@ -164,12 +170,14 @@ namespace MysticsItems.Equipment
 
             public void OnEnable()
             {
-                InstanceTracker.Add<DuplicatorLocator>(this);
+                InstanceTracker.Add<MysticsItemsDuplicatorLocator>(this);
+                Debug.Log("printer added");
             }
 
             public void OnDisable()
             {
-                InstanceTracker.Remove<DuplicatorLocator>(this);
+                InstanceTracker.Remove<MysticsItemsDuplicatorLocator>(this);
+                Debug.Log("printer removed");
             }
         }
     }

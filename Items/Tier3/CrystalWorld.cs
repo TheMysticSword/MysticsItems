@@ -167,11 +167,13 @@ namespace MysticsItems.Items
         public override void OnAdd()
         {
             GameObject teleporter = Resources.Load<GameObject>("Prefabs/NetworkedObjects/Teleporters/Teleporter1");
-            TeleporterEffect teleporterEffect = teleporter.AddComponent<TeleporterEffect>();
+            Main.modifiedPrefabs.Add(teleporter);
+            MysticsItemsCrystalWorldTeleporterEffect teleporterEffect = teleporter.AddComponent<MysticsItemsCrystalWorldTeleporterEffect>();
+            teleporterEffect.offset = new Vector3(0f, 3f, 0f);
             teleporterEffect.offset = new Vector3(0f, 3f, 0f);
         }
 
-        public class TeleporterEffect : MonoBehaviour
+        public class MysticsItemsCrystalWorldTeleporterEffect : MonoBehaviour
         {
             public TeleporterInteraction teleporterInteraction;
             public GameObject model;
