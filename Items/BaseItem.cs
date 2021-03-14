@@ -44,16 +44,24 @@ namespace MysticsItems.Items
             model = Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/" + assetName + "/Model.prefab");
             model.name = "mdl" + itemDef.name;
 
-            PrepareModel();
+            bool followerModelSeparate = Main.AssetBundle.Contains("Assets/Items/" + assetName + "/FollowerModel.prefab");
+            if (followerModelSeparate)
+            {
+                followerModel = Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/" + assetName + "/FollowerModel.prefab");
+                followerModel.name = "mdl" + itemDef.name + "Follower";
+            }
+
+            PrepareModel(model);
+            if (followerModelSeparate) PrepareModel(followerModel);
 
             // Separate the follower model from the pickup model for adding different visual effects to followers
-            CopyModelToFollower();
+            if (!followerModelSeparate) CopyModelToFollower();
 
             itemDef.pickupModelPath = Main.AssetPrefix + ":Assets/Items/" + assetName + "/Model.prefab";
             itemDef.pickupIconPath = Main.AssetPrefix + ":Assets/Items/" + assetName + "/Icon.png";
         }
 
-        public void PrepareModel()
+        public void PrepareModel(GameObject model)
         {
             model.AddComponent<MysticsItemsItemFollowerVisualScaling>();
 
@@ -127,6 +135,11 @@ namespace MysticsItems.Items
         public Material GetModelMaterial()
         {
             return model.GetComponentInChildren<MeshRenderer>().material;
+        }
+
+        public Material GetFollowerModelMaterial()
+        {
+            return followerModel.GetComponentInChildren<MeshRenderer>().material;
         }
 
         public void DefaultDisplayRule(string childName, Vector3 localPos, Vector3 localAngles, Vector3 localScale)

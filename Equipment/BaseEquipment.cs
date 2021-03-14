@@ -48,10 +48,18 @@ namespace MysticsItems.Equipment
             model = Main.AssetBundle.LoadAsset<GameObject>("Assets/Equipment/" + assetName + "/Model.prefab");
             model.name = "mdl" + equipmentDef.name;
 
-            PrepareModel();
+            bool followerModelSeparate = Main.AssetBundle.Contains("Assets/Equipment/" + assetName + "/FollowerModel.prefab");
+            if (followerModelSeparate)
+            {
+                followerModel = Main.AssetBundle.LoadAsset<GameObject>("Assets/Equipment/" + assetName + "/FollowerModel.prefab");
+                followerModel.name = "mdl" + equipmentDef.name + "Follower";
+            }
+
+            PrepareModel(model);
+            if (followerModelSeparate) PrepareModel(followerModel);
 
             // Separate the follower model from the pickup model for adding different visual effects to followers
-            CopyModelToFollower();
+            if (!followerModelSeparate) CopyModelToFollower();
 
             equipmentDef.pickupModelPath = Main.AssetPrefix + ":Assets/Equipment/" + assetName + "/Model.prefab";
             equipmentDef.pickupIconPath = Main.AssetPrefix + ":Assets/Equipment/" + assetName + "/Icon.png";
