@@ -293,7 +293,7 @@
     "COST_MYSTICSITEMS_RIFTLENSDEBUFF_FORMAT": "{0} Недуг разлома",
 
     //[CUSTOM]
-    "MYSTICSITEMS_CHARACTERITEM_PICKUP_FORMAT": "Предмет игрока {0}",
+    "MYSTICSITEMS_CHARACTERITEM_PICKUP_FORMAT": "Предмет: {0}",
     "MYSTICSITEMS_CHARACTERITEMCHEST_ANNOUNCE": "<style=cWorldEvent>С воздуха был сброшен сундук с припасами!</style>"
   }
 }
