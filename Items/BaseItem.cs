@@ -18,6 +18,7 @@ namespace MysticsItems.Items
         public ItemIndex itemIndex;
         public static Dictionary<System.Type, BaseItem> registeredItems = new Dictionary<System.Type, BaseItem>();
         public static List<BaseItem> deployableBanned = new List<BaseItem>();
+        public static bool dontLoad = false;
 
         public static BaseItem GetFromType(System.Type type)
         {
@@ -33,6 +34,7 @@ namespace MysticsItems.Items
             itemDef = new ItemDef();
             PreAdd();
             itemDef.name = Main.TokenPrefix + itemDef.name;
+            if (dontLoad) return;
             itemIndex = ItemAPI.Add(new CustomItem(itemDef, itemDisplayRuleDict));
             registeredItems.Add(GetType(), this);
             OnAdd();

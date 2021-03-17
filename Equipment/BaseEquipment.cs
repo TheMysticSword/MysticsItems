@@ -27,6 +27,7 @@ namespace MysticsItems.Equipment
             equipmentDef = new EquipmentDef();
             PreAdd();
             equipmentDef.name = Main.TokenPrefix + equipmentDef.name;
+            if (dontLoad) return;
             equipmentIndex = ItemAPI.Add(new CustomEquipment(equipmentDef, itemDisplayRuleDict));
             registeredEquipment.Add(GetType(), this);
             OnAdd();
