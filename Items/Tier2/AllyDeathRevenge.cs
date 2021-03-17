@@ -62,6 +62,8 @@ namespace MysticsItems.Items
                         Inventory inventory = body2.inventory;
                         if (inventory && inventory.GetItemCount(itemIndex) > 0 && TeamComponent.GetObjectTeam(body2.gameObject) == teamIndex)
                         {
+                            playSoundObject = body2.gameObject;
+
                             float time = 15f + 5f * (inventory.GetItemCount(itemIndex) - 1);
                             float sameStageDeathTime = 2f + 0.5f * (inventory.GetItemCount(itemIndex) - 1);
                             if (body.master)
@@ -70,15 +72,16 @@ namespace MysticsItems.Items
                                 if (survivedStageCounter && survivedStageCounter.count <= 0)
                                 {
                                     time = sameStageDeathTime;
+                                    playSoundObject = null;
                                 }
                             }
                             else
                             {
                                 // Masterless bodies don't get moved to the next stage anyway, so they definitely died on the same stage
                                 time = sameStageDeathTime;
+                                playSoundObject = null;
                             }
                             body2.AddTimedBuff(buffIndex, time);
-                            playSoundObject = body2.gameObject;
                         }
                     }
                 }
