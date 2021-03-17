@@ -256,11 +256,13 @@ namespace MysticsItems.Items
             chestSpawnerSpawnCard.forbiddenFlags = RoR2.Navigation.NodeFlags.NoChestSpawn | RoR2.Navigation.NodeFlags.NoShrineSpawn;
             chestSpawnerSpawnCard.occupyPosition = true;
 
+            /*
             On.RoR2.Run.Start += (orig, self) =>
             {
                 orig(self);
                 if (NetworkServer.active) self.gameObject.AddComponent<MysticsItemsCharacterItemChestSpawningController>();
             };
+            */
 
             NetworkingAPI.RegisterMessageType<MysticsItemsCharacterItemChest.SyncOpen>();
 

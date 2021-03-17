@@ -29,6 +29,8 @@ namespace MysticsItems.Items
 			FireBarrageRevolverDrum.effectPrefab = Resources.Load<GameObject>("Prefabs/Effects/MuzzleFlashes/Muzzleflash1");
 			FireBarrageRevolverDrum.hitEffectPrefab = Resources.Load<GameObject>("Prefabs/Effects/ImpactEffects/Hitspark1");
 			FireBarrageRevolverDrum.tracerEffectPrefab = Resources.Load<GameObject>("Prefabs/Effects/Tracers/TracerCommandoDefault");
+
+			dontLoad = true;
 		}
 
         public override void OnAdd()
