@@ -66,7 +66,9 @@ namespace MysticsItems.Items
             riftChest.GetComponent<Highlight>().targetRenderer = mdlChest1.transform.Find("Cube.001").gameObject.GetComponent<SkinnedMeshRenderer>();
             //custom visuals to make it stand out:
             //new material
-            mdlChest1.transform.Find("Cube.001").GetComponent<SkinnedMeshRenderer>().material = Object.Instantiate(Resources.Load<GameObject>("Prefabs/NetworkedObjects/DamageZoneWard").transform.Find("Shrinker").Find("Totem").Find("Mesh").GetComponent<MeshRenderer>().material);
+            Material matRiftChest = Object.Instantiate(Resources.Load<GameObject>("Prefabs/NetworkedObjects/DamageZoneWard").transform.Find("Shrinker").Find("Totem").Find("Mesh").GetComponent<MeshRenderer>().material);
+            matRiftChest.SetFloat("_SplatmapOn", 0f);
+            mdlChest1.transform.Find("Cube.001").GetComponent<SkinnedMeshRenderer>().material = matRiftChest;
             //light beam
             GameObject timeCrystal = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/CharacterBodies/TimeCrystalBody"), Main.TokenPrefix + "RiftChest_TempTimeCrystal", false);
             GameObject beam = timeCrystal.transform.Find("ModelBase").Find("Mesh").Find("Beam").gameObject;
