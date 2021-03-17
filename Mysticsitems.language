@@ -40,7 +40,7 @@
 
     "ITEM_MYSTICSITEMS_ALLYDEATHREVENGE_NAME": "Relentless Vendetta",
     "ITEM_MYSTICSITEMS_ALLYDEATHREVENGE_PICKUP": "Temporarily increase attack speed and damage when an ally dies.",
-    "ITEM_MYSTICSITEMS_ALLYDEATHREVENGE_DESC": "Increase <style=cIsDamage>attack speed</style> by <style=cIsDamage>100%</style> and <style=cIsDamage>damage</style> by <style=cIsDamage>100%</style> for <style=cIsUtility>15s <style=cStack>(+5s per stack)</style></style> after a death of an ally. Effect lasts only 2 seconds if the ally died on the same stage it spawned.",
+    "ITEM_MYSTICSITEMS_ALLYDEATHREVENGE_DESC": "Increase <style=cIsDamage>attack speed</style> by <style=cIsDamage>100%</style> and <style=cIsDamage>damage</style> by <style=cIsDamage>100%</style> for <style=cIsUtility>15s <style=cStack>(+5s per stack)</style></style> after a death of an ally. Effect lasts only <style=cIsUtility>2s <style=cStack>(+0.5s per stack)</style></style> if the ally died on the same stage it spawned.",
 
     "ITEM_MYSTICSITEMS_SPOTTER_NAME": "Faulty Spotter",
     "ITEM_MYSTICSITEMS_SPOTTER_PICKUP": "Increase critical strike chance against a random enemy by 100%.",
@@ -189,7 +189,7 @@
 
     "ITEM_MYSTICSITEMS_ALLYDEATHREVENGE_NAME": "Беспощадная вендетта",
     "ITEM_MYSTICSITEMS_ALLYDEATHREVENGE_PICKUP": "Временное увеличение скорости атаки и урона после смерти союзника.",
-    "ITEM_MYSTICSITEMS_ALLYDEATHREVENGE_DESC": "Увеличивает <style=cIsDamage>скорость атаки</style> на <style=cIsDamage>100%</style> и <style=cIsDamage>урон</style> на <style=cIsDamage>100%</style> на <style=cIsUtility>15 сек. <style=cStack>(+5 сек. за шт.)</style></style> после смерти союзника. Эффект длится всего 2 секунды, если союзник умер на том же этапе, на котором он появился.",
+    "ITEM_MYSTICSITEMS_ALLYDEATHREVENGE_DESC": "Увеличивает <style=cIsDamage>скорость атаки</style> на <style=cIsDamage>100%</style> и <style=cIsDamage>урон</style> на <style=cIsDamage>100%</style> на <style=cIsUtility>15 сек. <style=cStack>(+5 сек. за шт.)</style></style> после смерти союзника. Эффект длится всего <style=cIsUtility>2 сек. <style=cStack>(+0.5 сек. за шт.)</style></style>, если союзник умер на том же этапе, на котором он появился.",
 
     "ITEM_MYSTICSITEMS_SPOTTER_NAME": "Неисправный корректировщик",
     "ITEM_MYSTICSITEMS_SPOTTER_PICKUP": "Увеличивает шанс критического удара по случайному врагу на 100%.",
