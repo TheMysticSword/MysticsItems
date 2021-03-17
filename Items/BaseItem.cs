@@ -18,7 +18,7 @@ namespace MysticsItems.Items
         public ItemIndex itemIndex;
         public static Dictionary<System.Type, BaseItem> registeredItems = new Dictionary<System.Type, BaseItem>();
         public static List<BaseItem> deployableBanned = new List<BaseItem>();
-        public static bool dontLoad = false;
+        public bool dontLoad = false;
 
         public static BaseItem GetFromType(System.Type type)
         {
