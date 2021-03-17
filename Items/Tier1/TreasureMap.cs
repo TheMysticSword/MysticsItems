@@ -78,35 +78,25 @@ namespace MysticsItems.Items
             {
                 ILCursor c = new ILCursor(il);
 
-                ILLabel after = null;
-                ILLabel ourCheck = null;
+                ILLabel label = null;
 
                 if (c.TryGotoNext(
-                    x => x.MatchLdcI4(0),
-                    x => x.MatchStloc(12)
-                ) && c.TryGotoNext(
                     x => x.MatchLdloc(12),
                     x => x.MatchLdcI4(0),
-                    x => x.MatchBle(out after)
+                    x => x.MatchBle(out label)
                 ))
                 {
-                    c.GotoLabel(after, MoveType.Before);
-                    ourCheck = c.MarkLabel();
-                    c.GotoPrev(
-                        MoveType.After,
-                        x => x.MatchLdloc(12),
-                        x => x.MatchLdcI4(0),
-                        x => x.MatchBle(out after)
-                    );
-                    c.Prev.Operand = ourCheck;
-                    c.GotoLabel(ourCheck);
+                    c.GotoLabel(label);
                     c.Emit(OpCodes.Ldloc, 11);
                     c.EmitDelegate<System.Action<Xoroshiro128Plus>>((xoroshiro128Plus) =>
                     {
-                        DirectorCore.instance.TrySpawnObject(new DirectorSpawnRequest(zoneSpawnCard, new DirectorPlacementRule
+                        if (SceneInfo.instance.countsAsStage)
                         {
-                            placementMode = DirectorPlacementRule.PlacementMode.Random
-                        }, xoroshiro128Plus));
+                            DirectorCore.instance.TrySpawnObject(new DirectorSpawnRequest(zoneSpawnCard, new DirectorPlacementRule
+                            {
+                                placementMode = DirectorPlacementRule.PlacementMode.Random
+                            }, xoroshiro128Plus));
+                        }
                     });
                 }
             };

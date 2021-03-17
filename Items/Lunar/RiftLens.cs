@@ -136,45 +136,35 @@ namespace MysticsItems.Items
             {
                 ILCursor c = new ILCursor(il);
 
-                ILLabel after = null;
-                ILLabel ourCheck = null;
+                ILLabel label = null;
 
                 if (c.TryGotoNext(
-                    x => x.MatchLdcI4(0),
-                    x => x.MatchStloc(12)
-                ) && c.TryGotoNext(
                     x => x.MatchLdloc(12),
                     x => x.MatchLdcI4(0),
-                    x => x.MatchBle(out after)
+                    x => x.MatchBle(out label)
                 ))
                 {
-                    c.GotoLabel(after, MoveType.Before);
-                    ourCheck = c.MarkLabel();
-                    c.GotoPrev(
-                        MoveType.After,
-                        x => x.MatchLdloc(12),
-                        x => x.MatchLdcI4(0),
-                        x => x.MatchBle(out after)
-                    );
-                    c.Prev.Operand = ourCheck;
-                    c.GotoLabel(ourCheck);
+                    c.GotoLabel(label);
                     c.Emit(OpCodes.Ldloc, 11);
                     c.EmitDelegate<System.Action<Xoroshiro128Plus>>((xoroshiro128Plus) =>
                     {
-                        int itemCount = 0;
-                        foreach (CharacterMaster characterMaster in CharacterMaster.readOnlyInstancesList)
-                            if (characterMaster.teamIndex == TeamIndex.Player)
-                            {
-                                itemCount += characterMaster.inventory.GetItemCount(itemIndex);
-                            }
-                        if (itemCount > 0)
+                        if (SceneInfo.instance.countsAsStage)
                         {
-                            for (int i = 0; i < itemCount; i++)
-                            {
-                                GameObject riftChest = DirectorCore.instance.TrySpawnObject(new DirectorSpawnRequest(riftChestSpawnCard, new DirectorPlacementRule
+                            int itemCount = 0;
+                            foreach (CharacterMaster characterMaster in CharacterMaster.readOnlyInstancesList)
+                                if (characterMaster.teamIndex == TeamIndex.Player)
                                 {
-                                    placementMode = DirectorPlacementRule.PlacementMode.Random
-                                }, xoroshiro128Plus));
+                                    itemCount += characterMaster.inventory.GetItemCount(itemIndex);
+                                }
+                            if (itemCount > 0)
+                            {
+                                for (int i = 0; i < itemCount; i++)
+                                {
+                                    GameObject riftChest = DirectorCore.instance.TrySpawnObject(new DirectorSpawnRequest(riftChestSpawnCard, new DirectorPlacementRule
+                                    {
+                                        placementMode = DirectorPlacementRule.PlacementMode.Random
+                                    }, xoroshiro128Plus));
+                                }
                             }
                         }
                     });
