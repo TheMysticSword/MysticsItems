@@ -1,7 +1,7 @@
 # MysticsItems
-Adds 21 new items, with plenty more to come!  
+Adds 20 new items, with plenty more to come!  
 
-![](https://i.imgur.com/qbVukcN.png)  
+![](https://i.imgur.com/JUSMjHK.png)  
 
 ![](https://i.imgur.com/WYCK8vE.gif)  
 
@@ -28,6 +28,8 @@ Tuning fork SFX for Ratio Equalizer provided by Martin Chappell (https://freesou
 Other sounds made with sfxia by rxi (https://rxi.itch.io/sfxia)  
   
 ### Changelog
+#### 1.1.3:
+* Fixed wrong info in the readme
 #### 1.1.2:
 * Treasure Map:
     * Excavation Time: ~~60s (-10s per stack)~~ ⇒ 120s (-40s per stack)
