@@ -172,7 +172,7 @@ namespace MysticsItems.Items
             public float distance = 1.5f;
             public float tilt = 30f;
             public float rotation = 0f;
-            public float rotationSpeed = 45f;
+            public float rotationSpeed = -45f;
             public bool rotate = true;
 
             public void Awake()
