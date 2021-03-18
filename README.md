@@ -5,7 +5,8 @@ Adds 21 new items, with plenty more to come!
 
 ![](https://i.imgur.com/WYCK8vE.gif)  
 
-Also features a new Supply Airdrop system - every 10 minutes, a Supply Chest will drop in a random spot, containing character-specific items that can only be picked up by the respective characters. The airdrop doesn't occur if none of the current player characters have any items tied to them, or if the current stage is a Hidden Realm or a final stage. Currently, this includes two Commando items and one Artificer item.
+### Manual install notes
+Put both `MysticsItemsPlugin.dll` and `MysticsItems.language` in the plugins folder.
 
 ### Console commands
 `mysticsitems_grantall` - grants all achievements  
@@ -16,7 +17,7 @@ Please visit the issue tracker on the mod's GitHub repository! https://github.co
 Before creating a new issue, please make sure that a similar one hasn't already been created. You can also check the Milestones tab to see the progress on the next update and what bugs have already been fixed internally.
 
 ### To-do
-* More character-specific items  
+* Character-specific items  
 * Missing item displays on characters  
 * Missing logbook lore entries  
 
@@ -27,6 +28,28 @@ Tuning fork SFX for Ratio Equalizer provided by Martin Chappell (https://freesou
 Other sounds made with sfxia by rxi (https://rxi.itch.io/sfxia)  
   
 ### Changelog
+#### 1.1.2:
+* Treasure Map:
+    * Excavation Time: ~~60s (-10s per stack)~~ ⇒ 120s (-40s per stack)
+    * Changed tier to red
+    * Now spawns a legendary chest instead of giving a gold reward
+* Spine Implant:
+    * Armor: ~~5 (+5 per stack)~~ ⇒ 10 (+10 per stack)
+* Relentless Vendetta:
+    * Buff Duration (same stage death): ~~2s~~ ⇒ 2s (+0.5s per stack)
+* Contraband Gunpowder:
+    * Damage: ~~200% (+150% per stack)~~ ⇒ 250% (+200% per stack)
+    * Radius: ~~8m (+1.5m per stack)~~ ⇒ 8m (+1.6m per stack)
+    * Powder flasks now drop on kill with 100% chance instead of dropping on hit with 7% chance
+    * Powder flasks no longer roll down the ground, and disappear after 60 seconds instead of 10
+    * Reduced explosion visuals
+* Now compatible with ItemStats
+* Nuclear Accelerator now causes you to emit particles to indicate its' activity, emitting more particles the more speed increase you have
+* Temporarily removed the character item system until more items are added
+* Relentless Vendetta SFX will no longer play from deaths of allies that spawned on the same stage
+* Fixed Treasure Map and Rift Lens working in Hidden Realms
+* Fixed Timely Execution causing a crash for clients on death
+* Fixed Timely Execution visual animations not being networked
 #### 1.1.1:
 * Fixed Wirehack Wrench and Crystallized World not working without DebugToolkit
 * Fixed Proximity Nanobots triggering even if you don't have the item in your inventory
