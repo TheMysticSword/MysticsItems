@@ -70,7 +70,7 @@ namespace MysticsItems.Items
 
             unlockInteractablePrefab.AddComponent<NetworkIdentity>();
             unlockInteractablePrefab.transform.localScale *= 0.2f;
-            unlockInteractablePrefab.AddComponent<UnlockInteraction>();
+            unlockInteractablePrefab.AddComponent<MysticsItemsSpotterUnlockInteraction>();
 
             GameObject sparks = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/NetworkedObjects/RadarTower").transform.Find("mdlRadar").Find("Sparks").gameObject, "Sparks", false);
             sparks.transform.localPosition = new Vector3(0f, 1f, 0f);
@@ -113,7 +113,7 @@ namespace MysticsItems.Items
             };
         }
 
-        public class UnlockInteraction : MonoBehaviour
+        public class MysticsItemsSpotterUnlockInteraction : MonoBehaviour
         {
             public void Awake()
             {

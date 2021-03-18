@@ -25,13 +25,13 @@ namespace MysticsItems.Achievements
 				public override void OnInstall()
 				{
 					base.OnInstall();
-					Items.Spotter.UnlockInteraction.OnUnlock += OnActivated;
+					Items.Spotter.MysticsItemsSpotterUnlockInteraction.OnUnlock += OnActivated;
 				}
 
 				public override void OnUninstall()
 				{
 					base.OnUninstall();
-					Items.Spotter.UnlockInteraction.OnUnlock -= OnActivated;
+					Items.Spotter.MysticsItemsSpotterUnlockInteraction.OnUnlock -= OnActivated;
 				}
 
 				public void OnActivated(Interactor interactor)
