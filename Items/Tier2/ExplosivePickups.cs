@@ -37,6 +37,7 @@ namespace MysticsItems.Items
             
             gunpowderPickup.layer = LayerIndex.debris.intVal;
             gunpowderPickup.AddComponent<NetworkIdentity>();
+            /*
             DestroyOnTimer destroyOnTimer = gunpowderPickup.AddComponent<DestroyOnTimer>();
             destroyOnTimer.duration = 10f;
             destroyOnTimer.resetAgeOnDisable = false;
@@ -44,7 +45,8 @@ namespace MysticsItems.Items
             blink.blinkFrequency = 20f;
             blink.delayBeforeBeginningBlinking = 9f;
             blink.blinkingRootObject = gunpowderPickup.transform.Find("мешок").gameObject;
-            Rigidbody rigidbody = gunpowderPickup.AddComponent<Rigidbody>();
+            */
+            Rigidbody rigidbody = gunpowderPickup.GetComponent<Rigidbody>();
             VelocityRandomOnStart velocity = gunpowderPickup.AddComponent<VelocityRandomOnStart>();
             velocity.minSpeed = 10f;
             velocity.maxSpeed = 20f;
@@ -123,7 +125,7 @@ namespace MysticsItems.Items
         {
             if (body.inventory) {
                 int itemCount = body.inventory.GetItemCount(GetFromType(typeof(ExplosivePickups)).itemIndex);
-                Explode(body.gameObject, body.corePosition, body.damage * 2f + 1.5f * (float)(itemCount - 1), 8f + 1.5f * (float)(itemCount - 1), body.RollCrit());
+                Explode(body.gameObject, body.corePosition, body.damage * 2.5f + 2f * (float)(itemCount - 1), 10f + 2f * (float)(itemCount - 1), body.RollCrit());
             }
         }
 
@@ -229,6 +231,7 @@ namespace MysticsItems.Items
 
         public override void OnAdd()
         {
+            /*
             Main.OnHitEnemy += delegate (DamageInfo damageInfo, Main.GenericCharacterInfo attackerInfo, Main.GenericCharacterInfo victimInfo)
             {
                 if (NetworkServer.active)
@@ -242,6 +245,16 @@ namespace MysticsItems.Items
                             NetworkServer.Spawn(gameObject);
                         }
                     }
+                }
+            };
+            */
+            On.RoR2.CharacterBody.HandleOnKillEffectsServer += (orig, self, damageReport) =>
+            {
+                if (self.inventory && self.inventory.GetItemCount(itemIndex) > 0)
+                {
+                    GameObject gameObject = Object.Instantiate(gunpowderPickup, Util.GetCorePosition(damageReport.victim.gameObject), Quaternion.Euler(Random.onUnitSphere.normalized));
+                    gameObject.GetComponent<TeamFilter>().teamIndex = TeamComponent.GetObjectTeam(self.gameObject);
+                    NetworkServer.Spawn(gameObject);
                 }
             };
 
