@@ -43,6 +43,9 @@
     <Reference Include="HGCSharpUtils">
       <HintPath>..\..\..\..\Risk of Rain 2\Modding References\Managed\HGCSharpUtils.dll</HintPath>
     </Reference>
+    <Reference Include="ItemStats">
+      <HintPath>..\..\..\..\Risk of Rain 2\Modding References\ItemStats.dll</HintPath>
+    </Reference>
     <Reference Include="MMHOOK_Assembly-CSharp">
       <HintPath>..\..\..\..\Risk of Rain 2\Modding References\BepInEx\plugins\tristanmcpherson-R2API\R2API\MMHOOK_Assembly-CSharp.dll</HintPath>
     </Reference>

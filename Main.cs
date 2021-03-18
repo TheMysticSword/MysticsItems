@@ -15,6 +15,7 @@ using MonoMod.Cil;
 namespace MysticsItems
 {
     [BepInDependency(R2API.R2API.PluginGUID)]
+    [BepInDependency(SoftDependencies.ItemStatsSoftDependency.PluginGUID, BepInDependency.DependencyFlags.SoftDependency)]
     [BepInPlugin(PluginGUID, PluginName, PluginVersion)]
     [R2APISubmoduleDependency(nameof(BuffAPI), nameof(ItemAPI), nameof(ItemDropAPI), nameof(LanguageAPI), nameof(LoadoutAPI), nameof(NetworkingAPI), nameof(PrefabAPI), nameof(ResourcesAPI), nameof(SoundAPI))]
 
@@ -184,6 +185,7 @@ namespace MysticsItems
         public static void PostGameLoad()
         {
             Items.BaseItem.PostGameLoad();
+            if (BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey(SoftDependencies.ItemStatsSoftDependency.PluginGUID)) SoftDependencies.ItemStatsSoftDependency.Init();
         }
 
         [ConCommand(commandName = Main.TokenPrefix + "unlocklogs", flags = ConVarFlags.Cheat, helpText = "Unlocks all logbook entries")]
