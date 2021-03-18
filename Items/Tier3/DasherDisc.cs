@@ -192,7 +192,7 @@ namespace MysticsItems.Items
                 if (body)
                 {
                     while (body.HasBuff(buffActive)) body.RemoveBuff(buffActive);
-                    while (body.HasBuff(buffCooldown)) body.RemoveBuff(buffCooldown);
+                    while (body.HasBuff(buffCooldown)) body.ClearTimedBuffs(buffCooldown);
                 }
             }
         }
