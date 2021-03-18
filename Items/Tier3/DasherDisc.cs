@@ -1,6 +1,7 @@
 using EntityStates;
 using RoR2;
 using R2API;
+using R2API.Utils;
 using UnityEngine;
 using UnityEngine.Networking;
 using Mono.Cecil.Cil;
@@ -39,7 +40,10 @@ namespace MysticsItems.Items
             controllerPrefab.AddComponent<NetworkedBodyAttachment>();
             EntityStateMachine stateMachine = controllerPrefab.AddComponent<EntityStateMachine>();
             stateMachine.mainStateType = stateMachine.initialStateType = new SerializableEntityStateType(typeof(DiscBaseState.Ready));
-            controllerPrefab.AddComponent<NetworkStateMachine>();
+            NetworkStateMachine networkStateMachine = controllerPrefab.AddComponent<NetworkStateMachine>();
+            networkStateMachine.SetFieldValue("stateMachines", new EntityStateMachine[] {
+                stateMachine
+            });
             DiscController component = controllerPrefab.AddComponent<DiscController>();
             GameObject follower = PrefabAPI.InstantiateClone(followerModel, "DasherDiscFollower", false);
             follower.transform.SetParent(controllerPrefab.transform);
@@ -249,7 +253,7 @@ namespace MysticsItems.Items
                 public override void FixedUpdate()
                 {
                     base.FixedUpdate();
-                    if (IsReady() && controller.body && NetworkServer.active)
+                    if (isAuthority && IsReady() && controller.body)
                     {
                         HealthComponent healthComponent = controller.body.healthComponent;
                         if (healthComponent && healthComponent.combinedHealthFraction <= healthThreshold)
@@ -274,8 +278,8 @@ namespace MysticsItems.Items
                 public override void Update()
                 {
                     base.Update();
-                    controller.distance = Mathf.Lerp(baseDistance, -baseDistance, Mathf.Clamp01(fixedAge / duration));
-                    if (fixedAge >= duration)
+                    controller.distance = Mathf.Lerp(baseDistance, -baseDistance, Mathf.Clamp01(age / duration));
+                    if (isAuthority && age >= duration)
                     {
                         outer.SetNextState(new Invincible());
                     }
@@ -284,7 +288,7 @@ namespace MysticsItems.Items
                 public float baseDistance;
 
                 public static float duration = 0.2f;
-                public override float DiscSpinBoost => 2f;
+                public override float DiscSpinBoost => 3f;
                 public override bool DiscLeavesTrail => true;
                 public override bool DiscRotatesAroundCharacter => false;
             }
@@ -307,7 +311,7 @@ namespace MysticsItems.Items
                             }
                         }
 
-                        if (NetworkServer.active) controller.body.AddBuff(buffActive);
+                        if (isAuthority) controller.body.AddBuff(buffActive);
                     }
                 }
 
@@ -327,7 +331,7 @@ namespace MysticsItems.Items
                             }
                         }
 
-                        if (NetworkServer.active)
+                        if (isAuthority)
                         {
                             float cooldown = 60f;
                             Inventory inventory = controller.body.inventory;
@@ -349,14 +353,14 @@ namespace MysticsItems.Items
                 public override void FixedUpdate()
                 {
                     base.FixedUpdate();
-                    if (fixedAge >= duration)
+                    if (isAuthority && fixedAge >= duration)
                     {
                         outer.SetNextState(new Ready());
                     }
                 }
 
                 public static float duration = 6f;
-                public override float DiscSpinBoost => 2f;
+                public override float DiscSpinBoost => 3f;
                 public override bool DiscRotatesAroundCharacter => false;
             }
         }
