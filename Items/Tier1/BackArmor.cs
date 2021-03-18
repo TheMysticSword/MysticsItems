@@ -77,7 +77,7 @@ namespace MysticsItems.Items
                             {
                                 BackArmorTempArmor tempArmor = characterInfo.gameObject.GetComponent<BackArmorTempArmor>();
                                 if (!tempArmor) tempArmor = characterInfo.gameObject.AddComponent<BackArmorTempArmor>();
-                                float tempArmorValue = 5f + 5f * (float)(itemCount - 1);
+                                float tempArmorValue = 10f + 10f * (float)(itemCount - 1);
                                 tempArmor.value += tempArmorValue;
                                 characterInfo.body.SetPropertyValue("armor", characterInfo.body.armor + tempArmorValue);
                             }

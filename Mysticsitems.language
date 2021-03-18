@@ -22,7 +22,7 @@
 
     "ITEM_MYSTICSITEMS_BACKARMOR_NAME": "Spine Implant",
     "ITEM_MYSTICSITEMS_BACKARMOR_PICKUP": "Less damage from attacks from behind.",
-    "ITEM_MYSTICSITEMS_BACKARMOR_DESC": "Increase armor by <style=cIsUtility>5 <style=cStack>(+5 per stack)</style></style> against attacks from behind.",
+    "ITEM_MYSTICSITEMS_BACKARMOR_DESC": "Increase armor by <style=cIsUtility>10 <style=cStack>(+10 per stack)</style></style> against attacks from behind.",
 
     "ITEM_MYSTICSITEMS_ARTIFICERNANOBOTS_NAME": "Proximity Nanobots",
     "ITEM_MYSTICSITEMS_ARTIFICERNANOBOTS_PICKUP": "Bolts deal a little bit of damage to nearby enemies if you miss.",
@@ -171,7 +171,7 @@
 
     "ITEM_MYSTICSITEMS_BACKARMOR_NAME": "Позвоночный имплант",
     "ITEM_MYSTICSITEMS_BACKARMOR_PICKUP": "Меньше урона от атак по спине.",
-    "ITEM_MYSTICSITEMS_BACKARMOR_DESC": "Броня увеличена на <style=cIsUtility>5 <style=cStack>(+5 за шт.)</style></style> против атак по спине.",
+    "ITEM_MYSTICSITEMS_BACKARMOR_DESC": "Броня увеличена на <style=cIsUtility>10 <style=cStack>(+10 за шт.)</style></style> против атак по спине.",
 
     "ITEM_MYSTICSITEMS_ARTIFICERNANOBOTS_NAME": "Наноботы ближнего действия",
     "ITEM_MYSTICSITEMS_ARTIFICERNANOBOTS_PICKUP": "Выстрелы наносят немного урона близжайшим врагам, если вы промахнулись.",
