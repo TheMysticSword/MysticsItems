@@ -22,7 +22,7 @@ namespace MysticsItems.Items
         public override void PreAdd()
         {
             itemDef.name = "TreasureMap";
-            itemDef.tier = ItemTier.Tier1;
+            itemDef.tier = ItemTier.Tier3;
             itemDef.tags = new ItemTag[]
             {
                 ItemTag.Utility,
@@ -52,6 +52,7 @@ namespace MysticsItems.Items
             zonePrefab.AddComponent<NetworkIdentity>();
             MysticsItemsTreasureMapZone captureZone = zonePrefab.AddComponent<MysticsItemsTreasureMapZone>();
             captureZone.itemIndex = itemIndex;
+            captureZone.rewardSpawnCard = Resources.Load<SpawnCard>("SpawnCards/InteractableSpawnCard/iscGoldChest");
             captureZone.visuals = zonePrefab.transform.Find("Visuals").gameObject;
             captureZone.visuals.transform.Find("Point Light").gameObject.AddComponent<MysticsItemsScaleLight>();
             HologramProjector hologramProjector = zonePrefab.AddComponent<HologramProjector>();
@@ -105,9 +106,9 @@ namespace MysticsItems.Items
         public class MysticsItemsTreasureMapZone : MonoBehaviour, IHologramContentProvider
         {
             public TeamIndex teamIndex = TeamIndex.Player;
-            public float baseReward = 100f;
+            public SpawnCard rewardSpawnCard;
             public float captureTime = 0f;
-            public float baseCaptureTimeMax = 60f;
+            public float baseCaptureTimeMax = 120f;
             public float captureTimeMax = 60f;
             public float syncVarDelay = 0f;
             public float syncVarDelayMax = 1f / 10f;
@@ -139,7 +140,7 @@ namespace MysticsItems.Items
                     {
                         itemCount += characterMaster.inventory.GetItemCount(itemIndex);
                     }
-                captureTimeMax = baseCaptureTimeMax * 1f / (1f + 0.2f * (itemCount - 1));
+                captureTimeMax = baseCaptureTimeMax * 1f / (1f + 0.5f * (itemCount - 1));
                 bool anyoneHasItem = itemCount > 0;
 
                 float targetRadius = baseRadius;
@@ -180,12 +181,18 @@ namespace MysticsItems.Items
                     {
                         captured = true;
 
-                        uint goldReward = (uint)(baseReward * Run.instance.difficultyCoefficient);
-                        TeamManager.instance.GiveTeamMoney(teamIndex, goldReward);
+                        if (rewardSpawnCard != null)
+                        {
+                            DirectorCore.instance.TrySpawnObject(new DirectorSpawnRequest(rewardSpawnCard, new DirectorPlacementRule
+                            {
+                                placementMode = DirectorPlacementRule.PlacementMode.NearestNode,
+                                position = transform.position
+                            }, RoR2Application.rng));
+                        }
                         EffectManager.SpawnEffect(Resources.Load<GameObject>("Prefabs/Effects/CoinEmitter"), new EffectData
                         {
                             origin = transform.position,
-                            genericFloat = goldReward,
+                            genericFloat = 100f,
                             scale = 1f
                         }, true);
                     }

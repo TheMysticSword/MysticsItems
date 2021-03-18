@@ -16,10 +16,6 @@
     "ITEM_MYSTICSITEMS_COMMANDOSCOPE_PICKUP": "Reduce damage falloff of 'Double Tap'.",
     "ITEM_MYSTICSITEMS_COMMANDOSCOPE_DESC": "<style=cIsDamage>'Double Tap'</style> effective range increased by <style=cIsDamage>5m <style=cStack>(+5m per stack)</style></style>.",
 
-    "ITEM_MYSTICSITEMS_TREASUREMAP_NAME": "Treasure Map",
-    "ITEM_MYSTICSITEMS_TREASUREMAP_PICKUP": "Gain access to a treasure spot that grants gold after excavation.",
-    "ITEM_MYSTICSITEMS_TREASUREMAP_DESC": "Each stage contains a 15m <style=cIsUtility>treasure spot</style>. Gain <style=cIsUtility>$100</style> gold after standing inside the treasure spot for <style=cIsUtility>60s <style=cStack>(-10s per stack)</style></style>. <style=cIsUtility>Scales over time.</style>",
-
     "ITEM_MYSTICSITEMS_BACKARMOR_NAME": "Spine Implant",
     "ITEM_MYSTICSITEMS_BACKARMOR_PICKUP": "Less damage from attacks from behind.",
     "ITEM_MYSTICSITEMS_BACKARMOR_DESC": "Increase armor by <style=cIsUtility>10 <style=cStack>(+10 per stack)</style></style> against attacks from behind.",
@@ -79,6 +75,10 @@
     "ITEM_MYSTICSITEMS_DASHERDISC_PICKUP": "Gain invincibility for a short time upon reaching low health. Recharges over time.",
     "ITEM_MYSTICSITEMS_DASHERDISC_DESC": "Falling below <style=cIsHealth>25% health</style> causes you to become incorporeal, gaining invincibility for <style=cIsUtility>6 seconds</style>. Recharges every <style=cIsUtility>60 <style=cStack>(-10 per stack)</style></style> seconds.",
     "ITEM_MYSTICSITEMS_DASHERDISC_LORE": "Order: Dasher Disc\r\nTracking Number: 20******\r\nEstimated Delivery: 10\/22\/2089\r\nShipping Method: High Priority/Biological\r\nShipping Address: Giant Disc, Jupiter\r\nShipping Details:\r\n\r\nFound this one wandering around our lab. DO NOT MAKE QUICK MOVEMENTS IN ITS PRESENCE\r\n",
+
+    "ITEM_MYSTICSITEMS_TREASUREMAP_NAME": "Treasure Map",
+    "ITEM_MYSTICSITEMS_TREASUREMAP_PICKUP": "Gain access to a treasure spot that creates a Legendary Chest after excavation.",
+    "ITEM_MYSTICSITEMS_TREASUREMAP_DESC": "Each stage contains a 15m <style=cIsUtility>treasure spot</style>. Standing inside the treasure spot for <style=cIsUtility>120s <style=cStack>(-40s per stack)</style></style> causes a <style=cIsUtility>Legendary Chest</style> to appear.",
 
     //[LUNAR ITEMS]
     "ITEM_MYSTICSITEMS_RIFTLENS_NAME": "Rift Lens",
@@ -165,10 +165,6 @@
     "ITEM_MYSTICSITEMS_COMMANDOSCOPE_PICKUP": "Снижает потерю урона 'Двойного выстрела' от дальности.",
     "ITEM_MYSTICSITEMS_COMMANDOSCOPE_DESC": "Эффективная дальность <style=cIsDamage>'Двойного выстрела'</style> увеличена на <style=cIsDamage>5м <style=cStack>(+5м за шт.)</style></style>.",
 
-    "ITEM_MYSTICSITEMS_TREASUREMAP_NAME": "Карта сокровищ",
-    "ITEM_MYSTICSITEMS_TREASUREMAP_PICKUP": "Получите доступ к зоне с сокровищем, которая даёт золото после раскопки.",
-    "ITEM_MYSTICSITEMS_TREASUREMAP_DESC": "Каждый этап содержит <style=cIsUtility>зону с сокровищем</style> радиусом в 15м. Получите <style=cIsUtility>$100</style> золота после <style=cIsUtility>60 сек. <style=cStack>(-10 сек. за шт.)</style></style> нахождения в зоне. <style=cIsUtility>Увеличивается со временем.</style>",
-
     "ITEM_MYSTICSITEMS_BACKARMOR_NAME": "Позвоночный имплант",
     "ITEM_MYSTICSITEMS_BACKARMOR_PICKUP": "Меньше урона от атак по спине.",
     "ITEM_MYSTICSITEMS_BACKARMOR_DESC": "Броня увеличена на <style=cIsUtility>10 <style=cStack>(+10 за шт.)</style></style> против атак по спине.",
@@ -228,6 +224,10 @@
     "ITEM_MYSTICSITEMS_DASHERDISC_PICKUP": "Получите неуязвимость на короткое время при низком уровне здоровья. Перезаряжается со временем.",
     "ITEM_MYSTICSITEMS_DASHERDISC_DESC": "Если уровень вашего здоровья опускается ниже <style=cIsHealth>25%</style>, вы получаете неуязвимость на <style=cIsUtility>6 секунд</style>. Перезаряжается каждые <style=cIsUtility>60 <style=cStack>(-10 за шт.)</style></style> секунд.",
     "ITEM_MYSTICSITEMS_DASHERDISC_LORE": "Посылка: Диск-спринтер\r\nНомер для отслеживания: 20******\r\nПримерный срок доставки: 22.10.2089\r\nСпособ доставки: высокий приоритет/биологическ.\r\nАдрес доставки: Гигантский диск, Юпитер\r\nДетали доставки:\r\n\r\nНашла его бродящим по нашей лаборатории. НЕ ДЕЛАЙТЕ РЕЗКИХ ДВИЖЕНИЙ В ЕГО ПРИСУТСТВИИ\r\n",
+
+    "ITEM_MYSTICSITEMS_TREASUREMAP_NAME": "Карта сокровищ",
+    "ITEM_MYSTICSITEMS_TREASUREMAP_PICKUP": "Получите доступ к зоне с сокровищем, которая создаёт Легендарный сундук после раскопки.",
+    "ITEM_MYSTICSITEMS_TREASUREMAP_DESC": "Каждый этап содержит <style=cIsUtility>зону с сокровищем</style> радиусом в 15м. После <style=cIsUtility>120 сек. <style=cStack>(-40 сек. за шт.)</style></style> нахождения в зоне создаётся <style=cIsUtility>Легендарный сундук</style>.",
 
     //[EQUIPMENT]
     "EQUIPMENT_MYSTICSITEMS_ARCHAICMASK_NAME": "Легендарная маска",
