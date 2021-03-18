@@ -18,6 +18,8 @@ namespace MysticsItems.Items
         public static float percentPerBuffStack = 10f;
         public static float speedRequirementPerBuffStack = 100f;
 
+        public static GameObject particleSystemPrefab;
+
         public override void PreAdd()
         {
             itemDef.name = "SpeedGivesDamage";
@@ -67,16 +69,20 @@ namespace MysticsItems.Items
                     return 0f;
                 }
             });
-            /* Old behaviour
+
             On.RoR2.CharacterBody.Awake += (orig, self) =>
             {
                 orig(self);
                 self.onInventoryChanged += delegate ()
                 {
-                    if (NetworkServer.active) self.AddItemBehavior<SpeedGivesDamageBehaviour>(self.inventory.GetItemCount(itemIndex));
+                    self.AddItemBehavior<MysticsItemsSpeedGivesDamageBehaviour>(self.inventory.GetItemCount(itemIndex));
                 };
             };
-            */
+
+            particleSystemPrefab = Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Nuclear Accelerator/Particles.prefab");
+            Material material = particleSystemPrefab.GetComponent<ParticleSystemRenderer>().sharedMaterial;
+            Main.HopooShaderToMaterial.Standard.Apply(material);
+            Main.HopooShaderToMaterial.Standard.Emission(material, 3f, new Color32(106, 255, 83, 255));
         }
 
         public class MysticsItemsNuclearAcceleratorGlow : MonoBehaviour
@@ -107,84 +113,33 @@ namespace MysticsItems.Items
             }
         }
 
-        public class SpeedGivesDamageBehaviour : CharacterBody.ItemBehavior
+        public class MysticsItemsSpeedGivesDamageBehaviour : CharacterBody.ItemBehavior
         {
-            public int maxStack = 0;
+            public ParticleSystem particleSystem;
+            public float effectMaxSpeedMult = 10f;
+            public float effectMaxMult = 20f;
 
             public void Start()
             {
-                timedBuffs = (IList)timedBuffsField.GetValue(body);
+                particleSystem = Object.Instantiate(particleSystemPrefab, body.transform).GetComponent<ParticleSystem>();
+                particleSystem.transform.localScale *= body.radius;
+            }
+
+            public void OnDestroy()
+            {
+                Object.Destroy(particleSystem.gameObject);
             }
 
             public void FixedUpdate()
             {
-                if (NetworkServer.active)
+                float mult = (body.moveSpeed / (body.baseMoveSpeed + body.levelMoveSpeed * body.level) - 1f) / effectMaxSpeedMult * effectMaxMult;
+                if (particleSystem)
                 {
-                    if (maxStack > 0 && !body.HasBuff(buffIndex)) maxStack = 0;
-                    CharacterMotor characterMotor = body.characterMotor;
-                    if (characterMotor)
-                    {
-                        float speed = characterMotor.velocity.magnitude;
-                        float threshold = body.baseMoveSpeed;
-                        if (speed > threshold)
-                        {
-                            int buffStack = Mathf.FloorToInt(((speed - threshold) / threshold) / (speedRequirementPerBuffStack / 100f));
-                            if (buffStack > maxStack)
-                            {
-                                int newStacks = buffStack;
-                                float buffTime = 6f + 4f * (float)(stack - 1);
-                                // Refresh old stacks
-                                foreach (var timedBuff in timedBuffs)
-                                {
-                                    if (buffStack <= 0) break;
-                                    if ((BuffIndex)timedBuffIndex.GetValue(timedBuff) == buffIndex)
-                                    {
-                                        timedBuffTimer.SetValue(timedBuff, buffTime);
-                                        newStacks--;
-                                    }
-                                }
-                                // Add new stacks if we have leftover amount of newStacks
-                                for (var i = 0; i < newStacks; i++) body.AddTimedBuff(buffIndex, buffTime);
-                                maxStack = buffStack;
-                            }
-                        }
-                    }
+                    ParticleSystem.MainModule main = particleSystem.main;
+                    ParticleSystem.EmissionModule emission = particleSystem.emission;
+                    emission.rateOverTimeMultiplier = mult;
                 }
-                /*
-                if (NetworkServer.active)
-                {
-                    CharacterMotor characterMotor = body.characterMotor;
-                    if (characterMotor)
-                    {
-                        float speed = characterMotor.velocity.magnitude;
-                        float threshold = body.moveSpeed * body.sprintingSpeedMultiplier;
-                        if (speed > threshold)
-                        {
-                            int buffStack = Mathf.Min(Mathf.FloorToInt((float)maxDamageBoost + (float)(maxDamageBoost - 1) * Mathf.Max((speed - threshold) / (threshold * maxSpeedMultiplierRequirement), 0f)), maxDamageBoost);
-                            float buffTime = 4f + 2f * (float)(stack - 1);
-                            // Refresh old stacks
-                            foreach (var timedBuff in timedBuffs)
-                            {
-                                if (buffStack <= 0) break;
-                                if ((BuffIndex)timedBuffIndex.GetValue(timedBuff) == buffIndex)
-                                {
-                                    timedBuffTimer.SetValue(timedBuff, buffTime);
-                                    buffStack--;
-                                }
-                            }
-                            // Add new stacks if we have leftover amount of buffStack
-                            for (var i = 0; i < buffStack; i++) body.AddTimedBuff(buffIndex, buffTime);
-                        }
-                    }
-                }
-                */
             }
-
-            public IList timedBuffs;
-
-            public static readonly FieldInfo timedBuffsField = typeof(CharacterBody).GetField("timedBuffs", BindingFlags.NonPublic | BindingFlags.Instance);
-            public static readonly FieldInfo timedBuffTimer = typeof(CharacterBody).GetNestedType("TimedBuff", BindingFlags.NonPublic | BindingFlags.Instance).GetField("timer");
-            public static readonly FieldInfo timedBuffIndex = typeof(CharacterBody).GetNestedType("TimedBuff", BindingFlags.NonPublic | BindingFlags.Instance).GetField("buffIndex");
         }
     }
 }
