@@ -7,6 +7,8 @@ using Mono.Cecil.Cil;
 using MonoMod.Cil;
 using System.Reflection;
 using System.Collections.Generic;
+using R2API.Networking.Interfaces;
+using R2API.Networking;
 
 namespace MysticsItems.Equipment
 {
@@ -14,6 +16,7 @@ namespace MysticsItems.Equipment
     {
         public static GameObject crosshairPrefab;
         public static GameObject unlockInteractablePrefab;
+        public static GameObject forcedPickupPrefab;
 
         public override void PreAdd()
         {
@@ -61,15 +64,27 @@ namespace MysticsItems.Equipment
             highlight.targetRenderer = unlockInteractablePrefab.GetComponentInChildren<Renderer>();
             highlight.highlightColor = Highlight.HighlightColor.interactive;
 
-            GameObject entityLocatorHolder = PrefabAPI.InstantiateClone(new GameObject(), "EntityLocatorHolder", false);
+            GameObject entityLocatorHolder = unlockInteractablePrefab.transform.Find("EntityLocatorHolder").gameObject;
             entityLocatorHolder.layer = LayerIndex.pickups.intVal;
             SphereCollider sphereCollider = entityLocatorHolder.AddComponent<SphereCollider>();
             sphereCollider.radius = 1.5f;
             sphereCollider.isTrigger = true;
             entityLocatorHolder.AddComponent<EntityLocator>().entity = unlockInteractablePrefab;
-            entityLocatorHolder.transform.SetParent(unlockInteractablePrefab.transform);
 
             PrefabAPI.RegisterNetworkPrefab(unlockInteractablePrefab);
+
+            forcedPickupPrefab = Main.AssetBundle.LoadAsset<GameObject>("Assets/Equipment/Archaic Mask/ForcedPickup.prefab");
+            forcedPickupPrefab.AddComponent<NetworkIdentity>();
+            GenericPickupController genericPickupController = forcedPickupPrefab.AddComponent<GenericPickupController>();
+            forcedPickupPrefab.AddComponent<Highlight>();
+            PickupDisplay pickupDisplay = forcedPickupPrefab.transform.Find("PickupDisplay").gameObject.AddComponent<PickupDisplay>();
+            pickupDisplay.spinSpeed = 0f;
+            pickupDisplay.verticalWave = new Wave { amplitude = 0f };
+            pickupDisplay.coloredParticleSystems = new ParticleSystem[] { };
+            genericPickupController.pickupDisplay = pickupDisplay;
+            forcedPickupPrefab.transform.Find("PickupTrigger").gameObject.layer = LayerIndex.pickups.intVal;
+            forcedPickupPrefab.transform.Find("PickupTrigger").gameObject.AddComponent<EntityLocator>().entity = forcedPickupPrefab;
+            forcedPickupPrefab.AddComponent<MysticsItemsArchaicMaskForcedPickup>();
 
             On.RoR2.SceneDirector.PopulateScene += (orig, self) =>
             {
@@ -210,6 +225,7 @@ namespace MysticsItems.Equipment
             public GameObject effects;
             public float initialLightIntensity = 0f;
             public Color initialColor;
+            public GenericPickupController genericPickupController;
 
             public string GetContextString(Interactor activator)
             {
@@ -227,9 +243,21 @@ namespace MysticsItems.Equipment
 
             public void OnInteractionBegin(Interactor activator)
             {
-                if (OnUnlock != null) OnUnlock(activator);
-                PickupDropletController.CreatePickupDroplet(PickupCatalog.FindPickupIndex(equipmentIndex), transform.position, Vector3.up * 5f);
-                Object.Destroy(gameObject);
+                Inventory inventory = activator.GetComponent<CharacterBody>().inventory;
+                if (inventory)
+                {
+                    if (OnUnlock != null) OnUnlock(activator);
+
+                    EquipmentIndex currentEquipmentIndex = inventory.currentEquipmentIndex;
+                    inventory.SetEquipmentIndex(equipmentIndex);
+                    typeof(GenericPickupController).InvokeMethod("SendPickupMessage", inventory.GetComponent<CharacterMaster>(), PickupCatalog.FindPickupIndex(equipmentIndex));
+
+                    GameObject forcedPickup = Object.Instantiate(forcedPickupPrefab, transform.position, transform.rotation);
+                    forcedPickup.GetComponent<MysticsItemsArchaicMaskForcedPickup>().pickupIndex = PickupCatalog.FindPickupIndex(currentEquipmentIndex);
+                    NetworkServer.Spawn(forcedPickup);
+                    
+                    Object.Destroy(gameObject);
+                }
             }
 
             public bool ShouldIgnoreSpherecastForInteractibility(Interactor activator)
@@ -250,6 +278,7 @@ namespace MysticsItems.Equipment
                     ParticleSystem.MainModule main = effects.GetComponentInChildren<ParticleSystem>().main;
                     initialColor = main.startColor.color;
                 }
+                genericPickupController = GetComponent<GenericPickupController>();
             }
 
             public void FixedUpdate()
@@ -313,6 +342,19 @@ namespace MysticsItems.Equipment
                         }
                     }
                     current.RemoveAt(0);
+                }
+            }
+        }
+
+        public class MysticsItemsArchaicMaskForcedPickup : MonoBehaviour
+        {
+            public PickupIndex pickupIndex = PickupIndex.none;
+
+            public void Start()
+            {
+                if (NetworkServer.active)
+                {
+                    GetComponent<GenericPickupController>().NetworkpickupIndex = pickupIndex;
                 }
             }
         }
