@@ -1,9 +1,7 @@
 {
     "name": "MysticsItems",
-    "version_number": "0.1.0",
-    "website_url": "",
-    "description": "",
-    "dependencies": [
-        
-    ]
+    "version_number": "1.1.2",
+    "website_url": "https://github.com/TheMysticSword/MysticsItems",
+    "description": "Adds 20 new items!",
+    "dependencies": []
 }
