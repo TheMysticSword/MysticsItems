@@ -51,7 +51,7 @@ namespace MysticsItems.Items
                 var orb = Object.Instantiate<GameObject>(Resources.Load<GameObject>("Prefabs/NetworkedObjects/HealPack"), position, Random.rotation);
                 orb.GetComponent<TeamFilter>().teamIndex = teamIndex;
                 orb.GetComponentInChildren<HealthPickup>().flatHealing = 8;
-                orb.GetComponentInChildren<HealthPickup>().fractionalHealing = 0.25f + 0.05f * (itemCount - 1);
+                orb.GetComponentInChildren<HealthPickup>().fractionalHealing = 0.1f + 0.1f * (itemCount - 1);
                 var ror1style = orb.GetComponentInChildren<GravitatePickup>().gameObject.AddComponent<GravitatePickupRoR1Style>();
                 ror1style.targetPosition = position + rotation * Vector3.up * 4f;
                 ror1style.targetScale = orb.transform.localScale + (orb.transform.localScale * orb.GetComponentInChildren<HealthPickup>().fractionalHealing);
