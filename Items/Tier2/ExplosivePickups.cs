@@ -37,15 +37,15 @@ namespace MysticsItems.Items
             
             gunpowderPickup.layer = LayerIndex.debris.intVal;
             gunpowderPickup.AddComponent<NetworkIdentity>();
-            /*
+
             DestroyOnTimer destroyOnTimer = gunpowderPickup.AddComponent<DestroyOnTimer>();
-            destroyOnTimer.duration = 10f;
+            destroyOnTimer.duration = 60f;
             destroyOnTimer.resetAgeOnDisable = false;
             BeginRapidlyActivatingAndDeactivating blink = gunpowderPickup.AddComponent<BeginRapidlyActivatingAndDeactivating>();
             blink.blinkFrequency = 20f;
-            blink.delayBeforeBeginningBlinking = 9f;
+            blink.delayBeforeBeginningBlinking = destroyOnTimer.duration - 1f;
             blink.blinkingRootObject = gunpowderPickup.transform.Find("мешок").gameObject;
-            */
+
             Rigidbody rigidbody = gunpowderPickup.GetComponent<Rigidbody>();
             VelocityRandomOnStart velocity = gunpowderPickup.AddComponent<VelocityRandomOnStart>();
             velocity.minSpeed = 10f;
@@ -113,6 +113,11 @@ namespace MysticsItems.Items
             explosionPrefab = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/Effects/OmniEffect/OmniExplosionVFXQuick"), Main.TokenPrefix + "OmiExplosionVFXExplosivePickups", false);
             Object.Destroy(explosionPrefab.transform.Find("ScaledHitsparks 1").gameObject);
             Object.Destroy(explosionPrefab.transform.Find("UnscaledHitsparks 1").gameObject);
+            Object.Destroy(explosionPrefab.transform.Find("ScaledSmoke, Billboard").gameObject);
+            Object.Destroy(explosionPrefab.transform.Find("ScaledSmokeRing, Mesh").gameObject);
+            Object.Destroy(explosionPrefab.transform.Find("Unscaled Smoke, Billboard").gameObject);
+            //Object.Destroy(explosionPrefab.transform.Find("AreaIndicatorRing, Billboard").gameObject);
+            Object.Destroy(explosionPrefab.transform.Find("AreaIndicatorRing, Random Billboard").gameObject);
             Object.Destroy(explosionPrefab.transform.Find("Physics Sparks").gameObject);
             Object.Destroy(explosionPrefab.transform.Find("Flash, Soft Glow").gameObject);
             Object.Destroy(explosionPrefab.transform.Find("Unscaled Flames").gameObject);
@@ -125,7 +130,7 @@ namespace MysticsItems.Items
         {
             if (body.inventory) {
                 int itemCount = body.inventory.GetItemCount(GetFromType(typeof(ExplosivePickups)).itemIndex);
-                Explode(body.gameObject, body.corePosition, body.damage * 2.5f + 2f * (float)(itemCount - 1), 10f + 2f * (float)(itemCount - 1), body.RollCrit());
+                Explode(body.gameObject, body.corePosition, body.damage * 2.5f + 2f * (float)(itemCount - 1), 8f + 1.6f * (float)(itemCount - 1), body.RollCrit());
             }
         }
 
