@@ -86,6 +86,8 @@ namespace MysticsItems.Equipment
             forcedPickupPrefab.transform.Find("PickupTrigger").gameObject.AddComponent<EntityLocator>().entity = forcedPickupPrefab;
             forcedPickupPrefab.AddComponent<MysticsItemsArchaicMaskForcedPickup>();
 
+            PrefabAPI.RegisterNetworkPrefab(forcedPickupPrefab);
+
             On.RoR2.SceneDirector.PopulateScene += (orig, self) =>
             {
                 orig(self);
