@@ -202,6 +202,7 @@ namespace MysticsItems.Items
             public virtual float DiscSpinBoost => 0f;
             public virtual bool DiscLeavesTrail => false;
             public virtual bool DiscRotatesAroundCharacter => true;
+            public Vector3 velocity;
 
             public override void OnEnter()
             {
@@ -225,7 +226,7 @@ namespace MysticsItems.Items
             {
                 base.Update();
                 Transform childTransform = controller.follower.transform;
-                childTransform.position = controller.body.corePosition;
+                childTransform.position = Vector3.SmoothDamp(childTransform.position, controller.body.corePosition, ref velocity, 0.1f, Mathf.Infinity, Time.deltaTime);
                 childTransform.localRotation = Quaternion.Euler(new Vector3(
                     controller.tilt * Mathf.Sin(Mathf.Deg2Rad * -controller.rotation),
                     controller.rotation,
@@ -270,9 +271,9 @@ namespace MysticsItems.Items
                     Util.PlaySound("Play_item_proc_dasherdisc", gameObject);
                 }
 
-                public override void FixedUpdate()
+                public override void Update()
                 {
-                    base.FixedUpdate();
+                    base.Update();
                     controller.distance = Mathf.Lerp(baseDistance, -baseDistance, Mathf.Clamp01(fixedAge / duration));
                     if (fixedAge >= duration)
                     {
