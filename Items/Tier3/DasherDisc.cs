@@ -217,7 +217,7 @@ namespace MysticsItems.Items
 
             public override void OnExit()
             {
-                base.OnEnter();
+                base.OnExit();
                 controller.discSpinner.speedMultiplier -= DiscSpinBoost;
                 controller.discSpinner.SetTrail(false);
                 controller.rotate = true;
