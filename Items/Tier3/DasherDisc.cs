@@ -150,7 +150,15 @@ namespace MysticsItems.Items
 
             public void OnDestroy()
             {
-                if (controller) Object.Destroy(controller);
+                if (NetworkServer.active)
+                {
+                    if (controller) Object.Destroy(controller);
+                    if (body)
+                    {
+                        while (body.HasBuff(buffActive)) body.RemoveBuff(buffActive);
+                        while (body.HasBuff(buffCooldown)) body.ClearTimedBuffs(buffCooldown);
+                    }
+                }
             }
         }
 
@@ -184,16 +192,6 @@ namespace MysticsItems.Items
             public void Update()
             {
                 if (rotate) rotation += rotationSpeed * Time.deltaTime;
-            }
-
-            public override void OnNetworkDestroy()
-            {
-                base.OnNetworkDestroy();
-                if (body)
-                {
-                    while (body.HasBuff(buffActive)) body.RemoveBuff(buffActive);
-                    while (body.HasBuff(buffCooldown)) body.ClearTimedBuffs(buffCooldown);
-                }
             }
         }
 
