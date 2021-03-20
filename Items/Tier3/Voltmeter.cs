@@ -21,6 +21,7 @@ namespace MysticsItems.Items
             {
                 ItemTag.Damage,
                 ItemTag.Utility,
+                ItemTag.AIBlacklist,
                 ItemTag.BrotherBlacklist
             };
             SetAssets("Voltmeter");
