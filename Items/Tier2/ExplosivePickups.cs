@@ -20,7 +20,7 @@ namespace MysticsItems.Items
             itemDef.tags = new ItemTag[]
             {
                 ItemTag.Utility,
-                ItemTag.AIBlacklist
+                ItemTag.OnKillEffect
             };
             SetAssets("Contraband Gunpowder");
             Main.HopooShaderToMaterial.Standard.Apply(
