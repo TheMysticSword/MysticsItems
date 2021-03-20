@@ -62,7 +62,7 @@ namespace MysticsItems.Equipment
             AddDisplayRule("mdlLoader", "Pelvis", new Vector3(-0.216F, -0.016F, -0.022F), new Vector3(342.363F, 183.205F, 159.555F), new Vector3(0.045F, 0.045F, 0.045F));
             AddDisplayRule("mdlCroco", "SpineStomach1", new Vector3(0.845F, 0.495F, 1.289F), new Vector3(74.633F, 327.618F, 247.859F), new Vector3(0.361F, 0.361F, 0.361F));
             AddDisplayRule("mdlCaptain", "Stomach", new Vector3(-0.195F, 0.128F, 0.126F), new Vector3(336.504F, 156.734F, 358.159F), new Vector3(0.041F, 0.041F, 0.041F));
-            AddDisplayRule("mdlScav", "Backpack", new Vector3(-1.588F, 9.252F, -3.947F), new Vector3(358.543F, 1.155F, 125.647F), new Vector3(1.363F, 1.363F, 1.363F));
+            AddDisplayRule("mdlScav", "MuzzleEnergyCannon", new Vector3(0F, 0F, -1.503F), new Vector3(90F, 0F, 0F), new Vector3(2.281F, 2.281F, 2.281F));
             AddDisplayRule("mdlEquipmentDrone", "GunBarrelBase", new Vector3(0F, 0F, 1.069F), new Vector3(0F, 0F, 0F), new Vector3(0.267F, 0.267F, 0.267F));
 
             visualEffectOnUse = PrefabAPI.InstantiateClone(new GameObject(), Main.TokenPrefix + "GateChaliceOnUseEffect", false);

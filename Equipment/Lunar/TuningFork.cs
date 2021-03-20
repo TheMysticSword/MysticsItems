@@ -27,6 +27,22 @@ namespace MysticsItems.Equipment
             SetAssets("Tuning Fork");
             model.transform.Find("mdlTuningFork").Rotate(new Vector3(0f, 0f, -45f), Space.Self);
 
+            AddDisplayRule((int)Main.CommonBodyIndices.Commando, "Chest", new Vector3(-0.035F, 0.196F, -0.208F), new Vector3(341.98F, 196.319F, 18.721F), new Vector3(0.042F, 0.042F, 0.042F));
+            AddDisplayRule("mdlHuntress", "Head", new Vector3(0.001F, 0.253F, -0.112F), new Vector3(303.972F, 359.427F, 0.457F), new Vector3(0.053F, 0.023F, 0.052F));
+            AddDisplayRule("mdlToolbot", "Chest", new Vector3(-2.568F, 2.244F, -0.393F), new Vector3(0F, 90F, 128.784F), new Vector3(0.404F, 0.404F, 0.404F));
+            AddDisplayRule("mdlEngi", "Chest", new Vector3(0.074F, 0.278F, -0.256F), new Vector3(10.736F, 0F, 0F), new Vector3(0.047F, 0.047F, 0.047F));
+            AddDisplayRule("mdlMage", "HandL", new Vector3(-0.018F, -0.007F, 0.069F), new Vector3(348.97F, 0F, 0F), new Vector3(0.044F, 0.044F, 0.044F));
+            AddDisplayRule("mdlMage", "HandR", new Vector3(-0.052F, 0F, -0.059F), new Vector3(2.7F, 32.085F, 0F), new Vector3(0.044F, 0.044F, 0.044F));
+            AddDisplayRule("mdlMerc", "HandL", new Vector3(-0.202F, 0.132F, -0.07F), new Vector3(282.883F, 156.523F, 272.905F), new Vector3(0.041F, 0.124F, 0.041F));
+            AddDisplayRule("mdlTreebot", "WeaponPlatform", new Vector3(0F, -0.168F, 0.421F), new Vector3(0F, 0F, 0F), new Vector3(0.146F, 0.087F, 0.146F));
+            AddDisplayRule("mdlLoader", "MechHandR", new Vector3(0.087F, 0.245F, 0F), new Vector3(0F, 0F, 269.477F), new Vector3(0.076F, 0.076F, 0.076F));
+            AddDisplayRule("mdlCroco", "SpineChest3", new Vector3(-0.496F, 0.632F, 1.029F), new Vector3(76.142F, 328.553F, 189.334F), new Vector3(0.361F, 0.361F, 0.361F));
+            AddDisplayRule("mdlCaptain", "HandL", new Vector3(0F, 0.197F, -0.042F), new Vector3(0F, 0F, 0F), new Vector3(0.041F, 0.041F, 0.041F));
+            AddDisplayRule("mdlScav", "MuzzleEnergyCannon", new Vector3(0F, -4.749F, 0F), new Vector3(90F, 0F, 0F), new Vector3(1.363F, 1.363F, 1.363F));
+            AddDisplayRule("mdlScav", "MuzzleEnergyCannon", new Vector3(3.396F, 3.443F, -0.001F), new Vector3(40.988F, 270F, 270F), new Vector3(1.363F, 1.363F, 1.363F));
+            AddDisplayRule("mdlScav", "MuzzleEnergyCannon", new Vector3(-3.396F, 3.443F, -0.001F), new Vector3(36.034F, 90F, 90F), new Vector3(1.363F, 1.363F, 1.363F));
+            AddDisplayRule("mdlEquipmentDrone", "GunBarrelBase", new Vector3(0F, 0F, 1.069F), new Vector3(52.789F, 0F, 0F), new Vector3(0.267F, 0.267F, 0.267F));
+
             visualEffect = PrefabAPI.InstantiateClone(new GameObject(), Main.TokenPrefix + "TuningForkEffect", false);
             float time = 1.2f;
             EffectComponent effectComponent = visualEffect.AddComponent<EffectComponent>();

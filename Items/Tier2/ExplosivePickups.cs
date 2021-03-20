@@ -31,6 +31,22 @@ namespace MysticsItems.Items
             Main.HopooShaderToMaterial.Standard.Gloss(model.transform.Find("мешок").Find("порох").GetComponent<MeshRenderer>().sharedMaterial, 0f);
             Main.HopooShaderToMaterial.Standard.Gloss(model.transform.Find("мешок").GetComponent<MeshRenderer>().sharedMaterial, 0f);
             Main.HopooShaderToMaterial.Standard.Gloss(model.transform.Find("мешок").Find("верёвка").GetComponent<MeshRenderer>().sharedMaterial, 0.4f);
+            CopyModelToFollower();
+
+            AddDisplayRule((int)Main.CommonBodyIndices.Commando, "Stomach", new Vector3(-0.175F, 0.066F, 0.045F), new Vector3(16.687F, 66.665F, 36.228F), new Vector3(0.042F, 0.042F, 0.042F));
+            AddDisplayRule("mdlHuntress", "Pelvis", new Vector3(-0.12F, -0.064F, -0.052F), new Vector3(355.162F, 32.177F, 180.96F), new Vector3(0.042F, 0.042F, 0.042F));
+            AddDisplayRule("mdlToolbot", "Chest", new Vector3(-0.837F, 1.169F, 3.112F), new Vector3(29.795F, 9.384F, 2.716F), new Vector3(0.489F, 0.489F, 0.489F));
+            AddDisplayRule("mdlEngi", "Pelvis", new Vector3(-0.206F, 0.04F, -0.104F), new Vector3(4.991F, 46.464F, 181.437F), new Vector3(0.065F, 0.065F, 0.065F));
+            AddDisplayRule((int)Main.CommonBodyIndices.EngiTurret, "Head", new Vector3(0.834F, 0.462F, 0.717F), new Vector3(33.04F, 48.09F, 359.072F), new Vector3(0.168F, 0.168F, 0.168F));
+            AddDisplayRule((int)Main.CommonBodyIndices.EngiWalkerTurret, "Head", new Vector3(0.715F, 0.235F, 0.228F), new Vector3(22.677F, 152.024F, 24.393F), new Vector3(0.134F, 0.163F, 0.131F));
+            AddDisplayRule("mdlMage", "Pelvis", new Vector3(-0.058F, 0F, -0.164F), new Vector3(0.366F, 347.899F, 165.881F), new Vector3(0.044F, 0.044F, 0.044F));
+            AddDisplayRule("mdlMerc", "ThighR", new Vector3(-0.077F, 0.008F, 0.041F), new Vector3(15.315F, 124.284F, 220.104F), new Vector3(0.034F, 0.034F, 0.034F));
+            AddDisplayRule("mdlTreebot", "FlowerBase", new Vector3(-0.062F, -0.523F, -1.156F), new Vector3(41.662F, 244.258F, 1.504F), new Vector3(0.107F, 0.107F, 0.107F));
+            AddDisplayRule("mdlLoader", "MechBase", new Vector3(0.07F, 0.023F, 0.444F), new Vector3(7.628F, 218.893F, 342.184F), new Vector3(0.054F, 0.054F, 0.054F));
+            AddDisplayRule("mdlCroco", "SpineChest2", new Vector3(0.779F, 1.753F, -0.514F), new Vector3(337.83F, 226.76F, 273.311F), new Vector3(0.411F, 0.411F, 0.411F));
+            AddDisplayRule("mdlCaptain", "Stomach", new Vector3(-0.102F, 0.12F, 0.147F), new Vector3(11.46F, 212.011F, 335.706F), new Vector3(0.053F, 0.048F, 0.053F));
+            AddDisplayRule("mdlBrother", "Stomach", BrotherInfection.green, new Vector3(-0.18F, 0.131F, 0.075F), new Vector3(303.36F, 82.78F, 283.641F), new Vector3(0.063F, 0.063F, 0.063F));
+            AddDisplayRule("mdlScav", "MuzzleEnergyCannon", new Vector3(0.586F, 3.872F, 0.073F), new Vector3(54.107F, 148.5F, 149.008F), new Vector3(0.835F, 0.858F, 0.835F));
 
             gunpowderPickup = Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Contraband Gunpowder/ExplosivePack.prefab");
             gunpowderPickup.transform.localScale *= 0.33f;

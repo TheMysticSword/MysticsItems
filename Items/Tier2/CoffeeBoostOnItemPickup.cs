@@ -39,6 +39,18 @@ namespace MysticsItems.Items
             particles.transform.SetParent(visualEffect.transform);
 
             AssetManager.RegisterEffect(visualEffect);
+
+            AddDisplayRule((int)Main.CommonBodyIndices.Commando, "HandR", new Vector3(-0.016F, 0.214F, -0.111F), new Vector3(33.043F, 10.378F, 286.615F), new Vector3(0.072F, 0.072F, 0.072F));
+            AddDisplayRule("mdlHuntress", "Muzzle", new Vector3(-0.397F, -0.017F, -0.251F), new Vector3(0.509F, 134.442F, 184.268F), new Vector3(0.037F, 0.037F, 0.037F));
+            AddDisplayRule("mdlToolbot", "Chest", new Vector3(-0.925F, 2.116F, 2.185F), new Vector3(0F, 324.78F, 0F), new Vector3(0.448F, 0.448F, 0.448F));
+            AddDisplayRule("mdlEngi", "HandR", new Vector3(0.014F, 0.165F, 0.065F), new Vector3(21.189F, 152.963F, 68.785F), new Vector3(0.072F, 0.072F, 0.072F));
+            AddDisplayRule("mdlMage", "HandR", new Vector3(-0.098F, -0.054F, -0.102F), new Vector3(15.816F, 19.399F, 81.6F), new Vector3(0.059F, 0.059F, 0.059F));
+            AddDisplayRule("mdlMerc", "HandR", new Vector3(0.006F, 0.202F, 0.125F), new Vector3(21.174F, 173.671F, 87.267F), new Vector3(0.08F, 0.08F, 0.08F));
+            AddDisplayRule("mdlTreebot", "FlowerBase", new Vector3(1.119F, -0.997F, -0.433F), new Vector3(304.283F, 287.341F, 136.374F), new Vector3(0.189F, 0.189F, 0.189F));
+            AddDisplayRule("mdlLoader", "MechLowerArmR", new Vector3(-0.002F, 0.311F, 0.171F), new Vector3(78.649F, 219.923F, 309.488F), new Vector3(0.055F, 0.054F, 0.055F));
+            AddDisplayRule("mdlCroco", "Head", new Vector3(0.919F, 4.774F, -1.755F), new Vector3(25.068F, 0.938F, 231.2F), new Vector3(1F, 1F, 1F));
+            AddDisplayRule("mdlCaptain", "HandR", new Vector3(-0.09F, 0.124F, 0.046F), new Vector3(352.642F, 118.248F, 97.772F), new Vector3(0.076F, 0.069F, 0.076F));
+            AddDisplayRule("mdlBrother", "HandR", BrotherInfection.green, new Vector3(0.002F, 0.109F, 0.031F), new Vector3(72.72F, 119.024F, 264.129F), new Vector3(0.043F, 0.043F, 0.043F));
         }
 
         public int GetBuffCountFromTier(ItemTier tier)

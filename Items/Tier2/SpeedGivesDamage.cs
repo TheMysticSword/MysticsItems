@@ -48,6 +48,7 @@ namespace MysticsItems.Items
             AddDisplayRule("mdlCroco", "CalfR", new Vector3(0.189F, 1.849F, 0.453F), new Vector3(279.59F, 160.263F, 10.136F), new Vector3(0.387F, 0.387F, 0.387F));
             AddDisplayRule("mdlCaptain", "CalfR", new Vector3(0.015F, 0.214F, 0.085F), new Vector3(74.208F, 0F, 0F), new Vector3(0.045F, 0.045F, 0.045F));
             AddDisplayRule("mdlBrother", "CalfR", BrotherInfection.green, new Vector3(0.038F, 0.121F, 0.051F), new Vector3(43.102F, 358.401F, 241.259F), new Vector3(0.078F, 0.078F, 0.078F));
+            AddDisplayRule("mdlScav", "CalfR", new Vector3(0.102F, 1.306F, 0.604F), new Vector3(66.818F, 0F, 0F), new Vector3(0.358F, 0.367F, 0.358F));
 
             model.transform.Find("speedpower_powerspeed").Rotate(new Vector3(60f, 0f, 0f), Space.Self);
         }
