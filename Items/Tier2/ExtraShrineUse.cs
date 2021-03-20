@@ -25,6 +25,9 @@ namespace MysticsItems.Items
             SetAssets("Hexahedral Monolith");
             Main.HopooShaderToMaterial.Standard.Gloss(GetModelMaterial());
             GetModelMaterial().SetFloat("_Smoothness", 0.5f);
+
+            MysticsItemsExtraShrineUseBehaviour.displayPrefab = PrefabAPI.InstantiateClone(model, Main.TokenPrefix + "MysteriousMonolithDisplay", false);
+            MysticsItemsExtraShrineUseBehaviour.displayPrefab.transform.localScale *= 0.1f;
         }
 
         public static void UpdateShrine(MysticsItemsExtraShrineUseBehaviour self)
@@ -74,9 +77,44 @@ namespace MysticsItems.Items
         public class MysticsItemsExtraShrineUseBehaviour : MonoBehaviour
         {
             public int increasedPurchaseCount = 0;
+            public GameObject display;
+            public static GameObject displayPrefab;
 
-            public void Awake()
+            public void Start()
             {
+                float radius = 1f;
+                ModelLocator modelLocator = GetComponent<ModelLocator>();
+                if (modelLocator)
+                {
+                    Transform modelTransform = modelLocator.modelTransform;
+                    if (modelTransform)
+                    {
+                        CapsuleCollider capsuleCollider = modelTransform.gameObject.GetComponent<CapsuleCollider>();
+                        if (capsuleCollider) radius = capsuleCollider.radius;
+                        SphereCollider sphereCollider = modelTransform.gameObject.GetComponent<SphereCollider>();
+                        if (sphereCollider) radius = sphereCollider.radius;
+                        BoxCollider boxCollider = modelTransform.gameObject.GetComponent<BoxCollider>();
+                        if (boxCollider) radius = (boxCollider.size.x + boxCollider.size.y + boxCollider.size.z) / 3f;
+                    }
+                }
+
+                display = Instantiate(displayPrefab, transform.position, Quaternion.identity);
+                // move it to somewhere around the shrine
+                display.transform.up = transform.up;
+                float randomAngle = UnityEngine.Random.Range(0f, Mathf.PI * 2f);
+                Vector2 randomCirclePoint = new Vector2(Mathf.Sin(randomAngle), Mathf.Cos(randomAngle)).normalized * (radius * 1.5f);
+                display.transform.Translate(new Vector3(randomCirclePoint.x, 0f, randomCirclePoint.y), Space.Self);
+                // align it to the ground
+                RaycastHit raycastHit;
+                if (Physics.Raycast(new Ray(display.transform.position + display.transform.up * 1f, -display.transform.up), out raycastHit, 100f, LayerIndex.world.mask))
+                {
+                    display.transform.position = raycastHit.point + raycastHit.normal * 0.65f;
+                    display.transform.up = raycastHit.normal;
+                }
+                // add slight tilt
+                float tiltRange = 30f;
+                display.transform.rotation *= Quaternion.Euler(UnityEngine.Random.Range(-tiltRange, tiltRange), UnityEngine.Random.Range(-tiltRange, tiltRange), UnityEngine.Random.Range(-tiltRange, tiltRange));
+
                 UpdateShrine(this);
             }
 
@@ -88,6 +126,11 @@ namespace MysticsItems.Items
             public void OnDisable()
             {
                 activeShrines.Remove(this);
+            }
+
+            public void OnDestroy()
+            {
+                if (display) Destroy(display);
             }
 
             public static List<MysticsItemsExtraShrineUseBehaviour> activeShrines = new List<MysticsItemsExtraShrineUseBehaviour>();
