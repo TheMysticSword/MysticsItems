@@ -26,8 +26,7 @@ namespace MysticsItems.Items
             itemDef.tier = ItemTier.Tier2;
             itemDef.tags = new ItemTag[]
             {
-                ItemTag.Utility,
-                ItemTag.AIBlacklist
+                ItemTag.Utility
             };
             SetAssets("Nuclear Accelerator");
             Main.HopooShaderToMaterial.Standard.Apply(GetModelMaterial());
