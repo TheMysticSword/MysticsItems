@@ -49,6 +49,7 @@ namespace MysticsItems.Items
                     maxPurchaseCountField.SetValue(monoBehaviour, (int)maxPurchaseCountField.GetValue(monoBehaviour) + increaseBy);
                 }
             }
+            if (self.display) self.display.SetActive(increaseBy > 0);
         }
 
         public override void OnAdd()
