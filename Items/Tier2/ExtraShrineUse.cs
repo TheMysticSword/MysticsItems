@@ -27,7 +27,7 @@ namespace MysticsItems.Items
             GetModelMaterial().SetFloat("_Smoothness", 0.5f);
         }
 
-        public static void UpdateShrine(ExtraShrineUseBehaviour self)
+        public static void UpdateShrine(MysticsItemsExtraShrineUseBehaviour self)
         {
             ItemIndex itemIndex = registeredItems[typeof(ExtraShrineUse)].itemIndex;
             int increaseBy = 0;
@@ -55,7 +55,7 @@ namespace MysticsItems.Items
                 orig(self, itemIndex2, count);
                 if (itemIndex2 == itemIndex)
                 {
-                    foreach (ExtraShrineUseBehaviour extraShrineUseBehaviour in ExtraShrineUseBehaviour.activeShrines)
+                    foreach (MysticsItemsExtraShrineUseBehaviour extraShrineUseBehaviour in MysticsItemsExtraShrineUseBehaviour.activeShrines)
                     {
                         UpdateShrine(extraShrineUseBehaviour);
                     }
@@ -67,11 +67,11 @@ namespace MysticsItems.Items
                 orig(self);
                 GenericDisplayNameProvider genericDisplayNameProvider = self.GetComponent<GenericDisplayNameProvider>();
                 if (genericDisplayNameProvider && genericDisplayNameProvider.displayToken.Contains("SHRINE"))
-                    self.gameObject.AddComponent<ExtraShrineUseBehaviour>();
+                    self.gameObject.AddComponent<MysticsItemsExtraShrineUseBehaviour>();
             };
         }
 
-        public class ExtraShrineUseBehaviour : MonoBehaviour
+        public class MysticsItemsExtraShrineUseBehaviour : MonoBehaviour
         {
             public int increasedPurchaseCount = 0;
 
@@ -90,7 +90,7 @@ namespace MysticsItems.Items
                 activeShrines.Remove(this);
             }
 
-            public static List<ExtraShrineUseBehaviour> activeShrines = new List<ExtraShrineUseBehaviour>();
+            public static List<MysticsItemsExtraShrineUseBehaviour> activeShrines = new List<MysticsItemsExtraShrineUseBehaviour>();
         }
     }
 }
