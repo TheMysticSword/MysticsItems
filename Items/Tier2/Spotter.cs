@@ -178,7 +178,7 @@ namespace MysticsItems.Items
 
                     if (body)
                     {
-                        Vector2 circle = Random.insideUnitCircle * (2.5f + body.radius);
+                        Vector2 circle = Random.insideUnitCircle * (5f * body.radius);
                         float height = Random.Range(-0.4f, 3f);
                         offset = new Vector3(circle.x, height, circle.y);
                     }

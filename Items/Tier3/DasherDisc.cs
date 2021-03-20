@@ -188,7 +188,7 @@ namespace MysticsItems.Items
 
                     if (body)
                     {
-                        distance = 1f + body.radius;
+                        distance = 2f * body.radius;
                     }
                 };
             }
