@@ -13,12 +13,12 @@ Put both `MysticsItemsPlugin.dll` and `MysticsItems.language` in the plugins fol
 `mysticsitems_unlocklogs` - unlocks all logbook entries  
 
 ### Bug reports and suggestions
-Please visit the issue tracker on the mod's GitHub repository! https://github.com/TheMysticSword/MysticsItems/issues  
+If you have a general suggestion or a bug report, please make an issue about it on the issue tracker: https://github.com/TheMysticSword/MysticsItems/issues  
 Before creating a new issue, please make sure that a similar one hasn't already been created. You can also check the Milestones tab to see the progress on the next update and what bugs have already been fixed internally.
+If you want to suggest an idea for a new item, make a post on the Item Ideas discussion category: https://github.com/TheMysticSword/MysticsItems/discussions/categories/item-ideas
 
 ### To-do
 * Character-specific items  
-* Missing item displays on characters  
 * Missing logbook lore entries  
 
 ### Credits
@@ -28,6 +28,12 @@ Tuning fork SFX for Ratio Equalizer provided by Martin Chappell (https://freesou
 Other sounds made with sfxia by rxi (https://rxi.itch.io/sfxia)  
   
 ### Changelog
+#### 1.1.4:
+* Added lore entries for Donut, Treasure Map, Spine Implant
+* Added missing item displays
+* Banned Wireless Voltmeter from enemies
+* Unbanned Nuclear Accelerator from enemies
+* Unbanned Contraband Gunpowder from Scavengers
 #### 1.1.3:
 * Fixed wrong info in the readme
 #### 1.1.2:
