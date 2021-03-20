@@ -41,7 +41,7 @@ namespace MysticsItems.Items
             AddDisplayRule("mdlLoader", "MechLowerArmR", new Vector3(-0.01F, 0.544F, -0.144F), new Vector3(275.35F, 95.995F, 266.284F), new Vector3(0.095F, 0.095F, 0.095F));
             AddDisplayRule("mdlCroco", "UpperArmR", new Vector3(1.735F, -0.575F, 0.196F), new Vector3(281.472F, 180.072F, 89.927F), new Vector3(0.868F, 0.868F, 0.868F));
             AddDisplayRule("mdlCaptain", "HandR", new Vector3(-0.066F, 0.087F, 0.011F), new Vector3(76.759F, 135.292F, 224.52F), new Vector3(0.059F, 0.053F, 0.059F));
-            AddDisplayRule("mdlBrother", "HandR", BrotherInfection.white, new Vector3(0.051F, -0.072F, 0.004F), new Vector3(44.814F, 122.901F, 267.545F), new Vector3(0.063F, 0.063F, 0.063F));
+            AddDisplayRule("mdlBrother", "HandR", BrotherInfection.red, new Vector3(0.051F, -0.072F, 0.004F), new Vector3(44.814F, 122.901F, 267.545F), new Vector3(0.063F, 0.063F, 0.063F));
 
             NetworkingAPI.RegisterMessageType<MysticsItemsTreasureMapZone.SyncVariables>();
         }
