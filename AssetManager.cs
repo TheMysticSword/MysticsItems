@@ -1,4 +1,5 @@
 ﻿using RoR2;
+using RoR2.Audio;
 using R2API.Utils;
 using UnityEngine;
 using System.Linq;
@@ -43,6 +44,12 @@ namespace MysticsItems
             {
                 orig(self);
                 RegisterEffectsToCatalog();
+            };
+
+            On.RoR2.Audio.NetworkSoundEventCatalog.Init += (orig) =>
+            {
+                orig();
+                RegisterNetworkSoundEventsToCatalog();
             };
         }
 
@@ -100,6 +107,22 @@ namespace MysticsItems
             EffectDef[] entries = ArrayUtils.Clone(typeof(EffectCatalog).GetFieldValue<EffectDef[]>("entries"));
             entries = entries.Concat(effectDefs).ToArray();
             typeof(EffectCatalog).InvokeMethod("SetEntries", new object[] { entries });
+        }
+
+        private static List<string> registeredNetworkSoundEvents = new List<string>();
+        internal static void RegisterNetworkSoundEvent(string eventName)
+        {
+            registeredNetworkSoundEvents.Add(eventName);
+        }
+        private static void RegisterNetworkSoundEventsToCatalog()
+        {
+            NetworkSoundEventDef[] entries = ArrayUtils.Clone(typeof(NetworkSoundEventCatalog).GetFieldValue<NetworkSoundEventDef[]>("entries"));
+            entries = entries.Concat(registeredNetworkSoundEvents.ConvertAll(x => {
+                NetworkSoundEventDef networkSoundEventDef = ScriptableObject.CreateInstance<NetworkSoundEventDef>();
+                networkSoundEventDef.eventName = x;
+                return networkSoundEventDef;
+            })).ToArray();
+            typeof(MasterCatalog).InvokeMethod("SetEntries", new object[] { entries });
         }
     }
 }
