@@ -72,8 +72,12 @@ namespace MysticsItems.Items
                         float distance = Vector3.Distance(damageInfo.position, characterInfo.body.corePosition);
                         if (distance >= BackArmor.distance)
                         {
-                            float angle = Vector3.Angle(-characterInfo.body.inputBank.aimDirection, damageInfo.position - characterInfo.body.inputBank.aimOrigin);
-                            if (angle <= (BackArmor.angle / 2f))
+                            Vector3 myAimDirection = characterInfo.body.inputBank.aimDirection;
+                            float myAngle = Vector2.Angle(Vector2.up, new Vector2(myAimDirection.x, myAimDirection.z).normalized);
+                            Vector3 enemyAttackDirection = damageInfo.position - characterInfo.body.inputBank.aimOrigin;
+                            float enemyAttackAngle = Vector2.Angle(Vector2.up, new Vector2(enemyAttackDirection.x, enemyAttackDirection.z).normalized);
+                            float angle = Mathf.DeltaAngle(myAngle + 180f, enemyAttackAngle);
+                            if (Mathf.Abs(angle) <= (BackArmor.angle / 2f))
                             {
                                 BackArmorTempArmor tempArmor = characterInfo.gameObject.GetComponent<BackArmorTempArmor>();
                                 if (!tempArmor) tempArmor = characterInfo.gameObject.AddComponent<BackArmorTempArmor>();
