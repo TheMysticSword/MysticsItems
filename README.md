@@ -33,6 +33,9 @@ Other sounds made with sfxia by rxi (https://rxi.itch.io/sfxia)
     * Mysterious Monolith appears around shrines instead of being visible on the player
 * Added particles and sounds to Spine Implant
 * Treasure Map now creates the chest immediately, but locks it until you charge the zone, allowing you to see the price beforehand
+* Contraband Gunpowder:
+    * Powder Flask Drop Chance: ~~100%~~ ⇒ 10%
+        * This change was made to make the item depend more on synergies with other pickup-dropping items
 * Banned Wireless Voltmeter from enemies
 * Unbanned Nuclear Accelerator from enemies
 * Unbanned Contraband Gunpowder from Scavengers

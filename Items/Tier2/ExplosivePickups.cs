@@ -271,7 +271,7 @@ namespace MysticsItems.Items
             */
             On.RoR2.CharacterBody.HandleOnKillEffectsServer += (orig, self, damageReport) =>
             {
-                if (self.inventory && self.inventory.GetItemCount(itemIndex) > 0)
+                if (self.inventory && self.inventory.GetItemCount(itemIndex) > 0 && self.master && Util.CheckRoll(10f, self.master))
                 {
                     GameObject gameObject = Object.Instantiate(gunpowderPickup, Util.GetCorePosition(damageReport.victim.gameObject), Quaternion.Euler(Random.onUnitSphere.normalized));
                     gameObject.GetComponent<TeamFilter>().teamIndex = TeamComponent.GetObjectTeam(self.gameObject);
