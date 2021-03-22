@@ -46,9 +46,8 @@ namespace MysticsItems.Equipment
             visualEffect = PrefabAPI.InstantiateClone(new GameObject(), Main.TokenPrefix + "TuningForkEffect", false);
             float time = 1.2f;
             EffectComponent effectComponent = visualEffect.AddComponent<EffectComponent>();
-            effectComponent.parentToReferencedTransform = true;
+            effectComponent.parentToReferencedTransform = false;
             effectComponent.applyScale = true;
-            effectComponent.disregardZScale = true;
             effectComponent.soundName = "Play_item_use_tuningfork";
             VFXAttributes vfxAttributes = visualEffect.AddComponent<VFXAttributes>();
             vfxAttributes.vfxPriority = VFXAttributes.VFXPriority.Always;
@@ -113,12 +112,14 @@ namespace MysticsItems.Equipment
 
             public MeshRenderer meshRenderer;
             public Material material;
+            public EffectComponent effectComponent;
 
             public void Start()
             {
                 meshRenderer = GetComponent<MeshRenderer>();
                 material = Object.Instantiate(meshRenderer.sharedMaterial);
                 meshRenderer.material = material;
+                effectComponent = transform.parent.gameObject.GetComponent<EffectComponent>();
             }
 
             public void Update()
@@ -146,6 +147,11 @@ namespace MysticsItems.Equipment
 
                     material.SetFloat("_Boost", (1f - stopwatch / time) * 0.34f);
                 }
+            }
+
+            public void FixedUpdate()
+            {
+                transform.position = effectComponent.effectData.rootObject.transform.position;
             }
 
             public void OnDestroy()
