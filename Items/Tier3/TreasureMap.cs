@@ -47,6 +47,7 @@ namespace MysticsItems.Items
 
             NetworkingAPI.RegisterMessageType<MysticsItemsTreasureMapZone.SyncVariables>();
             NetworkingAPI.RegisterMessageType<MysticsItemsTreasureMapZone.SyncRewardLocked>();
+            NetworkingAPI.RegisterMessageType<MysticsItemsTreasureMapZone.SyncRewardEnabled>();
         }
 
         public override void OnAdd()
@@ -187,6 +188,12 @@ namespace MysticsItems.Items
                 if (targetRadius <= 0f) hologramProjector.displayDistance = 0f;
                 hologramProjector.hologramPivot.position = transform.position + Vector3.up * radius * 0.5f;
 
+                if (NetworkServer.active)
+                {
+                    if (!anyoneHasItem && reward.activeSelf) SetRewardEnabled(false);
+                    if (anyoneHasItem && !reward.activeSelf) SetRewardEnabled(true);
+                }
+
                 if (!captured)
                 {
                     captureSoundPlayed = false;
@@ -306,6 +313,18 @@ namespace MysticsItems.Items
                 }
             }
 
+            public void SetRewardEnabled(bool value)
+            {
+                if (reward)
+                {
+                    reward.SetActive(value);
+                }
+                if (NetworkServer.active)
+                {
+                    new SyncRewardEnabled(gameObject.GetComponent<NetworkIdentity>().netId, value).Send(NetworkDestination.Clients);
+                }
+            }
+
             public class SyncVariables : INetMessage
             {
                 NetworkInstanceId objID;
@@ -384,6 +403,48 @@ namespace MysticsItems.Items
                         if (component)
                         {
                             component.SetRewardLocked(value);
+                        }
+                    }
+                }
+
+                public void Serialize(NetworkWriter writer)
+                {
+                    writer.Write(objID);
+                    writer.Write(value);
+                }
+            }
+
+            public class SyncRewardEnabled : INetMessage
+            {
+                NetworkInstanceId objID;
+                bool value;
+
+                public SyncRewardEnabled()
+                {
+                }
+
+                public SyncRewardEnabled(NetworkInstanceId objID, bool value)
+                {
+                    this.objID = objID;
+                    this.value = value;
+                }
+
+                public void Deserialize(NetworkReader reader)
+                {
+                    objID = reader.ReadNetworkId();
+                    value = reader.ReadBoolean();
+                }
+
+                public void OnReceived()
+                {
+                    if (NetworkServer.active) return;
+                    GameObject obj = Util.FindNetworkObject(objID);
+                    if (obj)
+                    {
+                        MysticsItemsTreasureMapZone component = obj.GetComponent<MysticsItemsTreasureMapZone>();
+                        if (component)
+                        {
+                            component.SetRewardEnabled(value);
                         }
                     }
                 }
