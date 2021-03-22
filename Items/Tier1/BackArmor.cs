@@ -1,4 +1,5 @@
 using RoR2;
+using RoR2.Audio;
 using R2API;
 using R2API.Utils;
 using UnityEngine;
@@ -8,8 +9,9 @@ namespace MysticsItems.Items
     public class BackArmor : BaseItem
     {
         public static float distance = 0.01f;
-        public static float angle = 90f;
-
+        public static float angle = 150f;
+        public static GameObject visualEffect;
+        
         public override void PreAdd()
         {
             itemDef.name = "BackArmor";
@@ -59,6 +61,28 @@ namespace MysticsItems.Items
             AddDisplayRule("mdlScav", "Backpack", new Vector3(-2.907F, 3.344F, -3.861F), new Vector3(359.95F, 0.351F, 16.311F), new Vector3(1.363F, 1.363F, 1.363F));
             AddDisplayRule("mdlScav", "Backpack", new Vector3(1.977F, 6.937F, -3.851F), new Vector3(359.832F, 358.468F, 326.995F), new Vector3(1.363F, 1.363F, 1.363F));
             AddDisplayRule("mdlScav", "Backpack", new Vector3(-1.588F, 9.252F, -3.947F), new Vector3(358.543F, 1.155F, 125.647F), new Vector3(1.363F, 1.363F, 1.363F));
+
+            visualEffect = PrefabAPI.InstantiateClone(new GameObject(), Main.TokenPrefix + "BackArmorVFX", false);
+            EffectComponent effectComponent = visualEffect.AddComponent<EffectComponent>();
+            effectComponent.applyScale = true;
+            effectComponent.parentToReferencedTransform = true;
+            effectComponent.soundName = "MysticsItems_Play_item_proc_spineimplant";
+            VFXAttributes vfxAttributes = visualEffect.AddComponent<VFXAttributes>();
+            vfxAttributes.vfxPriority = VFXAttributes.VFXPriority.Always;
+            vfxAttributes.vfxIntensity = VFXAttributes.VFXIntensity.Low;
+            visualEffect.AddComponent<DestroyOnTimer>().duration = 1f;
+            MysticsItemsBackArmorVFX component = visualEffect.AddComponent<MysticsItemsBackArmorVFX>();
+
+            GameObject particles = PrefabAPI.InstantiateClone(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Spine Implant/ProcParticles.prefab"), "ProcParticles", false);
+            Material material = particles.GetComponent<ParticleSystemRenderer>().sharedMaterial;
+            Main.HopooShaderToMaterial.Standard.Apply(material);
+            Main.HopooShaderToMaterial.Standard.Emission(material, 2.5f, Color.red);
+            particles.transform.SetParent(visualEffect.transform);
+
+            component.particleSystem = particles.GetComponent<ParticleSystem>();
+            component.effectComponent = effectComponent;
+
+            AssetManager.RegisterEffect(visualEffect);
         }
 
         public override void OnAdd()
@@ -72,11 +96,11 @@ namespace MysticsItems.Items
                         float distance = Vector3.Distance(damageInfo.position, characterInfo.body.corePosition);
                         if (distance >= BackArmor.distance)
                         {
-                            Vector3 myAimDirection = characterInfo.body.inputBank.aimDirection;
+                            Vector3 myAimDirection = -characterInfo.body.inputBank.aimDirection;
                             float myAngle = Vector2.Angle(Vector2.up, new Vector2(myAimDirection.x, myAimDirection.z).normalized);
-                            Vector3 enemyAttackDirection = damageInfo.position - characterInfo.body.inputBank.aimOrigin;
+                            Vector3 enemyAttackDirection = (damageInfo.position - characterInfo.body.inputBank.aimOrigin).normalized;
                             float enemyAttackAngle = Vector2.Angle(Vector2.up, new Vector2(enemyAttackDirection.x, enemyAttackDirection.z).normalized);
-                            float angle = Mathf.DeltaAngle(myAngle + 180f, enemyAttackAngle);
+                            float angle = Mathf.DeltaAngle(myAngle, enemyAttackAngle);
                             if (Mathf.Abs(angle) <= (BackArmor.angle / 2f))
                             {
                                 BackArmorTempArmor tempArmor = characterInfo.gameObject.GetComponent<BackArmorTempArmor>();
@@ -84,6 +108,15 @@ namespace MysticsItems.Items
                                 float tempArmorValue = 10f + 10f * (float)(itemCount - 1);
                                 tempArmor.value += tempArmorValue;
                                 characterInfo.body.SetPropertyValue("armor", characterInfo.body.armor + tempArmorValue);
+
+                                EffectData effectData = new EffectData
+                                {
+                                    origin = characterInfo.body.corePosition,
+                                    genericFloat = damageInfo.damage / characterInfo.healthComponent.health,
+                                    scale = 3.5f * characterInfo.body.radius
+                                };
+                                effectData.SetNetworkedObjectReference(characterInfo.gameObject);
+                                EffectManager.SpawnEffect(visualEffect, effectData, true);
                             }
                         }
                     }
@@ -103,6 +136,17 @@ namespace MysticsItems.Items
         public class BackArmorTempArmor : MonoBehaviour
         {
             public float value;
+        }
+
+        public class MysticsItemsBackArmorVFX : MonoBehaviour
+        {
+            public ParticleSystem particleSystem;
+            public EffectComponent effectComponent;
+
+            public void Start()
+            {
+                particleSystem.Emit(Mathf.Max(Mathf.CeilToInt(15f * effectComponent.effectData.genericFloat), 3));
+            }
         }
     }
 }
