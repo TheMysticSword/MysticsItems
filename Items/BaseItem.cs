@@ -413,5 +413,16 @@ namespace MysticsItems.Items
             List<GameObject> effectObjects = model.GetComponent<MysticsItemsItemFollowerVisualScaling>().effectObjects;
             if (!effectObjects.Contains(child)) effectObjects.Add(child);
         }
+
+        public int GetTeamItemCount(TeamIndex teamIndex = TeamIndex.Player)
+        {
+            int itemCount = 0;
+            foreach (CharacterMaster master in CharacterMaster.readOnlyInstancesList) if (master.teamIndex == teamIndex)
+                {
+                    Inventory inventory = master.inventory;
+                    if (inventory && inventory.GetItemCount(itemIndex) > 0) itemCount += inventory.GetItemCount(itemIndex);
+                }
+            return itemCount;
+        }
     }
 }

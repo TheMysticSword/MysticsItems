@@ -30,15 +30,10 @@ namespace MysticsItems.Items
             MysticsItemsExtraShrineUseBehaviour.displayPrefab.transform.localScale *= 0.1f;
         }
 
-        public static void UpdateShrine(MysticsItemsExtraShrineUseBehaviour self)
+        public static void UpdateShrine(MysticsItemsExtraShrineUseBehaviour self, int itemCount)
         {
-            ItemIndex itemIndex = registeredItems[typeof(ExtraShrineUse)].itemIndex;
-            int increaseBy = 0;
-            foreach (CharacterMaster master in CharacterMaster.readOnlyInstancesList) if (master.teamIndex == TeamIndex.Player)
-            {
-                Inventory inventory = master.inventory;
-                if (inventory && inventory.GetItemCount(itemIndex) > 0) increaseBy += 1 + (inventory.GetItemCount(itemIndex) - 1);
-            }
+            int increaseBy = itemCount;
+
             increaseBy -= self.increasedPurchaseCount;
             self.increasedPurchaseCount += increaseBy;
             foreach (MonoBehaviour monoBehaviour in self.GetComponents<MonoBehaviour>())
@@ -52,16 +47,23 @@ namespace MysticsItems.Items
             if (self.display) self.display.SetActive(increaseBy > 0);
         }
 
+        public static void UpdateShrine(MysticsItemsExtraShrineUseBehaviour self)
+        {
+            int itemCount = GetFromType(typeof(ExtraShrineUse)).GetTeamItemCount();
+            if (itemCount != 0) UpdateShrine(self, itemCount);
+        }
+
         public override void OnAdd()
         {
-            On.RoR2.Inventory.GiveItem += (orig, self, itemIndex2, count) =>
+            On.RoR2.CharacterBody.OnInventoryChanged += (orig, self) =>
             {
-                orig(self, itemIndex2, count);
-                if (itemIndex2 == itemIndex)
+                orig(self);
+                int itemCount = GetFromType(typeof(ExtraShrineUse)).GetTeamItemCount();
+                if (itemCount != 0)
                 {
                     foreach (MysticsItemsExtraShrineUseBehaviour extraShrineUseBehaviour in MysticsItemsExtraShrineUseBehaviour.activeShrines)
                     {
-                        UpdateShrine(extraShrineUseBehaviour);
+                        UpdateShrine(extraShrineUseBehaviour, itemCount);
                     }
                 }
             };
