@@ -66,7 +66,7 @@ namespace MysticsItems.Equipment
             shakeEmitter.amplitudeTimeDecay = true;
 
             GameObject ppHolder = PrefabAPI.InstantiateClone(new GameObject(), "PP", false);
-            ppHolder.AddComponent<PPController>().time = time;
+            ppHolder.AddComponent<MysticsItemsTuningForkPPController>().time = time;
             SphereCollider ppSphere = ppHolder.AddComponent<SphereCollider>();
             ppSphere.radius = radius * 0.3f;
             ppSphere.isTrigger = true;
@@ -86,7 +86,7 @@ namespace MysticsItems.Equipment
             ppHolder.transform.SetParent(visualEffect.transform);
 
             GameObject radiusIndicator = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/NetworkedObjects/Teleporters/Teleporter1").transform.Find("TeleporterBaseMesh").Find("BuiltInEffects").Find("ChargingEffect").Find("RadiusScaler").Find("ClearAreaIndicator").gameObject, "RadiusIndicator", false);
-            radiusIndicator.AddComponent<RadiusIndicatorController>();
+            radiusIndicator.AddComponent<MysticsItemsTuningForkRadiusIndicatorController>();
             MeshRenderer meshRenderer = radiusIndicator.GetComponent<MeshRenderer>();
             meshRenderer.material.SetFloat("_RimPower", 1.2f);
             meshRenderer.material.SetTexture("_RemapTex", Main.AssetBundle.LoadAsset<Texture2D>("Assets/Equipment/Tuning Fork/texRampTuningFork.png"));
@@ -94,15 +94,15 @@ namespace MysticsItems.Equipment
             for (int i = 0; i < 3; i++)
             {
                 GameObject radiusIndicator2 = PrefabAPI.InstantiateClone(radiusIndicator, "RadiusIndicator" + (i + 1).ToString(), false);
-                radiusIndicator2.GetComponent<RadiusIndicatorController>().delay = 0.2f * i;
-                radiusIndicator2.GetComponent<RadiusIndicatorController>().time = time - 0.2f * i;
+                radiusIndicator2.GetComponent<MysticsItemsTuningForkRadiusIndicatorController>().delay = 0.2f * i;
+                radiusIndicator2.GetComponent<MysticsItemsTuningForkRadiusIndicatorController>().time = time - 0.2f * i;
                 radiusIndicator2.transform.SetParent(visualEffect.transform);
             }
 
             AssetManager.RegisterEffect(visualEffect);
         }
 
-        public class RadiusIndicatorController : MonoBehaviour
+        public class MysticsItemsTuningForkRadiusIndicatorController : MonoBehaviour
         {
             public float stopwatch = 0f;
             public float time = 0f;
@@ -160,7 +160,7 @@ namespace MysticsItems.Equipment
             }
         }
 
-        public class PPController : MonoBehaviour
+        public class MysticsItemsTuningForkPPController : MonoBehaviour
         {
             public float stopwatch = 0f;
             public float time = 0f;
