@@ -151,7 +151,8 @@
 
     //[CUSTOM]
     "MYSTICSITEMS_CHARACTERITEM_PICKUP_FORMAT": "{0} Item",
-    "MYSTICSITEMS_CHARACTERITEMCHEST_ANNOUNCE": "<style=cWorldEvent>A supply chest has been airdropped!</style>"
+    "MYSTICSITEMS_CHARACTERITEMCHEST_ANNOUNCE": "<style=cWorldEvent>A supply chest has been airdropped!</style>",
+    "MYSTICSITEMS_EMPTY_FORMAT": "{0}"
   },
   "RU": {
     //[ITEMS]

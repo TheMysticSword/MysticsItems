@@ -1,7 +1,10 @@
 using RoR2;
 using R2API;
+using R2API.Utils;
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using RoR2.UI;
 
 namespace MysticsItems
 {
@@ -96,6 +99,43 @@ namespace MysticsItems
         {
             if (!ConCommandCheck()) return;
             monsterItems.Clear();
+        }
+
+        [ConCommand(commandName = ConCommandPrefix + "notification", flags = ConVarFlags.None, helpText = "Create a notification at the bottom of the screen")]
+        private static void CCNotification(ConCommandArgs args)
+        {
+            foreach (NotificationQueue notificationQueue in NotificationQueue.readOnlyInstancesList)
+            {
+                if (notificationQueue.hud.targetMaster == args.senderMaster)
+                {
+                    GenericNotification currentNotification = Object.Instantiate(Resources.Load<GameObject>("Prefabs/NotificationPanel2")).GetComponent<GenericNotification>();
+                    if (bool.Parse(args[0])) // custom text
+                    {
+                        currentNotification.titleText.token = "MYSTICSITEMS_EMPTY_FORMAT";
+                        currentNotification.titleText.SetPropertyValue("formatArgs", new object[] { args[1] });
+                        currentNotification.descriptionText.token = "MYSTICSITEMS_EMPTY_FORMAT";
+                        currentNotification.descriptionText.SetPropertyValue("formatArgs", new object[] { args[2] });
+                    }
+                    else // tokens
+                    {
+                        currentNotification.titleText.token = args[1];
+                        currentNotification.descriptionText.token = args[2];
+                    }
+                    currentNotification.iconImage.texture = Resources.Load<Texture>(args[3]);
+                    switch (args[4])
+                    {
+                        case "lockedachievement":
+                            currentNotification.iconImage.color = Color.black;
+                            currentNotification.titleTMP.color = Color.white;
+                            break;
+                        default:
+                            currentNotification.titleTMP.color = ColorCatalog.GetColor((ColorCatalog.ColorIndex)int.Parse(args[4]));
+                            break;
+                    }
+                    notificationQueue.SetFieldValue("currentNotification", currentNotification);
+                    currentNotification.GetComponent<RectTransform>().SetParent(notificationQueue.GetComponent<RectTransform>(), false);
+                }
+            }
         }
     }
 }
