@@ -1,9 +1,8 @@
 # MysticsItems
 Adds 20 new items, with plenty more to come!  
 
-![](https://i.imgur.com/JUSMjHK.png)  
-
 ![](https://i.imgur.com/WYCK8vE.gif)  
+![](https://i.imgur.com/k2Pz32y.png)  
 
 ### Manual install notes
 Put both `MysticsItemsPlugin.dll` and `MysticsItems.language` in the plugins folder.
@@ -31,9 +30,16 @@ Other sounds made with sfxia by rxi (https://rxi.itch.io/sfxia)
 #### 1.1.4:
 * Added lore entries for Donut, Treasure Map, Spine Implant
 * Added missing item displays
+    * Mysterious Monolith appears around shrines instead of being visible on the player
+* Added particles and sounds to Spine Implant
+* Treasure Map now creates the chest immediately, but locks it until you charge the zone, allowing you to see the price beforehand
 * Banned Wireless Voltmeter from enemies
 * Unbanned Nuclear Accelerator from enemies
 * Unbanned Contraband Gunpowder from Scavengers
+* Fixed Treasure Map not spawning the chest with the Artifact of Sacrifice
+* Fixed Treasure Map not spawning the chest with TILER2
+* Fixed Ratio Equalizer visuals being squished when playing as certain characters
+* Fixed `mysticsitems_grantall` console command missing
 #### 1.1.3:
 * Fixed wrong info in the readme
 #### 1.1.2:
