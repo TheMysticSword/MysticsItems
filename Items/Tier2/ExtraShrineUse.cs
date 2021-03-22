@@ -50,7 +50,7 @@ namespace MysticsItems.Items
         public static void UpdateShrine(MysticsItemsExtraShrineUseBehaviour self)
         {
             int itemCount = GetFromType(typeof(ExtraShrineUse)).GetTeamItemCount();
-            if (itemCount != 0) UpdateShrine(self, itemCount);
+            UpdateShrine(self, itemCount);
         }
 
         public override void OnAdd()
@@ -59,12 +59,9 @@ namespace MysticsItems.Items
             {
                 orig(self);
                 int itemCount = GetFromType(typeof(ExtraShrineUse)).GetTeamItemCount();
-                if (itemCount != 0)
+                foreach (MysticsItemsExtraShrineUseBehaviour extraShrineUseBehaviour in MysticsItemsExtraShrineUseBehaviour.activeShrines)
                 {
-                    foreach (MysticsItemsExtraShrineUseBehaviour extraShrineUseBehaviour in MysticsItemsExtraShrineUseBehaviour.activeShrines)
-                    {
-                        UpdateShrine(extraShrineUseBehaviour, itemCount);
-                    }
+                    UpdateShrine(extraShrineUseBehaviour, itemCount);
                 }
             };
 
