@@ -188,12 +188,6 @@ namespace MysticsItems.Items
                 if (targetRadius <= 0f) hologramProjector.displayDistance = 0f;
                 hologramProjector.hologramPivot.position = transform.position + Vector3.up * radius * 0.5f;
 
-                if (NetworkServer.active)
-                {
-                    if (!anyoneHasItem && reward.activeSelf) SetRewardEnabled(false);
-                    if (anyoneHasItem && !reward.activeSelf) SetRewardEnabled(true);
-                }
-
                 if (!captured)
                 {
                     captureSoundPlayed = false;
@@ -216,6 +210,12 @@ namespace MysticsItems.Items
                                 captureTime += Time.fixedDeltaTime;
                             }
                         }
+                    }
+
+                    if (NetworkServer.active)
+                    {
+                        if (!anyoneHasItem && reward.activeSelf) SetRewardEnabled(false);
+                        if (anyoneHasItem && !reward.activeSelf) SetRewardEnabled(true);
                     }
 
                     if (NetworkServer.active && CaptureProgress >= 1f && !captured)
