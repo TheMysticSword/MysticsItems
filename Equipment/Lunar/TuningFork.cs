@@ -112,10 +112,13 @@ namespace MysticsItems.Equipment
             private float radius = 0f;
 
             public MeshRenderer meshRenderer;
+            public Material material;
 
             public void Start()
             {
                 meshRenderer = GetComponent<MeshRenderer>();
+                material = Object.Instantiate(meshRenderer.sharedMaterial);
+                meshRenderer.material = material;
             }
 
             public void Update()
@@ -141,8 +144,13 @@ namespace MysticsItems.Equipment
                     radius = stopwatch / time * TuningFork.radius;
                     transform.localScale = Vector3.one * radius;
 
-                    meshRenderer.material.SetFloat("_Boost", (1f - stopwatch / time) * 0.34f);
+                    material.SetFloat("_Boost", (1f - stopwatch / time) * 0.34f);
                 }
+            }
+
+            public void OnDestroy()
+            {
+                Object.Destroy(material);
             }
         }
 
