@@ -83,18 +83,5 @@ namespace MysticsItems.Achievements
                 }
             };
         }
-
-        [ConCommand(commandName = Main.TokenPrefix + "grantall", flags = ConVarFlags.Cheat, helpText = "Grant all achievements")]
-        private static void CCGrantAll(ConCommandArgs args)
-        {
-            foreach (LocalUser user in LocalUserManager.readOnlyLocalUsersList)
-            {
-                foreach (BaseAchievement achievement in registeredAchievements)
-                {
-
-                    AchievementManager.GetUserAchievementManager(user).GrantAchievement(achievement.achievementDef);
-                }
-            }
-        }
     }
 }

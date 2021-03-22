@@ -204,6 +204,18 @@ namespace MysticsItems
             }
         }
 
+        [ConCommand(commandName = Main.TokenPrefix + "grantall", flags = ConVarFlags.None, helpText = "Grant all achievements")]
+        private static void CCGrantAll(ConCommandArgs args)
+        {
+            foreach (LocalUser user in LocalUserManager.readOnlyLocalUsersList)
+            {
+                foreach (Achievements.BaseAchievement achievement in Achievements.BaseAchievement.registeredAchievements)
+                {
+                    AchievementManager.GetUserAchievementManager(user).GrantAchievement(achievement.achievementDef);
+                }
+            }
+        }
+
         public enum CommonBodyIndices
         {
             Commando = 26,
