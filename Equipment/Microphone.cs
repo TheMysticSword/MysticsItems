@@ -108,11 +108,23 @@ namespace MysticsItems.Equipment
 
                 rigidbody.velocity = initialSpeed * transform.forward;
                 timedBuff.buffDef = buffDef;
+
+                EvaluateCurves();
             }
 
             public void FixedUpdate()
             {
                 stopwatch += Time.fixedDeltaTime;
+
+                EvaluateCurves();
+                if (stopwatch >= lifetime)
+                {
+                    Object.Destroy(gameObject);
+                }
+            }
+
+            public void EvaluateCurves()
+            {
                 float t = stopwatch / lifetime;
 
                 Vector3 scale = Vector3.one * sizeCurve.Evaluate(t);
@@ -126,11 +138,6 @@ namespace MysticsItems.Equipment
                         (byte)colorCurve[2].Evaluate(t),
                         (byte)colorCurve[3].Evaluate(t)
                     );
-                }
-
-                if (t >= 1f)
-                {
-                    Object.Destroy(gameObject);
                 }
             }
         }
