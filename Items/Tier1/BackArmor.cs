@@ -9,7 +9,6 @@ namespace MysticsItems.Items
     public class BackArmor : BaseItem
     {
         public static float distance = 0.01f;
-        public static float angle = 150f;
         public static GameObject visualEffect;
         
         public override void OnLoad()
@@ -94,12 +93,7 @@ namespace MysticsItems.Items
                         float distance = Vector3.Distance(damageInfo.position, characterInfo.body.corePosition);
                         if (distance >= BackArmor.distance)
                         {
-                            Vector3 myAimDirection = -characterInfo.body.inputBank.aimDirection;
-                            float myAngle = Vector2.Angle(Vector2.up, new Vector2(myAimDirection.x, myAimDirection.z).normalized);
-                            Vector3 enemyAttackDirection = (damageInfo.position - characterInfo.body.inputBank.aimOrigin).normalized;
-                            float enemyAttackAngle = Vector2.Angle(Vector2.up, new Vector2(enemyAttackDirection.x, enemyAttackDirection.z).normalized);
-                            float angle = Mathf.DeltaAngle(myAngle, enemyAttackAngle);
-                            if (Mathf.Abs(angle) <= (BackArmor.angle / 2f))
+                            if (BackstabManager.IsBackstab(damageInfo.position - characterInfo.body.corePosition, characterInfo.body))
                             {
                                 BackArmorTempArmor tempArmor = characterInfo.gameObject.GetComponent<BackArmorTempArmor>();
                                 if (!tempArmor) tempArmor = characterInfo.gameObject.AddComponent<BackArmorTempArmor>();
