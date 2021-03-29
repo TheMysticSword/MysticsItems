@@ -44,11 +44,11 @@ namespace MysticsItems.Achievements
 				public override void OnInstall()
 				{
 					base.OnInstall();
-                    Main.OnTakeDamage += OnTakeDamage;
+					GenericGameEvents.OnTakeDamage += OnTakeDamage;
                     GlobalEventManager.onCharacterDeathGlobal += OnCharacterDeathGlobal;
 				}
 
-                private void OnTakeDamage(DamageInfo damageInfo, Main.GenericCharacterInfo genericCharacterInfo)
+                private void OnTakeDamage(DamageInfo damageInfo, GenericGameEvents.GenericCharacterInfo genericCharacterInfo)
                 {
                     if (damageInfo.inflictor)
                     {
@@ -65,7 +65,7 @@ namespace MysticsItems.Achievements
                 public override void OnUninstall()
 				{
 					base.OnUninstall();
-					Main.OnTakeDamage -= OnTakeDamage;
+					GenericGameEvents.OnTakeDamage -= OnTakeDamage;
 					GlobalEventManager.onCharacterDeathGlobal -= OnCharacterDeathGlobal;
 				}
 

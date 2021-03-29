@@ -7,14 +7,10 @@ namespace MysticsItems.Buffs
 {
     public class CoffeeBoost : BaseBuff
     {
-        public override void PreAdd() {
+        public override void OnLoad() {
             buffDef.name = "CoffeeBoost";
             buffDef.buffColor = new Color(130f / 255f, 130f / 255f, 130f / 255f);
             buffDef.canStack = true;
-        }
-
-        public override void OnAdd() {
-            Items.CoffeeBoostOnItemPickup.buffIndex = buffIndex;
             AddMoveSpeedModifier(0.07f);
             AddAttackSpeedModifier(0.07f);
         }

@@ -15,30 +15,19 @@ namespace MysticsItems.Items
         public GameObject followerModel;
         public ItemDef itemDef;
         public ItemDisplayRuleDict itemDisplayRuleDict = new ItemDisplayRuleDict();
-        public ItemIndex itemIndex;
-        public static Dictionary<System.Type, BaseItem> registeredItems = new Dictionary<System.Type, BaseItem>();
         public static List<BaseItem> deployableBanned = new List<BaseItem>();
-        public bool dontLoad = false;
+        public static List<BaseItem> loadedItems = new List<BaseItem>();
 
-        public static BaseItem GetFromType(System.Type type)
-        {
-            if (registeredItems.ContainsKey(type))
-            {
-                return registeredItems[type];
-            }
-            return null;
-        }
+        public virtual void OnLoad() { }
 
-        public virtual void Add()
+        public ItemDef Load()
         {
-            itemDef = new ItemDef();
-            PreAdd();
+            itemDef = ScriptableObject.CreateInstance<ItemDef>();
+            OnLoad();
             itemDef.name = Main.TokenPrefix + itemDef.name;
-            if (dontLoad) return;
-            itemIndex = ItemAPI.Add(new CustomItem(itemDef, itemDisplayRuleDict));
-            registeredItems.Add(GetType(), this);
-            OnAdd();
-            if (OnAddGlobal != null) OnAddGlobal.Invoke(this);
+            itemDef.AutoPopulateTokens();
+            loadedItems.Add(this);
+            return itemDef;
         }
 
         public virtual void SetAssets(string assetName)
@@ -59,8 +48,8 @@ namespace MysticsItems.Items
             // Separate the follower model from the pickup model for adding different visual effects to followers
             if (!followerModelSeparate) CopyModelToFollower();
 
-            itemDef.pickupModelPath = Main.AssetPrefix + ":Assets/Items/" + assetName + "/Model.prefab";
-            itemDef.pickupIconPath = Main.AssetPrefix + ":Assets/Items/" + assetName + "/Icon.png";
+            itemDef.pickupModelPrefab = model;
+            itemDef.pickupIconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Items/" + assetName + "/Icon.png");
         }
 
         public void PrepareModel(GameObject model)
@@ -144,83 +133,52 @@ namespace MysticsItems.Items
             return followerModel.GetComponentInChildren<MeshRenderer>().material;
         }
 
-        public void DefaultDisplayRule(string childName, Vector3 localPos, Vector3 localAngles, Vector3 localScale)
-        {
-            ItemDisplayRule[] defaultRules = itemDisplayRuleDict.DefaultRules;
-            HG.ArrayUtils.ArrayAppend(ref defaultRules, new ItemDisplayRule
-            {
-                ruleType = ItemDisplayRuleType.ParentedPrefab,
-                followerPrefab = followerModel,
-                childName = childName,
-                localPos = localPos,
-                localAngles = localAngles,
-                localScale = localScale
-            });
-            typeof(ItemDisplayRuleDict).GetProperty("DefaultRules").SetValue(itemDisplayRuleDict, defaultRules, Main.bindingFlagAll, null, null, null);
-        }
-
-        public void AddDisplayRule(string characterModelName, string childName, Vector3 localPos, Vector3 localAngles, Vector3 localScale)
-        {
-            AddDisplayRule(characterModelName, childName, followerModel, localPos, localAngles, localScale);
-        }
-
-        public void AddDisplayRule(string characterModelName, string childName, GameObject followerModel, Vector3 localPos, Vector3 localAngles, Vector3 localScale)
-        {
-            itemDisplayRuleDict.TryGetRules(characterModelName, out ItemDisplayRule[] itemDisplayRules);
-            if (itemDisplayRules.Length == 0) itemDisplayRules = new ItemDisplayRule[] { };
-            HG.ArrayUtils.ArrayAppend(ref itemDisplayRules, new ItemDisplayRule
-            {
-                ruleType = ItemDisplayRuleType.ParentedPrefab,
-                followerPrefab = followerModel,
-                childName = childName,
-                localPos = localPos,
-                localAngles = localAngles,
-                localScale = localScale
-            });
-            itemDisplayRuleDict.Add(characterModelName, itemDisplayRules);
-        }
-
-        public struct BodyIndexBasedDisplayRules
+        public struct MysticsItemsDisplayRules
         {
             public BaseItem baseItem;
             public List<ItemDisplayRule> displayRules;
         }
 
-        public static Dictionary<int, List<BodyIndexBasedDisplayRules>> bodyIndexBasedDisplayRules = new Dictionary<int, List<BodyIndexBasedDisplayRules>>();
+        public static Dictionary<string, List<MysticsItemsDisplayRules>> displayRules = new Dictionary<string, List<MysticsItemsDisplayRules>>();
 
-        public virtual void AddDisplayRule(int bodyIndex, string childName, Vector3 localPos, Vector3 localAngles, Vector3 localScale)
+        public virtual void AddDisplayRule(string bodyName, string childName, Vector3 localPos, Vector3 localAngles, Vector3 localScale)
         {
-            bodyIndexBasedDisplayRules.TryGetValue(bodyIndex, out List<BodyIndexBasedDisplayRules> displayRulesList);
+            AddDisplayRule(bodyName, childName, followerModel, localPos, localAngles, localScale);
+        }
+
+        public virtual void AddDisplayRule(string bodyName, string childName, GameObject followerPrefab, Vector3 localPos, Vector3 localAngles, Vector3 localScale)
+        {
+            displayRules.TryGetValue(bodyName, out List<MysticsItemsDisplayRules> displayRulesList);
             if (displayRulesList == null)
             {
-                displayRulesList = new List<BodyIndexBasedDisplayRules>()
+                displayRulesList = new List<MysticsItemsDisplayRules>()
                 {
-                    new BodyIndexBasedDisplayRules
+                    new MysticsItemsDisplayRules
                     {
                         baseItem = this,
                         displayRules = new List<ItemDisplayRule>()
                     }
                 };
-                bodyIndexBasedDisplayRules.Add(bodyIndex, displayRulesList);
+                displayRules.Add(bodyName, displayRulesList);
             }
-            BodyIndexBasedDisplayRules displayRules = default;
+            MysticsItemsDisplayRules displayRulesForThisItem = default;
             if (displayRulesList.Any(x => x.baseItem == this))
             {
-                displayRules = displayRulesList.Find(x => x.baseItem == this);
+                displayRulesForThisItem = displayRulesList.Find(x => x.baseItem == this);
             }
             else
             {
-                displayRules = new BodyIndexBasedDisplayRules
+                displayRulesForThisItem = new MysticsItemsDisplayRules
                 {
                     baseItem = this,
                     displayRules = new List<ItemDisplayRule>()
                 };
-                displayRulesList.Add(displayRules);
+                displayRulesList.Add(displayRulesForThisItem);
             }
-            displayRules.displayRules.Add(new ItemDisplayRule
+            displayRulesForThisItem.displayRules.Add(new ItemDisplayRule
             {
                 ruleType = ItemDisplayRuleType.ParentedPrefab,
-                followerPrefab = followerModel,
+                followerPrefab = followerPrefab,
                 childName = childName,
                 localPos = localPos,
                 localAngles = localAngles,
@@ -228,13 +186,20 @@ namespace MysticsItems.Items
             });
         }
 
-        public virtual void SetUnlockable()
+        public void SetUnlockable()
         {
-            itemDef.unlockableName = Main.TokenPrefix + "Items." + itemDef.name;
-            Unlockables.Register(itemDef.unlockableName, new UnlockableDef
+            MysticsItemsContent.Resources.unlockableDefs.Add(GetUnlockableDef());
+        }
+
+        public virtual UnlockableDef GetUnlockableDef()
+        {
+            if (!itemDef.unlockableDef)
             {
-                nameToken = !string.IsNullOrEmpty(itemDef.nameToken) ? itemDef.nameToken : ("ITEM_" + Main.TokenPrefix + itemDef.name + "_NAME").ToUpper()
-            });
+                itemDef.unlockableDef = ScriptableObject.CreateInstance<UnlockableDef>();
+                itemDef.unlockableDef.cachedName = Main.TokenPrefix + "Items." + itemDef.name;
+                itemDef.unlockableDef.nameToken = ("ITEM_" + Main.TokenPrefix + itemDef.name + "_NAME").ToUpper();
+            }
+            return itemDef.unlockableDef;
         }
 
         public void BanFromDeployables()
@@ -249,14 +214,10 @@ namespace MysticsItems.Items
             {
                 foreach (BaseItem item in deployableBanned)
                 {
-                    master.GetBody().inventory.ResetItem(item.itemIndex);
+                    master.GetBody().inventory.ResetItem(item.itemDef);
                 }
             }
         }
-
-        public virtual void PreAdd() { }
-
-        public virtual void OnAdd() { }
 
         public static void Init()
         {
@@ -279,31 +240,33 @@ namespace MysticsItems.Items
 
         public static void PostGameLoad()
         {
-            foreach (KeyValuePair<int, List<BodyIndexBasedDisplayRules>> displayRulesList in bodyIndexBasedDisplayRules)
+            foreach (KeyValuePair<string, List<MysticsItemsDisplayRules>> displayRulesList in displayRules)
             {
-                GameObject bodyPrefab = BodyCatalog.GetBodyPrefab(displayRulesList.Key);
-                CharacterModel characterModel = bodyPrefab.GetComponentInChildren<CharacterModel>();
-                ItemDisplayRuleSet idrs = characterModel.itemDisplayRuleSet;
-                foreach (BodyIndexBasedDisplayRules displayRules in displayRulesList.Value)
+                string bodyName = displayRulesList.Key;
+                BodyIndex bodyIndex = BodyCatalog.FindBodyIndex(bodyName);
+                if (bodyIndex != BodyIndex.None)
                 {
-                    BaseItem item = displayRules.baseItem;
-                    item.SetDisplayRuleGroup(idrs, new DisplayRuleGroup { rules = displayRules.displayRules.ToArray() });
+                    GameObject bodyPrefab = BodyCatalog.GetBodyPrefab(bodyIndex);
+                    CharacterModel characterModel = bodyPrefab.GetComponentInChildren<CharacterModel>();
+                    ItemDisplayRuleSet idrs = characterModel.itemDisplayRuleSet;
+                    foreach (MysticsItemsDisplayRules displayRules in displayRulesList.Value)
+                    {
+                        BaseItem item = displayRules.baseItem;
+                        idrs.SetDisplayRuleGroup(item.itemDef, new DisplayRuleGroup { rules = displayRules.displayRules.ToArray() });
+                    }
+                    idrs.InvokeMethod("GenerateRuntimeValues");
                 }
-                idrs.InvokeMethod("GenerateRuntimeValues");
+                else
+                {
+                    Main.logger.LogError("Body " + bodyName + " not found, referenced by " + displayRulesList.Value.First().baseItem.itemDef.name);
+                }
             }
-        }
-
-        public virtual void SetDisplayRuleGroup(ItemDisplayRuleSet idrs, DisplayRuleGroup displayRuleGroup)
-        {
-            idrs.SetItemDisplayRuleGroup(itemDef.name, displayRuleGroup);
         }
 
         public virtual PickupIndex GetPickupIndex()
         {
-            return PickupCatalog.FindPickupIndex(itemIndex);
+            return PickupCatalog.FindPickupIndex(itemDef.itemIndex);
         }
-
-        public event System.Action<BaseItem> OnAddGlobal;
 
         public static StringBuilder globalStringBuilder = new StringBuilder();
 
@@ -414,13 +377,13 @@ namespace MysticsItems.Items
             if (!effectObjects.Contains(child)) effectObjects.Add(child);
         }
 
-        public int GetTeamItemCount(TeamIndex teamIndex = TeamIndex.Player)
+        public static int GetTeamItemCount(ItemDef itemDef, TeamIndex teamIndex = TeamIndex.Player)
         {
             int itemCount = 0;
             foreach (CharacterMaster master in CharacterMaster.readOnlyInstancesList) if (master.teamIndex == teamIndex)
                 {
                     Inventory inventory = master.inventory;
-                    if (inventory && inventory.GetItemCount(itemIndex) > 0) itemCount += inventory.GetItemCount(itemIndex);
+                    if (inventory && inventory.GetItemCount(itemDef) > 0) itemCount += inventory.GetItemCount(itemDef);
                 }
             return itemCount;
         }

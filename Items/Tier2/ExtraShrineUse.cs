@@ -12,7 +12,7 @@ namespace MysticsItems.Items
 {
     public class ExtraShrineUse : BaseItem
     {
-        public override void PreAdd()
+        public override void OnLoad()
         {
             itemDef.name = "ExtraShrineUse";
             itemDef.tier = ItemTier.Tier2;
@@ -28,6 +28,24 @@ namespace MysticsItems.Items
 
             MysticsItemsExtraShrineUseBehaviour.displayPrefab = PrefabAPI.InstantiateClone(model, Main.TokenPrefix + "MysteriousMonolithDisplay", false);
             MysticsItemsExtraShrineUseBehaviour.displayPrefab.transform.localScale *= 0.1f;
+
+            On.RoR2.CharacterBody.OnInventoryChanged += (orig, self) =>
+            {
+                orig(self);
+                int itemCount = BaseItem.GetTeamItemCount(MysticsItemsContent.Items.ExtraShrineUse);
+                foreach (MysticsItemsExtraShrineUseBehaviour extraShrineUseBehaviour in MysticsItemsExtraShrineUseBehaviour.activeShrines)
+                {
+                    UpdateShrine(extraShrineUseBehaviour, itemCount);
+                }
+            };
+
+            On.RoR2.PurchaseInteraction.Awake += (orig, self) =>
+            {
+                orig(self);
+                GenericDisplayNameProvider genericDisplayNameProvider = self.GetComponent<GenericDisplayNameProvider>();
+                if (genericDisplayNameProvider && genericDisplayNameProvider.displayToken.Contains("SHRINE"))
+                    self.gameObject.AddComponent<MysticsItemsExtraShrineUseBehaviour>();
+            };
         }
 
         public static void UpdateShrine(MysticsItemsExtraShrineUseBehaviour self, int itemCount)
@@ -49,29 +67,8 @@ namespace MysticsItems.Items
 
         public static void UpdateShrine(MysticsItemsExtraShrineUseBehaviour self)
         {
-            int itemCount = GetFromType(typeof(ExtraShrineUse)).GetTeamItemCount();
+            int itemCount = BaseItem.GetTeamItemCount(MysticsItemsContent.Items.ExtraShrineUse);
             UpdateShrine(self, itemCount);
-        }
-
-        public override void OnAdd()
-        {
-            On.RoR2.CharacterBody.OnInventoryChanged += (orig, self) =>
-            {
-                orig(self);
-                int itemCount = GetFromType(typeof(ExtraShrineUse)).GetTeamItemCount();
-                foreach (MysticsItemsExtraShrineUseBehaviour extraShrineUseBehaviour in MysticsItemsExtraShrineUseBehaviour.activeShrines)
-                {
-                    UpdateShrine(extraShrineUseBehaviour, itemCount);
-                }
-            };
-
-            On.RoR2.PurchaseInteraction.Awake += (orig, self) =>
-            {
-                orig(self);
-                GenericDisplayNameProvider genericDisplayNameProvider = self.GetComponent<GenericDisplayNameProvider>();
-                if (genericDisplayNameProvider && genericDisplayNameProvider.displayToken.Contains("SHRINE"))
-                    self.gameObject.AddComponent<MysticsItemsExtraShrineUseBehaviour>();
-            };
         }
 
         public class MysticsItemsExtraShrineUseBehaviour : MonoBehaviour

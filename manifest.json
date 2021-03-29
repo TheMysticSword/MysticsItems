@@ -3,5 +3,7 @@
     "version_number": "1.1.4",
     "website_url": "https://github.com/TheMysticSword/MysticsItems",
     "description": "Adds 20 new items!",
-    "dependencies": []
+    "dependencies": [
+        "XoXFaby-MMHOOK_Standalone-1.0.1"
+    ]
 }

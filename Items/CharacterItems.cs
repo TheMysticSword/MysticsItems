@@ -274,7 +274,7 @@ namespace MysticsItems.Items
             Object.Destroy(openEffect.transform.Find("Flash, Soft Glow").gameObject);
             Object.Destroy(openEffect.transform.Find("Unscaled Flames").gameObject);
             Object.Destroy(openEffect.transform.Find("Dash, Bright").gameObject);
-            AssetManager.RegisterEffect(openEffect);
+            MysticsItemsContent.Resources.effectPrefabs.Add(openEffect);
         }
 
         public static List<CharacterInfo> characterInfo = new List<CharacterInfo>();
@@ -455,9 +455,9 @@ namespace MysticsItems.Items
                             else // If there are no character items for this character, then drop scrap
                             {
                                 WeightedSelection<PickupIndex> dropSelector = new WeightedSelection<PickupIndex>();
-                                dropSelector.AddChoice(PickupCatalog.FindPickupIndex(ItemIndex.ScrapWhite), tier1Chance);
-                                dropSelector.AddChoice(PickupCatalog.FindPickupIndex(ItemIndex.ScrapGreen), tier2Chance);
-                                dropSelector.AddChoice(PickupCatalog.FindPickupIndex(ItemIndex.ScrapRed), tier3Chance);
+                                dropSelector.AddChoice(PickupCatalog.FindPickupIndex(RoR2Content.Items.ScrapWhite.itemIndex), tier1Chance);
+                                dropSelector.AddChoice(PickupCatalog.FindPickupIndex(RoR2Content.Items.ScrapGreen.itemIndex), tier2Chance);
+                                dropSelector.AddChoice(PickupCatalog.FindPickupIndex(RoR2Content.Items.ScrapRed.itemIndex), tier3Chance);
 
                                 for (var i = 0; i < dropsPerPlayer; i++)
                                 {

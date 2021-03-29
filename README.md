@@ -27,6 +27,10 @@ Tuning fork SFX for Ratio Equalizer provided by Martin Chappell (https://freesou
 Other sounds made with sfxia by rxi (https://rxi.itch.io/sfxia)  
   
 ### Changelog
+#### 1.2.0:
+* Now works on the 1.1 version of the game
+* Tuning Fork:
+    * Cooldown: ~~45s~~ ⇒ 20s
 #### 1.1.4:
 * Added lore entries for Donut, Treasure Map, Spine Implant
 * Added missing item displays

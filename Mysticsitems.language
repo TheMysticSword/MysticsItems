@@ -31,7 +31,7 @@
     //[TIER2]
     "ITEM_MYSTICSITEMS_COFFEEBOOSTONITEMPICKUP_NAME": "Cup of Expresso",
     "ITEM_MYSTICSITEMS_COFFEEBOOSTONITEMPICKUP_PICKUP": "Gain a boost until the next stage on item pickup. Stacks 3 times.",
-    "ITEM_MYSTICSITEMS_COFFEEBOOSTONITEMPICKUP_DESC": "Each item pickup <style=cIsUtility>boosts</style> your <style=cIsDamage>attack speed</style> and <style=cIsUtility>movement speed</style> by <style=cIsUtility>7%</style> until the next stage. Maximum cap of <style=cIsUtility>21% <style=cStack>(+7% per stack)</style> boost</style>.",
+    "ITEM_MYSTICSITEMS_COFFEEBOOSTONITEMPICKUP_DESC": "Each item pickup <style=cIsUtility>boosts</style> your <style=cIsDamage>attack speed</style> and <style=cIsUtility>movement speed</style> by <style=cIsUtility>7%</style> until the next stage. Maximum cap of <style=cIsUtility>21% <style=cStack>(+7% per stack)</style> boost</style>. <style=cIsUtility>Items of higher rarity give more boost stacks at once.</style>",
 
     "ITEM_MYSTICSITEMS_EXPLOSIVEPICKUPS_NAME": "Contraband Gunpowder",
     "ITEM_MYSTICSITEMS_EXPLOSIVEPICKUPS_PICKUP": "Creates explosions when collecting pickups.",
@@ -101,12 +101,12 @@
     "EQUIPMENT_MYSTICSITEMS_PRINTERHACKER_DESC": "Get an item from a 3D Printer <style=cIsUtility>for free</style>, then destroy the printer.",
 
     "EQUIPMENT_MYSTICSITEMS_MICROPHONE_NAME": "Vintage Microphone",
-    "EQUIPMENT_MYSTICSITEMS_MICROPHONE_PICKUP": "Deafen enemies in front of you.",
+    "EQUIPMENT_MYSTICSITEMS_MICROPHONE_PICKUP": "Deafen enemies in front of you, reducing their movement speed, armor and increasing cooldowns.",
     "EQUIPMENT_MYSTICSITEMS_MICROPHONE_DESC": "<style=cIsDamage>Deafen</style> enemies in front of you for <style=cIsUtility>15 seconds</style>, reducing their movement speed by <style=cIsUtility>33%</style>, armor by <style=cIsDamage>20</style> and increasing their skill cooldowns by <style=cIsUtility>50%</style>.",
 
     //[LUNAR EQUIPMENT]
     "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_NAME": "Ratio Equalizer",
-    "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_PICKUP": "Average the current health of <color=#FF7F7F>ALL nearby characters.</color>\n",
+    "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_PICKUP": "Average the current health fraction of <color=#FF7F7F>ALL nearby characters.</color>\n",
     "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_DESC": "Average the current health fraction of all characters in a 60m radius.",
 
     "EQUIPMENT_MYSTICSITEMS_GATECHALICE_NAME": "Gate Chalice",
@@ -176,7 +176,7 @@
     "ITEM_MYSTICSITEMS_BACKARMOR_NAME": "Позвоночный имплант",
     "ITEM_MYSTICSITEMS_BACKARMOR_PICKUP": "Меньше урона от атак по спине.",
     "ITEM_MYSTICSITEMS_BACKARMOR_DESC": "Броня увеличена на <style=cIsUtility>10 <style=cStack>(+10 за шт.)</style></style> против атак по спине.",
-    "ITEM_MYSTICSITEMS_BACKARMOR_LORE": "<style=cMono>\n//--ОТРЫВОК ИЗ ТЕЛЕПЕРЕДАЧИ --//</style>\n\nСРОЧНЫЕ НОВОСТИ: меньше минуты назад в Центральном здании начался сильный пожар. Мы сейчас находимся рядом со зданием. Пожарн- КТО-ТО ВЫПРЫГНУЛ ИЗ ОКНА! ЭЙ, ЧТО ТЫ ДЕЛАЕШЬ?! ОТВЕРНИ КАМЕРУ!\n\nБоже мой.\nПогодите... он... жив? И кто это к нему бежит?\nТак, нам НАДО узнать поподробнее.\n\nРепортёр: Сэр, вы в порядке?\n\nЧеловек 1: Да, всё в норме.\n\nЧеловек 2: Что ты, [REDACTED], имеешь в виду под \"всё в норме\"? Ты упал с высоты 90 этажей, ты на [REDACTED] телевидении и спокойно говоришь \"всё в норме\"! Что происходит?!\n\nЧеловек 1: Ну, сгорать заживо я не собирался. Окно было открыто. И мне нужно было проверить свои новые позвоночные импланты. Я учёл всё это и сделал то, что сделал.\n\nЧеловек 2: Ты меня обеспокоил, ты [REDACTED]! Никогда не делай так больше!",
+    "ITEM_MYSTICSITEMS_BACKARMOR_LORE": "<style=cMono>\n//--ОТРЫВОК ИЗ ТЕЛЕПЕРЕДАЧИ --//</style>\n\nСРОЧНЫЕ НОВОСТИ: меньше минуты назад в Центральном здании начался сильный пожар. Мы сейчас находимся рядом со зданием. Пожарн- КТО-ТО ВЫПРЫГНУЛ ИЗ ОКНА! ЭЙ, ЧТО ТЫ ДЕЛАЕШЬ?! ОТВЕРНИ КАМЕРУ!\n\nБоже мой.\nПогодите... он... жив? И кто это к нему бежит?\nТак, нам НАДО узнать поподробнее.\n\nРепортёр: Сэр, вы в порядке?\n\nЧеловек 1: Да, всё в норме.\n\nЧеловек 2: Что ты, [УДАЛЕНО], имеешь в виду под \"всё в норме\"? Ты упал с высоты 90 этажей, ты на [УДАЛЕНО] телевидении и спокойно говоришь \"всё в норме\"! Что происходит?!\n\nЧеловек 1: Ну, сгорать заживо я не собирался. Окно было открыто. И мне нужно было проверить свои новые позвоночные импланты. Я учёл всё это и сделал то, что сделал.\n\nЧеловек 2: Ты меня обеспокоил, ты [УДАЛЕНО]! Никогда не делай так больше!",
 
     "ITEM_MYSTICSITEMS_ARTIFICERNANOBOTS_NAME": "Наноботы ближнего действия",
     "ITEM_MYSTICSITEMS_ARTIFICERNANOBOTS_PICKUP": "Выстрелы наносят немного урона близжайшим врагам, если вы промахнулись.",
@@ -186,7 +186,7 @@
     //[TIER2]
     "ITEM_MYSTICSITEMS_COFFEEBOOSTONITEMPICKUP_NAME": "Кружка экспрессо",
     "ITEM_MYSTICSITEMS_COFFEEBOOSTONITEMPICKUP_PICKUP": "При подборе предметов даёт ускорение до следующего этапа. Суммируется до 3 раз.",
-    "ITEM_MYSTICSITEMS_COFFEEBOOSTONITEMPICKUP_DESC": "Каждый собранный предмет увеличивает <style=cIsDamage>скорость атаки</style> и <style=cIsUtility>скорость передвижения</style> на <style=cIsUtility>7%</style> до перехода на следующий этап. Максимальный предел ускорения - <style=cIsUtility>21% <style=cStack>(+7% за шт.)</style></style>.",
+    "ITEM_MYSTICSITEMS_COFFEEBOOSTONITEMPICKUP_DESC": "Каждый собранный предмет увеличивает <style=cIsDamage>скорость атаки</style> и <style=cIsUtility>скорость передвижения</style> на <style=cIsUtility>7%</style> до перехода на следующий этап. Максимальный предел ускорения - <style=cIsUtility>21% <style=cStack>(+7% за шт.)</style></style>. <style=cIsUtility>Чем выше редкость подобранного предмета, тем больше ускорения выдаётся разом.</style>",
 
     "ITEM_MYSTICSITEMS_EXPLOSIVEPICKUPS_NAME": "Контрабандный порох",
     "ITEM_MYSTICSITEMS_EXPLOSIVEPICKUPS_PICKUP": "Сбор выпадаемых объектов создаёт взрыв.",
@@ -251,7 +251,7 @@
     "EQUIPMENT_MYSTICSITEMS_PRINTERHACKER_DESC": "<style=cIsUtility>Бесплатно</style> получить предмет из 3D-принтера, и затем уничтожить принтер.",
 
     "EQUIPMENT_MYSTICSITEMS_MICROPHONE_NAME": "Винтажный микрофон",
-    "EQUIPMENT_MYSTICSITEMS_MICROPHONE_PICKUP": "Оглушает врагов перед вами.",
+    "EQUIPMENT_MYSTICSITEMS_MICROPHONE_PICKUP": "Оглушает врагов перед вами, снижая их скорость, броню и увеличивая время восстановления навыков.",
     "EQUIPMENT_MYSTICSITEMS_MICROPHONE_DESC": "<style=cIsDamage>Оглушает</style> врагов перед вами на <style=cIsUtility>15 секунд</style>, снижая скорость передвижения на <style=cIsUtility>33%</style>, броню на <style=cIsDamage>20</style> и увеличивая длительность восстановления навыков на <style=cIsUtility>50%</style>.",
 
     //[LUNAR]
@@ -260,8 +260,8 @@
     "ITEM_MYSTICSITEMS_RIFTLENS_DESC": "Каждый этап содержит <style=cIsDamage>1 <style=cStack>(+1 за шт.)</style></style> бесплатный сундук. Скорость передвижения снижена на <style=cIsUtility>33%</style>, пока вы не откроете все бесплатные сундуки.",
 
     "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_NAME": "Уравнитель пропорций",
-    "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_PICKUP": "Усредняет текущее здоровье <color=#FF7F7F>ВСЕХ персонажей поблизости.</color>\n",
-    "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_DESC": "Усредняет текущее здоровье всех персонажей в радиусе 60м.",
+    "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_PICKUP": "Усредняет текущий процент здоровья <color=#FF7F7F>ВСЕХ персонажей поблизости.</color>\n",
+    "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_DESC": "Усредняет текущий процент здоровья всех персонажей в радиусе 60м.",
 
     "EQUIPMENT_MYSTICSITEMS_GATECHALICE_NAME": "Чаша врат",
     "EQUIPMENT_MYSTICSITEMS_GATECHALICE_PICKUP": "Телепортирует на следующий этап... <color=#FF7F7F>НО парализует всех союзников до следующего прохождения события с телепортом.</color>\n",

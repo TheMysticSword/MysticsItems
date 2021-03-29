@@ -9,39 +9,20 @@ namespace MysticsItems.Items
 {
     public class CommandoScope : BaseItem
     {
-        public override void PreAdd()
+        public override void OnLoad()
         {
             itemDef.name = "CommandoScope";
             itemDef.tier = ItemTier.Tier1;
             SetAssets("Commando Scope");
-            AddDisplayRule((int)Main.CommonBodyIndices.Commando, "MuzzleLeft", new Vector3(0.0617f, 0.0008f, -0.1063f), new Vector3(-80.871f, -161.934f, 69.76801f), new Vector3(0.023f, 0.023f, 0.023f));
-            AddDisplayRule((int)Main.CommonBodyIndices.Commando, "MuzzleRight", new Vector3(0.0617f, 0.0008f, -0.1063f), new Vector3(-80.871f, -161.934f, 69.76801f), new Vector3(0.023f, 0.023f, 0.023f));
+            AddDisplayRule("CommandoBody", "MuzzleLeft", new Vector3(0.0617f, 0.0008f, -0.1063f), new Vector3(-80.871f, -161.934f, 69.76801f), new Vector3(0.023f, 0.023f, 0.023f));
+            AddDisplayRule("CommandoBody", "MuzzleRight", new Vector3(0.0617f, 0.0008f, -0.1063f), new Vector3(-80.871f, -161.934f, 69.76801f), new Vector3(0.023f, 0.023f, 0.023f));
 
-            dontLoad = true;
-        }
-
-        public static float CalculateExtraDistance(int stacks)
-        {
-            return 5f + 5f * (stacks - 1);
-        }
-
-        public override void OnAdd()
-        {
             CharacterItems.SetCharacterItem(this, "CommandoBody");
 
             On.RoR2.CharacterBody.Start += (orig, self) =>
             {
                 orig(self);
                 self.gameObject.AddComponent<ScopeDataHolder>();
-            };
-            On.EntityStates.Commando.CommandoWeapon.FirePistol.FireBullet += (orig, self, targetMuzzle) =>
-            {
-                ScopeDataHolder scopeDataHolder = self.outer.gameObject.GetComponent<ScopeDataHolder>();
-                if (scopeDataHolder)
-                {
-                    scopeDataHolder.applyAttackChanges++;
-                }
-                orig(self, targetMuzzle);
             };
             On.EntityStates.Commando.CommandoWeapon.FirePistol2.FireBullet += (orig, self, targetMuzzle) =>
             {
@@ -61,9 +42,9 @@ namespace MysticsItems.Items
                     if (body && scopeDataHolder && scopeDataHolder.applyAttackChanges > 0)
                     {
                         Inventory inventory = body.inventory;
-                        if (inventory && inventory.GetItemCount(itemIndex) > 0)
+                        if (inventory && inventory.GetItemCount(itemDef) > 0)
                         {
-                            self.maxDistance += CalculateExtraDistance(inventory.GetItemCount(itemIndex));
+                            self.maxDistance += CalculateExtraDistance(inventory.GetItemCount(itemDef));
                         }
                     }
                 }
@@ -109,9 +90,9 @@ namespace MysticsItems.Items
                                     if (body && scopeDataHolder && scopeDataHolder.applyAttackChanges > 0)
                                     {
                                         Inventory inventory = body.inventory;
-                                        if (inventory && inventory.GetItemCount(itemIndex) > 0)
+                                        if (inventory && inventory.GetItemCount(itemDef) > 0)
                                         {
-                                            distanceDamageMultiplier = 0.5f + Mathf.Clamp01(Mathf.InverseLerp(60f + CalculateExtraDistance(inventory.GetItemCount(itemIndex)) * 2f, 25f + CalculateExtraDistance(inventory.GetItemCount(itemIndex)), distance)) * 0.5f;
+                                            distanceDamageMultiplier = 0.5f + Mathf.Clamp01(Mathf.InverseLerp(60f + CalculateExtraDistance(inventory.GetItemCount(itemDef)) * 2f, 25f + CalculateExtraDistance(inventory.GetItemCount(itemDef)), distance)) * 0.5f;
                                             scopeDataHolder.applyAttackChanges--;
                                         }
                                     }
@@ -123,6 +104,11 @@ namespace MysticsItems.Items
                     }
                 }
             };
+        }
+
+        public static float CalculateExtraDistance(int stacks)
+        {
+            return 5f + 5f * (stacks - 1);
         }
 
         public class ScopeDataHolder : MonoBehaviour

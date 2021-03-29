@@ -7,14 +7,12 @@ namespace MysticsItems.Buffs
 {
     public class SpeedGivesDamage : BaseBuff
     {
-        public override void PreAdd() {
+        public override void OnLoad() {
             buffDef.name = "SpeedGivesDamage";
             buffDef.buffColor = new Color32(200, 255, 140, 255);
             buffDef.canStack = true;
-        }
 
-        public override void OnAdd() {
-            Items.SpeedGivesDamage.buffIndex = buffIndex;
+            Items.SpeedGivesDamage.buffDef = buffDef;
 
             IL.RoR2.CharacterBody.RecalculateStats += (il) =>
             {
@@ -29,9 +27,9 @@ namespace MysticsItems.Buffs
                     c.Emit(OpCodes.Ldarg_0);
                     c.EmitDelegate<System.Func<CharacterBody, float>>((characterBody) =>
                     {
-                        if (characterBody.HasBuff(buffIndex))
+                        if (characterBody.HasBuff(buffDef))
                         {
-                            return (Items.SpeedGivesDamage.percentPerBuffStack / 100f) * characterBody.GetBuffCount(buffIndex);
+                            return (Items.SpeedGivesDamage.percentPerBuffStack / 100f) * characterBody.GetBuffCount(buffDef);
                         }
                         return 0;
                     });

@@ -14,19 +14,18 @@ namespace MysticsItems.SoftDependencies
     {
         public const string PluginGUID = "dev.ontrigger.itemstats";
 
-        public static void AddItemStatDef(Type itemType, ItemStatDef itemStatDef, List<Type> statModifiers = null)
+        public static void AddItemStatDef(ItemDef itemDef, ItemStatDef itemStatDef, List<Type> statModifiers = null)
         {
-            BaseItem item = BaseItem.GetFromType(itemType);
-            if (item != null)
+            if (itemDef != null)
             {
-                ItemStatsMod.AddCustomItemStatDef(item.itemIndex, itemStatDef);
+                ItemStatsMod.AddCustomItemStatDef(itemDef.itemIndex, itemStatDef);
             }
         }
 
         public static void Init()
         {
             // tier1
-            AddItemStatDef(typeof(HealOrbOnBarrel), new ItemStatDef
+            AddItemStatDef(MysticsItemsContent.Items.HealOrbOnBarrel, new ItemStatDef
             {
                 Stats = new List<ItemStat>()
                 {
@@ -36,7 +35,7 @@ namespace MysticsItems.SoftDependencies
                     )
                 }
             }, new List<Type> { typeof(HealingIncreaseModifier) });
-            AddItemStatDef(typeof(ScratchTicket), new ItemStatDef
+            AddItemStatDef(MysticsItemsContent.Items.ScratchTicket, new ItemStatDef
             {
                 Stats = new List<ItemStat>()
                 {
@@ -54,7 +53,7 @@ namespace MysticsItems.SoftDependencies
                     )
                 }
             });
-            AddItemStatDef(typeof(CommandoScope), new ItemStatDef
+            AddItemStatDef(MysticsItemsContent.Items.CommandoScope, new ItemStatDef
             {
                 Stats = new List<ItemStat>()
                 {
@@ -68,7 +67,7 @@ namespace MysticsItems.SoftDependencies
                     )
                 }
             });
-            AddItemStatDef(typeof(BackArmor), new ItemStatDef
+            AddItemStatDef(MysticsItemsContent.Items.BackArmor, new ItemStatDef
             {
                 Stats = new List<ItemStat>()
                 {
@@ -78,7 +77,7 @@ namespace MysticsItems.SoftDependencies
                     )
                 }
             });
-            AddItemStatDef(typeof(ArtificerNanobots), new ItemStatDef
+            AddItemStatDef(MysticsItemsContent.Items.ArtificerNanobots, new ItemStatDef
             {
                 Stats = new List<ItemStat>()
                 {
@@ -90,7 +89,7 @@ namespace MysticsItems.SoftDependencies
             });
 
             // tier2
-            AddItemStatDef(typeof(CoffeeBoostOnItemPickup), new ItemStatDef
+            AddItemStatDef(MysticsItemsContent.Items.CoffeeBoostOnItemPickup, new ItemStatDef
             {
                 Stats = new List<ItemStat>()
                 {
@@ -104,7 +103,7 @@ namespace MysticsItems.SoftDependencies
                     )
                 }
             });
-            AddItemStatDef(typeof(ExplosivePickups), new ItemStatDef
+            AddItemStatDef(MysticsItemsContent.Items.ExplosivePickups, new ItemStatDef
             {
                 Stats = new List<ItemStat>()
                 {
@@ -118,7 +117,7 @@ namespace MysticsItems.SoftDependencies
                     )
                 }
             });
-            AddItemStatDef(typeof(AllyDeathRevenge), new ItemStatDef
+            AddItemStatDef(MysticsItemsContent.Items.AllyDeathRevenge, new ItemStatDef
             {
                 Stats = new List<ItemStat>()
                 {
@@ -132,7 +131,7 @@ namespace MysticsItems.SoftDependencies
                     )
                 }
             });
-            AddItemStatDef(typeof(Spotter), new ItemStatDef
+            AddItemStatDef(MysticsItemsContent.Items.Spotter, new ItemStatDef
             {
                 Stats = new List<ItemStat>()
                 {
@@ -142,7 +141,7 @@ namespace MysticsItems.SoftDependencies
                     )
                 }
             });
-            AddItemStatDef(typeof(SpeedGivesDamage), new ItemStatDef
+            AddItemStatDef(MysticsItemsContent.Items.SpeedGivesDamage, new ItemStatDef
             {
                 Stats = new List<ItemStat>()
                 {
@@ -156,7 +155,7 @@ namespace MysticsItems.SoftDependencies
                     )
                 }
             });
-            AddItemStatDef(typeof(ExtraShrineUse), new ItemStatDef
+            AddItemStatDef(MysticsItemsContent.Items.ExtraShrineUse, new ItemStatDef
             {
                 Stats = new List<ItemStat>()
                 {
@@ -166,7 +165,7 @@ namespace MysticsItems.SoftDependencies
                     )
                 }
             });
-            AddItemStatDef(typeof(CommandoRevolverDrum), new ItemStatDef
+            AddItemStatDef(MysticsItemsContent.Items.CommandoRevolverDrum, new ItemStatDef
             {
                 Stats = new List<ItemStat>()
                 {
@@ -182,7 +181,7 @@ namespace MysticsItems.SoftDependencies
             }, new List<Type> { typeof(LuckModifier), null });
 
             // tier3
-            AddItemStatDef(typeof(Voltmeter), new ItemStatDef
+            AddItemStatDef(MysticsItemsContent.Items.Voltmeter, new ItemStatDef
             {
                 Stats = new List<ItemStat>()
                 {
@@ -192,7 +191,7 @@ namespace MysticsItems.SoftDependencies
                     )
                 }
             });
-            AddItemStatDef(typeof(ThoughtProcessor), new ItemStatDef
+            AddItemStatDef(MysticsItemsContent.Items.ThoughtProcessor, new ItemStatDef
             {
                 Stats = new List<ItemStat>()
                 {
@@ -202,7 +201,7 @@ namespace MysticsItems.SoftDependencies
                     )
                 }
             });
-            AddItemStatDef(typeof(CrystalWorld), new ItemStatDef
+            AddItemStatDef(MysticsItemsContent.Items.CrystalWorld, new ItemStatDef
             {
                 Stats = new List<ItemStat>()
                 {
@@ -212,7 +211,7 @@ namespace MysticsItems.SoftDependencies
                     )
                 }
             });
-            AddItemStatDef(typeof(DasherDisc), new ItemStatDef
+            AddItemStatDef(MysticsItemsContent.Items.DasherDisc, new ItemStatDef
             {
                 Stats = new List<ItemStat>()
                 {
@@ -222,7 +221,7 @@ namespace MysticsItems.SoftDependencies
                     )
                 }
             });
-            AddItemStatDef(typeof(TreasureMap), new ItemStatDef
+            AddItemStatDef(MysticsItemsContent.Items.TreasureMap, new ItemStatDef
             {
                 Stats = new List<ItemStat>()
                 {
@@ -234,7 +233,7 @@ namespace MysticsItems.SoftDependencies
             });
 
             // lunar
-            AddItemStatDef(typeof(RiftLens), new ItemStatDef
+            AddItemStatDef(MysticsItemsContent.Items.RiftLens, new ItemStatDef
             {
                 Stats = new List<ItemStat>()
                 {

@@ -12,10 +12,10 @@ namespace MysticsItems.Items
     public class DasherDisc : BaseItem
     {
         public static GameObject controllerPrefab;
-        public static BuffIndex buffActive;
-        public static BuffIndex buffCooldown;
+        public static BuffDef buffActive;
+        public static BuffDef buffCooldown;
 
-        public override void PreAdd()
+        public override void OnLoad()
         {
             itemDef.name = "DasherDisc";
             itemDef.tier = ItemTier.Tier3;
@@ -29,7 +29,7 @@ namespace MysticsItems.Items
             Main.HopooShaderToMaterial.Standard.Apply(mat);
             Main.HopooShaderToMaterial.Standard.Emission(mat, 4f);
             Main.HopooShaderToMaterial.Standard.Gloss(mat);
-            Spinner spinner = model.transform.Find("mdlDasherDisc").gameObject.AddComponent<Spinner>();
+            MysticsItemsDasherDiscSpinner spinner = model.transform.Find("mdlDasherDisc").gameObject.AddComponent<MysticsItemsDasherDiscSpinner>();
             spinner.trail = model.transform.Find("mdlDasherDisc").Find("Particle System").gameObject;
             CopyModelToFollower();
             followerModel.transform.Find("mdlDasherDisc").localScale = Vector3.one * 5f;
@@ -49,23 +49,20 @@ namespace MysticsItems.Items
             follower.transform.SetParent(controllerPrefab.transform);
             component.follower = follower;
             component.disc = follower.transform.Find("mdlDasherDisc").gameObject;
-            component.discSpinner = component.disc.GetComponent<Spinner>();
+            component.discSpinner = component.disc.GetComponent<MysticsItemsDasherDiscSpinner>();
             PrefabAPI.RegisterNetworkPrefab(controllerPrefab);
 
-            LoadoutAPI.AddSkill(typeof(DiscBaseState));
-            LoadoutAPI.AddSkill(typeof(DiscBaseState.Ready));
-            LoadoutAPI.AddSkill(typeof(DiscBaseState.Trigger));
-            LoadoutAPI.AddSkill(typeof(DiscBaseState.Invincible));
-        }
+            MysticsItemsContent.Resources.entityStateTypes.Add(typeof(DiscBaseState));
+            MysticsItemsContent.Resources.entityStateTypes.Add(typeof(DiscBaseState.Ready));
+            MysticsItemsContent.Resources.entityStateTypes.Add(typeof(DiscBaseState.Trigger));
+            MysticsItemsContent.Resources.entityStateTypes.Add(typeof(DiscBaseState.Invincible));
 
-        public override void OnAdd()
-        {
             On.RoR2.CharacterBody.Awake += (orig, self) =>
             {
                 orig(self);
                 self.onInventoryChanged += delegate ()
                 {
-                    if (NetworkServer.active) self.AddItemBehavior<DiscBehaviour>(self.inventory.GetItemCount(itemIndex));
+                    if (NetworkServer.active) self.AddItemBehavior<MysticsItemsDasherDiscBehaviour>(self.inventory.GetItemCount(itemDef));
                 };
             };
             IL.RoR2.HealthComponent.TakeDamage += (il) =>
@@ -104,7 +101,8 @@ namespace MysticsItems.Items
                     {
                         if (characterModel.body && characterModel.visibility >= VisibilityLevel.Visible && !ignoreOverlays)
                         {
-                            if (characterModel.body.HasBuff(buffActive)) {
+                            if (characterModel.body.HasBuff(buffActive))
+                            {
                                 return CharacterModel.ghostMaterial;
                             }
                         }
@@ -113,15 +111,11 @@ namespace MysticsItems.Items
                     c.Emit(OpCodes.Stloc_0);
                 }
             };
-            On.RoR2.BuffCatalog.Init += (orig) =>
-            {
-                orig();
-                buffActive = Buffs.BaseBuff.GetFromType(typeof(Buffs.DasherDiscActive));
-                buffCooldown = Buffs.BaseBuff.GetFromType(typeof(Buffs.DasherDiscCooldown));
-            };
+            buffActive = MysticsItemsContent.Buffs.DasherDiscActive;
+            buffCooldown = MysticsItemsContent.Buffs.DasherDiscCooldown;
         }
 
-        public class Spinner : MonoBehaviour
+        public class MysticsItemsDasherDiscSpinner : MonoBehaviour
         {
             public float baseSpeed = -90f;
             public float speedMultiplier = 1f;
@@ -138,7 +132,7 @@ namespace MysticsItems.Items
             }
         }
 
-        public class DiscBehaviour : CharacterBody.ItemBehavior
+        public class MysticsItemsDasherDiscBehaviour : CharacterBody.ItemBehavior
         {
             public GameObject controller;
 
@@ -170,7 +164,7 @@ namespace MysticsItems.Items
         {
             public GameObject follower;
             public GameObject disc;
-            public Spinner discSpinner;
+            public MysticsItemsDasherDiscSpinner discSpinner;
             public GenericOwnership genericOwnership;
             public CharacterBody body;
             public float distance = 1.5f;
@@ -337,7 +331,7 @@ namespace MysticsItems.Items
                             Inventory inventory = controller.body.inventory;
                             if (inventory)
                             {
-                                cooldown /= 1f + 0.2f * (inventory.GetItemCount(GetFromType(typeof(DasherDisc)).itemIndex) - 1);
+                                cooldown /= 1f + 0.2f * (inventory.GetItemCount(MysticsItemsContent.Items.DasherDisc) - 1);
                             }
                             int cooldownSeconds = Mathf.CeilToInt(cooldown);
                             for (int i = 0; i < cooldownSeconds; i++)

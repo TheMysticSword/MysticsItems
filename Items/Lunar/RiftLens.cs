@@ -19,7 +19,7 @@ namespace MysticsItems.Items
         public static InteractableSpawnCard riftChestSpawnCard;
         public static CostTypeIndex riftLensDebuffCostType;
 
-        public override void PreAdd()
+        public override void OnLoad()
         {
             itemDef.name = "RiftLens";
             itemDef.tier = ItemTier.Lunar;
@@ -31,20 +31,20 @@ namespace MysticsItems.Items
             BanFromDeployables();
             SetAssets("Rift Lens");
             SetModelPanelDistance(2f, 6f);
-            AddDisplayRule((int)Main.CommonBodyIndices.Commando, "Head", new Vector3(0.1f, 0.25f, 0.15f), new Vector3(20f, 210f, 0f), new Vector3(0.06f, 0.06f, 0.06f));
-            AddDisplayRule("mdlHuntress", "Head", new Vector3(-0.0009F, 0.2635F, 0.1117F), new Vector3(0F, 180F, 0F), new Vector3(0.03F, 0.03F, 0.03F));
-            AddDisplayRule("mdlToolbot", "Head", new Vector3(0.409F, 3.049F, -1.067F), new Vector3(60F, 0F, 180F), new Vector3(0.3F, 0.3F, 0.3F));
-            AddDisplayRule("mdlEngi", "HeadCenter", new Vector3(0.098F, 0.019F, 0.127F), new Vector3(1.506F, 213.327F, 354.045F), new Vector3(0.029F, 0.029F, 0.029F));
-            AddDisplayRule((int)Main.CommonBodyIndices.EngiTurret, "Head", new Vector3(0.005F, 0.525F, 2.043F), new Vector3(0F, 180F, 0F), new Vector3(0.108F, 0.083F, 0.083F));
-            AddDisplayRule((int)Main.CommonBodyIndices.EngiWalkerTurret, "Head", new Vector3(0.006F, 0.774F, 0.853F), new Vector3(0F, 177.859F, 0F), new Vector3(0.306F, 0.306F, 0.306F));
-            AddDisplayRule("mdlMage", "Head", new Vector3(0.048F, 0.06F, 0.117F), new Vector3(13.941F, 189.822F, 2.364F), new Vector3(0.026F, 0.026F, 0.026F));
-            AddDisplayRule("mdlMerc", "Head", new Vector3(0.05F, 0.156F, 0.151F), new Vector3(10.716F, 202.078F, 355.897F), new Vector3(0.053F, 0.053F, 0.053F));
-            AddDisplayRule("mdlTreebot", "HeadCenter", new Vector3(-0.005F, 0.058F, -0.002F), new Vector3(85.226F, 270F, 270F), new Vector3(0.098F, 0.098F, 0.098F));
-            AddDisplayRule("mdlLoader", "Head", new Vector3(0.051F, 0.125F, 0.134F), new Vector3(10.267F, 205.465F, 354.736F), new Vector3(0.047F, 0.04F, 0.048F));
-            AddDisplayRule("mdlCroco", "Head", new Vector3(-1.531F, 1.934F, 0.459F), new Vector3(14.526F, 104.513F, 346.531F), new Vector3(0.236F, 0.236F, 0.236F));
-            AddDisplayRule("mdlCaptain", "HandR", new Vector3(-0.085F, 0.108F, 0.013F), new Vector3(69.075F, 70.114F, 350.542F), new Vector3(0.026F, 0.03F, 0.042F));
-            AddDisplayRule("mdlBrother", "Head", BrotherInfection.blue, new Vector3(0.003F, -0.01F, 0.061F), new Vector3(349.888F, 70.121F, 339.729F), new Vector3(0.133F, 0.133F, 0.133F));
-            AddDisplayRule("mdlScav", "Head", new Vector3(5.068F, 4.15F, -0.55F), new Vector3(46.576F, 301.45F, 310.155F), new Vector3(1.363F, 1.363F, 1.363F));
+            AddDisplayRule("CommandoBody", "Head", new Vector3(0.1f, 0.25f, 0.15f), new Vector3(20f, 210f, 0f), new Vector3(0.06f, 0.06f, 0.06f));
+            AddDisplayRule("HuntressBody", "Head", new Vector3(-0.0009F, 0.2635F, 0.1117F), new Vector3(0F, 180F, 0F), new Vector3(0.03F, 0.03F, 0.03F));
+            AddDisplayRule("ToolbotBody", "Head", new Vector3(0.409F, 3.049F, -1.067F), new Vector3(60F, 0F, 180F), new Vector3(0.3F, 0.3F, 0.3F));
+            AddDisplayRule("EngiBody", "HeadCenter", new Vector3(0.098F, 0.019F, 0.127F), new Vector3(1.506F, 213.327F, 354.045F), new Vector3(0.029F, 0.029F, 0.029F));
+            AddDisplayRule("EngiTurretBody", "Head", new Vector3(0.005F, 0.525F, 2.043F), new Vector3(0F, 180F, 0F), new Vector3(0.108F, 0.083F, 0.083F));
+            AddDisplayRule("EngiWalkerTurretBody", "Head", new Vector3(0.006F, 0.774F, 0.853F), new Vector3(0F, 177.859F, 0F), new Vector3(0.306F, 0.306F, 0.306F));
+            AddDisplayRule("MageBody", "Head", new Vector3(0.048F, 0.06F, 0.117F), new Vector3(13.941F, 189.822F, 2.364F), new Vector3(0.026F, 0.026F, 0.026F));
+            AddDisplayRule("MercBody", "Head", new Vector3(0.05F, 0.156F, 0.151F), new Vector3(10.716F, 202.078F, 355.897F), new Vector3(0.053F, 0.053F, 0.053F));
+            AddDisplayRule("TreebotBody", "HeadCenter", new Vector3(-0.005F, 0.058F, -0.002F), new Vector3(85.226F, 270F, 270F), new Vector3(0.098F, 0.098F, 0.098F));
+            AddDisplayRule("LoaderBody", "Head", new Vector3(0.051F, 0.125F, 0.134F), new Vector3(10.267F, 205.465F, 354.736F), new Vector3(0.047F, 0.04F, 0.048F));
+            AddDisplayRule("CrocoBody", "Head", new Vector3(-1.531F, 1.934F, 0.459F), new Vector3(14.526F, 104.513F, 346.531F), new Vector3(0.236F, 0.236F, 0.236F));
+            AddDisplayRule("CaptainBody", "HandR", new Vector3(-0.085F, 0.108F, 0.013F), new Vector3(69.075F, 70.114F, 350.542F), new Vector3(0.026F, 0.03F, 0.042F));
+            AddDisplayRule("BrotherBody", "Head", BrotherInfection.blue, new Vector3(0.003F, -0.01F, 0.061F), new Vector3(349.888F, 70.121F, 339.729F), new Vector3(0.133F, 0.133F, 0.133F));
+            AddDisplayRule("ScavBody", "Head", new Vector3(5.068F, 4.15F, -0.55F), new Vector3(46.576F, 301.45F, 310.155F), new Vector3(1.363F, 1.363F, 1.363F));
 
             riftChest = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/NetworkedObjects/Lockbox"), Main.TokenPrefix + "RiftChest");
             RiftChest component = riftChest.AddComponent<RiftChest>();
@@ -102,7 +102,7 @@ namespace MysticsItems.Items
                 CharacterBody body = context.activator.gameObject.GetComponent<CharacterBody>();
                 if (body)
                 {
-                    return body.HasBuff(Buffs.BaseBuff.GetFromType(typeof(Buffs.RiftLens)));
+                    return body.HasBuff(MysticsItemsContent.Buffs.RiftLens);
                 }
                 return false;
             };
@@ -110,7 +110,7 @@ namespace MysticsItems.Items
             {
                 foreach (CharacterBody body in CharacterBody.readOnlyInstancesList)
                 {
-                    if (body.HasBuff(Buffs.BaseBuff.GetFromType(typeof(Buffs.RiftLens)))) body.RemoveBuff(Buffs.BaseBuff.GetFromType(typeof(Buffs.RiftLens)));
+                    if (body.HasBuff(MysticsItemsContent.Buffs.RiftLens)) body.RemoveBuff(MysticsItemsContent.Buffs.RiftLens);
                 }
             };
             costTypeDef.colorIndex = ColorCatalog.ColorIndex.LunarItem;
@@ -130,10 +130,7 @@ namespace MysticsItems.Items
                 };
             };
             riftChest.GetComponent<PurchaseInteraction>().cost = 1;
-        }
 
-        public override void OnAdd()
-        {
             IL.RoR2.SceneDirector.PopulateScene += (il) =>
             {
                 ILCursor c = new ILCursor(il);
@@ -156,7 +153,7 @@ namespace MysticsItems.Items
                             foreach (CharacterMaster characterMaster in CharacterMaster.readOnlyInstancesList)
                                 if (characterMaster.teamIndex == TeamIndex.Player)
                                 {
-                                    itemCount += characterMaster.inventory.GetItemCount(itemIndex);
+                                    itemCount += characterMaster.inventory.GetItemCount(itemDef);
                                 }
                             if (itemCount > 0)
                             {
@@ -179,11 +176,11 @@ namespace MysticsItems.Items
                 if (NetworkServer.active && TeamComponent.GetObjectTeam(self.gameObject) == TeamIndex.Player)
                 {
                     Inventory inventory = self.inventory;
-                    if (inventory && inventory.GetItemCount(itemIndex) > 0)
+                    if (inventory && inventory.GetItemCount(itemDef) > 0)
                     {
-                        while (self.GetBuffCount(Buffs.BaseBuff.GetFromType(typeof(Buffs.RiftLens))) < RiftChest.unopenedCount)
+                        while (self.GetBuffCount(MysticsItemsContent.Buffs.RiftLens) < RiftChest.unopenedCount)
                         {
-                            self.AddBuff(Buffs.BaseBuff.GetFromType(typeof(Buffs.RiftLens)));
+                            self.AddBuff(MysticsItemsContent.Buffs.RiftLens);
                         }
                     }
                 }

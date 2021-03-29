@@ -10,40 +10,28 @@ namespace MysticsItems.Buffs
 {
     public abstract class BaseBuff
     {
-        public BuffDef buffDef = new BuffDef();
-        public BuffIndex buffIndex;
-        public static Dictionary<System.Type, BaseBuff> registeredBuffs = new Dictionary<System.Type, BaseBuff>();
+        public BuffDef buffDef;
+        public static List<BaseBuff> loadedBuffs = new List<BaseBuff>();
 
-        public static BuffIndex GetFromType(System.Type type)
-        {
-            if (registeredBuffs.ContainsKey(type))
-            {
-                return registeredBuffs[type].buffIndex;
-            }
-            return BuffIndex.None;
-        }
+        public virtual void OnLoad() { }
 
-        public void Add()
+        public BuffDef Load()
         {
-            registeredBuffs.Add(GetType(), this);
-            PreAdd();
-            buffDef.iconPath = Main.AssetPrefix + ":Assets/Buffs/" + buffDef.name + ".png";
+            buffDef = ScriptableObject.CreateInstance<BuffDef>();
+            OnLoad();
+            buffDef.iconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Buffs/" + buffDef.name + ".png");
             buffDef.name = Main.TokenPrefix + buffDef.name;
-            buffIndex = BuffAPI.Add(new CustomBuff(buffDef));
-            OnAdd();
+            loadedBuffs.Add(this);
+            return buffDef;
         }
 
-        public virtual void PreAdd() { }
-
-        public virtual void OnAdd() { }
-
-        private float StatModifierTimes(Main.GenericCharacterInfo genericCharacterInfo)
+        private float StatModifierTimes(GenericGameEvents.GenericCharacterInfo genericCharacterInfo)
         {
-            return genericCharacterInfo.body.HasBuff(buffIndex) ? genericCharacterInfo.body.GetBuffCount(buffIndex) : 0f;
+            return genericCharacterInfo.body.HasBuff(buffDef) ? genericCharacterInfo.body.GetBuffCount(buffDef) : 0f;
         }
-        private float StatModifierTimesNoStack(Main.GenericCharacterInfo genericCharacterInfo)
+        private float StatModifierTimesNoStack(GenericGameEvents.GenericCharacterInfo genericCharacterInfo)
         {
-            return genericCharacterInfo.body.HasBuff(buffIndex) ? 1f : 0f;
+            return genericCharacterInfo.body.HasBuff(buffDef) ? 1f : 0f;
         }
         public void AddModifier(List<CharacterStats.StatModifier> list, float multiplier, float flat, bool stacks)
         {
