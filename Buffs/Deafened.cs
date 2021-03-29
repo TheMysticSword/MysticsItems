@@ -10,14 +10,12 @@ namespace MysticsItems.Buffs
     {
         public static float multiplier = 1.5f;
         
-        public override void PreAdd() {
+        public override void OnLoad() {
             buffDef.name = "Deafened";
             buffDef.buffColor = new Color32(255, 195, 112, 255);
             buffDef.isDebuff = true;
-        }
 
-        public override void OnAdd() {
-            Equipment.Microphone.buffIndex = buffIndex;
+            Equipment.Microphone.buffDef = buffDef;
             AddMoveSpeedModifier(-0.5f);
             AddArmorModifier(-20f);
 
@@ -29,7 +27,7 @@ namespace MysticsItems.Buffs
                 c.Emit(OpCodes.Ldarg_0);
                 c.EmitDelegate<System.Action<CharacterBody>>((characterBody) =>
                 {
-                    if (characterBody.HasBuff(buffIndex))
+                    if (characterBody.HasBuff(buffDef))
                     {
                         if (characterBody.skillLocator.primary) characterBody.skillLocator.primary.RecalculateValues();
                         if (characterBody.skillLocator.secondary) characterBody.skillLocator.secondary.RecalculateValues();
@@ -41,13 +39,13 @@ namespace MysticsItems.Buffs
             // cooldown increase (can't do this in RecalculateStats because this function makes it so the modified cooldown can't be higher than the base cooldown)
             On.RoR2.GenericSkill.CalculateFinalRechargeInterval += (orig, self) =>
             {
-                return orig(self) * (self.characterBody.HasBuff(buffIndex) ? multiplier : 1f);
+                return orig(self) * (self.characterBody.HasBuff(buffDef) ? multiplier : 1f);
             };
 
             // when the debuff is first received, add a few seconds to current skill cooldowns
             On.RoR2.CharacterBody.OnBuffFirstStackGained += (orig, self, buffDef) =>
             {
-                if (buffDef.buffIndex == buffIndex)
+                if (buffDef == this.buffDef)
                 {
                     GenericSkill[] skills =
                     {

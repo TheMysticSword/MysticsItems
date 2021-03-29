@@ -7,14 +7,12 @@ namespace MysticsItems.Buffs
 {
     public class SpotterMarked : BaseBuff
     {
-        public override void PreAdd() {
+        public override void OnLoad() {
             buffDef.name = "SpotterMarked";
             buffDef.buffColor = new Color32(214, 58, 58, 255);
             buffDef.isDebuff = true;
-        }
 
-        public override void OnAdd() {
-            Items.Spotter.buffIndex = buffIndex;
+            Items.Spotter.buffDef = buffDef;
 
             IL.RoR2.HealthComponent.TakeDamage += (il) =>
             {
@@ -32,7 +30,7 @@ namespace MysticsItems.Buffs
                     c.EmitDelegate<System.Action<HealthComponent, DamageInfo>>((healthComponent, damageInfo) =>
                     {
                         CharacterBody body = healthComponent.body;
-                        if (body && body.HasBuff(buffIndex))
+                        if (body && body.HasBuff(buffDef))
                         {
                             damageInfo.crit = true;
                         }

@@ -64,7 +64,7 @@ namespace MysticsItems
             purchaseInteraction.setUnavailableOnTeleporterActivated = true;
             purchaseInteraction.isShrine = true;
 
-            DelayedEvent delayedEvent = prefab.AddComponent<DelayedEvent>();
+            RoR2.EntityLogic.DelayedEvent delayedEvent = prefab.AddComponent<RoR2.EntityLogic.DelayedEvent>();
 
             HologramProjector hologramProjector = prefab.AddComponent<HologramProjector>();
             hologramProjector.displayDistance = 15f;
@@ -126,8 +126,8 @@ namespace MysticsItems
                                         allowAmbushSpawn = true,
                                         preventOverhead = false,
                                         minimumStageCompletions = 1,
-                                        requiredUnlockable = "",
-                                        forbiddenUnlockable = ""
+                                        requiredUnlockableDef = null,
+                                        forbiddenUnlockableDef = null
                                     });
                                 }
                             }
@@ -177,7 +177,7 @@ namespace MysticsItems
                     if (inventory)
                     {
                         int totalItemCount = 0;
-                        ItemIndex itemIndex = ItemIndex.Syringe;
+                        ItemIndex itemIndex = 0;
                         ItemIndex itemCount = (ItemIndex)ItemCatalog.itemCount;
                         while (itemIndex < itemCount)
                         {
@@ -304,13 +304,13 @@ namespace MysticsItems
 
             public void Start()
             {
-                DelayedEvent delayedEvent = GetComponent<DelayedEvent>();
+                RoR2.EntityLogic.DelayedEvent delayedEvent = GetComponent<RoR2.EntityLogic.DelayedEvent>();
                 delayedEvent.action = new UnityEvent();
                 delayedEvent.action.AddListener(() =>
                 {
                     AddShrineStack(purchaseInteraction.lastActivator);
                 });
-                delayedEvent.timeStepType = DelayedEvent.TimeStepType.FixedTime;
+                delayedEvent.timeStepType = RoR2.EntityLogic.DelayedEvent.TimeStepType.FixedTime;
 
                 purchaseInteraction = GetComponent<PurchaseInteraction>();
                 purchaseInteraction.onPurchase.AddListener((interactor) =>

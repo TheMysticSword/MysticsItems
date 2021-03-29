@@ -16,7 +16,7 @@ namespace MysticsItems.Equipment
         public static GameObject visualEffectTeleportOut;
         public static GameObject sceneExitControllerObject;
 
-        public override void PreAdd()
+        public override void OnLoad()
         {
             equipmentDef.name = "GateChalice";
             equipmentDef.cooldown = 140f;
@@ -50,20 +50,18 @@ namespace MysticsItems.Equipment
                 };
             }
             CopyModelToFollower();
-            AddDisplayRule((int)Main.CommonBodyIndices.Commando, "Stomach", new Vector3(-0.09F, 0.1F, -0.102F), new Vector3(5.862F, 140.357F, 1.915F), new Vector3(0.059F, 0.059F, 0.059F));
-            AddDisplayRule("mdlHuntress", "Pelvis", new Vector3(-0.082F, -0.111F, 0.085F), new Vector3(0.679F, 36.762F, 188.148F), new Vector3(0.047F, 0.047F, 0.048F));
-            AddDisplayRule("mdlToolbot", "Hip", new Vector3(-1.239F, 0.577F, -1.044F), new Vector3(0F, 180F, 180F), new Vector3(0.349F, 0.349F, 0.349F));
-            AddDisplayRule("mdlEngi", "Pelvis", new Vector3(-0.178F, 0.078F, 0.157F), new Vector3(11.745F, 186.295F, 185.936F), new Vector3(0.047F, 0.047F, 0.047F));
-            AddDisplayRule((int)Main.CommonBodyIndices.EngiTurret, "Head", new Vector3(-0.847F, 0.631F, -0.527F), new Vector3(20.785F, 181.891F, 347.117F), new Vector3(0.1F, 0.1F, 0.1F));
-            AddDisplayRule((int)Main.CommonBodyIndices.EngiWalkerTurret, "Head", new Vector3(-0.777F, 1.189F, -1.229F), new Vector3(357.316F, 182.451F, 342.857F), new Vector3(0.117F, 0.117F, 0.117F));
-            AddDisplayRule("mdlMage", "Pelvis", new Vector3(-0.128F, -0.131F, 0.024F), new Vector3(6.286F, 3.408F, 167.572F), new Vector3(0.044F, 0.044F, 0.044F));
-            AddDisplayRule("mdlMerc", "Chest", new Vector3(0F, 0.193F, -0.286F), new Vector3(71.925F, 180F, 0F), new Vector3(0.027F, 0.027F, 0.027F));
-            AddDisplayRule("mdlTreebot", "FlowerBase", new Vector3(-0.485F, 0.701F, -0.803F), new Vector3(26.173F, 24.306F, 86.838F), new Vector3(0.061F, 0.061F, 0.061F));
-            AddDisplayRule("mdlLoader", "Pelvis", new Vector3(-0.216F, -0.016F, -0.022F), new Vector3(342.363F, 183.205F, 159.555F), new Vector3(0.045F, 0.045F, 0.045F));
-            AddDisplayRule("mdlCroco", "SpineStomach1", new Vector3(0.845F, 0.495F, 1.289F), new Vector3(74.633F, 327.618F, 247.859F), new Vector3(0.361F, 0.361F, 0.361F));
-            AddDisplayRule("mdlCaptain", "Stomach", new Vector3(-0.195F, 0.128F, 0.126F), new Vector3(336.504F, 156.734F, 358.159F), new Vector3(0.041F, 0.041F, 0.041F));
-            AddDisplayRule("mdlScav", "MuzzleEnergyCannon", new Vector3(0F, 0F, -1.503F), new Vector3(90F, 0F, 0F), new Vector3(2.281F, 2.281F, 2.281F));
-            AddDisplayRule("mdlEquipmentDrone", "GunBarrelBase", new Vector3(0F, 0F, 1.069F), new Vector3(0F, 0F, 0F), new Vector3(0.267F, 0.267F, 0.267F));
+            AddDisplayRule("CommandoBody", "Stomach", new Vector3(-0.09F, 0.1F, -0.102F), new Vector3(5.862F, 140.357F, 1.915F), new Vector3(0.059F, 0.059F, 0.059F));
+            AddDisplayRule("HuntressBody", "Pelvis", new Vector3(-0.082F, -0.111F, 0.085F), new Vector3(0.679F, 36.762F, 188.148F), new Vector3(0.047F, 0.047F, 0.048F));
+            AddDisplayRule("ToolbotBody", "Hip", new Vector3(-1.239F, 0.577F, -1.044F), new Vector3(0F, 180F, 180F), new Vector3(0.349F, 0.349F, 0.349F));
+            AddDisplayRule("EngiBody", "Pelvis", new Vector3(-0.178F, 0.078F, 0.157F), new Vector3(11.745F, 186.295F, 185.936F), new Vector3(0.047F, 0.047F, 0.047F));
+            AddDisplayRule("MageBody", "Pelvis", new Vector3(-0.128F, -0.131F, 0.024F), new Vector3(6.286F, 3.408F, 167.572F), new Vector3(0.044F, 0.044F, 0.044F));
+            AddDisplayRule("MercBody", "Chest", new Vector3(0F, 0.193F, -0.286F), new Vector3(71.925F, 180F, 0F), new Vector3(0.027F, 0.027F, 0.027F));
+            AddDisplayRule("TreebotBody", "FlowerBase", new Vector3(-0.485F, 0.701F, -0.803F), new Vector3(26.173F, 24.306F, 86.838F), new Vector3(0.061F, 0.061F, 0.061F));
+            AddDisplayRule("LoaderBody", "Pelvis", new Vector3(-0.216F, -0.016F, -0.022F), new Vector3(342.363F, 183.205F, 159.555F), new Vector3(0.045F, 0.045F, 0.045F));
+            AddDisplayRule("CrocoBody", "SpineStomach1", new Vector3(0.845F, 0.495F, 1.289F), new Vector3(74.633F, 327.618F, 247.859F), new Vector3(0.361F, 0.361F, 0.361F));
+            AddDisplayRule("CaptainBody", "Stomach", new Vector3(-0.195F, 0.128F, 0.126F), new Vector3(336.504F, 156.734F, 358.159F), new Vector3(0.041F, 0.041F, 0.041F));
+            AddDisplayRule("ScavBody", "MuzzleEnergyCannon", new Vector3(0F, 0F, -1.503F), new Vector3(90F, 0F, 0F), new Vector3(2.281F, 2.281F, 2.281F));
+            AddDisplayRule("EquipmentDroneBody", "GunBarrelBase", new Vector3(0F, 0F, 1.069F), new Vector3(0F, 0F, 0F), new Vector3(0.267F, 0.267F, 0.267F));
 
             visualEffectOnUse = PrefabAPI.InstantiateClone(new GameObject(), Main.TokenPrefix + "GateChaliceOnUseEffect", false);
             EffectComponent effectComponent = visualEffectOnUse.AddComponent<EffectComponent>();
@@ -113,7 +111,7 @@ namespace MysticsItems.Equipment
             shapeModule.shapeType = ParticleSystemShapeType.Sphere;
             massSparks.transform.SetParent(visualEffectOnUse.transform);
 
-            AssetManager.RegisterEffect(visualEffectOnUse);
+            MysticsItemsContent.Resources.effectPrefabs.Add(visualEffectOnUse);
 
             visualEffectTeleportOut = PrefabAPI.InstantiateClone(new GameObject(), Main.TokenPrefix + "GateChaliceTeleportOutEffect", false);
             effectComponent = visualEffectTeleportOut.AddComponent<EffectComponent>();
@@ -141,7 +139,7 @@ namespace MysticsItems.Equipment
             pp.sharedProfile = ppProfile;
             ppHolder.transform.SetParent(visualEffectTeleportOut.transform);
 
-            AssetManager.RegisterEffect(visualEffectTeleportOut);
+            MysticsItemsContent.Resources.effectPrefabs.Add(visualEffectTeleportOut);
 
             sceneExitControllerObject = PrefabAPI.InstantiateClone(new GameObject(), Main.TokenPrefix + "GateChaliceSceneExitControllerObject", false);
             sceneExitControllerObject.AddComponent<NetworkIdentity>();
@@ -167,9 +165,9 @@ namespace MysticsItems.Equipment
                         MysticsItemsGateChaliceDebuffOnSpawn component = master.GetComponent<MysticsItemsGateChaliceDebuffOnSpawn>();
                         if (component)
                         {
-                            BuffIndex buffIndex = Buffs.BaseBuff.GetFromType(typeof(Buffs.GateChalice));
-                            while (self.GetBuffCount(buffIndex) < component.count) self.AddBuff(buffIndex);
-                            while (self.GetBuffCount(buffIndex) > component.count) self.RemoveBuff(buffIndex);
+                            BuffDef buffDef = MysticsItemsContent.Buffs.GateChalice;
+                            while (self.GetBuffCount(buffDef) < component.count) self.AddBuff(buffDef);
+                            while (self.GetBuffCount(buffDef) > component.count) self.RemoveBuff(buffDef);
                         }
                     }
                 }

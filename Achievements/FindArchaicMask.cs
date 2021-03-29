@@ -25,13 +25,13 @@ namespace MysticsItems.Achievements
 				public override void OnInstall()
 				{
 					base.OnInstall();
-					Equipment.ArchaicMask.UnlockInteraction.OnUnlock += OnActivated;
+					Equipment.ArchaicMask.MysticsItemsArchaicMaskUnlockInteraction.OnUnlock += OnActivated;
 				}
 
 				public override void OnUninstall()
 				{
 					base.OnUninstall();
-					Equipment.ArchaicMask.UnlockInteraction.OnUnlock -= OnActivated;
+					Equipment.ArchaicMask.MysticsItemsArchaicMaskUnlockInteraction.OnUnlock -= OnActivated;
 				}
 
 				public void OnActivated(Interactor interactor)

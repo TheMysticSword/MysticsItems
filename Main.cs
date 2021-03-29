@@ -17,7 +17,7 @@ namespace MysticsItems
     [BepInDependency(R2API.R2API.PluginGUID)]
     [BepInDependency(SoftDependencies.ItemStatsSoftDependency.PluginGUID, BepInDependency.DependencyFlags.SoftDependency)]
     [BepInPlugin(PluginGUID, PluginName, PluginVersion)]
-    [R2APISubmoduleDependency(nameof(BuffAPI), nameof(ItemAPI), nameof(ItemDropAPI), nameof(LanguageAPI), nameof(LoadoutAPI), nameof(NetworkingAPI), nameof(PrefabAPI), nameof(ResourcesAPI), nameof(SoundAPI))]
+    [R2APISubmoduleDependency(nameof(NetworkingAPI), nameof(PrefabAPI), nameof(ResourcesAPI), nameof(SoundAPI))]
 
     public class MysticsItemsPlugin : BaseUnityPlugin
     {
@@ -32,14 +32,9 @@ namespace MysticsItems
             logger = Logger;
             Main.Init();
         }
-
-        public void Start()
-        {
-            Main.PostGameLoad();
-        }
     }
 
-    public static class Main
+    public static partial class Main
     {
         public const string TokenPrefix = MysticsItemsPlugin.PluginName + "_";
         
@@ -64,19 +59,19 @@ namespace MysticsItems
                 SoundAPI.SoundBanks.Add(bytes);
             }
 
+            RoR2Application.onLoad += PostGameLoad;
+
             //DebugTools.Init();
 
             Achievements.BaseAchievement.Init();
-            AssetManager.Init();
             CharacterStats.Init();
-            ItemDropFixes.Init();
             Items.BaseItem.Init();
-            Items.CharacterItems.Init();
+            //Items.CharacterItems.Init();
             Equipment.BaseEquipment.Init();
+            LanguageLoader.Init();
             Outlines.Init();
             Overlays.Init();
             PlainHologram.Init();
-            Unlockables.Init();
 
             //LaserTurret.Init();
             ShrineLegendary.Init();
@@ -87,21 +82,6 @@ namespace MysticsItems
             {
                 if (!type.IsAbstract)
                 {
-                    if (type.BaseType == typeof(Items.BaseItem))
-                    {
-                        Items.BaseItem item = (Items.BaseItem)System.Activator.CreateInstance(type);
-                        item.Add();
-                    }
-                    if (type.BaseType == typeof(Equipment.BaseEquipment))
-                    {
-                        Equipment.BaseEquipment equipment = (Equipment.BaseEquipment)System.Activator.CreateInstance(type);
-                        equipment.Add();
-                    }
-                    if (type.BaseType == typeof(Buffs.BaseBuff))
-                    {
-                        Buffs.BaseBuff buff = (Buffs.BaseBuff)System.Activator.CreateInstance(type);
-                        buff.Add();
-                    }
                     if (type.BaseType == typeof(Achievements.BaseAchievement))
                     {
                         Achievements.BaseAchievement achievement = (Achievements.BaseAchievement)System.Activator.CreateInstance(type);
@@ -110,6 +90,14 @@ namespace MysticsItems
                 }
             }
 
+            // Load the content pack
+            On.RoR2.ContentManager.SetContentPacks += (orig, newContentPacks) =>
+            {
+                newContentPacks.Add(new MysticsItemsContent());
+                orig(newContentPacks);
+            };
+
+            // Hooks for easier handling of item effects
             On.RoR2.GlobalEventManager.OnHitEnemy += (orig, self, damageInfo, victim) =>
             {
                 orig(self, damageInfo, victim);
@@ -184,7 +172,10 @@ namespace MysticsItems
 
         public static void PostGameLoad()
         {
+            LanguageLoader.Load("MysticsItems.language");
+
             Items.BaseItem.PostGameLoad();
+            
             if (BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey(SoftDependencies.ItemStatsSoftDependency.PluginGUID)) SoftDependencies.ItemStatsSoftDependency.Init();
         }
 
@@ -193,13 +184,13 @@ namespace MysticsItems
         {
             foreach (LocalUser user in LocalUserManager.readOnlyLocalUsersList)
             {
-                foreach (KeyValuePair<System.Type, Items.BaseItem> keyValuePair in Items.BaseItem.registeredItems)
+                foreach (Items.BaseItem item in Items.BaseItem.loadedItems)
                 {
-                    user.userProfile.DiscoverPickup(keyValuePair.Value.GetPickupIndex());
+                    user.userProfile.DiscoverPickup(item.GetPickupIndex());
                 }
-                foreach (KeyValuePair<System.Type, Equipment.BaseEquipment> keyValuePair in Equipment.BaseEquipment.registeredEquipment)
+                foreach (Equipment.BaseEquipment equipment in Equipment.BaseEquipment.loadedEquipment)
                 {
-                    user.userProfile.DiscoverPickup(keyValuePair.Value.GetPickupIndex());
+                    user.userProfile.DiscoverPickup(equipment.GetPickupIndex());
                 }
             }
         }
@@ -214,13 +205,6 @@ namespace MysticsItems
                     AchievementManager.GetUserAchievementManager(user).GrantAchievement(achievement.achievementDef);
                 }
             }
-        }
-
-        public enum CommonBodyIndices
-        {
-            Commando = 26,
-            EngiTurret = 36,
-            EngiWalkerTurret = 37
         }
 
         public struct GenericCharacterInfo
@@ -254,53 +238,6 @@ namespace MysticsItems
         public static event System.Action<DamageInfo, GenericCharacterInfo> OnTakeDamage;
 
         public static List<GameObject> modifiedPrefabs = new List<GameObject>(); // Add to this list when modifying a base game prefab to keep Unity from destroying modified prefabs from cache
-
-        public static class Overlays
-        {
-            public struct OverlayInfo
-            {
-                public Material material;
-                public System.Func<CharacterModel, bool> condition;
-
-                public OverlayInfo(Material material, System.Func<CharacterModel, bool> condition)
-                {
-                    this.material = material;
-                    this.condition = condition;
-                }
-            }
-
-            public static List<OverlayInfo> overlays = new List<OverlayInfo>();
-
-            public static void Init()
-            {
-                On.RoR2.CharacterModel.UpdateOverlays += (orig, self) =>
-                {
-                    orig(self);
-                    if (self.body)
-                    {
-                        foreach (OverlayInfo overlayInfo in overlays)
-                        {
-                            if (self.GetFieldValue<int>("activeOverlayCount") >= typeof(CharacterModel).GetFieldValue<int>("maxOverlays"))
-                            {
-                                return;
-                            }
-                            if (overlayInfo.condition(self))
-                            {
-                                Material[] array = self.GetFieldValue<Material[]>("currentOverlays");
-                                int num = self.GetFieldValue<int>("activeOverlayCount");
-                                self.SetFieldValue("activeOverlayCount", num + 1);
-                                array[num] = overlayInfo.material;
-                            }
-                        }
-                    }
-                };
-            }
-
-            public static void CreateOverlay(Material material, System.Func<CharacterModel, bool> condition)
-            {
-                overlays.Add(new OverlayInfo(material, condition));
-            }
-        }
 
         public static class HopooShaderToMaterial
         {
@@ -374,11 +311,152 @@ namespace MysticsItems
         }
     }
 
+    public class MysticsItemsContent : ContentPack
+    {
+        public MysticsItemsContent()
+        {
+            Init();
+            bodyPrefabs = Resources.bodyPrefabs.ToArray();
+            masterPrefabs = Resources.masterPrefabs.ToArray();
+            projectilePrefabs = Resources.projectilePrefabs.ToArray();
+            effectDefs = Resources.effectPrefabs.ConvertAll(x => new EffectDef(x)).ToArray();
+            networkSoundEventDefs = Resources.networkSoundEvents.ConvertAll(x =>
+            {
+                NetworkSoundEventDef networkSoundEventDef = ScriptableObject.CreateInstance<NetworkSoundEventDef>();
+                networkSoundEventDef.eventName = x;
+                return networkSoundEventDef;
+            }).ToArray();
+            unlockableDefs = Resources.unlockableDefs.ToArray();
+            entityStateTypes = Resources.entityStateTypes.ToArray();
+            skillDefs = Resources.skillDefs.ToArray();
+            itemDefs = Items.itemDefs;
+            equipmentDefs = Equipment.equipmentDefs;
+        }
+
+        public static void Init()
+        {
+            Items.Load();
+            Equipment.Load();
+            Buffs.Load();
+        }
+
+        public static class Resources
+        {
+            public static List<GameObject> bodyPrefabs = new List<GameObject>();
+            public static List<GameObject> masterPrefabs = new List<GameObject>();
+            public static List<GameObject> projectilePrefabs = new List<GameObject>();
+            public static List<GameObject> effectPrefabs = new List<GameObject>();
+            public static List<string> networkSoundEvents = new List<string>();
+            public static List<UnlockableDef> unlockableDefs = new List<UnlockableDef>();
+            public static List<System.Type> entityStateTypes = new List<System.Type>();
+            public static List<RoR2.Skills.SkillDef> skillDefs = new List<RoR2.Skills.SkillDef>();
+        }
+
+        public static class Items
+        {
+            public static void Load()
+            {
+                HealOrbOnBarrel = new MysticsItems.Items.HealOrbOnBarrel().Load();
+                ScratchTicket = new MysticsItems.Items.ScratchTicket().Load();
+                BackArmor = new MysticsItems.Items.BackArmor().Load();
+                CoffeeBoostOnItemPickup = new MysticsItems.Items.CoffeeBoostOnItemPickup().Load();
+                ExplosivePickups = new MysticsItems.Items.ExplosivePickups().Load();
+                AllyDeathRevenge = new MysticsItems.Items.AllyDeathRevenge().Load();
+                Spotter = new MysticsItems.Items.Spotter().Load();
+                SpeedGivesDamage = new MysticsItems.Items.SpeedGivesDamage().Load();
+                ExtraShrineUse = new MysticsItems.Items.ExtraShrineUse().Load();
+                Voltmeter = new MysticsItems.Items.Voltmeter().Load();
+                ThoughtProcessor = new MysticsItems.Items.ThoughtProcessor().Load();
+                CrystalWorld = new MysticsItems.Items.CrystalWorld().Load();
+                DasherDisc = new MysticsItems.Items.DasherDisc().Load();
+                TreasureMap = new MysticsItems.Items.TreasureMap().Load();
+                RiftLens = new MysticsItems.Items.RiftLens().Load();
+                /*
+                CommandoScope = new MysticsItems.Items.CommandoScope().Load();
+                CommandoRevolverDrum = new MysticsItems.Items.CommandoRevolverDrum().Load();
+                ArtificerNanobots = new MysticsItems.Items.ArtificerNanobots().Load();
+                */
+                itemDefs = MysticsItems.Items.BaseItem.loadedItems.ConvertAll(x => x.itemDef).ToArray();
+            }
+
+            public static ItemDef[] itemDefs;
+
+            public static ItemDef HealOrbOnBarrel;
+            public static ItemDef ScratchTicket;
+            public static ItemDef BackArmor;
+            public static ItemDef CoffeeBoostOnItemPickup;
+            public static ItemDef ExplosivePickups;
+            public static ItemDef AllyDeathRevenge;
+            public static ItemDef Spotter;
+            public static ItemDef SpeedGivesDamage;
+            public static ItemDef ExtraShrineUse;
+            public static ItemDef Voltmeter;
+            public static ItemDef ThoughtProcessor;
+            public static ItemDef CrystalWorld;
+            public static ItemDef DasherDisc;
+            public static ItemDef TreasureMap;
+            public static ItemDef RiftLens;
+            public static ItemDef CommandoScope;
+            public static ItemDef CommandoRevolverDrum;
+            public static ItemDef ArtificerNanobots;
+        }
+
+        public static class Equipment
+        {
+            public static void Load()
+            {
+                ArchaicMask = new MysticsItems.Equipment.ArchaicMask().Load();
+                PrinterHacker = new MysticsItems.Equipment.PrinterHacker().Load();
+                Microphone = new MysticsItems.Equipment.Microphone().Load();
+                GateChalice = new MysticsItems.Equipment.GateChalice().Load();
+                TuningFork = new MysticsItems.Equipment.TuningFork().Load();
+                equipmentDefs = MysticsItems.Equipment.BaseEquipment.loadedEquipment.ConvertAll(x => x.equipmentDef).ToArray();
+            }
+
+            public static EquipmentDef[] equipmentDefs;
+
+            public static EquipmentDef ArchaicMask;
+            public static EquipmentDef PrinterHacker;
+            public static EquipmentDef Microphone;
+            public static EquipmentDef GateChalice;
+            public static EquipmentDef TuningFork;
+        }
+
+        public static class Buffs
+        {
+            public static void Load()
+            {
+                AllyDeathRevenge = new MysticsItems.Buffs.AllyDeathRevenge().Load();
+                CoffeeBoost = new MysticsItems.Buffs.CoffeeBoost().Load();
+                DasherDiscActive = new MysticsItems.Buffs.DasherDiscActive().Load();
+                DasherDiscCooldown = new MysticsItems.Buffs.DasherDiscCooldown().Load();
+                Deafened = new MysticsItems.Buffs.Deafened().Load();
+                GateChalice = new MysticsItems.Buffs.GateChalice().Load();
+                RiftLens = new MysticsItems.Buffs.RiftLens().Load();
+                SpeedGivesDamage = new MysticsItems.Buffs.SpeedGivesDamage().Load();
+                SpotterMarked = new MysticsItems.Buffs.SpotterMarked().Load();
+                buffDefs = MysticsItems.Buffs.BaseBuff.loadedBuffs.ConvertAll(x => x.buffDef).ToArray();
+            }
+
+            public static BuffDef[] buffDefs;
+
+            public static BuffDef AllyDeathRevenge;
+            public static BuffDef CoffeeBoost;
+            public static BuffDef DasherDiscActive;
+            public static BuffDef DasherDiscCooldown;
+            public static BuffDef Deafened;
+            public static BuffDef GateChalice;
+            public static BuffDef RiftLens;
+            public static BuffDef SpeedGivesDamage;
+            public static BuffDef SpotterMarked;
+        }
+    }
+
     public static class BrotherInfection
     {
-        public static GameObject white = Resources.Load<GameObject>("Prefabs/CharacterBodies/BrotherBody").GetComponentInChildren<CharacterModel>().itemDisplayRuleSet.FindItemDisplayRuleGroup("Hoof").rules[0].followerPrefab;
-        public static GameObject green = Resources.Load<GameObject>("Prefabs/CharacterBodies/BrotherBody").GetComponentInChildren<CharacterModel>().itemDisplayRuleSet.FindItemDisplayRuleGroup("Feather").rules[0].followerPrefab;
-        public static GameObject red = Resources.Load<GameObject>("Prefabs/CharacterBodies/BrotherBody").GetComponentInChildren<CharacterModel>().itemDisplayRuleSet.FindItemDisplayRuleGroup("ShockNearby").rules[0].followerPrefab;
-        public static GameObject blue = Resources.Load<GameObject>("Prefabs/CharacterBodies/BrotherBody").GetComponentInChildren<CharacterModel>().itemDisplayRuleSet.FindItemDisplayRuleGroup("LunarDagger").rules[0].followerPrefab;
+        public static GameObject white = Resources.Load<GameObject>("Prefabs/CharacterBodies/BrotherBody").GetComponentInChildren<CharacterModel>().itemDisplayRuleSet.FindDisplayRuleGroup(RoR2Content.Items.Hoof).rules[0].followerPrefab;
+        public static GameObject green = Resources.Load<GameObject>("Prefabs/CharacterBodies/BrotherBody").GetComponentInChildren<CharacterModel>().itemDisplayRuleSet.FindDisplayRuleGroup(RoR2Content.Items.Feather).rules[0].followerPrefab;
+        public static GameObject red = Resources.Load<GameObject>("Prefabs/CharacterBodies/BrotherBody").GetComponentInChildren<CharacterModel>().itemDisplayRuleSet.FindDisplayRuleGroup(RoR2Content.Items.ShockNearby).rules[0].followerPrefab;
+        public static GameObject blue = Resources.Load<GameObject>("Prefabs/CharacterBodies/BrotherBody").GetComponentInChildren<CharacterModel>().itemDisplayRuleSet.FindDisplayRuleGroup(RoR2Content.Items.LunarDagger).rules[0].followerPrefab;
     }
 }

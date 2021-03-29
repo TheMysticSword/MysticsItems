@@ -15,36 +15,31 @@ namespace MysticsItems.Items
     {
         public static List<GameObject> checkedProjectiles = new List<GameObject>();
 
-        public override void PreAdd()
+        public override void OnLoad()
         {
-            itemDef.name = "ArtificerNanobots";
-            itemDef.tier = ItemTier.Tier1;
+			itemDef.name = "ArtificerNanobots";
+			itemDef.tier = ItemTier.Tier1;
             SetAssets("Proximity Nanobots");
 			Main.HopooShaderToMaterial.Standard.Emission(GetModelMaterial());
 			Main.HopooShaderToMaterial.Standard.Emission(GetFollowerModelMaterial());
-			AddDisplayRule("mdlMage", "HandL", new Vector3(-0.076F, -0.001F, 0.092F), new Vector3(4.907F, 241.513F, 278.407F), new Vector3(0.012F, 0.012F, 0.012F));
-			AddDisplayRule("mdlMage", "HandL", new Vector3(0.021F, -0.131F, 0.12F), new Vector3(358.086F, 282.82F, 271.422F), new Vector3(0.009F, 0.009F, 0.009F));
-			AddDisplayRule("mdlMage", "HandR", new Vector3(-0.117F, -0.064F, 0.055F), new Vector3(1.989F, 25.573F, 85.852F), new Vector3(0.008F, 0.008F, 0.008F));
+			AddDisplayRule("MageBody", "HandL", new Vector3(-0.076F, -0.001F, 0.092F), new Vector3(4.907F, 241.513F, 278.407F), new Vector3(0.012F, 0.012F, 0.012F));
+			AddDisplayRule("MageBody", "HandL", new Vector3(0.021F, -0.131F, 0.12F), new Vector3(358.086F, 282.82F, 271.422F), new Vector3(0.009F, 0.009F, 0.009F));
+			AddDisplayRule("MageBody", "HandR", new Vector3(-0.117F, -0.064F, 0.055F), new Vector3(1.989F, 25.573F, 85.852F), new Vector3(0.008F, 0.008F, 0.008F));
 
-			dontLoad = true;
-        }
+			CharacterItems.SetCharacterItem(this, "MageBody");
 
-        public override void OnAdd()
-        {
-            CharacterItems.SetCharacterItem(this, "MageBody");
-
-            On.EntityStates.Mage.Weapon.FireFireBolt.FireGauntlet += (orig, self) =>
-            {
-                GameObject projectilePrefab = self.projectilePrefab;
-                if (!checkedProjectiles.Contains(projectilePrefab))
-                {
-                    checkedProjectiles.Add(projectilePrefab);
+			On.EntityStates.Mage.Weapon.FireFireBolt.FireGauntlet += (orig, self) =>
+			{
+				GameObject projectilePrefab = self.projectilePrefab;
+				if (!checkedProjectiles.Contains(projectilePrefab))
+				{
+					checkedProjectiles.Add(projectilePrefab);
 					MysticsItemsProjectileProximityMissController proximityMiss = projectilePrefab.AddComponent<MysticsItemsProjectileProximityMissController>();
-					proximityMiss.itemIndex = itemIndex;
+					proximityMiss.itemIndex = itemDef.itemIndex;
 				}
-                orig(self);
-            };
-        }
+				orig(self);
+			};
+		}
 
 		public class MysticsItemsProjectileProximityMissController : MonoBehaviour
 		{

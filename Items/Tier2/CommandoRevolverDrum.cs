@@ -18,41 +18,36 @@ namespace MysticsItems.Items
         public static SkillFamily skillFamily;
 		public static SkillDef skillDef;
 
-        public override void PreAdd()
+        public override void OnLoad()
         {
-            itemDef.name = "CommandoRevolverDrum";
-            itemDef.tier = ItemTier.Tier2;
+			itemDef.name = "CommandoRevolverDrum";
+			itemDef.tier = ItemTier.Tier2;
             SetAssets("Revolver Drum");
-            AddDisplayRule((int)Main.CommonBodyIndices.Commando, "MuzzleLeft", new Vector3(-0.008F, -0.002F, -0.109F), new Vector3(273.148F, 265.817F, 5.331F), new Vector3(0.036F, 0.046F, 0.046F));
-			AddDisplayRule((int)Main.CommonBodyIndices.Commando, "MuzzleRight", new Vector3(-0.008F, -0.002F, -0.109F), new Vector3(273.148F, 265.817F, 5.331F), new Vector3(0.036F, 0.046F, 0.046F));
+            AddDisplayRule("CommandoBody", "MuzzleLeft", new Vector3(-0.008F, -0.002F, -0.109F), new Vector3(273.148F, 265.817F, 5.331F), new Vector3(0.036F, 0.046F, 0.046F));
+			AddDisplayRule("CommandoBody", "MuzzleRight", new Vector3(-0.008F, -0.002F, -0.109F), new Vector3(273.148F, 265.817F, 5.331F), new Vector3(0.036F, 0.046F, 0.046F));
 			
 			FireBarrageRevolverDrum.effectPrefab = Resources.Load<GameObject>("Prefabs/Effects/MuzzleFlashes/Muzzleflash1");
 			FireBarrageRevolverDrum.hitEffectPrefab = Resources.Load<GameObject>("Prefabs/Effects/ImpactEffects/Hitspark1");
 			FireBarrageRevolverDrum.tracerEffectPrefab = Resources.Load<GameObject>("Prefabs/Effects/Tracers/TracerCommandoDefault");
 
-			dontLoad = true;
-		}
+			CharacterItems.SetCharacterItem(this, "CommandoBody");
 
-        public override void OnAdd()
-        {
-            CharacterItems.SetCharacterItem(this, "CommandoBody");
+			On.RoR2.Skills.SkillCatalog.Init += (orig) =>
+			{
+				orig();
 
-            On.RoR2.Skills.SkillCatalog.Init += (orig) =>
-            {
-                orig();
-
-                SkillDef skillDef = SkillCatalog.GetSkillDef(SkillCatalog.FindSkillIndexByName("Barrage"));
-                GenericSkill genericSkill = PrefabAPI.InstantiateClone(new GameObject(), "").AddComponent<GenericSkill>();
-                foreach (SkillFamily _skillFamily in SkillCatalog.allSkillFamilies)
-                {
-                    SkillFamily.Variant matchingVariant = _skillFamily.variants.ToList().Find(x => x.skillDef == skillDef);
-                    if (!matchingVariant.Equals(default(SkillFamily.Variant)))
-                    {
-                        skillFamily = _skillFamily;
-                        break;
-                    }
-                }
-            };
+				SkillDef skillDef = SkillCatalog.GetSkillDef(SkillCatalog.FindSkillIndexByName("Barrage"));
+				GenericSkill genericSkill = PrefabAPI.InstantiateClone(new GameObject(), "").AddComponent<GenericSkill>();
+				foreach (SkillFamily _skillFamily in SkillCatalog.allSkillFamilies)
+				{
+					SkillFamily.Variant matchingVariant = _skillFamily.variants.ToList().Find(x => x.skillDef == skillDef);
+					if (!matchingVariant.Equals(default(SkillFamily.Variant)))
+					{
+						skillFamily = _skillFamily;
+						break;
+					}
+				}
+			};
 
 			skillDef = ScriptableObject.CreateInstance<SkillDef>();
 			skillDef.skillName = Main.TokenPrefix + "CommandoRevolverDrumBarrageQuick";
@@ -62,66 +57,69 @@ namespace MysticsItems.Items
 			skillDef.baseRechargeInterval = 0f;
 			skillDef.baseMaxStock = 1;
 			skillDef.rechargeStock = 1;
-			skillDef.isBullets = false;
-			skillDef.shootDelay = 0f;
 			skillDef.requiredStock = 0;
 			skillDef.stockToConsume = 0;
-			skillDef.noSprint = false;
-			skillDef.isCombatSkill = true;
+			skillDef.resetCooldownTimerOnUse = false;
 			skillDef.fullRestockOnAssign = true;
-			skillDef.dontAllowPastMaxStocks = true;
+			skillDef.dontAllowPastMaxStocks = false;
+			skillDef.beginSkillCooldownOnSkillEnd = false;
+			skillDef.cancelSprintingOnActivation = false;
+			skillDef.forceSprintDuringState = false;
+			skillDef.canceledFromSprinting = false;
+			skillDef.isCombatSkill = true;
+			skillDef.mustKeyPress = false;
 
-			LoadoutAPI.AddSkill(typeof(FireBarrageRevolverDrum));
-			LoadoutAPI.AddSkillDef(skillDef);
+			MysticsItemsContent.Resources.entityStateTypes.Add(typeof(FireBarrageRevolverDrum));
+			MysticsItemsContent.Resources.skillDefs.Add(skillDef);
 
-			FireBarrageRevolverDrum.itemIndex = itemIndex;
+			FireBarrageRevolverDrum.itemDef = itemDef;
 
 			On.RoR2.GenericSkill.Awake += (orig, self) =>
-            {
-                MysticsItemsCommandoRevolverDrumBehaviour component = self.gameObject.GetComponent<MysticsItemsCommandoRevolverDrumBehaviour>();
+			{
+				MysticsItemsCommandoRevolverDrumBehaviour component = self.gameObject.GetComponent<MysticsItemsCommandoRevolverDrumBehaviour>();
 				bool makeSkill = component && component.creatingSkill > 0;
 				if (makeSkill)
-                {
-                    component.creatingSkill--;
-                    self.SetFieldValue("_skillFamily", skillFamily);
-                }
-                orig(self);
-                if (makeSkill) self.SetBaseSkill(skillDef);
-            };
-
-            On.RoR2.CharacterBody.Awake += (orig, self) =>
-            {
-                orig(self);
-                self.onInventoryChanged += () =>
-                {
-                    self.AddItemBehavior<MysticsItemsCommandoRevolverDrumBehaviour>(self.inventory.GetItemCount(itemIndex));
-                };
-            };
-
-            On.EntityStates.Commando.CommandoWeapon.FirePistol2.FireBullet += (orig, self, targetMuzzle) =>
-            {
-                MysticsItemsCommandoRevolverDrumBehaviour component = self.outer.gameObject.GetComponent<MysticsItemsCommandoRevolverDrumBehaviour>();
-				if (component)
-                {
-                    component.applyAttackChanges++;
+				{
+					component.creatingSkill--;
+					self.SetFieldValue("_skillFamily", skillFamily);
 				}
-                orig(self, targetMuzzle);
-            };
-            Main.OnHitEnemy += (damageInfo, attackerInfo, victimInfo) =>
-            {
-                if (attackerInfo.inventory && attackerInfo.inventory.GetItemCount(itemIndex) > 0)
-                {
-                    MysticsItemsCommandoRevolverDrumBehaviour component = attackerInfo.body.gameObject.GetComponent<MysticsItemsCommandoRevolverDrumBehaviour>();
+				orig(self);
+				if (makeSkill) self.SetBaseSkill(skillDef);
+			};
+
+			On.RoR2.CharacterBody.Awake += (orig, self) =>
+			{
+				orig(self);
+				self.onInventoryChanged += () =>
+				{
+					self.AddItemBehavior<MysticsItemsCommandoRevolverDrumBehaviour>(self.inventory.GetItemCount(itemDef));
+				};
+			};
+
+			On.EntityStates.Commando.CommandoWeapon.FirePistol2.FireBullet += (orig, self, targetMuzzle) =>
+			{
+				MysticsItemsCommandoRevolverDrumBehaviour component = self.outer.gameObject.GetComponent<MysticsItemsCommandoRevolverDrumBehaviour>();
+				if (component)
+				{
+					component.applyAttackChanges++;
+				}
+				orig(self, targetMuzzle);
+			};
+			Main.OnHitEnemy += (damageInfo, attackerInfo, victimInfo) =>
+			{
+				if (attackerInfo.inventory && attackerInfo.inventory.GetItemCount(itemDef) > 0)
+				{
+					MysticsItemsCommandoRevolverDrumBehaviour component = attackerInfo.body.gameObject.GetComponent<MysticsItemsCommandoRevolverDrumBehaviour>();
 					if (component && component.applyAttackChanges > 0)
-                    {
-                        component.applyAttackChanges--;
-                        if (Util.CheckRoll(10f, attackerInfo.master))
-                        {
+					{
+						component.applyAttackChanges--;
+						if (Util.CheckRoll(10f, attackerInfo.master))
+						{
 							component.procs++;
-                        }
-                    }
-                }
-            };
+						}
+					}
+				}
+			};
 
 			NetworkingAPI.RegisterMessageType<MysticsItemsCommandoRevolverDrumBehaviour.SyncProc>();
 		}
@@ -204,7 +202,7 @@ namespace MysticsItems.Items
 				Inventory inventory = outer.gameObject.GetComponent<CharacterBody>().inventory;
 				if (inventory)
 				{
-					bulletCount += stackBulletCount * (inventory.GetItemCount(itemIndex) - 1);
+					bulletCount += stackBulletCount * (inventory.GetItemCount(itemDef) - 1);
 				}
 				durationBetweenShots = (totalDuration / (float)bulletCount) / attackSpeedStat;
 				
@@ -289,7 +287,7 @@ namespace MysticsItems.Items
 			public static string fireBarrageSoundString = "Play_commando_R";
 			public static float recoilAmplitude = 0.7f;
 			public static float spreadBloomValue = 0.2f;
-			public static ItemIndex itemIndex;
+			public static ItemDef itemDef;
 			public int totalBulletsFired;
 			public int bulletCount;
 			public float stopwatchBetweenShots;

@@ -7,13 +7,9 @@ namespace MysticsItems.Buffs
 {
     public class AllyDeathRevenge : BaseBuff
     {
-        public override void PreAdd() {
+        public override void OnLoad() {
             buffDef.name = "AllyDeathRevenge";
             buffDef.buffColor = new Color(211f / 255f, 50f / 255f, 25f / 255f);
-        }
-
-        public override void OnAdd() {
-            Items.AllyDeathRevenge.buffIndex = buffIndex;
             AddAttackSpeedModifier(1f);
             AddDamageModifier(1f);
         }

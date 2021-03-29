@@ -13,7 +13,7 @@ namespace MysticsItems.Items
         public static GameObject gunpowderPickup;
         public static GameObject explosionPrefab;
 
-        public override void PreAdd()
+        public override void OnLoad()
         {
             itemDef.name = "ExplosivePickups";
             itemDef.tier = ItemTier.Tier2;
@@ -33,20 +33,20 @@ namespace MysticsItems.Items
             Main.HopooShaderToMaterial.Standard.Gloss(model.transform.Find("мешок").Find("верёвка").GetComponent<MeshRenderer>().sharedMaterial, 0.4f);
             CopyModelToFollower();
 
-            AddDisplayRule((int)Main.CommonBodyIndices.Commando, "Stomach", new Vector3(-0.175F, 0.066F, 0.045F), new Vector3(16.687F, 66.665F, 36.228F), new Vector3(0.042F, 0.042F, 0.042F));
-            AddDisplayRule("mdlHuntress", "Pelvis", new Vector3(-0.12F, -0.064F, -0.052F), new Vector3(355.162F, 32.177F, 180.96F), new Vector3(0.042F, 0.042F, 0.042F));
-            AddDisplayRule("mdlToolbot", "Chest", new Vector3(-0.837F, 1.169F, 3.112F), new Vector3(29.795F, 9.384F, 2.716F), new Vector3(0.489F, 0.489F, 0.489F));
-            AddDisplayRule("mdlEngi", "Pelvis", new Vector3(-0.206F, 0.04F, -0.104F), new Vector3(4.991F, 46.464F, 181.437F), new Vector3(0.065F, 0.065F, 0.065F));
-            AddDisplayRule((int)Main.CommonBodyIndices.EngiTurret, "Head", new Vector3(0.834F, 0.462F, 0.717F), new Vector3(33.04F, 48.09F, 359.072F), new Vector3(0.168F, 0.168F, 0.168F));
-            AddDisplayRule((int)Main.CommonBodyIndices.EngiWalkerTurret, "Head", new Vector3(0.715F, 0.235F, 0.228F), new Vector3(22.677F, 152.024F, 24.393F), new Vector3(0.134F, 0.163F, 0.131F));
-            AddDisplayRule("mdlMage", "Pelvis", new Vector3(-0.058F, 0F, -0.164F), new Vector3(0.366F, 347.899F, 165.881F), new Vector3(0.044F, 0.044F, 0.044F));
-            AddDisplayRule("mdlMerc", "ThighR", new Vector3(-0.077F, 0.008F, 0.041F), new Vector3(15.315F, 124.284F, 220.104F), new Vector3(0.034F, 0.034F, 0.034F));
-            AddDisplayRule("mdlTreebot", "FlowerBase", new Vector3(-0.062F, -0.523F, -1.156F), new Vector3(41.662F, 244.258F, 1.504F), new Vector3(0.107F, 0.107F, 0.107F));
-            AddDisplayRule("mdlLoader", "MechBase", new Vector3(0.07F, 0.023F, 0.444F), new Vector3(7.628F, 218.893F, 342.184F), new Vector3(0.054F, 0.054F, 0.054F));
-            AddDisplayRule("mdlCroco", "SpineChest2", new Vector3(0.779F, 1.753F, -0.514F), new Vector3(337.83F, 226.76F, 273.311F), new Vector3(0.411F, 0.411F, 0.411F));
-            AddDisplayRule("mdlCaptain", "Stomach", new Vector3(-0.102F, 0.12F, 0.147F), new Vector3(11.46F, 212.011F, 335.706F), new Vector3(0.053F, 0.048F, 0.053F));
-            AddDisplayRule("mdlBrother", "Stomach", BrotherInfection.green, new Vector3(-0.18F, 0.131F, 0.075F), new Vector3(303.36F, 82.78F, 283.641F), new Vector3(0.063F, 0.063F, 0.063F));
-            AddDisplayRule("mdlScav", "MuzzleEnergyCannon", new Vector3(0.586F, 3.872F, 0.073F), new Vector3(54.107F, 148.5F, 149.008F), new Vector3(0.835F, 0.858F, 0.835F));
+            AddDisplayRule("CommandoBody", "Stomach", new Vector3(-0.175F, 0.066F, 0.045F), new Vector3(16.687F, 66.665F, 36.228F), new Vector3(0.042F, 0.042F, 0.042F));
+            AddDisplayRule("HuntressBody", "Pelvis", new Vector3(-0.12F, -0.064F, -0.052F), new Vector3(355.162F, 32.177F, 180.96F), new Vector3(0.042F, 0.042F, 0.042F));
+            AddDisplayRule("ToolbotBody", "Chest", new Vector3(-0.837F, 1.169F, 3.112F), new Vector3(29.795F, 9.384F, 2.716F), new Vector3(0.489F, 0.489F, 0.489F));
+            AddDisplayRule("EngiBody", "Pelvis", new Vector3(-0.206F, 0.04F, -0.104F), new Vector3(4.991F, 46.464F, 181.437F), new Vector3(0.065F, 0.065F, 0.065F));
+            AddDisplayRule("EngiTurretBody", "Head", new Vector3(0.834F, 0.462F, 0.717F), new Vector3(33.04F, 48.09F, 359.072F), new Vector3(0.168F, 0.168F, 0.168F));
+            AddDisplayRule("EngiWalkerTurretBody", "Head", new Vector3(0.715F, 0.235F, 0.228F), new Vector3(22.677F, 152.024F, 24.393F), new Vector3(0.134F, 0.163F, 0.131F));
+            AddDisplayRule("MageBody", "Pelvis", new Vector3(-0.058F, 0F, -0.164F), new Vector3(0.366F, 347.899F, 165.881F), new Vector3(0.044F, 0.044F, 0.044F));
+            AddDisplayRule("MercBody", "ThighR", new Vector3(-0.077F, 0.008F, 0.041F), new Vector3(15.315F, 124.284F, 220.104F), new Vector3(0.034F, 0.034F, 0.034F));
+            AddDisplayRule("TreebotBody", "FlowerBase", new Vector3(-0.062F, -0.523F, -1.156F), new Vector3(41.662F, 244.258F, 1.504F), new Vector3(0.107F, 0.107F, 0.107F));
+            AddDisplayRule("LoaderBody", "MechBase", new Vector3(0.07F, 0.023F, 0.444F), new Vector3(7.628F, 218.893F, 342.184F), new Vector3(0.054F, 0.054F, 0.054F));
+            AddDisplayRule("CrocoBody", "SpineChest2", new Vector3(0.779F, 1.753F, -0.514F), new Vector3(337.83F, 226.76F, 273.311F), new Vector3(0.411F, 0.411F, 0.411F));
+            AddDisplayRule("CaptainBody", "Stomach", new Vector3(-0.102F, 0.12F, 0.147F), new Vector3(11.46F, 212.011F, 335.706F), new Vector3(0.053F, 0.048F, 0.053F));
+            AddDisplayRule("BrotherBody", "Stomach", BrotherInfection.green, new Vector3(-0.18F, 0.131F, 0.075F), new Vector3(303.36F, 82.78F, 283.641F), new Vector3(0.063F, 0.063F, 0.063F));
+            AddDisplayRule("ScavBody", "MuzzleEnergyCannon", new Vector3(0.586F, 3.872F, 0.073F), new Vector3(54.107F, 148.5F, 149.008F), new Vector3(0.835F, 0.858F, 0.835F));
 
             gunpowderPickup = Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Contraband Gunpowder/ExplosivePack.prefab");
             gunpowderPickup.transform.localScale *= 0.33f;
@@ -139,13 +139,152 @@ namespace MysticsItems.Items
             Object.Destroy(explosionPrefab.transform.Find("Unscaled Flames").gameObject);
             Object.Destroy(explosionPrefab.transform.Find("Dash, Bright").gameObject);
             Object.Destroy(explosionPrefab.transform.Find("Point Light").gameObject);
-            AssetManager.RegisterEffect(explosionPrefab);
+            MysticsItemsContent.Resources.effectPrefabs.Add(explosionPrefab);
+
+            /*
+            Main.OnHitEnemy += delegate (DamageInfo damageInfo, Main.GenericCharacterInfo attackerInfo, Main.GenericCharacterInfo victimInfo)
+            {
+                if (NetworkServer.active)
+                {
+                    if (attackerInfo.inventory && attackerInfo.inventory.GetItemCount(itemIndex) > 0)
+                    {
+                        if (Util.CheckRoll(7f, attackerInfo.master))
+                        {
+                            GameObject gameObject = Object.Instantiate(gunpowderPickup, damageInfo.position, Quaternion.identity);
+                            gameObject.GetComponent<TeamFilter>().teamIndex = attackerInfo.teamIndex;
+                            NetworkServer.Spawn(gameObject);
+                        }
+                    }
+                }
+            };
+            */
+            On.RoR2.CharacterBody.HandleOnKillEffectsServer += (orig, self, damageReport) =>
+            {
+                if (self.inventory && self.inventory.GetItemCount(MysticsItemsContent.Items.ExplosivePickups) > 0 && self.master && Util.CheckRoll(10f, self.master))
+                {
+                    GameObject gameObject = Object.Instantiate(gunpowderPickup, Util.GetCorePosition(damageReport.victim.gameObject), Quaternion.Euler(Random.onUnitSphere.normalized));
+                    gameObject.GetComponent<TeamFilter>().teamIndex = TeamComponent.GetObjectTeam(self.gameObject);
+                    NetworkServer.Spawn(gameObject);
+                }
+            };
+
+            IL.RoR2.HealthPickup.OnTriggerStay += (il) =>
+            {
+                ILCursor c = new ILCursor(il);
+
+                if (c.TryGotoNext(
+                    MoveType.After,
+                    x => x.MatchLdarg(0),
+                    x => x.MatchLdfld<HealthPickup>("baseObject"),
+                    x => x.MatchCallOrCallvirt<Object>("Destroy")
+                ))
+                {
+                    c.Emit(OpCodes.Ldarg_0);
+                    c.Emit(OpCodes.Ldarg_1);
+                    c.EmitDelegate<System.Action<MonoBehaviour, Collider>>((pickup, collider) =>
+                    {
+                        CharacterBody body = collider.GetComponent<CharacterBody>();
+                        if (body)
+                        {
+                            Inventory inventory = body.inventory;
+                            if (inventory && inventory.GetItemCount(MysticsItemsContent.Items.ExplosivePickups) > 0)
+                            {
+                                Explode(body);
+                            }
+                        }
+                    });
+                }
+            };
+
+            IL.RoR2.MoneyPickup.OnTriggerStay += (il) =>
+            {
+                ILCursor c = new ILCursor(il);
+
+                if (c.TryGotoNext(
+                    MoveType.After,
+                    x => x.MatchLdarg(0),
+                    x => x.MatchLdfld<MoneyPickup>("baseObject"),
+                    x => x.MatchCallOrCallvirt<Object>("Destroy")
+                ))
+                {
+                    c.Emit(OpCodes.Ldarg_0);
+                    c.Emit(OpCodes.Ldarg_1);
+                    c.EmitDelegate<System.Action<MonoBehaviour, Collider>>((pickup, collider) =>
+                    {
+                        CharacterBody body = collider.GetComponent<CharacterBody>();
+                        if (body)
+                        {
+                            Inventory inventory = body.inventory;
+                            if (inventory && inventory.GetItemCount(MysticsItemsContent.Items.ExplosivePickups) > 0)
+                            {
+                                Explode(body);
+                            }
+                        }
+                    });
+                }
+            };
+
+            IL.RoR2.BuffPickup.OnTriggerStay += (il) =>
+            {
+                ILCursor c = new ILCursor(il);
+
+                if (c.TryGotoNext(
+                    MoveType.After,
+                    x => x.MatchLdarg(0),
+                    x => x.MatchLdfld<BuffPickup>("baseObject"),
+                    x => x.MatchCallOrCallvirt<Object>("Destroy")
+                ))
+                {
+                    c.Emit(OpCodes.Ldarg_0);
+                    c.Emit(OpCodes.Ldarg_1);
+                    c.EmitDelegate<System.Action<MonoBehaviour, Collider>>((pickup, collider) =>
+                    {
+                        CharacterBody body = collider.GetComponent<CharacterBody>();
+                        if (body)
+                        {
+                            Inventory inventory = body.inventory;
+                            if (inventory && inventory.GetItemCount(MysticsItemsContent.Items.ExplosivePickups) > 0)
+                            {
+                                Explode(body);
+                            }
+                        }
+                    });
+                }
+            };
+
+            IL.RoR2.AmmoPickup.OnTriggerStay += (il) =>
+            {
+                ILCursor c = new ILCursor(il);
+
+                if (c.TryGotoNext(
+                    MoveType.After,
+                    x => x.MatchLdarg(0),
+                    x => x.MatchLdfld<AmmoPickup>("baseObject"),
+                    x => x.MatchCallOrCallvirt<Object>("Destroy")
+                ))
+                {
+                    c.Emit(OpCodes.Ldarg_0);
+                    c.Emit(OpCodes.Ldarg_1);
+                    c.EmitDelegate<System.Action<MonoBehaviour, Collider>>((pickup, collider) =>
+                    {
+                        CharacterBody body = collider.GetComponent<CharacterBody>();
+                        if (body)
+                        {
+                            Inventory inventory = body.inventory;
+                            if (inventory && inventory.GetItemCount(MysticsItemsContent.Items.ExplosivePickups) > 0)
+                            {
+                                Explode(body);
+                            }
+                        }
+                    });
+                }
+            };
         }
 
         public static void Explode(CharacterBody body)
         {
             if (body.inventory) {
-                int itemCount = body.inventory.GetItemCount(GetFromType(typeof(ExplosivePickups)).itemIndex);
+                int itemCount = body.inventory.GetItemCount(MysticsItemsContent.Items.ExplosivePickups);
                 Explode(body.gameObject, body.corePosition, body.damage * 2.5f + 2f * (float)(itemCount - 1), 8f + 1.6f * (float)(itemCount - 1), body.RollCrit());
             }
         }
@@ -189,7 +328,7 @@ namespace MysticsItems.Items
 
             public void Awake()
             {
-                itemIndex = GetFromType(typeof(ExplosivePickups)).itemIndex;
+                itemIndex = MysticsItemsContent.Items.ExplosivePickups.itemIndex;
             }
 
             public void OnTriggerStay(Collider collider)
@@ -222,7 +361,7 @@ namespace MysticsItems.Items
 
             public void Awake()
             {
-                itemIndex = GetFromType(typeof(ExplosivePickups)).itemIndex;
+                itemIndex = MysticsItemsContent.Items.ExplosivePickups.itemIndex;
             }
 
             public void FixedUpdate()
@@ -248,148 +387,6 @@ namespace MysticsItems.Items
                     }
                 }
             }
-        }
-
-        public override void OnAdd()
-        {
-            /*
-            Main.OnHitEnemy += delegate (DamageInfo damageInfo, Main.GenericCharacterInfo attackerInfo, Main.GenericCharacterInfo victimInfo)
-            {
-                if (NetworkServer.active)
-                {
-                    if (attackerInfo.inventory && attackerInfo.inventory.GetItemCount(itemIndex) > 0)
-                    {
-                        if (Util.CheckRoll(7f, attackerInfo.master))
-                        {
-                            GameObject gameObject = Object.Instantiate(gunpowderPickup, damageInfo.position, Quaternion.identity);
-                            gameObject.GetComponent<TeamFilter>().teamIndex = attackerInfo.teamIndex;
-                            NetworkServer.Spawn(gameObject);
-                        }
-                    }
-                }
-            };
-            */
-            On.RoR2.CharacterBody.HandleOnKillEffectsServer += (orig, self, damageReport) =>
-            {
-                if (self.inventory && self.inventory.GetItemCount(itemIndex) > 0 && self.master && Util.CheckRoll(10f, self.master))
-                {
-                    GameObject gameObject = Object.Instantiate(gunpowderPickup, Util.GetCorePosition(damageReport.victim.gameObject), Quaternion.Euler(Random.onUnitSphere.normalized));
-                    gameObject.GetComponent<TeamFilter>().teamIndex = TeamComponent.GetObjectTeam(self.gameObject);
-                    NetworkServer.Spawn(gameObject);
-                }
-            };
-
-            IL.RoR2.HealthPickup.OnTriggerStay += (il) =>
-            {
-                ILCursor c = new ILCursor(il);
-                
-                if (c.TryGotoNext(
-                    MoveType.After,
-                    x => x.MatchLdarg(0),
-                    x => x.MatchLdfld<HealthPickup>("baseObject"),
-                    x => x.MatchCallOrCallvirt<Object>("Destroy")
-                ))
-                {
-                    c.Emit(OpCodes.Ldarg_0);
-                    c.Emit(OpCodes.Ldarg_1);
-                    c.EmitDelegate<System.Action<MonoBehaviour, Collider>>((pickup, collider) =>
-                    {
-                        CharacterBody body = collider.GetComponent<CharacterBody>();
-                        if (body)
-                        {
-                            Inventory inventory = body.inventory;
-                            if (inventory && inventory.GetItemCount(itemIndex) > 0)
-                            {
-                                Explode(body);
-                            }
-                        }
-                    });
-                }
-            };
-
-            IL.RoR2.MoneyPickup.OnTriggerStay += (il) =>
-            {
-                ILCursor c = new ILCursor(il);
-
-                if (c.TryGotoNext(
-                    MoveType.After,
-                    x => x.MatchLdarg(0),
-                    x => x.MatchLdfld<MoneyPickup>("baseObject"),
-                    x => x.MatchCallOrCallvirt<Object>("Destroy")
-                ))
-                {
-                    c.Emit(OpCodes.Ldarg_0);
-                    c.Emit(OpCodes.Ldarg_1);
-                    c.EmitDelegate<System.Action<MonoBehaviour, Collider>>((pickup, collider) =>
-                    {
-                        CharacterBody body = collider.GetComponent<CharacterBody>();
-                        if (body)
-                        {
-                            Inventory inventory = body.inventory;
-                            if (inventory && inventory.GetItemCount(itemIndex) > 0)
-                            {
-                                Explode(body);
-                            }
-                        }
-                    });
-                }
-            };
-
-            IL.RoR2.BuffPickup.OnTriggerStay += (il) =>
-            {
-                ILCursor c = new ILCursor(il);
-
-                if (c.TryGotoNext(
-                    MoveType.After,
-                    x => x.MatchLdarg(0),
-                    x => x.MatchLdfld<BuffPickup>("baseObject"),
-                    x => x.MatchCallOrCallvirt<Object>("Destroy")
-                ))
-                {
-                    c.Emit(OpCodes.Ldarg_0);
-                    c.Emit(OpCodes.Ldarg_1);
-                    c.EmitDelegate<System.Action<MonoBehaviour, Collider>>((pickup, collider) =>
-                    {
-                        CharacterBody body = collider.GetComponent<CharacterBody>();
-                        if (body)
-                        {
-                            Inventory inventory = body.inventory;
-                            if (inventory && inventory.GetItemCount(itemIndex) > 0)
-                            {
-                                Explode(body);
-                            }
-                        }
-                    });
-                }
-            };
-
-            IL.RoR2.AmmoPickup.OnTriggerStay += (il) =>
-            {
-                ILCursor c = new ILCursor(il);
-
-                if (c.TryGotoNext(
-                    MoveType.After,
-                    x => x.MatchLdarg(0),
-                    x => x.MatchLdfld<AmmoPickup>("baseObject"),
-                    x => x.MatchCallOrCallvirt<Object>("Destroy")
-                ))
-                {
-                    c.Emit(OpCodes.Ldarg_0);
-                    c.Emit(OpCodes.Ldarg_1);
-                    c.EmitDelegate<System.Action<MonoBehaviour, Collider>>((pickup, collider) =>
-                    {
-                        CharacterBody body = collider.GetComponent<CharacterBody>();
-                        if (body)
-                        {
-                            Inventory inventory = body.inventory;
-                            if (inventory && inventory.GetItemCount(itemIndex) > 0)
-                            {
-                                Explode(body);
-                            }
-                        }
-                    });
-                }
-            };
         }
     }
 }

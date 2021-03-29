@@ -24,11 +24,12 @@ namespace MysticsItems.Items
         }
 
         public static List<WorldInfo> worlds = new List<WorldInfo>();
-        public static GameObject pulsePrefab = Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Crystal World/Explosion.prefab");
+        public static GameObject pulsePrefab;
+        public static GameObject ballPrefab;
 
         public static float freezeTime = 5f;
 
-        public override void PreAdd()
+        public override void OnLoad()
         {
             itemDef.name = "CrystalWorld";
             itemDef.tier = ItemTier.Tier3;
@@ -42,6 +43,7 @@ namespace MysticsItems.Items
             SetAssets("Crystal World");
             model.AddComponent<CrystalWorldContainer>();
             CopyModelToFollower();
+            ballPrefab = PrefabAPI.InstantiateClone(model, Main.TokenPrefix + "CrystalWorldBall", false);
 
             // DefaultDisplayRule("Head", new Vector3(0f, 0.5f, 0f), new Vector3(0f, -90f, 180f), new Vector3(0.2f, 0.2f, 0.2f));
 
@@ -116,6 +118,7 @@ namespace MysticsItems.Items
                 prerenderComponent.renderTexture = component.projectionRenderTexture;
             };
 
+            pulsePrefab = Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Crystal World/Explosion.prefab");
             EffectComponent effectComponent = pulsePrefab.AddComponent<EffectComponent>();
             effectComponent.applyScale = true;
             effectComponent.disregardZScale = false;
@@ -161,11 +164,8 @@ namespace MysticsItems.Items
             };
             postProcessDuration.maxDuration = 1f;
 
-            AssetManager.RegisterEffect(pulsePrefab);
-        }
+            MysticsItemsContent.Resources.effectPrefabs.Add(pulsePrefab);
 
-        public override void OnAdd()
-        {
             GameObject teleporter = Resources.Load<GameObject>("Prefabs/NetworkedObjects/Teleporters/Teleporter1");
             Main.modifiedPrefabs.Add(teleporter);
             MysticsItemsCrystalWorldTeleporterEffect teleporterEffect = teleporter.AddComponent<MysticsItemsCrystalWorldTeleporterEffect>();
@@ -200,7 +200,7 @@ namespace MysticsItems.Items
             public void Awake()
             {
                 teleporterInteraction = GetComponent<TeleporterInteraction>();
-                model = Object.Instantiate(registeredItems[typeof(CrystalWorld)].model);
+                model = Object.Instantiate(ballPrefab);
                 model.transform.SetParent(transform);
                 model.transform.localPosition = Vector3.zero;
                 model.transform.localRotation = Quaternion.identity;
@@ -261,7 +261,7 @@ namespace MysticsItems.Items
                 foreach (CharacterMaster characterMaster in CharacterMaster.readOnlyInstancesList)
                     if (characterMaster.teamIndex == TeamIndex.Player)
                     {
-                        itemCount += characterMaster.inventory.GetItemCount(registeredItems[typeof(CrystalWorld)].itemIndex);
+                        itemCount += characterMaster.inventory.GetItemCount(MysticsItemsContent.Items.CrystalWorld);
                     }
                 if (itemCount > 0)
                 {

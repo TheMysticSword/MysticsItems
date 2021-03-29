@@ -13,7 +13,7 @@ namespace MysticsItems.Items
     {
         public static GameObject visualEffect;
 
-        public override void PreAdd()
+        public override void OnLoad()
         {
             itemDef.name = "Voltmeter";
             itemDef.tier = ItemTier.Tier3;
@@ -36,49 +36,20 @@ namespace MysticsItems.Items
             pointerAnimator.pointer = model.transform.Find("PointerCenter").gameObject;
             CopyModelToFollower();
 
-            AddDisplayRule((int)Main.CommonBodyIndices.Commando, "Stomach", new Vector3(0.042F, 0.096F, -0.119F), new Vector3(4.394F, 73.472F, 2.074F), new Vector3(0.02F, 0.02F, 0.02F));
-            AddDisplayRule("mdlHuntress", "Pelvis", new Vector3(0.077F, -0.096F, 0.09F), new Vector3(358.51F, 111.069F, 197.846F), new Vector3(0.018F, 0.018F, 0.018F));
-            AddDisplayRule("mdlToolbot", "Chest", new Vector3(0.064F, 1.168F, 3.419F), new Vector3(0F, 270F, 0F), new Vector3(0.214F, 0.214F, 0.214F));
-            AddDisplayRule("mdlEngi", "HandR", new Vector3(0.026F, -0.123F, 0.048F), new Vector3(275.324F, 252.038F, 18.986F), new Vector3(0.029F, 0.029F, 0.029F));
-            AddDisplayRule((int)Main.CommonBodyIndices.EngiTurret, "Neck", new Vector3(0F, 0.6F, -0.168F), new Vector3(0F, 90F, 0F), new Vector3(0.133F, 0.133F, 0.133F));
-            AddDisplayRule((int)Main.CommonBodyIndices.EngiWalkerTurret, "Neck", new Vector3(0F, 0.533F, -0.168F), new Vector3(0F, 90F, 0F), new Vector3(0.133F, 0.133F, 0.133F));
-            AddDisplayRule("mdlMage", "Chest", new Vector3(0F, 0.064F, -0.327F), new Vector3(0F, 90F, 7.532F), new Vector3(0.039F, 0.039F, 0.039F));
-            AddDisplayRule("mdlMerc", "Head", new Vector3(0F, 0.105F, -0.143F), new Vector3(0F, 90F, 19.781F), new Vector3(0.02F, 0.02F, 0.02F));
-            AddDisplayRule("mdlTreebot", "PlatformBase", new Vector3(0.537F, -0.273F, 0.135F), new Vector3(7.036F, 343.597F, 322.203F), new Vector3(0.063F, 0.063F, 0.063F));
-            AddDisplayRule("mdlLoader", "MechBase", new Vector3(0F, -0.051F, -0.159F), new Vector3(0F, 90F, 0F), new Vector3(0.037F, 0.037F, 0.037F));
-            AddDisplayRule("mdlCroco", "SpineChest1", new Vector3(-0.951F, 0.633F, -0.312F), new Vector3(4.342F, 131.684F, 70.801F), new Vector3(0.254F, 0.254F, 0.254F));
-            AddDisplayRule("mdlCaptain", "HandL", new Vector3(0.009F, 0.167F, 0.045F), new Vector3(270F, 270F, 0F), new Vector3(0.035F, 0.035F, 0.035F));
-            AddDisplayRule("mdlBrother", "UpperArmL", BrotherInfection.red, new Vector3(0.124F, 0.177F, -0.056F), new Vector3(80.946F, 113.634F, 258.867F), new Vector3(0.061F, 0.063F, 0.063F));
-        }
+            AddDisplayRule("CommandoBody", "Stomach", new Vector3(0.042F, 0.096F, -0.119F), new Vector3(4.394F, 73.472F, 2.074F), new Vector3(0.02F, 0.02F, 0.02F));
+            AddDisplayRule("HuntressBody", "Pelvis", new Vector3(0.077F, -0.096F, 0.09F), new Vector3(358.51F, 111.069F, 197.846F), new Vector3(0.018F, 0.018F, 0.018F));
+            AddDisplayRule("ToolbotBody", "Chest", new Vector3(0.064F, 1.168F, 3.419F), new Vector3(0F, 270F, 0F), new Vector3(0.214F, 0.214F, 0.214F));
+            AddDisplayRule("EngiBody", "HandR", new Vector3(0.026F, -0.123F, 0.048F), new Vector3(275.324F, 252.038F, 18.986F), new Vector3(0.029F, 0.029F, 0.029F));
+            AddDisplayRule("EngiTurretBody", "Neck", new Vector3(0F, 0.6F, -0.168F), new Vector3(0F, 90F, 0F), new Vector3(0.133F, 0.133F, 0.133F));
+            AddDisplayRule("EngiWalkerTurretBody", "Neck", new Vector3(0F, 0.533F, -0.168F), new Vector3(0F, 90F, 0F), new Vector3(0.133F, 0.133F, 0.133F));
+            AddDisplayRule("MageBody", "Chest", new Vector3(0F, 0.064F, -0.327F), new Vector3(0F, 90F, 7.532F), new Vector3(0.039F, 0.039F, 0.039F));
+            AddDisplayRule("MercBody", "Head", new Vector3(0F, 0.105F, -0.143F), new Vector3(0F, 90F, 19.781F), new Vector3(0.02F, 0.02F, 0.02F));
+            AddDisplayRule("TreebotBody", "PlatformBase", new Vector3(0.537F, -0.273F, 0.135F), new Vector3(7.036F, 343.597F, 322.203F), new Vector3(0.063F, 0.063F, 0.063F));
+            AddDisplayRule("LoaderBody", "MechBase", new Vector3(0F, -0.051F, -0.159F), new Vector3(0F, 90F, 0F), new Vector3(0.037F, 0.037F, 0.037F));
+            AddDisplayRule("CrocoBody", "SpineChest1", new Vector3(-0.951F, 0.633F, -0.312F), new Vector3(4.342F, 131.684F, 70.801F), new Vector3(0.254F, 0.254F, 0.254F));
+            AddDisplayRule("CaptainBody", "HandL", new Vector3(0.009F, 0.167F, 0.045F), new Vector3(270F, 270F, 0F), new Vector3(0.035F, 0.035F, 0.035F));
+            AddDisplayRule("BrotherBody", "UpperArmL", BrotherInfection.red, new Vector3(0.124F, 0.177F, -0.056F), new Vector3(80.946F, 113.634F, 258.867F), new Vector3(0.061F, 0.063F, 0.063F));
 
-        public class PointerAnimator : MonoBehaviour
-        {
-            public GameObject pointer;
-            public float minAngle = -45f;
-            public float maxAngle = 90f;
-            public float currentTarget = 0f;
-            public float untilChangeTarget = 0f;
-            public float smoothDampVelocity = 0f;
-
-            public void Update()
-            {
-                untilChangeTarget -= Time.deltaTime;
-                if (untilChangeTarget <= 0f)
-                {
-                    untilChangeTarget = 0.3f * Random.value;
-                    currentTarget = Random.Range(minAngle, maxAngle);
-                }
-                if (pointer)
-                {
-                    Vector3 rotation = pointer.transform.localRotation.eulerAngles;
-                    rotation.x = Mathf.SmoothDampAngle(rotation.x, currentTarget, ref smoothDampVelocity, 0.2f);
-                    pointer.transform.localRotation = Quaternion.Euler(rotation);
-                }
-            }
-        }
-
-        public override void OnAdd()
-        {
             On.RoR2.CharacterBody.Awake += (orig, self) =>
             {
                 orig(self);
@@ -94,7 +65,7 @@ namespace MysticsItems.Items
             Main.OnTakeDamage += delegate (DamageInfo damageInfo, Main.GenericCharacterInfo characterInfo)
             {
                 PreDamageShield preDamageShield = characterInfo.gameObject.GetComponent<PreDamageShield>();
-                if (characterInfo.inventory && characterInfo.inventory.GetItemCount(itemIndex) > 0 && preDamageShield && preDamageShield.value > 0f)
+                if (characterInfo.inventory && characterInfo.inventory.GetItemCount(itemDef) > 0 && preDamageShield && preDamageShield.value > 0f)
                 {
                     float radius = 25f;
 
@@ -142,7 +113,7 @@ namespace MysticsItems.Items
                         LightningOrb lightningOrb = new LightningOrb
                         {
                             origin = characterInfo.body.corePosition,
-                            damageValue = damageInfo.damage * (8f + (characterInfo.inventory.GetItemCount(itemIndex) - 1)),
+                            damageValue = damageInfo.damage * (8f + (characterInfo.inventory.GetItemCount(itemDef) - 1)),
                             isCrit = damageInfo.crit,
                             bouncesRemaining = 0,
                             teamIndex = characterInfo.teamIndex,
@@ -173,7 +144,7 @@ namespace MysticsItems.Items
                     c.EmitDelegate<System.Func<CharacterBody, float>>((characterBody) =>
                     {
                         Inventory inventory = characterBody.inventory;
-                        if (inventory && inventory.GetItemCount(itemIndex) > 0)
+                        if (inventory && inventory.GetItemCount(itemDef) > 0)
                         {
                             return 0.04f * characterBody.maxHealth;
                         }
@@ -184,6 +155,32 @@ namespace MysticsItems.Items
                     c.Emit(OpCodes.Stloc, 43);
                 }
             };
+        }
+
+        public class PointerAnimator : MonoBehaviour
+        {
+            public GameObject pointer;
+            public float minAngle = -45f;
+            public float maxAngle = 90f;
+            public float currentTarget = 0f;
+            public float untilChangeTarget = 0f;
+            public float smoothDampVelocity = 0f;
+
+            public void Update()
+            {
+                untilChangeTarget -= Time.deltaTime;
+                if (untilChangeTarget <= 0f)
+                {
+                    untilChangeTarget = 0.3f * Random.value;
+                    currentTarget = Random.Range(minAngle, maxAngle);
+                }
+                if (pointer)
+                {
+                    Vector3 rotation = pointer.transform.localRotation.eulerAngles;
+                    rotation.x = Mathf.SmoothDampAngle(rotation.x, currentTarget, ref smoothDampVelocity, 0.2f);
+                    pointer.transform.localRotation = Quaternion.Euler(rotation);
+                }
+            }
         }
 
         public class PreDamageShield : MonoBehaviour

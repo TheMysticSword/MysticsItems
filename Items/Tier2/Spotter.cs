@@ -16,14 +16,14 @@ namespace MysticsItems.Items
 {
     public class Spotter : BaseItem
     {
-        public static BuffIndex buffIndex;
+        public static BuffDef buffDef;
         public static GameObject enemyFollowerPrefab;
         public static GameObject highlightPrefab;
         public static float interval = 20f;
         public static float duration = 10f;
         public static GameObject unlockInteractablePrefab;
 
-        public override void PreAdd()
+        public override void OnLoad()
         {
             itemDef.name = "Spotter";
             itemDef.tier = ItemTier.Tier2;
@@ -111,6 +111,19 @@ namespace MysticsItems.Items
                     NetworkServer.Spawn(obj);
                 }
             };
+
+            On.RoR2.CharacterBody.Awake += (orig, self) =>
+            {
+                orig(self);
+                self.onInventoryChanged += delegate ()
+                {
+                    if (NetworkServer.active) self.AddItemBehavior<SpotterBehaviour>(self.inventory.GetItemCount(MysticsItemsContent.Items.Spotter));
+                };
+            };
+            Overlays.CreateOverlay(Main.AssetBundle.LoadAsset<Material>("Assets/Misc/Materials/matSpotterMarked.mat"), delegate (CharacterModel model)
+            {
+                return model.body.HasBuff(buffDef);
+            });
         }
 
         public class MysticsItemsSpotterUnlockInteraction : MonoBehaviour
@@ -128,7 +141,7 @@ namespace MysticsItems.Items
                         Inventory inventory = body.inventory;
                         if (inventory)
                         {
-                            inventory.GiveItem(GetFromType(typeof(Spotter)).itemIndex);
+                            inventory.GiveItem(MysticsItemsContent.Items.Spotter);
                         }
                     }
                     Object.Destroy(this.gameObject);
@@ -136,22 +149,6 @@ namespace MysticsItems.Items
             }
 
             public static event System.Action<Interactor> OnUnlock;
-        }
-
-        public override void OnAdd()
-        {
-            On.RoR2.CharacterBody.Awake += (orig, self) =>
-            {
-                orig(self);
-                self.onInventoryChanged += delegate ()
-                {
-                    if (NetworkServer.active) self.AddItemBehavior<SpotterBehaviour>(self.inventory.GetItemCount(itemIndex));
-                };
-            };
-            Main.Overlays.CreateOverlay(Main.AssetBundle.LoadAsset<Material>("Assets/Misc/Materials/matSpotterMarked.mat"), delegate (CharacterModel model)
-            {
-                return model.body.HasBuff(buffIndex);
-            });
         }
 
         public class SpotterController : NetworkBehaviour
@@ -277,7 +274,7 @@ namespace MysticsItems.Items
 
                 if (NetworkServer.active)
                 {
-                    if (target && !target.HasBuff(buffIndex))
+                    if (target && !target.HasBuff(buffDef))
                     {
                         ClearTarget();
                     }
@@ -313,7 +310,7 @@ namespace MysticsItems.Items
                                 Renderer renderer = rendererInfo.renderer;
                                 MaterialPropertyBlock propertyBlock = new MaterialPropertyBlock();
                                 renderer.GetPropertyBlock(propertyBlock);
-                                propertyBlock.SetFloat("_Fade", target ? 1f : 1f / body.inventory.GetItemCount(GetFromType(typeof(Spotter)).itemIndex));
+                                propertyBlock.SetFloat("_Fade", target ? 1f : 1f / body.inventory.GetItemCount(MysticsItemsContent.Items.Spotter));
                                 renderer.SetPropertyBlock(propertyBlock);
                             }
                         }
@@ -325,9 +322,9 @@ namespace MysticsItems.Items
             {
                 if (NetworkServer.active)
                 {
-                    if (target && target.HasBuff(buffIndex))
+                    if (target && target.HasBuff(buffDef))
                     {
-                        target.RemoveBuff(buffIndex);
+                        target.RemoveBuff(buffDef);
                     }
                     new SyncClearTarget(gameObject.GetComponent<NetworkIdentity>().netId).Send(NetworkDestination.Clients);
                 }
@@ -345,7 +342,7 @@ namespace MysticsItems.Items
                 if (newTargetBody)
                 {
                     target = newTargetBody;
-                    if (NetworkServer.active) target.AddTimedBuff(buffIndex, duration);
+                    if (NetworkServer.active) target.AddTimedBuff(buffDef, duration);
                     Util.PlaySound("Play_item_proc_spotter", gameObject);
                     ModelLocator modelLocator = newTargetBody.modelLocator;
                     if (modelLocator)
@@ -431,7 +428,7 @@ namespace MysticsItems.Items
                                     if (newTargetHurtBox.healthComponent && newTargetHurtBox.healthComponent.body)
                                     {
                                         CharacterBody newTargetBody = newTargetHurtBox.healthComponent.body;
-                                        if (!newTargetBody.HasBuff(buffIndex)) newTarget = newTargetBody.gameObject;
+                                        if (!newTargetBody.HasBuff(buffDef)) newTarget = newTargetBody.gameObject;
                                     }
                                 }
                                 if (newTarget)
