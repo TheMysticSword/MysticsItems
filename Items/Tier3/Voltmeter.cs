@@ -56,13 +56,13 @@ namespace MysticsItems.Items
                 self.gameObject.AddComponent<PreDamageShield>();
             };
 
-            Main.BeforeTakeDamage += delegate (DamageInfo damage, Main.GenericCharacterInfo characterInfo)
+            GenericGameEvents.BeforeTakeDamage += (damage, characterInfo) =>
             {
                 PreDamageShield preDamageShield = characterInfo.gameObject.GetComponent<PreDamageShield>();
                 if (preDamageShield && characterInfo.healthComponent) preDamageShield.value = characterInfo.healthComponent.shield;
             };
 
-            Main.OnTakeDamage += delegate (DamageInfo damageInfo, Main.GenericCharacterInfo characterInfo)
+            GenericGameEvents.OnTakeDamage += (damageInfo, characterInfo) =>
             {
                 PreDamageShield preDamageShield = characterInfo.gameObject.GetComponent<PreDamageShield>();
                 if (characterInfo.inventory && characterInfo.inventory.GetItemCount(itemDef) > 0 && preDamageShield && preDamageShield.value > 0f)

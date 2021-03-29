@@ -84,7 +84,7 @@ namespace MysticsItems.Items
 
             MysticsItemsContent.Resources.effectPrefabs.Add(visualEffect);
 
-            Main.BeforeTakeDamage += delegate (DamageInfo damageInfo, Main.GenericCharacterInfo characterInfo)
+            GenericGameEvents.BeforeTakeDamage += (damageInfo, characterInfo) =>
             {
                 if (characterInfo.inventory)
                 {
@@ -120,7 +120,7 @@ namespace MysticsItems.Items
                     }
                 }
             };
-            Main.OnTakeDamage += delegate (DamageInfo damageInfo, Main.GenericCharacterInfo characterInfo)
+            GenericGameEvents.OnTakeDamage += (damageInfo, characterInfo) =>
             {
                 BackArmorTempArmor tempArmor = characterInfo.gameObject.GetComponent<BackArmorTempArmor>();
                 if (tempArmor)

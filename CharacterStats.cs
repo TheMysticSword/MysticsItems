@@ -15,13 +15,13 @@ namespace MysticsItems
         {
             public float multiplier;
             public float flat;
-            public System.Func<Main.GenericCharacterInfo, float> times;
+            public System.Func<GenericGameEvents.GenericCharacterInfo, float> times;
         }
 
         public struct FlatStatModifier
         {
             public float amount;
-            public System.Func<Main.GenericCharacterInfo, float> times;
+            public System.Func<GenericGameEvents.GenericCharacterInfo, float> times;
         }
 
         public static List<FlatStatModifier> levelModifiers = new List<FlatStatModifier>();
@@ -37,7 +37,7 @@ namespace MysticsItems
 
         public static void ErrorHookFailed(string name)
         {
-            Main.logger.LogError(name + " hook failed");
+            Main.logger.LogError(name + " stat hook failed");
         }
         public static void Init()
         {
@@ -45,11 +45,11 @@ namespace MysticsItems
             {
                 ILCursor c = new ILCursor(il);
 
-                Main.GenericCharacterInfo genericCharacterInfo = default(Main.GenericCharacterInfo);
+                GenericGameEvents.GenericCharacterInfo genericCharacterInfo = default(GenericGameEvents.GenericCharacterInfo);
 
                 c.Emit(OpCodes.Ldarg_0);
                 c.EmitDelegate<System.Action<CharacterBody>>((characterBody) => {
-                    genericCharacterInfo = new Main.GenericCharacterInfo(characterBody);
+                    genericCharacterInfo = new GenericGameEvents.GenericCharacterInfo(characterBody);
                 });
 
                 int levelStatMultiplierPosition = 41;

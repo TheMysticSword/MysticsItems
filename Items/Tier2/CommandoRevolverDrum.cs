@@ -105,7 +105,7 @@ namespace MysticsItems.Items
 				}
 				orig(self, targetMuzzle);
 			};
-			Main.OnHitEnemy += (damageInfo, attackerInfo, victimInfo) =>
+			GenericGameEvents.OnHitEnemy += (damageInfo, attackerInfo, victimInfo) =>
 			{
 				if (attackerInfo.inventory && attackerInfo.inventory.GetItemCount(itemDef) > 0)
 				{

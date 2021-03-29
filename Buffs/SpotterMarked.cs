@@ -14,28 +14,9 @@ namespace MysticsItems.Buffs
 
             Items.Spotter.buffDef = buffDef;
 
-            IL.RoR2.HealthComponent.TakeDamage += (il) =>
+            GenericGameEvents.BeforeTakeDamage += (damageInfo, victimInfo) =>
             {
-                ILCursor c = new ILCursor(il);
-                // always take damage as crits
-                if (c.TryGotoNext(
-                    MoveType.After,
-                    x => x.MatchLdarg(1),
-                    x => x.MatchLdfld<DamageInfo>("damage"),
-                    x => x.MatchStloc(5)
-                ))
-                {
-                    c.Emit(OpCodes.Ldarg_0);
-                    c.Emit(OpCodes.Ldarg_1);
-                    c.EmitDelegate<System.Action<HealthComponent, DamageInfo>>((healthComponent, damageInfo) =>
-                    {
-                        CharacterBody body = healthComponent.body;
-                        if (body && body.HasBuff(buffDef))
-                        {
-                            damageInfo.crit = true;
-                        }
-                    });
-                }
+                if (victimInfo.body.HasBuff(buffDef)) damageInfo.crit = true;
             };
         }
     }

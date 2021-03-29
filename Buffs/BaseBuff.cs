@@ -25,11 +25,11 @@ namespace MysticsItems.Buffs
             return buffDef;
         }
 
-        private float StatModifierTimes(Main.GenericCharacterInfo genericCharacterInfo)
+        private float StatModifierTimes(GenericGameEvents.GenericCharacterInfo genericCharacterInfo)
         {
             return genericCharacterInfo.body.HasBuff(buffDef) ? genericCharacterInfo.body.GetBuffCount(buffDef) : 0f;
         }
-        private float StatModifierTimesNoStack(Main.GenericCharacterInfo genericCharacterInfo)
+        private float StatModifierTimesNoStack(GenericGameEvents.GenericCharacterInfo genericCharacterInfo)
         {
             return genericCharacterInfo.body.HasBuff(buffDef) ? 1f : 0f;
         }
