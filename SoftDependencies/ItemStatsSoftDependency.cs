@@ -95,11 +95,11 @@ namespace MysticsItems.SoftDependencies
                 Stats = new List<ItemStat>()
                 {
                     new ItemStat(
-                        (itemCount, ctx) => 0.07f + 0.07f * (itemCount - 1),
+                        (itemCount, ctx) => 0.21f + 0.07f * (itemCount - 1),
                         (value, ctx) => $"Max Attack Speed: {value.FormatPercentage()}"
                     ),
                     new ItemStat(
-                        (itemCount, ctx) => 0.07f + 0.07f * (itemCount - 1),
+                        (itemCount, ctx) => 0.21f + 0.07f * (itemCount - 1),
                         (value, ctx) => $"Max Movement Speed: {value.FormatPercentage()}"
                     )
                 }
