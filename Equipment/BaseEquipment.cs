@@ -144,35 +144,52 @@ namespace MysticsItems.Equipment
             On.RoR2.EquipmentSlot.Update += (orig, self) =>
             {
                 orig(self);
-                foreach (BaseEquipment equipment in equipmentThatUsesTargetFinder)
+
+                CurrentTarget targetInfo = self.GetComponent<CurrentTarget>();
+                if (targetInfo)
                 {
-                    CurrentTarget targetInfo = self.GetComponent<CurrentTarget>();
-                    if (targetInfo)
+                    bool matchingEquipmentFound = false;
+                    foreach (BaseEquipment equipment in equipmentThatUsesTargetFinder)
                     {
-                        if (self.stock > 0)
+                        if (equipment.equipmentDef.equipmentIndex == self.equipmentIndex)
                         {
-                            switch (equipment.targetFinderType)
+                            if (self.stock > 0)
                             {
-                                case TargetFinderType.Enemies:
-                                    equipment.ConfigureTargetFinderForEnemies(self);
-                                    break;
-                                case TargetFinderType.Friendlies:
-                                    equipment.ConfigureTargetFinderForFriendlies(self);
-                                    break;
-                            }
-                            HurtBox hurtBox = equipment.targetFinder.GetResults().FirstOrDefault();
-                            if (hurtBox)
-                            {
-                                targetInfo.obj = hurtBox.healthComponent.gameObject;
-                                targetInfo.indicator.visualizerPrefab = equipment.targetFinderVisualizerPrefab;
-                                targetInfo.indicator.targetTransform = hurtBox.transform;
+                                switch (equipment.targetFinderType)
+                                {
+                                    case TargetFinderType.Enemies:
+                                        equipment.ConfigureTargetFinderForEnemies(self);
+                                        break;
+                                    case TargetFinderType.Friendlies:
+                                        equipment.ConfigureTargetFinderForFriendlies(self);
+                                        break;
+                                }
+                                HurtBox hurtBox = equipment.targetFinder.GetResults().FirstOrDefault();
+                                if (hurtBox)
+                                {
+                                    targetInfo.obj = hurtBox.healthComponent.gameObject;
+                                    targetInfo.indicator.visualizerPrefab = equipment.targetFinderVisualizerPrefab;
+                                    targetInfo.indicator.targetTransform = hurtBox.transform;
+                                }
+                                else
+                                {
+                                    targetInfo.Invalidate();
+                                }
+                                targetInfo.indicator.active = hurtBox;
                             }
                             else
                             {
                                 targetInfo.Invalidate();
+                                targetInfo.indicator.active = false;
                             }
-                            targetInfo.indicator.active = hurtBox;
+                            matchingEquipmentFound = true;
+                            break;
                         }
+                    }
+                    if (!matchingEquipmentFound)
+                    {
+                        targetInfo.Invalidate();
+                        targetInfo.indicator.active = false;
                     }
                 }
             };
