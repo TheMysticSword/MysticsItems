@@ -21,7 +21,8 @@ namespace MysticsItems.Equipment
         {
             None,
             Enemies,
-            Friendlies
+            Friendlies,
+            Custom
         }
 
         public new EquipmentDef Load()
@@ -65,7 +66,7 @@ namespace MysticsItems.Equipment
 
         public virtual void OnUseClient(EquipmentSlot equipmentSlot) { }
 
-        public void UseTargetFinder(TargetFinderType type, GameObject visualizerPrefab)
+        public void UseTargetFinder(TargetFinderType type, GameObject visualizerPrefab = null)
         {
             targetFinderType = type;
             targetFinderVisualizerPrefab = visualizerPrefab;
@@ -153,34 +154,37 @@ namespace MysticsItems.Equipment
                     {
                         if (equipment.equipmentDef.equipmentIndex == self.equipmentIndex)
                         {
-                            if (self.stock > 0)
+                            if (equipment.targetFinderType != TargetFinderType.Custom)
                             {
-                                switch (equipment.targetFinderType)
+                                if (self.stock > 0)
                                 {
-                                    case TargetFinderType.Enemies:
-                                        equipment.ConfigureTargetFinderForEnemies(self);
-                                        break;
-                                    case TargetFinderType.Friendlies:
-                                        equipment.ConfigureTargetFinderForFriendlies(self);
-                                        break;
-                                }
-                                HurtBox hurtBox = equipment.targetFinder.GetResults().FirstOrDefault();
-                                if (hurtBox)
-                                {
-                                    targetInfo.obj = hurtBox.healthComponent.gameObject;
-                                    targetInfo.indicator.visualizerPrefab = equipment.targetFinderVisualizerPrefab;
-                                    targetInfo.indicator.targetTransform = hurtBox.transform;
+                                    switch (equipment.targetFinderType)
+                                    {
+                                        case TargetFinderType.Enemies:
+                                            equipment.ConfigureTargetFinderForEnemies(self);
+                                            break;
+                                        case TargetFinderType.Friendlies:
+                                            equipment.ConfigureTargetFinderForFriendlies(self);
+                                            break;
+                                    }
+                                    HurtBox hurtBox = equipment.targetFinder.GetResults().FirstOrDefault();
+                                    if (hurtBox)
+                                    {
+                                        targetInfo.obj = hurtBox.healthComponent.gameObject;
+                                        targetInfo.indicator.visualizerPrefab = equipment.targetFinderVisualizerPrefab;
+                                        targetInfo.indicator.targetTransform = hurtBox.transform;
+                                    }
+                                    else
+                                    {
+                                        targetInfo.Invalidate();
+                                    }
+                                    targetInfo.indicator.active = hurtBox;
                                 }
                                 else
                                 {
                                     targetInfo.Invalidate();
+                                    targetInfo.indicator.active = false;
                                 }
-                                targetInfo.indicator.active = hurtBox;
-                            }
-                            else
-                            {
-                                targetInfo.Invalidate();
-                                targetInfo.indicator.active = false;
                             }
                             matchingEquipmentFound = true;
                             break;

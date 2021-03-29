@@ -56,6 +56,8 @@ namespace MysticsItems.Equipment
             SetupDuplicator(Resources.Load<GameObject>("Prefabs/NetworkedObjects/Chest/DuplicatorMilitary"));
             SetupDuplicator(Resources.Load<GameObject>("Prefabs/NetworkedObjects/Chest/DuplicatorWild"));
 
+            UseTargetFinder(TargetFinderType.Custom);
+
             On.RoR2.EquipmentSlot.Update += (orig, self) =>
             {
                 orig(self);
