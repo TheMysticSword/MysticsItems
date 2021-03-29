@@ -47,6 +47,8 @@ namespace MysticsItems
 
         internal static bool isDedicatedServer = Application.isBatchMode;
 
+        internal static System.Type declaringType;
+
         public static void Init()
         {
             logger = MysticsItemsPlugin.logger;
@@ -59,12 +61,15 @@ namespace MysticsItems
                 SoundAPI.SoundBanks.Add(bytes);
             }
 
+            declaringType = MethodBase.GetCurrentMethod().DeclaringType;
+
             RoR2Application.onLoad += PostGameLoad;
 
             //DebugTools.Init();
 
             Achievements.BaseAchievement.Init();
             CharacterStats.Init();
+            ConCommandHelper.Init();
             Items.BaseItem.Init();
             //Items.CharacterItems.Init();
             Equipment.BaseEquipment.Init();
@@ -89,6 +94,10 @@ namespace MysticsItems
                     }
                 }
             }
+
+            // Load console commands
+            ConCommandHelper.Load(declaringType.GetMethod("CCUnlockLogs", bindingFlagAll));
+            ConCommandHelper.Load(declaringType.GetMethod("CCGrantAll", bindingFlagAll));
 
             // Load the content pack
             On.RoR2.ContentManager.SetContentPacks += (orig, newContentPacks) =>
@@ -179,7 +188,7 @@ namespace MysticsItems
             if (BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey(SoftDependencies.ItemStatsSoftDependency.PluginGUID)) SoftDependencies.ItemStatsSoftDependency.Init();
         }
 
-        [ConCommand(commandName = Main.TokenPrefix + "unlocklogs", flags = ConVarFlags.Cheat, helpText = "Unlocks all logbook entries")]
+        [ConCommand(commandName = Main.TokenPrefix + "unlocklogs", flags = ConVarFlags.None, helpText = "Unlocks all logbook entries")]
         private static void CCUnlockLogs(ConCommandArgs args)
         {
             foreach (LocalUser user in LocalUserManager.readOnlyLocalUsersList)
