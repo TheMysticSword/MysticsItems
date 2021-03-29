@@ -73,6 +73,7 @@ namespace MysticsItems
             Items.BaseItem.Init();
             //Items.CharacterItems.Init();
             Equipment.BaseEquipment.Init();
+            GenericGameEvents.Init();
             LanguageLoader.Init();
             Outlines.Init();
             Overlays.Init();
