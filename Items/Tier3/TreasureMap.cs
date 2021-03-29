@@ -158,6 +158,7 @@ namespace MysticsItems.Items
                     PurchaseInteraction purchaseInteraction = reward.GetComponent<PurchaseInteraction>();
                     if (purchaseInteraction)
                     {
+                        purchaseInteraction.Networkcost = Run.instance.GetDifficultyScaledCost(purchaseInteraction.cost);
                         purchaseInteraction.lockGameObject = gameObject; // lockGameObject is a SyncVar, so no need to network it
                     }
                     SetRewardLocked(true);
