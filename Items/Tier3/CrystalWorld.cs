@@ -169,17 +169,26 @@ namespace MysticsItems.Items
             GameObject teleporter = Resources.Load<GameObject>("Prefabs/NetworkedObjects/Teleporters/Teleporter1");
             Main.modifiedPrefabs.Add(teleporter);
             MysticsItemsCrystalWorldTeleporterEffect teleporterEffect = teleporter.AddComponent<MysticsItemsCrystalWorldTeleporterEffect>();
+            teleporterEffect.displayModel = true;
             teleporterEffect.offset = new Vector3(0f, 3f, 0f);
 
             teleporter = Resources.Load<GameObject>("Prefabs/NetworkedObjects/Teleporters/LunarTeleporter Variant");
             Main.modifiedPrefabs.Add(teleporter);
             teleporterEffect = teleporter.AddComponent<MysticsItemsCrystalWorldTeleporterEffect>();
+            teleporterEffect.displayModel = true;
             teleporterEffect.offset = new Vector3(0f, 3f, 0f);
+
+            On.RoR2.HoldoutZoneController.Awake += (orig, self) =>
+            {
+                orig(self);
+                MysticsItemsCrystalWorldTeleporterEffect component = self.GetComponent<MysticsItemsCrystalWorldTeleporterEffect>();
+                if (!component) self.gameObject.AddComponent<MysticsItemsCrystalWorldTeleporterEffect>();
+            };
         }
 
         public class MysticsItemsCrystalWorldTeleporterEffect : MonoBehaviour
         {
-            public TeleporterInteraction teleporterInteraction;
+            public HoldoutZoneController holdoutZoneController;
             public GameObject model;
             public float prevPulse = -100f;
             public static float windup = 0.1f;
@@ -189,6 +198,7 @@ namespace MysticsItems.Items
             public float currentHeight = 0f;
             public float finalHeight = 5f;
             public Vector3 offset = Vector3.zero;
+            public bool displayModel = false;
             public SphereSearch sphereSearch;
             public TeamMask teamMask = default;
             public AnimationCurve animationCurve;
@@ -199,12 +209,7 @@ namespace MysticsItems.Items
 
             public void Awake()
             {
-                teleporterInteraction = GetComponent<TeleporterInteraction>();
-                model = Object.Instantiate(ballPrefab);
-                model.transform.SetParent(transform);
-                model.transform.localPosition = Vector3.zero;
-                model.transform.localRotation = Quaternion.identity;
-                model.transform.localScale = Vector3.one;
+                holdoutZoneController = GetComponent<HoldoutZoneController>();
 
                 animationCurve = new AnimationCurve
                 {
@@ -228,6 +233,18 @@ namespace MysticsItems.Items
                 teamMask = TeamMask.AllExcept(TeamIndex.Player);
             }
 
+            public void Start()
+            {
+                if (displayModel)
+                {
+                    model = Object.Instantiate(ballPrefab);
+                    model.transform.SetParent(transform);
+                    model.transform.localPosition = Vector3.zero;
+                    model.transform.localRotation = Quaternion.identity;
+                    model.transform.localScale = Vector3.one;
+                }
+            }
+
             public float NextPulse(int totalPulseCount)
             {
                 float timeBetweenPulses = 1f / (float)(totalPulseCount + 1);
@@ -247,14 +264,14 @@ namespace MysticsItems.Items
                 // The charge fraction is synced over network only every few frames, so the animation becomes laggy
                 // Predict the teleporter charge locally to make it smooth
                 predictionChargeFractionDeltaTime += Time.deltaTime;
-                float num = teleporterInteraction.chargeFraction - predictionChargeFractionLast;
+                float num = holdoutZoneController.charge - predictionChargeFractionLast;
                 if (num != 0f)
                 {
-                    chargeFraction = teleporterInteraction.chargeFraction;
+                    chargeFraction = holdoutZoneController.charge;
                     predictionChargeSpeed = num / predictionChargeFractionDeltaTime;
                     predictionChargeFractionDeltaTime = 0f;
                 }
-                predictionChargeFractionLast = teleporterInteraction.chargeFraction;
+                predictionChargeFractionLast = holdoutZoneController.charge;
                 chargeFraction = Mathf.Clamp01(chargeFraction + predictionChargeSpeed * Time.deltaTime);
 
                 int itemCount = 0;
@@ -265,10 +282,8 @@ namespace MysticsItems.Items
                     }
                 if (itemCount > 0)
                 {
-                    if (!model.activeSelf) model.SetActive(true);
-
                     float nextPulse = NextPulse(2 + (itemCount - 1));
-                    if (!teleporterInteraction.isCharging) nextPulse = 100f;
+                    if (!holdoutZoneController.enabled) nextPulse = 100f;
 
                     float t = (1f - (nextPulse - chargeFraction) / windup) * 0.5f;
                     if (chargeFraction <= (prevPulse + winddown)) t = ((chargeFraction - prevPulse) / winddown) * 0.5f + 0.5f;
@@ -276,10 +291,14 @@ namespace MysticsItems.Items
 
                     currentSpin = finalSpin * animationCurve.Evaluate(t);
                     currentHeight = finalHeight * animationCurve.Evaluate(t);
-                    model.transform.Rotate(new Vector3(0f, currentSpin * Time.deltaTime, 0f), Space.Self);
-                    model.transform.localPosition = offset + Vector3.up * currentHeight;
+                    if (model)
+                    {
+                        if (!model.activeSelf) model.SetActive(true);
+                        model.transform.Rotate(new Vector3(0f, currentSpin * Time.deltaTime, 0f), Space.Self);
+                        model.transform.localPosition = offset + Vector3.up * currentHeight;
+                    }
 
-                    if (teleporterInteraction.chargeFraction > nextPulse)
+                    if (holdoutZoneController.charge > nextPulse)
                     {
                         prevPulse = nextPulse;
                         if (NetworkServer.active)
@@ -287,9 +306,9 @@ namespace MysticsItems.Items
                             EffectManager.SpawnEffect(pulsePrefab, new EffectData
                             {
                                 origin = transform.position,
-                                scale = teleporterInteraction.holdoutZoneController.baseRadius * 2f
+                                scale = holdoutZoneController.currentRadius * 2f
                             }, true);
-                            sphereSearch.radius = teleporterInteraction.holdoutZoneController.baseRadius;
+                            sphereSearch.radius = holdoutZoneController.currentRadius;
                             foreach (HurtBox hurtBox in sphereSearch.RefreshCandidates().FilterCandidatesByHurtBoxTeam(teamMask).FilterCandidatesByDistinctHurtBoxEntities().GetHurtBoxes())
                             {
                                 HealthComponent healthComponent = hurtBox.healthComponent;
@@ -322,7 +341,7 @@ namespace MysticsItems.Items
                 }
                 else
                 {
-                    if (model.activeSelf) model.SetActive(false);
+                    if (model && model.activeSelf) model.SetActive(false);
                 }
             }
         }
