@@ -7,6 +7,7 @@ using ItemStats.ValueFormatters;
 using ItemStats.StatModification;
 using MonoMod.RuntimeDetour;
 using System;
+using UnityEngine;
 
 namespace MysticsItems.SoftDependencies
 {
@@ -40,15 +41,15 @@ namespace MysticsItems.SoftDependencies
                 Stats = new List<ItemStat>()
                 {
                     new ItemStat(
-                        (itemCount, ctx) => (30f + 20f * (itemCount - 1)) * Run.instance.difficultyCoefficient,
+                        (itemCount, ctx) => (40f + 40f * (itemCount - 1)) * Run.instance.difficultyCoefficient,
                         (value, ctx) => $"Gold Reward: {value.FormatInt("$")}"
                     ),
                     new ItemStat(
-                        (itemCount, ctx) => (30f + 20f * (itemCount - 1) - 40f) * Run.instance.difficultyCoefficient,
+                        (itemCount, ctx) => Mathf.Max((40f + 40f * (itemCount - 1) - 40f) * Run.instance.difficultyCoefficient, 0f),
                         (value, ctx) => $"Profit On Perfect Shrine: {value.FormatInt("$")}"
                     ),
                     new ItemStat(
-                        (itemCount, ctx) => ((30f + 20f * (itemCount - 1) - 40f) * Run.instance.difficultyCoefficient) * 0.547085202f,
+                        (itemCount, ctx) => Mathf.Max((40f + 40f * (itemCount - 1) - 40f) * Run.instance.difficultyCoefficient, 0f) * 0.547085202f,
                         (value, ctx) => $"Average Profit: {value.FormatInt("$")}"
                     )
                 }
