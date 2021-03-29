@@ -136,18 +136,20 @@ namespace MysticsItems.Equipment
                         {
                             summonerBodyObject = equipmentSlot.characterBody.gameObject
                         };
-                        GameObject wisp = DirectorCore.instance.TrySpawnObject(directorSpawnRequest);
-                        if (wisp)
+                        directorSpawnRequest.onSpawnedServer += (spawnResult) =>
                         {
-                            CharacterMaster wispMaster = wisp.GetComponent<CharacterMaster>();
+                            GameObject wispMasterObject = spawnResult.spawnedInstance;
+                            CharacterMaster wispMaster = wispMasterObject.GetComponent<CharacterMaster>();
                             wispMaster.inventory.GiveItem(RoR2Content.Items.HealthDecay, 45);
                             wispMaster.inventory.GiveItem(RoR2Content.Items.BoostDamage, 20);
                             wispMaster.inventory.GiveItem(RoR2Content.Items.BoostHp, 10);
                             wispMaster.inventory.GiveItem(RoR2Content.Items.AlienHead, 10);
                             wispMaster.GetComponent<RoR2.CharacterAI.BaseAI>().currentEnemy.gameObject = targetHB.healthComponent.gameObject;
                             wispMaster.GetComponent<RoR2.CharacterAI.BaseAI>().currentEnemy.bestHurtBox = targetHB;
-                            summonLimit.Add(wisp);
-                        }
+                            summonLimit.Add(wispMasterObject);
+                        };
+                        DirectorCore.instance.TrySpawnObject(directorSpawnRequest);
+                        
                         targetInfo.Invalidate();
                         return true;
                     }
