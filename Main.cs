@@ -331,6 +331,7 @@ namespace MysticsItems
             skillDefs = Resources.skillDefs.ToArray();
             itemDefs = Items.itemDefs;
             equipmentDefs = Equipment.equipmentDefs;
+            buffDefs = Buffs.buffDefs;
         }
 
         public static void Init()
