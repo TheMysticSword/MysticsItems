@@ -19,7 +19,7 @@ namespace MysticsItems.Buffs
         {
             buffDef = ScriptableObject.CreateInstance<BuffDef>();
             OnLoad();
-            buffDef.iconSprite = Main.AssetBundle.LoadAsset<Sprite>(Main.AssetPrefix + ":Assets/Buffs/" + buffDef.name + ".png");
+            buffDef.iconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Buffs/" + buffDef.name + ".png");
             buffDef.name = Main.TokenPrefix + buffDef.name;
             loadedBuffs.Add(this);
             return buffDef;
