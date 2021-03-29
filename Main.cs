@@ -446,6 +446,21 @@ namespace MysticsItems
                 SpeedGivesDamage = new MysticsItems.Buffs.SpeedGivesDamage().Load();
                 SpotterMarked = new MysticsItems.Buffs.SpotterMarked().Load();
                 buffDefs = MysticsItems.Buffs.BaseBuff.loadedBuffs.ConvertAll(x => x.buffDef).ToArray();
+
+                // Temporary fix for BuffCatalog loading buffdefs from the wrong place
+                IL.RoR2.BuffCatalog.Init += (il) =>
+                {
+                    ILCursor c = new ILCursor(il);
+
+                    if (!c.Next.MatchLdsfld(typeof(RoR2Content.Buffs), nameof(RoR2Content.Buffs.buffDefs)))
+                    {
+                        Main.logger.LogMessage("Another mod has already fixed BuffCatalog or the game has updated, skipping...");
+                        return;
+                    }
+
+                    c.Remove();
+                    c.Emit(OpCodes.Ldsfld, typeof(ContentManager).GetField(nameof(ContentManager.buffDefs)));
+                };
             }
 
             public static BuffDef[] buffDefs;
