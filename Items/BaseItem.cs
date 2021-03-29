@@ -196,6 +196,7 @@ namespace MysticsItems.Items
             if (!itemDef.unlockableDef)
             {
                 itemDef.unlockableDef = ScriptableObject.CreateInstance<UnlockableDef>();
+                itemDef.unlockableDef.cachedName = Main.TokenPrefix + "Items." + itemDef.name;
                 itemDef.unlockableDef.nameToken = ("ITEM_" + Main.TokenPrefix + itemDef.name + "_NAME").ToUpper();
             }
             return itemDef.unlockableDef;

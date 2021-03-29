@@ -183,6 +183,7 @@ namespace MysticsItems.Equipment
             if (!equipmentDef.unlockableDef)
             {
                 equipmentDef.unlockableDef = ScriptableObject.CreateInstance<UnlockableDef>();
+                equipmentDef.unlockableDef.cachedName = Main.TokenPrefix + "Equipment." + equipmentDef.name;
                 equipmentDef.unlockableDef.nameToken = ("EQUIPMENT_" + Main.TokenPrefix + equipmentDef.name + "_NAME").ToUpper();
             }
             return equipmentDef.unlockableDef;
