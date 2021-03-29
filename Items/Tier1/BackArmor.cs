@@ -104,7 +104,7 @@ namespace MysticsItems.Items
                                 EffectData effectData = new EffectData
                                 {
                                     origin = characterInfo.body.corePosition,
-                                    genericFloat = damageInfo.damage / characterInfo.healthComponent.health,
+                                    genericFloat = damageInfo.damage / characterInfo.healthComponent.combinedHealth,
                                     scale = 3.5f * characterInfo.body.radius
                                 };
                                 effectData.SetNetworkedObjectReference(characterInfo.gameObject);
