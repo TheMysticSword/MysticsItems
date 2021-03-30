@@ -27,10 +27,24 @@ Tuning fork SFX for Ratio Equalizer provided by Martin Chappell (https://freesou
 Other sounds made with sfxia by rxi (https://rxi.itch.io/sfxia)  
   
 ### Changelog
-#### 1.2.0:
+#### 1.1.5:
 * Now works on the 1.1 version of the game
 * Tuning Fork:
     * Cooldown: ~~45s~~ ⇒ 20s
+* Scratch Ticket:
+    * Reward: ~~$30 (+$20 per stack)~~ ⇒ 100% (+100% per stack) of the current Shrine cost
+* Crystallized World:
+    * Now works in all holdout zones
+* Treasure Map:
+    * Now works as a holdout zone, allowing the use of Lepton Daisy, Focused Convergence and Crystallized World
+* Fixed Legendary Mask's second Archaic Wisp from the Artifact of Swarms not having health decay and stat buffs
+* Fixed Frost Relic not functioning when the mod is enabled
+* Fixed wrong ItemStats on Cup of Expresso and Scratch Ticket
+* Fixed Treasure Map chest cost not scaling with difficulty
+* Fixed Spine Implant particle count scaling based on the ratio between damage taken and green health instead of total health, causing a lot of particles to appear with Transcendence
+* Fixed Scratch Ticket giving reward every time a Shrine of Chance with 2 wins is used, giving the reward every time you fail a shrine with 2 wins while carrying a Mysterious Monolith
+* Fixed Crystallized World floating up before 100% charge despite not being able to trigger on 100% charge
+* Fixed broken Spotter interactable not being pingable
 #### 1.1.4:
 * Added lore entries for Donut, Treasure Map, Spine Implant
 * Added missing item displays
