@@ -50,18 +50,30 @@ namespace MysticsItems.Items
                         Inventory inventory = body.inventory;
                         if (inventory && inventory.GetItemCount(MysticsItemsContent.Items.ScratchTicket) > 0)
                         {
-                            uint goldReward = (uint)((40u + 40u * (inventory.GetItemCount(MysticsItemsContent.Items.ScratchTicket) - 1)) * Run.instance.difficultyCoefficient);
-                            TeamManager.instance.GiveTeamMoney(body.teamComponent.teamIndex, goldReward);
-                            EffectManager.SpawnEffect(coinEffect, new EffectData
+                            MysticsItemsScratchTicketCheck component = self.GetComponent<MysticsItemsScratchTicketCheck>();
+                            if (!component) component = self.gameObject.AddComponent<MysticsItemsScratchTicketCheck>();
+                            if (!component.check)
                             {
-                                origin = self.transform.position + Vector3.up * 2f * self.transform.localScale.y,
-                                genericFloat = goldReward,
-                                scale = 2f
-                            }, true);
+                                component.check = true;
+
+                                uint goldReward = (uint)((40u + 40u * (inventory.GetItemCount(MysticsItemsContent.Items.ScratchTicket) - 1)) * Run.instance.difficultyCoefficient);
+                                TeamManager.instance.GiveTeamMoney(body.teamComponent.teamIndex, goldReward);
+                                EffectManager.SpawnEffect(coinEffect, new EffectData
+                                {
+                                    origin = self.transform.position + Vector3.up * 2f * self.transform.localScale.y,
+                                    genericFloat = goldReward,
+                                    scale = 2f
+                                }, true);
+                            }
                         }
                     }
                 }
             };
+        }
+
+        public class MysticsItemsScratchTicketCheck : MonoBehaviour
+        {
+            public bool check = false;
         }
     }
 }
