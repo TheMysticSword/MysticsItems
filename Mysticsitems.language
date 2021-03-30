@@ -149,6 +149,10 @@
     //[COSTTYPES]
     "COST_MYSTICSITEMS_RIFTLENSDEBUFF_FORMAT": "{0} Rift Affliction",
 
+    //[OBJECTIVES]
+    "MYSTICSITEMS_OBJECTIVE_CHARGE_TREASUREMAPZONE": "Unearth the <color=#F8EB27>Legendary Chest</color> ({0}%)",
+    "MYSTICSITEMS_OBJECTIVE_CHARGE_TREASUREMAPZONE_OOB": "Find and unearth the <color=#F8EB27>Legendary Chest</color> ({0}%)",
+
     //[CUSTOM]
     "MYSTICSITEMS_CHARACTERITEM_PICKUP_FORMAT": "{0} Item",
     "MYSTICSITEMS_CHARACTERITEMCHEST_ANNOUNCE": "<style=cWorldEvent>A supply chest has been airdropped!</style>",
@@ -302,6 +306,10 @@
 
     //[COSTTYPES]
     "COST_MYSTICSITEMS_RIFTLENSDEBUFF_FORMAT": "{0} Недуг разлома",
+
+    //[OBJECTIVES]
+    "MYSTICSITEMS_OBJECTIVE_CHARGE_TREASUREMAPZONE": "Раскопайте <color=#F8EB27>легендарный сундук</color> ({0}%)",
+    "MYSTICSITEMS_OBJECTIVE_CHARGE_TREASUREMAPZONE_OOB": "Найдите и раскопайте <color=#F8EB27>легендарный сундук</color> ({0}%)",
 
     //[CUSTOM]
     "MYSTICSITEMS_CHARACTERITEM_PICKUP_FORMAT": "Предмет: {0}",
