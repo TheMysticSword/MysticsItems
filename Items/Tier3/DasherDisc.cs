@@ -250,14 +250,12 @@ namespace MysticsItems.Items
                     if (isAuthority && IsReady() && controller.body)
                     {
                         HealthComponent healthComponent = controller.body.healthComponent;
-                        if (healthComponent && healthComponent.combinedHealthFraction <= healthThreshold)
+                        if (healthComponent && healthComponent.isHealthLow)
                         {
                             outer.SetNextState(new Trigger());
                         }
                     }
                 }
-
-                public static float healthThreshold = 0.25f;
             }
 
             public class Trigger : DiscBaseState
