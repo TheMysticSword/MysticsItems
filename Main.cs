@@ -229,12 +229,7 @@ namespace MysticsItems
             masterPrefabs = Resources.masterPrefabs.ToArray();
             projectilePrefabs = Resources.projectilePrefabs.ToArray();
             effectDefs = Resources.effectPrefabs.ConvertAll(x => new EffectDef(x)).ToArray();
-            networkSoundEventDefs = Resources.networkSoundEvents.ConvertAll(x =>
-            {
-                NetworkSoundEventDef networkSoundEventDef = ScriptableObject.CreateInstance<NetworkSoundEventDef>();
-                networkSoundEventDef.eventName = x;
-                return networkSoundEventDef;
-            }).ToArray();
+            networkSoundEventDefs = Resources.networkSoundEventDefs.ToArray();
             unlockableDefs = Resources.unlockableDefs.ToArray();
             entityStateTypes = Resources.entityStateTypes.ToArray();
             skillDefs = Resources.skillDefs.ToArray();
@@ -256,7 +251,7 @@ namespace MysticsItems
             public static List<GameObject> masterPrefabs = new List<GameObject>();
             public static List<GameObject> projectilePrefabs = new List<GameObject>();
             public static List<GameObject> effectPrefabs = new List<GameObject>();
-            public static List<string> networkSoundEvents = new List<string>();
+            public static List<NetworkSoundEventDef> networkSoundEventDefs = new List<NetworkSoundEventDef>();
             public static List<UnlockableDef> unlockableDefs = new List<UnlockableDef>();
             public static List<System.Type> entityStateTypes = new List<System.Type>();
             public static List<RoR2.Skills.SkillDef> skillDefs = new List<RoR2.Skills.SkillDef>();
