@@ -284,6 +284,7 @@ namespace MysticsItems.Items
                 {
                     float nextPulse = NextPulse(2 + (itemCount - 1));
                     if (!holdoutZoneController.enabled) nextPulse = 100f;
+                    if (nextPulse >= 1f) nextPulse = 100f;
 
                     float t = (1f - (nextPulse - chargeFraction) / windup) * 0.5f;
                     if (chargeFraction <= (prevPulse + winddown)) t = ((chargeFraction - prevPulse) / winddown) * 0.5f + 0.5f;
