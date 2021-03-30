@@ -2,7 +2,7 @@
 Adds 20 new items, with plenty more to come!  
 
 ![](https://i.imgur.com/WYCK8vE.gif)  
-![](https://i.imgur.com/k2Pz32y.png)  
+![](https://i.imgur.com/GZ1eiSK.png)  
 
 ### Manual install notes
 Put both `MysticsItemsPlugin.dll` and `MysticsItems.language` in the plugins folder.
