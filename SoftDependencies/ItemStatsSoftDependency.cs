@@ -41,16 +41,8 @@ namespace MysticsItems.SoftDependencies
                 Stats = new List<ItemStat>()
                 {
                     new ItemStat(
-                        (itemCount, ctx) => (40f + 40f * (itemCount - 1)) * Run.instance.difficultyCoefficient,
-                        (value, ctx) => $"Gold Reward: {value.FormatInt("$")}"
-                    ),
-                    new ItemStat(
-                        (itemCount, ctx) => Mathf.Max((40f + 40f * (itemCount - 1) - 40f) * Run.instance.difficultyCoefficient, 0f),
-                        (value, ctx) => $"Profit On Perfect Shrine: {value.FormatInt("$")}"
-                    ),
-                    new ItemStat(
-                        (itemCount, ctx) => Mathf.Max((40f + 40f * (itemCount - 1) - 40f) * Run.instance.difficultyCoefficient, 0f) * 0.547085202f,
-                        (value, ctx) => $"Average Profit: {value.FormatInt("$")}"
+                        (itemCount, ctx) => 1f + 1f * (itemCount - 1),
+                        (value, ctx) => $"Reward (% of final shrine cost): {value.FormatPercentage()}"
                     )
                 }
             });
