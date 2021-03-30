@@ -1,5 +1,6 @@
 using RoR2;
 using RoR2.Networking;
+using RoR2.Audio;
 using EntityStates;
 using R2API;
 using R2API.Utils;
@@ -22,6 +23,7 @@ namespace MysticsItems.Items
         public static float interval = 20f;
         public static float duration = 10f;
         public static GameObject unlockInteractablePrefab;
+        public static NetworkSoundEventDef repairSoundEventDef;
 
         public override void OnLoad()
         {
@@ -124,6 +126,10 @@ namespace MysticsItems.Items
             {
                 return model.body.HasBuff(buffDef);
             });
+
+            repairSoundEventDef = ScriptableObject.CreateInstance<NetworkSoundEventDef>();
+            repairSoundEventDef.eventName = "Play_drone_repair";
+            MysticsItemsContent.Resources.networkSoundEventDefs.Add(repairSoundEventDef);
         }
 
         public class MysticsItemsSpotterUnlockInteraction : MonoBehaviour
@@ -144,6 +150,7 @@ namespace MysticsItems.Items
                             inventory.GiveItem(MysticsItemsContent.Items.Spotter);
                         }
                     }
+                    PointSoundManager.EmitSoundServer(repairSoundEventDef.index, transform.position);
                     Object.Destroy(this.gameObject);
                 });
             }
