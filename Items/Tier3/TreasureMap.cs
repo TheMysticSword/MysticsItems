@@ -76,31 +76,12 @@ namespace MysticsItems.Items
             zoneSpawnCard.forbiddenFlags = RoR2.Navigation.NodeFlags.None;
             zoneSpawnCard.occupyPosition = false;
 
-            IL.RoR2.SceneDirector.PopulateScene += (il) =>
+            GenericGameEvents.OnPopulateScene += (rng) =>
             {
-                ILCursor c = new ILCursor(il);
-
-                ILLabel label = null;
-
-                if (c.TryGotoNext(
-                    x => x.MatchLdloc(12),
-                    x => x.MatchLdcI4(0),
-                    x => x.MatchBle(out label)
-                ))
+                DirectorCore.instance.TrySpawnObject(new DirectorSpawnRequest(zoneSpawnCard, new DirectorPlacementRule
                 {
-                    c.GotoLabel(label);
-                    c.Emit(OpCodes.Ldloc, 11);
-                    c.EmitDelegate<System.Action<Xoroshiro128Plus>>((xoroshiro128Plus) =>
-                    {
-                        if (SceneInfo.instance.countsAsStage)
-                        {
-                            DirectorCore.instance.TrySpawnObject(new DirectorSpawnRequest(zoneSpawnCard, new DirectorPlacementRule
-                            {
-                                placementMode = DirectorPlacementRule.PlacementMode.Random
-                            }, xoroshiro128Plus));
-                        }
-                    });
-                }
+                    placementMode = DirectorPlacementRule.PlacementMode.Random
+                }, rng));
             };
 
             ghostMaterial = Resources.Load<Material>("Materials/matGhostEffect");

@@ -36,6 +36,7 @@ namespace MysticsItems
         public static event System.Action<DamageInfo, GenericCharacterInfo> BeforeDealDamage;
         public static event System.Action<DamageInfo, GenericCharacterInfo> BeforeTakeDamage;
         public static event System.Action<DamageInfo, GenericCharacterInfo> OnTakeDamage;
+        public static event System.Action<Xoroshiro128Plus> OnPopulateScene;
 
         public static void ErrorHookFailed(string name)
         {
@@ -118,6 +119,34 @@ namespace MysticsItems
                 else
                 {
                     ErrorHookFailed("on take damage");
+                }
+            };
+
+            IL.RoR2.SceneDirector.PopulateScene += (il) =>
+            {
+                ILCursor c = new ILCursor(il);
+
+                ILLabel label = null;
+
+                if (c.TryGotoNext(
+                    x => x.MatchCallOrCallvirt<SceneInfo>("get_instance"),
+                    x => x.MatchCallOrCallvirt<SceneInfo>("get_countsAsStage"),
+                    x => x.MatchBrfalse(out label)
+                ))
+                {
+                    c.GotoLabel(label);
+                    c.Emit(OpCodes.Ldloc, 11);
+                    c.EmitDelegate<System.Action<Xoroshiro128Plus>>((xoroshiro128Plus) =>
+                    {
+                        if (SceneInfo.instance.countsAsStage)
+                        {
+                            if (OnPopulateScene != null) OnPopulateScene(xoroshiro128Plus);
+                        }
+                    });
+                }
+                else
+                {
+                    ErrorHookFailed("on populate scene");
                 }
             };
         }

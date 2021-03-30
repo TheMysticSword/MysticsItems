@@ -131,42 +131,23 @@ namespace MysticsItems.Items
             };
             riftChest.GetComponent<PurchaseInteraction>().cost = 1;
 
-            IL.RoR2.SceneDirector.PopulateScene += (il) =>
+            GenericGameEvents.OnPopulateScene += (rng) =>
             {
-                ILCursor c = new ILCursor(il);
-
-                ILLabel label = null;
-
-                if (c.TryGotoNext(
-                    x => x.MatchLdloc(12),
-                    x => x.MatchLdcI4(0),
-                    x => x.MatchBle(out label)
-                ))
-                {
-                    c.GotoLabel(label);
-                    c.Emit(OpCodes.Ldloc, 11);
-                    c.EmitDelegate<System.Action<Xoroshiro128Plus>>((xoroshiro128Plus) =>
+                int itemCount = 0;
+                foreach (CharacterMaster characterMaster in CharacterMaster.readOnlyInstancesList)
+                    if (characterMaster.teamIndex == TeamIndex.Player)
                     {
-                        if (SceneInfo.instance.countsAsStage)
+                        itemCount += characterMaster.inventory.GetItemCount(itemDef);
+                    }
+                if (itemCount > 0)
+                {
+                    for (int i = 0; i < itemCount; i++)
+                    {
+                        GameObject riftChest = DirectorCore.instance.TrySpawnObject(new DirectorSpawnRequest(riftChestSpawnCard, new DirectorPlacementRule
                         {
-                            int itemCount = 0;
-                            foreach (CharacterMaster characterMaster in CharacterMaster.readOnlyInstancesList)
-                                if (characterMaster.teamIndex == TeamIndex.Player)
-                                {
-                                    itemCount += characterMaster.inventory.GetItemCount(itemDef);
-                                }
-                            if (itemCount > 0)
-                            {
-                                for (int i = 0; i < itemCount; i++)
-                                {
-                                    GameObject riftChest = DirectorCore.instance.TrySpawnObject(new DirectorSpawnRequest(riftChestSpawnCard, new DirectorPlacementRule
-                                    {
-                                        placementMode = DirectorPlacementRule.PlacementMode.Random
-                                    }, xoroshiro128Plus));
-                                }
-                            }
-                        }
-                    });
+                            placementMode = DirectorPlacementRule.PlacementMode.Random
+                        }, rng));
+                    }
                 }
             };
 
