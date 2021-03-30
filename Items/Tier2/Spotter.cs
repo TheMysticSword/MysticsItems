@@ -94,13 +94,12 @@ namespace MysticsItems.Items
             purchaseInteraction.requiredUnlockable = "";
             purchaseInteraction.setUnavailableOnTeleporterActivated = false;
 
-            GameObject entityLocatorHolder = PrefabAPI.InstantiateClone(new GameObject(), "EntityLocatorHolder", false);
+            GameObject entityLocatorHolder = unlockInteractablePrefab.transform.Find("EntityLocatorHolder").gameObject;
             entityLocatorHolder.layer = LayerIndex.pickups.intVal;
             SphereCollider sphereCollider = entityLocatorHolder.AddComponent<SphereCollider>();
             sphereCollider.radius = 12f;
             sphereCollider.isTrigger = true;
             entityLocatorHolder.AddComponent<EntityLocator>().entity = unlockInteractablePrefab;
-            entityLocatorHolder.transform.SetParent(unlockInteractablePrefab.transform);
 
             PrefabAPI.RegisterNetworkPrefab(unlockInteractablePrefab);
 
