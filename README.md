@@ -19,6 +19,7 @@ If you want to suggest an idea for a new item, make a post on the Item Ideas dis
 ### To-do
 * Character-specific items  
 * Missing logbook lore entries  
+* Bandit item displays  
 
 ### Credits
 TheMysticSword - Coding  
