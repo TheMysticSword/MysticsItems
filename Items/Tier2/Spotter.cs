@@ -147,6 +147,13 @@ namespace MysticsItems.Items
                         if (inventory)
                         {
                             inventory.GiveItem(MysticsItemsContent.Items.Spotter);
+                            GenericPickupController.PickupMessage msg = new GenericPickupController.PickupMessage
+                            {
+                                masterGameObject = body.master.gameObject,
+                                pickupIndex = PickupCatalog.FindPickupIndex(MysticsItemsContent.Items.Spotter.itemIndex),
+                                pickupQuantity = 1u
+                            };
+                            NetworkServer.SendByChannelToAll(57, msg, QosChannelIndex.chat.intVal);
                         }
                     }
                     PointSoundManager.EmitSoundServer(repairSoundEventDef.index, transform.position);
