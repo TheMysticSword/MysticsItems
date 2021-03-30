@@ -69,7 +69,7 @@ namespace MysticsItems.Items
             NetworkingAPI.RegisterMessageType<SpotterController.SyncSetTarget>();
 
             unlockInteractablePrefab.AddComponent<NetworkIdentity>();
-            unlockInteractablePrefab.transform.localScale *= 0.2f;
+            unlockInteractablePrefab.transform.localScale *= 0.25f;
             unlockInteractablePrefab.AddComponent<MysticsItemsSpotterUnlockInteraction>();
 
             GameObject sparks = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/NetworkedObjects/RadarTower").transform.Find("mdlRadar").Find("Sparks").gameObject, "Sparks", false);
