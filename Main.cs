@@ -78,6 +78,7 @@ namespace MysticsItems
             Outlines.Init();
             Overlays.Init();
             PlainHologram.Init();
+            StateSeralizerFix.Init();
 
             //LaserTurret.Init();
             ShrineLegendary.Init();
