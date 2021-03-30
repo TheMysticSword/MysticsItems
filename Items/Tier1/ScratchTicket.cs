@@ -56,7 +56,7 @@ namespace MysticsItems.Items
                             {
                                 component.check = true;
 
-                                uint goldReward = (uint)((40u + 40u * (inventory.GetItemCount(MysticsItemsContent.Items.ScratchTicket) - 1)) * Run.instance.difficultyCoefficient);
+                                uint goldReward = (uint)(self.GetComponent<PurchaseInteraction>().cost * (1f + 0.5f * (inventory.GetItemCount(MysticsItemsContent.Items.ScratchTicket) - 1)));
                                 TeamManager.instance.GiveTeamMoney(body.teamComponent.teamIndex, goldReward);
                                 EffectManager.SpawnEffect(coinEffect, new EffectData
                                 {
