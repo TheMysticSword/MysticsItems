@@ -35,7 +35,7 @@ namespace MysticsItems.Items
             followerModel.transform.Find("mdlDasherDisc").localScale = Vector3.one * 5f;
 
             controllerPrefab = PrefabAPI.InstantiateClone(new GameObject(), "DasherDiscController", false);
-            controllerPrefab.AddComponent<NetworkIdentity>();
+            controllerPrefab.AddComponent<NetworkIdentity>().localPlayerAuthority = true;
             controllerPrefab.AddComponent<GenericOwnership>();
             controllerPrefab.AddComponent<NetworkedBodyAttachment>();
             EntityStateMachine stateMachine = controllerPrefab.AddComponent<EntityStateMachine>();
