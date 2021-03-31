@@ -105,7 +105,7 @@ namespace MysticsItems.Equipment
             targetFinder.FilterOutGameObject(self.gameObject);
         }
 
-        public static new void Init()
+        public static void Init()
         {
             On.RoR2.EquipmentSlot.PerformEquipmentAction += (orig, self, equipmentDef2) =>
             {
