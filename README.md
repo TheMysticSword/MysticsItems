@@ -5,6 +5,7 @@ Adds 20 new items, with plenty more to come!
 ![](https://i.imgur.com/GZ1eiSK.png)  
 
 ### Manual install notes
+This mod requires [R2API](https://thunderstore.io/package/tristanmcpherson/R2API/) and [MMHOOK Standalone](https://thunderstore.io/package/XoXFaby/MMHOOK_Standalone/)  
 Put both `MysticsItemsPlugin.dll` and `MysticsItems.language` in the plugins folder.
 
 ### Console commands
