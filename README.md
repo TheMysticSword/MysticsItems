@@ -6,7 +6,8 @@ Adds 20 new items, with plenty more to come!
 
 ### Manual install notes
 This mod requires [R2API](https://thunderstore.io/package/tristanmcpherson/R2API/) and [MMHOOK Standalone](https://thunderstore.io/package/XoXFaby/MMHOOK_Standalone/)  
-Put both `MysticsItemsPlugin.dll` and `MysticsItems.language` in the plugins folder.
+Put both `MysticsItemsPlugin.dll` and `MysticsItemsStrings.json` in the plugins folder.  
+If you have a `MysticsItems.language` file, then delete it, because it causes issues with strings failing to load for other mods.
 
 ### Console commands
 `mysticsitems_grantall` - grants all achievements  
@@ -29,6 +30,11 @@ Tuning fork SFX for Ratio Equalizer provided by Martin Chappell (https://freesou
 Other sounds made with sfxia by rxi (https://rxi.itch.io/sfxia)  
   
 ### Changelog
+#### 1.1.6:
+* Fixed Treasure Map base charge time being 1s instead of 120s
+* Fixed Engineer being forced to place turrets for the rest of the stage once the special ability is used
+* Fixed Rift Chests sharing item drop rates with the Rusty Lockbox
+* Fixed LanguageAPI failing to load when the mod is enabled, preventing strings from loading in other mods.
 #### 1.1.5:
 * Now works on the 1.1 version of the game
 * Tuning Fork:
