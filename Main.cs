@@ -70,7 +70,6 @@ namespace MysticsItems
             Achievements.BaseAchievement.Init();
             CharacterStats.Init();
             ConCommandHelper.Init();
-            Items.BaseItem.Init();
             //Items.CharacterItems.Init();
             Equipment.BaseEquipment.Init();
             GenericGameEvents.Init();
