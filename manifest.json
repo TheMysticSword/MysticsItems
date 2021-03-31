@@ -4,6 +4,7 @@
     "website_url": "https://github.com/TheMysticSword/MysticsItems",
     "description": "Adds 20 new items!",
     "dependencies": [
+        "tristanmcpherson-R2API-2.5.14",
         "XoXFaby-MMHOOK_Standalone-1.0.1"
     ]
 }
