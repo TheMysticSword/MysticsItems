@@ -17,7 +17,7 @@ namespace MysticsItems
     [BepInDependency(R2API.R2API.PluginGUID)]
     [BepInDependency(SoftDependencies.ItemStatsSoftDependency.PluginGUID, BepInDependency.DependencyFlags.SoftDependency)]
     [BepInPlugin(PluginGUID, PluginName, PluginVersion)]
-    [R2APISubmoduleDependency(nameof(NetworkingAPI), nameof(PrefabAPI), nameof(ResourcesAPI), nameof(SoundAPI))]
+    [R2APISubmoduleDependency(nameof(NetworkingAPI), nameof(PrefabAPI), nameof(SoundAPI))]
 
     public class MysticsItemsPlugin : BaseUnityPlugin
     {
@@ -52,8 +52,7 @@ namespace MysticsItems
         public static void Init()
         {
             logger = MysticsItemsPlugin.logger;
-            ResourcesAPI.AddProvider(new AssetBundleResourcesProvider(AssetPrefix, AssetBundle));
-
+            
             using (var soundBankStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("MysticsItems.MysticsItemsWwiseSoundbank.bnk"))
             {
                 var bytes = new byte[soundBankStream.Length];
