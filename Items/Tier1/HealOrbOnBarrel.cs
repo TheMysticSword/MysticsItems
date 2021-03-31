@@ -127,6 +127,26 @@ namespace MysticsItems.Items
                     orig(self);
                 }
             };
+
+            GenericGameEvents.OnPopulateScene += (rng) =>
+            {
+                int itemCount = 0;
+                foreach (CharacterMaster characterMaster in CharacterMaster.readOnlyInstancesList)
+                    if (characterMaster.teamIndex == TeamIndex.Player)
+                    {
+                        itemCount += characterMaster.inventory.GetItemCount(itemDef);
+                    }
+                if (itemCount > 0)
+                {
+                    for (int i = 0; i < itemCount; i++)
+                    {
+                        DirectorCore.instance.TrySpawnObject(new DirectorSpawnRequest(Resources.Load<InteractableSpawnCard>("SpawnCards/InteractableSpawnCard/iscBarrel1"), new DirectorPlacementRule
+                        {
+                            placementMode = DirectorPlacementRule.PlacementMode.Random
+                        }, rng));
+                    }
+                }
+            };
         }
 
         public static void SpawnOrb(Vector3 position, Quaternion rotation, TeamIndex teamIndex, int itemCount)

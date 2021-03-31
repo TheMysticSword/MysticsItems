@@ -38,6 +38,8 @@ Other sounds made with sfxia by rxi (https://rxi.itch.io/sfxia)
     * Now works in all holdout zones
 * Treasure Map:
     * Now works as a holdout zone, allowing the use of Lepton Daisy, Focused Convergence and Crystallized World
+* Donut:
+    * Extra Barrel Spawns: ~~0~~ ⇒ 1 (+1 per stack)
 * Fixed Legendary Mask's second Archaic Wisp from the Artifact of Swarms not having health decay and stat buffs
 * Fixed Frost Relic not functioning when the mod is enabled
 * Fixed wrong ItemStats on Cup of Expresso and Scratch Ticket
