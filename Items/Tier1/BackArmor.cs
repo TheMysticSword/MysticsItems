@@ -93,7 +93,7 @@ namespace MysticsItems.Items
                         float distance = Vector3.Distance(damageInfo.position, characterInfo.body.corePosition);
                         if (distance >= BackArmor.distance)
                         {
-                            if (BackstabManager.IsBackstab(damageInfo.position - characterInfo.body.corePosition, characterInfo.body))
+                            if (BackstabManager.IsBackstab(characterInfo.body.corePosition - damageInfo.position, characterInfo.body))
                             {
                                 BackArmorTempArmor tempArmor = characterInfo.gameObject.GetComponent<BackArmorTempArmor>();
                                 if (!tempArmor) tempArmor = characterInfo.gameObject.AddComponent<BackArmorTempArmor>();
