@@ -15,7 +15,6 @@ namespace MysticsItems.Items
         public GameObject followerModel;
         public ItemDef itemDef;
         public ItemDisplayRuleDict itemDisplayRuleDict = new ItemDisplayRuleDict();
-        public static List<BaseItem> deployableBanned = new List<BaseItem>();
         public static List<BaseItem> loadedItems = new List<BaseItem>();
 
         public virtual void OnLoad() { }
@@ -200,42 +199,6 @@ namespace MysticsItems.Items
                 itemDef.unlockableDef.nameToken = ("ITEM_" + Main.TokenPrefix + itemDef.name + "_NAME").ToUpper();
             }
             return itemDef.unlockableDef;
-        }
-
-        public void BanFromDeployables()
-        {
-            deployableBanned.Add(this);
-        }
-
-        public static void RemoveDeployableBannedItems(Deployable deployable)
-        {
-            CharacterMaster master = deployable.gameObject.GetComponent<CharacterMaster>();
-            if (master && master.hasBody && deployable.ownerMaster)
-            {
-                foreach (BaseItem item in deployableBanned)
-                {
-                    master.GetBody().inventory.ResetItem(item.itemDef);
-                }
-            }
-        }
-
-        public static void Init()
-        {
-            On.RoR2.CharacterBody.OnInventoryChanged += (orig, self) =>
-            {
-                orig(self);
-                if (self.master)
-                {
-                    Deployable deployable = self.master.GetComponent<Deployable>();
-                    if (deployable) RemoveDeployableBannedItems(deployable);
-                }
-            };
-
-            On.RoR2.CharacterMaster.AddDeployable += (orig, self, deployable, slot) =>
-            {
-                orig(self, deployable, slot);
-                RemoveDeployableBannedItems(deployable);
-            };
         }
 
         public static void PostGameLoad()

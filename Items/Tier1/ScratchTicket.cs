@@ -18,9 +18,9 @@ namespace MysticsItems.Items
             itemDef.tags = new ItemTag[]
             {
                 ItemTag.Utility,
-                ItemTag.AIBlacklist
+                ItemTag.AIBlacklist,
+                ItemTag.CannotCopy
             };
-            BanFromDeployables();
             SetAssets("Scratch Ticket");
             SetModelPanelDistance(1f, 2f);
             Main.HopooShaderToMaterial.Standard.Gloss(GetModelMaterial(), 0.05f, 20f);

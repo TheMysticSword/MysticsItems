@@ -30,9 +30,9 @@ namespace MysticsItems.Items
             itemDef.tags = new ItemTag[]
             {
                 ItemTag.Utility,
-                ItemTag.AIBlacklist
+                ItemTag.AIBlacklist,
+                ItemTag.CannotCopy
             };
-            BanFromDeployables();
             SetAssets("Treasure Map");
             SetModelPanelDistance(3f, 6f);
             AddDisplayRule("CommandoBody", "LowerArmR", new Vector3(-0.084F, 0.183F, -0.006F), new Vector3(83.186F, 36.557F, 131.348F), new Vector3(0.053F, 0.053F, 0.053F));

@@ -26,9 +26,9 @@ namespace MysticsItems.Items
             itemDef.tags = new ItemTag[]
             {
                 ItemTag.Utility,
-                ItemTag.AIBlacklist
+                ItemTag.AIBlacklist,
+                ItemTag.CannotCopy
             };
-            BanFromDeployables();
             SetAssets("Rift Lens");
             SetModelPanelDistance(2f, 6f);
             AddDisplayRule("CommandoBody", "Head", new Vector3(0.1f, 0.25f, 0.15f), new Vector3(20f, 210f, 0f), new Vector3(0.06f, 0.06f, 0.06f));

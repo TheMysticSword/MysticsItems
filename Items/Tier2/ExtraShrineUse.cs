@@ -19,9 +19,9 @@ namespace MysticsItems.Items
             itemDef.tags = new ItemTag[]
             {
                 ItemTag.Utility,
-                ItemTag.AIBlacklist
+                ItemTag.AIBlacklist,
+                ItemTag.CannotCopy
             };
-            BanFromDeployables();
             SetAssets("Hexahedral Monolith");
             Main.HopooShaderToMaterial.Standard.Gloss(GetModelMaterial());
             GetModelMaterial().SetFloat("_Smoothness", 0.5f);
