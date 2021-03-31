@@ -34,7 +34,8 @@ Other sounds made with sfxia by rxi (https://rxi.itch.io/sfxia)
 * Fixed Treasure Map base charge time being 1s instead of 120s
 * Fixed Engineer being forced to place turrets for the rest of the stage once the special ability is used
 * Fixed Rift Chests sharing item drop rates with the Rusty Lockbox
-* Fixed LanguageAPI failing to load when the mod is enabled, preventing strings from loading in other mods.
+* Fixed LanguageAPI failing to load when the mod is enabled, preventing strings from loading in other mods
+    * Note: if this issue persists, manually delete the `MysticsItems.language` file in the mod folder
 #### 1.1.5:
 * Now works on the 1.1 version of the game
 * Tuning Fork:
