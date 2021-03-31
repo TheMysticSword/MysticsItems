@@ -119,7 +119,7 @@ namespace MysticsItems.Items
             public TeamIndex teamIndex = TeamIndex.Player;
             public InteractableSpawnCard rewardSpawnCard;
             public GameObject reward;
-            public float baseCaptureTimeMax = 1f;
+            public float baseCaptureTimeMax = 120f;
             public ItemDef itemDef;
             public HologramProjector hologramProjector;
             public List<Material> rewardOriginalMaterials;
