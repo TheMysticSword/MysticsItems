@@ -109,7 +109,7 @@ namespace MysticsItems
 
         public static void PostGameLoad()
         {
-            LanguageLoader.Load("MysticsItems.language");
+            LanguageLoader.Load("MysticsItemsStrings.json");
 
             Items.BaseItem.PostGameLoad();
             
