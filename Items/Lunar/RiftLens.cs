@@ -53,6 +53,10 @@ namespace MysticsItems.Items
             riftChest.GetComponent<GenericDisplayNameProvider>().displayToken = Main.TokenPrefix.ToUpper() + "RIFTCHEST_NAME";
             riftChest.GetComponent<PurchaseInteraction>().displayNameToken = Main.TokenPrefix.ToUpper() + "RIFTCHEST_NAME";
             riftChest.GetComponent<PurchaseInteraction>().contextToken = Main.TokenPrefix.ToUpper() + "RIFTCHEST_CONTEXT";
+            ChestBehavior chestBehavior = riftChest.GetComponent<ChestBehavior>();
+            chestBehavior.tier1Chance = 80f;
+            chestBehavior.tier2Chance = 20f;
+            chestBehavior.tier3Chance = 1f;
             Transform modelBase = riftChest.transform.Find("ModelBase");
             //replace lockbox model with chest model
             GameObject regularChest = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/NetworkedObjects/Chest/Chest1"), Main.TokenPrefix + "RiftChest_TempRegularChest", false);
