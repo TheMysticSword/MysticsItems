@@ -35,6 +35,7 @@ namespace MysticsItems
         public static event System.Action<DamageInfo, GenericCharacterInfo> OnHitAll;
         public static event System.Action<DamageInfo, GenericCharacterInfo> BeforeDealDamage;
         public static event System.Action<DamageInfo, GenericCharacterInfo> BeforeTakeDamage;
+        public static event System.Func<DamageInfo, GenericCharacterInfo, GenericCharacterInfo, float, float> OnApplyDamageModifiers;
         public static event System.Action<DamageInfo, GenericCharacterInfo> OnTakeDamage;
         public static event System.Action<Xoroshiro128Plus> OnPopulateScene;
 
@@ -71,11 +72,12 @@ namespace MysticsItems
             IL.RoR2.HealthComponent.TakeDamage += (il) =>
             {
                 ILCursor c = new ILCursor(il);
+                int damagePosition = 6;
                 if (c.TryGotoNext(
                     MoveType.AfterLabel,
                     x => x.MatchLdarg(1),
                     x => x.MatchLdfld<DamageInfo>("damage"),
-                    x => x.MatchStloc(6)
+                    x => x.MatchStloc(damagePosition)
                 ))
                 {
                     c.Emit(OpCodes.Ldarg_0);
@@ -93,6 +95,31 @@ namespace MysticsItems
                 else
                 {
                     ErrorHookFailed("before take damage");
+                }
+                if (c.TryGotoNext(
+                    MoveType.AfterLabel,
+                    x => x.MatchLdarg(1),
+                    x => x.MatchLdfld<DamageInfo>("crit"),
+                    x => x.MatchBrfalse(out _)
+                ))
+                {
+                    c.Emit(OpCodes.Ldarg_0);
+                    c.Emit(OpCodes.Ldarg_1);
+                    c.Emit(OpCodes.Ldloc_1);
+                    c.Emit(OpCodes.Ldloc, damagePosition);
+                    c.EmitDelegate<System.Func<HealthComponent, DamageInfo, CharacterBody, float, float>>((healthComponent, damageInfo, attackerBody, damage) =>
+                    {
+                        CharacterBody victimBody = healthComponent.body;
+                        GenericCharacterInfo attackerInfo = new GenericCharacterInfo(attackerBody);
+                        GenericCharacterInfo victimInfo = new GenericCharacterInfo(victimBody);
+                        if (attackerBody && victimBody && OnApplyDamageModifiers != null) damage = OnApplyDamageModifiers(damageInfo, attackerInfo, victimInfo, damage);
+                        return damage;
+                    });
+                    c.Emit(OpCodes.Stloc, damagePosition);
+                }
+                else
+                {
+                    ErrorHookFailed("on apply damage modifiers");
                 }
                 ILLabel label = null;
                 if (c.TryGotoNext(
