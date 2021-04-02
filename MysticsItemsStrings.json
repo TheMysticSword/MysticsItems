@@ -95,6 +95,10 @@
     "ITEM_MYSTICSITEMS_RIFTLENS_PICKUP": "Every stage contains a free chest... <color=#FF7F7F>BUT you move slower until you open it.</color>\n",
     "ITEM_MYSTICSITEMS_RIFTLENS_DESC": "Every stage contains <style=cIsDamage>1 <style=cStack>(+1 per stack)</style></style> free chest. Your movement speed is reduced by <style=cIsUtility>33%</style> until you open all free chests.",
 
+    "ITEM_MYSTICSITEMS_MOONGLASSES_NAME": "Moonglasses",
+    "ITEM_MYSTICSITEMS_MOONGLASSES_PICKUP": "Increase Critical Strike damage... <color=#FF7F7F>BUT reduce Critical Strike chance.</color>\n",
+    "ITEM_MYSTICSITEMS_MOONGLASSES_DESC": "Increase Critical Strike chance by <style=cIsDamage>100% <style=cStack>(+100% per stack)</style></style>. Reduce Critical Strike chance by <style=cIsUtility>50% <style=cStack>(+50% per stack)</style></style>.",
+
     //[EQUIPMENT]
     "EQUIPMENT_MYSTICSITEMS_ARCHAICMASK_NAME": "Legendary Mask",
     "EQUIPMENT_MYSTICSITEMS_ARCHAICMASK_PICKUP": "Recruit an Archaic Wisp. Lasts 45 seconds.",
@@ -254,6 +258,15 @@
     "ITEM_MYSTICSITEMS_TREASUREMAP_DESC": "Каждый этап содержит <style=cIsUtility>зону с сокровищем</style> радиусом в 15м с заблокированным <style=cIsUtility>Легендарным сундуком</style>. После <style=cIsUtility>120 сек. <style=cStack>(-40 сек. за шт.)</style></style> нахождения в зоне вы получаете доступ к покупке сундука.",
     "ITEM_MYSTICSITEMS_TREASUREMAP_LORE": "<style=cMono>> ОС ЗАГРУЖЕНА\n> АВТО-ЗАПУСК \"СОВЕРШЕННОСЕКРЕТНО\"\n> [||||||||||] 100%\n> ДОСТУП ЗАПРЕЩЁН\n> ВВЕДИТЕ ПАРОЛЬ\n> ******12\n> ДОСТУП РАЗРЕШЁН\n> ТАЙНИК С СОКРОВИЩЕМ В ЗВЁЗДНОЙ СИСТЕМЕ БОР\n> ПРЯМ. ВОСХ. 21Ч 32М 29С | СКЛ -15° 14' 5\"\n> ПЕРЕСЧИТАТЬ ОТНОСИТЕЛЬНЫЕ КООРДИНАТЫ? Y/N\n> _</style>",
 
+    //[LUNAR ITEMS]
+    "ITEM_MYSTICSITEMS_RIFTLENS_NAME": "Линза разлома",
+    "ITEM_MYSTICSITEMS_RIFTLENS_PICKUP": "Каждый этап содержит бесплатный сундук... <color=#FF7F7F>НО вы передвигаетесь медленнее, пока не откроете его.</color>\n",
+    "ITEM_MYSTICSITEMS_RIFTLENS_DESC": "Каждый этап содержит <style=cIsDamage>1 <style=cStack>(+1 за шт.)</style></style> бесплатный сундук. Скорость передвижения снижена на <style=cIsUtility>33%</style>, пока вы не откроете все бесплатные сундуки.",
+
+    "ITEM_MYSTICSITEMS_MOONGLASSES_NAME": "Лунные очки",
+    "ITEM_MYSTICSITEMS_MOONGLASSES_PICKUP": "Увеличивают урон критического удара... <color=#FF7F7F>НО уменьшает вероятность критического удара.</color>\n",
+    "ITEM_MYSTICSITEMS_MOONGLASSES_DESC": "Увеличивают урон критического удара на <style=cIsDamage>100% <style=cStack>(+100% за шт.)</style></style>. Уменьшают вероятность критического удара на <style=cIsUtility>50% <style=cStack>(+50% за шт.)</style></style>.",
+
     //[EQUIPMENT]
     "EQUIPMENT_MYSTICSITEMS_ARCHAICMASK_NAME": "Легендарная маска",
     "EQUIPMENT_MYSTICSITEMS_ARCHAICMASK_PICKUP": "Нанять Архаический сгусток. Действует 45 секунд.",
@@ -268,11 +281,7 @@
     "EQUIPMENT_MYSTICSITEMS_MICROPHONE_PICKUP": "Оглушает врагов перед вами, снижая их скорость, броню и увеличивая время восстановления навыков.",
     "EQUIPMENT_MYSTICSITEMS_MICROPHONE_DESC": "<style=cIsDamage>Оглушает</style> врагов перед вами на <style=cIsUtility>15 секунд</style>, снижая скорость передвижения на <style=cIsUtility>33%</style>, броню на <style=cIsDamage>20</style> и увеличивая длительность восстановления навыков на <style=cIsUtility>50%</style>.",
 
-    //[LUNAR]
-    "ITEM_MYSTICSITEMS_RIFTLENS_NAME": "Линза разлома",
-    "ITEM_MYSTICSITEMS_RIFTLENS_PICKUP": "Каждый этап содержит бесплатный сундук... <color=#FF7F7F>НО вы передвигаетесь медленнее, пока не откроете его.</color>\n",
-    "ITEM_MYSTICSITEMS_RIFTLENS_DESC": "Каждый этап содержит <style=cIsDamage>1 <style=cStack>(+1 за шт.)</style></style> бесплатный сундук. Скорость передвижения снижена на <style=cIsUtility>33%</style>, пока вы не откроете все бесплатные сундуки.",
-
+    //[LUNAR EQUIPMENT]
     "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_NAME": "Уравнитель пропорций",
     "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_PICKUP": "Усредняет текущий процент здоровья <color=#FF7F7F>ВСЕХ персонажей поблизости.</color>\n",
     "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_DESC": "Усредняет текущий процент здоровья всех персонажей в радиусе 60м.",

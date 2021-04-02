@@ -280,6 +280,7 @@ namespace MysticsItems
                 ArtificerNanobots = new MysticsItems.Items.ArtificerNanobots().Load();
                 */
                 KeepShopTerminalOpen = new MysticsItems.Items.KeepShopTerminalOpen().Load();
+                Moonglasses = new MysticsItems.Items.Moonglasses().Load();
                 itemDefs = MysticsItems.Items.BaseItem.loadedItems.ConvertAll(x => x.itemDef).ToArray();
             }
 
@@ -304,6 +305,7 @@ namespace MysticsItems
             public static ItemDef CommandoRevolverDrum;
             public static ItemDef ArtificerNanobots;
             public static ItemDef KeepShopTerminalOpen;
+            public static ItemDef Moonglasses;
         }
 
         public static class Equipment
