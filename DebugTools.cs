@@ -4,6 +4,7 @@ using R2API.Utils;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using RoR2.UI;
 
 namespace MysticsItems
@@ -27,6 +28,8 @@ namespace MysticsItems
             ConCommandHelper.Load(declaringType.GetMethod("CCStage", Main.bindingFlagAll));
             ConCommandHelper.Load(declaringType.GetMethod("CCGiveItem", Main.bindingFlagAll));
             ConCommandHelper.Load(declaringType.GetMethod("CCGiveEquip", Main.bindingFlagAll));
+            ConCommandHelper.Load(declaringType.GetMethod("CCSpawnInteractable", Main.bindingFlagAll));
+            ConCommandHelper.Load(declaringType.GetMethod("CCGold", Main.bindingFlagAll));
 
             On.RoR2.GenericPickupController.AttemptGrant += (orig, self, body) =>
             {
@@ -228,6 +231,40 @@ namespace MysticsItems
                 if (args.senderMaster)
                 {
                     args.senderMaster.inventory.SetEquipmentIndex(equipmentDef.equipmentIndex);
+                }
+            }
+        }
+
+        [ConCommand(commandName = ConCommandPrefix + "gold", flags = ConVarFlags.ExecuteOnServer, helpText = "Set your gold")]
+        public static void CCGold(ConCommandArgs args)
+        {
+            if (args.senderMaster)
+            {
+                args.senderMaster.money = uint.Parse(args[0]);
+            }
+        }
+
+        [ConCommand(commandName = ConCommandPrefix + "spawn_interactable", flags = ConVarFlags.ExecuteOnServer, helpText = "Spawn an interactable")]
+        public static void CCSpawnInteractable(ConCommandArgs args)
+        {
+            InteractableSpawnCard interactableSpawnCard = Resources.LoadAll<InteractableSpawnCard>("SpawnCards/InteractableSpawnCard").ToList().FirstOrDefault(x => x.name == args[0] || x.name.Remove(0, 3) == args[0]);
+            if (interactableSpawnCard)
+            {
+                Debug.Log("Spawning " + interactableSpawnCard.name);
+                if (args.senderBody)
+                {
+                    interactableSpawnCard.DoSpawn(args.senderBody.transform.position, Quaternion.identity, new DirectorSpawnRequest(
+                        interactableSpawnCard,
+                        new DirectorPlacementRule
+                        {
+                            placementMode = DirectorPlacementRule.PlacementMode.NearestNode,
+                            maxDistance = 100f,
+                            minDistance = 0f,
+                            position = args.sender.transform.position,
+                            preventOverhead = true
+                        },
+                        RoR2Application.rng
+                    ));
                 }
             }
         }
