@@ -172,6 +172,16 @@ namespace MysticsItems.SoftDependencies
                     )
                 }
             }, new List<Type> { typeof(LuckModifier), null });
+            AddItemStatDef(MysticsItemsContent.Items.KeepShopTerminalOpen, new ItemStatDef
+            {
+                Stats = new List<ItemStat>()
+                {
+                    new ItemStat(
+                        (itemCount, ctx) => 1f - 1f / (1f + 0.25f * (itemCount - 1)),
+                        (value, ctx) => $"Proc Chance: {value.FormatPercentage()}"
+                    )
+                }
+            }, new List<Type> { typeof(LuckModifier) });
 
             // tier3
             AddItemStatDef(MysticsItemsContent.Items.Voltmeter, new ItemStatDef
@@ -233,6 +243,20 @@ namespace MysticsItems.SoftDependencies
                     new ItemStat(
                         (itemCount, ctx) => itemCount,
                         (value, ctx) => $"Rift Chests: {value.FormatInt()}"
+                    )
+                }
+            });
+            AddItemStatDef(MysticsItemsContent.Items.Moonglasses, new ItemStatDef
+            {
+                Stats = new List<ItemStat>()
+                {
+                    new ItemStat(
+                        (itemCount, ctx) => itemCount,
+                        (value, ctx) => $"Extra Crit Damage: {value.FormatPercentage()}"
+                    ),
+                    new ItemStat(
+                        (itemCount, ctx) => 1f / (itemCount * 2f),
+                        (value, ctx) => $"Crit Chance Multiplier: {value.FormatPercentage()}"
                     )
                 }
             });
