@@ -92,7 +92,7 @@ namespace MysticsItems
             return finalEquipmentDef;
         }
 
-        public const string ConCommandPrefix = Main.TokenPrefix + "debug_";
+        public const string ConCommandPrefix = "msd_";
         public static bool OnlineCheck()
         {
             return PlayerCharacterMasterController.instances.Count > 1;
