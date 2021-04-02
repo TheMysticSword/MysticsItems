@@ -129,32 +129,11 @@ namespace MysticsItems.Items
                 }
             };
 
-            IL.RoR2.CharacterBody.RecalculateStats += (il) =>
+            CharacterStats.shieldModifiers.Add(new CharacterStats.StatModifier
             {
-                ILCursor c = new ILCursor(il);
-                // shield
-                if (c.TryGotoNext(
-                    MoveType.AfterLabel,
-                    x => x.MatchLdarg(0),
-                    x => x.MatchLdloc(43),
-                    x => x.MatchCallOrCallvirt<CharacterBody>("set_maxShield")
-                ))
-                {
-                    c.Emit(OpCodes.Ldarg_0);
-                    c.EmitDelegate<System.Func<CharacterBody, float>>((characterBody) =>
-                    {
-                        Inventory inventory = characterBody.inventory;
-                        if (inventory && inventory.GetItemCount(itemDef) > 0)
-                        {
-                            return 0.04f * characterBody.maxHealth;
-                        }
-                        return 0;
-                    });
-                    c.Emit(OpCodes.Ldloc, 43);
-                    c.Emit(OpCodes.Add);
-                    c.Emit(OpCodes.Stloc, 43);
-                }
-            };
+                multiplier = 0.04f,
+                times = characterInfo => characterInfo.inventory && characterInfo.inventory.GetItemCount(itemDef) > 0 ? 1 : 0
+            });
         }
 
         public class PointerAnimator : MonoBehaviour
