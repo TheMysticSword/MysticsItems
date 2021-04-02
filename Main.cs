@@ -279,6 +279,7 @@ namespace MysticsItems
                 CommandoRevolverDrum = new MysticsItems.Items.CommandoRevolverDrum().Load();
                 ArtificerNanobots = new MysticsItems.Items.ArtificerNanobots().Load();
                 */
+                KeepShopTerminalOpen = new MysticsItems.Items.KeepShopTerminalOpen().Load();
                 itemDefs = MysticsItems.Items.BaseItem.loadedItems.ConvertAll(x => x.itemDef).ToArray();
             }
 
@@ -302,6 +303,7 @@ namespace MysticsItems
             public static ItemDef CommandoScope;
             public static ItemDef CommandoRevolverDrum;
             public static ItemDef ArtificerNanobots;
+            public static ItemDef KeepShopTerminalOpen;
         }
 
         public static class Equipment
