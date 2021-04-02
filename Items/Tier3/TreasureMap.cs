@@ -49,6 +49,7 @@ namespace MysticsItems.Items
 
             NetworkingAPI.RegisterMessageType<MysticsItemsTreasureMapZone.SyncRewardLocked>();
             NetworkingAPI.RegisterMessageType<MysticsItemsTreasureMapZone.SyncActive>();
+            NetworkingAPI.RegisterMessageType<MysticsItemsTreasureMapZone.SyncReward>();
 
             zonePrefab = Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Treasure Map/TreasureMapZone.prefab");
             zonePrefab.AddComponent<NetworkIdentity>();
@@ -143,6 +144,7 @@ namespace MysticsItems.Items
                     reward.transform.Translate(Vector3.down * 0.3f, Space.Self);
                     reward.transform.rotation *= Quaternion.Euler(RoR2Application.rng.RangeFloat(-30f, 30f), RoR2Application.rng.RangeFloat(-30f, 30f), RoR2Application.rng.RangeFloat(-30f, 30f));
                     NetworkServer.Spawn(reward);
+                    new SyncReward(gameObject.GetComponent<NetworkIdentity>().netId, reward.GetComponent<NetworkIdentity>().netId).Send(NetworkDestination.Clients);
 
                     PurchaseInteraction purchaseInteraction = reward.GetComponent<PurchaseInteraction>();
                     if (purchaseInteraction)
@@ -377,6 +379,49 @@ namespace MysticsItems.Items
                     writer.Write(objID);
                     writer.Write(reward);
                     writer.Write(zone);
+                }
+            }
+
+            public class SyncReward : INetMessage
+            {
+                NetworkInstanceId objID;
+                NetworkInstanceId rewardID;
+
+                public SyncReward()
+                {
+                }
+
+                public SyncReward(NetworkInstanceId objID, NetworkInstanceId rewardID)
+                {
+                    this.objID = objID;
+                    this.rewardID = rewardID;
+                }
+
+                public void Deserialize(NetworkReader reader)
+                {
+                    objID = reader.ReadNetworkId();
+                    rewardID = reader.ReadNetworkId();
+                }
+
+                public void OnReceived()
+                {
+                    if (NetworkServer.active) return;
+                    GameObject obj = Util.FindNetworkObject(objID);
+                    GameObject reward = Util.FindNetworkObject(rewardID);
+                    if (obj && reward)
+                    {
+                        MysticsItemsTreasureMapZone component = obj.GetComponent<MysticsItemsTreasureMapZone>();
+                        if (component)
+                        {
+                            component.reward = reward;
+                        }
+                    }
+                }
+
+                public void Serialize(NetworkWriter writer)
+                {
+                    writer.Write(objID);
+                    writer.Write(rewardID);
                 }
             }
         }
