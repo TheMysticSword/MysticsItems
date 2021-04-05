@@ -6,7 +6,7 @@ namespace MysticsItems.Achievements
 {
     public class MultishopTerminalsOnly : BaseAchievement
     {
-        public override void PreAdd()
+        public override void OnLoad()
         {
             name = "MultishopTerminalsOnly";
             unlockableName = Main.TokenPrefix + "Items.KeepShopTerminalOpen";

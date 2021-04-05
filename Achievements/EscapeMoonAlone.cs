@@ -5,7 +5,7 @@ namespace MysticsItems.Achievements
 {
     public class EscapeMoonAlone : BaseAchievement
     {
-        public override void PreAdd()
+        public override void OnLoad()
         {
             name = "EscapeMoonAlone";
             unlockableName = Main.TokenPrefix + "Items.AllyDeathRevenge";

@@ -4,7 +4,7 @@ namespace MysticsItems.Achievements
 {
     public class FindArchaicMask : BaseAchievement
     {
-        public override void PreAdd()
+        public override void OnLoad()
         {
             name = "FindArchaicMask";
             unlockableName = Main.TokenPrefix + "Equipment.ArchaicMask";

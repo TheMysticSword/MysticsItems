@@ -81,20 +81,6 @@ namespace MysticsItems
             //LaserTurret.Init();
             ShrineLegendary.Init();
 
-            // Auto-load classes
-            System.Type[] types = Assembly.GetExecutingAssembly().GetTypes();
-            foreach (var type in types)
-            {
-                if (!type.IsAbstract)
-                {
-                    if (type.BaseType == typeof(Achievements.BaseAchievement))
-                    {
-                        Achievements.BaseAchievement achievement = (Achievements.BaseAchievement)System.Activator.CreateInstance(type);
-                        achievement.Add();
-                    }
-                }
-            }
-
             // Load console commands
             ConCommandHelper.Load(declaringType.GetMethod("CCUnlockLogs", bindingFlagAll));
             ConCommandHelper.Load(declaringType.GetMethod("CCGrantAll", bindingFlagAll));
@@ -241,6 +227,7 @@ namespace MysticsItems
             Items.Load();
             Equipment.Load();
             Buffs.Load();
+            Achievements.Load();
         }
 
         public static class Resources
@@ -371,6 +358,26 @@ namespace MysticsItems
             public static BuffDef RiftLens;
             public static BuffDef SpeedGivesDamage;
             public static BuffDef SpotterMarked;
+        }
+
+        public static class Achievements
+        {
+            public static void Load()
+            {
+                EscapeMoonAlone = new MysticsItems.Achievements.EscapeMoonAlone().Load();
+                FindArchaicMask = new MysticsItems.Achievements.FindArchaicMask().Load();
+                DiscDeath = new MysticsItems.Achievements.DiscDeath().Load();
+                RepairBrokenSpotter = new MysticsItems.Achievements.RepairBrokenSpotter().Load();
+                //MultishopTerminalsOnly = new MysticsItems.Achievements.MultishopTerminalsOnly().Load();
+            }
+
+            public static AchievementDef[] achievementDefs;
+
+            public static AchievementDef EscapeMoonAlone;
+            public static AchievementDef FindArchaicMask;
+            public static AchievementDef DiscDeath;
+            public static AchievementDef RepairBrokenSpotter;
+            public static AchievementDef MultishopTerminalsOnly;
         }
     }
 

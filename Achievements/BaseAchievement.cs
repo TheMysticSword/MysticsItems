@@ -16,9 +16,9 @@ namespace MysticsItems.Achievements
         public System.Type serverTrackerType;
         public AchievementDef achievementDef;
 
-        public void Add()
+        public AchievementDef Load()
         {
-            PreAdd();
+            OnLoad();
             string nameNoToken = name;
             name = Main.TokenPrefix + name;
             achievementDef = new AchievementDef
@@ -28,16 +28,15 @@ namespace MysticsItems.Achievements
                 prerequisiteAchievementIdentifier = prerequisiteName,
                 nameToken = "ACHIEVEMENT_" + name.ToUpper(CultureInfo.InvariantCulture) + "_NAME",
                 descriptionToken = "ACHIEVEMENT_" + name.ToUpper(CultureInfo.InvariantCulture) + "_DESCRIPTION",
-                iconPath = Main.AssetPrefix + ":Assets/Achievements/" + nameNoToken + ".png",
+                achievedIcon = Main.AssetBundle.LoadAsset<Sprite>("Assets/Achievements/" + nameNoToken + ".png"),
                 type = trackerType,
                 serverTrackerType = serverTrackerType
             };
             registeredAchievements.Add(this);
-            OnAdd();
+            return achievementDef;
         }
 
-        public virtual void PreAdd() { }
-        public virtual void OnAdd() { }
+        public virtual void OnLoad() { }
 
         public static List<BaseAchievement> registeredAchievements = new List<BaseAchievement>();
 

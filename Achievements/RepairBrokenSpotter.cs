@@ -4,7 +4,7 @@ namespace MysticsItems.Achievements
 {
     public class RepairBrokenSpotter : BaseAchievement
     {
-        public override void PreAdd()
+        public override void OnLoad()
         {
             name = "RepairBrokenSpotter";
             unlockableName = Main.TokenPrefix + "Items.Spotter";

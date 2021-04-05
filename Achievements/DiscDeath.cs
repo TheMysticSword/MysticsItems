@@ -6,7 +6,7 @@ namespace MysticsItems.Achievements
 {
     public class DiscDeath : BaseAchievement
     {
-        public override void PreAdd()
+        public override void OnLoad()
         {
             name = "DiscDeath";
             unlockableName = Main.TokenPrefix + "Items.DasherDisc";
