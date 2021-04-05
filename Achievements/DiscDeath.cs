@@ -39,6 +39,12 @@ namespace MysticsItems.Achievements
 				SetServerTracked(true);
 			}
 
+			public override void OnUninstall()
+			{
+				SetServerTracked(false);
+				base.OnUninstall();
+			}
+
 			public class Server : RoR2.Achievements.BaseServerAchievement
 			{
 				public override void OnInstall()
