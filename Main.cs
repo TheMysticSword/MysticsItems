@@ -38,8 +38,6 @@ namespace MysticsItems
     {
         public const string TokenPrefix = MysticsItemsPlugin.PluginName + "_";
         
-        public const string AssetPrefix = "@" + MysticsItemsPlugin.PluginName;
-        public const string AssetPathRoot = "Assets/";
         public static AssetBundle AssetBundle = AssetBundle.LoadFromStream(Assembly.GetExecutingAssembly().GetManifestResourceStream("MysticsItems.mysticsitemsunityassetbundle"));
 
         internal const BindingFlags bindingFlagAll = (BindingFlags)(-1);
