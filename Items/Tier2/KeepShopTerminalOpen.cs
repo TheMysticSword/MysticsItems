@@ -19,7 +19,7 @@ namespace MysticsItems.Items
                 ItemTag.Utility,
                 ItemTag.AIBlacklist
             };
-            //SetUnlockable();
+            SetUnlockable();
 
             On.RoR2.MultiShopController.Awake += (orig, self) =>
             {
