@@ -279,8 +279,8 @@ namespace MysticsItems
                 CommandoRevolverDrum = new MysticsItems.Items.CommandoRevolverDrum().Load();
                 ArtificerNanobots = new MysticsItems.Items.ArtificerNanobots().Load();
                 */
-                KeepShopTerminalOpen = new MysticsItems.Items.KeepShopTerminalOpen().Load();
-                Moonglasses = new MysticsItems.Items.Moonglasses().Load();
+                //KeepShopTerminalOpen = new MysticsItems.Items.KeepShopTerminalOpen().Load();
+                //Moonglasses = new MysticsItems.Items.Moonglasses().Load();
                 itemDefs = MysticsItems.Items.BaseItem.loadedItems.ConvertAll(x => x.itemDef).ToArray();
             }
 
