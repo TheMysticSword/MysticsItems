@@ -135,8 +135,8 @@
     "ACHIEVEMENT_MYSTICSITEMS_FINDARCHAICMASK_NAME": "Burn to Kill",
     "ACHIEVEMENT_MYSTICSITEMS_FINDARCHAICMASK_DESCRIPTION": "Take the Legendary Mask on Scorched Acres before it cools off.",
 
-    "ACHIEVEMENT_MYSTICSITEMS_MULTISHOPTERMINALONLY_NAME": "Smart Shopper",
-    "ACHIEVEMENT_MYSTICSITEMS_MULTISHOPTERMINALONLY_DESCRIPTION": "Complete 5 stages purchasing only Multishop Terminals.",
+    "ACHIEVEMENT_MYSTICSITEMS_MULTISHOPTERMINALSONLY_NAME": "Smart Shopper",
+    "ACHIEVEMENT_MYSTICSITEMS_MULTISHOPTERMINALSONLY_DESCRIPTION": "Complete 5 stages purchasing only Multishop Terminals.",
 
     //[BODIES]
     "ARCHWISP_BODY_NAME": "Archaic Wisp",
@@ -306,8 +306,8 @@
     "ACHIEVEMENT_MYSTICSITEMS_FINDARCHAICMASK_NAME": "Сожжённый убивать",
     "ACHIEVEMENT_MYSTICSITEMS_FINDARCHAICMASK_DESCRIPTION": "Подберите легендарную маску в Выжженных акрах до того, как она остынет.",
 
-    "ACHIEVEMENT_MYSTICSITEMS_MULTISHOPTERMINALONLY_NAME": "Умный покупатель",
-    "ACHIEVEMENT_MYSTICSITEMS_MULTISHOPTERMINALONLY_DESCRIPTION": "Пройдите 5 этапов, совершая покупки только в многомагазинных терминалах.",
+    "ACHIEVEMENT_MYSTICSITEMS_MULTISHOPTERMINALSONLY_NAME": "Умный покупатель",
+    "ACHIEVEMENT_MYSTICSITEMS_MULTISHOPTERMINALSONLY_DESCRIPTION": "Пройдите 5 этапов, совершая покупки только в многомагазинных терминалах.",
 
     //[BODIES]
     "ARCHWISP_BODY_NAME": "Архаический сгусток",
