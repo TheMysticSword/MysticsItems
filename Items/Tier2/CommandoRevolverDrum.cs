@@ -226,7 +226,7 @@ namespace MysticsItems.Items
 					PlayAnimation("Gesture Additive, Right", "FirePistol, Right");
 				}
 				AddRecoil(-0.8f * recoilAmplitude, -1f * recoilAmplitude, -0.1f * recoilAmplitude, 0.15f * recoilAmplitude);
-				if (isAuthority)
+				if (isAuthority && NetworkServer.active)
 				{
 					new BulletAttack
 					{

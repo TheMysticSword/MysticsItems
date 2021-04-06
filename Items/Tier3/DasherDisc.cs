@@ -303,7 +303,7 @@ namespace MysticsItems.Items
                             }
                         }
 
-                        if (isAuthority) controller.body.AddBuff(buffActive);
+                        if (NetworkServer.active) controller.body.AddBuff(buffActive);
                     }
                 }
 
@@ -323,7 +323,7 @@ namespace MysticsItems.Items
                             }
                         }
 
-                        if (isAuthority)
+                        if (NetworkServer.active)
                         {
                             float cooldown = 60f;
                             Inventory inventory = controller.body.inventory;
