@@ -28,6 +28,9 @@ namespace MysticsItems.Items
             AddDisplayRule("HuntressBody", "Chest", new Vector3(0.115F, 0.122F, -0.102F), new Vector3(350.768F, 327.948F, 7.106F), new Vector3(0.045F, 0.045F, 0.045F));
             AddDisplayRule("HuntressBody", "Chest", new Vector3(0.074F, 0.012F, -0.058F), new Vector3(358.146F, 332.414F, 353.239F), new Vector3(0.045F, 0.045F, 0.045F));
             AddDisplayRule("HuntressBody", "Chest", new Vector3(0.117F, 0.229F, -0.108F), new Vector3(9.933F, 316.317F, 358.989F), new Vector3(0.045F, 0.045F, 0.045F));
+            AddDisplayRule("Bandit2Body", "Chest", new Vector3(0F, 0.279F, -0.168F), new Vector3(27.306F, 0F, 0F), new Vector3(0.058F, 0.058F, 0.058F));
+            AddDisplayRule("Bandit2Body", "Chest", new Vector3(-0.014F, 0.131F, -0.181F), new Vector3(352.289F, 2.586F, 355.357F), new Vector3(0.058F, 0.058F, 0.058F));
+            AddDisplayRule("Bandit2Body", "Chest", new Vector3(-0.025F, -0.02F, -0.144F), new Vector3(334.898F, 4.122F, 354.918F), new Vector3(0.058F, 0.058F, 0.058F));
             AddDisplayRule("ToolbotBody", "Chest", new Vector3(0.057F, 0.562F, -1.819F), new Vector3(0F, 0F, 0F), new Vector3(0.448F, 0.448F, 0.448F));
             AddDisplayRule("ToolbotBody", "Chest", new Vector3(0.057F + 1.128F, 0.562F, -1.819F), new Vector3(0F, 0F, 0F), new Vector3(0.448F, 0.448F, 0.448F));
             AddDisplayRule("ToolbotBody", "Chest", new Vector3(0.057F - 1.128F, 0.562F, -1.819F), new Vector3(0F, 0F, 0F), new Vector3(0.448F, 0.448F, 0.448F));

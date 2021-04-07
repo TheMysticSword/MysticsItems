@@ -29,6 +29,7 @@ namespace MysticsItems.Equipment
             SetModelPanelDistance(5f, 10f);
             AddDisplayRule("CommandoBody", "Stomach", new Vector3(-0.163F, 0.092F, -0.036F), new Vector3(356.022F, 118.071F, 26.4F), new Vector3(0.024F, 0.024F, 0.024F));
             AddDisplayRule("HuntressBody", "Pelvis", new Vector3(-0.088F, -0.085F, 0.059F), new Vector3(0.679F, 36.762F, 196.086F), new Vector3(0.019F, 0.019F, 0.019F));
+            AddDisplayRule("Bandit2Body", "Stomach", new Vector3(0.129F, 0.025F, -0.111F), new Vector3(316.052F, 250.792F, 338.145F), new Vector3(0.038F, 0.038F, 0.038F));
             AddDisplayRule("ToolbotBody", "Hip", new Vector3(-1.202F, 0.577F, -0.876F), new Vector3(0F, 180F, 180F), new Vector3(0.349F, 0.349F, 0.349F));
             AddDisplayRule("EngiBody", "Pelvis", new Vector3(-0.178F, 0.078F, 0.157F), new Vector3(11.745F, 186.295F, 185.936F), new Vector3(0.047F, 0.047F, 0.047F));
             AddDisplayRule("MageBody", "Pelvis", new Vector3(-0.172F, -0.067F, -0.078F), new Vector3(7.421F, 5.596F, 187.29F), new Vector3(0.027F, 0.027F, 0.027F));

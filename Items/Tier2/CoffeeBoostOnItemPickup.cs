@@ -41,6 +41,7 @@ namespace MysticsItems.Items
 
             AddDisplayRule("CommandoBody", "HandR", new Vector3(-0.016F, 0.214F, -0.111F), new Vector3(33.043F, 10.378F, 286.615F), new Vector3(0.072F, 0.072F, 0.072F));
             AddDisplayRule("HuntressBody", "Muzzle", new Vector3(-0.397F, -0.017F, -0.251F), new Vector3(0.509F, 134.442F, 184.268F), new Vector3(0.037F, 0.037F, 0.037F));
+            AddDisplayRule("Bandit2Body", "MuzzleShotgun", new Vector3(-0.006F, 0.103F, -0.765F), new Vector3(46.857F, 3.395F, 94.648F), new Vector3(0.065F, 0.065F, 0.065F));
             AddDisplayRule("ToolbotBody", "Chest", new Vector3(-0.925F, 2.116F, 2.185F), new Vector3(0F, 324.78F, 0F), new Vector3(0.448F, 0.448F, 0.448F));
             AddDisplayRule("EngiBody", "HandR", new Vector3(0.014F, 0.165F, 0.065F), new Vector3(21.189F, 152.963F, 68.785F), new Vector3(0.072F, 0.072F, 0.072F));
             AddDisplayRule("MageBody", "HandR", new Vector3(-0.098F, -0.054F, -0.102F), new Vector3(15.816F, 19.399F, 81.6F), new Vector3(0.059F, 0.059F, 0.059F));

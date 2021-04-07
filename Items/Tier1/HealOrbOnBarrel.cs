@@ -31,6 +31,7 @@ namespace MysticsItems.Items
             CopyModelToFollower();
             AddDisplayRule("CommandoBody", "Head", new Vector3(0f, 0.35f, 0f), new Vector3(0f, 180f, 0f), new Vector3(0.15f, 0.15f, 0.15f));
             AddDisplayRule("HuntressBody", "Head", new Vector3(0F, 0.302F, -0.049F), new Vector3(0F, 180F, 0F), new Vector3(0.12F, 0.12F, 0.12F));
+            AddDisplayRule("Bandit2Body", "Hat", new Vector3(0F, 0.055F, -0.016F), new Vector3(336.039F, 0F, 0F), new Vector3(0.209F, 0.209F, 0.209F));
             AddDisplayRule("ToolbotBody", "Head", new Vector3(0.053F, 2.57F, 1.265F), new Vector3(55.266F, 359.983F, 0.119F), new Vector3(1.5F, 1.5F, 1.5F));
             AddDisplayRule("EngiBody", "HeadCenter", new Vector3(0F, 0.131F, -0.014F), new Vector3(356.315F, 0.001F, 359.976F), new Vector3(0.175F, 0.175F, 0.175F));
             AddDisplayRule("EngiTurretBody", "Head", new Vector3(0F, 0.548F, 0F), new Vector3(0F, 180F, 0F), new Vector3(1.447F, 1.447F, 1.447F));

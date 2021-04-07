@@ -33,6 +33,7 @@ namespace MysticsItems.Items
             SetModelPanelDistance(2f, 6f);
             AddDisplayRule("CommandoBody", "Head", new Vector3(0.1f, 0.25f, 0.15f), new Vector3(20f, 210f, 0f), new Vector3(0.06f, 0.06f, 0.06f));
             AddDisplayRule("HuntressBody", "Head", new Vector3(-0.0009F, 0.2635F, 0.1117F), new Vector3(0F, 180F, 0F), new Vector3(0.03F, 0.03F, 0.03F));
+            AddDisplayRule("Bandit2Body", "Head", new Vector3(0F, 0.057F, 0.135F), new Vector3(0F, 180F, 180F), new Vector3(0.028F, 0.028F, 0.028F));
             AddDisplayRule("ToolbotBody", "Head", new Vector3(0.409F, 3.049F, -1.067F), new Vector3(60F, 0F, 180F), new Vector3(0.3F, 0.3F, 0.3F));
             AddDisplayRule("EngiBody", "HeadCenter", new Vector3(0.098F, 0.019F, 0.127F), new Vector3(1.506F, 213.327F, 354.045F), new Vector3(0.029F, 0.029F, 0.029F));
             AddDisplayRule("EngiTurretBody", "Head", new Vector3(0.005F, 0.525F, 2.043F), new Vector3(0F, 180F, 0F), new Vector3(0.108F, 0.083F, 0.083F));

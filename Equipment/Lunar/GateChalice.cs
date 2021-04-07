@@ -52,6 +52,7 @@ namespace MysticsItems.Equipment
             CopyModelToFollower();
             AddDisplayRule("CommandoBody", "Stomach", new Vector3(-0.09F, 0.1F, -0.102F), new Vector3(5.862F, 140.357F, 1.915F), new Vector3(0.059F, 0.059F, 0.059F));
             AddDisplayRule("HuntressBody", "Pelvis", new Vector3(-0.082F, -0.111F, 0.085F), new Vector3(0.679F, 36.762F, 188.148F), new Vector3(0.047F, 0.047F, 0.048F));
+            AddDisplayRule("Bandit2Body", "Stomach", new Vector3(-0.096F, 0.027F, -0.151F), new Vector3(337.162F, 337.663F, 11.532F), new Vector3(0.04F, 0.04F, 0.04F));
             AddDisplayRule("ToolbotBody", "Hip", new Vector3(-1.239F, 0.577F, -1.044F), new Vector3(0F, 180F, 180F), new Vector3(0.349F, 0.349F, 0.349F));
             AddDisplayRule("EngiBody", "Pelvis", new Vector3(-0.178F, 0.078F, 0.157F), new Vector3(11.745F, 186.295F, 185.936F), new Vector3(0.047F, 0.047F, 0.047F));
             AddDisplayRule("MageBody", "Pelvis", new Vector3(-0.128F, -0.131F, 0.024F), new Vector3(6.286F, 3.408F, 167.572F), new Vector3(0.044F, 0.044F, 0.044F));
