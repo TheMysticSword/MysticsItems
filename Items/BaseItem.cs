@@ -215,13 +215,16 @@ namespace MysticsItems.Items
                     foreach (MysticsItemsDisplayRules displayRules in displayRulesList.Value)
                     {
                         BaseItem item = displayRules.baseItem;
-                        idrs.SetDisplayRuleGroup(item.itemDef, new DisplayRuleGroup { rules = displayRules.displayRules.ToArray() });
+                        Object keyAsset;
+                        if (item as Equipment.BaseEquipment != null) keyAsset = (item as Equipment.BaseEquipment).equipmentDef;
+                        else keyAsset = item.itemDef;
+                        idrs.SetDisplayRuleGroup(keyAsset, new DisplayRuleGroup { rules = displayRules.displayRules.ToArray() });
                     }
                     idrs.InvokeMethod("GenerateRuntimeValues");
                 }
                 else
                 {
-                    Main.logger.LogError("Body " + bodyName + " not found, referenced by " + displayRulesList.Value.First().baseItem.itemDef.name);
+                    Main.logger.LogError("Body " + bodyName + " not found");
                 }
             }
         }
