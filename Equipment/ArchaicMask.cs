@@ -162,7 +162,6 @@ namespace MysticsItems.Equipment
         public class MysticsItemsArchaicMaskUnlockInteraction : NetworkBehaviour, IInteractable
         {
             public string contextString = Main.TokenPrefix.ToUpper() + "ARCHAICMASK_CONTEXT";
-            public static EquipmentDef equipmentDef = MysticsItemsContent.Equipment.ArchaicMask;
             public int lockTime = 600;
             public int minFadeTime = 590;
             public GameObject effects;
@@ -192,8 +191,8 @@ namespace MysticsItems.Equipment
                     if (OnUnlock != null) OnUnlock(activator);
 
                     EquipmentIndex currentEquipmentIndex = inventory.currentEquipmentIndex;
-                    inventory.SetEquipmentIndex(equipmentDef.equipmentIndex);
-                    typeof(GenericPickupController).InvokeMethod("SendPickupMessage", inventory.GetComponent<CharacterMaster>(), PickupCatalog.FindPickupIndex(equipmentDef.equipmentIndex));
+                    inventory.SetEquipmentIndex(MysticsItemsContent.Equipment.ArchaicMask.equipmentIndex);
+                    typeof(GenericPickupController).InvokeMethod("SendPickupMessage", inventory.GetComponent<CharacterMaster>(), PickupCatalog.FindPickupIndex(MysticsItemsContent.Equipment.ArchaicMask.equipmentIndex));
 
                     GameObject forcedPickup = Object.Instantiate(forcedPickupPrefab, transform.position, transform.rotation);
                     forcedPickup.GetComponent<MysticsItemsArchaicMaskForcedPickup>().pickupIndex = PickupCatalog.FindPickupIndex(currentEquipmentIndex);
