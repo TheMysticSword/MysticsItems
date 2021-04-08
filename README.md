@@ -4,10 +4,12 @@ Adds 20 new items, with plenty more to come!
 ![](https://i.imgur.com/WYCK8vE.gif)  
 ![](https://i.imgur.com/GZ1eiSK.png)  
 
-### Manual install notes
-This mod requires [R2API](https://thunderstore.io/package/tristanmcpherson/R2API/) and [MMHOOK Standalone](https://thunderstore.io/package/XoXFaby/MMHOOK_Standalone/)  
+### Important notes
+#### Manual installation
+This mod requires [R2API](https://thunderstore.io/package/tristanmcpherson/R2API/)  
 Put both `MysticsItemsPlugin.dll` and `MysticsItemsStrings.json` in the plugins folder.  
-If you have a `MysticsItems.language` file, then delete it, because it causes issues with strings failing to load for other mods.
+#### Multiplayer
+Make sure that your config matches with the configs of other players in the lobby.
 
 ### Console commands
 `mysticsitems_grantall` - grants all achievements  
@@ -18,10 +20,6 @@ If you have a general suggestion or a bug report, please make an issue about it 
 Before creating a new issue, please make sure that a similar one hasn't already been created. You can also check the Milestones tab to see the progress on the next update and what bugs have already been fixed internally.
 If you want to suggest an idea for a new item, make a post on the Item Ideas discussion category: https://github.com/TheMysticSword/MysticsItems/discussions/categories/item-ideas
 
-### To-do
-* Character-specific items  
-* Missing logbook lore entries   
-
 ### Credits
 TheMysticSword - Coding  
 Marwan60 - Modelling  
@@ -31,6 +29,11 @@ Other sounds made with sfxia by rxi (https://rxi.itch.io/sfxia)
 ### Changelog
 #### 1.1.7:
 * Added item displays for the Bandit
+* Added config options for disabling specific items
+    * Notes regarding disabling challenge-locked items:
+        * Respective challenges will not be disabled
+        * Respective challenges will not be sorted with the other item challenges, and instead will be put at the end of the challenge list
+        * This might lead to assets required for completing the challenge not being loaded, preventing you from completing the challenge
 * Fixed Treasure Map and Timely Execution not working properly in multiplayer
 * Fixed Voltmeter not giving shield
 * Fixed a bug with the Logbook failing to load with the mod enabled
