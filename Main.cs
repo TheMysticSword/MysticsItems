@@ -26,10 +26,12 @@ namespace MysticsItems
         public const string PluginVersion = "1.1.7";
 
         internal static BepInEx.Logging.ManualLogSource logger;
+        internal static BepInEx.Configuration.ConfigFile config;
 
         public void Awake()
         {
             logger = Logger;
+            config = Config;
             Main.Init();
         }
     }
@@ -83,6 +85,8 @@ namespace MysticsItems
             ConCommandHelper.Load(declaringType.GetMethod("CCUnlockLogs", bindingFlagAll));
             ConCommandHelper.Load(declaringType.GetMethod("CCGrantAll", bindingFlagAll));
 
+            LanguageLoader.Load("MysticsItemsStrings.json");
+
             // Load the content pack
             On.RoR2.ContentManager.SetContentPacks += (orig, newContentPacks) =>
             {
@@ -93,8 +97,6 @@ namespace MysticsItems
 
         public static void PostGameLoad()
         {
-            LanguageLoader.Load("MysticsItemsStrings.json");
-
             Items.BaseItem.PostGameLoad();
             
             if (BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey(SoftDependencies.ItemStatsSoftDependency.PluginGUID)) SoftDependencies.ItemStatsSoftDependency.Init();

@@ -25,7 +25,7 @@ namespace MysticsItems.Items
         public static GameObject unlockInteractablePrefab;
         public static NetworkSoundEventDef repairSoundEventDef;
 
-        public override void OnLoad()
+        public override void PreLoad()
         {
             itemDef.name = "Spotter";
             itemDef.tier = ItemTier.Tier2;
@@ -34,6 +34,10 @@ namespace MysticsItems.Items
                 ItemTag.Damage
             };
             SetUnlockable();
+        }
+
+        public override void OnLoad()
+        {
             SetAssets("Spotter");
             Material mat = model.transform.Find("mdlSpotterBroken").gameObject.GetComponent<MeshRenderer>().sharedMaterial;
             Main.HopooShaderToMaterial.Standard.Apply(mat);

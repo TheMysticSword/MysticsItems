@@ -10,7 +10,7 @@ namespace MysticsItems.Items
     {
         public static GameObject visualEffect;
 
-        public override void OnLoad()
+        public override void PreLoad()
         {
             itemDef.name = "CoffeeBoostOnItemPickup";
             itemDef.tier = ItemTier.Tier2;
@@ -19,6 +19,10 @@ namespace MysticsItems.Items
                 ItemTag.Utility,
                 ItemTag.AIBlacklist
             };
+        }
+
+        public override void OnLoad()
+        {
             SetAssets("Coffee");
             Main.HopooShaderToMaterial.Standard.Gloss(model.transform.Find("Цилиндр").Find("Цилиндр.001").GetComponent<Renderer>().sharedMaterial, 0f);
             model.transform.Find("Цилиндр").Rotate(new Vector3(-30f, 0f, 0f), Space.Self);

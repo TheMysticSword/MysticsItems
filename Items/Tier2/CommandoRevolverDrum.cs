@@ -18,10 +18,14 @@ namespace MysticsItems.Items
         public static SkillFamily skillFamily;
 		public static SkillDef skillDef;
 
-        public override void OnLoad()
+        public override void PreLoad()
         {
 			itemDef.name = "CommandoRevolverDrum";
 			itemDef.tier = ItemTier.Tier2;
+		}
+
+        public override void OnLoad()
+        {
             SetAssets("Revolver Drum");
             AddDisplayRule("CommandoBody", "MuzzleLeft", new Vector3(-0.008F, -0.002F, -0.109F), new Vector3(273.148F, 265.817F, 5.331F), new Vector3(0.036F, 0.046F, 0.046F));
 			AddDisplayRule("CommandoBody", "MuzzleRight", new Vector3(-0.008F, -0.002F, -0.109F), new Vector3(273.148F, 265.817F, 5.331F), new Vector3(0.036F, 0.046F, 0.046F));

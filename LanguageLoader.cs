@@ -38,6 +38,16 @@ namespace MysticsItems
             }
         }
 
+        public static string GetLoadedStringByToken(string token)
+        {
+            string loadedString;
+            if (!stringsByToken[genericLanguageName].TryGetValue(token, out loadedString))
+            {
+                loadedString = token;
+            }
+            return loadedString;
+        }
+
         public static void Init()
         {
             On.RoR2.Language.GetLocalizedStringByToken += (orig, self, token) =>

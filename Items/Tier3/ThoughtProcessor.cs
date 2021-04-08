@@ -7,7 +7,7 @@ namespace MysticsItems.Items
 {
     public class ThoughtProcessor : BaseItem
     {
-        public override void OnLoad()
+        public override void PreLoad()
         {
             itemDef.name = "ThoughtProcessor";
             itemDef.tier = ItemTier.Tier3;
@@ -15,6 +15,10 @@ namespace MysticsItems.Items
             {
                 ItemTag.Utility
             };
+        }
+
+        public override void OnLoad()
+        {
             SetAssets("Thought Processor");
             model.AddComponent<MysticsItemsThoughtProcessorBladeSpin>();
             Material matThoughtProcessor = model.transform.Find("Base").gameObject.GetComponent<MeshRenderer>().sharedMaterial;

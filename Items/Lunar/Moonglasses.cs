@@ -1,21 +1,10 @@
 using RoR2;
-using RoR2.Navigation;
-using R2API;
-using R2API.Utils;
-using R2API.Networking;
-using R2API.Networking.Interfaces;
-using UnityEngine;
-using UnityEngine.Networking;
-using Mono.Cecil.Cil;
-using MonoMod.Cil;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace MysticsItems.Items
 {
     public class Moonglasses : BaseItem
     {
-        public override void OnLoad()
+        public override void PreLoad()
         {
             itemDef.name = "Moonglasses";
             itemDef.tier = ItemTier.Lunar;
@@ -23,7 +12,10 @@ namespace MysticsItems.Items
             {
                 ItemTag.Damage
             };
+        }
 
+        public override void OnLoad()
+        {
             GenericGameEvents.OnApplyDamageModifiers += MoonglassesCritModifier;
 
             // Apply the crit multiplier after all stats are calculated

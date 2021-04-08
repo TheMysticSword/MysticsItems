@@ -10,8 +10,8 @@ namespace MysticsItems.Items
     {
         public static float distance = 0.01f;
         public static GameObject visualEffect;
-        
-        public override void OnLoad()
+
+        public override void PreLoad()
         {
             itemDef.name = "BackArmor";
             itemDef.tier = ItemTier.Tier1;
@@ -19,6 +19,10 @@ namespace MysticsItems.Items
             {
                 ItemTag.Utility
             };
+        }
+
+        public override void OnLoad()
+        {
             SetAssets("Spine Implant");
             Main.HopooShaderToMaterial.Standard.Gloss(GetModelMaterial(), 0.5f, 10f);
             SetModelPanelDistance(3f, 6f);

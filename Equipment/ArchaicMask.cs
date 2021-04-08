@@ -18,13 +18,17 @@ namespace MysticsItems.Equipment
         public static GameObject unlockInteractablePrefab;
         public static GameObject forcedPickupPrefab;
 
-        public override void OnLoad()
+        public override void PreLoad()
         {
             equipmentDef.name = "ArchaicMask";
             equipmentDef.cooldown = 140f;
             equipmentDef.canDrop = true;
             equipmentDef.enigmaCompatible = true;
             SetUnlockable();
+        }
+
+        public override void OnLoad()
+        {
             SetAssets("Archaic Mask");
             SetScalableChildEffect("Mask/Effects/Point Light");
             SetScalableChildEffect("Mask/Effects/Fire");

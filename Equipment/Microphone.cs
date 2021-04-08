@@ -17,13 +17,16 @@ namespace MysticsItems.Equipment
         public static GameObject waveProjectile;
         public static BuffDef buffDef;
 
-        public override void OnLoad()
+        public override void PreLoad()
         {
             equipmentDef.name = "Microphone";
             equipmentDef.cooldown = 60f;
             equipmentDef.canDrop = true;
             equipmentDef.enigmaCompatible = true;
+        }
 
+        public override void OnLoad()
+        {
             SetAssets("Microphone");
             SetModelPanelDistance(5f, 15f);
             Main.HopooShaderToMaterial.Standard.Gloss(GetModelMaterial(), 1f, 15f);

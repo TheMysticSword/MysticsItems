@@ -12,7 +12,7 @@ namespace MysticsItems.Items
 {
     public class ExtraShrineUse : BaseItem
     {
-        public override void OnLoad()
+        public override void PreLoad()
         {
             itemDef.name = "ExtraShrineUse";
             itemDef.tier = ItemTier.Tier2;
@@ -22,6 +22,10 @@ namespace MysticsItems.Items
                 ItemTag.AIBlacklist,
                 ItemTag.CannotCopy
             };
+        }
+
+        public override void OnLoad()
+        {
             SetAssets("Hexahedral Monolith");
             Main.HopooShaderToMaterial.Standard.Gloss(GetModelMaterial());
             GetModelMaterial().SetFloat("_Smoothness", 0.5f);

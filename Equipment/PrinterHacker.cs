@@ -15,13 +15,16 @@ namespace MysticsItems.Equipment
     {
         public static GameObject crosshairPrefab;
 
-        public override void OnLoad()
+        public override void PreLoad()
         {
             equipmentDef.name = "PrinterHacker";
             equipmentDef.cooldown = 45f;
             equipmentDef.canDrop = true;
             equipmentDef.enigmaCompatible = true;
+        }
 
+        public override void OnLoad()
+        {
             SetAssets("Wirehack Wrench");
             Main.HopooShaderToMaterial.Standard.Gloss(GetModelMaterial(), 1f, 20f);
             CopyModelToFollower();

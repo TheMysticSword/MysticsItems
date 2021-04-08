@@ -13,7 +13,7 @@ namespace MysticsItems.Items
     {
         public static GameObject visualEffect;
 
-        public override void OnLoad()
+        public override void PreLoad()
         {
             itemDef.name = "Voltmeter";
             itemDef.tier = ItemTier.Tier3;
@@ -24,6 +24,10 @@ namespace MysticsItems.Items
                 ItemTag.AIBlacklist,
                 ItemTag.BrotherBlacklist
             };
+        }
+
+        public override void OnLoad()
+        {
             SetAssets("Voltmeter");
             Material matVoltmeterCoil = model.transform.Find("Цилиндр.001").GetComponent<MeshRenderer>().sharedMaterial;
             Main.HopooShaderToMaterial.Standard.Apply(matVoltmeterCoil);

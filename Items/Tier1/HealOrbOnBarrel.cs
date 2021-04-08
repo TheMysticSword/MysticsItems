@@ -9,7 +9,7 @@ namespace MysticsItems.Items
 {
     public class HealOrbOnBarrel : BaseItem
     {
-        public override void OnLoad()
+        public override void PreLoad()
         {
             itemDef.name = "HealOrbOnBarrel";
             itemDef.tier = ItemTier.Tier1;
@@ -19,6 +19,10 @@ namespace MysticsItems.Items
                 ItemTag.Utility,
                 ItemTag.AIBlacklist
             };
+        }
+
+        public override void OnLoad()
+        {
             SetAssets("Donut");
             foreach (Transform childTransform in model.transform.Find("Torus.001"))
             {

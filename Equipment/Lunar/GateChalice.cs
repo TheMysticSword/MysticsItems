@@ -16,7 +16,7 @@ namespace MysticsItems.Equipment
         public static GameObject visualEffectTeleportOut;
         public static GameObject sceneExitControllerObject;
 
-        public override void OnLoad()
+        public override void PreLoad()
         {
             equipmentDef.name = "GateChalice";
             equipmentDef.cooldown = 140f;
@@ -24,6 +24,10 @@ namespace MysticsItems.Equipment
             equipmentDef.enigmaCompatible = true;
             equipmentDef.isLunar = true;
             equipmentDef.colorIndex = ColorCatalog.ColorIndex.LunarItem;
+        }
+
+        public override void OnLoad()
+        {
             SetAssets("Gate Chalice");
             Material mat = model.transform.Find("mdlGateChalice").gameObject.GetComponent<MeshRenderer>().sharedMaterial;
             Main.HopooShaderToMaterial.Standard.Apply(mat);

@@ -23,7 +23,7 @@ namespace MysticsItems.Items
         public static Material ghostMaterial;
         public static NetworkSoundEventDef soundEventDef;
 
-        public override void OnLoad()
+        public override void PreLoad()
         {
             itemDef.name = "TreasureMap";
             itemDef.tier = ItemTier.Tier3;
@@ -33,6 +33,10 @@ namespace MysticsItems.Items
                 ItemTag.AIBlacklist,
                 ItemTag.CannotCopy
             };
+        }
+
+        public override void OnLoad()
+        {
             SetAssets("Treasure Map");
             SetModelPanelDistance(3f, 6f);
             AddDisplayRule("CommandoBody", "LowerArmR", new Vector3(-0.084F, 0.183F, -0.006F), new Vector3(83.186F, 36.557F, 131.348F), new Vector3(0.053F, 0.053F, 0.053F));

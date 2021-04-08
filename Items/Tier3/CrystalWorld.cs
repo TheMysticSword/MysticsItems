@@ -29,7 +29,7 @@ namespace MysticsItems.Items
 
         public static float freezeTime = 5f;
 
-        public override void OnLoad()
+        public override void PreLoad()
         {
             itemDef.name = "CrystalWorld";
             itemDef.tier = ItemTier.Tier3;
@@ -40,6 +40,10 @@ namespace MysticsItems.Items
                 ItemTag.AIBlacklist,
                 ItemTag.CannotCopy
             };
+        }
+
+        public override void OnLoad()
+        {
             SetAssets("Crystal World");
             model.AddComponent<CrystalWorldContainer>();
             CopyModelToFollower();

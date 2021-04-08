@@ -10,8 +10,8 @@ namespace MysticsItems.Items
 {
     public class AllyDeathRevenge : BaseItem
     {
-        public override void OnLoad()
-        {;
+        public override void PreLoad()
+        {
             itemDef.name = "AllyDeathRevenge";
             itemDef.tier = ItemTier.Tier2;
             itemDef.tags = new ItemTag[]
@@ -20,6 +20,10 @@ namespace MysticsItems.Items
                 ItemTag.Utility
             };
             SetUnlockable();
+        }
+
+        public override void OnLoad()
+        {
             SetAssets("Ally Death Revenge");
             SetModelPanelDistance(0.75f, 1.5f);
             CopyModelToFollower();

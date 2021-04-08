@@ -10,8 +10,8 @@ namespace MysticsItems.Items
 {
     public class KeepShopTerminalOpen : BaseItem
     {
-        public override void OnLoad()
-        {;
+        public override void PreLoad()
+        {
             itemDef.name = "KeepShopTerminalOpen";
             itemDef.tier = ItemTier.Tier2;
             itemDef.tags = new ItemTag[]
@@ -20,7 +20,10 @@ namespace MysticsItems.Items
                 ItemTag.AIBlacklist
             };
             SetUnlockable();
+        }
 
+        public override void OnLoad()
+        {
             On.RoR2.MultiShopController.Awake += (orig, self) =>
             {
                 orig(self);

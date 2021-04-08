@@ -15,7 +15,7 @@ namespace MysticsItems.Items
         public static BuffDef buffActive;
         public static BuffDef buffCooldown;
 
-        public override void OnLoad()
+        public override void PreLoad()
         {
             itemDef.name = "DasherDisc";
             itemDef.tier = ItemTier.Tier3;
@@ -24,6 +24,10 @@ namespace MysticsItems.Items
                 ItemTag.Utility
             };
             SetUnlockable();
+        }
+
+        public override void OnLoad()
+        {
             SetAssets("Dasher Disc");
             Material mat = model.transform.Find("mdlDasherDisc").GetComponent<MeshRenderer>().sharedMaterial;
             Main.HopooShaderToMaterial.Standard.Apply(mat);

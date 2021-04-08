@@ -17,15 +17,30 @@ namespace MysticsItems.Items
         public ItemDisplayRuleDict itemDisplayRuleDict = new ItemDisplayRuleDict();
         public static List<BaseItem> loadedItems = new List<BaseItem>();
 
-        public virtual void OnLoad() { }
+        public abstract void PreLoad(); // Always executed before loading
+        public abstract void OnLoad(); // Executed only if this item will be loaded
 
         public ItemDef Load()
         {
             itemDef = ScriptableObject.CreateInstance<ItemDef>();
-            OnLoad();
+            PreLoad();
+            bool disabledByConfig = MysticsItemsPlugin.config.Bind<bool>(
+                "Disable items",
+                itemDef.name,
+                false,
+                string.Format(
+                    "{0} - {1}",
+                    LanguageLoader.GetLoadedStringByToken("ITEM_" + (Main.TokenPrefix + itemDef.name).ToUpper() + "_NAME"),
+                    LanguageLoader.GetLoadedStringByToken("ITEM_" + (Main.TokenPrefix + itemDef.name).ToUpper() + "_PICKUP")
+                )
+            ).Value;
             itemDef.name = Main.TokenPrefix + itemDef.name;
             itemDef.AutoPopulateTokens();
-            loadedItems.Add(this);
+            if (!disabledByConfig)
+            {
+                OnLoad();
+                loadedItems.Add(this);
+            }
             return itemDef;
         }
 

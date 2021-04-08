@@ -20,7 +20,7 @@ namespace MysticsItems.Items
 
         public static GameObject particleSystemPrefab;
 
-        public override void OnLoad()
+        public override void PreLoad()
         {
             itemDef.name = "SpeedGivesDamage";
             itemDef.tier = ItemTier.Tier2;
@@ -28,6 +28,10 @@ namespace MysticsItems.Items
             {
                 ItemTag.Utility
             };
+        }
+
+        public override void OnLoad()
+        {
             SetAssets("Nuclear Accelerator");
             Main.HopooShaderToMaterial.Standard.Apply(GetModelMaterial());
             Main.HopooShaderToMaterial.Standard.Emission(GetModelMaterial());

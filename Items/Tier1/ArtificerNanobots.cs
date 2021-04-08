@@ -15,10 +15,14 @@ namespace MysticsItems.Items
     {
         public static List<GameObject> checkedProjectiles = new List<GameObject>();
 
-        public override void OnLoad()
+        public override void PreLoad()
         {
 			itemDef.name = "ArtificerNanobots";
 			itemDef.tier = ItemTier.Tier1;
+		}
+
+        public override void OnLoad()
+        {
             SetAssets("Proximity Nanobots");
 			Main.HopooShaderToMaterial.Standard.Emission(GetModelMaterial());
 			Main.HopooShaderToMaterial.Standard.Emission(GetFollowerModelMaterial());

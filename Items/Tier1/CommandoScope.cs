@@ -9,10 +9,14 @@ namespace MysticsItems.Items
 {
     public class CommandoScope : BaseItem
     {
-        public override void OnLoad()
+        public override void PreLoad()
         {
             itemDef.name = "CommandoScope";
             itemDef.tier = ItemTier.Tier1;
+        }
+
+        public override void OnLoad()
+        {
             SetAssets("Commando Scope");
             AddDisplayRule("CommandoBody", "MuzzleLeft", new Vector3(0.0617f, 0.0008f, -0.1063f), new Vector3(-80.871f, -161.934f, 69.76801f), new Vector3(0.023f, 0.023f, 0.023f));
             AddDisplayRule("CommandoBody", "MuzzleRight", new Vector3(0.0617f, 0.0008f, -0.1063f), new Vector3(-80.871f, -161.934f, 69.76801f), new Vector3(0.023f, 0.023f, 0.023f));

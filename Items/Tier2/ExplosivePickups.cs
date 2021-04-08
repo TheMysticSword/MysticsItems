@@ -13,7 +13,7 @@ namespace MysticsItems.Items
         public static GameObject gunpowderPickup;
         public static GameObject explosionPrefab;
 
-        public override void OnLoad()
+        public override void PreLoad()
         {
             itemDef.name = "ExplosivePickups";
             itemDef.tier = ItemTier.Tier2;
@@ -22,6 +22,10 @@ namespace MysticsItems.Items
                 ItemTag.Utility,
                 ItemTag.OnKillEffect
             };
+        }
+
+        public override void OnLoad()
+        {
             SetAssets("Contraband Gunpowder");
             Main.HopooShaderToMaterial.Standard.Apply(
                 model.transform.Find("мешок").Find("порох").GetComponent<MeshRenderer>().sharedMaterial,

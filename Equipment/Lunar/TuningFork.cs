@@ -15,7 +15,7 @@ namespace MysticsItems.Equipment
         public static GameObject visualEffect;
         public static float radius = 60f;
 
-        public override void OnLoad()
+        public override void PreLoad()
         {
             equipmentDef.name = "TuningFork";
             equipmentDef.cooldown = 20f;
@@ -23,7 +23,10 @@ namespace MysticsItems.Equipment
             equipmentDef.enigmaCompatible = true;
             equipmentDef.isLunar = true;
             equipmentDef.colorIndex = ColorCatalog.ColorIndex.LunarItem;
+        }
 
+        public override void OnLoad()
+        {
             SetAssets("Tuning Fork");
             model.transform.Find("mdlTuningFork").Rotate(new Vector3(0f, 0f, -45f), Space.Self);
 

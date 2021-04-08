@@ -19,7 +19,7 @@ namespace MysticsItems.Items
         public static InteractableSpawnCard riftChestSpawnCard;
         public static CostTypeIndex riftLensDebuffCostType;
 
-        public override void OnLoad()
+        public override void PreLoad()
         {
             itemDef.name = "RiftLens";
             itemDef.tier = ItemTier.Lunar;
@@ -29,6 +29,10 @@ namespace MysticsItems.Items
                 ItemTag.AIBlacklist,
                 ItemTag.CannotCopy
             };
+        }
+
+        public override void OnLoad()
+        {
             SetAssets("Rift Lens");
             SetModelPanelDistance(2f, 6f);
             AddDisplayRule("CommandoBody", "Head", new Vector3(0.1f, 0.25f, 0.15f), new Vector3(20f, 210f, 0f), new Vector3(0.06f, 0.06f, 0.06f));

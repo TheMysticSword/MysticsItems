@@ -11,7 +11,7 @@ namespace MysticsItems.Items
     {
         public static GameObject coinEffect;
 
-        public override void OnLoad()
+        public override void PreLoad()
         {
             itemDef.name = "ScratchTicket";
             itemDef.tier = ItemTier.Tier1;
@@ -21,6 +21,10 @@ namespace MysticsItems.Items
                 ItemTag.AIBlacklist,
                 ItemTag.CannotCopy
             };
+        }
+
+        public override void OnLoad()
+        {
             SetAssets("Scratch Ticket");
             SetModelPanelDistance(1f, 2f);
             Main.HopooShaderToMaterial.Standard.Gloss(GetModelMaterial(), 0.05f, 20f);

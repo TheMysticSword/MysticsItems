@@ -28,10 +28,24 @@ namespace MysticsItems.Equipment
         public new EquipmentDef Load()
         {
             equipmentDef = ScriptableObject.CreateInstance<EquipmentDef>();
-            OnLoad();
+            PreLoad();
+            bool disabledByConfig = MysticsItemsPlugin.config.Bind<bool>(
+                "Disable equipment",
+                equipmentDef.name,
+                false,
+                string.Format(
+                    "{0} - {1}",
+                    LanguageLoader.GetLoadedStringByToken("EQUIPMENT_" + (Main.TokenPrefix + equipmentDef.name).ToUpper() + "_NAME"),
+                    LanguageLoader.GetLoadedStringByToken("EQUIPMENT_" + (Main.TokenPrefix + equipmentDef.name).ToUpper() + "_PICKUP")
+                )
+            ).Value;
             equipmentDef.name = Main.TokenPrefix + equipmentDef.name;
             equipmentDef.AutoPopulateTokens();
-            loadedEquipment.Add(this);
+            if (!disabledByConfig)
+            {
+                OnLoad();
+                loadedEquipment.Add(this);
+            }
             return equipmentDef;
         }
 
