@@ -20,8 +20,7 @@ If you want to suggest an idea for a new item, make a post on the Item Ideas dis
 
 ### To-do
 * Character-specific items  
-* Missing logbook lore entries  
-* Bandit item displays  
+* Missing logbook lore entries   
 
 ### Credits
 TheMysticSword - Coding  
@@ -30,6 +29,12 @@ Tuning fork SFX for Ratio Equalizer provided by Martin Chappell (https://freesou
 Other sounds made with sfxia by rxi (https://rxi.itch.io/sfxia)  
   
 ### Changelog
+#### 1.1.7:
+* Added item displays for the Bandit
+* Fixed Treasure Map and Timely Execution not working properly in multiplayer
+* Fixed Voltmeter not giving shield
+* Fixed a bug with the Logbook failing to load with the mod enabled
+* Fixed Legendary Mask interactable not being pickable
 #### 1.1.6:
 * Fixed Treasure Map base charge time being 1s instead of 120s
 * Fixed Engineer being forced to place turrets for the rest of the stage once the special ability is used
