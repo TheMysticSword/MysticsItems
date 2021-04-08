@@ -36,6 +36,7 @@ namespace MysticsItems.Items
 
             AddDisplayRule("CommandoBody", "CalfR", new Vector3(0.01F, 0.221F, 0.091F), new Vector3(283.928F, 181.008F, 20.003F), new Vector3(0.039F, 0.039F, 0.039F));
             AddDisplayRule("HuntressBody", "CalfR", new Vector3(0.01F, 0.28F, 0.087F), new Vector3(295.556F, 204.302F, 333.758F), new Vector3(0.033F, 0.033F, 0.033F));
+            AddDisplayRule("Bandit2Body", "CalfR", new Vector3(0F, 0.354F, 0.06F), new Vector3(72.024F, 4.881F, 354.627F), new Vector3(0.039F, 0.039F, 0.039F));
             AddDisplayRule("ToolbotBody", "CalfR", new Vector3(0.037F, -0.291F, -0.267F), new Vector3(3.679F, 176.776F, 177.782F), new Vector3(0.495F, 0.495F, 0.495F));
             AddDisplayRule("EngiBody", "CannonHeadR", new Vector3(-0.185F, 0.279F, -0.044F), new Vector3(356.274F, 1.409F, 91.632F), new Vector3(0.052F, 0.093F, 0.052F));
             AddDisplayRule("EngiTurretBody", "LegBar3", new Vector3(0F, -0.013F, 0.071F), new Vector3(270.02F, 180F, 0F), new Vector3(0.211F, 0.211F, 0.211F));
