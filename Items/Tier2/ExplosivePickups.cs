@@ -12,6 +12,12 @@ namespace MysticsItems.Items
     {
         public static GameObject gunpowderPickup;
         public static GameObject explosionPrefab;
+        public static NetworkIdentity gunpowderNetID;
+
+        public override void OnPluginAwake()
+        {
+            gunpowderNetID = CustomUtils.GrabNetID();
+        }
 
         public override void PreLoad()
         {
@@ -93,8 +99,8 @@ namespace MysticsItems.Items
             gravitatePickup.acceleration = 5f;
             gravitatePickup.maxSpeed = 40f;
 
-            PrefabAPI.RegisterNetworkPrefab(gunpowderPickup);
-
+            CustomUtils.ReleaseNetID(gunpowderPickup, gunpowderNetID);
+            
             /*
             explosionPrefab = Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Contraband Gunpowder/Explosion.prefab");
             EffectComponent effectComponent = explosionPrefab.AddComponent<EffectComponent>();

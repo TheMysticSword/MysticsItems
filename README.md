@@ -27,6 +27,9 @@ Tuning fork SFX for Ratio Equalizer provided by Martin Chappell (https://freesou
 Other sounds made with sfxia by rxi (https://rxi.itch.io/sfxia)  
   
 ### Changelog
+#### 1.2.0:
+* Now works on game version 1.1.1.2
+* Fixed Timely Execution infinitely putting the owner in invincibility state
 #### 1.1.7:
 * Added item displays for the Bandit
 * Added config options for disabling specific items

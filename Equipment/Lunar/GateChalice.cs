@@ -15,6 +15,12 @@ namespace MysticsItems.Equipment
         public static GameObject visualEffectOnUse;
         public static GameObject visualEffectTeleportOut;
         public static GameObject sceneExitControllerObject;
+        public static NetworkIdentity sceneExitControllerNetID;
+
+        public override void OnPluginAwake()
+        {
+            sceneExitControllerNetID = CustomUtils.GrabNetID();
+        }
 
         public override void PreLoad()
         {
@@ -148,7 +154,7 @@ namespace MysticsItems.Equipment
 
             sceneExitControllerObject = PrefabAPI.InstantiateClone(new GameObject(), Main.TokenPrefix + "GateChaliceSceneExitControllerObject", false);
             sceneExitControllerObject.AddComponent<NetworkIdentity>();
-            PrefabAPI.RegisterNetworkPrefab(sceneExitControllerObject);
+            CustomUtils.ReleaseNetID(sceneExitControllerObject, sceneExitControllerNetID);
             SceneExitController sceneExitController = sceneExitControllerObject.AddComponent<SceneExitController>();
             sceneExitController.useRunNextStageScene = true;
             sceneExitControllerObject.AddComponent<MysticsItemsGateChaliceSceneExit>();

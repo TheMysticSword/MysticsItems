@@ -15,7 +15,13 @@ namespace MysticsItems.Equipment
     {
         public static GameObject wavePrefab;
         public static GameObject waveProjectile;
+        public static NetworkIdentity waveProjectileNetID;
         public static BuffDef buffDef;
+
+        public override void OnPluginAwake()
+        {
+            waveProjectileNetID = CustomUtils.GrabNetID();
+        }
 
         public override void PreLoad()
         {
@@ -89,7 +95,7 @@ namespace MysticsItems.Equipment
             ProjectileInflictTimedBuff projectileInflictTimedBuff = waveProjectile.AddComponent<ProjectileInflictTimedBuff>();
             projectileInflictTimedBuff.duration = 15f;
 
-            PrefabAPI.RegisterNetworkPrefab(waveProjectile);
+            CustomUtils.ReleaseNetID(waveProjectile, waveProjectileNetID);
             MysticsItemsContent.Resources.projectilePrefabs.Add(waveProjectile);
         }
 

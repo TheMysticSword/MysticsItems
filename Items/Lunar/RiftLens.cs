@@ -31,6 +31,11 @@ namespace MysticsItems.Items
             };
         }
 
+        public override void OnPluginAwake()
+        {
+            riftChest = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/NetworkedObjects/Lockbox"), Main.TokenPrefix + "RiftChest");
+        }
+
         public override void OnLoad()
         {
             SetAssets("Rift Lens");
@@ -51,7 +56,6 @@ namespace MysticsItems.Items
             AddDisplayRule("BrotherBody", "Head", BrotherInfection.blue, new Vector3(0.003F, -0.01F, 0.061F), new Vector3(349.888F, 70.121F, 339.729F), new Vector3(0.133F, 0.133F, 0.133F));
             AddDisplayRule("ScavBody", "Head", new Vector3(5.068F, 4.15F, -0.55F), new Vector3(46.576F, 301.45F, 310.155F), new Vector3(1.363F, 1.363F, 1.363F));
 
-            riftChest = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/NetworkedObjects/Lockbox"), Main.TokenPrefix + "RiftChest");
             RiftChest component = riftChest.AddComponent<RiftChest>();
             riftChest.GetComponent<SfxLocator>().openSound = "Play_env_riftchest_open";
             //replace tokens

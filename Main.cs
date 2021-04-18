@@ -11,6 +11,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Mono.Cecil.Cil;
 using MonoMod.Cil;
+using RoR2.ContentManagement;
+using System.Collections;
 
 namespace MysticsItems
 {
@@ -23,7 +25,7 @@ namespace MysticsItems
     {
         public const string PluginGUID = "com.themysticsword.mysticsitems";
         public const string PluginName = "MysticsItems";
-        public const string PluginVersion = "1.1.7";
+        public const string PluginVersion = "1.2.0";
 
         internal static BepInEx.Logging.ManualLogSource logger;
         internal static BepInEx.Configuration.ConfigFile config;
@@ -67,6 +69,7 @@ namespace MysticsItems
             //DebugTools.Init();
 
             Achievements.BaseAchievement.Init();
+            BaseItemLike.Init();
             CharacterStats.Init();
             ConCommandHelper.Init();
             //Items.CharacterItems.Init();
@@ -78,6 +81,10 @@ namespace MysticsItems
             PlainHologram.Init();
             StateSeralizerFix.Init();
 
+            MysticsItems.ContentManagement.ContentLoadHelper.PluginAwakeLoad<Items.BaseItem>();
+            MysticsItems.ContentManagement.ContentLoadHelper.PluginAwakeLoad<Equipment.BaseEquipment>();
+            MysticsItems.ContentManagement.ContentLoadHelper.PluginAwakeLoad<Buffs.BaseBuff>();
+
             //LaserTurret.Init();
             ShrineLegendary.Init();
 
@@ -88,16 +95,15 @@ namespace MysticsItems
             LanguageLoader.Load("MysticsItemsStrings.json");
 
             // Load the content pack
-            On.RoR2.ContentManager.SetContentPacks += (orig, newContentPacks) =>
+            ContentManager.collectContentPackProviders += (addContentPackProvider) =>
             {
-                newContentPacks.Add(new MysticsItemsContent());
-                orig(newContentPacks);
+                addContentPackProvider(new MysticsItemsContent());
             };
         }
 
         public static void PostGameLoad()
         {
-            Items.BaseItem.PostGameLoad();
+            BaseItemLike.PostGameLoad();
             
             if (BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey(SoftDependencies.ItemStatsSoftDependency.PluginGUID)) SoftDependencies.ItemStatsSoftDependency.Init();
         }
@@ -204,31 +210,106 @@ namespace MysticsItems
         }
     }
 
-    public class MysticsItemsContent : ContentPack
+    public class MysticsItemsContent : IContentPackProvider
     {
-        public MysticsItemsContent()
+        public string identifier
         {
-            Init();
-            bodyPrefabs = Resources.bodyPrefabs.ToArray();
-            masterPrefabs = Resources.masterPrefabs.ToArray();
-            projectilePrefabs = Resources.projectilePrefabs.ToArray();
-            effectDefs = Resources.effectPrefabs.ConvertAll(x => new EffectDef(x)).ToArray();
-            networkSoundEventDefs = Resources.networkSoundEventDefs.ToArray();
-            unlockableDefs = Resources.unlockableDefs.ToArray();
-            entityStateTypes = Resources.entityStateTypes.ToArray();
-            skillDefs = Resources.skillDefs.ToArray();
-            itemDefs = Items.itemDefs;
-            equipmentDefs = Equipment.equipmentDefs;
-            buffDefs = Buffs.buffDefs;
+            get
+            {
+                return MysticsItemsPlugin.PluginName;
+            }
         }
 
-        public static void Init()
+        public IEnumerator LoadStaticContentAsync(LoadStaticContentAsyncArgs args)
         {
-            Items.Load();
-            Equipment.Load();
-            Buffs.Load();
-            Achievements.Load();
+            contentPack.identifier = identifier;
+            MysticsItems.ContentManagement.ContentLoadHelper contentLoadHelper = new MysticsItems.ContentManagement.ContentLoadHelper();
+            System.Action[] loadDispatchers = new System.Action[]
+            {
+                () =>
+                {
+                    contentLoadHelper.DispatchLoad<ItemDef>(typeof(MysticsItems.Items.BaseItem), x => contentPack.itemDefs.Add(x));
+                },
+                () =>
+                {
+                    contentLoadHelper.DispatchLoad<EquipmentDef>(typeof(MysticsItems.Equipment.BaseEquipment), x => contentPack.equipmentDefs.Add(x));
+                },
+                () =>
+                {
+                    contentLoadHelper.DispatchLoad<BuffDef>(typeof(MysticsItems.Buffs.BaseBuff), x => contentPack.buffDefs.Add(x));
+                },
+                () =>
+                {
+                    contentLoadHelper.DispatchLoad<AchievementDef>(typeof(MysticsItems.Achievements.BaseAchievement), null);
+                }
+            };
+            int num;
+            for (int i = 0; i < loadDispatchers.Length; i = num)
+            {
+                loadDispatchers[i]();
+                args.ReportProgress(Util.Remap((float)(i + 1), 0f, (float)loadDispatchers.Length, 0f, 0.05f));
+                yield return null;
+                num = i + 1;
+            }
+            while (contentLoadHelper.coroutine.MoveNext())
+            {
+                args.ReportProgress(Util.Remap(contentLoadHelper.progress.value, 0f, 1f, 0.05f, 0.95f));
+                yield return contentLoadHelper.coroutine.Current;
+            }
+            loadDispatchers = new System.Action[]
+            {
+                () =>
+                {
+                    ContentLoadHelper.PopulateTypeFields<ItemDef>(typeof(Items), contentPack.itemDefs);
+                    MysticsItems.ContentManagement.ContentLoadHelper.AddModPrefixToAssets<ItemDef>(contentPack.itemDefs);
+                },
+                () =>
+                {
+                    ContentLoadHelper.PopulateTypeFields<EquipmentDef>(typeof(Equipment), contentPack.equipmentDefs);
+                    MysticsItems.ContentManagement.ContentLoadHelper.AddModPrefixToAssets<EquipmentDef>(contentPack.equipmentDefs);
+                },
+                () =>
+                {
+                    ContentLoadHelper.PopulateTypeFields<BuffDef>(typeof(Buffs), contentPack.buffDefs);
+                    MysticsItems.ContentManagement.ContentLoadHelper.AddModPrefixToAssets<BuffDef>(contentPack.buffDefs);
+                },
+                () =>
+                {
+                    contentPack.bodyPrefabs.Add(Resources.bodyPrefabs.ToArray());
+                    contentPack.masterPrefabs.Add(Resources.masterPrefabs.ToArray());
+                    contentPack.projectilePrefabs.Add(Resources.projectilePrefabs.ToArray());
+                    contentPack.effectDefs.Add(Resources.effectPrefabs.ConvertAll(x => new EffectDef(x)).ToArray());
+                    contentPack.networkSoundEventDefs.Add(Resources.networkSoundEventDefs.ToArray());
+                    contentPack.unlockableDefs.Add(Resources.unlockableDefs.ToArray());
+                    contentPack.entityStateTypes.Add(Resources.entityStateTypes.ToArray());
+                    contentPack.skillDefs.Add(Resources.skillDefs.ToArray());
+                }
+            };
+            for (int i = 0; i < loadDispatchers.Length; i = num)
+            {
+                loadDispatchers[i]();
+                args.ReportProgress(Util.Remap((float)(i + 1), 0f, (float)loadDispatchers.Length, 0.95f, 0.99f));
+                yield return null;
+                num = i + 1;
+            }
+            loadDispatchers = null;
+            yield break;
         }
+
+        public IEnumerator GenerateContentPackAsync(GetContentPackAsyncArgs args)
+        {
+            ContentPack.Copy(contentPack, args.output);
+            args.ReportProgress(1f);
+            yield break;
+        }
+
+        public IEnumerator FinalizeAsync(FinalizeAsyncArgs args)
+        {
+            args.ReportProgress(1f);
+            yield break;
+        }
+
+        private ContentPack contentPack = new ContentPack();
 
         public static class Resources
         {
@@ -244,111 +325,40 @@ namespace MysticsItems
 
         public static class Items
         {
-            public static void Load()
-            {
-                HealOrbOnBarrel = new MysticsItems.Items.HealOrbOnBarrel().Load();
-                ScratchTicket = new MysticsItems.Items.ScratchTicket().Load();
-                BackArmor = new MysticsItems.Items.BackArmor().Load();
-                CoffeeBoostOnItemPickup = new MysticsItems.Items.CoffeeBoostOnItemPickup().Load();
-                ExplosivePickups = new MysticsItems.Items.ExplosivePickups().Load();
-                AllyDeathRevenge = new MysticsItems.Items.AllyDeathRevenge().Load();
-                Spotter = new MysticsItems.Items.Spotter().Load();
-                SpeedGivesDamage = new MysticsItems.Items.SpeedGivesDamage().Load();
-                ExtraShrineUse = new MysticsItems.Items.ExtraShrineUse().Load();
-                Voltmeter = new MysticsItems.Items.Voltmeter().Load();
-                ThoughtProcessor = new MysticsItems.Items.ThoughtProcessor().Load();
-                CrystalWorld = new MysticsItems.Items.CrystalWorld().Load();
-                DasherDisc = new MysticsItems.Items.DasherDisc().Load();
-                TreasureMap = new MysticsItems.Items.TreasureMap().Load();
-                RiftLens = new MysticsItems.Items.RiftLens().Load();
-                /*
-                CommandoScope = new MysticsItems.Items.CommandoScope().Load();
-                CommandoRevolverDrum = new MysticsItems.Items.CommandoRevolverDrum().Load();
-                ArtificerNanobots = new MysticsItems.Items.ArtificerNanobots().Load();
-                */
-                //KeepShopTerminalOpen = new MysticsItems.Items.KeepShopTerminalOpen().Load();
-                //Moonglasses = new MysticsItems.Items.Moonglasses().Load();
-                itemDefs = MysticsItems.Items.BaseItem.loadedItems.ConvertAll(x => x.itemDef).ToArray();
-            }
-
-            public static ItemDef[] itemDefs;
-
-            public static ItemDef HealOrbOnBarrel;
-            public static ItemDef ScratchTicket;
+            public static ItemDef AllyDeathRevenge;
+            public static ItemDef ArtificerNanobots;
             public static ItemDef BackArmor;
             public static ItemDef CoffeeBoostOnItemPickup;
-            public static ItemDef ExplosivePickups;
-            public static ItemDef AllyDeathRevenge;
-            public static ItemDef Spotter;
-            public static ItemDef SpeedGivesDamage;
-            public static ItemDef ExtraShrineUse;
-            public static ItemDef Voltmeter;
-            public static ItemDef ThoughtProcessor;
+            public static ItemDef CommandoRevolverDrum;
+            public static ItemDef CommandoScope;
             public static ItemDef CrystalWorld;
             public static ItemDef DasherDisc;
-            public static ItemDef TreasureMap;
-            public static ItemDef RiftLens;
-            public static ItemDef CommandoScope;
-            public static ItemDef CommandoRevolverDrum;
-            public static ItemDef ArtificerNanobots;
+            public static ItemDef ExplosivePickups;
+            public static ItemDef ExtraShrineUse;
+            public static ItemDef HealOrbOnBarrel;
             public static ItemDef KeepShopTerminalOpen;
+            public static ItemDef KeepShopTerminalOpenConsumed;
             public static ItemDef Moonglasses;
+            public static ItemDef RiftLens;
+            public static ItemDef ScratchTicket;
+            public static ItemDef SpeedGivesDamage;
+            public static ItemDef Spotter;
+            public static ItemDef ThoughtProcessor;
+            public static ItemDef TreasureMap;
+            public static ItemDef Voltmeter;
         }
 
         public static class Equipment
         {
-            public static void Load()
-            {
-                ArchaicMask = new MysticsItems.Equipment.ArchaicMask().Load();
-                PrinterHacker = new MysticsItems.Equipment.PrinterHacker().Load();
-                Microphone = new MysticsItems.Equipment.Microphone().Load();
-                GateChalice = new MysticsItems.Equipment.GateChalice().Load();
-                TuningFork = new MysticsItems.Equipment.TuningFork().Load();
-                equipmentDefs = MysticsItems.Equipment.BaseEquipment.loadedEquipment.ConvertAll(x => x.equipmentDef).ToArray();
-            }
-
-            public static EquipmentDef[] equipmentDefs;
-
             public static EquipmentDef ArchaicMask;
-            public static EquipmentDef PrinterHacker;
-            public static EquipmentDef Microphone;
             public static EquipmentDef GateChalice;
+            public static EquipmentDef Microphone;
+            public static EquipmentDef PrinterHacker;
             public static EquipmentDef TuningFork;
         }
 
         public static class Buffs
         {
-            public static void Load()
-            {
-                AllyDeathRevenge = new MysticsItems.Buffs.AllyDeathRevenge().Load();
-                CoffeeBoost = new MysticsItems.Buffs.CoffeeBoost().Load();
-                DasherDiscActive = new MysticsItems.Buffs.DasherDiscActive().Load();
-                DasherDiscCooldown = new MysticsItems.Buffs.DasherDiscCooldown().Load();
-                Deafened = new MysticsItems.Buffs.Deafened().Load();
-                GateChalice = new MysticsItems.Buffs.GateChalice().Load();
-                RiftLens = new MysticsItems.Buffs.RiftLens().Load();
-                SpeedGivesDamage = new MysticsItems.Buffs.SpeedGivesDamage().Load();
-                SpotterMarked = new MysticsItems.Buffs.SpotterMarked().Load();
-                buffDefs = MysticsItems.Buffs.BaseBuff.loadedBuffs.ConvertAll(x => x.buffDef).ToArray();
-
-                // Temporary fix for BuffCatalog loading buffdefs from the wrong place
-                IL.RoR2.BuffCatalog.Init += (il) =>
-                {
-                    ILCursor c = new ILCursor(il);
-
-                    if (!c.Next.MatchLdsfld(typeof(RoR2Content.Buffs), nameof(RoR2Content.Buffs.buffDefs)))
-                    {
-                        Main.logger.LogMessage("Another mod has already fixed BuffCatalog or the game has updated, skipping...");
-                        return;
-                    }
-
-                    c.Remove();
-                    c.Emit(OpCodes.Ldsfld, typeof(ContentManager).GetField(nameof(ContentManager.buffDefs)));
-                };
-            }
-
-            public static BuffDef[] buffDefs;
-
             public static BuffDef AllyDeathRevenge;
             public static BuffDef CoffeeBoost;
             public static BuffDef DasherDiscActive;
@@ -362,22 +372,11 @@ namespace MysticsItems
 
         public static class Achievements
         {
-            public static void Load()
-            {
-                EscapeMoonAlone = new MysticsItems.Achievements.EscapeMoonAlone().Load();
-                FindArchaicMask = new MysticsItems.Achievements.FindArchaicMask().Load();
-                DiscDeath = new MysticsItems.Achievements.DiscDeath().Load();
-                RepairBrokenSpotter = new MysticsItems.Achievements.RepairBrokenSpotter().Load();
-                //MultishopTerminalsOnly = new MysticsItems.Achievements.MultishopTerminalsOnly().Load();
-            }
-
-            public static AchievementDef[] achievementDefs;
-
+            public static AchievementDef DiscDeath;
             public static AchievementDef EscapeMoonAlone;
             public static AchievementDef FindArchaicMask;
-            public static AchievementDef DiscDeath;
-            public static AchievementDef RepairBrokenSpotter;
             public static AchievementDef MultishopTerminalsOnly;
+            public static AchievementDef RepairBrokenSpotter;
         }
     }
 

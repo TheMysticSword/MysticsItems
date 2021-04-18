@@ -4,10 +4,11 @@ using System.Globalization;
 using Mono.Cecil.Cil;
 using MonoMod.Cil;
 using UnityEngine;
+using MysticsItems.ContentManagement;
 
 namespace MysticsItems.Achievements
 {
-    public abstract class BaseAchievement
+    public abstract class BaseAchievement : BaseLoadableAsset
     {
         public string name;
         public string unlockableName;
@@ -15,8 +16,9 @@ namespace MysticsItems.Achievements
         public System.Type trackerType;
         public System.Type serverTrackerType;
         public AchievementDef achievementDef;
+        public bool allowLoad = true;
 
-        public AchievementDef Load()
+        public override void Load()
         {
             OnLoad();
             string nameNoToken = name;
@@ -32,11 +34,9 @@ namespace MysticsItems.Achievements
                 type = trackerType,
                 serverTrackerType = serverTrackerType
             };
-            registeredAchievements.Add(this);
-            return achievementDef;
+            if (allowLoad) registeredAchievements.Add(this);
+            asset = achievementDef;
         }
-
-        public virtual void OnLoad() { }
 
         public static List<BaseAchievement> registeredAchievements = new List<BaseAchievement>();
 

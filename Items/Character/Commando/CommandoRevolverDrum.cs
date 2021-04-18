@@ -21,7 +21,7 @@ namespace MysticsItems.Items
         public override void PreLoad()
         {
 			itemDef.name = "CommandoRevolverDrum";
-			itemDef.tier = ItemTier.Tier2;
+			itemDef.tier = ItemTier.NoTier;
 		}
 
         public override void OnLoad()
@@ -41,7 +41,7 @@ namespace MysticsItems.Items
 				orig();
 
 				SkillDef skillDef = SkillCatalog.GetSkillDef(SkillCatalog.FindSkillIndexByName("Barrage"));
-				GenericSkill genericSkill = PrefabAPI.InstantiateClone(new GameObject(), "").AddComponent<GenericSkill>();
+				GenericSkill genericSkill = PrefabAPI.InstantiateClone(new GameObject(), "", false).AddComponent<GenericSkill>();
 				foreach (SkillFamily _skillFamily in SkillCatalog.allSkillFamilies)
 				{
 					SkillFamily.Variant matchingVariant = _skillFamily.variants.ToList().Find(x => x.skillDef == skillDef);

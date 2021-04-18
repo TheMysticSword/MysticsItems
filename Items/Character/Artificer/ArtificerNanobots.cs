@@ -18,7 +18,7 @@ namespace MysticsItems.Items
         public override void PreLoad()
         {
 			itemDef.name = "ArtificerNanobots";
-			itemDef.tier = ItemTier.Tier1;
+			itemDef.tier = ItemTier.NoTier;
 		}
 
         public override void OnLoad()

@@ -12,8 +12,12 @@ namespace MysticsItems.Items
     public class DasherDisc : BaseItem
     {
         public static GameObject controllerPrefab;
-        public static BuffDef buffActive;
-        public static BuffDef buffCooldown;
+        public static NetworkIdentity controllerNetID;
+
+        public override void OnPluginAwake()
+        {
+            controllerNetID = CustomUtils.GrabNetID();
+        }
 
         public override void PreLoad()
         {
@@ -54,8 +58,8 @@ namespace MysticsItems.Items
             component.follower = follower;
             component.disc = follower.transform.Find("mdlDasherDisc").gameObject;
             component.discSpinner = component.disc.GetComponent<MysticsItemsDasherDiscSpinner>();
-            PrefabAPI.RegisterNetworkPrefab(controllerPrefab);
-
+            CustomUtils.ReleaseNetID(controllerPrefab, controllerNetID);
+            
             MysticsItemsContent.Resources.entityStateTypes.Add(typeof(DiscBaseState));
             MysticsItemsContent.Resources.entityStateTypes.Add(typeof(DiscBaseState.Ready));
             MysticsItemsContent.Resources.entityStateTypes.Add(typeof(DiscBaseState.Trigger));
@@ -83,7 +87,7 @@ namespace MysticsItems.Items
                     c.Emit(OpCodes.Ldarg_1);
                     c.EmitDelegate<System.Action<HealthComponent, DamageInfo>>((healthComponent, damageInfo) =>
                     {
-                        if (healthComponent.body.HasBuff(buffActive)) damageInfo.rejected = true;
+                        if (healthComponent.body.HasBuff(MysticsItemsContent.Buffs.DasherDiscActive)) damageInfo.rejected = true;
                     });
                 }
             };
@@ -105,7 +109,7 @@ namespace MysticsItems.Items
                     {
                         if (characterModel.body && characterModel.visibility >= VisibilityLevel.Visible && !ignoreOverlays)
                         {
-                            if (characterModel.body.HasBuff(buffActive))
+                            if (characterModel.body.HasBuff(MysticsItemsContent.Buffs.DasherDiscActive))
                             {
                                 return CharacterModel.ghostMaterial;
                             }
@@ -115,8 +119,6 @@ namespace MysticsItems.Items
                     c.Emit(OpCodes.Stloc_0);
                 }
             };
-            buffActive = MysticsItemsContent.Buffs.DasherDiscActive;
-            buffCooldown = MysticsItemsContent.Buffs.DasherDiscCooldown;
         }
 
         public class MysticsItemsDasherDiscSpinner : MonoBehaviour
@@ -157,8 +159,8 @@ namespace MysticsItems.Items
                     if (controller) Object.Destroy(controller);
                     if (body)
                     {
-                        while (body.HasBuff(buffActive)) body.RemoveBuff(buffActive);
-                        while (body.HasBuff(buffCooldown)) body.ClearTimedBuffs(buffCooldown);
+                        while (body.HasBuff(MysticsItemsContent.Buffs.DasherDiscActive)) body.RemoveBuff(MysticsItemsContent.Buffs.DasherDiscActive);
+                        while (body.HasBuff(MysticsItemsContent.Buffs.DasherDiscCooldown)) body.ClearTimedBuffs(MysticsItemsContent.Buffs.DasherDiscCooldown);
                     }
                 }
             }
@@ -241,7 +243,7 @@ namespace MysticsItems.Items
             {
                 if (controller.body)
                 {
-                    return !controller.body.HasBuff(buffCooldown);
+                    return !controller.body.HasBuff(MysticsItemsContent.Buffs.DasherDiscCooldown);
                 }
                 return false;
             }
@@ -307,7 +309,7 @@ namespace MysticsItems.Items
                             }
                         }
 
-                        if (NetworkServer.active) controller.body.AddBuff(buffActive);
+                        if (NetworkServer.active) controller.body.AddBuff(MysticsItemsContent.Buffs.DasherDiscActive);
                     }
                 }
 
@@ -338,10 +340,10 @@ namespace MysticsItems.Items
                             int cooldownSeconds = Mathf.CeilToInt(cooldown);
                             for (int i = 0; i < cooldownSeconds; i++)
                             {
-                                controller.body.AddTimedBuff(buffCooldown, cooldown / (float)cooldownSeconds * (i + 1));
+                                controller.body.AddTimedBuff(MysticsItemsContent.Buffs.DasherDiscCooldown, cooldown / (float)cooldownSeconds * (i + 1));
                             }
 
-                            if (controller.body.HasBuff(buffActive)) controller.body.RemoveBuff(buffActive);
+                            if (controller.body.HasBuff(MysticsItemsContent.Buffs.DasherDiscActive)) controller.body.RemoveBuff(MysticsItemsContent.Buffs.DasherDiscActive);
                         }
                     }
                 }

@@ -5,24 +5,22 @@ using System.Collections.Generic;
 using System.Linq;
 using Mono.Cecil.Cil;
 using MonoMod.Cil;
+using MysticsItems.ContentManagement;
 
 namespace MysticsItems.Buffs
 {
-    public abstract class BaseBuff
+    public abstract class BaseBuff : BaseLoadableAsset
     {
         public BuffDef buffDef;
         public static List<BaseBuff> loadedBuffs = new List<BaseBuff>();
 
-        public virtual void OnLoad() { }
-
-        public BuffDef Load()
+        public override void Load()
         {
             buffDef = ScriptableObject.CreateInstance<BuffDef>();
             OnLoad();
             buffDef.iconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Buffs/" + buffDef.name + ".png");
-            buffDef.name = Main.TokenPrefix + buffDef.name;
             loadedBuffs.Add(this);
-            return buffDef;
+            asset = buffDef;
         }
 
         private float StatModifierTimes(GenericGameEvents.GenericCharacterInfo genericCharacterInfo)

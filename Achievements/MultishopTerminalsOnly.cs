@@ -12,6 +12,7 @@ namespace MysticsItems.Achievements
             unlockableName = Main.TokenPrefix + "Items.KeepShopTerminalOpen";
 			trackerType = typeof(Tracker);
 			serverTrackerType = typeof(Tracker.Server);
+			allowLoad = false;
         }
 
         public class Tracker : RoR2.Achievements.BaseAchievement

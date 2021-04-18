@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace MysticsItems.Equipment
 {
-    public abstract class BaseEquipment : Items.BaseItem
+    public abstract class BaseEquipment : BaseItemLike
     {
         public EquipmentDef equipmentDef;
         public static List<BaseEquipment> loadedEquipment = new List<BaseEquipment>();
@@ -25,28 +25,34 @@ namespace MysticsItems.Equipment
             Custom
         }
 
-        public new EquipmentDef Load()
+        public override void Load()
         {
             equipmentDef = ScriptableObject.CreateInstance<EquipmentDef>();
             PreLoad();
-            bool disabledByConfig = MysticsItemsPlugin.config.Bind<bool>(
-                "Disable equipment",
-                equipmentDef.name,
-                false,
-                string.Format(
-                    "{0} - {1}",
-                    LanguageLoader.GetLoadedStringByToken("EQUIPMENT_" + (Main.TokenPrefix + equipmentDef.name).ToUpper() + "_NAME"),
-                    LanguageLoader.GetLoadedStringByToken("EQUIPMENT_" + (Main.TokenPrefix + equipmentDef.name).ToUpper() + "_PICKUP")
-                )
-            ).Value;
+            bool disabledByConfig = false;
+            if (equipmentDef.canDrop)
+            {
+                disabledByConfig = MysticsItemsPlugin.config.Bind<bool>(
+                    "Disable equipment",
+                    equipmentDef.name,
+                    false,
+                    string.Format(
+                        "{0} - {1}",
+                        LanguageLoader.GetLoadedStringByToken("EQUIPMENT_" + (Main.TokenPrefix + equipmentDef.name).ToUpper() + "_NAME"),
+                        LanguageLoader.GetLoadedStringByToken("EQUIPMENT_" + (Main.TokenPrefix + equipmentDef.name).ToUpper() + "_PICKUP")
+                    )
+                ).Value;
+            }
+            string name = equipmentDef.name;
             equipmentDef.name = Main.TokenPrefix + equipmentDef.name;
             equipmentDef.AutoPopulateTokens();
-            if (!disabledByConfig)
+            equipmentDef.name = name;
+            if (equipmentDef.canDrop && !disabledByConfig)
             {
                 OnLoad();
                 loadedEquipment.Add(this);
             }
-            return equipmentDef;
+            asset = equipmentDef;
         }
 
         public override void SetAssets(string assetName)
@@ -119,7 +125,7 @@ namespace MysticsItems.Equipment
             targetFinder.FilterOutGameObject(self.gameObject);
         }
 
-        public static void Init()
+        public new static void Init()
         {
             On.RoR2.EquipmentSlot.PerformEquipmentAction += (orig, self, equipmentDef2) =>
             {

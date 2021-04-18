@@ -19,9 +19,12 @@ namespace MysticsItems.Items
     public class TreasureMap : BaseItem
     {
         public static GameObject zonePrefab;
+        public static NetworkIdentity zoneNetID;
         public static SpawnCard zoneSpawnCard;
         public static Material ghostMaterial;
         public static NetworkSoundEventDef soundEventDef;
+        public static GameObject rewardPrefab;
+        public static InteractableSpawnCard rewardSpawnCard;
 
         public override void PreLoad()
         {
@@ -33,6 +36,13 @@ namespace MysticsItems.Items
                 ItemTag.AIBlacklist,
                 ItemTag.CannotCopy
             };
+        }
+
+        public override void OnPluginAwake()
+        {
+            rewardSpawnCard = Object.Instantiate(Resources.Load<InteractableSpawnCard>("SpawnCards/InteractableSpawnCard/iscGoldChest"));
+            rewardPrefab = PrefabAPI.InstantiateClone(rewardSpawnCard.prefab, Main.TokenPrefix + "TreasureMapReward");
+            zoneNetID = CustomUtils.GrabNetID();
         }
 
         public override void OnLoad()
@@ -71,9 +81,9 @@ namespace MysticsItems.Items
             holdoutZone.dischargeRate = 0f;
             MysticsItemsTreasureMapZone captureZone = zonePrefab.AddComponent<MysticsItemsTreasureMapZone>();
             captureZone.itemDef = itemDef;
-            captureZone.rewardSpawnCard = Object.Instantiate(Resources.Load<InteractableSpawnCard>("SpawnCards/InteractableSpawnCard/iscGoldChest"));
+            captureZone.rewardSpawnCard = rewardSpawnCard;
             captureZone.rewardSpawnCard.name = Main.TokenPrefix + "iscTreasureMapReward";
-            captureZone.rewardSpawnCard.prefab = PrefabAPI.InstantiateClone(captureZone.rewardSpawnCard.prefab, Main.TokenPrefix + "TreasureMapReward");
+            captureZone.rewardSpawnCard.prefab = rewardPrefab;
             captureZone.rewardSpawnCard.prefab.AddComponent<MysticsItemsTreasureMapReward>();
             HologramProjector hologramProjector = zonePrefab.AddComponent<HologramProjector>();
             hologramProjector.displayDistance = holdoutZone.baseRadius;
@@ -95,8 +105,8 @@ namespace MysticsItems.Items
                 return orig(self);
             };
 
-            PrefabAPI.RegisterNetworkPrefab(zonePrefab);
-
+            CustomUtils.ReleaseNetID(zonePrefab, zoneNetID);
+            
             zoneSpawnCard = ScriptableObject.CreateInstance<SpawnCard>();
             zoneSpawnCard.name = "isc" + Main.TokenPrefix + "TreasureMapZone";
             zoneSpawnCard.prefab = zonePrefab;

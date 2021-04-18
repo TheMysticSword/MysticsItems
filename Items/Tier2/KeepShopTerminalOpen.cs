@@ -30,6 +30,21 @@ namespace MysticsItems.Items
                 self.gameObject.AddComponent<MysticsItemsKeepShopTerminalOpenBehaviour>();
             };
 
+            On.RoR2.Stage.BeginServer += (orig, self) =>
+            {
+                orig(self);
+                foreach (CharacterBody characterBody in CharacterBody.readOnlyInstancesList)
+                {
+                    Inventory inventory = characterBody.inventory;
+                    if (inventory)
+                    {
+                        int count = inventory.GetItemCount(MysticsItemsContent.Items.KeepShopTerminalOpenConsumed);
+                        inventory.ResetItem(MysticsItemsContent.Items.KeepShopTerminalOpenConsumed);
+                        inventory.GiveItem(MysticsItemsContent.Items.KeepShopTerminalOpen, count);
+                    }
+                }
+            };
+
             NetworkingAPI.RegisterMessageType<MysticsItemsKeepShopTerminalOpenBehaviour.SyncSetTerminalState>();
         }
     }
@@ -57,13 +72,13 @@ namespace MysticsItems.Items
                         if (characterBody)
                         {
                             Inventory inventory = characterBody.inventory;
-                            CharacterMaster characterMaster = characterBody.master;
-                            if (inventory && characterMaster)
+                            if (inventory)
                             {
                                 int itemCount = inventory.GetItemCount(MysticsItemsContent.Items.KeepShopTerminalOpen);
-                                if (itemCount > 0 && Util.CheckRoll((1f - 1f / (1f + 0.25f * (itemCount - 1))) * 100f, characterMaster))
+                                if (itemCount > 0 && Reopen())
                                 {
-                                    Reopen();
+                                    inventory.RemoveItem(MysticsItemsContent.Items.KeepShopTerminalOpen);
+                                    inventory.GiveItem(MysticsItemsContent.Items.KeepShopTerminalOpenConsumed);
                                 }
                             }
                         }    
@@ -72,7 +87,7 @@ namespace MysticsItems.Items
             }
         }
 
-        public void Reopen()
+        public bool Reopen()
         {
             if (NetworkServer.active)
             {
@@ -91,8 +106,10 @@ namespace MysticsItems.Items
                             SetTerminalState(gameObject, true);
                         }
                     }
+                    return true;
                 }
             }
+            return false;
         }
 
         public static void SetTerminalState(GameObject gameObject, bool open)

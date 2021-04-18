@@ -19,11 +19,19 @@ namespace MysticsItems.Items
     {
         public static BuffDef buffDef;
         public static GameObject enemyFollowerPrefab;
+        public static NetworkIdentity enemyFollowerNetID;
         public static GameObject highlightPrefab;
         public static float interval = 20f;
         public static float duration = 10f;
         public static GameObject unlockInteractablePrefab;
+        public static NetworkIdentity unlockInteractableNetID;
         public static NetworkSoundEventDef repairSoundEventDef;
+
+        public override void OnPluginAwake()
+        {
+            enemyFollowerNetID = CustomUtils.GrabNetID();
+            unlockInteractableNetID = CustomUtils.GrabNetID();
+        }
 
         public override void PreLoad()
         {
@@ -64,8 +72,8 @@ namespace MysticsItems.Items
             SimpleRotateToDirection rotateToDirection = component.rotateToDirection = enemyFollowerPrefab.AddComponent<SimpleRotateToDirection>();
             rotateToDirection.maxRotationSpeed = 720f;
             rotateToDirection.smoothTime = 0.1f;
-            PrefabAPI.RegisterNetworkPrefab(enemyFollowerPrefab);
-
+            CustomUtils.ReleaseNetID(enemyFollowerPrefab, enemyFollowerNetID);
+            
             highlightPrefab = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/UI/HighlightTier1Item"), Main.TokenPrefix + "HighlightSpotterTarget", false);
             RoR2.UI.HighlightRect highlightRect = highlightPrefab.GetComponent<RoR2.UI.HighlightRect>();
             highlightRect.highlightColor = new Color32(214, 58, 58, 255);
@@ -105,8 +113,8 @@ namespace MysticsItems.Items
             sphereCollider.isTrigger = true;
             entityLocatorHolder.AddComponent<EntityLocator>().entity = unlockInteractablePrefab;
 
-            PrefabAPI.RegisterNetworkPrefab(unlockInteractablePrefab);
-
+            CustomUtils.ReleaseNetID(unlockInteractablePrefab, unlockInteractableNetID);
+            
             On.RoR2.SceneDirector.PopulateScene += (orig, self) =>
             {
                 orig(self);

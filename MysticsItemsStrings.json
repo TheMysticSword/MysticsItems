@@ -60,9 +60,12 @@
     "ITEM_MYSTICSITEMS_COMMANDOREVOLVERDRUM_DESC": "<style=cIsDamage>'Double Tap'</style> has a <style=cIsDamage>10%</style> chance on hit to fire a barrage of bullets, dealing <style=cIsDamage>6x50% <style=cStack>(+6x50% per stack)</style></style> damage.",
 
     "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPEN_NAME": "Platinum Card",
-    "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPEN_PICKUP": "Chance on Multishop Terminal purchase to keep other Terminals available.",
-    "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPEN_DESC": "Making a purchase at a Multishop has a <style=cIsUtility>20% <style=cStack>(+20% per stack)</style></style> chance to keep other Multishop Terminals available.",
+    "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPEN_PICKUP": "Remaining Multishop Terminals stay available on Multishop Terminal purchase.",
+    "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPEN_DESC": "Making a purchase at a Multishop keeps other Multishop Terminals available <style=cIsUtility>1 <style=cStack>(+1 per stack)</style></style> time on each stage.",
     "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPEN_LORE": "<style=cMono>\n//-- New Messages (1) --//\n\nFrom: UES</style>\n\nThank you for subscribing to the Platinum Card program! Starting from this day, daily offers and discounts are now available for you at every branch of the UES on all planets.\n\nDon't forget to pay the monthly fee. Or else.\n\n<style=cMono>You cannot reply to this conversation.</style>",
+
+    "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPENCONSUMED_NAME": "Platinum Card (Consumed)",
+    "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPENCONSUMED_PICKUP": "Recharges on the next stage.",
 
     //[TIER3]
     "ITEM_MYSTICSITEMS_VOLTMETER_NAME": "Wireless Voltmeter",
@@ -231,9 +234,12 @@
     "ITEM_MYSTICSITEMS_COMMANDOREVOLVERDRUM_DESC": "<style=cIsDamage>'Двойной выстрел'</style> имеет <style=cIsDamage>10%</style> шанс при попадании выстрелить очередью пуль, нанося <style=cIsDamage>6x50% <style=cStack>(+6x50% за шт.)</style></style> урона.",
 
     "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPEN_NAME": "Платиновая карта",
-    "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPEN_PICKUP": "Шанс при покупке в Многомагазинном терминале оставить другие терминалы доступными.",
-    "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPEN_DESC": "Покупки в Многомагазинных терминалах с вероятностью <style=cIsUtility>20% <style=cStack>(+20% за шт.)</style></style> оставляют другие Многомагазинные терминалы доступными.",
+    "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPEN_PICKUP": "При покупке в Многомагазинном терминале другие терминалы остаются открытыми.",
+    "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPEN_DESC": "Покупка в Многомагазинном терминале оставляет другие Многомагазинные терминалы открытыми <style=cIsUtility>1 <style=cStack>(+1 за шт.)</style></style> раз на каждом этапе.",
     "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPEN_LORE": "<style=cMono>\n//-- Новые сообщения (1) --//\n\nОт: UES</style>\n\nБлагодарим вас за оформление подписки на программу Платиновой карты! Начиная с этого дня вам доступны ежедневные предложения и скидки во всех филиалах UES на всех планетах.\n\nНе забывайте оплачивать ежемесячный взнос. Иначе...\n\n<style=cMono>Вы не можете отвечать в этой беседе.</style>",
+
+    "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPENCONSUMED_NAME": "Платиновая карта (использовано)",
+    "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPENCONSUMED_PICKUP": "Перезарядится на следующем этапе.",
 
     //[TIER3]
     "ITEM_MYSTICSITEMS_VOLTMETER_NAME": "Беспроводной вольтметр",

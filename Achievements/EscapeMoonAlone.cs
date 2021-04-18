@@ -28,7 +28,7 @@ namespace MysticsItems.Achievements
 
 			public void OnClientGameOverGlobal(Run run, RunReport runReport)
 			{
-				if (runReport.gameEnding && runReport.gameEnding == RoR2Content.GameEndings.mainEnding && run.livingPlayerCount == 1)
+				if (runReport.gameEnding && runReport.gameEnding == RoR2Content.GameEndings.MainEnding && run.livingPlayerCount == 1)
 				{
 					Grant();
 				}
