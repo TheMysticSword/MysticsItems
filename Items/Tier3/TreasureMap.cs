@@ -24,7 +24,6 @@ namespace MysticsItems.Items
         public static Material ghostMaterial;
         public static NetworkSoundEventDef soundEventDef;
         public static GameObject rewardPrefab;
-        public static InteractableSpawnCard rewardSpawnCard;
 
         public override void PreLoad()
         {
@@ -40,8 +39,7 @@ namespace MysticsItems.Items
 
         public override void OnPluginAwake()
         {
-            rewardSpawnCard = Object.Instantiate(Resources.Load<InteractableSpawnCard>("SpawnCards/InteractableSpawnCard/iscGoldChest"));
-            rewardPrefab = PrefabAPI.InstantiateClone(rewardSpawnCard.prefab, Main.TokenPrefix + "TreasureMapReward");
+            rewardPrefab = PrefabAPI.InstantiateClone(Resources.Load<InteractableSpawnCard>("SpawnCards/InteractableSpawnCard/iscGoldChest").prefab, Main.TokenPrefix + "TreasureMapReward");
             zoneNetID = CustomUtils.GrabNetID();
         }
 
@@ -81,10 +79,7 @@ namespace MysticsItems.Items
             holdoutZone.dischargeRate = 0f;
             MysticsItemsTreasureMapZone captureZone = zonePrefab.AddComponent<MysticsItemsTreasureMapZone>();
             captureZone.itemDef = itemDef;
-            captureZone.rewardSpawnCard = rewardSpawnCard;
-            captureZone.rewardSpawnCard.name = Main.TokenPrefix + "iscTreasureMapReward";
-            captureZone.rewardSpawnCard.prefab = rewardPrefab;
-            captureZone.rewardSpawnCard.prefab.AddComponent<MysticsItemsTreasureMapReward>();
+            rewardPrefab.AddComponent<MysticsItemsTreasureMapReward>();
             HologramProjector hologramProjector = zonePrefab.AddComponent<HologramProjector>();
             hologramProjector.displayDistance = holdoutZone.baseRadius;
             hologramProjector.hologramPivot = zonePrefab.transform.Find("HologramPivot");
@@ -136,10 +131,9 @@ namespace MysticsItems.Items
         public class MysticsItemsTreasureMapZone : MonoBehaviour, IHologramContentProvider
         {
             public TeamIndex teamIndex = TeamIndex.Player;
-            public InteractableSpawnCard rewardSpawnCard;
             public GameObject reward;
             public MysticsItemsTreasureMapReward rewardComponent;
-            public float baseCaptureTimeMax = 1f;
+            public float baseCaptureTimeMax = 120f;
             public ItemDef itemDef;
             public HologramProjector hologramProjector;
             public HoldoutZoneController holdoutZoneController;
@@ -150,7 +144,7 @@ namespace MysticsItems.Items
 
                 if (NetworkServer.active)
                 {
-                    reward = Object.Instantiate(rewardSpawnCard.prefab, transform.position, transform.rotation);
+                    reward = Object.Instantiate(rewardPrefab, transform.position, transform.rotation);
 
                     RaycastHit raycastHit;
                     if (Physics.Raycast(new Ray(reward.transform.position + reward.transform.up * 1f, -reward.transform.up), out raycastHit, 2f, LayerIndex.world.mask))
