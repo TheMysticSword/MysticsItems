@@ -34,7 +34,42 @@ namespace MysticsItems.Items
         public override void OnPluginAwake()
         {
             riftChest = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/NetworkedObjects/Lockbox"), Main.TokenPrefix + "RiftChest");
+
+            OnRiftLensCostTypeRegister += (costTypeIndex) =>
+            {
+                riftChest.GetComponent<PurchaseInteraction>().costType = costTypeIndex;
+                riftChest.GetComponent<PurchaseInteraction>().cost = 1;
+            };
+
+            //add a custom purchase cost type - we will require the interactor pay with the debuff so that players
+            //without the debuff can't help them open chests faster
+            CostTypeDef costTypeDef = new CostTypeDef();
+            costTypeDef.costStringFormatToken = "COST_" + Main.TokenPrefix.ToUpper() + "RIFTLENSDEBUFF_FORMAT";
+            costTypeDef.isAffordable = delegate (CostTypeDef costTypeDef2, CostTypeDef.IsAffordableContext context)
+            {
+                CharacterBody body = context.activator.gameObject.GetComponent<CharacterBody>();
+                if (body)
+                {
+                    return body.HasBuff(MysticsItemsContent.Buffs.RiftLens);
+                }
+                return false;
+            };
+            costTypeDef.payCost = delegate (CostTypeDef costTypeDef2, CostTypeDef.PayCostContext context)
+            {
+                foreach (CharacterBody body in CharacterBody.readOnlyInstancesList)
+                {
+                    if (body.HasBuff(MysticsItemsContent.Buffs.RiftLens)) body.RemoveBuff(MysticsItemsContent.Buffs.RiftLens);
+                }
+            };
+            costTypeDef.colorIndex = ColorCatalog.ColorIndex.LunarItem;
+            CostTypeCreation.CreateCostType(new CostTypeCreation.CustomCostTypeInfo
+            {
+                costTypeDef = costTypeDef,
+                onRegister = OnRiftLensCostTypeRegister
+            });
         }
+
+        public static System.Action<CostTypeIndex> OnRiftLensCostTypeRegister;
 
         public override void OnLoad()
         {
@@ -105,44 +140,6 @@ namespace MysticsItems.Items
             riftChestSpawnCard.orientToFloor = true;
             riftChestSpawnCard.sendOverNetwork = true;
             riftChestSpawnCard.prefab = riftChest;
-
-            //add a custom purchase cost type - we will require the interactor pay with the debuff so that players
-            //without the debuff can't help them open chests faster
-            CostTypeDef costTypeDef = new CostTypeDef();
-            costTypeDef.costStringFormatToken = "COST_" + Main.TokenPrefix.ToUpper() + "RIFTLENSDEBUFF_FORMAT";
-            costTypeDef.isAffordable = delegate (CostTypeDef costTypeDef2, CostTypeDef.IsAffordableContext context)
-            {
-                CharacterBody body = context.activator.gameObject.GetComponent<CharacterBody>();
-                if (body)
-                {
-                    return body.HasBuff(MysticsItemsContent.Buffs.RiftLens);
-                }
-                return false;
-            };
-            costTypeDef.payCost = delegate (CostTypeDef costTypeDef2, CostTypeDef.PayCostContext context)
-            {
-                foreach (CharacterBody body in CharacterBody.readOnlyInstancesList)
-                {
-                    if (body.HasBuff(MysticsItemsContent.Buffs.RiftLens)) body.RemoveBuff(MysticsItemsContent.Buffs.RiftLens);
-                }
-            };
-            costTypeDef.colorIndex = ColorCatalog.ColorIndex.LunarItem;
-            CostTypeCatalog.modHelper.getAdditionalEntries += (list) =>
-            {
-                list.Add(costTypeDef);
-            };
-            On.RoR2.CostTypeCatalog.Init += (orig) =>
-            {
-                orig();
-                riftLensDebuffCostType = (CostTypeIndex)System.Array.IndexOf(typeof(CostTypeCatalog).GetFieldValue<CostTypeDef[]>("costTypeDefs"), costTypeDef);
-                riftChest.GetComponent<PurchaseInteraction>().costType = riftLensDebuffCostType;
-                On.RoR2.CostTypeCatalog.GetCostTypeDef += (orig2, costTypeIndex) =>
-                {
-                    if (costTypeIndex == riftLensDebuffCostType) return costTypeDef;
-                    return orig2(costTypeIndex);
-                };
-            };
-            riftChest.GetComponent<PurchaseInteraction>().cost = 1;
 
             GenericGameEvents.OnPopulateScene += (rng) =>
             {

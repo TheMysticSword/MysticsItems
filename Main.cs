@@ -72,8 +72,10 @@ namespace MysticsItems
             BaseItemLike.Init();
             CharacterStats.Init();
             ConCommandHelper.Init();
+            CostTypeCreation.Init();
             //Items.CharacterItems.Init();
             Equipment.BaseEquipment.Init();
+            GenericCostTypes.Init();
             GenericGameEvents.Init();
             LanguageLoader.Init();
             Outlines.Init();
