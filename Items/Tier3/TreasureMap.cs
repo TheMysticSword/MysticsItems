@@ -153,6 +153,18 @@ namespace MysticsItems.Items
             vfxAttributes.vfxIntensity = VFXAttributes.VFXIntensity.Medium;
             vfxAttributes.vfxPriority = VFXAttributes.VFXPriority.Medium;
             effectPrefab.AddComponent<DestroyOnTimer>().duration = 1f;
+            ShakeEmitter shakeEmitter = effectPrefab.AddComponent<ShakeEmitter>();
+            shakeEmitter.shakeOnStart = true;
+            shakeEmitter.shakeOnEnable = false;
+            shakeEmitter.duration = 0.3f;
+            shakeEmitter.radius = 25f;
+            shakeEmitter.scaleShakeRadiusWithLocalScale = false;
+            shakeEmitter.wave = new Wave
+            {
+                amplitude = 3f,
+                frequency = 200f
+            };
+            shakeEmitter.amplitudeTimeDecay = true;
             MysticsItemsContent.Resources.effectPrefabs.Add(effectPrefab);
         }
 
