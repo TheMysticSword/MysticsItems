@@ -429,8 +429,9 @@ namespace MysticsItems.Items
                         }, body.gameObject, out _);
                         bullseyeSearch.searchOrigin = ray.origin;
                         bullseyeSearch.searchDirection = ray.direction;
-                        bullseyeSearch.maxAngleFilter = 50f;
+                        bullseyeSearch.maxAngleFilter = 90f;
                         bullseyeSearch.viewer = body;
+                        bullseyeSearch.maxDistanceFilter = 1000f;
                         bullseyeSearch.RefreshCandidates();
                         bullseyeSearch.FilterOutGameObject(body.gameObject);
                         List<HurtBox> enemies = bullseyeSearch.GetResults().ToList();
