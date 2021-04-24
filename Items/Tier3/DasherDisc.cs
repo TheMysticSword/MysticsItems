@@ -125,7 +125,7 @@ namespace MysticsItems.Items
 
         public class MysticsItemsDasherDiscSpinner : MonoBehaviour
         {
-            public float baseSpeed = -90f;
+            public float baseSpeed = -45f;
             public float speedMultiplier = 1f;
             public GameObject trail;
 
@@ -279,8 +279,6 @@ namespace MysticsItems.Items
                     }
                 }
 
-                public bool canTrigger = false;
-
                 public class SyncFireTrigger : INetMessage
                 {
                     NetworkInstanceId objID;
@@ -342,7 +340,7 @@ namespace MysticsItems.Items
                 public float baseDistance;
 
                 public static float duration = 0.2f;
-                public override float DiscSpinBoost => 3f;
+                public override float DiscSpinBoost => 9f;
                 public override bool DiscLeavesTrail => true;
                 public override bool DiscRotatesAroundCharacter => false;
             }
@@ -414,7 +412,7 @@ namespace MysticsItems.Items
                 }
 
                 public static float duration = 6f;
-                public override float DiscSpinBoost => 3f;
+                public override float DiscSpinBoost => 9f;
                 public override bool DiscRotatesAroundCharacter => false;
             }
         }
