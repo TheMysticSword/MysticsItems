@@ -38,6 +38,7 @@ namespace MysticsItems
         public static event System.Func<DamageInfo, GenericCharacterInfo, GenericCharacterInfo, float, float> OnApplyDamageModifiers;
         public static event System.Action<DamageInfo, GenericCharacterInfo> OnTakeDamage;
         public static event System.Action<Xoroshiro128Plus> OnPopulateScene;
+        public static event System.Action<Interactor, IInteractable, GameObject, bool> OnInteractionBegin;
 
         public static void ErrorHookFailed(string name)
         {
@@ -175,6 +176,15 @@ namespace MysticsItems
                 {
                     ErrorHookFailed("on populate scene");
                 }
+            };
+
+            GlobalEventManager.OnInteractionsGlobal += (interactor, interactable, interactableObject) =>
+            {
+                MonoBehaviour interactableAsMonoBehaviour = (MonoBehaviour)interactable;
+                bool canProc = !interactableAsMonoBehaviour.GetComponent<GenericPickupController>() && !interactableAsMonoBehaviour.GetComponent<VehicleSeat>() && !interactableAsMonoBehaviour.GetComponent<NetworkUIPromptController>();
+                InteractionProcFilter interactionProcFilter = interactableObject.GetComponent<InteractionProcFilter>();
+                if (interactionProcFilter) canProc = interactionProcFilter.shouldAllowOnInteractionBeginProc;
+                if (OnInteractionBegin != null) OnInteractionBegin(interactor, interactable, interactableObject, canProc);
             };
         }
     }
