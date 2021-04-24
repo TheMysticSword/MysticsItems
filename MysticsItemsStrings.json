@@ -9,8 +9,8 @@
     "ITEM_MYSTICSITEMS_HEALORBONBARREL_LORE": "- Do you know why donuts have a hole in the middle?\n\n- Because, uh... no idea.\n\n- That's food for thought.\n\n- ... I hate you.",
 
     "ITEM_MYSTICSITEMS_SCRATCHTICKET_NAME": "Scratch Ticket",
-    "ITEM_MYSTICSITEMS_SCRATCHTICKET_PICKUP": "Gain gold after winning in a Shrine of Chance two times.",
-    "ITEM_MYSTICSITEMS_SCRATCHTICKET_DESC": "Winning in a Shrine of Chance two times rewards all allies with gold equal to <style=cIsUtility>100% <style=cStack>(+100% per stack)</style></style> of the current cost of the Shrine.",
+    "ITEM_MYSTICSITEMS_SCRATCHTICKET_PICKUP": "Slightly increase the chance of luck-based effects.",
+    "ITEM_MYSTICSITEMS_SCRATCHTICKET_DESC": "Luck-based effects have <style=cIsUtility>+2% <style=cStack>(+2% per stack)</style></style> chance of triggering.",
     "ITEM_MYSTICSITEMS_SCRATCHTICKET_LORE": "<style=cMono>\n//--REPLAYING PHONE CALL #731 --//</style>\n\n- Good morning. May I ask who is calling?\n\n- Good morning! This is Carl Shade of Star Seven. I am calling you to congratulate you on winning the $100.000 lottery!\n\n- Wow, what a surprise!\n\n- Have you ever won a lottery before?\n\n- Oh, uh... no.\n\n- Well, there's a first time for everything! Here's how it works: in order to receive your prize, we need your credit card details, including the three numbers on the back.\n\n- [THIS PORTION OF THE CALL WAS REDACTED FOR PRIVACY]\n\n- Got it!\n\n- ...\n\n- ...\n\n- Hmm, I haven't received anything yet. Are the numbers correct?\n\n<style=cMono>\n//--END OF CONVERSATION --//</style>",
 
     "ITEM_MYSTICSITEMS_COMMANDOSCOPE_NAME": "Tactical Scope",
@@ -183,8 +183,8 @@
     "ITEM_MYSTICSITEMS_HEALORBONBARREL_LORE": "- Знаешь, почему у пончиков посередине дырка?\n\n- Потому что, э-э-э... не знаю.\n\n- Это пища для размышлений.\n\n- ... Я тебя ненавижу.",
 
     "ITEM_MYSTICSITEMS_SCRATCHTICKET_NAME": "Лотерейный билет",
-    "ITEM_MYSTICSITEMS_SCRATCHTICKET_PICKUP": "Получите золото после двух выигрышей в Святилище Удачи.",
-    "ITEM_MYSTICSITEMS_SCRATCHTICKET_DESC": "Вторая победа в Святилище Удачи награждает всех союзников золотом, равным <style=cIsUtility>100% <style=cStack>(+100% за шт.)</style></style> текущей цены Святилища.",
+    "ITEM_MYSTICSITEMS_SCRATCHTICKET_PICKUP": "Слегка увеличивает вероятность срабатывания эффектов, основанных на удаче.",
+    "ITEM_MYSTICSITEMS_SCRATCHTICKET_DESC": "Вероятность срабатывания эффектов, основанных на шансе, увеличена на <style=cIsUtility>2% <style=cStack>(+2% за шт.)</style></style>.",
     "ITEM_MYSTICSITEMS_SCRATCHTICKET_LORE": "<style=cMono>\n//--ПОВТОР ТЕЛЕФОННОГО ЗВОНКА #731 --//</style>\n\n- Доброе утро. Могу ли я узнать, кто звонит?\n\n- Доброе утро! Это Карл Шейд из Star Seven. Я позвонил вам, чтобы поздравить вас с победой в лотерее на $100.000!\n\n- Ого, вот это сюрприз!\n\n- Вы когда-нибудь прежде побеждали в лотерее?\n\n- Э-э-э, ну... нет.\n\n- Что ж, всё бывает впервые! Вот, как это работает: чтобы вы получили ваш приз, нам нужны данные вашей банковской карты, включая три цифры на обратной стороне.\n\n- [ДАННЫЙ ОТРЫВОК ЗВОНКА БЫЛ УДАЛЁН ДЛЯ КОНФИДЕНЦИАЛЬНОСТИ]\n\n- Отлично!\n\n- ...\n\n- ...\n\n- Хмм, мне до сих пор ничего не пришло. Все номера ведь правильные?\n\n<style=cMono>\n//--КОНЕЦ РАЗГОВОРА --//</style>",
 
     "ITEM_MYSTICSITEMS_COMMANDOSCOPE_NAME": "Тактический прицел",

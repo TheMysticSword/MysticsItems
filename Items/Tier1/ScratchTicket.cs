@@ -9,8 +9,6 @@ namespace MysticsItems.Items
 {
     public class ScratchTicket : BaseItem
     {
-        public static GameObject coinEffect;
-
         public override void PreLoad()
         {
             itemDef.name = "ScratchTicket";
@@ -42,43 +40,20 @@ namespace MysticsItems.Items
             AddDisplayRule("CaptainBody", "Chest", new Vector3(-0.1F, 0.226F, 0.174F), new Vector3(15.849F, 346.474F, 358.999F), new Vector3(0.086F, 0.086F, 0.086F));
             AddDisplayRule("BrotherBody", "UpperArmL", BrotherInfection.white, new Vector3(-0.018F, 0.215F, -0.064F), new Vector3(0F, 0F, 131.256F), new Vector3(0.115F, 0.063F, 0.063F));
 
-            coinEffect = Resources.Load<GameObject>("Prefabs/Effects/CoinEmitter");
-
-            On.RoR2.ShrineChanceBehavior.AddShrineStack += (orig, self, activator) =>
-            {
-                orig(self, activator);
-                if (self.GetFieldValue<int>("successfulPurchaseCount") == 2)
-                {
-                    CharacterBody body = activator.GetComponent<CharacterBody>();
-                    if (body)
-                    {
-                        Inventory inventory = body.inventory;
-                        if (inventory && inventory.GetItemCount(MysticsItemsContent.Items.ScratchTicket) > 0)
-                        {
-                            MysticsItemsScratchTicketCheck component = self.GetComponent<MysticsItemsScratchTicketCheck>();
-                            if (!component) component = self.gameObject.AddComponent<MysticsItemsScratchTicketCheck>();
-                            if (!component.check)
-                            {
-                                component.check = true;
-
-                                uint goldReward = (uint)(self.GetComponent<PurchaseInteraction>().cost * (1f + 1f * (inventory.GetItemCount(MysticsItemsContent.Items.ScratchTicket) - 1)));
-                                TeamManager.instance.GiveTeamMoney(body.teamComponent.teamIndex, goldReward);
-                                EffectManager.SpawnEffect(coinEffect, new EffectData
-                                {
-                                    origin = self.transform.position + Vector3.up * 2f * self.transform.localScale.y,
-                                    genericFloat = goldReward,
-                                    scale = 2f
-                                }, true);
-                            }
-                        }
-                    }
-                }
-            };
+            On.RoR2.Util.CheckRoll_float_float_CharacterMaster += Util_CheckRoll_float_float_CharacterMaster;
         }
 
-        public class MysticsItemsScratchTicketCheck : MonoBehaviour
+        private bool Util_CheckRoll_float_float_CharacterMaster(On.RoR2.Util.orig_CheckRoll_float_float_CharacterMaster orig, float percentChance, float luck, CharacterMaster effectOriginMaster)
         {
-            public bool check = false;
+            Inventory inventory = effectOriginMaster.inventory;
+            if (inventory)
+            {
+                int itemCount = inventory.GetItemCount(MysticsItemsContent.Items.ScratchTicket);
+                if (itemCount > 0) {
+                    percentChance += 2f + 2f * (itemCount - 1);
+                }
+            }
+            return orig(percentChance, luck, effectOriginMaster);
         }
     }
 }
