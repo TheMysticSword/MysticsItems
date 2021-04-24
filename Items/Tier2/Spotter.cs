@@ -394,6 +394,11 @@ namespace MysticsItems.Items
             public float cooldownIfNoEnemiesFound = 3f;
             public BullseyeSearch bullseyeSearch = new BullseyeSearch();
 
+            public void Start()
+            {
+                cooldown = Mathf.Min(cooldownMax, 5f);
+            }
+
             public void FixedUpdate()
             {
                 if (NetworkServer.active)
