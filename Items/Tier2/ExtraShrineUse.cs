@@ -36,11 +36,19 @@ namespace MysticsItems.Items
             On.RoR2.CharacterBody.OnInventoryChanged += (orig, self) =>
             {
                 orig(self);
-                int itemCount = BaseItem.GetTeamItemCount(MysticsItemsContent.Items.ExtraShrineUse);
-                foreach (MysticsItemsExtraShrineUseBehaviour extraShrineUseBehaviour in MysticsItemsExtraShrineUseBehaviour.activeShrines)
-                {
-                    UpdateShrine(extraShrineUseBehaviour, itemCount);
-                }
+                UpdateAllShrines();
+            };
+
+            On.RoR2.CharacterBody.OnDeathStart += (orig, self) =>
+            {
+                orig(self);
+                UpdateAllShrines();
+            };
+
+            On.RoR2.CharacterBody.Start += (orig, self) =>
+            {
+                orig(self);
+                UpdateAllShrines();
             };
 
             On.RoR2.PurchaseInteraction.Awake += (orig, self) =>
@@ -50,6 +58,15 @@ namespace MysticsItems.Items
                 if (genericDisplayNameProvider && genericDisplayNameProvider.displayToken.Contains("SHRINE"))
                     self.gameObject.AddComponent<MysticsItemsExtraShrineUseBehaviour>();
             };
+        }
+
+        public static void UpdateAllShrines()
+        {
+            int itemCount = Util.GetItemCountForTeam(TeamIndex.Player, MysticsItemsContent.Items.ExtraShrineUse.itemIndex, true);
+            foreach (MysticsItemsExtraShrineUseBehaviour extraShrineUseBehaviour in MysticsItemsExtraShrineUseBehaviour.activeShrines)
+            {
+                UpdateShrine(extraShrineUseBehaviour, itemCount);
+            }
         }
 
         public static void UpdateShrine(MysticsItemsExtraShrineUseBehaviour self, int itemCount)
@@ -71,7 +88,7 @@ namespace MysticsItems.Items
 
         public static void UpdateShrine(MysticsItemsExtraShrineUseBehaviour self)
         {
-            int itemCount = BaseItem.GetTeamItemCount(MysticsItemsContent.Items.ExtraShrineUse);
+            int itemCount = Util.GetItemCountForTeam(TeamIndex.Player, MysticsItemsContent.Items.ExtraShrineUse.itemIndex, true);
             UpdateShrine(self, itemCount);
         }
 

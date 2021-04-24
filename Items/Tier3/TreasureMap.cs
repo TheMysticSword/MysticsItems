@@ -213,12 +213,7 @@ namespace MysticsItems.Items
 
             public void FixedUpdate()
             {
-                int itemCount = 0;
-                foreach (CharacterMaster characterMaster in CharacterMaster.readOnlyInstancesList)
-                    if (characterMaster.teamIndex == TeamIndex.Player)
-                    {
-                        itemCount += characterMaster.inventory.GetItemCount(itemDef);
-                    }
+                int itemCount = Util.GetItemCountForTeam(teamIndex, MysticsItemsContent.Items.TreasureMap.itemIndex, true);
                 holdoutZoneController.baseChargeDuration = baseCaptureTimeMax * 1f / (1f + 0.5f * (itemCount - 1));
                 bool anyoneHasItem = itemCount > 0;
 

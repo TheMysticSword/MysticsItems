@@ -278,12 +278,7 @@ namespace MysticsItems.Items
                 predictionChargeFractionLast = holdoutZoneController.charge;
                 chargeFraction = Mathf.Clamp01(chargeFraction + predictionChargeSpeed * Time.deltaTime);
 
-                int itemCount = 0;
-                foreach (CharacterMaster characterMaster in CharacterMaster.readOnlyInstancesList)
-                    if (characterMaster.teamIndex == TeamIndex.Player)
-                    {
-                        itemCount += characterMaster.inventory.GetItemCount(MysticsItemsContent.Items.CrystalWorld);
-                    }
+                int itemCount = Util.GetItemCountForTeam(TeamIndex.Player, MysticsItemsContent.Items.CrystalWorld.itemIndex, true);
                 if (itemCount > 0)
                 {
                     float nextPulse = NextPulse(2 + (itemCount - 1));

@@ -307,17 +307,6 @@ namespace MysticsItems
             if (!effectObjects.Contains(child)) effectObjects.Add(child);
         }
 
-        public static int GetTeamItemCount(ItemDef itemDef, TeamIndex teamIndex = TeamIndex.Player)
-        {
-            int itemCount = 0;
-            foreach (CharacterMaster master in CharacterMaster.readOnlyInstancesList) if (master.teamIndex == teamIndex)
-                {
-                    Inventory inventory = master.inventory;
-                    if (inventory && inventory.GetItemCount(itemDef) > 0) itemCount += inventory.GetItemCount(itemDef);
-                }
-            return itemCount;
-        }
-
         public static MysticsItemsItemLikeComponent GetItemLikeComponent(CharacterBody characterBody)
         {
             MysticsItemsItemLikeComponent component = characterBody.GetComponent<MysticsItemsItemLikeComponent>();
