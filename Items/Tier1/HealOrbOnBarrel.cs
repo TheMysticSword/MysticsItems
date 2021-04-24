@@ -11,6 +11,8 @@ namespace MysticsItems.Items
 {
     public class HealOrbOnBarrel : BaseItem
     {
+        public static GameObject delayedHealOrbSpawner;
+
         public override void PreLoad()
         {
             itemDef.name = "HealOrbOnBarrel";
@@ -85,6 +87,9 @@ namespace MysticsItems.Items
                     orig(self);
                 }
             };
+
+            delayedHealOrbSpawner = CustomUtils.CreateBlankPrefab(Main.TokenPrefix + "DelayedHealOrbSpawner");
+            MysticsItemsHealOrbOnBarrelSpawner delayedSpawnerComponent = delayedHealOrbSpawner.AddComponent<MysticsItemsHealOrbOnBarrelSpawner>();
         }
 
         private void GenericGameEvents_OnInteractionBegin(Interactor interactor, IInteractable interactable, GameObject interactableObject, bool canProc)
@@ -100,16 +105,17 @@ namespace MysticsItems.Items
                         int itemCount = inventory.GetItemCount(MysticsItemsContent.Items.HealOrbOnBarrel);
                         if (itemCount > 0)
                         {
-                            MysticsItemsHealOrbOnBarrelSpawner component = interactableObject.GetComponent<MysticsItemsHealOrbOnBarrelSpawner>();
-                            if (!component)
+                            GameObject spawner = Object.Instantiate(delayedHealOrbSpawner, interactableObject.transform.position, interactableObject.transform.rotation);
+                            MysticsItemsHealOrbOnBarrelSpawner component = spawner.GetComponent<MysticsItemsHealOrbOnBarrelSpawner>();
+                            spawner.transform.position = interactableObject.transform.position + Vector3.up * 2f;
+                            ChildLocator childLocator = interactableObject.GetComponent<ChildLocator>();
+                            if (childLocator)
                             {
-                                component = interactableObject.AddComponent<MysticsItemsHealOrbOnBarrelSpawner>();
+                                Transform fireworkOrigin = childLocator.FindChild("FireworkOrigin");
+                                if (fireworkOrigin) spawner.transform.position = fireworkOrigin.position;
                             }
-                            component.queue.Enqueue(new MysticsItemsHealOrbOnBarrelSpawner.HealOrbSpawnQueue
-                            {
-                                interactor = interactor,
-                                itemCount = itemCount
-                            });
+                            component.interactor = interactor;
+                            component.itemCount = itemCount;
                         }
                     }
                 }
@@ -120,7 +126,7 @@ namespace MysticsItems.Items
         {
             if (NetworkServer.active)
             {
-                var orb = Object.Instantiate<GameObject>(Resources.Load<GameObject>("Prefabs/NetworkedObjects/HealPack"), position, Random.rotation);
+                var orb = Object.Instantiate<GameObject>(Resources.Load<GameObject>("Prefabs/NetworkedObjects/HealPack"), position, rotation);
                 orb.GetComponent<TeamFilter>().teamIndex = teamIndex;
                 orb.GetComponentInChildren<HealthPickup>().flatHealing = 8;
                 orb.GetComponentInChildren<HealthPickup>().fractionalHealing = 0.1f + 0.1f * (itemCount - 1);
@@ -147,38 +153,21 @@ namespace MysticsItems.Items
 
         public class MysticsItemsHealOrbOnBarrelSpawner : MonoBehaviour
         {
-            public float delay = 0f;
-            public float delayMax = 0.5f;
-            public Queue<HealOrbSpawnQueue> queue = new Queue<HealOrbSpawnQueue>();
-
-            public struct HealOrbSpawnQueue
-            {
-                public Interactor interactor;
-                public int itemCount;
-            }
-
-            public void Start()
-            {
-                delay = delayMax;
-            }
+            public float delay = 0.5f;
+            public Interactor interactor;
+            public int itemCount;
+            public bool consumed = false;
 
             public void FixedUpdate()
             {
-                if (queue.Count > 0)
+                if (!consumed)
                 {
                     delay -= Time.fixedDeltaTime;
                     if (delay <= 0f)
                     {
-                        delay = delayMax;
-                        HealOrbSpawnQueue member = queue.Dequeue();
-                        Vector3 position = transform.position + Vector3.up * 2f;
-                        ChildLocator childLocator = GetComponent<ChildLocator>();
-                        if (childLocator)
-                        {
-                            Transform fireworkOrigin = childLocator.FindChild("FireworkOrigin");
-                            if (fireworkOrigin) position = fireworkOrigin.position;
-                        }
-                        SpawnOrb(position, transform.rotation, TeamComponent.GetObjectTeam(member.interactor.gameObject), member.itemCount);
+                        SpawnOrb(transform.position, transform.rotation, TeamComponent.GetObjectTeam(interactor.gameObject), itemCount);
+                        consumed = true;
+                        Object.Destroy(this);
                     }
                 }
             }
