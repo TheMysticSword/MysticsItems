@@ -79,8 +79,8 @@ namespace MysticsItems.Items
                         {
                             playSoundObject = body2.gameObject;
 
-                            float time = 15f + 5f * (inventory.GetItemCount(itemDef) - 1);
-                            float sameStageDeathTime = 2f + 0.5f * (inventory.GetItemCount(itemDef) - 1);
+                            float time = 15f + 15f * (inventory.GetItemCount(itemDef) - 1);
+                            float sameStageDeathTime = 1f + 1f * (inventory.GetItemCount(itemDef) - 1);
                             if (body.master)
                             {
                                 SurvivedStageCounter survivedStageCounter = body.master.GetComponent<SurvivedStageCounter>();
