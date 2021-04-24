@@ -43,14 +43,18 @@ namespace MysticsItems.Items
             On.RoR2.Util.CheckRoll_float_float_CharacterMaster += Util_CheckRoll_float_float_CharacterMaster;
         }
 
-        private bool Util_CheckRoll_float_float_CharacterMaster(On.RoR2.Util.orig_CheckRoll_float_float_CharacterMaster orig, float percentChance, float luck, CharacterMaster effectOriginMaster)
+        public bool Util_CheckRoll_float_float_CharacterMaster(On.RoR2.Util.orig_CheckRoll_float_float_CharacterMaster orig, float percentChance, float luck, CharacterMaster effectOriginMaster)
         {
-            Inventory inventory = effectOriginMaster.inventory;
-            if (inventory)
+            if (effectOriginMaster)
             {
-                int itemCount = inventory.GetItemCount(MysticsItemsContent.Items.ScratchTicket);
-                if (itemCount > 0) {
-                    percentChance += 2f + 2f * (itemCount - 1);
+                Inventory inventory = effectOriginMaster.inventory;
+                if (inventory)
+                {
+                    int itemCount = inventory.GetItemCount(MysticsItemsContent.Items.ScratchTicket);
+                    if (itemCount > 0)
+                    {
+                        percentChance += 1f + 1f * (itemCount - 1);
+                    }
                 }
             }
             return orig(percentChance, luck, effectOriginMaster);
