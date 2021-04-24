@@ -18,6 +18,7 @@ namespace MysticsItems
 {
     [BepInDependency(R2API.R2API.PluginGUID)]
     [BepInDependency(SoftDependencies.ItemStatsSoftDependency.PluginGUID, BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency(SoftDependencies.Starstorm2SoftDependency.PluginGUID, BepInDependency.DependencyFlags.SoftDependency)]
     [BepInPlugin(PluginGUID, PluginName, PluginVersion)]
     [R2APISubmoduleDependency(nameof(NetworkingAPI), nameof(PrefabAPI), nameof(SoundAPI))]
 
@@ -101,6 +102,8 @@ namespace MysticsItems
             {
                 addContentPackProvider(new MysticsItemsContent());
             };
+
+            if (BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey(SoftDependencies.Starstorm2SoftDependency.PluginGUID)) SoftDependencies.Starstorm2SoftDependency.Init();
         }
 
         public static void PostGameLoad()

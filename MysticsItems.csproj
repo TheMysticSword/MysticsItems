@@ -76,6 +76,9 @@
     <Reference Include="SimpleJSON">
       <HintPath>..\..\..\..\Risk of Rain 2\Modding References\Managed\SimpleJSON.dll</HintPath>
     </Reference>
+    <Reference Include="Starstorm2">
+      <HintPath>..\..\..\..\Risk of Rain 2\Modding References\Starstorm2.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Postprocessing.Runtime">
       <HintPath>..\..\..\..\Risk of Rain 2\Modding References\Managed\Unity.Postprocessing.Runtime.dll</HintPath>
     </Reference>
