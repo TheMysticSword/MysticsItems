@@ -30,7 +30,7 @@ namespace MysticsItems.Items
             visualEffect = PrefabAPI.InstantiateClone(new GameObject(), Main.TokenPrefix + "CoffeeBoostEffect", false);
             EffectComponent effectComponent = visualEffect.AddComponent<EffectComponent>();
             effectComponent.applyScale = true;
-            effectComponent.disregardZScale = true;
+            effectComponent.parentToReferencedTransform = true;
             effectComponent.soundName = "Play_item_proc_coffee";
             VFXAttributes vfxAttributes = visualEffect.AddComponent<VFXAttributes>();
             vfxAttributes.vfxPriority = VFXAttributes.VFXPriority.Always;
@@ -73,6 +73,7 @@ namespace MysticsItems.Items
                                     scale = body.radius,
                                     rotation = Util.QuaternionSafeLookRotation(Vector3.forward)
                                 };
+                                effectData.SetHurtBoxReference(body.mainHurtBox);
                                 EffectManager.SpawnEffect(visualEffect, effectData, true);
                                 body.AddBuff(MysticsItemsContent.Buffs.CoffeeBoost);
                             }
