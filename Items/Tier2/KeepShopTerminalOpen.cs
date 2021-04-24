@@ -51,13 +51,15 @@ namespace MysticsItems.Items
 
     public class MysticsItemsKeepShopTerminalOpenBehaviour : MonoBehaviour
     {
-        public List<PickupIndex> terminalPickups = new List<PickupIndex>();
-        public List<GameObject> terminals = new List<GameObject>();
+        public List<PickupIndex> terminalPickups;
+        public List<GameObject> terminals;
         public MultiShopController multiShopController;
 
         public void Start()
         {
             multiShopController = GetComponent<MultiShopController>();
+            terminals = new List<GameObject>();
+            terminalPickups = new List<PickupIndex>();
 
             if (NetworkServer.active)
             {
@@ -65,24 +67,33 @@ namespace MysticsItems.Items
                 {
                     GameObject terminal = multiShopController.terminalGameObjects[i];
                     terminals.Add(terminal);
+                    terminalPickups.Add(terminal.GetComponent<ShopTerminalBehavior>().pickupIndex);
                     SetTerminalState(terminal, false);
                     terminal.GetComponent<PurchaseInteraction>().onPurchase.AddListener((interactor) => {
-                        terminalPickups[terminals.IndexOf(terminal)] = PickupIndex.none;
-                        CharacterBody characterBody = interactor.GetComponent<CharacterBody>();
-                        if (characterBody)
-                        {
-                            Inventory inventory = characterBody.inventory;
-                            if (inventory)
-                            {
-                                int itemCount = inventory.GetItemCount(MysticsItemsContent.Items.KeepShopTerminalOpen);
-                                if (itemCount > 0 && Reopen())
-                                {
-                                    inventory.RemoveItem(MysticsItemsContent.Items.KeepShopTerminalOpen);
-                                    inventory.GiveItem(MysticsItemsContent.Items.KeepShopTerminalOpenConsumed);
-                                }
-                            }
-                        }    
+                        TerminalOnPurchase(interactor, terminal);
                     });
+                }
+            }
+        }
+
+        public void TerminalOnPurchase(Interactor interactor, GameObject terminal)
+        {
+            if (terminals.Contains(terminal))
+            {
+                terminalPickups[terminals.IndexOf(terminal)] = PickupIndex.none;
+                CharacterBody characterBody = interactor.GetComponent<CharacterBody>();
+                if (characterBody)
+                {
+                    Inventory inventory = characterBody.inventory;
+                    if (inventory)
+                    {
+                        int itemCount = inventory.GetItemCount(MysticsItemsContent.Items.KeepShopTerminalOpen);
+                        if (itemCount > 0 && Reopen())
+                        {
+                            inventory.RemoveItem(MysticsItemsContent.Items.KeepShopTerminalOpen);
+                            inventory.GiveItem(MysticsItemsContent.Items.KeepShopTerminalOpenConsumed);
+                        }
+                    }
                 }
             }
         }
