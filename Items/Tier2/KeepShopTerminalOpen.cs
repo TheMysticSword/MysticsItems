@@ -10,6 +10,11 @@ namespace MysticsItems.Items
 {
     public class KeepShopTerminalOpen : BaseItem
     {
+        public override void OnPluginAwake()
+        {
+            NetworkingAPI.RegisterMessageType<MysticsItemsKeepShopTerminalOpenBehaviour.SyncSetTerminalState>();
+        }
+
         public override void PreLoad()
         {
             itemDef.name = "KeepShopTerminalOpen";
@@ -44,8 +49,6 @@ namespace MysticsItems.Items
                     }
                 }
             };
-
-            NetworkingAPI.RegisterMessageType<MysticsItemsKeepShopTerminalOpenBehaviour.SyncSetTerminalState>();
         }
     }
 

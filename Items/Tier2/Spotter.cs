@@ -30,6 +30,9 @@ namespace MysticsItems.Items
             enemyFollowerPrefab = CustomUtils.CreateBlankPrefab(Main.TokenPrefix + "SpotterController", true);
             enemyFollowerPrefab.AddComponent<CharacterNetworkTransform>();
             unlockInteractablePrefab = CustomUtils.CreateBlankPrefab(Main.TokenPrefix + "SpotterUnlockInteractable", true);
+
+            NetworkingAPI.RegisterMessageType<SpotterController.SyncClearTarget>();
+            NetworkingAPI.RegisterMessageType<SpotterController.SyncSetTarget>();
         }
 
         public override void PreLoad()
@@ -73,9 +76,6 @@ namespace MysticsItems.Items
             RoR2.UI.HighlightRect highlightRect = highlightPrefab.GetComponent<RoR2.UI.HighlightRect>();
             highlightRect.highlightColor = new Color32(214, 58, 58, 255);
             highlightRect.maxLifeTime = 3f;
-
-            NetworkingAPI.RegisterMessageType<SpotterController.SyncClearTarget>();
-            NetworkingAPI.RegisterMessageType<SpotterController.SyncSetTarget>();
 
             unlockInteractablePrefab.transform.localScale *= 0.25f;
             unlockInteractablePrefab.AddComponent<MysticsItemsSpotterUnlockInteraction>();

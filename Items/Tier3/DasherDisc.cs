@@ -6,6 +6,8 @@ using UnityEngine;
 using UnityEngine.Networking;
 using Mono.Cecil.Cil;
 using MonoMod.Cil;
+using R2API.Networking.Interfaces;
+using R2API.Networking;
 
 namespace MysticsItems.Items
 {
@@ -18,6 +20,8 @@ namespace MysticsItems.Items
             controllerPrefab = PrefabAPI.InstantiateClone(new GameObject(), "DasherDiscController", false);
             controllerPrefab.AddComponent<NetworkIdentity>().localPlayerAuthority = true;
             PrefabAPI.RegisterNetworkPrefab(controllerPrefab);
+
+            NetworkingAPI.RegisterMessageType<DiscBaseState.Ready.SyncFireTrigger>();
         }
 
         public override void PreLoad()
@@ -176,6 +180,7 @@ namespace MysticsItems.Items
             public float rotation = 0f;
             public float rotationSpeed = -45f;
             public bool rotate = true;
+            public bool mustTrigger = false;
 
             public void Awake()
             {
@@ -251,13 +256,66 @@ namespace MysticsItems.Items
                 public override void FixedUpdate()
                 {
                     base.FixedUpdate();
-                    if (isAuthority && IsReady() && controller.body)
+                    if (isAuthority)
                     {
-                        HealthComponent healthComponent = controller.body.healthComponent;
-                        if (healthComponent && healthComponent.isHealthLow)
+                        if (NetworkServer.active && !controller.mustTrigger)
                         {
+                            if (IsReady() && controller.body)
+                            {
+                                HealthComponent healthComponent = controller.body.healthComponent;
+                                if (healthComponent && healthComponent.isHealthLow)
+                                {
+                                    controller.mustTrigger = true;
+                                    new SyncFireTrigger(controller.gameObject.GetComponent<NetworkIdentity>().netId).Send(NetworkDestination.Clients);
+                                }
+                            }
+
+                        }
+                        if (controller.mustTrigger)
+                        {
+                            controller.mustTrigger = false;
                             outer.SetNextState(new Trigger());
                         }
+                    }
+                }
+
+                public bool canTrigger = false;
+
+                public class SyncFireTrigger : INetMessage
+                {
+                    NetworkInstanceId objID;
+
+                    public SyncFireTrigger()
+                    {
+                    }
+
+                    public SyncFireTrigger(NetworkInstanceId objID)
+                    {
+                        this.objID = objID;
+                    }
+
+                    public void Deserialize(NetworkReader reader)
+                    {
+                        objID = reader.ReadNetworkId();
+                    }
+
+                    public void OnReceived()
+                    {
+                        if (NetworkServer.active) return;
+                        GameObject obj = Util.FindNetworkObject(objID);
+                        if (obj)
+                        {
+                            DiscController component = obj.GetComponent<DiscController>();
+                            if (component)
+                            {
+                                component.mustTrigger = true;
+                            }
+                        }
+                    }
+
+                    public void Serialize(NetworkWriter writer)
+                    {
+                        writer.Write(objID);
                     }
                 }
             }

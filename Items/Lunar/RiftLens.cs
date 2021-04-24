@@ -67,6 +67,8 @@ namespace MysticsItems.Items
                 costTypeDef = costTypeDef,
                 onRegister = OnRiftLensCostTypeRegister
             });
+
+            NetworkingAPI.RegisterMessageType<RiftChest.SyncDestroyThingsOnOpen>();
         }
 
         public static System.Action<CostTypeIndex> OnRiftLensCostTypeRegister;
@@ -176,8 +178,6 @@ namespace MysticsItems.Items
                     }
                 }
             };
-
-            NetworkingAPI.RegisterMessageType<RiftChest.SyncDestroyThingsOnOpen>();
         }
 
         public class RiftChest : MonoBehaviour

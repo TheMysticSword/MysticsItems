@@ -18,6 +18,11 @@ namespace MysticsItems.Items
         public static SkillFamily skillFamily;
 		public static SkillDef skillDef;
 
+        public override void OnPluginAwake()
+        {
+			NetworkingAPI.RegisterMessageType<MysticsItemsCommandoRevolverDrumBehaviour.SyncProc>();
+		}
+
         public override void PreLoad()
         {
 			itemDef.name = "CommandoRevolverDrum";
@@ -124,8 +129,6 @@ namespace MysticsItems.Items
 					}
 				}
 			};
-
-			NetworkingAPI.RegisterMessageType<MysticsItemsCommandoRevolverDrumBehaviour.SyncProc>();
 		}
 
         public class MysticsItemsCommandoRevolverDrumBehaviour : CharacterBody.ItemBehavior
