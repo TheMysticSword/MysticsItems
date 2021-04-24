@@ -18,9 +18,6 @@ namespace MysticsItems.Equipment
         public static GameObject unlockInteractablePrefab;
         public static GameObject forcedPickupPrefab;
 
-        public static NetworkIdentity unlockInteractableNetID;
-        public static NetworkIdentity forcedPickupNetID;
-
         public override void PreLoad()
         {
             equipmentDef.name = "ArchaicMask";
@@ -32,8 +29,8 @@ namespace MysticsItems.Equipment
 
         public override void OnPluginAwake()
         {
-            unlockInteractableNetID = CustomUtils.GrabNetID();
-            forcedPickupNetID = CustomUtils.GrabNetID();
+            unlockInteractablePrefab = CustomUtils.CreateBlankPrefab(Main.TokenPrefix + "ArchaicMaskUnlockInteractable", true);
+            forcedPickupPrefab = CustomUtils.CreateBlankPrefab(Main.TokenPrefix + "ArchaicMaskForcedPickup", true);
         }
 
         public override void OnLoad()
@@ -42,8 +39,8 @@ namespace MysticsItems.Equipment
             SetScalableChildEffect("Mask/Effects/Point Light");
             SetScalableChildEffect("Mask/Effects/Fire");
             CopyModelToFollower();
-            unlockInteractablePrefab = PrefabAPI.InstantiateClone(model, Main.TokenPrefix + "ArchaicMaskUnlockInteractable", false);
-
+            CustomUtils.CopyChildren(PrefabAPI.InstantiateClone(model, Main.TokenPrefix + "ArchaicMaskUnlockInteractable", false), unlockInteractablePrefab);
+            
             AddDisplayRule("CommandoBody", "Head", new Vector3(-0.001F, 0.253F, 0.124F), new Vector3(0.055F, 269.933F, 20.48F), new Vector3(0.147F, 0.147F, 0.147F));
             AddDisplayRule("HuntressBody", "Head", new Vector3(-0.001F, 0.221F, 0.039F), new Vector3(0.073F, 269.903F, 25.101F), new Vector3(0.119F, 0.119F, 0.121F));
             AddDisplayRule("Bandit2Body", "Head", new Vector3(0F, 0.047F, 0.102F), new Vector3(0F, 270F, 0F), new Vector3(0.097F, 0.097F, 0.097F));
@@ -69,9 +66,8 @@ namespace MysticsItems.Equipment
             crosshairPrefab.GetComponentInChildren<ObjectScaleCurve>().overallCurve.AddKey(0.5f, 1f);
             crosshairPrefab.GetComponentInChildren<ObjectScaleCurve>().overallCurve.AddKey(1f, 1f);
 
-            unlockInteractablePrefab.AddComponent<NetworkIdentity>();
             MysticsItemsArchaicMaskUnlockInteraction unlockInteraction = unlockInteractablePrefab.AddComponent<MysticsItemsArchaicMaskUnlockInteraction>();
-            unlockInteraction.effects = unlockInteractablePrefab.transform.Find("Mask").Find("Effects").gameObject;
+            unlockInteraction.effects = unlockInteractablePrefab.transform.Find("Mask/Effects").gameObject;
             unlockInteractablePrefab.AddComponent<GenericDisplayNameProvider>().displayToken = "EQUIPMENT_" + Main.TokenPrefix.ToUpper() + equipmentDef.name.ToUpper() + "_NAME";
 
             Highlight highlight = unlockInteractablePrefab.AddComponent<Highlight>();
@@ -85,10 +81,7 @@ namespace MysticsItems.Equipment
             sphereCollider.isTrigger = true;
             entityLocatorHolder.AddComponent<EntityLocator>().entity = unlockInteractablePrefab;
 
-            CustomUtils.ReleaseNetID(unlockInteractablePrefab, unlockInteractableNetID);
-
-            forcedPickupPrefab = Main.AssetBundle.LoadAsset<GameObject>("Assets/Equipment/Archaic Mask/ForcedPickup.prefab");
-            forcedPickupPrefab.AddComponent<NetworkIdentity>();
+            CustomUtils.CopyChildren(PrefabAPI.InstantiateClone(Main.AssetBundle.LoadAsset<GameObject>("Assets/Equipment/Archaic Mask/ForcedPickup.prefab"), "ForcedPickup"), forcedPickupPrefab);
             GenericPickupController genericPickupController = forcedPickupPrefab.AddComponent<GenericPickupController>();
             forcedPickupPrefab.AddComponent<Highlight>();
             PickupDisplay pickupDisplay = forcedPickupPrefab.transform.Find("PickupDisplay").gameObject.AddComponent<PickupDisplay>();
@@ -99,8 +92,6 @@ namespace MysticsItems.Equipment
             forcedPickupPrefab.transform.Find("PickupTrigger").gameObject.layer = LayerIndex.pickups.intVal;
             forcedPickupPrefab.transform.Find("PickupTrigger").gameObject.AddComponent<EntityLocator>().entity = forcedPickupPrefab;
             forcedPickupPrefab.AddComponent<MysticsItemsArchaicMaskForcedPickup>();
-
-            CustomUtils.ReleaseNetID(forcedPickupPrefab, forcedPickupNetID);
 
             On.RoR2.SceneDirector.PopulateScene += (orig, self) =>
             {

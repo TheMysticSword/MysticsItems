@@ -19,18 +19,17 @@ namespace MysticsItems.Items
     {
         public static BuffDef buffDef;
         public static GameObject enemyFollowerPrefab;
-        public static NetworkIdentity enemyFollowerNetID;
         public static GameObject highlightPrefab;
         public static float interval = 30f;
         public static float duration = 10f;
         public static GameObject unlockInteractablePrefab;
-        public static NetworkIdentity unlockInteractableNetID;
         public static NetworkSoundEventDef repairSoundEventDef;
 
         public override void OnPluginAwake()
         {
-            enemyFollowerNetID = CustomUtils.GrabNetID();
-            unlockInteractableNetID = CustomUtils.GrabNetID();
+            enemyFollowerPrefab = CustomUtils.CreateBlankPrefab(Main.TokenPrefix + "SpotterController", true);
+            enemyFollowerPrefab.AddComponent<CharacterNetworkTransform>();
+            unlockInteractablePrefab = CustomUtils.CreateBlankPrefab(Main.TokenPrefix + "SpotterUnlockInteractable", true);
         }
 
         public override void PreLoad()
@@ -52,13 +51,10 @@ namespace MysticsItems.Items
             Main.HopooShaderToMaterial.Standard.Gloss(mat, 0.2f, 1f);
             Main.HopooShaderToMaterial.Standard.Emission(mat, 1f);
             CopyModelToFollower();
-            unlockInteractablePrefab = PrefabAPI.InstantiateClone(model, model.name + "UnlockInteractable", false);
-
+            CustomUtils.CopyChildren(PrefabAPI.InstantiateClone(model, model.name + "UnlockInteractable", false), unlockInteractablePrefab);
+            
             followerModel.transform.localScale = Vector3.one * 0.2f;
             followerModel.transform.localRotation = Quaternion.Euler(new Vector3(0f, -90f, 0f));
-            enemyFollowerPrefab = PrefabAPI.InstantiateClone(new GameObject(), "SpotterController", false);
-            enemyFollowerPrefab.AddComponent<NetworkIdentity>();
-            enemyFollowerPrefab.AddComponent<CharacterNetworkTransform>();
             Rigidbody rigidbody = enemyFollowerPrefab.AddComponent<Rigidbody>();
             rigidbody.useGravity = false;
             enemyFollowerPrefab.AddComponent<GenericOwnership>();
@@ -72,7 +68,6 @@ namespace MysticsItems.Items
             SimpleRotateToDirection rotateToDirection = component.rotateToDirection = enemyFollowerPrefab.AddComponent<SimpleRotateToDirection>();
             rotateToDirection.maxRotationSpeed = 720f;
             rotateToDirection.smoothTime = 0.1f;
-            CustomUtils.ReleaseNetID(enemyFollowerPrefab, enemyFollowerNetID);
             
             highlightPrefab = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/UI/HighlightTier1Item"), Main.TokenPrefix + "HighlightSpotterTarget", false);
             RoR2.UI.HighlightRect highlightRect = highlightPrefab.GetComponent<RoR2.UI.HighlightRect>();
@@ -82,7 +77,6 @@ namespace MysticsItems.Items
             NetworkingAPI.RegisterMessageType<SpotterController.SyncClearTarget>();
             NetworkingAPI.RegisterMessageType<SpotterController.SyncSetTarget>();
 
-            unlockInteractablePrefab.AddComponent<NetworkIdentity>();
             unlockInteractablePrefab.transform.localScale *= 0.25f;
             unlockInteractablePrefab.AddComponent<MysticsItemsSpotterUnlockInteraction>();
 
@@ -112,8 +106,6 @@ namespace MysticsItems.Items
             sphereCollider.radius = 12f;
             sphereCollider.isTrigger = true;
             entityLocatorHolder.AddComponent<EntityLocator>().entity = unlockInteractablePrefab;
-
-            CustomUtils.ReleaseNetID(unlockInteractablePrefab, unlockInteractableNetID);
             
             On.RoR2.SceneDirector.PopulateScene += (orig, self) =>
             {

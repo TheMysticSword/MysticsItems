@@ -15,12 +15,13 @@ namespace MysticsItems.Equipment
     {
         public static GameObject wavePrefab;
         public static GameObject waveProjectile;
-        public static NetworkIdentity waveProjectileNetID;
         public static BuffDef buffDef;
 
         public override void OnPluginAwake()
         {
-            waveProjectileNetID = CustomUtils.GrabNetID();
+            waveProjectile = PrefabAPI.InstantiateClone(new GameObject(), Main.TokenPrefix + "MicrophoneSoundwave", false);
+            waveProjectile.AddComponent<NetworkIdentity>().localPlayerAuthority = true;
+            PrefabAPI.RegisterNetworkPrefab(waveProjectile);
         }
 
         public override void PreLoad()
@@ -55,9 +56,7 @@ namespace MysticsItems.Equipment
             wavePrefab = Main.AssetBundle.LoadAsset<GameObject>("Assets/Equipment/Microphone/MicrophoneSoundwaveGhost.prefab");
             wavePrefab.AddComponent<ProjectileGhostController>();
 
-            waveProjectile = Main.AssetBundle.LoadAsset<GameObject>("Assets/Equipment/Microphone/MicrophoneSoundwave.prefab");
-            NetworkIdentity networkIdentity = waveProjectile.AddComponent<NetworkIdentity>();
-            networkIdentity.localPlayerAuthority = true;
+            CustomUtils.CopyChildren(PrefabAPI.InstantiateClone(Main.AssetBundle.LoadAsset<GameObject>("Assets/Equipment/Microphone/MicrophoneSoundwave.prefab"), "MicrophoneSoundwave"), waveProjectile);
             MicrophoneSoundwaveProjectile msp = waveProjectile.AddComponent<MicrophoneSoundwaveProjectile>();
             msp.sizeCurve = new AnimationCurve
             {
@@ -95,7 +94,6 @@ namespace MysticsItems.Equipment
             ProjectileInflictTimedBuff projectileInflictTimedBuff = waveProjectile.AddComponent<ProjectileInflictTimedBuff>();
             projectileInflictTimedBuff.duration = 15f;
 
-            CustomUtils.ReleaseNetID(waveProjectile, waveProjectileNetID);
             MysticsItemsContent.Resources.projectilePrefabs.Add(waveProjectile);
         }
 

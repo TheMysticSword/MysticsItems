@@ -6,6 +6,7 @@ using Mono.Cecil.Cil;
 using MonoMod.Cil;
 using System.Collections.Generic;
 using System.Linq;
+using R2API;
 
 namespace MysticsItems.Items
 {
@@ -88,7 +89,7 @@ namespace MysticsItems.Items
                 }
             };
 
-            delayedHealOrbSpawner = CustomUtils.CreateBlankPrefab(Main.TokenPrefix + "DelayedHealOrbSpawner");
+            delayedHealOrbSpawner = PrefabAPI.InstantiateClone(new GameObject(), Main.TokenPrefix + "DelayedHealOrbSpawner");
             MysticsItemsHealOrbOnBarrelSpawner delayedSpawnerComponent = delayedHealOrbSpawner.AddComponent<MysticsItemsHealOrbOnBarrelSpawner>();
         }
 

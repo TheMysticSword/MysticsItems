@@ -12,11 +12,10 @@ namespace MysticsItems.Items
     {
         public static GameObject gunpowderPickup;
         public static GameObject explosionPrefab;
-        public static NetworkIdentity gunpowderNetID;
 
         public override void OnPluginAwake()
         {
-            gunpowderNetID = CustomUtils.GrabNetID();
+            gunpowderPickup = CustomUtils.CreateBlankPrefab(Main.TokenPrefix + "ExplosivePack", true);
         }
 
         public override void PreLoad()
@@ -59,11 +58,10 @@ namespace MysticsItems.Items
             AddDisplayRule("BrotherBody", "Stomach", BrotherInfection.green, new Vector3(-0.18F, 0.131F, 0.075F), new Vector3(303.36F, 82.78F, 283.641F), new Vector3(0.063F, 0.063F, 0.063F));
             AddDisplayRule("ScavBody", "MuzzleEnergyCannon", new Vector3(0.586F, 3.872F, 0.073F), new Vector3(54.107F, 148.5F, 149.008F), new Vector3(0.835F, 0.858F, 0.835F));
 
-            gunpowderPickup = Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Contraband Gunpowder/ExplosivePack.prefab");
+            CustomUtils.CopyChildren(PrefabAPI.InstantiateClone(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Contraband Gunpowder/ExplosivePack.prefab"), "ExplosivePack"), gunpowderPickup);
             gunpowderPickup.transform.localScale *= 0.33f;
             
             gunpowderPickup.layer = LayerIndex.debris.intVal;
-            gunpowderPickup.AddComponent<NetworkIdentity>();
 
             DestroyOnTimer destroyOnTimer = gunpowderPickup.AddComponent<DestroyOnTimer>();
             destroyOnTimer.duration = 60f;
@@ -98,8 +96,6 @@ namespace MysticsItems.Items
             gravitatePickup.teamFilter = teamFilter;
             gravitatePickup.acceleration = 5f;
             gravitatePickup.maxSpeed = 40f;
-
-            CustomUtils.ReleaseNetID(gunpowderPickup, gunpowderNetID);
             
             /*
             explosionPrefab = Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Contraband Gunpowder/Explosion.prefab");

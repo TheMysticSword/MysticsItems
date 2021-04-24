@@ -12,11 +12,12 @@ namespace MysticsItems.Items
     public class DasherDisc : BaseItem
     {
         public static GameObject controllerPrefab;
-        public static NetworkIdentity controllerNetID;
 
         public override void OnPluginAwake()
         {
-            controllerNetID = CustomUtils.GrabNetID();
+            controllerPrefab = PrefabAPI.InstantiateClone(new GameObject(), "DasherDiscController", false);
+            controllerPrefab.AddComponent<NetworkIdentity>().localPlayerAuthority = true;
+            PrefabAPI.RegisterNetworkPrefab(controllerPrefab);
         }
 
         public override void PreLoad()
@@ -42,8 +43,6 @@ namespace MysticsItems.Items
             CopyModelToFollower();
             followerModel.transform.Find("mdlDasherDisc").localScale = Vector3.one * 5f;
 
-            controllerPrefab = PrefabAPI.InstantiateClone(new GameObject(), "DasherDiscController", false);
-            controllerPrefab.AddComponent<NetworkIdentity>().localPlayerAuthority = true;
             controllerPrefab.AddComponent<GenericOwnership>();
             controllerPrefab.AddComponent<NetworkedBodyAttachment>();
             EntityStateMachine stateMachine = controllerPrefab.AddComponent<EntityStateMachine>();
@@ -58,7 +57,6 @@ namespace MysticsItems.Items
             component.follower = follower;
             component.disc = follower.transform.Find("mdlDasherDisc").gameObject;
             component.discSpinner = component.disc.GetComponent<MysticsItemsDasherDiscSpinner>();
-            CustomUtils.ReleaseNetID(controllerPrefab, controllerNetID);
             
             MysticsItemsContent.Resources.entityStateTypes.Add(typeof(DiscBaseState));
             MysticsItemsContent.Resources.entityStateTypes.Add(typeof(DiscBaseState.Ready));

@@ -7,53 +7,24 @@ namespace MysticsItems
 {
     public static class CustomUtils
     {
-        public static GameObject inactivePrefabParent;
-
-        public static GameObject CreateBlankPrefab(string name = "GameObject")
+        public static GameObject CreateBlankPrefab(string name = "GameObject", bool network = false)
         {
-            if (!inactivePrefabParent)
+            GameObject gameObject = PrefabAPI.InstantiateClone(new GameObject(name), name, false);
+            if (network)
             {
-                inactivePrefabParent = new GameObject("InactivePrefabParent");
-                Object.DontDestroyOnLoad(inactivePrefabParent);
-                inactivePrefabParent.SetActive(false);
+                gameObject.AddComponent<NetworkIdentity>();
+                PrefabAPI.RegisterNetworkPrefab(gameObject);
             }
-            return Object.Instantiate(new GameObject(name), inactivePrefabParent.transform);
+            return gameObject;
         }
 
-        public static int netIDCount = int.MinValue;
-        public static NetworkIdentity GrabNetID(string name = "MysticsItemsNetworkIdentity")
+        public static void CopyChildren(GameObject from, GameObject to)
         {
-            GameObject obj = CreateBlankPrefab(name + netIDCount.ToString());
-            NetworkIdentity networkIdentity = obj.AddComponent<NetworkIdentity>();
-            PrefabAPI.RegisterNetworkPrefab(obj);
-            netIDCount++;
-            return networkIdentity;
-        }
-
-        public static void ReleaseNetID(GameObject gameObject, NetworkIdentity netID)
-        {
-            NetworkIdentity networkIdentity = gameObject.GetComponent<NetworkIdentity>();
-            if (!networkIdentity) networkIdentity = gameObject.AddComponent<NetworkIdentity>();
-            foreach (PropertyInfo propertyInfo in typeof(NetworkIdentity).GetProperties(Main.bindingFlagAll))
+            int childCount = from.transform.childCount;
+            for (var i = 0; i < childCount; i++)
             {
-                if (propertyInfo.CanRead && propertyInfo.CanWrite)
-                {
-                    try
-                    {
-                        propertyInfo.SetValue(networkIdentity, propertyInfo.GetValue(netID));
-                    }
-                    catch { }
-                }
+                from.transform.GetChild(0).SetParent(to.transform);
             }
-            foreach (FieldInfo fieldInfo in typeof(NetworkIdentity).GetFields(Main.bindingFlagAll))
-            {
-                try
-                {
-                    fieldInfo.SetValue(networkIdentity, fieldInfo.GetValue(netID));
-                }
-                catch { }
-            }
-            Object.Destroy(netID);
         }
     }
 }

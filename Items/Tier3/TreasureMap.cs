@@ -20,7 +20,6 @@ namespace MysticsItems.Items
     public class TreasureMap : BaseItem
     {
         public static GameObject zonePrefab;
-        public static NetworkIdentity zoneNetID;
         public static SpawnCard zoneSpawnCard;
         public static Material ghostMaterial;
         public static NetworkSoundEventDef soundEventDef;
@@ -42,7 +41,7 @@ namespace MysticsItems.Items
         public override void OnPluginAwake()
         {
             rewardPrefab = PrefabAPI.InstantiateClone(Resources.Load<InteractableSpawnCard>("SpawnCards/InteractableSpawnCard/iscGoldChest").prefab, Main.TokenPrefix + "TreasureMapReward");
-            zoneNetID = CustomUtils.GrabNetID();
+            zonePrefab = CustomUtils.CreateBlankPrefab(Main.TokenPrefix + "TreasureMapZone", true);
         }
 
         public override void OnLoad()
@@ -63,9 +62,9 @@ namespace MysticsItems.Items
             AddDisplayRule("BrotherBody", "HandR", BrotherInfection.red, new Vector3(0.051F, -0.072F, 0.004F), new Vector3(44.814F, 122.901F, 267.545F), new Vector3(0.063F, 0.063F, 0.063F));
 
             NetworkingAPI.RegisterMessageType<MysticsItemsTreasureMapZone.SyncZoneShouldBeActive>();
+            NetworkingAPI.RegisterMessageType<MysticsItemsTreasureMapZone.SyncCostHologramData>();
 
-            zonePrefab = Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Treasure Map/TreasureMapZone.prefab");
-            zonePrefab.AddComponent<NetworkIdentity>();
+            CustomUtils.CopyChildren(PrefabAPI.InstantiateClone(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Treasure Map/TreasureMapZone.prefab"), "TreasureMapZone"), zonePrefab);
             HoldoutZoneController holdoutZone = zonePrefab.AddComponent<HoldoutZoneController>();
             holdoutZone.baseRadius = 15f;
             holdoutZone.baseChargeDuration = 120f;
@@ -93,7 +92,7 @@ namespace MysticsItems.Items
             Texture decalTexture = Main.AssetBundle.LoadAsset<Texture>("Assets/Items/Treasure Map/texTreasureMapDecal.png");
             decalMaterial.SetTexture("_MainTex", decalTexture);
             decalMaterial.SetTexture("_MaskTex", decalTexture);
-            decalMaterial.SetFloat("_AngleLimit", 0f);
+            decalMaterial.SetFloat("_AngleLimit", 0.6f);
             decalMaterial.SetFloat("_DecalLayer", 1f);
             decalMaterial.SetFloat("_DecalBlendMode", 0f);
             decalMaterial.SetColor("_Color", new Color32(70, 10, 10, 255));
@@ -119,8 +118,6 @@ namespace MysticsItems.Items
                 }
                 return orig(self);
             };
-
-            CustomUtils.ReleaseNetID(zonePrefab, zoneNetID);
             
             zoneSpawnCard = ScriptableObject.CreateInstance<SpawnCard>();
             zoneSpawnCard.name = "isc" + Main.TokenPrefix + "TreasureMapZone";
