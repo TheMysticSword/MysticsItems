@@ -179,6 +179,7 @@ namespace MysticsItems.Items
                         costTypeIndex = prefabPurchaseInteraction.costType;
                         new SyncCostHologramData(gameObject.GetComponent<NetworkIdentity>().netId, cost, (int)costTypeIndex).Send(NetworkDestination.Clients);
                     }
+                    ShouldBeActive = false;
                 }
 
                 holdoutZoneController.onCharged = new HoldoutZoneController.HoldoutZoneControllerChargedUnityEvent();
