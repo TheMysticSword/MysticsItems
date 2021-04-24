@@ -4,8 +4,8 @@
 
     //[TIER1]
     "ITEM_MYSTICSITEMS_HEALORBONBARREL_NAME": "Donut",
-    "ITEM_MYSTICSITEMS_HEALORBONBARREL_PICKUP": "Barrels contain healing orbs.",
-    "ITEM_MYSTICSITEMS_HEALORBONBARREL_DESC": "Opening a barrel spawns a <style=cIsHealing>healing orb</style> that heals for <style=cIsHealing>8</style> plus an additional <style=cIsHealing>10% <style=cStack>(+10% per stack)</style></style> of <style=cIsHealing>maximum health</style>. Every stage contains <style=cIsHealing>+1 <style=cStack>(+1 per stack)</style></style> barrel.",
+    "ITEM_MYSTICSITEMS_HEALORBONBARREL_PICKUP": "Activating an interactable creates a healing orb.",
+    "ITEM_MYSTICSITEMS_HEALORBONBARREL_DESC": "Activating an interactable spawns a <style=cIsHealing>healing orb</style> that heals for <style=cIsHealing>8</style> plus an additional <style=cIsHealing>10% <style=cStack>(+10% per stack)</style></style> of <style=cIsHealing>maximum health</style>.",
     "ITEM_MYSTICSITEMS_HEALORBONBARREL_LORE": "- Do you know why donuts have a hole in the middle?\n\n- Because, uh... no idea.\n\n- That's food for thought.\n\n- ... I hate you.",
 
     "ITEM_MYSTICSITEMS_SCRATCHTICKET_NAME": "Scratch Ticket",
@@ -178,8 +178,8 @@
 
     //[TIER1]
     "ITEM_MYSTICSITEMS_HEALORBONBARREL_NAME": "Пончик",
-    "ITEM_MYSTICSITEMS_HEALORBONBARREL_PICKUP": "Бочки содержат сферы исцеления.",
-    "ITEM_MYSTICSITEMS_HEALORBONBARREL_DESC": "При открытии бочки появляется <style=cIsHealing>сфера исцеления</style>, восстанавливающая <style=cIsHealing>8</style> ед. здоровья и дополнительно <style=cIsHealing>10% <style=cStack>(+10% за шт.)</style></style> от <style=cIsHealing>максимального запаса здоровья</style>. Каждый этап содержит <style=cIsHealing>+1 <style=cStack>(+1 за шт.)</style></style> бочку.",
+    "ITEM_MYSTICSITEMS_HEALORBONBARREL_PICKUP": "Активация объекта создаёт сферу исцеления.",
+    "ITEM_MYSTICSITEMS_HEALORBONBARREL_DESC": "Активация объекта создаёт <style=cIsHealing>сферу исцеления</style>, восстанавливающую <style=cIsHealing>8</style> ед. здоровья и дополнительно <style=cIsHealing>10% <style=cStack>(+10% за шт.)</style></style> от <style=cIsHealing>максимального запаса здоровья</style>.",
     "ITEM_MYSTICSITEMS_HEALORBONBARREL_LORE": "- Знаешь, почему у пончиков посередине дырка?\n\n- Потому что, э-э-э... не знаю.\n\n- Это пища для размышлений.\n\n- ... Я тебя ненавижу.",
 
     "ITEM_MYSTICSITEMS_SCRATCHTICKET_NAME": "Лотерейный билет",

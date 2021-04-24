@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.Networking;
 using Mono.Cecil.Cil;
 using MonoMod.Cil;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace MysticsItems.Items
 {
@@ -48,55 +50,7 @@ namespace MysticsItems.Items
             AddDisplayRule("CaptainBody", "Stomach", new Vector3(0.002F, 0.134F, 0.176F), new Vector3(313.466F, 271.294F, 278.969F), new Vector3(0.086F, 0.086F, 0.086F));
             AddDisplayRule("BrotherBody", "Head", BrotherInfection.white, new Vector3(-0.01F, 0.044F, 0.12F), new Vector3(65.585F, 339.303F, 255.053F), new Vector3(0.107F, 0.107F, 0.107F));
 
-            On.EntityStates.Barrel.Opening.OnEnter += (orig, self) =>
-            {
-                orig(self);
-                GameObject gameObject = (GameObject)typeof(EntityStates.EntityState).GetProperty("gameObject", Main.bindingFlagAll).GetValue(self);
-                if (gameObject)
-                {
-                    SpawnOrbOnBarrelOpen spawnOrbOnBarrelOpen = gameObject.GetComponent<SpawnOrbOnBarrelOpen>();
-                    if (spawnOrbOnBarrelOpen && spawnOrbOnBarrelOpen.interactor)
-                    {
-                        CharacterBody interactorBody = spawnOrbOnBarrelOpen.interactor.GetComponent<CharacterBody>();
-                        if (interactorBody)
-                        {
-                            SpawnOrb(gameObject.transform.position, gameObject.transform.rotation, interactorBody.teamComponent.teamIndex, interactorBody.inventory.GetItemCount(MysticsItemsContent.Items.HealOrbOnBarrel));
-                        }
-                        if (NetworkServer.active) GameObject.Destroy(spawnOrbOnBarrelOpen);
-                    }
-                }
-            };
-            IL.RoR2.GlobalEventManager.OnInteractionBegin += (il) =>
-            {
-                ILCursor c = new ILCursor(il);
-
-                if (c.TryGotoNext(
-                    MoveType.After,
-                    x => x.MatchLdloc(4),
-                    x => x.MatchLdarg(3),
-                    x => x.MatchCallOrCallvirt<GameObject>("GetComponent"),
-                    x => x.MatchStfld(out _)
-                ))
-                {
-                    c.Emit(OpCodes.Ldloc_0);
-                    c.Emit(OpCodes.Ldloc_3);
-                    c.Emit(OpCodes.Ldarg_1);
-                    c.Emit(OpCodes.Ldarg_2);
-                    c.Emit(OpCodes.Ldarg_3);
-                    c.EmitDelegate<System.Action<CharacterBody, Inventory, Interactor, IInteractable, GameObject>>((interactorBody, inventory, interactor, interactable, interactableObject) =>
-                    {
-                        if (inventory.GetItemCount(MysticsItemsContent.Items.HealOrbOnBarrel) > 0)
-                        {
-                            GenericDisplayNameProvider genericDisplayNameProvider = interactableObject.GetComponent<GenericDisplayNameProvider>();
-                            if (genericDisplayNameProvider && genericDisplayNameProvider.displayToken.Contains("BARREL"))
-                            {
-                                SpawnOrbOnBarrelOpen spawnOrbOnBarrelOpen = interactableObject.AddComponent<SpawnOrbOnBarrelOpen>();
-                                spawnOrbOnBarrelOpen.interactor = interactor;
-                            }
-                        }
-                    });
-                }
-            };
+            GenericGameEvents.OnInteractionBegin += GenericGameEvents_OnInteractionBegin;
 
             On.RoR2.GravitatePickup.FixedUpdate += (orig, self) =>
             {
@@ -108,7 +62,6 @@ namespace MysticsItems.Items
                     {
                         ror1style.moveTime = ror1style.moveTimeMax;
                         self.rigidbody.velocity = Vector3.MoveTowards(self.rigidbody.velocity, Vector3.zero, self.acceleration * 0.25f);
-                        self.rigidbody.transform.localScale = Vector3.Lerp(self.rigidbody.transform.localScale, ror1style.targetScale, ror1style.scaleDifference.magnitude / ror1style.floatTimeMax * Time.fixedDeltaTime);
                         if (ror1style.floatTime < ror1style.floatTimeMax)
                         {
                             ror1style.floatTime += Time.fixedDeltaTime;
@@ -132,26 +85,35 @@ namespace MysticsItems.Items
                     orig(self);
                 }
             };
+        }
 
-            GenericGameEvents.OnPopulateScene += (rng) =>
+        private void GenericGameEvents_OnInteractionBegin(Interactor interactor, IInteractable interactable, GameObject interactableObject, bool canProc)
+        {
+            if (NetworkServer.active && canProc)
             {
-                int itemCount = 0;
-                foreach (CharacterMaster characterMaster in CharacterMaster.readOnlyInstancesList)
-                    if (characterMaster.teamIndex == TeamIndex.Player)
-                    {
-                        itemCount += characterMaster.inventory.GetItemCount(itemDef);
-                    }
-                if (itemCount > 0)
+                CharacterBody characterBody = interactor.GetComponent<CharacterBody>();
+                if (characterBody)
                 {
-                    for (int i = 0; i < itemCount; i++)
+                    Inventory inventory = characterBody.inventory;
+                    if (inventory)
                     {
-                        DirectorCore.instance.TrySpawnObject(new DirectorSpawnRequest(Resources.Load<InteractableSpawnCard>("SpawnCards/InteractableSpawnCard/iscBarrel1"), new DirectorPlacementRule
+                        int itemCount = inventory.GetItemCount(MysticsItemsContent.Items.HealOrbOnBarrel);
+                        if (itemCount > 0)
                         {
-                            placementMode = DirectorPlacementRule.PlacementMode.Random
-                        }, rng));
+                            MysticsItemsHealOrbOnBarrelSpawner component = interactableObject.GetComponent<MysticsItemsHealOrbOnBarrelSpawner>();
+                            if (!component)
+                            {
+                                component = interactableObject.AddComponent<MysticsItemsHealOrbOnBarrelSpawner>();
+                            }
+                            component.queue.Enqueue(new MysticsItemsHealOrbOnBarrelSpawner.HealOrbSpawnQueue
+                            {
+                                interactor = interactor,
+                                itemCount = itemCount
+                            });
+                        }
                     }
                 }
-            };
+            }
         }
 
         public static void SpawnOrb(Vector3 position, Quaternion rotation, TeamIndex teamIndex, int itemCount)
@@ -164,9 +126,8 @@ namespace MysticsItems.Items
                 orb.GetComponentInChildren<HealthPickup>().fractionalHealing = 0.1f + 0.1f * (itemCount - 1);
                 var ror1style = orb.GetComponentInChildren<GravitatePickup>().gameObject.AddComponent<GravitatePickupRoR1Style>();
                 ror1style.targetPosition = position + rotation * Vector3.up * 4f;
-                ror1style.targetScale = orb.transform.localScale + (orb.transform.localScale * orb.GetComponentInChildren<HealthPickup>().fractionalHealing);
-                ror1style.scaleDifference = ror1style.targetScale - orb.transform.localScale;
                 orb.GetComponent<Rigidbody>().useGravity = false;
+                orb.transform.localScale = Vector3.one * (1f + orb.GetComponentInChildren<HealthPickup>().fractionalHealing);
                 NetworkServer.Spawn(orb);
             }
         }
@@ -178,15 +139,49 @@ namespace MysticsItems.Items
             public Vector3 scaleDifference;
             public float lastPositionDifference = Mathf.Infinity;
             public float moveTime = 0f;
-            public float moveTimeMax = 1f;
+            public float moveTimeMax = 2f;
             public float floatTime = 0f;
             public float floatTimeMax = 1f;
             public bool normalBehaviour = false;
         }
 
-        public class SpawnOrbOnBarrelOpen : MonoBehaviour
+        public class MysticsItemsHealOrbOnBarrelSpawner : MonoBehaviour
         {
-            public Interactor interactor;
+            public float delay = 0f;
+            public float delayMax = 0.5f;
+            public Queue<HealOrbSpawnQueue> queue = new Queue<HealOrbSpawnQueue>();
+
+            public struct HealOrbSpawnQueue
+            {
+                public Interactor interactor;
+                public int itemCount;
+            }
+
+            public void Start()
+            {
+                delay = delayMax;
+            }
+
+            public void FixedUpdate()
+            {
+                if (queue.Count > 0)
+                {
+                    delay -= Time.fixedDeltaTime;
+                    if (delay <= 0f)
+                    {
+                        delay = delayMax;
+                        HealOrbSpawnQueue member = queue.Dequeue();
+                        Vector3 position = transform.position + Vector3.up * 2f;
+                        ChildLocator childLocator = GetComponent<ChildLocator>();
+                        if (childLocator)
+                        {
+                            Transform fireworkOrigin = childLocator.FindChild("FireworkOrigin");
+                            if (fireworkOrigin) position = fireworkOrigin.position;
+                        }
+                        SpawnOrb(position, transform.rotation, TeamComponent.GetObjectTeam(member.interactor.gameObject), member.itemCount);
+                    }
+                }
+            }
         }
     }
 }
