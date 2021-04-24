@@ -36,6 +36,11 @@ Other sounds made with sfxia by rxi (https://rxi.itch.io/sfxia)
 * Faulty Spotter:
     * Cooldown: ~~20s~~ ⇒ 30s
         * The 20 second cooldown wouldn't acccount the 10 seconds of the crit-marked debuff, causing the item to have 10 seconds of effective cooldown. This change was made to fix the issue.
+* Relentless Vendetta:
+    * Buff Duration: ~~15s (+5s per stack)~~ ⇒ 15s (+15s per stack)
+    * Buff Duration (same-stage death): ~~2s (+0.5s per stack)~~ ⇒ 1s (+1s per stack)
+* Cup of Expresso:
+    * Maximum Buffs: ~~3 (+1 per stack)~~ ⇒ 3 (+3 per stack)
 * Contraband Gunpowder now interacts with Starstorm 2's Stirring Soul
 * Updated Treasure Map effects
 * Updated Cup of Expresso effects
