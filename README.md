@@ -27,9 +27,19 @@ Tuning fork SFX for Ratio Equalizer provided by Martin Chappell (https://freesou
 Other sounds made with sfxia by rxi (https://rxi.itch.io/sfxia)  
   
 ### Changelog
-#### 1.2.0:
+#### 1.1.8:
 * Now works on game version 1.1.1.2
-* Fixed Timely Execution infinitely putting the owner in invincibility state
+* Donut:
+    * Now triggers on all interactables
+* Scratch Ticket:
+    * Changed function: now increases chance of luck-based effects
+* Contraband Gunpowder now interacts with Starstorm 2's Stirring Soul
+* Updated Treasure Map effects
+* Updated Cup of Expresso effects
+* Team-based items (Crystallized World, Treasure Map and Mysterious Monolith) now work only if their owners are alive
+* Fixed Treasure Map behaving differently for clients and hosts in multiplayer
+* Fixed Timely Execution having no cooldown
+* Fixed Donut healing orb size not being networked
 #### 1.1.7:
 * Added item displays for the Bandit
 * Added config options for disabling specific items
