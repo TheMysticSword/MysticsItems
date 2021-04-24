@@ -28,7 +28,7 @@ Other sounds made with sfxia by rxi (https://rxi.itch.io/sfxia)
   
 ### Changelog
 #### 1.1.8:
-* Now works on game version 1.1.1.2
+* Now works on game version 1.1.1.4
 * Donut:
     * Now triggers on all interactables
 * Scratch Ticket:
