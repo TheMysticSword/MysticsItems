@@ -33,6 +33,9 @@ Other sounds made with sfxia by rxi (https://rxi.itch.io/sfxia)
     * Now triggers on all interactables
 * Scratch Ticket:
     * Changed function: now increases chance of luck-based effects
+* Faulty Spotter:
+    * Cooldown: ~~20s~~ ⇒ 30s
+        * The 20 second cooldown wouldn't acccount the 10 seconds of the crit-marked debuff, causing the item to have 10 seconds of effective cooldown. This change was made to fix the issue.
 * Contraband Gunpowder now interacts with Starstorm 2's Stirring Soul
 * Updated Treasure Map effects
 * Updated Cup of Expresso effects
