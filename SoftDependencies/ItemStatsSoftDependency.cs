@@ -41,8 +41,8 @@ namespace MysticsItems.SoftDependencies
                 Stats = new List<ItemStat>()
                 {
                     new ItemStat(
-                        (itemCount, ctx) => 1f + 1f * (itemCount - 1),
-                        (value, ctx) => $"Reward (% of final shrine cost): {value.FormatPercentage()}"
+                        (itemCount, ctx) => 0.01f + 0.01f * (itemCount - 1),
+                        (value, ctx) => $"Chance Increase: {value.FormatPercentage()}"
                     )
                 }
             });
@@ -177,11 +177,15 @@ namespace MysticsItems.SoftDependencies
                 Stats = new List<ItemStat>()
                 {
                     new ItemStat(
-                        (itemCount, ctx) => 1f - 1f / (1f + 0.25f * (itemCount - 1)),
-                        (value, ctx) => $"Proc Chance: {value.FormatPercentage()}"
+                        (itemCount, ctx) => itemCount,
+                        (value, ctx) => $"Extra Purchases: {value.FormatInt()}"
+                    ),
+                    new ItemStat(
+                        (itemCount, ctx) => itemCount + (ctx.Inventory ? ctx.Inventory.GetItemCount(MysticsItemsContent.Items.KeepShopTerminalOpenConsumed) : 0),
+                        (value, ctx) => $"Extra Purchases This Stage: {value.FormatInt()}"
                     )
                 }
-            }, new List<Type> { typeof(LuckModifier) });
+            });
 
             // tier3
             AddItemStatDef(MysticsItemsContent.Items.Voltmeter, new ItemStatDef
