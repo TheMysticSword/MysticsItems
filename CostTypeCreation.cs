@@ -12,23 +12,17 @@ namespace MysticsItems
         {
             CostTypeCatalog.modHelper.getAdditionalEntries += (list) =>
             {
-                list = list.Concat(customCostTypes.ConvertAll(x => x.costTypeDef)).ToList();
+                foreach (CustomCostTypeInfo customCostType in customCostTypes) list.Add(customCostType.costTypeDef);
             };
-            On.RoR2.CostTypeCatalog.Init += (orig) =>
+            On.RoR2.CostTypeCatalog.Register += (orig, costType, costTypeDef) =>
             {
-                orig();
-                for (int i = 0; i < customCostTypes.Count; i++)
+                orig(costType, costTypeDef);
+                CustomCostTypeInfo customCostType = customCostTypes.FirstOrDefault(x => x.costTypeDef == costTypeDef);
+                if (!customCostType.Equals(default(CustomCostTypeInfo)))
                 {
-                    CustomCostTypeInfo customCostType = customCostTypes[i];
-                    customCostType.index = (CostTypeIndex)System.Array.IndexOf(CostTypeCatalog.costTypeDefs, customCostType.costTypeDef);
+                    customCostType.index = costType;
                     if (customCostType.onRegister != null) customCostType.onRegister(customCostType.index);
                 }
-            };
-            On.RoR2.CostTypeCatalog.GetCostTypeDef += (orig2, costTypeIndex) =>
-            {
-                CustomCostTypeInfo customCostType = customCostTypes.FirstOrDefault(x => x.index == costTypeIndex);
-                if (!customCostType.Equals(default)) return customCostType.costTypeDef;
-                return orig2(costTypeIndex);
             };
         }
 
