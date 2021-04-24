@@ -31,7 +31,7 @@
     //[TIER2]
     "ITEM_MYSTICSITEMS_COFFEEBOOSTONITEMPICKUP_NAME": "Cup of Expresso",
     "ITEM_MYSTICSITEMS_COFFEEBOOSTONITEMPICKUP_PICKUP": "Gain a boost until the next stage on item pickup. Stacks 3 times.",
-    "ITEM_MYSTICSITEMS_COFFEEBOOSTONITEMPICKUP_DESC": "Each item pickup <style=cIsUtility>boosts</style> your <style=cIsDamage>attack speed</style> and <style=cIsUtility>movement speed</style> by <style=cIsUtility>7%</style> until the next stage. Maximum cap of <style=cIsUtility>21% <style=cStack>(+7% per stack)</style> boost</style>. <style=cIsUtility>Items of higher rarity give more boost stacks at once.</style>",
+    "ITEM_MYSTICSITEMS_COFFEEBOOSTONITEMPICKUP_DESC": "Each item pickup <style=cIsUtility>boosts</style> your <style=cIsDamage>attack speed</style> and <style=cIsUtility>movement speed</style> by <style=cIsUtility>7%</style> until the next stage. Maximum cap of <style=cIsUtility>21% <style=cStack>(+21% per stack)</style> boost</style>. <style=cIsUtility>Items of higher rarity give more boost stacks at once.</style>",
 
     "ITEM_MYSTICSITEMS_EXPLOSIVEPICKUPS_NAME": "Contraband Gunpowder",
     "ITEM_MYSTICSITEMS_EXPLOSIVEPICKUPS_PICKUP": "Creates explosions when collecting pickups.",
@@ -205,7 +205,7 @@
     //[TIER2]
     "ITEM_MYSTICSITEMS_COFFEEBOOSTONITEMPICKUP_NAME": "Кружка экспрессо",
     "ITEM_MYSTICSITEMS_COFFEEBOOSTONITEMPICKUP_PICKUP": "При подборе предметов даёт ускорение до следующего этапа. Суммируется до 3 раз.",
-    "ITEM_MYSTICSITEMS_COFFEEBOOSTONITEMPICKUP_DESC": "Каждый собранный предмет увеличивает <style=cIsDamage>скорость атаки</style> и <style=cIsUtility>скорость передвижения</style> на <style=cIsUtility>7%</style> до перехода на следующий этап. Максимальный предел ускорения - <style=cIsUtility>21% <style=cStack>(+7% за шт.)</style></style>. <style=cIsUtility>Чем выше редкость подобранного предмета, тем больше ускорения выдаётся разом.</style>",
+    "ITEM_MYSTICSITEMS_COFFEEBOOSTONITEMPICKUP_DESC": "Каждый собранный предмет увеличивает <style=cIsDamage>скорость атаки</style> и <style=cIsUtility>скорость передвижения</style> на <style=cIsUtility>7%</style> до перехода на следующий этап. Максимальный предел ускорения - <style=cIsUtility>21% <style=cStack>(+21% за шт.)</style></style>. <style=cIsUtility>Чем выше редкость подобранного предмета, тем больше ускорения выдаётся разом.</style>",
 
     "ITEM_MYSTICSITEMS_EXPLOSIVEPICKUPS_NAME": "Контрабандный порох",
     "ITEM_MYSTICSITEMS_EXPLOSIVEPICKUPS_PICKUP": "Сбор выпадаемых объектов создаёт взрыв.",

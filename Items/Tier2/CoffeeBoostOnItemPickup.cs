@@ -65,7 +65,7 @@ namespace MysticsItems.Items
                     {
                         for (int i = 0; i < count * GetBuffCountFromTier(ItemCatalog.GetItemDef(itemIndex).tier); i++)
                         {
-                            if (body.GetBuffCount(MysticsItemsContent.Buffs.CoffeeBoost) < 2 + self.GetItemCount(itemDef))
+                            if (body.GetBuffCount(MysticsItemsContent.Buffs.CoffeeBoost) < (3 + 3 * (self.GetItemCount(itemDef) - 1)))
                             {
                                 EffectData effectData = new EffectData
                                 {
