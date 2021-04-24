@@ -21,7 +21,7 @@ namespace MysticsItems.Items
         public static GameObject enemyFollowerPrefab;
         public static NetworkIdentity enemyFollowerNetID;
         public static GameObject highlightPrefab;
-        public static float interval = 20f;
+        public static float interval = 30f;
         public static float duration = 10f;
         public static GameObject unlockInteractablePrefab;
         public static NetworkIdentity unlockInteractableNetID;

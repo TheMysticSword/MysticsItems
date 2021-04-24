@@ -44,7 +44,7 @@
 
     "ITEM_MYSTICSITEMS_SPOTTER_NAME": "Faulty Spotter",
     "ITEM_MYSTICSITEMS_SPOTTER_PICKUP": "Increase critical strike chance against a random enemy by 100%.",
-    "ITEM_MYSTICSITEMS_SPOTTER_DESC": "Every <style=cIsUtility>20 seconds</style>, analyze 1 <style=cStack>(+1 per stack)</style> random enemy, increasing <style=cIsDamage>critical strike chance</style> against it <style=cIsDamage>by 100%</style> for <style=cIsUtility>10 seconds</style>.",
+    "ITEM_MYSTICSITEMS_SPOTTER_DESC": "Every <style=cIsUtility>30 seconds</style>, analyze 1 <style=cStack>(+1 per stack)</style> random enemy, increasing <style=cIsDamage>critical strike chance</style> against it <style=cIsDamage>by 100%</style> for <style=cIsUtility>10 seconds</style>.",
 
     "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_NAME": "Nuclear Accelerator",
     "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_PICKUP": "Speed-increasing effects also increase damage.",
@@ -218,7 +218,7 @@
 
     "ITEM_MYSTICSITEMS_SPOTTER_NAME": "Неисправный корректировщик",
     "ITEM_MYSTICSITEMS_SPOTTER_PICKUP": "Увеличивает шанс критического удара по случайному врагу на 100%.",
-    "ITEM_MYSTICSITEMS_SPOTTER_DESC": "Каждые <style=cIsUtility>20 секунд</style> анализирует 1 <style=cStack>(+1 за шт.)</style> случайного врага, увеличивая <style=cIsDamage>шанс критического удара</style> по нему <style=cIsDamage>на 100%</style> в течение <style=cIsUtility>10 секунд</style>.",
+    "ITEM_MYSTICSITEMS_SPOTTER_DESC": "Каждые <style=cIsUtility>30 секунд</style> анализирует 1 <style=cStack>(+1 за шт.)</style> случайного врага, увеличивая <style=cIsDamage>шанс критического удара</style> по нему <style=cIsDamage>на 100%</style> в течение <style=cIsUtility>10 секунд</style>.",
 
     "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_NAME": "Ядерный ускоритель",
     "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_PICKUP": "Эффекты, увеличивающие скорость, также увеличивают урон.",
