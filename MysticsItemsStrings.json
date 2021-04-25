@@ -6,6 +6,9 @@
     "ITEM_MYSTICSITEMS_GATECHALICEDEBUFF_NAME": "Lunar Teleportation Affliction",
     "ITEM_MYSTICSITEMS_GATECHALICEDEBUFF_PICKUP": "<color=#FF7F7F>Crippled until a teleporter event is completed.</color>",
     
+    "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPENCONSUMED_NAME": "Platinum Card (Consumed)",
+    "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPENCONSUMED_PICKUP": "Recharges on the next stage.",
+
     //[TIER1]
     "ITEM_MYSTICSITEMS_HEALORBONBARREL_NAME": "Donut",
     "ITEM_MYSTICSITEMS_HEALORBONBARREL_PICKUP": "Activating an interactable creates a healing orb.",
@@ -67,9 +70,6 @@
     "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPEN_PICKUP": "Remaining Multishop Terminals stay available on Multishop Terminal purchase.",
     "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPEN_DESC": "Making a purchase at a Multishop keeps other Multishop Terminals available <style=cIsUtility>1 <style=cStack>(+1 per stack)</style></style> time on each stage.",
     "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPEN_LORE": "<style=cMono>\n//-- New Messages (1) --//\n\nFrom: UES</style>\n\nThank you for subscribing to the Platinum Card program! Starting from this day, daily offers and discounts are now available for you at every branch of the UES on all planets.\n\nDon't forget to pay the monthly fee. Or else.\n\n<style=cMono>You cannot reply to this conversation.</style>",
-
-    "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPENCONSUMED_NAME": "Platinum Card (Consumed)",
-    "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPENCONSUMED_PICKUP": "Recharges on the next stage.",
 
     //[TIER3]
     "ITEM_MYSTICSITEMS_VOLTMETER_NAME": "Wireless Voltmeter",
@@ -184,6 +184,9 @@
     "ITEM_MYSTICSITEMS_GATECHALICEDEBUFF_NAME": "Недуг лунной телепортации",
     "ITEM_MYSTICSITEMS_GATECHALICEDEBUFF_PICKUP": "<color=#FF7F7F>Вы парализованы, пока не пройдёте событие с телепортом.</color>",
 
+    "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPENCONSUMED_NAME": "Платиновая карта (использовано)",
+    "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPENCONSUMED_PICKUP": "Перезарядится на следующем этапе.",
+
     //[TIER1]
     "ITEM_MYSTICSITEMS_HEALORBONBARREL_NAME": "Пончик",
     "ITEM_MYSTICSITEMS_HEALORBONBARREL_PICKUP": "Активация объекта создаёт сферу исцеления.",
@@ -245,9 +248,6 @@
     "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPEN_PICKUP": "При покупке в Многомагазинном терминале другие терминалы остаются открытыми.",
     "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPEN_DESC": "Покупка в Многомагазинном терминале оставляет другие Многомагазинные терминалы открытыми <style=cIsUtility>1 <style=cStack>(+1 за шт.)</style></style> раз на каждом этапе.",
     "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPEN_LORE": "<style=cMono>\n//-- Новые сообщения (1) --//\n\nОт: UES</style>\n\nБлагодарим вас за оформление подписки на программу Платиновой карты! Начиная с этого дня вам доступны ежедневные предложения и скидки во всех филиалах UES на всех планетах.\n\nНе забывайте оплачивать ежемесячный взнос. Иначе...\n\n<style=cMono>Вы не можете отвечать в этой беседе.</style>",
-
-    "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPENCONSUMED_NAME": "Платиновая карта (использовано)",
-    "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPENCONSUMED_PICKUP": "Перезарядится на следующем этапе.",
 
     //[TIER3]
     "ITEM_MYSTICSITEMS_VOLTMETER_NAME": "Беспроводной вольтметр",
