@@ -163,7 +163,7 @@ namespace MysticsItems.Equipment
                 {
                     if (master.teamIndex == TeamIndex.Player)
                     {
-                        master.inventory.ResetItem(MysticsItemsContent.Items.GateChaliceDebuff);
+                        master.inventory.RemoveItem(MysticsItemsContent.Items.GateChaliceDebuff, master.inventory.GetItemCount(MysticsItemsContent.Items.GateChaliceDebuff));
                     }
                 }
             };
