@@ -122,7 +122,7 @@ namespace MysticsItems.Equipment
 
         public override bool OnUse(EquipmentSlot equipmentSlot)
         {
-            CurrentTarget targetInfo = equipmentSlot.GetComponent<CurrentTarget>();
+            MysticsItemsEquipmentTarget targetInfo = equipmentSlot.GetComponent<MysticsItemsEquipmentTarget>();
             if (targetInfo && targetInfo.obj)
             {
                 CharacterMaster master = equipmentSlot.characterBody.master;

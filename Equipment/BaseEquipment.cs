@@ -13,7 +13,6 @@ namespace MysticsItems.Equipment
         public EquipmentDef equipmentDef;
         public static List<BaseEquipment> loadedEquipment = new List<BaseEquipment>();
         public static List<BaseEquipment> equipmentThatUsesTargetFinder = new List<BaseEquipment>();
-        public BullseyeSearch targetFinder;
         public TargetFinderType targetFinderType = TargetFinderType.None;
         public GameObject targetFinderVisualizerPrefab;
 
@@ -97,50 +96,16 @@ namespace MysticsItems.Equipment
             equipmentThatUsesTargetFinder.Add(this);
         }
 
-        public void ConfigureTargetFinderBase(EquipmentSlot self)
-        {
-            if (targetFinder == null) targetFinder = new BullseyeSearch();
-            targetFinder.teamMaskFilter = TeamMask.allButNeutral;
-            targetFinder.teamMaskFilter.RemoveTeam(self.characterBody.teamComponent.teamIndex);
-            targetFinder.sortMode = BullseyeSearch.SortMode.Angle;
-            targetFinder.filterByLoS = true;
-            float num;
-            Ray ray = CameraRigController.ModifyAimRayIfApplicable(GetAimRay(self), self.gameObject, out num);
-            targetFinder.searchOrigin = ray.origin;
-            targetFinder.searchDirection = ray.direction;
-            targetFinder.maxAngleFilter = 10f;
-            targetFinder.viewer = self.characterBody;
-        }
-
-        public void ConfigureTargetFinderForEnemies(EquipmentSlot self)
-        {
-            ConfigureTargetFinderBase(self);
-            targetFinder.teamMaskFilter = TeamMask.GetUnprotectedTeams(self.characterBody.teamComponent.teamIndex);
-            targetFinder.RefreshCandidates();
-            targetFinder.FilterOutGameObject(self.gameObject);
-        }
-
-        public void ConfigureTargetFinderForFriendlies(EquipmentSlot self)
-        {
-            ConfigureTargetFinderBase(self);
-            targetFinder.teamMaskFilter = TeamMask.none;
-            targetFinder.teamMaskFilter.AddTeam(self.characterBody.teamComponent.teamIndex);
-            targetFinder.RefreshCandidates();
-            targetFinder.FilterOutGameObject(self.gameObject);
-        }
-
         public new static void Init()
         {
             On.RoR2.EquipmentSlot.PerformEquipmentAction += (orig, self, equipmentDef2) =>
             {
                 if (NetworkServer.active)
                 {
-                    foreach (BaseEquipment equipment in loadedEquipment)
+                    BaseEquipment equipment = loadedEquipment.FirstOrDefault(x => x.equipmentDef == equipmentDef2);
+                    if (!equipment.Equals(default(BaseEquipment)))
                     {
-                        if (equipmentDef2 == equipment.equipmentDef)
-                        {
-                            return equipment.OnUse(self);
-                        }
+                        return equipment.OnUse(self);
                     }
                 }
                 return orig(self, equipmentDef2);
@@ -150,31 +115,28 @@ namespace MysticsItems.Equipment
             {
                 orig(self);
                 EquipmentIndex equipmentIndex2 = self.equipmentIndex;
-                foreach (BaseEquipment equipment in loadedEquipment)
+                BaseEquipment equipment = loadedEquipment.FirstOrDefault(x => x.equipmentDef.equipmentIndex == equipmentIndex2);
+                if (!equipment.Equals(default(BaseEquipment)))
                 {
-                    if (equipmentIndex2 == equipment.equipmentDef.equipmentIndex)
-                    {
-                        equipment.OnUseClient(self);
-                    }
+                    equipment.OnUseClient(self);
                 }
             };
 
-            On.RoR2.EquipmentSlot.FixedUpdate += (orig, self) =>
+            On.RoR2.EquipmentSlot.Awake += (orig, self) =>
             {
                 orig(self);
-                CurrentTarget currentTarget = self.GetComponent<CurrentTarget>();
-                if (!currentTarget) self.gameObject.AddComponent<CurrentTarget>();
+                self.gameObject.AddComponent<MysticsItemsEquipmentTarget>();
             };
 
             On.RoR2.EquipmentSlot.Update += (orig, self) =>
             {
                 orig(self);
 
-                CurrentTarget targetInfo = self.GetComponent<CurrentTarget>();
+                MysticsItemsEquipmentTarget targetInfo = self.GetComponent<MysticsItemsEquipmentTarget>();
                 if (targetInfo)
                 {
-                    bool matchingEquipmentFound = false;
-                    foreach (BaseEquipment equipment in equipmentThatUsesTargetFinder)
+                    BaseEquipment equipment = equipmentThatUsesTargetFinder.FirstOrDefault(x => x.equipmentDef.equipmentIndex == self.equipmentIndex);
+                    if (!equipment.Equals(default(BaseEquipment)))
                     {
                         if (equipment.equipmentDef.equipmentIndex == self.equipmentIndex)
                         {
@@ -185,13 +147,13 @@ namespace MysticsItems.Equipment
                                     switch (equipment.targetFinderType)
                                     {
                                         case TargetFinderType.Enemies:
-                                            equipment.ConfigureTargetFinderForEnemies(self);
+                                            targetInfo.ConfigureTargetFinderForEnemies(self);
                                             break;
                                         case TargetFinderType.Friendlies:
-                                            equipment.ConfigureTargetFinderForFriendlies(self);
+                                            targetInfo.ConfigureTargetFinderForFriendlies(self);
                                             break;
                                     }
-                                    HurtBox hurtBox = equipment.targetFinder.GetResults().FirstOrDefault();
+                                    HurtBox hurtBox = targetInfo.targetFinder.GetResults().FirstOrDefault();
                                     if (hurtBox)
                                     {
                                         targetInfo.obj = hurtBox.healthComponent.gameObject;
@@ -210,11 +172,9 @@ namespace MysticsItems.Equipment
                                     targetInfo.indicator.active = false;
                                 }
                             }
-                            matchingEquipmentFound = true;
-                            break;
                         }
                     }
-                    if (!matchingEquipmentFound)
+                    else
                     {
                         targetInfo.Invalidate();
                         targetInfo.indicator.active = false;
@@ -234,15 +194,12 @@ namespace MysticsItems.Equipment
             return equipmentDef.unlockableDef;
         }
 
-        public static Ray GetAimRay(EquipmentSlot equipmentSlot)
-        {
-            return equipmentSlot.InvokeMethod<Ray>("GetAimRay");
-        }
-
-        public class CurrentTarget : MonoBehaviour
+        public class MysticsItemsEquipmentTarget : MonoBehaviour
         {
             public GameObject obj;
             public Indicator indicator;
+            public BullseyeSearch targetFinder;
+            public object customTargetFinder;
 
             public void Awake()
             {
@@ -253,6 +210,47 @@ namespace MysticsItems.Equipment
             {
                 obj = null;
                 indicator.targetTransform = null;
+            }
+
+            public void ConfigureTargetFinderBase(EquipmentSlot self)
+            {
+                if (targetFinder == null) targetFinder = new BullseyeSearch();
+                targetFinder.teamMaskFilter = TeamMask.allButNeutral;
+                targetFinder.teamMaskFilter.RemoveTeam(self.characterBody.teamComponent.teamIndex);
+                targetFinder.sortMode = BullseyeSearch.SortMode.Angle;
+                targetFinder.filterByLoS = true;
+                float num;
+                Ray ray = CameraRigController.ModifyAimRayIfApplicable(self.GetAimRay(), self.gameObject, out num);
+                targetFinder.searchOrigin = ray.origin;
+                targetFinder.searchDirection = ray.direction;
+                targetFinder.maxAngleFilter = 10f;
+                targetFinder.viewer = self.characterBody;
+            }
+
+            public void ConfigureTargetFinderForEnemies(EquipmentSlot self)
+            {
+                ConfigureTargetFinderBase(self);
+                targetFinder.teamMaskFilter = TeamMask.GetUnprotectedTeams(self.characterBody.teamComponent.teamIndex);
+                targetFinder.RefreshCandidates();
+                targetFinder.FilterOutGameObject(self.gameObject);
+            }
+
+            public void ConfigureTargetFinderForFriendlies(EquipmentSlot self)
+            {
+                ConfigureTargetFinderBase(self);
+                targetFinder.teamMaskFilter = TeamMask.none;
+                targetFinder.teamMaskFilter.AddTeam(self.characterBody.teamComponent.teamIndex);
+                targetFinder.RefreshCandidates();
+                targetFinder.FilterOutGameObject(self.gameObject);
+            }
+
+            public T GetCustomTargetFinder<T>() where T : class, new()
+            {
+                if (customTargetFinder != null && customTargetFinder as T != null)
+                {
+                    return (T)customTargetFinder;
+                }
+                return new T();
             }
         }
     }

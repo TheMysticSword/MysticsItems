@@ -67,12 +67,12 @@ namespace MysticsItems.Equipment
                 orig(self);
                 if (self.equipmentIndex == equipmentDef.equipmentIndex)
                 {
-                    CurrentTarget targetInfo = self.GetComponent<CurrentTarget>();
+                    MysticsItemsEquipmentTarget targetInfo = self.GetComponent<MysticsItemsEquipmentTarget>();
                     if (targetInfo)
                     {
-                        DuplicatorSearch duplicatorSearch = new DuplicatorSearch();
+                        DuplicatorSearch duplicatorSearch = targetInfo.GetCustomTargetFinder<DuplicatorSearch>();
                         float num;
-                        Ray aimRay = CameraRigController.ModifyAimRayIfApplicable(GetAimRay(self), self.gameObject, out num);
+                        Ray aimRay = CameraRigController.ModifyAimRayIfApplicable(self.GetAimRay(), self.gameObject, out num);
                         duplicatorSearch.searchOrigin = aimRay.origin;
                         duplicatorSearch.searchDirection = aimRay.direction;
                         duplicatorSearch.minAngleFilter = 0f;
@@ -107,7 +107,7 @@ namespace MysticsItems.Equipment
 
         public override bool OnUse(EquipmentSlot equipmentSlot)
         {
-            CurrentTarget targetInfo = equipmentSlot.GetComponent<CurrentTarget>();
+            MysticsItemsEquipmentTarget targetInfo = equipmentSlot.GetComponent<MysticsItemsEquipmentTarget>();
             if (targetInfo)
             {
                 if (targetInfo.obj)

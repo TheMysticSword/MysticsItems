@@ -155,7 +155,7 @@ namespace MysticsItems.Equipment
             MicrophoneSoundwaveLauncher component = equipmentSlot.GetComponent<MicrophoneSoundwaveLauncher>();
             if (!component) component = equipmentSlot.gameObject.AddComponent<MicrophoneSoundwaveLauncher>();
             component.ammo += 3;
-            component.aimRay = GetAimRay(equipmentSlot);
+            component.aimRay = equipmentSlot.GetAimRay();
             return true;
         }
 
