@@ -46,6 +46,7 @@ namespace MysticsItems.Equipment
             equipmentDef.name = Main.TokenPrefix + equipmentDef.name;
             equipmentDef.AutoPopulateTokens();
             equipmentDef.name = name;
+            AfterTokensPopulated();
             if (!disabledByConfig)
             {
                 OnLoad();

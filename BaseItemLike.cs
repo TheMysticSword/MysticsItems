@@ -18,6 +18,8 @@ namespace MysticsItems
         
         public abstract void PreLoad(); // Always executed before loading
 
+        public virtual void AfterTokensPopulated() { }
+
         public abstract void SetAssets(string assetName);
 
         public abstract void SetIcon(string assetName);

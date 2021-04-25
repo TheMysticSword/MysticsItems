@@ -37,6 +37,7 @@ namespace MysticsItems.Items
             itemDef.name = Main.TokenPrefix + itemDef.name;
             itemDef.AutoPopulateTokens();
             itemDef.name = name;
+            AfterTokensPopulated();
             if (!disabledByConfig) {
                 OnLoad();
                 loadedItems.Add(this);
