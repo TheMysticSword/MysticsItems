@@ -2,6 +2,10 @@
   "strings": {
     //[ITEMS]
 
+    //[NOTIER]
+    "ITEM_MYSTICSITEMS_GATECHALICEDEBUFF_NAME": "Lunar Teleportation Affliction",
+    "ITEM_MYSTICSITEMS_GATECHALICEDEBUFF_PICKUP": "<color=#FF7F7F>Crippled until a teleporter event is completed.</color>",
+    
     //[TIER1]
     "ITEM_MYSTICSITEMS_HEALORBONBARREL_NAME": "Donut",
     "ITEM_MYSTICSITEMS_HEALORBONBARREL_PICKUP": "Activating an interactable creates a healing orb.",
@@ -175,6 +179,10 @@
   },
   "RU": {
     //[ITEMS]
+
+    //[NOTIER]
+    "ITEM_MYSTICSITEMS_GATECHALICEDEBUFF_NAME": "Недуг лунной телепортации",
+    "ITEM_MYSTICSITEMS_GATECHALICEDEBUFF_PICKUP": "<color=#FF7F7F>Вы парализованы, пока не пройдёте событие с телепортом.</color>",
 
     //[TIER1]
     "ITEM_MYSTICSITEMS_HEALORBONBARREL_NAME": "Пончик",

@@ -155,44 +155,13 @@ namespace MysticsItems.Equipment
             sceneExitController.useRunNextStageScene = true;
             sceneExitControllerObject.AddComponent<MysticsItemsGateChaliceSceneExit>();
 
-            On.RoR2.CharacterMaster.Awake += (orig, self) =>
-            {
-                orig(self);
-                self.gameObject.AddComponent<MysticsItemsGateChaliceDebuffOnSpawn>();
-            };
-
-            On.RoR2.CharacterBody.RecalculateStats += (orig, self) =>
-            {
-                orig(self);
-                if (NetworkServer.active)
-                {
-                    CharacterMaster master = self.master;
-                    if (master)
-                    {
-                        MysticsItemsGateChaliceDebuffOnSpawn component = master.GetComponent<MysticsItemsGateChaliceDebuffOnSpawn>();
-                        if (component)
-                        {
-                            BuffDef buffDef = MysticsItemsContent.Buffs.GateChalice;
-                            while (self.GetBuffCount(buffDef) < component.count) self.AddBuff(buffDef);
-                            while (self.GetBuffCount(buffDef) > component.count) self.RemoveBuff(buffDef);
-                        }
-                    }
-                }
-            };
-
             TeleporterInteraction.onTeleporterChargedGlobal += (teleporterInteraction) =>
             {
                 foreach (CharacterMaster master in CharacterMaster.readOnlyInstancesList)
                 {
-                    if (master.hasBody && master.teamIndex == TeamIndex.Player)
+                    if (master.teamIndex == TeamIndex.Player)
                     {
-                        CharacterBody body = master.GetBody();
-                        MysticsItemsGateChaliceDebuffOnSpawn component = master.GetComponent<MysticsItemsGateChaliceDebuffOnSpawn>();
-                        if (body && component && component.count > 0)
-                        {
-                            component.count = 0;
-                            body.SetFieldValue("statsDirty", true);
-                        }
+                        master.inventory.ResetItem(MysticsItemsContent.Items.GateChaliceDebuff);
                     }
                 }
             };
@@ -219,17 +188,6 @@ namespace MysticsItems.Equipment
             {
                 stopwatch += Time.deltaTime;
                 volume.weight = curve.Evaluate(stopwatch / time);
-            }
-        }
-
-        public class MysticsItemsGateChaliceDebuffOnSpawn : MonoBehaviour
-        {
-            public CharacterMaster master;
-            public int count = 0;
-
-            public void Awake()
-            {
-                master = GetComponent<CharacterMaster>();
             }
         }
 
@@ -274,19 +232,15 @@ namespace MysticsItems.Equipment
             EffectManager.SpawnEffect(visualEffectOnUse, effectData, true);
             GameObject sceneExit = Object.Instantiate(sceneExitControllerObject, characterBody.corePosition, Quaternion.identity);
             sceneExit.GetComponent<MysticsItemsGateChaliceSceneExit>().attach = characterBody.gameObject.transform;
+
             foreach (CharacterMaster master in CharacterMaster.readOnlyInstancesList)
             {
-                if (master.hasBody && master.teamIndex == TeamIndex.Player)
+                if (master.teamIndex == TeamIndex.Player)
                 {
-                    CharacterBody body = master.GetBody();
-                    MysticsItemsGateChaliceDebuffOnSpawn component = master.GetComponent<MysticsItemsGateChaliceDebuffOnSpawn>();
-                    if (body && component)
-                    {
-                        component.count++;
-                        body.SetFieldValue("statsDirty", true);
-                    }
+                    master.inventory.GiveItem(MysticsItemsContent.Items.GateChaliceDebuff);
                 }
             }
+
             return true;
         }
     }

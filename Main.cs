@@ -340,6 +340,7 @@ namespace MysticsItems
             public static ItemDef DasherDisc;
             public static ItemDef ExplosivePickups;
             public static ItemDef ExtraShrineUse;
+            public static ItemDef GateChaliceDebuff;
             public static ItemDef HealOrbOnBarrel;
             //public static ItemDef KeepShopTerminalOpen;
             //public static ItemDef KeepShopTerminalOpenConsumed;
