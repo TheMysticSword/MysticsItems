@@ -2,7 +2,7 @@
 Adds 20 new items, with plenty more to come!  
 
 ![](https://i.imgur.com/WYCK8vE.gif)  
-![](https://i.imgur.com/GZ1eiSK.png)  
+![](https://i.imgur.com/XWpPavo.png)  
 
 ### Important notes
 #### Manual installation
