@@ -7,6 +7,8 @@ using R2API.Utils;
 using Mono.Cecil.Cil;
 using MonoMod.Cil;
 using System.Reflection;
+using System.Collections.ObjectModel;
+using RoR2.UI;
 
 namespace MysticsItems.Equipment
 {
@@ -238,6 +240,11 @@ namespace MysticsItems.Equipment
                 if (master.teamIndex == TeamIndex.Player)
                 {
                     master.inventory.GiveItem(MysticsItemsContent.Items.GateChaliceDebuff);
+                    ReadOnlyCollection<NotificationQueue> readOnlyCollection = NotificationQueue.readOnlyInstancesList;
+                    for (int i = 0; i < readOnlyCollection.Count; i++)
+                    {
+                        readOnlyCollection[i].OnPickup(master, PickupCatalog.FindPickupIndex(MysticsItemsContent.Items.GateChaliceDebuff.itemIndex));
+                    }
                 }
             }
 
