@@ -46,6 +46,7 @@ namespace MysticsItems.SoftDependencies
                     )
                 }
             });
+            /*
             AddItemStatDef(MysticsItemsContent.Items.CommandoScope, new ItemStatDef
             {
                 Stats = new List<ItemStat>()
@@ -60,6 +61,7 @@ namespace MysticsItems.SoftDependencies
                     )
                 }
             });
+            */
             AddItemStatDef(MysticsItemsContent.Items.BackArmor, new ItemStatDef
             {
                 Stats = new List<ItemStat>()
@@ -70,6 +72,7 @@ namespace MysticsItems.SoftDependencies
                     )
                 }
             });
+            /*
             AddItemStatDef(MysticsItemsContent.Items.ArtificerNanobots, new ItemStatDef
             {
                 Stats = new List<ItemStat>()
@@ -80,6 +83,7 @@ namespace MysticsItems.SoftDependencies
                     )
                 }
             });
+            */
 
             // tier2
             AddItemStatDef(MysticsItemsContent.Items.CoffeeBoostOnItemPickup, new ItemStatDef
@@ -158,6 +162,7 @@ namespace MysticsItems.SoftDependencies
                     )
                 }
             });
+            /*
             AddItemStatDef(MysticsItemsContent.Items.CommandoRevolverDrum, new ItemStatDef
             {
                 Stats = new List<ItemStat>()
@@ -172,6 +177,7 @@ namespace MysticsItems.SoftDependencies
                     )
                 }
             }, new List<Type> { typeof(LuckModifier), null });
+            */
             /*
             AddItemStatDef(MysticsItemsContent.Items.KeepShopTerminalOpen, new ItemStatDef
             {

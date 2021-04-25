@@ -331,11 +331,11 @@ namespace MysticsItems
         public static class Items
         {
             public static ItemDef AllyDeathRevenge;
-            public static ItemDef ArtificerNanobots;
+            //public static ItemDef ArtificerNanobots;
             public static ItemDef BackArmor;
             public static ItemDef CoffeeBoostOnItemPickup;
-            public static ItemDef CommandoRevolverDrum;
-            public static ItemDef CommandoScope;
+            //public static ItemDef CommandoRevolverDrum;
+            //public static ItemDef CommandoScope;
             public static ItemDef CrystalWorld;
             public static ItemDef DasherDisc;
             public static ItemDef ExplosivePickups;

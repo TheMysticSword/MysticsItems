@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Items\Character\**" />
+    <EmbeddedResource Remove="Items\Character\**" />
+    <None Remove="Items\Character\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="Achievements\MultishopTerminalsOnly.cs" />
     <Compile Remove="Items\Lunar\Moonglasses.cs" />
     <Compile Remove="Items\Tier2\KeepShopTerminalOpen.cs" />
