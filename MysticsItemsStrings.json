@@ -5,7 +5,10 @@
     //[NOTIER]
     "ITEM_MYSTICSITEMS_GATECHALICEDEBUFF_NAME": "Lunar Teleportation Affliction",
     "ITEM_MYSTICSITEMS_GATECHALICEDEBUFF_PICKUP": "<color=#FF7F7F>Crippled until a teleporter event is completed.</color>",
-    
+
+    "ITEM_MYSTICSITEMS_RIFTLENSDEBUFF_NAME": "Rift Affliction",
+    "ITEM_MYSTICSITEMS_RIFTLENSDEBUFF_PICKUP": "<color=#FF7F7F>Movement speed reduced until all Rift Chests are opened.</color>",
+
     "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPENCONSUMED_NAME": "Platinum Card (Consumed)",
     "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPENCONSUMED_PICKUP": "Recharges on the next stage.",
 
@@ -183,6 +186,9 @@
     //[NOTIER]
     "ITEM_MYSTICSITEMS_GATECHALICEDEBUFF_NAME": "Недуг лунной телепортации",
     "ITEM_MYSTICSITEMS_GATECHALICEDEBUFF_PICKUP": "<color=#FF7F7F>Вы парализованы, пока не пройдёте событие с телепортом.</color>",
+
+    "ITEM_MYSTICSITEMS_RIFTLENSDEBUFF_NAME": "Недуг разлома",
+    "ITEM_MYSTICSITEMS_RIFTLENSDEBUFF_PICKUP": "<color=#FF7F7F>Скорость передвижения уменьшена, пока все сундуки разлома не будут открыты.</color>",
 
     "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPENCONSUMED_NAME": "Платиновая карта (использовано)",
     "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPENCONSUMED_PICKUP": "Перезарядится на следующем этапе.",

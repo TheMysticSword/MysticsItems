@@ -10,6 +10,8 @@ using Mono.Cecil.Cil;
 using MonoMod.Cil;
 using System.Collections.Generic;
 using System.Linq;
+using System.Collections.ObjectModel;
+using RoR2.UI;
 
 namespace MysticsItems.Items
 {
@@ -50,15 +52,18 @@ namespace MysticsItems.Items
                 CharacterBody body = context.activator.gameObject.GetComponent<CharacterBody>();
                 if (body)
                 {
-                    return body.HasBuff(MysticsItemsContent.Buffs.RiftLens);
+                    Inventory inventory = body.inventory;
+                    return inventory ? inventory.GetItemCount(MysticsItemsContent.Items.RiftLensDebuff) > 0 : false;
                 }
                 return false;
             };
             costTypeDef.payCost = delegate (CostTypeDef costTypeDef2, CostTypeDef.PayCostContext context)
             {
-                foreach (CharacterBody body in CharacterBody.readOnlyInstancesList)
+                CharacterBody body = context.activator.gameObject.GetComponent<CharacterBody>();
+                if (body)
                 {
-                    if (body.HasBuff(MysticsItemsContent.Buffs.RiftLens)) body.RemoveBuff(MysticsItemsContent.Buffs.RiftLens);
+                    Inventory inventory = body.inventory;
+                    if (inventory.GetItemCount(MysticsItemsContent.Items.RiftLensDebuff) > 0) inventory.RemoveItem(MysticsItemsContent.Items.RiftLensDebuff);
                 }
             };
             costTypeDef.colorIndex = ColorCatalog.ColorIndex.LunarItem;
@@ -149,7 +154,13 @@ namespace MysticsItems.Items
                 foreach (CharacterMaster characterMaster in CharacterMaster.readOnlyInstancesList)
                     if (characterMaster.teamIndex == TeamIndex.Player)
                     {
-                        itemCount += characterMaster.inventory.GetItemCount(itemDef);
+                        int thisItemCount = characterMaster.inventory.GetItemCount(itemDef);
+                        if (thisItemCount > 0)
+                        {
+                            characterMaster.inventory.RemoveItem(MysticsItemsContent.Items.GateChaliceDebuff, characterMaster.inventory.GetItemCount(MysticsItemsContent.Items.GateChaliceDebuff));
+                            characterMaster.inventory.GiveItem(MysticsItemsContent.Items.RiftLensDebuff, thisItemCount);
+                            itemCount += thisItemCount;
+                        }
                     }
                 if (itemCount > 0)
                 {
@@ -159,22 +170,6 @@ namespace MysticsItems.Items
                         {
                             placementMode = DirectorPlacementRule.PlacementMode.Random
                         }, rng));
-                    }
-                }
-            };
-
-            On.RoR2.CharacterBody.Start += (orig, self) =>
-            {
-                orig(self);
-                if (NetworkServer.active && TeamComponent.GetObjectTeam(self.gameObject) == TeamIndex.Player)
-                {
-                    Inventory inventory = self.inventory;
-                    if (inventory && inventory.GetItemCount(itemDef) > 0)
-                    {
-                        while (self.GetBuffCount(MysticsItemsContent.Buffs.RiftLens) < RiftChest.unopenedCount)
-                        {
-                            self.AddBuff(MysticsItemsContent.Buffs.RiftLens);
-                        }
                     }
                 }
             };

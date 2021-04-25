@@ -346,6 +346,7 @@ namespace MysticsItems
             //public static ItemDef KeepShopTerminalOpenConsumed;
             //public static ItemDef Moonglasses;
             public static ItemDef RiftLens;
+            public static ItemDef RiftLensDebuff;
             public static ItemDef ScratchTicket;
             public static ItemDef SpeedGivesDamage;
             public static ItemDef Spotter;
