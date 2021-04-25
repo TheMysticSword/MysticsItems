@@ -341,9 +341,9 @@ namespace MysticsItems
             public static ItemDef ExplosivePickups;
             public static ItemDef ExtraShrineUse;
             public static ItemDef HealOrbOnBarrel;
-            public static ItemDef KeepShopTerminalOpen;
-            public static ItemDef KeepShopTerminalOpenConsumed;
-            public static ItemDef Moonglasses;
+            //public static ItemDef KeepShopTerminalOpen;
+            //public static ItemDef KeepShopTerminalOpenConsumed;
+            //public static ItemDef Moonglasses;
             public static ItemDef RiftLens;
             public static ItemDef ScratchTicket;
             public static ItemDef SpeedGivesDamage;
@@ -380,7 +380,7 @@ namespace MysticsItems
             public static AchievementDef DiscDeath;
             public static AchievementDef EscapeMoonAlone;
             public static AchievementDef FindArchaicMask;
-            public static AchievementDef MultishopTerminalsOnly;
+            //public static AchievementDef MultishopTerminalsOnly;
             public static AchievementDef RepairBrokenSpotter;
         }
     }

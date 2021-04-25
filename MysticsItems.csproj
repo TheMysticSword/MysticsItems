@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Achievements\MultishopTerminalsOnly.cs" />
+    <Compile Remove="Items\Lunar\Moonglasses.cs" />
+    <Compile Remove="Items\Tier2\KeepShopTerminalOpen.cs" />
+    <Compile Remove="Items\Tier2\KeepShopTerminalOpenConsumed.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="assets" />
     <None Remove="mysticsitemsunityassetbundle" />
     <None Remove="MysticsItemsWwiseSoundbank.bnk" />

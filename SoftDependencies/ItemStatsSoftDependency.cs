@@ -172,6 +172,7 @@ namespace MysticsItems.SoftDependencies
                     )
                 }
             }, new List<Type> { typeof(LuckModifier), null });
+            /*
             AddItemStatDef(MysticsItemsContent.Items.KeepShopTerminalOpen, new ItemStatDef
             {
                 Stats = new List<ItemStat>()
@@ -186,6 +187,7 @@ namespace MysticsItems.SoftDependencies
                     )
                 }
             });
+            */
 
             // tier3
             AddItemStatDef(MysticsItemsContent.Items.Voltmeter, new ItemStatDef
@@ -250,6 +252,7 @@ namespace MysticsItems.SoftDependencies
                     )
                 }
             });
+            /*
             AddItemStatDef(MysticsItemsContent.Items.Moonglasses, new ItemStatDef
             {
                 Stats = new List<ItemStat>()
@@ -264,6 +267,7 @@ namespace MysticsItems.SoftDependencies
                     )
                 }
             });
+            */
         }
     }
 }
