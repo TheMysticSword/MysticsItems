@@ -52,6 +52,10 @@ namespace MysticsItems.Equipment
                 OnLoad();
                 loadedEquipment.Add(this);
             }
+            else
+            {
+                equipmentDef.canDrop = false;
+            }
             asset = equipmentDef;
         }
 

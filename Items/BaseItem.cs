@@ -40,6 +40,9 @@ namespace MysticsItems.Items
             if (!disabledByConfig) {
                 OnLoad();
                 loadedItems.Add(this);
+            } else
+            {
+                itemDef.tier = ItemTier.NoTier;
             }
             asset = itemDef;
         }
