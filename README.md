@@ -48,6 +48,6 @@ Other sounds made with sfxia by rxi (https://rxi.itch.io/sfxia)
 * Fixed Treasure Map behaving differently for clients and hosts in multiplayer
 * Fixed Timely Execution having no cooldown
 * Fixed Donut healing orb size not being networked  
-(Previous changelogs can be found here: https://github.com/TheMysticSword/MysticsItems/blob/main/CHANGELOG.md)
+(Previous changelogs can be found [here](https://github.com/TheMysticSword/MysticsItems/blob/main/CHANGELOG.md))
 
 ![](https://i.imgur.com/gBBfdeO.png)
