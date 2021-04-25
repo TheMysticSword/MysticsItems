@@ -16,7 +16,6 @@ namespace MysticsItems.Achievements
         public System.Type trackerType;
         public System.Type serverTrackerType;
         public AchievementDef achievementDef;
-        public bool allowLoad = true;
 
         public override void Load()
         {
@@ -34,7 +33,7 @@ namespace MysticsItems.Achievements
                 type = trackerType,
                 serverTrackerType = serverTrackerType
             };
-            if (allowLoad) registeredAchievements.Add(this);
+            registeredAchievements.Add(this);
             asset = achievementDef;
         }
 

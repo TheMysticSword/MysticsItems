@@ -14,7 +14,7 @@ namespace MysticsItems.Items
     {
         public ItemDef itemDef;
         public static List<BaseItem> loadedItems = new List<BaseItem>();
-
+        
         public override void Load()
         {
             itemDef = ScriptableObject.CreateInstance<ItemDef>();
@@ -37,7 +37,7 @@ namespace MysticsItems.Items
             itemDef.name = Main.TokenPrefix + itemDef.name;
             itemDef.AutoPopulateTokens();
             itemDef.name = name;
-            if (itemDef.inDroppableTier && !disabledByConfig) {
+            if (!disabledByConfig) {
                 OnLoad();
                 loadedItems.Add(this);
             }
