@@ -117,7 +117,12 @@ namespace MysticsItems.Equipment
                     purchaseInteraction.lockGameObject = null;
                     ShopTerminalBehavior shopTerminalBehavior = targetInfo.obj.GetComponent<MysticsItemsDuplicatorLocator>().shopTerminalBehavior;
                     EffectManager.SimpleEffect(Resources.Load<GameObject>("Prefabs/Effects/OmniEffect/OmniRecycleEffect"), shopTerminalBehavior.pickupDisplay.transform.position, Quaternion.identity, true);
-                    shopTerminalBehavior.DropPickup();
+                    shopTerminalBehavior.SetHasBeenPurchased(true);
+                    PickupDropletController.CreatePickupDroplet(
+                        shopTerminalBehavior.pickupIndex,
+                        (shopTerminalBehavior.dropTransform ? shopTerminalBehavior.dropTransform : shopTerminalBehavior.transform).position,
+                        shopTerminalBehavior.transform.TransformVector(shopTerminalBehavior.dropVelocity)
+                    );
                     shopTerminalBehavior.SetNoPickup();
                     targetInfo.Invalidate();
                     return true;
