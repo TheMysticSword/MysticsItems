@@ -44,6 +44,7 @@ namespace MysticsItems.Items
             zonePrefab = CustomUtils.CreateBlankPrefab(Main.TokenPrefix + "TreasureMapZone", true);
 
             NetworkingAPI.RegisterMessageType<MysticsItemsTreasureMapZone.SyncZoneShouldBeActive>();
+            NetworkingAPI.RegisterMessageType<MysticsItemsTreasureMapZone.RequestZoneShouldBeActive>();
             NetworkingAPI.RegisterMessageType<MysticsItemsTreasureMapZone.SyncCostHologramData>();
         }
 
@@ -189,6 +190,10 @@ namespace MysticsItems.Items
                         new SyncCostHologramData(gameObject.GetComponent<NetworkIdentity>().netId, cost, (int)costTypeIndex).Send(NetworkDestination.Clients);
                     }
                     ShouldBeActive = false;
+                }
+                else
+                {
+                    new RequestZoneShouldBeActive(gameObject.GetComponent<NetworkIdentity>().netId).Send(NetworkDestination.Server);
                 }
 
                 holdoutZoneController.onCharged = new HoldoutZoneController.HoldoutZoneControllerChargedUnityEvent();
@@ -382,6 +387,44 @@ namespace MysticsItems.Items
                 {
                     writer.Write(objID);
                     writer.Write(value);
+                }
+            }
+
+            public class RequestZoneShouldBeActive : INetMessage
+            {
+                NetworkInstanceId objID;
+
+                public RequestZoneShouldBeActive()
+                {
+                }
+
+                public RequestZoneShouldBeActive(NetworkInstanceId objID)
+                {
+                    this.objID = objID;
+                }
+
+                public void Deserialize(NetworkReader reader)
+                {
+                    objID = reader.ReadNetworkId();
+                }
+
+                public void OnReceived()
+                {
+                    if (!NetworkServer.active) return;
+                    GameObject obj = Util.FindNetworkObject(objID);
+                    if (obj)
+                    {
+                        MysticsItemsTreasureMapZone component = obj.GetComponent<MysticsItemsTreasureMapZone>();
+                        if (component)
+                        {
+                            new SyncZoneShouldBeActive(obj.GetComponent<NetworkIdentity>().netId, component.ShouldBeActive).Send(NetworkDestination.Clients);
+                        }
+                    }
+                }
+
+                public void Serialize(NetworkWriter writer)
+                {
+                    writer.Write(objID);
                 }
             }
         }
