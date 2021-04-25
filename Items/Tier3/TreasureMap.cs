@@ -236,8 +236,6 @@ namespace MysticsItems.Items
                 if (!holdoutZoneController.enabled) hologramProjector.displayDistance = 0f;
                 hologramProjector.hologramPivot.position = transform.position + Vector3.up * holdoutZoneController.currentRadius * 0.5f;
 
-                if (holdoutZoneController && holdoutZoneController.enabled != ShouldBeActive) holdoutZoneController.enabled = ShouldBeActive;
-
                 if (!holdoutZoneController.wasCharged)
                 {
                     if (NetworkServer.active)
@@ -292,6 +290,7 @@ namespace MysticsItems.Items
                 set
                 {
                     shouldBeActive = value;
+                    holdoutZoneController.enabled = value;
                     foreach (GameObject toggleObject in toggleObjects)
                     {
                         toggleObject.SetActive(value);
