@@ -25,6 +25,30 @@ namespace MysticsItems
             {
                 from.transform.GetChild(0).SetParent(to.transform);
             }
+            foreach (Component fromComponent in from.GetComponents<Component>())
+            {
+                System.Type componentType = fromComponent.GetType();
+
+                Component toComponent = to.GetComponent(componentType);
+                if (!toComponent) toComponent = to.AddComponent(componentType);
+
+                BindingFlags flags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Default | BindingFlags.DeclaredOnly;
+                foreach (PropertyInfo propertyInfo in componentType.GetProperties(flags))
+                {
+                    if (propertyInfo.CanWrite)
+                    {
+                        try
+                        {
+                            propertyInfo.SetValue(toComponent, propertyInfo.GetValue(fromComponent));
+                        }
+                        catch { }
+                    }
+                }
+                foreach (FieldInfo fieldInfo in componentType.GetFields(flags))
+                {
+                    fieldInfo.SetValue(toComponent, fieldInfo.GetValue(fromComponent));
+                }
+            }
         }
     }
 }
