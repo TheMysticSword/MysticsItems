@@ -54,10 +54,9 @@ namespace MysticsItems.Items
                         foreach (SkillSlot skillSlot in Enum.GetValues(typeof(SkillSlot)))
                         {
                             GenericSkill otherSkill = self.skillLocator.GetSkill(skillSlot);
-                            if (skill != otherSkill && otherSkill != null)
+                            if (skill != otherSkill && otherSkill != null && otherSkill.stock < otherSkill.maxStock)
                             {
-                                float finalRechargeInterval = otherSkill.GetFieldValue<float>("finalRechargeInterval");
-                                otherSkill.rechargeStopwatch = Mathf.Min(otherSkill.rechargeStopwatch + finalRechargeInterval * coeff, finalRechargeInterval);
+                                otherSkill.rechargeStopwatch += otherSkill.finalRechargeInterval * coeff;
                             }
                         }
                     }
