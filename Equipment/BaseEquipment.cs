@@ -142,7 +142,7 @@ namespace MysticsItems.Equipment
                 if (targetInfo)
                 {
                     BaseEquipment equipment = equipmentThatUsesTargetFinder.FirstOrDefault(x => x.equipmentDef.equipmentIndex == self.equipmentIndex);
-                    if (!equipment.Equals(default(BaseEquipment)))
+                    if (equipment != null)
                     {
                         if (equipment.equipmentDef.equipmentIndex == self.equipmentIndex)
                         {
