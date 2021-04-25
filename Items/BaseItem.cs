@@ -66,6 +66,11 @@ namespace MysticsItems.Items
             if (!followerModelSeparate) CopyModelToFollower();
 
             itemDef.pickupModelPrefab = model;
+            SetIcon(assetName);
+        }
+
+        public override void SetIcon(string assetName)
+        {
             itemDef.pickupIconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Items/" + assetName + "/Icon.png");
         }
 

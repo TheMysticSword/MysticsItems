@@ -20,6 +20,8 @@ namespace MysticsItems
 
         public abstract void SetAssets(string assetName);
 
+        public abstract void SetIcon(string assetName);
+
         public void PrepareModel(GameObject model)
         {
             model.AddComponent<MysticsItemsItemFollowerVisualScaling>();
