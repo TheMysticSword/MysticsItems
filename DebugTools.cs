@@ -159,7 +159,14 @@ namespace MysticsItems
                         currentNotification.titleText.token = args[1];
                         currentNotification.descriptionText.token = args[2];
                     }
-                    currentNotification.iconImage.texture = Resources.Load<Texture>(args[3]);
+                    if (args[3].StartsWith("@")) // custom icon
+                    {
+                        currentNotification.iconImage.texture = Main.AssetBundle.LoadAsset<Texture>(args[3].Remove(0, 1));
+                    }
+                    else // ingame icon
+                    {
+                        currentNotification.iconImage.texture = Resources.Load<Texture>(args[3]);
+                    }
                     switch (args[4])
                     {
                         case "lockedachievement":
