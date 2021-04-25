@@ -47,7 +47,7 @@ Other sounds made with sfxia by rxi (https://rxi.itch.io/sfxia)
 * Team-based items (Crystallized World, Treasure Map and Mysterious Monolith) now work only if their owners are alive
 * Fixed Treasure Map behaving differently for clients and hosts in multiplayer
 * Fixed Timely Execution having no cooldown
-* Fixed Donut healing orb size not being networked
+* Fixed Donut healing orb size not being networked  
 (Previous changelogs can be found here: https://github.com/TheMysticSword/MysticsItems/blob/main/CHANGELOG.md)
 
 ![](https://i.imgur.com/gBBfdeO.png)
