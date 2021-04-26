@@ -1,4 +1,5 @@
 using RoR2;
+using UnityEngine;
 
 namespace MysticsItems.Items
 {
@@ -23,6 +24,29 @@ namespace MysticsItems.Items
             {
                 amount = -10f,
                 times = (x) => ModifierTimesFunction(x)
+            });
+
+            GameObject debuffedVFX = Main.AssetBundle.LoadAsset<GameObject>("Assets/Equipment/Gate Chalice/GateChaliceAfflictionVFX.prefab");
+            CustomTempVFXManagement.MysticsItemsCustomTempVFX tempVFX = debuffedVFX.AddComponent<CustomTempVFXManagement.MysticsItemsCustomTempVFX>();
+            tempVFX.enterObjects = new GameObject[]
+            {
+                debuffedVFX.transform.Find("Origin").gameObject
+            };
+            Material matDebuffedVFX = debuffedVFX.transform.Find("Origin/Embers").gameObject.GetComponent<Renderer>().sharedMaterial;
+            Main.HopooShaderToMaterial.CloudRemap.Apply(
+                matDebuffedVFX,
+                Main.AssetBundle.LoadAsset<Texture>("Assets/Equipment/Gate Chalice/texRampGateChaliceAfflictionVFX.png")
+            );
+            Main.HopooShaderToMaterial.CloudRemap.Boost(matDebuffedVFX, 4f);
+            CustomTempVFXManagement.allVFX.Add(new CustomTempVFXManagement.VFXInfo
+            {
+                prefab = debuffedVFX,
+                condition = (x) => {
+                    Inventory inventory = x.inventory;
+                    if (inventory) return inventory.GetItemCount(MysticsItemsContent.Items.GateChaliceDebuff) > 0;
+                    return false;
+                },
+                radius = CustomTempVFXManagement.DefaultRadiusCall
             });
         }
     }
