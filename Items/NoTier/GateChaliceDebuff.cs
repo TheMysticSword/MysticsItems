@@ -10,11 +10,6 @@ namespace MysticsItems.Items
             itemDef.tier = ItemTier.NoTier;
         }
 
-        public override void AfterTokensPopulated()
-        {
-            itemDef.descriptionToken = itemDef.pickupToken;
-        }
-
         public override void OnLoad()
         {
             SetIcon("Gate Chalice Debuff");
