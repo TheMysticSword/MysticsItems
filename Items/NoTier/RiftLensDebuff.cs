@@ -22,7 +22,7 @@ namespace MysticsItems.Items
             CharacterStats.moveSpeedModifiers.Add(new CharacterStats.StatModifier
             {
                 multiplier = -0.5f,
-                times = ModifierTimesFunction
+                times = (x) => ModifierTimesFunction(x, false)
             });
         }
     }

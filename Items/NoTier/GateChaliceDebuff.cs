@@ -22,12 +22,12 @@ namespace MysticsItems.Items
             CharacterStats.moveSpeedModifiers.Add(new CharacterStats.StatModifier
             {
                 multiplier = -0.33f,
-                times = ModifierTimesFunction
+                times = (x) => ModifierTimesFunction(x)
             });
             CharacterStats.armorModifiers.Add(new CharacterStats.FlatStatModifier
             {
                 amount = -10f,
-                times = ModifierTimesFunction
+                times = (x) => ModifierTimesFunction(x)
             });
         }
     }

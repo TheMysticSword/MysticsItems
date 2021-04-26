@@ -91,9 +91,15 @@ namespace MysticsItems.Items
             return PickupCatalog.FindPickupIndex(itemDef.itemIndex);
         }
 
-        public float ModifierTimesFunction(GenericGameEvents.GenericCharacterInfo genericCharacterInfo)
+        public float ModifierTimesFunction(GenericGameEvents.GenericCharacterInfo genericCharacterInfo, bool stacks = true)
         {
-            return genericCharacterInfo.inventory ? genericCharacterInfo.inventory.GetItemCount(itemDef) : 0f;
+            if (genericCharacterInfo.inventory)
+            {
+                int itemCount = genericCharacterInfo.inventory.GetItemCount(itemDef);
+                if (stacks) return itemCount;
+                else return itemCount > 0 ? 1f : 0f;
+            }
+            return 0f;
         }
     }
 }
