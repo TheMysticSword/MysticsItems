@@ -74,6 +74,7 @@ namespace MysticsItems
             CharacterStats.Init();
             ConCommandHelper.Init();
             CostTypeCreation.Init();
+            CustomTempVFXManagement.Init();
             //Items.CharacterItems.Init();
             Equipment.BaseEquipment.Init();
             GenericCostTypes.Init();
