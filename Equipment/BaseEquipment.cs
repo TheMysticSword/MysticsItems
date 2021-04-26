@@ -109,7 +109,7 @@ namespace MysticsItems.Equipment
                 if (NetworkServer.active)
                 {
                     BaseEquipment equipment = loadedEquipment.FirstOrDefault(x => x.equipmentDef == equipmentDef2);
-                    if (!equipment.Equals(default(BaseEquipment)))
+                    if (equipment != null)
                     {
                         return equipment.OnUse(self);
                     }
@@ -122,7 +122,7 @@ namespace MysticsItems.Equipment
                 orig(self);
                 EquipmentIndex equipmentIndex2 = self.equipmentIndex;
                 BaseEquipment equipment = loadedEquipment.FirstOrDefault(x => x.equipmentDef.equipmentIndex == equipmentIndex2);
-                if (!equipment.Equals(default(BaseEquipment)))
+                if (equipment != null)
                 {
                     equipment.OnUseClient(self);
                 }
