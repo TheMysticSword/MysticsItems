@@ -37,7 +37,7 @@ namespace MysticsItems.Items
                 matDebuffedVFX,
                 Main.AssetBundle.LoadAsset<Texture>("Assets/Items/Gate Chalice Debuff/texRampGateChaliceAfflictionVFX.png")
             );
-            Main.HopooShaderToMaterial.CloudRemap.Boost(matDebuffedVFX, 4f);
+            Main.HopooShaderToMaterial.CloudRemap.Boost(matDebuffedVFX, 1f);
             CustomTempVFXManagement.allVFX.Add(new CustomTempVFXManagement.VFXInfo
             {
                 prefab = debuffedVFX,
