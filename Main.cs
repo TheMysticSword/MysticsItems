@@ -213,6 +213,36 @@ namespace MysticsItems
                     mat.SetColor("_EmColor", color ?? Color.white);
                 }
             }
+
+            public class CloudRemap
+            {
+                public static Shader shader = Resources.Load<Shader>("shaders/fx/hgcloudremap");
+
+                public static void Apply(Material mat, Properties properties = default(Properties))
+                {
+                    HopooShaderToMaterial.Apply(mat, shader, properties);
+                    mat.SetFloat("_Cull", 0f);
+                    mat.SetFloat("_ExternalAlpha", 1f);
+                    mat.SetFloat("_Fade", 1f);
+                    mat.SetFloat("_InvFade", 2f);
+                    mat.SetFloat("_SkyboxOnly", 0f);
+                    mat.SetFloat("_ZWrite", 1f);
+                    mat.SetFloat("_ZTest", 4f);
+                }
+
+                public static void Apply(Material mat, Texture remapTexture = null, Texture cloud1Texture = null, Texture cloud2Texture = null, Properties properties = default(Properties))
+                {
+                    Apply(mat, properties);
+                    mat.SetTexture("_Cloud1Tex", cloud1Texture);
+                    mat.SetTexture("_Cloud2Tex", cloud2Texture);
+                    mat.SetTexture("_RemapTex", remapTexture);
+                }
+
+                public static void Boost(Material mat, float power = 1f)
+                {
+                    mat.SetFloat("_Boost", power);
+                }
+            }
         }
     }
 
