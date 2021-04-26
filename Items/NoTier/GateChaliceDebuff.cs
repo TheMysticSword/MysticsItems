@@ -26,7 +26,7 @@ namespace MysticsItems.Items
                 times = (x) => ModifierTimesFunction(x)
             });
 
-            GameObject debuffedVFX = Main.AssetBundle.LoadAsset<GameObject>("Assets/Equipment/Gate Chalice/GateChaliceAfflictionVFX.prefab");
+            GameObject debuffedVFX = Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Gate Chalice Debuff/GateChaliceAfflictionVFX.prefab");
             CustomTempVFXManagement.MysticsItemsCustomTempVFX tempVFX = debuffedVFX.AddComponent<CustomTempVFXManagement.MysticsItemsCustomTempVFX>();
             tempVFX.enterObjects = new GameObject[]
             {
@@ -35,7 +35,7 @@ namespace MysticsItems.Items
             Material matDebuffedVFX = debuffedVFX.transform.Find("Origin/Embers").gameObject.GetComponent<Renderer>().sharedMaterial;
             Main.HopooShaderToMaterial.CloudRemap.Apply(
                 matDebuffedVFX,
-                Main.AssetBundle.LoadAsset<Texture>("Assets/Equipment/Gate Chalice/texRampGateChaliceAfflictionVFX.png")
+                Main.AssetBundle.LoadAsset<Texture>("Assets/Items/Gate Chalice Debuff/texRampGateChaliceAfflictionVFX.png")
             );
             Main.HopooShaderToMaterial.CloudRemap.Boost(matDebuffedVFX, 4f);
             CustomTempVFXManagement.allVFX.Add(new CustomTempVFXManagement.VFXInfo
