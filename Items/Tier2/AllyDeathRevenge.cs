@@ -107,6 +107,28 @@ namespace MysticsItems.Items
             {
                 return model.body.HasBuff(MysticsItemsContent.Buffs.AllyDeathRevenge);
             });
+
+            GameObject burningVFX = Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Ally Death Revenge/BurningVFX.prefab");
+            CustomTempVFXManagement.MysticsItemsCustomTempVFX tempVFX = burningVFX.AddComponent<CustomTempVFXManagement.MysticsItemsCustomTempVFX>();
+            tempVFX.rotateWithParent = true;
+            tempVFX.enterObjects = new GameObject[]
+            {
+                burningVFX.transform.Find("Origin").gameObject
+            };
+            Material matBurningVFX = burningVFX.transform.Find("Origin/Left").gameObject.GetComponent<Renderer>().sharedMaterial;
+            Main.HopooShaderToMaterial.CloudRemap.Apply(
+                matBurningVFX,
+                Main.AssetBundle.LoadAsset<Texture>("Assets/Items/Ally Death Revenge/texRampAllyDeathRevengeBurningEyes.png")
+            );
+            Main.HopooShaderToMaterial.CloudRemap.Boost(matBurningVFX, 3f);
+            burningVFX.transform.Find("Origin").gameObject.AddComponent<RotateObject>().rotationSpeed = new Vector3(0f, 400f, 0f);
+            CustomTempVFXManagement.allVFX.Add(new CustomTempVFXManagement.VFXInfo
+            {
+                prefab = burningVFX,
+                condition = (x) => x.HasBuff(MysticsItemsContent.Buffs.AllyDeathRevenge),
+                radius = CustomTempVFXManagement.DefaultRadiusCall,
+                child = "Head"
+            });
         }
 
         public class SurvivedStageCounter : MonoBehaviour
