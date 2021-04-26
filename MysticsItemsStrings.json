@@ -103,7 +103,7 @@
     //[LUNAR ITEMS]
     "ITEM_MYSTICSITEMS_RIFTLENS_NAME": "Rift Lens",
     "ITEM_MYSTICSITEMS_RIFTLENS_PICKUP": "Every stage contains a free chest... <color=#FF7F7F>BUT you move slower until you open it.</color>\n",
-    "ITEM_MYSTICSITEMS_RIFTLENS_DESC": "Every stage contains <style=cIsDamage>1 <style=cStack>(+1 per stack)</style></style> free chest. Your movement speed is reduced by <style=cIsUtility>33%</style> until you open all free chests.",
+    "ITEM_MYSTICSITEMS_RIFTLENS_DESC": "Every stage contains <style=cIsDamage>1 <style=cStack>(+1 per stack)</style></style> free chest. Your movement speed is reduced by <style=cIsUtility>50%</style> until you open all free chests.",
 
     "ITEM_MYSTICSITEMS_MOONGLASSES_NAME": "Moonglasses",
     "ITEM_MYSTICSITEMS_MOONGLASSES_PICKUP": "Increase Critical Strike damage... <color=#FF7F7F>BUT reduce Critical Strike chance.</color>\n",
@@ -121,7 +121,7 @@
 
     "EQUIPMENT_MYSTICSITEMS_MICROPHONE_NAME": "Vintage Microphone",
     "EQUIPMENT_MYSTICSITEMS_MICROPHONE_PICKUP": "Deafen enemies in front of you, reducing their movement speed, armor and increasing cooldowns.",
-    "EQUIPMENT_MYSTICSITEMS_MICROPHONE_DESC": "<style=cIsDamage>Deafen</style> enemies in front of you for <style=cIsUtility>15 seconds</style>, reducing their movement speed by <style=cIsUtility>33%</style>, armor by <style=cIsDamage>20</style> and increasing their skill cooldowns by <style=cIsUtility>50%</style>.",
+    "EQUIPMENT_MYSTICSITEMS_MICROPHONE_DESC": "<style=cIsDamage>Deafen</style> enemies in front of you for <style=cIsUtility>15 seconds</style>, reducing their movement speed by <style=cIsUtility>50%</style>, armor by <style=cIsDamage>20</style> and increasing their skill cooldowns by <style=cIsUtility>50%</style>.",
 
     //[LUNAR EQUIPMENT]
     "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_NAME": "Ratio Equalizer",
@@ -130,7 +130,7 @@
 
     "EQUIPMENT_MYSTICSITEMS_GATECHALICE_NAME": "Gate Chalice",
     "EQUIPMENT_MYSTICSITEMS_GATECHALICE_PICKUP": "Teleport to the next stage... <color=#FF7F7F>BUT cripple all allies until the next teleporter event completion.</color>\n",
-    "EQUIPMENT_MYSTICSITEMS_GATECHALICE_DESC": "Initiates teleportation to the next stage, skipping the teleporter event. All allies are <style=cIsUtility>slowed by 25%</style> and have their <style=cIsDamage>armor reduced by 10</style> until the next teleporter event is completed.",
+    "EQUIPMENT_MYSTICSITEMS_GATECHALICE_DESC": "Initiates teleportation to the next stage, skipping the teleporter event. All allies are <style=cIsUtility>slowed by 33%</style> and have their <style=cIsDamage>armor reduced by 10</style> until the next teleporter event is completed.",
 
     //[ACHIEVEMENTS]
     "ACHIEVEMENT_MYSTICSITEMS_ESCAPEMOONALONE_NAME": "Last of Us",
@@ -284,7 +284,7 @@
     //[LUNAR ITEMS]
     "ITEM_MYSTICSITEMS_RIFTLENS_NAME": "Линза разлома",
     "ITEM_MYSTICSITEMS_RIFTLENS_PICKUP": "Каждый этап содержит бесплатный сундук... <color=#FF7F7F>НО вы передвигаетесь медленнее, пока не откроете его.</color>\n",
-    "ITEM_MYSTICSITEMS_RIFTLENS_DESC": "Каждый этап содержит <style=cIsDamage>1 <style=cStack>(+1 за шт.)</style></style> бесплатный сундук. Скорость передвижения снижена на <style=cIsUtility>33%</style>, пока вы не откроете все бесплатные сундуки.",
+    "ITEM_MYSTICSITEMS_RIFTLENS_DESC": "Каждый этап содержит <style=cIsDamage>1 <style=cStack>(+1 за шт.)</style></style> бесплатный сундук. Скорость передвижения снижена на <style=cIsUtility>50%</style>, пока вы не откроете все бесплатные сундуки.",
 
     "ITEM_MYSTICSITEMS_MOONGLASSES_NAME": "Лунные очки",
     "ITEM_MYSTICSITEMS_MOONGLASSES_PICKUP": "Увеличивают урон критического удара... <color=#FF7F7F>НО уменьшает вероятность критического удара.</color>\n",
@@ -302,7 +302,7 @@
 
     "EQUIPMENT_MYSTICSITEMS_MICROPHONE_NAME": "Винтажный микрофон",
     "EQUIPMENT_MYSTICSITEMS_MICROPHONE_PICKUP": "Оглушает врагов перед вами, снижая их скорость, броню и увеличивая время восстановления навыков.",
-    "EQUIPMENT_MYSTICSITEMS_MICROPHONE_DESC": "<style=cIsDamage>Оглушает</style> врагов перед вами на <style=cIsUtility>15 секунд</style>, снижая скорость передвижения на <style=cIsUtility>33%</style>, броню на <style=cIsDamage>20</style> и увеличивая длительность восстановления навыков на <style=cIsUtility>50%</style>.",
+    "EQUIPMENT_MYSTICSITEMS_MICROPHONE_DESC": "<style=cIsDamage>Оглушает</style> врагов перед вами на <style=cIsUtility>15 секунд</style>, снижая скорость передвижения на <style=cIsUtility>50%</style>, броню на <style=cIsDamage>20</style> и увеличивая длительность восстановления навыков на <style=cIsUtility>50%</style>.",
 
     //[LUNAR EQUIPMENT]
     "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_NAME": "Уравнитель пропорций",
@@ -311,7 +311,7 @@
 
     "EQUIPMENT_MYSTICSITEMS_GATECHALICE_NAME": "Чаша врат",
     "EQUIPMENT_MYSTICSITEMS_GATECHALICE_PICKUP": "Телепортирует на следующий этап... <color=#FF7F7F>НО парализует всех союзников до следующего прохождения события с телепортом.</color>\n",
-    "EQUIPMENT_MYSTICSITEMS_GATECHALICE_DESC": "Начинает телепортацию на следующий этап, пропуская событие с телепортом. Все союзники <style=cIsUtility>замедляются на 25%</style>, а их <style=cIsDamage>броня снижается на 10</style> до тех пор, пока не будет пройдено следующее событие с телепортом.",
+    "EQUIPMENT_MYSTICSITEMS_GATECHALICE_DESC": "Начинает телепортацию на следующий этап, пропуская событие с телепортом. Все союзники <style=cIsUtility>замедляются на 33%</style>, а их <style=cIsDamage>броня снижается на 10</style> до тех пор, пока не будет пройдено следующее событие с телепортом.",
 
     //[ACHIEVEMENTS]
     "ACHIEVEMENT_MYSTICSITEMS_ESCAPEMOONALONE_NAME": "Последний из нас",
