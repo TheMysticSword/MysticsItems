@@ -38,6 +38,12 @@ namespace MysticsItems.Equipment
             SetAssets("Archaic Mask");
             SetScalableChildEffect("Mask/Effects/Point Light");
             SetScalableChildEffect("Mask/Effects/Fire");
+            Material matArchaicMaskFire = model.transform.Find("Mask/Effects/Fire").gameObject.GetComponent<Renderer>().sharedMaterial;
+            Main.HopooShaderToMaterial.CloudRemap.Apply(
+                matArchaicMaskFire,
+                Main.AssetBundle.LoadAsset<Texture>("Assets/Equipment/Archaic Mask/texRampArchaicMaskFire.png")
+            );
+            Main.HopooShaderToMaterial.CloudRemap.Boost(matArchaicMaskFire, 0.5f);
             CopyModelToFollower();
             CustomUtils.CopyChildren(PrefabAPI.InstantiateClone(model, Main.TokenPrefix + "ArchaicMaskUnlockInteractable", false), unlockInteractablePrefab);
             
