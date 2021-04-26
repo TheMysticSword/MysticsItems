@@ -25,6 +25,32 @@ namespace MysticsItems.SoftDependencies
 
         public static void Init()
         {
+            // notier
+            AddItemStatDef(MysticsItemsContent.Items.GateChaliceDebuff, new ItemStatDef
+            {
+                Stats = new List<ItemStat>()
+                {
+                    new ItemStat(
+                        (itemCount, ctx) => 0.5f * itemCount,
+                        (value, ctx) => $"Move Speed Reduction: {value.FormatPercentage()}"
+                    ),
+                    new ItemStat(
+                        (itemCount, ctx) => 10f * itemCount,
+                        (value, ctx) => $"Armor Reduction: {value.FormatInt()}"
+                    )
+                }
+            });
+            AddItemStatDef(MysticsItemsContent.Items.RiftLensDebuff, new ItemStatDef
+            {
+                Stats = new List<ItemStat>()
+                {
+                    new ItemStat(
+                        (itemCount, ctx) => 0.33f,
+                        (value, ctx) => $"Move Speed Reduction: {value.FormatPercentage()}"
+                    )
+                }
+            });
+
             // tier1
             AddItemStatDef(MysticsItemsContent.Items.HealOrbOnBarrel, new ItemStatDef
             {
@@ -91,11 +117,11 @@ namespace MysticsItems.SoftDependencies
                 Stats = new List<ItemStat>()
                 {
                     new ItemStat(
-                        (itemCount, ctx) => 0.21f + 0.07f * (itemCount - 1),
+                        (itemCount, ctx) => 0.21f + 0.21f * (itemCount - 1),
                         (value, ctx) => $"Max Attack Speed: {value.FormatPercentage()}"
                     ),
                     new ItemStat(
-                        (itemCount, ctx) => 0.21f + 0.07f * (itemCount - 1),
+                        (itemCount, ctx) => 0.21f + 0.21f * (itemCount - 1),
                         (value, ctx) => $"Max Movement Speed: {value.FormatPercentage()}"
                     )
                 }
@@ -119,11 +145,11 @@ namespace MysticsItems.SoftDependencies
                 Stats = new List<ItemStat>()
                 {
                     new ItemStat(
-                        (itemCount, ctx) => 15f + 5f * (itemCount - 1),
+                        (itemCount, ctx) => 15f + 15f * (itemCount - 1),
                         (value, ctx) => $"Duration: {value.FormatInt("s")}"
                     ),
                     new ItemStat(
-                        (itemCount, ctx) => 2f + 0.5f * (itemCount - 1),
+                        (itemCount, ctx) => 1f + 1f * (itemCount - 1),
                         (value, ctx) => $"Duration (Same-Stage Death): {value.FormatInt("s")}"
                     )
                 }
@@ -242,7 +268,7 @@ namespace MysticsItems.SoftDependencies
                 {
                     new ItemStat(
                         (itemCount, ctx) => 120f / (1f + 0.5f * (itemCount - 1)),
-                        (value, ctx) => $"Excavation Time: {value.FormatInt("s")}"
+                        (value, ctx) => $"Unearth Time: {value.FormatInt("s")}"
                     )
                 }
             });
