@@ -157,7 +157,7 @@ namespace MysticsItems.Items
                         int thisItemCount = characterMaster.inventory.GetItemCount(itemDef);
                         if (thisItemCount > 0)
                         {
-                            characterMaster.inventory.RemoveItem(MysticsItemsContent.Items.GateChaliceDebuff, characterMaster.inventory.GetItemCount(MysticsItemsContent.Items.GateChaliceDebuff));
+                            characterMaster.inventory.RemoveItem(MysticsItemsContent.Items.RiftLensDebuff, characterMaster.inventory.GetItemCount(MysticsItemsContent.Items.RiftLensDebuff));
                             characterMaster.inventory.GiveItem(MysticsItemsContent.Items.RiftLensDebuff, thisItemCount);
                             itemCount += thisItemCount;
                         }
