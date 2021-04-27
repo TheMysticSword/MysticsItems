@@ -150,7 +150,7 @@ namespace MysticsItems.Items
             PostProcessVolume pp = ppHolder.AddComponent<PostProcessVolume>();
             pp.isGlobal = false;
             pp.weight = 1f;
-            pp.priority = 100;
+            pp.priority = 50;
             pp.blendDistance = 10f;
             SphereCollider sphereCollider = ppHolder.AddComponent<SphereCollider>();
             sphereCollider.radius = 5f;
