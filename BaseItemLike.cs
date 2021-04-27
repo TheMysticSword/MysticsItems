@@ -15,14 +15,23 @@ namespace MysticsItems
         public GameObject model;
         public GameObject followerModel;
         public ItemDisplayRuleDict itemDisplayRuleDict = new ItemDisplayRuleDict();
+        public static List<BaseItemLike> itemLikesWithFollowerModels = new List<BaseItemLike>();
         
         public abstract void PreLoad(); // Always executed before loading
 
         public virtual void AfterTokensPopulated() { }
 
+        public virtual void SetupIDRS() { }
+
         public abstract void SetAssets(string assetName);
 
         public abstract void SetIcon(string assetName);
+
+        public override void OnLoad()
+        {
+            base.OnLoad();
+            if (followerModel != null) itemLikesWithFollowerModels.Add(this);
+        }
 
         public void PrepareModel(GameObject model)
         {
@@ -176,6 +185,10 @@ namespace MysticsItems
 
         public static void PostGameLoad()
         {
+            foreach (BaseItemLike baseItemLike in itemLikesWithFollowerModels)
+            {
+                baseItemLike.SetupIDRS();
+            }
             foreach (KeyValuePair<string, List<MysticsItemsDisplayRules>> displayRulesList in displayRules)
             {
                 string bodyName = displayRulesList.Key;
