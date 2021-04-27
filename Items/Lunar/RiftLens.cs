@@ -179,6 +179,7 @@ namespace MysticsItems.Items
             };
             ppDuration.maxDuration = 1;
             ppDuration.destroyOnEnd = true;
+            ppDuration.enabled = false;
             component.ppDuration = ppDuration;
 
             riftChestSpawnCard = ScriptableObject.CreateInstance<InteractableSpawnCard>();
