@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Collections.ObjectModel;
 using RoR2.UI;
+using UnityEngine.Rendering.PostProcessing;
 
 namespace MysticsItems.Items
 {
@@ -140,6 +141,45 @@ namespace MysticsItems.Items
             pointLight.transform.SetParent(modelBase);
             pointLight.transform.localPosition = Vector3.zero;
             component.destroyOnOpen.Add(pointLight);
+            //custom vfx
+            GameObject customVFX = Object.Instantiate(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Rift Lens Debuff/RiftLensChestVFX.prefab"), modelBase, false);
+            component.destroyOnOpen.Add(customVFX);
+            //post processing
+            GameObject ppHolder = Object.Instantiate(PrefabAPI.InstantiateClone(new GameObject("RiftLensPostProcessing"), "RiftLensPostProcessing", false), modelBase);
+            ppHolder.layer = LayerIndex.postProcess.intVal;
+            PostProcessVolume pp = ppHolder.AddComponent<PostProcessVolume>();
+            pp.isGlobal = false;
+            pp.weight = 1f;
+            pp.priority = 100;
+            pp.blendDistance = 10f;
+            SphereCollider sphereCollider = ppHolder.AddComponent<SphereCollider>();
+            sphereCollider.radius = 5f;
+            sphereCollider.isTrigger = true;
+            PostProcessProfile ppProfile = ScriptableObject.CreateInstance<PostProcessProfile>();
+            ppProfile.name = "ppRiftLens";
+            LensDistortion lensDistortion = ppProfile.AddSettings<LensDistortion>();
+            lensDistortion.SetAllOverridesTo(true);
+            lensDistortion.intensity.value = -50f;
+            lensDistortion.scale.value = 1f;
+            ColorGrading colorGrading = ppProfile.AddSettings<ColorGrading>();
+            colorGrading.colorFilter.value = new Color32(127, 233, 255, 255);
+            colorGrading.colorFilter.overrideState = true;
+            pp.sharedProfile = ppProfile;
+            PostProcessDuration ppDuration = pp.gameObject.AddComponent<PostProcessDuration>();
+            ppDuration.ppVolume = pp;
+            ppDuration.ppWeightCurve = new AnimationCurve
+            {
+                keys = new Keyframe[]
+                {
+                    new Keyframe(0f, 1f, 0f, Mathf.Tan(-45f * Mathf.Deg2Rad)),
+                    new Keyframe(1f, 0f, Mathf.Tan(135f * Mathf.Deg2Rad), 0f)
+                },
+                preWrapMode = WrapMode.Clamp,
+                postWrapMode = WrapMode.Clamp
+            };
+            ppDuration.maxDuration = 1;
+            ppDuration.destroyOnEnd = true;
+            component.ppDuration = ppDuration;
 
             riftChestSpawnCard = ScriptableObject.CreateInstance<InteractableSpawnCard>();
             riftChestSpawnCard.name = "isc" + Main.TokenPrefix + "RiftChest";
@@ -183,6 +223,7 @@ namespace MysticsItems.Items
         {
             public bool open = true;
             public List<GameObject> destroyOnOpen = new List<GameObject>();
+            public PostProcessDuration ppDuration;
 
             public void Start()
             {
@@ -200,6 +241,7 @@ namespace MysticsItems.Items
 
             public void DestroyThingsOnOpen()
             {
+                if (ppDuration) ppDuration.enabled = true;
                 foreach (GameObject gameObject in destroyOnOpen)
                 {
                     Object.Destroy(gameObject);
