@@ -26,10 +26,11 @@ namespace MysticsItems.Items
 
         public override void OnLoad()
         {
+            base.OnLoad();
             SetAssets("Hexahedral Monolith");
             Main.HopooShaderToMaterial.Standard.Gloss(GetModelMaterial());
             GetModelMaterial().SetFloat("_Smoothness", 0.5f);
-
+            
             MysticsItemsExtraShrineUseBehaviour.displayPrefab = PrefabAPI.InstantiateClone(model, Main.TokenPrefix + "MysteriousMonolithDisplay", false);
             MysticsItemsExtraShrineUseBehaviour.displayPrefab.transform.localScale *= 0.1f;
 

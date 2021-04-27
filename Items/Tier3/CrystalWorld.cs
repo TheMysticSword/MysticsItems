@@ -44,6 +44,7 @@ namespace MysticsItems.Items
 
         public override void OnLoad()
         {
+            base.OnLoad();
             SetAssets("Crystal World");
             model.AddComponent<CrystalWorldContainer>();
             CopyModelToFollower();

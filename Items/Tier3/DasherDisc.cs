@@ -37,6 +37,7 @@ namespace MysticsItems.Items
 
         public override void OnLoad()
         {
+            base.OnLoad();
             SetAssets("Dasher Disc");
             Material mat = model.transform.Find("mdlDasherDisc").GetComponent<MeshRenderer>().sharedMaterial;
             Main.HopooShaderToMaterial.Standard.Apply(mat);

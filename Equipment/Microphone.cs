@@ -38,20 +38,22 @@ namespace MysticsItems.Equipment
             SetModelPanelDistance(5f, 15f);
             Main.HopooShaderToMaterial.Standard.Gloss(GetModelMaterial(), 1f, 15f);
             CopyModelToFollower();
-
-            AddDisplayRule("CommandoBody", "Stomach", new Vector3(-0.131F, 0.101F, -0.106F), new Vector3(353.789F, 220.459F, 176.094F), new Vector3(0.024F, 0.024F, 0.024F));
-            AddDisplayRule("HuntressBody", "Head", new Vector3(-0.065F, 0.139F, 0.087F), new Vector3(57.427F, 169.25F, 159.351F), new Vector3(0.011F, 0.011F, 0.012F));
-            AddDisplayRule("Bandit2Body", "Stomach", new Vector3(-0.097F, 0.048F, -0.129F), new Vector3(4.954F, 282.723F, 159.07F), new Vector3(0.029F, 0.029F, 0.029F));
-            AddDisplayRule("ToolbotBody", "HandR", new Vector3(-0.01F, 0.981F, -0.167F), new Vector3(58.56F, 268.579F, 264.86F), new Vector3(0.378F, 0.378F, 0.378F));
-            AddDisplayRule("EngiBody", "HandL", new Vector3(0.015F, 0.18F, -0.04F), new Vector3(70.126F, 294.778F, 9.124F), new Vector3(0.047F, 0.047F, 0.047F));
-            AddDisplayRule("MageBody", "Head", new Vector3(-0.095F, 0.108F, -0.047F), new Vector3(358.993F, 354.776F, 177.852F), new Vector3(0.016F, 0.016F, 0.016F));
-            AddDisplayRule("MercBody", "HandL", new Vector3(0.021F, 0.127F, 0.013F), new Vector3(356.714F, 344.677F, 266.091F), new Vector3(0.027F, 0.027F, 0.027F));
-            AddDisplayRule("TreebotBody", "WeaponPlatformEnd", new Vector3(-0.044F, -0.068F, 0.154F), new Vector3(339.636F, 327.135F, 61.693F), new Vector3(0.05F, 0.05F, 0.05F));
-            AddDisplayRule("LoaderBody", "MechHandL", new Vector3(0.052F, 0.271F, 0.005F), new Vector3(0.351F, 159.123F, 281.328F), new Vector3(0.052F, 0.05F, 0.052F));
-            AddDisplayRule("CrocoBody", "Head", new Vector3(-0.543F, 4.565F, -0.104F), new Vector3(284.494F, 3.244F, 267.429F), new Vector3(0.333F, 0.333F, 0.333F));
-            AddDisplayRule("CaptainBody", "HandR", new Vector3(0.002F, 0.155F, -0.014F), new Vector3(53.771F, 271.897F, 272.032F), new Vector3(0.041F, 0.041F, 0.041F));
-            AddDisplayRule("ScavBody", "HandL", new Vector3(0.469F, 2.35F, -0.273F), new Vector3(305.162F, 137.483F, 278.565F), new Vector3(0.883F, 0.883F, 0.883F));
-            AddDisplayRule("EquipmentDroneBody", "GunBarrelBase", new Vector3(0F, 0F, 1.453F), new Vector3(0F, 90F, 0F), new Vector3(0.265F, 0.265F, 0.265F));
+            onSetupIDRS += () =>
+            {
+                AddDisplayRule("CommandoBody", "Stomach", new Vector3(-0.131F, 0.101F, -0.106F), new Vector3(353.789F, 220.459F, 176.094F), new Vector3(0.024F, 0.024F, 0.024F));
+                AddDisplayRule("HuntressBody", "Head", new Vector3(-0.065F, 0.139F, 0.087F), new Vector3(57.427F, 169.25F, 159.351F), new Vector3(0.011F, 0.011F, 0.012F));
+                AddDisplayRule("Bandit2Body", "Stomach", new Vector3(-0.097F, 0.048F, -0.129F), new Vector3(4.954F, 282.723F, 159.07F), new Vector3(0.029F, 0.029F, 0.029F));
+                AddDisplayRule("ToolbotBody", "HandR", new Vector3(-0.01F, 0.981F, -0.167F), new Vector3(58.56F, 268.579F, 264.86F), new Vector3(0.378F, 0.378F, 0.378F));
+                AddDisplayRule("EngiBody", "HandL", new Vector3(0.015F, 0.18F, -0.04F), new Vector3(70.126F, 294.778F, 9.124F), new Vector3(0.047F, 0.047F, 0.047F));
+                AddDisplayRule("MageBody", "Head", new Vector3(-0.095F, 0.108F, -0.047F), new Vector3(358.993F, 354.776F, 177.852F), new Vector3(0.016F, 0.016F, 0.016F));
+                AddDisplayRule("MercBody", "HandL", new Vector3(0.021F, 0.127F, 0.013F), new Vector3(356.714F, 344.677F, 266.091F), new Vector3(0.027F, 0.027F, 0.027F));
+                AddDisplayRule("TreebotBody", "WeaponPlatformEnd", new Vector3(-0.044F, -0.068F, 0.154F), new Vector3(339.636F, 327.135F, 61.693F), new Vector3(0.05F, 0.05F, 0.05F));
+                AddDisplayRule("LoaderBody", "MechHandL", new Vector3(0.052F, 0.271F, 0.005F), new Vector3(0.351F, 159.123F, 281.328F), new Vector3(0.052F, 0.05F, 0.052F));
+                AddDisplayRule("CrocoBody", "Head", new Vector3(-0.543F, 4.565F, -0.104F), new Vector3(284.494F, 3.244F, 267.429F), new Vector3(0.333F, 0.333F, 0.333F));
+                AddDisplayRule("CaptainBody", "HandR", new Vector3(0.002F, 0.155F, -0.014F), new Vector3(53.771F, 271.897F, 272.032F), new Vector3(0.041F, 0.041F, 0.041F));
+                AddDisplayRule("ScavBody", "HandL", new Vector3(0.469F, 2.35F, -0.273F), new Vector3(305.162F, 137.483F, 278.565F), new Vector3(0.883F, 0.883F, 0.883F));
+                AddDisplayRule("EquipmentDroneBody", "GunBarrelBase", new Vector3(0F, 0F, 1.453F), new Vector3(0F, 90F, 0F), new Vector3(0.265F, 0.265F, 0.265F));
+            };
 
             wavePrefab = Main.AssetBundle.LoadAsset<GameObject>("Assets/Equipment/Microphone/MicrophoneSoundwaveGhost.prefab");
             wavePrefab.AddComponent<ProjectileGhostController>();

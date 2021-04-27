@@ -48,6 +48,7 @@ namespace MysticsItems.Items
 
         public override void OnLoad()
         {
+            base.OnLoad();
             SetAssets("Spotter");
             Material mat = model.transform.Find("mdlSpotterBroken").gameObject.GetComponent<MeshRenderer>().sharedMaterial;
             Main.HopooShaderToMaterial.Standard.Apply(mat);

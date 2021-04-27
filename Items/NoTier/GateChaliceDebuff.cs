@@ -13,6 +13,7 @@ namespace MysticsItems.Items
 
         public override void OnLoad()
         {
+            base.OnLoad();
             SetIcon("Gate Chalice Debuff");
 
             CharacterStats.moveSpeedModifiers.Add(new CharacterStats.StatModifier

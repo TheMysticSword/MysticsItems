@@ -46,20 +46,23 @@ namespace MysticsItems.Equipment
             Main.HopooShaderToMaterial.CloudRemap.Boost(matArchaicMaskFire, 0.5f);
             CopyModelToFollower();
             CustomUtils.CopyChildren(PrefabAPI.InstantiateClone(model, Main.TokenPrefix + "ArchaicMaskUnlockInteractable", false), unlockInteractablePrefab);
-            
-            AddDisplayRule("CommandoBody", "Head", new Vector3(-0.001F, 0.253F, 0.124F), new Vector3(0.055F, 269.933F, 20.48F), new Vector3(0.147F, 0.147F, 0.147F));
-            AddDisplayRule("HuntressBody", "Head", new Vector3(-0.001F, 0.221F, 0.039F), new Vector3(0.073F, 269.903F, 25.101F), new Vector3(0.119F, 0.119F, 0.121F));
-            AddDisplayRule("Bandit2Body", "Head", new Vector3(0F, 0.047F, 0.102F), new Vector3(0F, 270F, 0F), new Vector3(0.097F, 0.097F, 0.097F));
-            AddDisplayRule("ToolbotBody", "Head", new Vector3(0.321F, 3.4F, -0.667F), new Vector3(0F, 90F, 56.608F), new Vector3(0.933F, 0.933F, 0.933F));
-            AddDisplayRule("EngiBody", "Head", new Vector3(0F, 0F, 0.117F), new Vector3(0F, 270F, 0F), new Vector3(0.12F, 0.12F, 0.12F));
-            AddDisplayRule("MageBody", "Head", new Vector3(0F, 0.05F, 0.104F), new Vector3(0F, 270F, 0F), new Vector3(0.07F, 0.07F, 0.07F));
-            AddDisplayRule("MercBody", "Head", new Vector3(0F, 0.135F, 0.117F), new Vector3(0F, 270F, 11.977F), new Vector3(0.123F, 0.123F, 0.123F));
-            AddDisplayRule("TreebotBody", "FlowerBase", new Vector3(0.2F, 0.873F, 0.344F), new Vector3(0F, 295.888F, 344.74F), new Vector3(0.283F, 0.283F, 0.283F));
-            AddDisplayRule("LoaderBody", "Head", new Vector3(0F, 0.097F, 0.116F), new Vector3(0F, 270F, 4.685F), new Vector3(0.117F, 0.117F, 0.117F));
-            AddDisplayRule("CrocoBody", "Head", new Vector3(0.012F, 4.425F, 1.271F), new Vector3(355.778F, 271.534F, 2.51F), new Vector3(0.973F, 0.973F, 0.973F));
-            AddDisplayRule("CaptainBody", "Head", new Vector3(0F, 0.064F, 0.12F), new Vector3(0F, 270F, 0F), new Vector3(0.104F, 0.107F, 0.118F));
-            AddDisplayRule("ScavBody", "Backpack", new Vector3(5.161F, 3.722F, -0.213F), new Vector3(342.055F, 261.468F, 115.963F), new Vector3(1.363F, 1.363F, 1.363F));
-            AddDisplayRule("EquipmentDroneBody", "HeadCenter", new Vector3(0F, -0.507F, -0.381F), new Vector3(0F, 270F, 270F), new Vector3(0.965F, 0.965F, 0.965F));
+
+            onSetupIDRS += () =>
+            {
+                AddDisplayRule("CommandoBody", "Head", new Vector3(-0.001F, 0.253F, 0.124F), new Vector3(0.055F, 269.933F, 20.48F), new Vector3(0.147F, 0.147F, 0.147F));
+                AddDisplayRule("HuntressBody", "Head", new Vector3(-0.001F, 0.221F, 0.039F), new Vector3(0.073F, 269.903F, 25.101F), new Vector3(0.119F, 0.119F, 0.121F));
+                AddDisplayRule("Bandit2Body", "Head", new Vector3(0F, 0.047F, 0.102F), new Vector3(0F, 270F, 0F), new Vector3(0.097F, 0.097F, 0.097F));
+                AddDisplayRule("ToolbotBody", "Head", new Vector3(0.321F, 3.4F, -0.667F), new Vector3(0F, 90F, 56.608F), new Vector3(0.933F, 0.933F, 0.933F));
+                AddDisplayRule("EngiBody", "Head", new Vector3(0F, 0F, 0.117F), new Vector3(0F, 270F, 0F), new Vector3(0.12F, 0.12F, 0.12F));
+                AddDisplayRule("MageBody", "Head", new Vector3(0F, 0.05F, 0.104F), new Vector3(0F, 270F, 0F), new Vector3(0.07F, 0.07F, 0.07F));
+                AddDisplayRule("MercBody", "Head", new Vector3(0F, 0.135F, 0.117F), new Vector3(0F, 270F, 11.977F), new Vector3(0.123F, 0.123F, 0.123F));
+                AddDisplayRule("TreebotBody", "FlowerBase", new Vector3(0.2F, 0.873F, 0.344F), new Vector3(0F, 295.888F, 344.74F), new Vector3(0.283F, 0.283F, 0.283F));
+                AddDisplayRule("LoaderBody", "Head", new Vector3(0F, 0.097F, 0.116F), new Vector3(0F, 270F, 4.685F), new Vector3(0.117F, 0.117F, 0.117F));
+                AddDisplayRule("CrocoBody", "Head", new Vector3(0.012F, 4.425F, 1.271F), new Vector3(355.778F, 271.534F, 2.51F), new Vector3(0.973F, 0.973F, 0.973F));
+                AddDisplayRule("CaptainBody", "Head", new Vector3(0F, 0.064F, 0.12F), new Vector3(0F, 270F, 0F), new Vector3(0.104F, 0.107F, 0.118F));
+                AddDisplayRule("ScavBody", "Backpack", new Vector3(5.161F, 3.722F, -0.213F), new Vector3(342.055F, 261.468F, 115.963F), new Vector3(1.363F, 1.363F, 1.363F));
+                AddDisplayRule("EquipmentDroneBody", "HeadCenter", new Vector3(0F, -0.507F, -0.381F), new Vector3(0F, 270F, 270F), new Vector3(0.965F, 0.965F, 0.965F));
+            };
 
             crosshairPrefab = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/WoodSpriteIndicator"), Main.TokenPrefix + "ArchaicMaskIndicator", false);
             Object.Destroy(crosshairPrefab.GetComponentInChildren<Rewired.ComponentControls.Effects.RotateAroundAxis>());
