@@ -21,8 +21,6 @@ namespace MysticsItems
 
         public virtual void AfterTokensPopulated() { }
 
-        public virtual void SetupIDRS() { }
-
         public abstract void SetAssets(string assetName);
 
         public abstract void SetIcon(string assetName);
