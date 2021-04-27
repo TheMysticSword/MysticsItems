@@ -162,7 +162,7 @@ namespace MysticsItems.Items
             lensDistortion.intensity.value = -50f;
             lensDistortion.scale.value = 1f;
             ColorGrading colorGrading = ppProfile.AddSettings<ColorGrading>();
-            colorGrading.colorFilter.value = new Color32(127, 233, 255, 255);
+            colorGrading.colorFilter.value = new Color32(178, 242, 255, 255);
             colorGrading.colorFilter.overrideState = true;
             pp.sharedProfile = ppProfile;
             PostProcessDuration ppDuration = pp.gameObject.AddComponent<PostProcessDuration>();
