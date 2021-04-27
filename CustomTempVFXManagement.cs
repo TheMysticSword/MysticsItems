@@ -99,7 +99,7 @@ namespace MysticsItems
             public VisualState prevVisualState;
             public float radius;
 
-            public void Update()
+            public void LateUpdate()
             {
                 if (!healthComponent || !healthComponent.alive) visualState = VisualState.Exit;
                 if (parentTransform)
