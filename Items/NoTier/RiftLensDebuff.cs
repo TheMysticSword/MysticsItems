@@ -26,24 +26,6 @@ namespace MysticsItems.Items
             GameObject debuffedVFX = Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Rift Lens Debuff/RiftLensAfflictionVFX.prefab");
             GameObject vfxOrigin = debuffedVFX.transform.Find("Origin").gameObject;
             CustomTempVFXManagement.MysticsItemsCustomTempVFX tempVFX = debuffedVFX.AddComponent<CustomTempVFXManagement.MysticsItemsCustomTempVFX>();
-            ObjectScaleCurve scaleOut = vfxOrigin.AddComponent<ObjectScaleCurve>();
-            scaleOut.useOverallCurveOnly = true;
-            scaleOut.overallCurve = new AnimationCurve
-            {
-                keys = new Keyframe[]
-                {
-                    new Keyframe(0f, 1f, 0f, Mathf.Tan(-45f * Mathf.Deg2Rad)),
-                    new Keyframe(1f, 0f, Mathf.Tan(135f * Mathf.Deg2Rad), 0f)
-                },
-                preWrapMode = WrapMode.Clamp,
-                postWrapMode = WrapMode.Clamp
-            };
-            scaleOut.timeMax = 1f;
-            scaleOut.enabled = false;
-            tempVFX.exitBehaviours = new MonoBehaviour[]
-            {
-                scaleOut
-            };
             RotateAroundAxis rotateAroundAxis = vfxOrigin.AddComponent<RotateAroundAxis>();
             rotateAroundAxis.relativeTo = Space.Self;
             rotateAroundAxis.rotateAroundAxis = RotateAroundAxis.RotationAxis.X;
