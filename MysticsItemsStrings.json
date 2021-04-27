@@ -4,7 +4,7 @@
 
     //[NOTIER]
     "ITEM_MYSTICSITEMS_GATECHALICEDEBUFF_NAME": "Lunar Teleportation Affliction",
-    "ITEM_MYSTICSITEMS_GATECHALICEDEBUFF_PICKUP": "<color=#FF7F7F>Crippled until a teleporter event is completed.</color>",
+    "ITEM_MYSTICSITEMS_GATECHALICEDEBUFF_PICKUP": "<color=#FF7F7F>Movement speed and armor reduced until a teleporter event is completed.</color>",
     "ITEM_MYSTICSITEMS_GATECHALICEDEBUFF_DESC": "Reduce <style=cIsUtility>movement speed by 33% <style=cStack>(+33% per stack)</style></style> and <style=cIsDamage>armor by 10 <style=cStack>(+10 per stack)</style></style> until the next teleporter event is completed.",
 
     "ITEM_MYSTICSITEMS_RIFTLENSDEBUFF_NAME": "Rift Affliction",
@@ -131,7 +131,7 @@
     "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_DESC": "Average the current health fraction of all characters in a 60m radius.",
 
     "EQUIPMENT_MYSTICSITEMS_GATECHALICE_NAME": "Gate Chalice",
-    "EQUIPMENT_MYSTICSITEMS_GATECHALICE_PICKUP": "Teleport to the next stage... <color=#FF7F7F>BUT cripple all allies until the next teleporter event completion.</color>\n",
+    "EQUIPMENT_MYSTICSITEMS_GATECHALICE_PICKUP": "Teleport to the next stage... <color=#FF7F7F>BUT afflict all allies until the next teleporter event completion.</color>\n",
     "EQUIPMENT_MYSTICSITEMS_GATECHALICE_DESC": "Initiates teleportation to the next stage, skipping the teleporter event. All allies are <style=cIsUtility>slowed by 33%</style> and have their <style=cIsDamage>armor reduced by 10</style> until the next teleporter event is completed.",
 
     //[ACHIEVEMENTS]
@@ -187,7 +187,7 @@
 
     //[NOTIER]
     "ITEM_MYSTICSITEMS_GATECHALICEDEBUFF_NAME": "Недуг лунной телепортации",
-    "ITEM_MYSTICSITEMS_GATECHALICEDEBUFF_PICKUP": "<color=#FF7F7F>Вы парализованы, пока не пройдёте событие с телепортом.</color>",
+    "ITEM_MYSTICSITEMS_GATECHALICEDEBUFF_PICKUP": "<color=#FF7F7F>Скорость передвижения и броня уменьшены, пока не пройдёте событие с телепортом.</color>",
     "ITEM_MYSTICSITEMS_GATECHALICEDEBUFF_DESC": "Уменьшает <style=cIsUtility>скорость передвижения на 33% <style=cStack>(+33% за шт.)</style></style> и <style=cIsDamage>броню на 10 <style=cStack>(+10 за шт.)</style></style> до прохождения следующего события с телепортом.",
 
     "ITEM_MYSTICSITEMS_RIFTLENSDEBUFF_NAME": "Недуг разлома",
@@ -314,7 +314,7 @@
     "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_DESC": "Усредняет текущий процент здоровья всех персонажей в радиусе 60м.",
 
     "EQUIPMENT_MYSTICSITEMS_GATECHALICE_NAME": "Чаша врат",
-    "EQUIPMENT_MYSTICSITEMS_GATECHALICE_PICKUP": "Телепортирует на следующий этап... <color=#FF7F7F>НО парализует всех союзников до следующего прохождения события с телепортом.</color>\n",
+    "EQUIPMENT_MYSTICSITEMS_GATECHALICE_PICKUP": "Телепортирует на следующий этап... <color=#FF7F7F>НО накладывает недуг на всех союзников до следующего прохождения события с телепортом.</color>\n",
     "EQUIPMENT_MYSTICSITEMS_GATECHALICE_DESC": "Начинает телепортацию на следующий этап, пропуская событие с телепортом. Все союзники <style=cIsUtility>замедляются на 33%</style>, а их <style=cIsDamage>броня снижается на 10</style> до тех пор, пока не будет пройдено следующее событие с телепортом.",
 
     //[ACHIEVEMENTS]
