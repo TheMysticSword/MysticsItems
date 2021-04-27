@@ -159,7 +159,7 @@ namespace MysticsItems.Items
             ppProfile.name = "ppRiftLens";
             LensDistortion lensDistortion = ppProfile.AddSettings<LensDistortion>();
             lensDistortion.SetAllOverridesTo(true);
-            lensDistortion.intensity.value = -50f;
+            lensDistortion.intensity.value = -20f;
             lensDistortion.scale.value = 1f;
             ColorGrading colorGrading = ppProfile.AddSettings<ColorGrading>();
             colorGrading.colorFilter.value = new Color32(178, 242, 255, 255);
