@@ -288,9 +288,10 @@ namespace MysticsItems.Items
 
                 if (NetworkServer.active)
                 {
-                    if (target && !target.HasBuff(buffDef))
+                    if (target)
                     {
-                        ClearTarget();
+                        HealthComponent healthComponent = target.healthComponent;
+                        if (!target.HasBuff(buffDef) || !healthComponent || !healthComponent.alive) ClearTarget();
                     }
                 }
 
