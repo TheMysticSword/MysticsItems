@@ -31,8 +31,8 @@ namespace MysticsItems.Items
             enemyFollowerPrefab.AddComponent<CharacterNetworkTransform>();
             unlockInteractablePrefab = CustomUtils.CreateBlankPrefab(Main.TokenPrefix + "SpotterUnlockInteractable", true);
 
-            NetworkingAPI.RegisterMessageType<SpotterController.SyncClearTarget>();
-            NetworkingAPI.RegisterMessageType<SpotterController.SyncSetTarget>();
+            NetworkingAPI.RegisterMessageType<MysticsItemsSpotterController.SyncClearTarget>();
+            NetworkingAPI.RegisterMessageType<MysticsItemsSpotterController.SyncSetTarget>();
         }
 
         public override void PreLoad()
@@ -62,7 +62,7 @@ namespace MysticsItems.Items
             Rigidbody rigidbody = enemyFollowerPrefab.AddComponent<Rigidbody>();
             rigidbody.useGravity = false;
             enemyFollowerPrefab.AddComponent<GenericOwnership>();
-            SpotterController component = enemyFollowerPrefab.AddComponent<SpotterController>();
+            MysticsItemsSpotterController component = enemyFollowerPrefab.AddComponent<MysticsItemsSpotterController>();
             component.follower = PrefabAPI.InstantiateClone(followerModel, "SpotterFollower", false);
             component.follower.transform.SetParent(enemyFollowerPrefab.transform);
             SimpleLeash leash = component.leash = enemyFollowerPrefab.AddComponent<SimpleLeash>();
@@ -123,7 +123,7 @@ namespace MysticsItems.Items
                 orig(self);
                 self.onInventoryChanged += delegate ()
                 {
-                    if (NetworkServer.active) self.AddItemBehavior<SpotterBehaviour>(self.inventory.GetItemCount(MysticsItemsContent.Items.Spotter));
+                    if (NetworkServer.active) self.AddItemBehavior<MysticsItemsSpotterBehaviour>(self.inventory.GetItemCount(MysticsItemsContent.Items.Spotter));
                 };
             };
 
@@ -165,7 +165,7 @@ namespace MysticsItems.Items
             public static event System.Action<Interactor> OnUnlock;
         }
 
-        public class SpotterController : NetworkBehaviour
+        public class MysticsItemsSpotterController : NetworkBehaviour
         {
             public GenericOwnership genericOwnership;
             public CharacterBody body;
@@ -222,7 +222,7 @@ namespace MysticsItems.Items
                     GameObject obj = Util.FindNetworkObject(objID);
                     if (obj)
                     {
-                        SpotterController controller = obj.GetComponent<SpotterController>();
+                        MysticsItemsSpotterController controller = obj.GetComponent<MysticsItemsSpotterController>();
                         if (controller)
                         {
                             controller.ClearTarget();
@@ -264,7 +264,7 @@ namespace MysticsItems.Items
                     GameObject obj2 = Util.FindNetworkObject(objID2);
                     if (obj && obj2)
                     {
-                        SpotterController controller = obj.GetComponent<SpotterController>();
+                        MysticsItemsSpotterController controller = obj.GetComponent<MysticsItemsSpotterController>();
                         if (controller)
                         {
                             controller.SetTarget(obj2);
@@ -375,9 +375,9 @@ namespace MysticsItems.Items
             }
         }
 
-        public class SpotterBehaviour : CharacterBody.ItemBehavior
+        public class MysticsItemsSpotterBehaviour : CharacterBody.ItemBehavior
         {
-            public List<SpotterController> enemyFollowers = new List<SpotterController>();
+            public List<MysticsItemsSpotterController> enemyFollowers = new List<MysticsItemsSpotterController>();
             public float cooldown = 0f;
             public float cooldownMax = interval;
             public float cooldownIfNoEnemiesFound = 3f;
@@ -397,11 +397,11 @@ namespace MysticsItems.Items
                         GameObject enemyFollower = Object.Instantiate(enemyFollowerPrefab, body.corePosition, Quaternion.identity);
                         enemyFollower.GetComponent<GenericOwnership>().ownerObject = gameObject;
                         NetworkServer.Spawn(enemyFollower);
-                        enemyFollowers.Add(enemyFollower.GetComponent<SpotterController>());
+                        enemyFollowers.Add(enemyFollower.GetComponent<MysticsItemsSpotterController>());
                     }
                     while (enemyFollowers.Count > stack)
                     {
-                        SpotterController enemyFollower = enemyFollowers.Last();
+                        MysticsItemsSpotterController enemyFollower = enemyFollowers.Last();
                         Object.Destroy(enemyFollower.gameObject);
                         enemyFollowers.Remove(enemyFollower);
                     }
@@ -430,14 +430,14 @@ namespace MysticsItems.Items
                         bullseyeSearch.FilterOutGameObject(body.gameObject);
                         List<HurtBox> enemies = bullseyeSearch.GetResults().ToList();
 
-                        foreach (SpotterController enemyFollower in enemyFollowers)
+                        foreach (MysticsItemsSpotterController enemyFollower in enemyFollowers)
                         {
                             enemyFollower.ClearTarget();
                         }
 
                         if (enemies.Count > 0)
                         {
-                            foreach (SpotterController enemyFollower in enemyFollowers)
+                            foreach (MysticsItemsSpotterController enemyFollower in enemyFollowers)
                             {
                                 GameObject newTarget = null;
                                 while (newTarget == null && enemies.Count > 0)
