@@ -18,6 +18,11 @@ namespace MysticsItems.Buffs
             {
                 if (victimInfo.body.HasBuff(buffDef)) damageInfo.crit = true;
             };
+
+            Overlays.CreateOverlay(Main.AssetBundle.LoadAsset<Material>("Assets/Items/Spotter/matSpotterMarked.mat"), delegate (CharacterModel model)
+            {
+                return model.body.HasBuff(buffDef);
+            });
         }
     }
 }

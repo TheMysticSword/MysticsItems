@@ -126,10 +126,6 @@ namespace MysticsItems.Items
                     if (NetworkServer.active) self.AddItemBehavior<SpotterBehaviour>(self.inventory.GetItemCount(MysticsItemsContent.Items.Spotter));
                 };
             };
-            Overlays.CreateOverlay(Main.AssetBundle.LoadAsset<Material>("Assets/Misc/Materials/matSpotterMarked.mat"), delegate (CharacterModel model)
-            {
-                return model.body.HasBuff(buffDef);
-            });
 
             repairSoundEventDef = ScriptableObject.CreateInstance<NetworkSoundEventDef>();
             repairSoundEventDef.eventName = "Play_drone_repair";
