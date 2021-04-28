@@ -413,7 +413,8 @@ namespace MysticsItems.Items
 
                     if (NetworkServer.active)
                     {
-                        bullseyeSearch.teamMaskFilter = TeamMask.GetUnprotectedTeams(body.teamComponent.teamIndex);
+                        bullseyeSearch.teamMaskFilter = TeamMask.allButNeutral;
+                        bullseyeSearch.teamMaskFilter.RemoveTeam(body.teamComponent.teamIndex);
                         bullseyeSearch.sortMode = BullseyeSearch.SortMode.Angle;
                         bullseyeSearch.filterByLoS = true;
                         Ray ray = CameraRigController.ModifyAimRayIfApplicable(new Ray
