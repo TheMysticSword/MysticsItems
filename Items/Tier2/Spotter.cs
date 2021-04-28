@@ -358,7 +358,6 @@ namespace MysticsItems.Items
                 {
                     target = newTargetBody;
                     if (NetworkServer.active) target.AddTimedBuff(buffDef, duration);
-                    Util.PlaySound("Play_item_proc_spotter", gameObject);
                     ModelLocator modelLocator = newTargetBody.modelLocator;
                     if (modelLocator)
                     {
@@ -438,6 +437,7 @@ namespace MysticsItems.Items
 
                         if (enemies.Count > 0)
                         {
+                            Util.PlaySound("Play_item_proc_spotter", gameObject);
                             foreach (MysticsItemsSpotterController enemyFollower in enemyFollowers)
                             {
                                 GameObject newTarget = null;
