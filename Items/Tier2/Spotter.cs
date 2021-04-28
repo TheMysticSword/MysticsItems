@@ -12,6 +12,8 @@ using System.Linq;
 using Mono.Cecil.Cil;
 using MonoMod.Cil;
 using System.Collections.Generic;
+using TMPro;
+using System.Collections.ObjectModel;
 
 namespace MysticsItems.Items
 {
@@ -72,11 +74,6 @@ namespace MysticsItems.Items
             SimpleRotateToDirection rotateToDirection = component.rotateToDirection = enemyFollowerPrefab.AddComponent<SimpleRotateToDirection>();
             rotateToDirection.maxRotationSpeed = 720f;
             rotateToDirection.smoothTime = 0.1f;
-            
-            highlightPrefab = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/UI/HighlightTier1Item"), Main.TokenPrefix + "HighlightSpotterTarget", false);
-            RoR2.UI.HighlightRect highlightRect = highlightPrefab.GetComponent<RoR2.UI.HighlightRect>();
-            highlightRect.highlightColor = new Color32(214, 58, 58, 255);
-            highlightRect.maxLifeTime = 3f;
 
             unlockInteractablePrefab.transform.localScale *= 0.25f;
             unlockInteractablePrefab.AddComponent<MysticsItemsSpotterUnlockInteraction>();
@@ -130,6 +127,16 @@ namespace MysticsItems.Items
             repairSoundEventDef = ScriptableObject.CreateInstance<NetworkSoundEventDef>();
             repairSoundEventDef.eventName = "Play_drone_repair";
             MysticsItemsContent.Resources.networkSoundEventDefs.Add(repairSoundEventDef);
+
+            highlightPrefab = Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Spotter/SpotterTargetHighlight.prefab");
+            MysticsItemsSpotterHighlight highlightComponent = highlightPrefab.AddComponent<MysticsItemsSpotterHighlight>();
+            highlightComponent.pivot = highlightPrefab.transform.Find("Pivot").gameObject.GetComponent<RectTransform>();
+            highlightComponent.textTargetName = highlightPrefab.transform.Find("Pivot/Rectangle/Enemy Name").gameObject.GetComponent<TextMeshProUGUI>();
+            highlightComponent.textTargetName.gameObject.AddComponent<TextMeshUseLanguageDefaultFont>();
+            highlightComponent.textTargetHP = highlightPrefab.transform.Find("Pivot/Rectangle/Health").gameObject.GetComponent<TextMeshProUGUI>();
+            highlightComponent.textTargetHP.gameObject.AddComponent<TextMeshUseLanguageDefaultFont>();
+
+            RoR2Application.onLateUpdate += MysticsItemsSpotterHighlight.UpdateAll;
         }
 
         public class MysticsItemsSpotterUnlockInteraction : MonoBehaviour
@@ -179,6 +186,7 @@ namespace MysticsItems.Items
             public float waveAmplitude = 0.3f;
             public float waveOffset = 0f;
             public float waveFrequency = 1.5f;
+            public List<MysticsItemsSpotterHighlight> highlights = new List<MysticsItemsSpotterHighlight>();
 
             public void Awake()
             {
@@ -344,6 +352,11 @@ namespace MysticsItems.Items
                     new SyncClearTarget(gameObject.GetComponent<NetworkIdentity>().netId).Send(NetworkDestination.Clients);
                 }
                 target = null;
+                while (highlights.Count > 0)
+                {
+                    Object.Destroy(highlights[0].gameObject);
+                    highlights.RemoveAt(0);
+                }
             }
 
             public void SetTarget(GameObject newTarget)
@@ -357,20 +370,8 @@ namespace MysticsItems.Items
                 if (newTargetBody)
                 {
                     target = newTargetBody;
+                    highlights = highlights.Concat(MysticsItemsSpotterHighlight.Create(target, TeamComponent.GetObjectTeam(body.gameObject))).ToList();
                     if (NetworkServer.active) target.AddTimedBuff(buffDef, duration);
-                    ModelLocator modelLocator = newTargetBody.modelLocator;
-                    if (modelLocator)
-                    {
-                        Transform modelTransform = modelLocator.modelTransform;
-                        if (modelTransform)
-                        {
-                            CharacterModel characterModel = modelTransform.GetComponentInChildren<CharacterModel>();
-                            if (characterModel && characterModel.baseRendererInfos.Length >= 1)
-                            {
-                                RoR2.UI.HighlightRect.CreateHighlight(body.gameObject, characterModel.baseRendererInfos[0].renderer, highlightPrefab);
-                            }
-                        }
-                    }
                 }
             }
         }
@@ -480,6 +481,100 @@ namespace MysticsItems.Items
                         enemyFollowers[i].ClearTarget();
                         Object.Destroy(enemyFollowers[i].gameObject);
                     }
+                }
+            }
+        }
+
+        public class MysticsItemsSpotterHighlight : MonoBehaviour
+        {
+            public CharacterBody targetBody;
+            public TextMeshProUGUI textTargetName;
+            public TextMeshProUGUI textTargetHP;
+            public Canvas canvas;
+            public Camera uiCam;
+            public Camera sceneCam;
+            public RectTransform pivot;
+            public float timeScan = 0f;
+            public float timeScanMax = 0.5f;
+            public float timeWrite = 0f;
+            public float timeWriteMax = 0.5f;
+            public float[] scans;
+            public int scanPosition = 0;
+
+            public static List<MysticsItemsSpotterHighlight> Create(CharacterBody targetBody, TeamIndex teamIndex)
+            {
+                List<MysticsItemsSpotterHighlight> components = new List<MysticsItemsSpotterHighlight>();
+                foreach (CameraRigController cameraRigController in CameraRigController.readOnlyInstancesList)
+                {
+                    if (TeamComponent.GetObjectTeam(cameraRigController.targetBody.gameObject) == teamIndex)
+                    {
+                        MysticsItemsSpotterHighlight component = Object.Instantiate<GameObject>(highlightPrefab).GetComponent<MysticsItemsSpotterHighlight>();
+                        component.targetBody = targetBody;
+                        component.canvas.worldCamera = cameraRigController.uiCam;
+                        component.uiCam = cameraRigController.uiCam;
+                        component.sceneCam = cameraRigController.sceneCam;
+                        components.Add(component);
+                    }
+                }
+                return components;
+            }
+
+            public void Awake()
+            {
+                canvas = GetComponent<Canvas>();
+                scans = new float[2];
+            }
+
+            public void OnEnable()
+            {
+                instances.Add(this);
+            }
+
+            public void OnDisable()
+            {
+                instances.Remove(this);
+            }
+
+            public static void UpdateAll()
+            {
+                for (int i = instances.Count - 1; i >= 0; i--) instances[i].DoUpdate();
+            }
+
+            public static List<MysticsItemsSpotterHighlight> instances = new List<MysticsItemsSpotterHighlight>();
+
+            public void DoUpdate()
+            {
+                if (!targetBody)
+                {
+                    Object.Destroy(gameObject);
+                    return;
+                }
+                if (scanPosition < scans.Length)
+                {
+                    if (timeScan < timeScanMax) timeScan += Time.deltaTime;
+                    else
+                    {
+                        if (timeWrite < timeWriteMax)
+                        {
+                            timeWrite += Time.deltaTime;
+                            scans[scanPosition] = timeWrite / timeWriteMax;
+                            if (timeWrite >= timeWriteMax)
+                            {
+                                timeScan = 0f;
+                                timeWrite = 0f;
+                                scanPosition++;
+                            }
+                        }
+                    }
+                }
+                pivot.position = sceneCam.WorldToScreenPoint(targetBody.corePosition);
+                string bodyName = Util.GetBestBodyName(targetBody.gameObject);
+                textTargetName.text = scans[0] < 1f ? bodyName.Remove(Mathf.FloorToInt(bodyName.Length * scans[0]), Mathf.FloorToInt(bodyName.Length * (1f - scans[0]))) + "_" : bodyName;
+                HealthComponent healthComponent = targetBody.healthComponent;
+                if (healthComponent)
+                {
+                    string healthString = string.Format("{0}/{1}", Mathf.Ceil(healthComponent.combinedHealth), Mathf.Ceil(healthComponent.fullHealth));
+                    textTargetHP.text = scans[1] < 1f ? healthString.Remove(Mathf.FloorToInt(healthString.Length * scans[1]), Mathf.FloorToInt(healthString.Length * (1f - scans[1]))) + "_" : healthString;
                 }
             }
         }
