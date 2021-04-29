@@ -425,7 +425,7 @@ namespace MysticsItems.Items
                         }, body.gameObject, out _);
                         bullseyeSearch.searchOrigin = ray.origin;
                         bullseyeSearch.searchDirection = ray.direction;
-                        bullseyeSearch.maxAngleFilter = 90f;
+                        bullseyeSearch.maxAngleFilter = 60f;
                         bullseyeSearch.viewer = body;
                         bullseyeSearch.maxDistanceFilter = 1000f;
                         bullseyeSearch.RefreshCandidates();
