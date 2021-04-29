@@ -130,7 +130,7 @@ namespace MysticsItems.Items
 
             highlightPrefab = Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Spotter/SpotterTargetHighlight.prefab");
             MysticsItemsSpotterHighlight highlightComponent = highlightPrefab.AddComponent<MysticsItemsSpotterHighlight>();
-            highlightComponent.pivot = highlightPrefab.transform.Find("Pivot").gameObject.GetComponent<RectTransform>();
+            highlightComponent.displayParent = highlightPrefab.transform.Find("Pivot").gameObject;
             highlightComponent.textTargetName = highlightPrefab.transform.Find("Pivot/Rectangle/Enemy Name").gameObject.GetComponent<TextMeshProUGUI>();
             highlightComponent.textTargetName.gameObject.AddComponent<TextMeshUseLanguageDefaultFont>();
             highlightComponent.textTargetHP = highlightPrefab.transform.Find("Pivot/Rectangle/Health").gameObject.GetComponent<TextMeshProUGUI>();
@@ -493,13 +493,13 @@ namespace MysticsItems.Items
             public Canvas canvas;
             public Camera uiCam;
             public Camera sceneCam;
-            public RectTransform pivot;
             public float timeScan = 0f;
             public float timeScanMax = 0.5f;
             public float timeWrite = 0f;
             public float timeWriteMax = 0.5f;
             public float[] scans;
             public int scanPosition = 0;
+            public GameObject displayParent;
 
             public static List<MysticsItemsSpotterHighlight> Create(CharacterBody targetBody, TeamIndex teamIndex)
             {
@@ -549,6 +549,12 @@ namespace MysticsItems.Items
                     Object.Destroy(gameObject);
                     return;
                 }
+                if (displayParent)
+                {
+                    Vector3 screenPoint = sceneCam.WorldToScreenPoint(targetBody.corePosition);
+                    displayParent.GetComponent<RectTransform>().position = screenPoint;
+                    displayParent.SetActive(RoR2.UI.HUD.cvHudEnable.value && screenPoint.z >= 0f); // z < 0 means that the object is behind the camera
+                }
                 if (scanPosition < scans.Length)
                 {
                     if (timeScan < timeScanMax) timeScan += Time.deltaTime;
@@ -567,7 +573,6 @@ namespace MysticsItems.Items
                         }
                     }
                 }
-                pivot.position = sceneCam.WorldToScreenPoint(targetBody.corePosition);
                 string bodyName = Util.GetBestBodyName(targetBody.gameObject);
                 textTargetName.text = scans[0] < 1f ? bodyName.Remove(Mathf.FloorToInt(bodyName.Length * scans[0]), Mathf.FloorToInt(bodyName.Length * (1f - scans[0]))) + "_" : bodyName;
                 HealthComponent healthComponent = targetBody.healthComponent;
