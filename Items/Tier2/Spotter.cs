@@ -197,7 +197,7 @@ namespace MysticsItems.Items
 
                     if (body)
                     {
-                        Vector2 circle = Random.insideUnitCircle * (5f * body.radius);
+                        Vector2 circle = Random.insideUnitCircle * 5f;
                         float height = Random.Range(-0.4f, 3f);
                         offset = new Vector3(circle.x, height, circle.y);
                     }
@@ -308,12 +308,12 @@ namespace MysticsItems.Items
 
                 if (target)
                 {
-                    leash.leashOrigin = target.corePosition + offset + Vector3.up * waveY;
+                    leash.leashOrigin = target.corePosition + offset * target.radius + Vector3.up * waveY;
                     rotateToDirection.targetRotation = Util.QuaternionSafeLookRotation(target.corePosition - transform.position);
                 }
                 else
                 {
-                    leash.leashOrigin = body.corePosition + offset + Vector3.up * waveY;
+                    leash.leashOrigin = body.corePosition + offset * body.radius + Vector3.up * waveY;
                     rotateToDirection.targetRotation = Quaternion.LookRotation(body.inputBank.aimDirection);
                 }
 
