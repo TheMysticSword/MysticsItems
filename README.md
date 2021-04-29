@@ -16,14 +16,14 @@ Make sure that your config matches with the configs of other players in the lobb
 `mysticsitems_unlocklogs` - unlocks all logbook entries  
 
 ### Bug reports and suggestions
-If you have a general suggestion or a bug report, please make an issue about it on the issue tracker: https://github.com/TheMysticSword/MysticsItems/issues  
-Before creating a new issue, please make sure that a similar one hasn't already been created. You can also check the Milestones tab to see the progress on the next update and what bugs have already been fixed internally.
-If you want to suggest an idea for a new item, make a post on the Item Ideas discussion category: https://github.com/TheMysticSword/MysticsItems/discussions/categories/item-ideas
+If you find a bug or want to make a suggestion on a certain feature, make an issue on the [issue tracker](https://github.com/TheMysticSword/MysticsItems/issues) and make sure that a similar one doesn't already exist.  
+Make a post on the [Discussions](https://github.com/TheMysticSword/MysticsItems/discussions) tab if you want to leave an idea for a new item or make a balance suggestion.
 
 ### Credits
 TheMysticSword - Coding  
 Marwan60 - Modelling  
-Tuning fork SFX for Ratio Equalizer provided by Martin Chappell (https://freesound.org/people/martian/sounds/19308/)  
+Tuning fork SFX by Martin Chappell, used in Ratio Equalizer (https://freesound.org/people/martian/sounds/19308/)  
+Sounds from the Disc Room Game Jam audiopack by doseone, used in Timely Execution (https://discroom.com/game-jam-tutorial-audio.zip)  
 Other sounds made with sfxia by rxi (https://rxi.itch.io/sfxia)  
   
 ### What's new?
