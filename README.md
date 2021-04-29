@@ -27,27 +27,21 @@ Sounds from the Disc Room Game Jam audiopack by doseone, used in Timely Executio
 Other sounds made with sfxia by rxi (https://rxi.itch.io/sfxia)  
   
 ### What's new?
-#### 1.1.8:
-* Now works on game version 1.1.1.4
-* Donut:
-    * Now triggers on all interactables
+#### 1.1.9:
 * Scratch Ticket:
-    * Changed function: now increases chance of luck-based effects
-* Faulty Spotter:
-    * Cooldown: ~~20s~~ ⇒ 30s
-        * The 20 second cooldown wouldn't acccount the 10 seconds of the crit-marked debuff, causing the item to have 10 seconds of effective cooldown. This change was made to fix the issue.
-* Relentless Vendetta:
-    * Buff Duration: ~~15s (+5s per stack)~~ ⇒ 15s (+15s per stack)
-    * Buff Duration (same-stage death): ~~2s (+0.5s per stack)~~ ⇒ 1s (+1s per stack)
-* Cup of Expresso:
-    * Maximum Buffs: ~~3 (+1 per stack)~~ ⇒ 3 (+3 per stack)
-* Contraband Gunpowder now interacts with Starstorm 2's Stirring Soul
-* Updated Treasure Map effects
-* Updated Cup of Expresso effects
-* Team-based items (Crystallized World, Treasure Map and Mysterious Monolith) now work only if their owners are alive
-* Fixed Treasure Map behaving differently for clients and hosts in multiplayer
-* Fixed Timely Execution having no cooldown
-* Fixed Donut healing orb size not being networked  
+    * No longer affects chance effects that have less than 1% chance of occuring
+        * This change was made to prevent purposefully rare effects from being affected (for example, elite equipment drops)
+* Rift Lens and Gate Chalice debuffs were converted to items (Lunar Teleportation Affliction and Rift Affliction)
+* Added new VFX for Relentless Vendetta, Lunar Teleportation Affliction, Rift Affliction, Rift Chests and Faulty Spotter
+* Updated movement speed reduction percentage in Rift Lens, Gate Chalice and Microphone logbook descriptions to properly reflect their slowing coefficient
+* Updated Legendary Mask flames
+* Faulty Spotter now plays the cast sound once instead of playing the sound for each individual Spotter
+* Fixed unimplemented and config-disabled items showing up in the drop pool
+* Fixed Contraband Gunpowder pickups stopping mid-air and causing errors
+* Fixed Treasure Map decal appearing for clients when nobody has the item
+* Fixed Thought Processor reducing cooldowns below 0, essentially giving skills a second charge
+* Fixed Wirehack Wrench not dropping an item when ShareSuite's "3D Printer & Cauldron Compatibility" is enabled
+* Fixed Faulty Spotter targetting allies and neutral entities
   
 (Previous changelogs can be found [here](https://github.com/TheMysticSword/MysticsItems/blob/main/CHANGELOG.md))
 
