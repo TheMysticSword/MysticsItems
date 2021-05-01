@@ -32,7 +32,7 @@ namespace MysticsItems
                 Component toComponent = to.GetComponent(componentType);
                 if (!toComponent) toComponent = to.AddComponent(componentType);
 
-                BindingFlags flags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Default | BindingFlags.DeclaredOnly;
+                BindingFlags flags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Default;
                 foreach (PropertyInfo propertyInfo in componentType.GetProperties(flags))
                 {
                     if (propertyInfo.CanWrite)
