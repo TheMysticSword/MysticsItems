@@ -1,4 +1,4 @@
-# MysticsItems
+﻿# MysticsItems
 Adds 20 new items, with plenty more to come!  
 
 ![](https://i.imgur.com/WYCK8vE.gif)  
@@ -28,21 +28,11 @@ Sounds from the Disc Room Game Jam audiopack by doseone, used in Timely Executio
 Other sounds made with sfxia by rxi (https://rxi.itch.io/sfxia)  
   
 ### What's new?
-#### 1.1.9:
-* Scratch Ticket:
-    * No longer affects chance effects that have less than 1% chance of occuring
-        * This change was made to prevent purposefully rare effects from being affected (for example, elite equipment drops)
-* Rift Lens and Gate Chalice debuffs were converted to items (Lunar Teleportation Affliction and Rift Affliction)
-* Added new VFX for Relentless Vendetta, Lunar Teleportation Affliction, Rift Affliction, Rift Chests and Faulty Spotter
-* Updated movement speed reduction percentage in Rift Lens, Gate Chalice and Microphone logbook descriptions to properly reflect their slowing coefficient
-* Updated Legendary Mask flames
-* Faulty Spotter now plays the cast sound once instead of playing the sound for each individual Spotter
-* Fixed unimplemented and config-disabled items showing up in the drop pool
-* Fixed Contraband Gunpowder pickups stopping mid-air and causing errors
-* Fixed Treasure Map decal appearing for clients when nobody has the item
-* Fixed Thought Processor reducing cooldowns below 0, essentially giving skills a second charge
-* Fixed Wirehack Wrench not dropping an item when ShareSuite's "3D Printer & Cauldron Compatibility" is enabled
-* Fixed Faulty Spotter targetting allies and neutral entities
+#### 1.1.10:
+* Added VFX for entities under Deafened debuff from the Vintage Microphone
+* Fixed model overlay shaders being 100 times bigger on certain modded characters
+* Fixed Vintage Microphone projectiles colliding with entities and the world
+* Fixed Vintage Microphone projectile hitbox being rotated by 90 degrees
   
 (Previous changelogs can be found [here](https://github.com/TheMysticSword/MysticsItems/blob/main/CHANGELOG.md))
 

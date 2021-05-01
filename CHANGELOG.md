@@ -1,3 +1,8 @@
+#### 1.1.10:
+* Added VFX for entities under Deafened debuff from the Vintage Microphone
+* Fixed model overlay shaders being 100 times bigger on certain modded characters
+* Fixed Vintage Microphone projectiles colliding with entities and the world
+* Fixed Vintage Microphone projectile hitbox being rotated by 90 degrees
 #### 1.1.9:
 * Scratch Ticket:
     * No longer affects chance effects that have less than 1% chance of occuring
