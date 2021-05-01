@@ -187,6 +187,7 @@ namespace MysticsItems.Items
             public float waveOffset = 0f;
             public float waveFrequency = 1.5f;
             public List<MysticsItemsSpotterHighlight> highlights = new List<MysticsItemsSpotterHighlight>();
+            public MaterialPropertyBlock materialPropertyBlock = new MaterialPropertyBlock();
 
             public void Awake()
             {
@@ -331,10 +332,9 @@ namespace MysticsItems.Items
                             foreach (CharacterModel.RendererInfo rendererInfo in itemDisplay.rendererInfos)
                             {
                                 Renderer renderer = rendererInfo.renderer;
-                                MaterialPropertyBlock propertyBlock = new MaterialPropertyBlock();
-                                renderer.GetPropertyBlock(propertyBlock);
-                                propertyBlock.SetFloat("_Fade", target ? 1f : 1f / body.inventory.GetItemCount(MysticsItemsContent.Items.Spotter));
-                                renderer.SetPropertyBlock(propertyBlock);
+                                renderer.GetPropertyBlock(materialPropertyBlock);
+                                materialPropertyBlock.SetFloat("_Fade", target ? 1f : 1f / body.inventory.GetItemCount(MysticsItemsContent.Items.Spotter));
+                                renderer.SetPropertyBlock(materialPropertyBlock);
                             }
                         }
                     }

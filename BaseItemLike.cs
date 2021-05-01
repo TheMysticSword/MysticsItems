@@ -48,11 +48,12 @@ namespace MysticsItems
             {
                 foreach (Material material in renderer.sharedMaterials)
                 {
-                    if (material != null && material.shader.name == "Standard")
+                    if (material != null && material.shader.name == "Standard" && material.shader != Main.HopooShaderToMaterial.Standard.shader)
                     {
                         Main.HopooShaderToMaterial.Standard.Apply(material);
                         Main.HopooShaderToMaterial.Standard.Gloss(material, 0.2f, 5f);
                         Main.HopooShaderToMaterial.Standard.Emission(material, 0f);
+                        Main.HopooShaderToMaterial.Standard.Dither(material);
                         material.SetTexture("_EmTex", material.GetTexture("_MainTex"));
                     }
                 }
@@ -75,13 +76,6 @@ namespace MysticsItems
                     defaultMaterial = renderer.material
                 };
                 rendererInfos.Add(rendererInfo);
-                foreach (Material material in renderer.materials)
-                {
-                    if (material != null && material.shader == Main.HopooShaderToMaterial.Standard.shader)
-                    {
-                        Main.HopooShaderToMaterial.Standard.Dither(material);
-                    }
-                }
             }
             itemDisplay.rendererInfos = rendererInfos.ToArray();
         }

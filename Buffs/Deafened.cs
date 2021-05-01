@@ -3,6 +3,7 @@ using R2API.Utils;
 using UnityEngine;
 using Mono.Cecil.Cil;
 using MonoMod.Cil;
+using Rewired.ComponentControls.Effects;
 
 namespace MysticsItems.Buffs
 {
@@ -65,6 +66,26 @@ namespace MysticsItems.Buffs
                 }
                 orig(self, buffDef);
             };
+
+            GameObject debuffedVFX = Main.AssetBundle.LoadAsset<GameObject>("Assets/Equipment/Microphone/DeafenedVFX.prefab");
+            GameObject vfxOrigin = debuffedVFX.transform.Find("Origin").gameObject;
+            CustomTempVFXManagement.MysticsItemsCustomTempVFX tempVFX = debuffedVFX.AddComponent<CustomTempVFXManagement.MysticsItemsCustomTempVFX>();
+            RotateAroundAxis rotateAroundAxis = vfxOrigin.transform.Find("Ring").gameObject.AddComponent<RotateAroundAxis>();
+            rotateAroundAxis.relativeTo = Space.Self;
+            rotateAroundAxis.rotateAroundAxis = RotateAroundAxis.RotationAxis.X;
+            rotateAroundAxis.fastRotationSpeed = 300f;
+            rotateAroundAxis.speed = RotateAroundAxis.Speed.Fast;
+            rotateAroundAxis = vfxOrigin.transform.Find("Ring (1)").gameObject.AddComponent<RotateAroundAxis>();
+            rotateAroundAxis.relativeTo = Space.Self;
+            rotateAroundAxis.rotateAroundAxis = RotateAroundAxis.RotationAxis.Y;
+            rotateAroundAxis.fastRotationSpeed = 300f;
+            rotateAroundAxis.speed = RotateAroundAxis.Speed.Fast;
+            CustomTempVFXManagement.allVFX.Add(new CustomTempVFXManagement.VFXInfo
+            {
+                prefab = debuffedVFX,
+                condition = (x) => x.HasBuff(buffDef),
+                radius = CustomTempVFXManagement.DefaultRadiusCall
+            });
         }
     }
 }

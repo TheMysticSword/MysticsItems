@@ -8,6 +8,7 @@ using Mono.Cecil.Cil;
 using MonoMod.Cil;
 using System.Reflection;
 using System.Collections.Generic;
+using RoR2.Audio;
 
 namespace MysticsItems.Equipment
 {
@@ -15,7 +16,10 @@ namespace MysticsItems.Equipment
     {
         public static GameObject wavePrefab;
         public static GameObject waveProjectile;
+        public static List<GameObject> waveProjectilesScaled = new List<GameObject>();
         public static BuffDef buffDef;
+        public static int shotsPerCast = 3;
+        public static NetworkSoundEventDef sound;
 
         public override void OnPluginAwake()
         {
@@ -60,14 +64,6 @@ namespace MysticsItems.Equipment
 
             CustomUtils.CopyChildren(PrefabAPI.InstantiateClone(Main.AssetBundle.LoadAsset<GameObject>("Assets/Equipment/Microphone/MicrophoneSoundwave.prefab"), "MicrophoneSoundwave"), waveProjectile);
             MicrophoneSoundwaveProjectile msp = waveProjectile.AddComponent<MicrophoneSoundwaveProjectile>();
-            msp.sizeCurve = new AnimationCurve
-            {
-                keys = new Keyframe[]
-                {
-                    new Keyframe(0f, 8f),
-                    new Keyframe(1f, 30f)
-                }
-            };
             msp.colorCurve = new AnimationCurve[]
             {
                 new AnimationCurve{keys = new Keyframe[] { new Keyframe(0f, 255f) }},
@@ -97,6 +93,19 @@ namespace MysticsItems.Equipment
             projectileInflictTimedBuff.duration = 15f;
 
             MysticsItemsContent.Resources.projectilePrefabs.Add(waveProjectile);
+
+            for (int i = 0; i < shotsPerCast; i++)
+            {
+                GameObject waveProjectileScaled = PrefabAPI.InstantiateClone(waveProjectile, waveProjectile.name + "Scaled" + i);
+                waveProjectileScaled.transform.localScale = Vector3.one * 30f * ((i + 1f) / (float)shotsPerCast);
+                if (i > 0) waveProjectileScaled.GetComponent<MicrophoneSoundwaveProjectile>().colorCurve[3].AddKey(new Keyframe(0.5f * (i / (float)shotsPerCast), 0f));
+                waveProjectilesScaled.Add(waveProjectileScaled);
+                MysticsItemsContent.Resources.projectilePrefabs.Add(waveProjectileScaled);
+            }
+
+            sound = ScriptableObject.CreateInstance<NetworkSoundEventDef>();
+            sound.eventName = "MysticsItems_Play_item_use_microphone";
+            MysticsItemsContent.Resources.networkSoundEventDefs.Add(sound);
         }
 
         public class MicrophoneSoundwaveProjectile : NetworkBehaviour
@@ -107,8 +116,9 @@ namespace MysticsItems.Equipment
             public float stopwatch = 0f;
             public float lifetime = 1f;
             public float initialSpeed = 60f;
-            public AnimationCurve sizeCurve;
             public AnimationCurve[] colorCurve;
+            public Renderer renderer;
+            public MaterialPropertyBlock materialPropertyBlock;
 
             public void Start()
             {
@@ -119,6 +129,8 @@ namespace MysticsItems.Equipment
                 rigidbody.velocity = initialSpeed * transform.forward;
                 timedBuff.buffDef = buffDef;
 
+                materialPropertyBlock = new MaterialPropertyBlock();
+
                 EvaluateCurves();
             }
 
@@ -126,6 +138,7 @@ namespace MysticsItems.Equipment
             {
                 stopwatch += Time.fixedDeltaTime;
 
+                if (controller.ghost) controller.ghost.transform.localScale = transform.localScale;
                 EvaluateCurves();
                 if (stopwatch >= lifetime)
                 {
@@ -136,18 +149,21 @@ namespace MysticsItems.Equipment
             public void EvaluateCurves()
             {
                 float t = stopwatch / lifetime;
-
-                Vector3 scale = Vector3.one * sizeCurve.Evaluate(t);
-                transform.localScale = scale;
+                
                 if (controller.ghost)
                 {
-                    controller.ghost.transform.localScale = scale;
-                    controller.ghost.GetComponentInChildren<Renderer>().material.color = new Color32(
-                        (byte)colorCurve[0].Evaluate(t),
-                        (byte)colorCurve[1].Evaluate(t),
-                        (byte)colorCurve[2].Evaluate(t),
-                        (byte)colorCurve[3].Evaluate(t)
-                    );
+                    if (!renderer) renderer = controller.ghost.GetComponentInChildren<Renderer>();
+                    if (renderer)
+                    {
+                        renderer.GetPropertyBlock(materialPropertyBlock);
+                        materialPropertyBlock.SetColor("_Color", new Color32(
+                            (byte)colorCurve[0].Evaluate(t),
+                            (byte)colorCurve[1].Evaluate(t),
+                            (byte)colorCurve[2].Evaluate(t),
+                            (byte)colorCurve[3].Evaluate(t)
+                        ));
+                        renderer.SetPropertyBlock(materialPropertyBlock);
+                    }
                 }
             }
         }
@@ -156,21 +172,16 @@ namespace MysticsItems.Equipment
         {
             MicrophoneSoundwaveLauncher component = equipmentSlot.GetComponent<MicrophoneSoundwaveLauncher>();
             if (!component) component = equipmentSlot.gameObject.AddComponent<MicrophoneSoundwaveLauncher>();
-            component.ammo += 3;
+            component.ammo++;
             component.aimRay = equipmentSlot.GetAimRay();
             return true;
-        }
-
-        public override void OnUseClient(EquipmentSlot equipmentSlot)
-        {
-            Util.PlaySound("MysticsItems_Play_item_use_microphone", equipmentSlot.characterBody.gameObject);
         }
 
         public class MicrophoneSoundwaveLauncher : MonoBehaviour
         {
             public int ammo = 0;
             public float interval = 0f;
-            public float intervalMax = 0.12f;
+            public float intervalMax = 0.5f;
             public Ray aimRay = new Ray();
             public EquipmentSlot equipmentSlot;
 
@@ -181,6 +192,7 @@ namespace MysticsItems.Equipment
 
             public void FixedUpdate()
             {
+                if (!NetworkServer.active) return;
                 interval -= Time.fixedDeltaTime;
                 if (interval <= 0f && ammo > 0)
                 {
@@ -188,7 +200,11 @@ namespace MysticsItems.Equipment
                     ammo--;
 
                     Vector3 position = transform.position;
-                    ProjectileManager.instance.FireProjectile(waveProjectile, position, Util.QuaternionSafeLookRotation(aimRay.direction), equipmentSlot.gameObject, 0f, 0f, false, DamageColorIndex.Default, null, -1f);
+                    for (int i = 0; i < shotsPerCast; i++)
+                    {
+                        ProjectileManager.instance.FireProjectile(waveProjectilesScaled[i], position + (10f * (float)i) * aimRay.direction.normalized, Util.QuaternionSafeLookRotation(aimRay.direction), equipmentSlot.gameObject, 0f, 0f, false, DamageColorIndex.Default, null, -1f);
+                    }
+                    PointSoundManager.EmitSoundServer(sound.index, position);
                 }
             }
         }

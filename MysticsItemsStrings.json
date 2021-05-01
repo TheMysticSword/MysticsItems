@@ -22,7 +22,7 @@
 
     "ITEM_MYSTICSITEMS_SCRATCHTICKET_NAME": "Scratch Ticket",
     "ITEM_MYSTICSITEMS_SCRATCHTICKET_PICKUP": "Slightly increase the chance of luck-based effects.",
-    "ITEM_MYSTICSITEMS_SCRATCHTICKET_DESC": "Luck-based effects have <style=cIsUtility>+1% <style=cStack>(+1% per stack)</style></style> chance of triggering.",
+    "ITEM_MYSTICSITEMS_SCRATCHTICKET_DESC": "Luck-based effects have <style=cIsUtility>+1% <style=cStack>(+1% per stack)</style></style> chance of triggering. Does not work on effects with less than 1% chance of triggering.",
     "ITEM_MYSTICSITEMS_SCRATCHTICKET_LORE": "<style=cMono>\n//--REPLAYING PHONE CALL #731 --//</style>\n\n- Good morning. May I ask who is calling?\n\n- Good morning! This is Carl Shade of Star Seven. I am calling you to congratulate you on winning the $100.000 lottery!\n\n- Wow, what a surprise!\n\n- Have you ever won a lottery before?\n\n- Oh, uh... no.\n\n- Well, there's a first time for everything! Here's how it works: in order to receive your prize, we need your credit card details, including the three numbers on the back.\n\n- [THIS PORTION OF THE CALL WAS REDACTED FOR PRIVACY]\n\n- Got it!\n\n- ...\n\n- ...\n\n- Hmm, I haven't received anything yet. Are the numbers correct?\n\n<style=cMono>\n//--END OF CONVERSATION --//</style>",
 
     "ITEM_MYSTICSITEMS_COMMANDOSCOPE_NAME": "Tactical Scope",
@@ -109,7 +109,7 @@
 
     "ITEM_MYSTICSITEMS_MOONGLASSES_NAME": "Moonglasses",
     "ITEM_MYSTICSITEMS_MOONGLASSES_PICKUP": "Increase Critical Strike damage... <color=#FF7F7F>BUT reduce Critical Strike chance.</color>\n",
-    "ITEM_MYSTICSITEMS_MOONGLASSES_DESC": "Increase Critical Strike chance by <style=cIsDamage>100% <style=cStack>(+100% per stack)</style></style>. Reduce Critical Strike chance by <style=cIsUtility>50% <style=cStack>(+50% per stack)</style></style>.",
+    "ITEM_MYSTICSITEMS_MOONGLASSES_DESC": "Increase Critical Strike damage by <style=cIsDamage>100% <style=cStack>(+100% per stack)</style></style>. Reduce Critical Strike chance by <style=cIsUtility>50% <style=cStack>(+50% per stack)</style></style>.",
 
     //[EQUIPMENT]
     "EQUIPMENT_MYSTICSITEMS_ARCHAICMASK_NAME": "Legendary Mask",
@@ -205,7 +205,7 @@
 
     "ITEM_MYSTICSITEMS_SCRATCHTICKET_NAME": "Лотерейный билет",
     "ITEM_MYSTICSITEMS_SCRATCHTICKET_PICKUP": "Слегка увеличивает вероятность срабатывания эффектов, основанных на удаче.",
-    "ITEM_MYSTICSITEMS_SCRATCHTICKET_DESC": "Вероятность срабатывания эффектов, основанных на шансе, увеличена на <style=cIsUtility>1% <style=cStack>(+1% за шт.)</style></style>.",
+    "ITEM_MYSTICSITEMS_SCRATCHTICKET_DESC": "Вероятность срабатывания эффектов, основанных на шансе, увеличена на <style=cIsUtility>1% <style=cStack>(+1% за шт.)</style></style>. Не влияет на эффекты с вероятностью ниже 1%.",
     "ITEM_MYSTICSITEMS_SCRATCHTICKET_LORE": "<style=cMono>\n//--ПОВТОР ТЕЛЕФОННОГО ЗВОНКА #731 --//</style>\n\n- Доброе утро. Могу ли я узнать, кто звонит?\n\n- Доброе утро! Это Карл Шейд из Star Seven. Я позвонил вам, чтобы поздравить вас с победой в лотерее на $100.000!\n\n- Ого, вот это сюрприз!\n\n- Вы когда-нибудь прежде побеждали в лотерее?\n\n- Э-э-э, ну... нет.\n\n- Что ж, всё бывает впервые! Вот, как это работает: чтобы вы получили ваш приз, нам нужны данные вашей банковской карты, включая три цифры на обратной стороне.\n\n- [ДАННЫЙ ОТРЫВОК ЗВОНКА БЫЛ УДАЛЁН ДЛЯ КОНФИДЕНЦИАЛЬНОСТИ]\n\n- Отлично!\n\n- ...\n\n- ...\n\n- Хмм, мне до сих пор ничего не пришло. Все номера ведь правильные?\n\n<style=cMono>\n//--КОНЕЦ РАЗГОВОРА --//</style>",
 
     "ITEM_MYSTICSITEMS_COMMANDOSCOPE_NAME": "Тактический прицел",
