@@ -30,6 +30,11 @@ namespace MysticsItems
                 outlineMaterial = new Material(Main.AssetBundle.LoadAsset<Shader>("Assets/Misc/Shaders/Unlit/Outline.shader"));
             }
 
+            public void OnDestroy()
+            {
+                Object.Destroy(outlineMaterial);
+            }
+
             public void OnRenderImage(RenderTexture source, RenderTexture destination)
             {
                 RenderTexture renderTexture = RenderTexture.active = RenderTexture.GetTemporary(Screen.width, Screen.height, 0, RenderTextureFormat.ARGB32);
