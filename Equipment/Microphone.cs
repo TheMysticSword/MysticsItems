@@ -8,6 +8,7 @@ using Mono.Cecil.Cil;
 using MonoMod.Cil;
 using System.Reflection;
 using System.Collections.Generic;
+using RoR2.Audio;
 
 namespace MysticsItems.Equipment
 {
@@ -16,6 +17,7 @@ namespace MysticsItems.Equipment
         public static GameObject wavePrefab;
         public static GameObject waveProjectile;
         public static BuffDef buffDef;
+        public static NetworkSoundEventDef sound;
 
         public override void OnPluginAwake()
         {
@@ -97,6 +99,10 @@ namespace MysticsItems.Equipment
             projectileInflictTimedBuff.duration = 15f;
 
             MysticsItemsContent.Resources.projectilePrefabs.Add(waveProjectile);
+
+            sound = ScriptableObject.CreateInstance<NetworkSoundEventDef>();
+            sound.eventName = "MysticsItems_Play_item_use_microphone";
+            MysticsItemsContent.Resources.networkSoundEventDefs.Add(sound);
         }
 
         public class MicrophoneSoundwaveProjectile : NetworkBehaviour
@@ -171,11 +177,6 @@ namespace MysticsItems.Equipment
             return true;
         }
 
-        public override void OnUseClient(EquipmentSlot equipmentSlot)
-        {
-            Util.PlaySound("MysticsItems_Play_item_use_microphone", equipmentSlot.characterBody.gameObject);
-        }
-
         public class MicrophoneSoundwaveLauncher : MonoBehaviour
         {
             public int ammo = 0;
@@ -200,6 +201,7 @@ namespace MysticsItems.Equipment
 
                     Vector3 position = transform.position;
                     ProjectileManager.instance.FireProjectile(waveProjectile, position, Util.QuaternionSafeLookRotation(aimRay.direction), equipmentSlot.gameObject, 0f, 0f, false, DamageColorIndex.Default, null, -1f);
+                    PointSoundManager.EmitSoundServer(sound.index, position);
                 }
             }
         }
