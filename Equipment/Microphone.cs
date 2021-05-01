@@ -109,6 +109,8 @@ namespace MysticsItems.Equipment
             public float initialSpeed = 60f;
             public AnimationCurve sizeCurve;
             public AnimationCurve[] colorCurve;
+            public Renderer renderer;
+            public MaterialPropertyBlock materialPropertyBlock;
 
             public void Start()
             {
@@ -118,6 +120,8 @@ namespace MysticsItems.Equipment
 
                 rigidbody.velocity = initialSpeed * transform.forward;
                 timedBuff.buffDef = buffDef;
+
+                materialPropertyBlock = new MaterialPropertyBlock();
 
                 EvaluateCurves();
             }
@@ -142,12 +146,18 @@ namespace MysticsItems.Equipment
                 if (controller.ghost)
                 {
                     controller.ghost.transform.localScale = scale;
-                    controller.ghost.GetComponentInChildren<Renderer>().material.color = new Color32(
-                        (byte)colorCurve[0].Evaluate(t),
-                        (byte)colorCurve[1].Evaluate(t),
-                        (byte)colorCurve[2].Evaluate(t),
-                        (byte)colorCurve[3].Evaluate(t)
-                    );
+                    if (!renderer) renderer = controller.ghost.GetComponentInChildren<Renderer>();
+                    if (renderer)
+                    {
+                        renderer.GetPropertyBlock(materialPropertyBlock);
+                        materialPropertyBlock.SetColor("_Color", new Color32(
+                            (byte)colorCurve[0].Evaluate(t),
+                            (byte)colorCurve[1].Evaluate(t),
+                            (byte)colorCurve[2].Evaluate(t),
+                            (byte)colorCurve[3].Evaluate(t)
+                        ));
+                        renderer.SetPropertyBlock(materialPropertyBlock);
+                    }
                 }
             }
         }
