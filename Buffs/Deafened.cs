@@ -73,7 +73,7 @@ namespace MysticsItems.Buffs
             RotateAroundAxis rotateAroundAxis = vfxOrigin.transform.Find("Ring").gameObject.AddComponent<RotateAroundAxis>();
             rotateAroundAxis.relativeTo = Space.Self;
             rotateAroundAxis.rotateAroundAxis = RotateAroundAxis.RotationAxis.X;
-            rotateAroundAxis.fastRotationSpeed = 120f;
+            rotateAroundAxis.fastRotationSpeed = 300f;
             rotateAroundAxis.speed = RotateAroundAxis.Speed.Fast;
             rotateAroundAxis = vfxOrigin.transform.Find("Ring (1)").gameObject.AddComponent<RotateAroundAxis>();
             rotateAroundAxis.relativeTo = Space.Self;
