@@ -109,7 +109,7 @@
 
     "ITEM_MYSTICSITEMS_MOONGLASSES_NAME": "Moonglasses",
     "ITEM_MYSTICSITEMS_MOONGLASSES_PICKUP": "Increase Critical Strike damage... <color=#FF7F7F>BUT reduce Critical Strike chance.</color>\n",
-    "ITEM_MYSTICSITEMS_MOONGLASSES_DESC": "Increase Critical Strike chance by <style=cIsDamage>100% <style=cStack>(+100% per stack)</style></style>. Reduce Critical Strike chance by <style=cIsUtility>50% <style=cStack>(+50% per stack)</style></style>.",
+    "ITEM_MYSTICSITEMS_MOONGLASSES_DESC": "Increase Critical Strike damage by <style=cIsDamage>100% <style=cStack>(+100% per stack)</style></style>. Reduce Critical Strike chance by <style=cIsUtility>50% <style=cStack>(+50% per stack)</style></style>.",
 
     //[EQUIPMENT]
     "EQUIPMENT_MYSTICSITEMS_ARCHAICMASK_NAME": "Legendary Mask",
