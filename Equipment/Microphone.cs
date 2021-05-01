@@ -191,6 +191,7 @@ namespace MysticsItems.Equipment
 
             public void FixedUpdate()
             {
+                if (!NetworkServer.active) return;
                 interval -= Time.fixedDeltaTime;
                 if (interval <= 0f && ammo > 0)
                 {
