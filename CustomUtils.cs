@@ -20,6 +20,8 @@ namespace MysticsItems
 
         public static void CopyChildren(GameObject from, GameObject to)
         {
+            Transform parent = to.transform.parent;
+
             int childCount = from.transform.childCount;
             for (var i = 0; i < childCount; i++)
             {
@@ -49,6 +51,8 @@ namespace MysticsItems
                     fieldInfo.SetValue(toComponent, fieldInfo.GetValue(fromComponent));
                 }
             }
+
+            to.transform.SetParent(parent);
         }
     }
 }
