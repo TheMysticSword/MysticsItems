@@ -34,6 +34,18 @@ namespace MysticsItems
                 Component toComponent = to.GetComponent(componentType);
                 if (!toComponent) toComponent = to.AddComponent(componentType);
 
+                bool isAnimator = typeof(Animator).IsAssignableFrom(fromComponent.GetType());
+                bool animatorLogWarnings = false;
+
+                if (isAnimator)
+                {
+                    Animator fromAnimator = (Animator)fromComponent;
+                    Animator toAnimator = (Animator)toComponent;
+                    animatorLogWarnings = fromAnimator.logWarnings;
+                    fromAnimator.logWarnings = false;
+                    toAnimator.logWarnings = false;
+                }
+
                 BindingFlags flags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Default;
                 foreach (PropertyInfo propertyInfo in componentType.GetProperties(flags))
                 {
@@ -49,6 +61,14 @@ namespace MysticsItems
                 foreach (FieldInfo fieldInfo in componentType.GetFields(flags))
                 {
                     fieldInfo.SetValue(toComponent, fieldInfo.GetValue(fromComponent));
+                }
+
+                if (isAnimator)
+                {
+                    Animator fromAnimator = (Animator)fromComponent;
+                    Animator toAnimator = (Animator)toComponent;
+                    fromAnimator.logWarnings = animatorLogWarnings;
+                    toAnimator.logWarnings = animatorLogWarnings;
                 }
             }
 
