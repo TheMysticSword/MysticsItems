@@ -77,6 +77,7 @@ namespace MysticsItems
             CustomTempVFXManagement.Init();
             //Items.CharacterItems.Init();
             Equipment.BaseEquipment.Init();
+            Interactables.BaseInteractable.Init();
             GenericCostTypes.Init();
             GenericGameEvents.Init();
             LanguageLoader.Init();
@@ -88,6 +89,7 @@ namespace MysticsItems
             MysticsItems.ContentManagement.ContentLoadHelper.PluginAwakeLoad<Items.BaseItem>();
             MysticsItems.ContentManagement.ContentLoadHelper.PluginAwakeLoad<Equipment.BaseEquipment>();
             MysticsItems.ContentManagement.ContentLoadHelper.PluginAwakeLoad<Buffs.BaseBuff>();
+            MysticsItems.ContentManagement.ContentLoadHelper.PluginAwakeLoad<Interactables.BaseInteractable>();
 
             //LaserTurret.Init();
             ShrineLegendary.Init();
@@ -277,6 +279,10 @@ namespace MysticsItems
                 () =>
                 {
                     contentLoadHelper.DispatchLoad<AchievementDef>(typeof(MysticsItems.Achievements.BaseAchievement), null);
+                },
+                () =>
+                {
+                    contentLoadHelper.DispatchLoad<GameObject>(typeof(MysticsItems.Interactables.BaseInteractable), null);
                 }
             };
             int num;
