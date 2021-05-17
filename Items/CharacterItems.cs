@@ -20,8 +20,13 @@ namespace MysticsItems.Items
         public static SpawnCard chestSpawnerSpawnCard;
         public static GameObject openEffect;
 
+        public static bool enabled = false;
+
         public static void Init()
         {
+            enabled = true;
+
+            /*
             On.RoR2.GenericPickupController.UpdatePickupDisplay += (orig, self) =>
             {
                 orig(self);
@@ -256,13 +261,11 @@ namespace MysticsItems.Items
             chestSpawnerSpawnCard.forbiddenFlags = RoR2.Navigation.NodeFlags.NoChestSpawn | RoR2.Navigation.NodeFlags.NoShrineSpawn;
             chestSpawnerSpawnCard.occupyPosition = true;
 
-            /*
             On.RoR2.Run.Start += (orig, self) =>
             {
                 orig(self);
                 if (NetworkServer.active) self.gameObject.AddComponent<MysticsItemsCharacterItemChestSpawningController>();
             };
-            */
 
             NetworkingAPI.RegisterMessageType<MysticsItemsCharacterItemChest.SyncOpen>();
 
@@ -275,6 +278,7 @@ namespace MysticsItems.Items
             Object.Destroy(openEffect.transform.Find("Unscaled Flames").gameObject);
             Object.Destroy(openEffect.transform.Find("Dash, Bright").gameObject);
             MysticsItemsContent.Resources.effectPrefabs.Add(openEffect);
+            */
         }
 
         public static List<CharacterInfo> characterInfo = new List<CharacterInfo>();
