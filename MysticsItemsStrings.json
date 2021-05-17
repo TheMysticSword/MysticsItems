@@ -170,6 +170,9 @@
     "MYSTICSITEMS_CHARACTERITEMCHEST_NAME": "Supply Chest",
     "MYSTICSITEMS_CHARACTERITEMCHEST_CONTEXT": "Open Supply Chest",
 
+    "MYSTICSITEMS_CHARACTERITEMSHOPBEACON_NAME": "Supply Shop Beacon",
+    "MYSTICSITEMS_CHARACTERITEMSHOPBEACON_CONTEXT": "Repair beacon",
+
     //[COSTTYPES]
     "COST_MYSTICSITEMS_RIFTLENSDEBUFF_FORMAT": "{0} Rift Affliction",
 
@@ -179,8 +182,11 @@
 
     //[CUSTOM]
     "MYSTICSITEMS_CHARACTERITEM_PICKUP_FORMAT": "{0} Item",
-    "MYSTICSITEMS_CHARACTERITEMCHEST_ANNOUNCE": "<style=cWorldEvent>A supply chest has been airdropped!</style>",
-    "MYSTICSITEMS_EMPTY_FORMAT": "{0}"
+    "MYSTICSITEMS_EMPTY_FORMAT": "{0}",
+    "MYSTICSITEMS_CHARACTER_ITEM_SHOP_ENABLED": "<style=cWorldEvent>Connection with the supply shop established. Press {1} to order items.</color>",
+    "MYSTICSITEMS_CHARACTER_ITEM_SHOP_PURCHASE": "<style=cEvent>{0} ordered {1}{2}</color>",
+    "MYSTICSITEMS_CHARACTER_ITEM_SHOP_PURCHASE_2P": "<style=cEvent>You ordered {1}{2}</color>",
+    "MYSTICSITEMS_CHARACTER_ITEM_DELIVERY": "<style=cWorldEvent>A supply chest has been dropped!</style>"
   },
   "RU": {
     //[ITEMS]
@@ -353,6 +359,9 @@
     "MYSTICSITEMS_CHARACTERITEMCHEST_NAME": "Сундук с припасами",
     "MYSTICSITEMS_CHARACTERITEMCHEST_CONTEXT": "Открыть сундук с припасами",
 
+    "MYSTICSITEMS_CHARACTERITEMSHOPBEACON_NAME": "Маяк магазина припасов",
+    "MYSTICSITEMS_CHARACTERITEMSHOPBEACON_CONTEXT": "Починить маяк",
+
     //[COSTTYPES]
     "COST_MYSTICSITEMS_RIFTLENSDEBUFF_FORMAT": "{0} Недуг разлома",
 
@@ -362,6 +371,9 @@
 
     //[CUSTOM]
     "MYSTICSITEMS_CHARACTERITEM_PICKUP_FORMAT": "Предмет: {0}",
-    "MYSTICSITEMS_CHARACTERITEMCHEST_ANNOUNCE": "<style=cWorldEvent>С воздуха был сброшен сундук с припасами!</style>"
+    "MYSTICSITEMS_CHARACTER_ITEM_SHOP_ENABLED": "<style=cWorldEvent>Соединение с магазином припасов установлено. Нажмите {1}, чтобы заказать предметы.</color>",
+    "MYSTICSITEMS_CHARACTER_ITEM_SHOP_PURCHASE": "<style=cEvent>{0} заказывает: {1}{2}</color>",
+    "MYSTICSITEMS_CHARACTER_ITEM_SHOP_PURCHASE_2P": "<style=cEvent>Вы заказываете: {1}{2}</color>",
+    "MYSTICSITEMS_CHARACTER_ITEM_DELIVERY": "<style=cWorldEvent>Сброшен сундук с припасами!</style>"
   }
 }
