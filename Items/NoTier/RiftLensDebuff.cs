@@ -31,6 +31,22 @@ namespace MysticsItems.Items
             rotateAroundAxis.rotateAroundAxis = RotateAroundAxis.RotationAxis.X;
             rotateAroundAxis.slowRotationSpeed = 30f;
             rotateAroundAxis.speed = RotateAroundAxis.Speed.Slow;
+            ObjectScaleCurve fadeOut = vfxOrigin.AddComponent<ObjectScaleCurve>();
+            fadeOut.overallCurve = new AnimationCurve
+            {
+                keys = new Keyframe[]
+                {
+                    new Keyframe(0f, 1f, Mathf.Tan(180f * Mathf.Deg2Rad), Mathf.Tan(-20f * Mathf.Deg2Rad)),
+                    new Keyframe(1f, 0f, Mathf.Tan(160f * Mathf.Deg2Rad), 0f)
+                }
+            };
+            fadeOut.useOverallCurveOnly = true;
+            fadeOut.enabled = false;
+            fadeOut.timeMax = 0.6f;
+            tempVFX.exitBehaviours = new MonoBehaviour[]
+            {
+                fadeOut
+            };
             CustomTempVFXManagement.allVFX.Add(new CustomTempVFXManagement.VFXInfo
             {
                 prefab = debuffedVFX,
