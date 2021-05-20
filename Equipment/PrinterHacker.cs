@@ -61,8 +61,7 @@ namespace MysticsItems.Equipment
             On.RoR2.PurchaseInteraction.Awake += (orig, self) =>
             {
                 orig(self);
-                string properName = self.name;
-                if (properName.EndsWith("(Clone)")) properName = properName.Remove(properName.Length - "(Clone)".Length);
+                string properName = CustomUtils.TrimCloneFromString(self.name);
                 if (properName == "Duplicator"
                 || properName == "DuplicatorLarge"
                 || properName == "DuplicatorWild"

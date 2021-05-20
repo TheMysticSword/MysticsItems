@@ -74,5 +74,11 @@ namespace MysticsItems
 
             to.transform.SetParent(parent);
         }
+
+        public static string TrimCloneFromString(string originalString)
+        {
+            if (originalString.EndsWith("(Clone)")) originalString = originalString.Remove(originalString.Length - "(Clone)".Length);
+            return originalString;
+        }
     }
 }
