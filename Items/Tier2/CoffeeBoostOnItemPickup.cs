@@ -76,7 +76,7 @@ namespace MysticsItems.Items
                                     scale = body.radius,
                                     rotation = Util.QuaternionSafeLookRotation(Vector3.forward)
                                 };
-                                effectData.SetHurtBoxReference(body.mainHurtBox);
+                                effectData.SetHurtBoxReference(body.gameObject);
                                 EffectManager.SpawnEffect(visualEffect, effectData, true);
                                 body.AddBuff(MysticsItemsContent.Buffs.CoffeeBoost);
                             }
