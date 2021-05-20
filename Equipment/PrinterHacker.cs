@@ -4,10 +4,8 @@ using R2API;
 using R2API.Utils;
 using UnityEngine;
 using UnityEngine.Networking;
-using Mono.Cecil.Cil;
-using MonoMod.Cil;
-using System.Reflection;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MysticsItems.Equipment
 {
@@ -58,12 +56,26 @@ namespace MysticsItems.Equipment
             crosshairPrefab.GetComponentInChildren<ObjectScaleCurve>().overallCurve.AddKey(0.5f, 1f);
             crosshairPrefab.GetComponentInChildren<ObjectScaleCurve>().overallCurve.AddKey(1f, 1f);
 
-            SetupDuplicator(Resources.Load<GameObject>("Prefabs/NetworkedObjects/Chest/Duplicator"));
-            SetupDuplicator(Resources.Load<GameObject>("Prefabs/NetworkedObjects/Chest/DuplicatorLarge"));
-            SetupDuplicator(Resources.Load<GameObject>("Prefabs/NetworkedObjects/Chest/DuplicatorMilitary"));
-            SetupDuplicator(Resources.Load<GameObject>("Prefabs/NetworkedObjects/Chest/DuplicatorWild"));
-
             UseTargetFinder(TargetFinderType.Custom);
+
+            On.RoR2.PurchaseInteraction.Awake += (orig, self) =>
+            {
+                orig(self);
+                string properName = self.name;
+                if (properName.EndsWith("(Clone)")) properName = properName.Remove(properName.Length - "(Clone)".Length);
+                if (properName == "Duplicator"
+                || properName == "DuplicatorLarge"
+                || properName == "DuplicatorWild"
+                || properName == "DuplicatorMilitary")
+                {
+                    Transform transform = self.transform.Find("mdlDuplicator/DuplicatorMesh");
+                    if (transform)
+                    {
+                        MysticsItemsDuplicatorLocator component = self.gameObject.AddComponent<MysticsItemsDuplicatorLocator>();
+                        component.childTransform = transform;
+                    }
+                }
+            };
 
             On.RoR2.EquipmentSlot.Update += (orig, self) =>
             {
@@ -90,7 +102,7 @@ namespace MysticsItems.Equipment
                         {
                             targetInfo.obj = duplicator.gameObject;
                             targetInfo.indicator.visualizerPrefab = crosshairPrefab;
-                            targetInfo.indicator.targetTransform = duplicator.transform;
+                            targetInfo.indicator.targetTransform = duplicator.childTransform;
                         }
                         else
                         {
@@ -100,12 +112,6 @@ namespace MysticsItems.Equipment
                     }
                 }
             };
-        }
-
-        public static void SetupDuplicator(GameObject gameObject)
-        {
-            Main.modifiedPrefabs.Add(gameObject);
-            gameObject.GetComponentInChildren<EntityLocator>().gameObject.AddComponent<MysticsItemsDuplicatorLocator>();
         }
 
         public override bool OnUse(EquipmentSlot equipmentSlot)
@@ -149,12 +155,12 @@ namespace MysticsItems.Equipment
         {
             public Transform GetTransform(MysticsItemsDuplicatorLocator source)
             {
-                return source.transform;
+                return source.childTransform;
             }
 
             public GameObject GetRootObject(MysticsItemsDuplicatorLocator source)
             {
-                return source.entity.gameObject;
+                return source.gameObject;
             }
         }
 
@@ -168,15 +174,14 @@ namespace MysticsItems.Equipment
 
         public class MysticsItemsDuplicatorLocator : MonoBehaviour
         {
-            public GameObject entity;
             public PurchaseInteraction purchaseInteraction;
             public ShopTerminalBehavior shopTerminalBehavior;
+            public Transform childTransform;
 
             public void Awake()
             {
-                entity = GetComponent<EntityLocator>().entity;
-                purchaseInteraction = entity.GetComponent<PurchaseInteraction>();
-                shopTerminalBehavior = entity.GetComponent<ShopTerminalBehavior>();
+                purchaseInteraction = gameObject.GetComponent<PurchaseInteraction>();
+                shopTerminalBehavior = gameObject.GetComponent<ShopTerminalBehavior>();
             }
 
             public void OnEnable()
