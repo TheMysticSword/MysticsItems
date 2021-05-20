@@ -145,8 +145,6 @@ namespace MysticsItems
             }
         }
 
-        public static List<GameObject> modifiedPrefabs = new List<GameObject>(); // Add to this list when modifying a base game prefab to keep Unity from destroying modified prefabs from cache
-
         public static class HopooShaderToMaterial
         {
             public struct Properties
