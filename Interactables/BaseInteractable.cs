@@ -168,6 +168,12 @@ namespace MysticsItems.Interactables
             childLocator.transformPairs = transformPairs;
         }
 
+        public void SetUpPingInfo(Sprite pingIconOverride)
+        {
+            PingInfoProvider pingInfoProvider = prefab.AddComponent<PingInfoProvider>();
+            pingInfoProvider.pingIconOverride = pingIconOverride;
+        }
+
         public static StringBuilder globalStringBuilder = new StringBuilder();
         public static Dictionary<string, BaseInteractable> keyToInteractable = new Dictionary<string, BaseInteractable>();
         public static Dictionary<string, Dictionary<string, List<DirectorCard>>> sceneCategoryCards = new Dictionary<string, Dictionary<string, List<DirectorCard>>>();
