@@ -171,23 +171,25 @@ namespace MysticsItems.Items
 
             MysticsItemsContent.Resources.effectPrefabs.Add(pulsePrefab);
 
-            GameObject teleporter = Resources.Load<GameObject>("Prefabs/NetworkedObjects/Teleporters/Teleporter1");
-            Main.modifiedPrefabs.Add(teleporter);
-            MysticsItemsCrystalWorldTeleporterEffect teleporterEffect = teleporter.AddComponent<MysticsItemsCrystalWorldTeleporterEffect>();
-            teleporterEffect.displayModel = true;
-            teleporterEffect.offset = new Vector3(0f, 3f, 0f);
-
-            teleporter = Resources.Load<GameObject>("Prefabs/NetworkedObjects/Teleporters/LunarTeleporter Variant");
-            Main.modifiedPrefabs.Add(teleporter);
-            teleporterEffect = teleporter.AddComponent<MysticsItemsCrystalWorldTeleporterEffect>();
-            teleporterEffect.displayModel = true;
-            teleporterEffect.offset = new Vector3(0f, 3f, 0f);
-
             On.RoR2.HoldoutZoneController.Awake += (orig, self) =>
             {
                 orig(self);
                 MysticsItemsCrystalWorldTeleporterEffect component = self.GetComponent<MysticsItemsCrystalWorldTeleporterEffect>();
-                if (!component) self.gameObject.AddComponent<MysticsItemsCrystalWorldTeleporterEffect>();
+                if (!component)
+                {
+                    component = self.gameObject.AddComponent<MysticsItemsCrystalWorldTeleporterEffect>();
+                    switch (CustomUtils.TrimCloneFromString(self.gameObject.name))
+                    {
+                        case "Teleporter1":
+                            component.displayModel = true;
+                            component.offset = new Vector3(0f, 3f, 0f);
+                            break;
+                        case "LunarTeleporter Variant":
+                            component.displayModel = true;
+                            component.offset = new Vector3(0f, 3f, 0f);
+                            break;
+                    }
+                }
             };
         }
 
