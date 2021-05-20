@@ -30,7 +30,15 @@ namespace MysticsItems.Achievements
 			{
 				if (runReport.gameEnding && runReport.gameEnding == RoR2Content.GameEndings.MainEnding && run.livingPlayerCount == 1)
 				{
-					Grant();
+					CharacterBody characterBody = localUser.cachedBody;
+					if (characterBody)
+					{
+						HealthComponent healthComponent = characterBody.healthComponent;
+						if (healthComponent && healthComponent.alive)
+						{
+							Grant();
+						}
+					}
 				}
 			}
 		}
