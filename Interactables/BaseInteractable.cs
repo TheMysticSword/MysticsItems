@@ -162,6 +162,12 @@ namespace MysticsItems.Interactables
             };
         }
 
+        public void SetUpChildLocator(ChildLocator.NameTransformPair[] transformPairs)
+        {
+            ChildLocator childLocator = modelTransform.gameObject.AddComponent<ChildLocator>();
+            childLocator.transformPairs = transformPairs;
+        }
+
         public static StringBuilder globalStringBuilder = new StringBuilder();
         public static Dictionary<string, BaseInteractable> keyToInteractable = new Dictionary<string, BaseInteractable>();
         public static Dictionary<string, Dictionary<string, List<DirectorCard>>> sceneCategoryCards = new Dictionary<string, Dictionary<string, List<DirectorCard>>>();
