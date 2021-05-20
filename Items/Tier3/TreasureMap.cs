@@ -81,6 +81,7 @@ namespace MysticsItems.Items
             holdoutZone.applyFocusConvergence = true;
             holdoutZone.playerCountScaling = 0f; // Charge by 1 second regardless of how many players are charging the zone
             holdoutZone.dischargeRate = 0f;
+            holdoutZone.enabled = false;
             MysticsItemsTreasureMapZone captureZone = zonePrefab.AddComponent<MysticsItemsTreasureMapZone>();
             captureZone.itemDef = itemDef;
             HologramProjector hologramProjector = zonePrefab.AddComponent<HologramProjector>();
