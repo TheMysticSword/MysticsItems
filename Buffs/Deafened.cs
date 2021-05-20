@@ -67,6 +67,29 @@ namespace MysticsItems.Buffs
                 orig(self, buffDef);
             };
 
+            // force cd recalculation when final debuff stack lost
+            On.RoR2.CharacterBody.OnBuffFinalStackLost += (orig, self, buffDef) =>
+            {
+                orig(self, buffDef);
+                if (buffDef == this.buffDef)
+                {
+                    GenericSkill[] skills =
+                    {
+                        self.skillLocator.primary,
+                        self.skillLocator.secondary,
+                        self.skillLocator.utility,
+                        self.skillLocator.special
+                    };
+                    foreach (GenericSkill skill in skills)
+                    {
+                        if (skill)
+                        {
+                            skill.RecalculateValues();
+                        }
+                    }
+                }
+            };
+
             GameObject debuffedVFX = Main.AssetBundle.LoadAsset<GameObject>("Assets/Equipment/Microphone/DeafenedVFX.prefab");
             GameObject vfxOrigin = debuffedVFX.transform.Find("Origin").gameObject;
             CustomTempVFXManagement.MysticsItemsCustomTempVFX tempVFX = debuffedVFX.AddComponent<CustomTempVFXManagement.MysticsItemsCustomTempVFX>();
