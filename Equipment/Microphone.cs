@@ -89,6 +89,7 @@ namespace MysticsItems.Equipment
             };
             ProjectileOverlapAttack projectileOverlapAttack = waveProjectile.AddComponent<ProjectileOverlapAttack>();
             projectileOverlapAttack.damageCoefficient = 0f;
+            projectileOverlapAttack.overlapProcCoefficient = 0f;
             ProjectileInflictTimedBuff projectileInflictTimedBuff = waveProjectile.AddComponent<ProjectileInflictTimedBuff>();
             projectileInflictTimedBuff.duration = 15f;
 
