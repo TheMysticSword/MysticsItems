@@ -106,7 +106,7 @@ namespace MysticsItems.Items
                 if (playSoundObject) Util.PlaySound("Play_item_allydeathrevenge_proc", playSoundObject);
             };
 
-            Overlays.CreateOverlay(Main.AssetBundle.LoadAsset<Material>("Assets/Misc/Materials/matAllyDeathRevengeOverlay.mat"), delegate (CharacterModel model)
+            Overlays.CreateOverlay(Main.AssetBundle.LoadAsset<Material>("Assets/Items/Ally Death Revenge/matAllyDeathRevengeOverlay.mat"), delegate (CharacterModel model)
             {
                 return model.body.HasBuff(MysticsItemsContent.Buffs.AllyDeathRevenge);
             });
