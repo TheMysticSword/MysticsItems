@@ -20,6 +20,7 @@ namespace MysticsItems
 
         public static void CopyChildren(GameObject from, GameObject to, bool cloneFromThenDestroy = true)
         {
+            string trueName = to.name;
             if (cloneFromThenDestroy) from = PrefabAPI.InstantiateClone(from, from.name + "Copy", false);
 
             Transform parent = to.transform.parent;
@@ -75,6 +76,7 @@ namespace MysticsItems
             }
 
             to.transform.SetParent(parent);
+            to.name = trueName;
 
             if (cloneFromThenDestroy) Object.Destroy(from);
         }
