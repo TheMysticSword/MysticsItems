@@ -84,6 +84,7 @@ namespace MysticsItems.Interactables
             spawnCard.orientToFloor = true;
             spawnCard.slightlyRandomizeOrientation = true;
             spawnCard.skipSpawnWhenSacrificeArtifactEnabled = false;
+            interactableSpawnCards.Add(spawnCard);
         }
 
         public void Dither(Collider bounds, Renderer[] renderers)
@@ -177,6 +178,7 @@ namespace MysticsItems.Interactables
         public static StringBuilder globalStringBuilder = new StringBuilder();
         public static Dictionary<string, BaseInteractable> keyToInteractable = new Dictionary<string, BaseInteractable>();
         public static Dictionary<string, Dictionary<string, List<DirectorCard>>> sceneCategoryCards = new Dictionary<string, Dictionary<string, List<DirectorCard>>>();
+        public static List<InteractableSpawnCard> interactableSpawnCards = new List<InteractableSpawnCard>();
 
         public static void Init()
         {
