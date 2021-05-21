@@ -228,6 +228,8 @@ namespace MysticsItems.Items
                     purchaseInteraction.Networkcost = cost;
                 }
 
+                if (holdoutZoneController && holdoutZoneController.radiusIndicator) holdoutZoneController.radiusIndicator.transform.localScale = Vector3.zero;
+
                 Object.Destroy(gameObject);
             }
 

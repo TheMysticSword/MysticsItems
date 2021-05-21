@@ -28,6 +28,8 @@ Sounds from the Disc Room Game Jam audiopack by doseone, used in Timely Executio
 Other sounds made with sfxia by rxi (https://rxi.itch.io/sfxia)  
   
 ### What's new?
+#### 1.1.12:
+* Fixed Treasure Map zone being visible with 1m radius when nobody has the item
 #### 1.1.11:
 * Nuclear Accelerator:
 	* Changed function: sprint to charge, increase damage by 10% per 4 seconds spent sprinting for 4 seconds after sprinting
