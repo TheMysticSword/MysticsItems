@@ -92,7 +92,6 @@ namespace MysticsItems
             MysticsItems.ContentManagement.ContentLoadHelper.PluginAwakeLoad<Interactables.BaseInteractable>();
 
             //LaserTurret.Init();
-            ShrineLegendary.Init();
 
             // Load console commands
             ConCommandHelper.Load(declaringType.GetMethod("CCUnlockLogs", bindingFlagAll));
