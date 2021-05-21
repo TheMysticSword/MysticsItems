@@ -180,7 +180,7 @@ namespace MysticsItems.Items
                         {
                             if (NetworkServer.active)
                             {
-                                for (var i = 0; i < pendingBuffStacks; i++) body.AddTimedBuff(MysticsItemsContent.Buffs.SpeedGivesDamage, 2f + 2f * (stack - 1));
+                                for (var i = 0; i < pendingBuffStacks; i++) body.AddTimedBuff(MysticsItemsContent.Buffs.SpeedGivesDamage, 4f + 4f * (stack - 1));
                                 if (canPlaySound)
                                 {
                                     canPlaySound = false;
