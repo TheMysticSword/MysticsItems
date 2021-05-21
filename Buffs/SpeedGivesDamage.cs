@@ -7,37 +7,18 @@ namespace MysticsItems.Buffs
 {
     public class SpeedGivesDamage : BaseBuff
     {
+        public static float damagePerStack = 0.1f;
+
         public override void OnLoad() {
             buffDef.name = "SpeedGivesDamage";
             buffDef.buffColor = new Color32(200, 255, 140, 255);
             buffDef.canStack = true;
+            AddDamageModifier(damagePerStack);
 
-            Items.SpeedGivesDamage.buffDef = buffDef;
-
-            IL.RoR2.CharacterBody.RecalculateStats += (il) =>
+            Overlays.CreateOverlay(Main.AssetBundle.LoadAsset<Material>("Assets/Items/Nuclear Accelerator/matNuclearAcceleratorActiveOverlay.mat"), delegate (CharacterModel model)
             {
-                ILCursor c = new ILCursor(il);
-                // damage
-                if (c.TryGotoNext(
-                    MoveType.After,
-                    x => x.MatchLdcR4(1),
-                    x => x.MatchStloc(58)
-                ))
-                {
-                    c.Emit(OpCodes.Ldarg_0);
-                    c.EmitDelegate<System.Func<CharacterBody, float>>((characterBody) =>
-                    {
-                        if (characterBody.HasBuff(buffDef))
-                        {
-                            return (Items.SpeedGivesDamage.percentPerBuffStack / 100f) * characterBody.GetBuffCount(buffDef);
-                        }
-                        return 0;
-                    });
-                    c.Emit(OpCodes.Ldloc, 58);
-                    c.Emit(OpCodes.Add);
-                    c.Emit(OpCodes.Stloc, 58);
-                }
-            };
+                return model.body.HasBuff(buffDef);
+            });
         }
     }
 }

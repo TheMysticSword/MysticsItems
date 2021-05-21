@@ -9,29 +9,36 @@ using UnityEngine.Events;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MysticsItems
+namespace MysticsItems.Interactables
 {
-    public static class ShrineLegendary
+    public class ShrineLegendary : BaseInteractable
     {
-        public static GameObject prefab;
-        public static InteractableSpawnCard spawnCard;
-
-        public static void Init()
+        public override void OnPluginAwake()
         {
-            prefab = Main.AssetBundle.LoadAsset<GameObject>("Assets/Interactables/Shrine of the Legend/ShrineLegendary.prefab");
-            prefab.AddComponent<NetworkIdentity>();
+            base.OnPluginAwake();
+            prefab = CustomUtils.CreateBlankPrefab(Main.TokenPrefix + "ShrineLegendary", true);
             prefab.AddComponent<NetworkTransform>();
+        }
 
-            GameObject prefabMesh = prefab.transform.Find("Base").Find("mdlShrineLegendary").gameObject;
-            prefabMesh.AddComponent<EntityLocator>().entity = prefab;
-            Material prefabMaterial = prefabMesh.GetComponent<MeshRenderer>().sharedMaterial;
+        public override void OnLoad()
+        {
+            base.OnLoad();
+
+            CustomUtils.CopyChildren(Main.AssetBundle.LoadAsset<GameObject>("Assets/Interactables/Shrine of the Legend/ShrineLegendary.prefab"), prefab, true);
+
+            modelBaseTransform = prefab.transform.Find("Base");
+            modelTransform = prefab.transform.Find("Base/mdlShrineLegendary");
+            meshObject = prefab.transform.Find("Base/mdlShrineLegendary").gameObject;
+            prefab.transform.Find("Base/mdlShrineLegendary/Collision").gameObject.layer = LayerIndex.world.intVal;
+            genericDisplayNameToken = Main.TokenPrefix.ToUpper() + "SHRINE_LEGENDARY_NAME";
+
+            Prepare();
+            Dither();
+
+            Material prefabMaterial = meshObject.GetComponent<MeshRenderer>().sharedMaterial;
             prefabMaterial.SetFloat("_Glossiness", 0.5f);
             prefabMaterial.SetFloat("_GlossyReflections", 1f);
-            Main.HopooShaderToMaterial.Standard.Apply(prefabMaterial);
-            Main.HopooShaderToMaterial.Standard.Dither(prefabMaterial);
             Main.HopooShaderToMaterial.Standard.Gloss(prefabMaterial, 0.07f, 1.25f, new Color32(96, 86, 48, 255));
-            ChildLocator childLocator = prefab.AddComponent<ChildLocator>();
-            prefab.transform.Find("Base").Find("mdlShrineLegendary").Find("Collision").gameObject.layer = LayerIndex.world.intVal;
 
             GameObject shrineChanceSymbol = Resources.Load<GameObject>("Prefabs/NetworkedObjects/Shrines/ShrineGoldshoresAccess").transform.Find("Symbol").gameObject;
             GameObject symbol = prefab.transform.Find("Symbol").gameObject;
@@ -42,15 +49,6 @@ namespace MysticsItems
             symbolMaterial.SetTextureScale("_MainTex", new Vector2(1f, 1f));
             symbolMaterial.SetTexture("_RemapTex", Main.AssetBundle.LoadAsset<Texture>("Assets/Interactables/Shrine of the Legend/Symbol Ramp.png"));
             symbol.AddComponent<Billboard>();
-
-            ModelLocator modelLocator = prefab.AddComponent<ModelLocator>();
-            modelLocator.modelBaseTransform = prefab.transform.Find("Base");
-            modelLocator.modelTransform = prefabMesh.transform;
-
-            Highlight highlight = prefab.AddComponent<Highlight>();
-            highlight.targetRenderer = prefabMesh.GetComponent<MeshRenderer>();
-            highlight.strength = 1f;
-            highlight.highlightColor = Highlight.HighlightColor.interactive;
 
             PurchaseInteraction purchaseInteraction = prefab.AddComponent<PurchaseInteraction>();
             purchaseInteraction.displayNameToken = Main.TokenPrefix.ToUpper() + "SHRINE_LEGENDARY_NAME";
@@ -63,40 +61,17 @@ namespace MysticsItems
             purchaseInteraction.setUnavailableOnTeleporterActivated = true;
             purchaseInteraction.isShrine = true;
 
+            PurchaseAvailabilityIndicator purchaseAvailabilityIndicator = prefab.AddComponent<PurchaseAvailabilityIndicator>();
+            purchaseAvailabilityIndicator.indicatorObject = symbol.gameObject;
+
             RoR2.EntityLogic.DelayedEvent delayedEvent = prefab.AddComponent<RoR2.EntityLogic.DelayedEvent>();
-
-            HologramProjector hologramProjector = prefab.AddComponent<HologramProjector>();
-            hologramProjector.displayDistance = 15f;
-            hologramProjector.hologramPivot = prefab.transform.Find("HologramPivot");
-            hologramProjector.disableHologramRotation = false;
-
-            GenericDisplayNameProvider displayNameProvider = prefab.AddComponent<GenericDisplayNameProvider>();
-            displayNameProvider.displayToken = Main.TokenPrefix.ToUpper() + "SHRINE_LEGENDARY_NAME";
 
             ShrineLegendaryBehaviour behaviour = prefab.AddComponent<ShrineLegendaryBehaviour>();
             behaviour.maxPurchaseCount = 1;
             behaviour.costMultiplierPerPurchase = 2f;
             behaviour.symbolTransform = symbol.transform;
 
-            PurchaseAvailabilityIndicator purchaseAvailabilityIndicator = prefab.AddComponent<PurchaseAvailabilityIndicator>();
-            purchaseAvailabilityIndicator.indicatorObject = symbol.gameObject;
-
-            DitherModel ditherModel = prefab.AddComponent<DitherModel>();
-            ditherModel.bounds = prefabMesh.GetComponent<BoxCollider>();
-            ditherModel.renderers = new Renderer[]
-            {
-                prefabMesh.GetComponent<MeshRenderer>()
-            };
-
-            PrefabAPI.RegisterNetworkPrefab(prefab);
-
-            spawnCard = ScriptableObject.CreateInstance<InteractableSpawnCard>();
-            spawnCard.name = Main.TokenPrefix + "iscShrineLegendary";
-            spawnCard.prefab = prefab;
-            spawnCard.sendOverNetwork = true;
             spawnCard.hullSize = HullClassification.Golem;
-            spawnCard.nodeGraphType = RoR2.Navigation.MapNodeGroup.GraphType.Ground;
-            spawnCard.requiredFlags = RoR2.Navigation.NodeFlags.None;
             spawnCard.forbiddenFlags = RoR2.Navigation.NodeFlags.NoShrineSpawn;
             spawnCard.directorCreditCost = 30;
             spawnCard.occupyPosition = true;
@@ -104,71 +79,23 @@ namespace MysticsItems
             spawnCard.slightlyRandomizeOrientation = false;
             spawnCard.skipSpawnWhenSacrificeArtifactEnabled = false;
 
-            SceneDirector.onGenerateInteractableCardSelection += (sceneDirector, dccs) =>
+            AddDirectorCardTo("wispgraveyard", "Shrines", new DirectorCard
             {
-                SceneInfo sceneInfo = SceneInfo.instance;
-                if (sceneInfo) {
-                    SceneDef sceneDef = sceneInfo.sceneDef;
-                    if (sceneDef) {
-                        if (sceneDef.baseSceneName == "wispgraveyard")
-                        {
-                            DirectorCardCategorySelection.Category[] categories = dccs.categories;
-                            if (categories != null) {
-                                int categoryIndex = categories.ToList().FindIndex(x => x.name == "Shrines");
-                                if (categoryIndex != -1)
-                                {
-                                    dccs.AddCard(categoryIndex, new DirectorCard
-                                    {
-                                        spawnCard = spawnCard,
-                                        selectionWeight = 1,
-                                        spawnDistance = 0f,
-                                        allowAmbushSpawn = true,
-                                        preventOverhead = false,
-                                        minimumStageCompletions = 1,
-                                        requiredUnlockableDef = null,
-                                        forbiddenUnlockableDef = null
-                                    });
-                                }
-                            }
-                        }
-                    }
-                }
-            };
-
-            if (DebugTools.enabled)
-            {
-                On.RoR2.SceneDirector.PopulateScene += (orig, self) =>
-                {
-                    orig(self);
-                    if (SceneCatalog.GetSceneDefForCurrentScene().baseSceneName == "golemplains")
-                    {
-                        Vector3 position = new Vector3(346.2198f, -51.98051f - 0.7f, -209.0303f - 6f);
-                        Vector3 rotation = new Vector3(0f, 180f, 0f);
-                        SpawnCard.SpawnResult result = spawnCard.DoSpawn(position, Quaternion.Euler(rotation), new DirectorSpawnRequest(
-                            spawnCard,
-                            new DirectorPlacementRule
-                            {
-                                placementMode = DirectorPlacementRule.PlacementMode.NearestNode,
-                                maxDistance = 100f,
-                                minDistance = 20f,
-                                position = position,
-                                preventOverhead = true
-                            },
-                            RoR2Application.rng)
-                        );
-                        if (result.success)
-                        {
-                            result.spawnedInstance.transform.rotation = Quaternion.Euler(rotation);
-                        }
-                    }
-                };
-            }
+                spawnCard = spawnCard,
+                selectionWeight = 1,
+                spawnDistance = 0f,
+                allowAmbushSpawn = true,
+                preventOverhead = false,
+                minimumStageCompletions = 1,
+                requiredUnlockableDef = null,
+                forbiddenUnlockableDef = null
+            });
 
             // Custom purchase cost type to take half of the player's items
             GenericCostTypes.OnItemFractionCostTypeRegister += (costTypeIndex) =>
             {
                 purchaseInteraction.costType = costTypeIndex;
-                purchaseInteraction.cost = 50;
+                purchaseInteraction.cost = 90;
             };
         }
 

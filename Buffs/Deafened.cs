@@ -67,19 +67,74 @@ namespace MysticsItems.Buffs
                 orig(self, buffDef);
             };
 
+            // force cd recalculation when final debuff stack lost
+            On.RoR2.CharacterBody.OnBuffFinalStackLost += (orig, self, buffDef) =>
+            {
+                orig(self, buffDef);
+                if (buffDef == this.buffDef)
+                {
+                    GenericSkill[] skills =
+                    {
+                        self.skillLocator.primary,
+                        self.skillLocator.secondary,
+                        self.skillLocator.utility,
+                        self.skillLocator.special
+                    };
+                    foreach (GenericSkill skill in skills)
+                    {
+                        if (skill)
+                        {
+                            skill.RecalculateValues();
+                        }
+                    }
+                }
+            };
+
             GameObject debuffedVFX = Main.AssetBundle.LoadAsset<GameObject>("Assets/Equipment/Microphone/DeafenedVFX.prefab");
             GameObject vfxOrigin = debuffedVFX.transform.Find("Origin").gameObject;
             CustomTempVFXManagement.MysticsItemsCustomTempVFX tempVFX = debuffedVFX.AddComponent<CustomTempVFXManagement.MysticsItemsCustomTempVFX>();
             RotateAroundAxis rotateAroundAxis = vfxOrigin.transform.Find("Ring").gameObject.AddComponent<RotateAroundAxis>();
             rotateAroundAxis.relativeTo = Space.Self;
             rotateAroundAxis.rotateAroundAxis = RotateAroundAxis.RotationAxis.X;
-            rotateAroundAxis.fastRotationSpeed = 300f;
+            rotateAroundAxis.fastRotationSpeed = 100f;
             rotateAroundAxis.speed = RotateAroundAxis.Speed.Fast;
             rotateAroundAxis = vfxOrigin.transform.Find("Ring (1)").gameObject.AddComponent<RotateAroundAxis>();
             rotateAroundAxis.relativeTo = Space.Self;
-            rotateAroundAxis.rotateAroundAxis = RotateAroundAxis.RotationAxis.Y;
-            rotateAroundAxis.fastRotationSpeed = 300f;
+            rotateAroundAxis.rotateAroundAxis = RotateAroundAxis.RotationAxis.Z;
+            rotateAroundAxis.fastRotationSpeed = 50f;
             rotateAroundAxis.speed = RotateAroundAxis.Speed.Fast;
+            ObjectScaleCurve fadeOut = vfxOrigin.AddComponent<ObjectScaleCurve>();
+            fadeOut.overallCurve = new AnimationCurve
+            {
+                keys = new Keyframe[]
+                {
+                    new Keyframe(0f, 1f, Mathf.Tan(180f * Mathf.Deg2Rad), Mathf.Tan(-20f * Mathf.Deg2Rad)),
+                    new Keyframe(1f, 0f, Mathf.Tan(160f * Mathf.Deg2Rad), 0f)
+                }
+            };
+            fadeOut.useOverallCurveOnly = true;
+            fadeOut.enabled = false;
+            fadeOut.timeMax = 0.6f;
+            tempVFX.exitBehaviours = new MonoBehaviour[]
+            {
+                fadeOut
+            };
+            ObjectScaleCurve fadeIn = vfxOrigin.AddComponent<ObjectScaleCurve>();
+            fadeIn.overallCurve = new AnimationCurve
+            {
+                keys = new Keyframe[]
+                {
+                    new Keyframe(0f, 0f, Mathf.Tan(180f * Mathf.Deg2Rad), Mathf.Tan(70f * Mathf.Deg2Rad)),
+                    new Keyframe(1f, 1f, Mathf.Tan(-160f * Mathf.Deg2Rad), 0f)
+                }
+            };
+            fadeIn.useOverallCurveOnly = true;
+            fadeIn.enabled = false;
+            fadeIn.timeMax = 0.6f;
+            tempVFX.enterBehaviours = new MonoBehaviour[]
+            {
+                fadeIn
+            };
             CustomTempVFXManagement.allVFX.Add(new CustomTempVFXManagement.VFXInfo
             {
                 prefab = debuffedVFX,

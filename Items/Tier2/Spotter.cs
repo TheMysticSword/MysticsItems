@@ -57,7 +57,7 @@ namespace MysticsItems.Items
             Main.HopooShaderToMaterial.Standard.Gloss(mat, 0.2f, 1f);
             Main.HopooShaderToMaterial.Standard.Emission(mat, 1f);
             CopyModelToFollower();
-            CustomUtils.CopyChildren(PrefabAPI.InstantiateClone(model, model.name + "UnlockInteractable", false), unlockInteractablePrefab);
+            CustomUtils.CopyChildren(model, unlockInteractablePrefab);
             
             followerModel.transform.localScale = Vector3.one * 0.2f;
             followerModel.transform.localRotation = Quaternion.Euler(new Vector3(0f, -90f, 0f));
@@ -186,7 +186,7 @@ namespace MysticsItems.Items
             public float waveAmplitude = 0.3f;
             public float waveOffset = 0f;
             public float waveFrequency = 1.5f;
-            public List<MysticsItemsSpotterHighlight> highlights = new List<MysticsItemsSpotterHighlight>();
+            public List<MysticsItemsSpotterHighlight> highlights;
             public MaterialPropertyBlock materialPropertyBlock = new MaterialPropertyBlock();
 
             public void Awake()
@@ -205,6 +205,8 @@ namespace MysticsItems.Items
                 };
 
                 waveOffset = Random.value;
+
+                highlights = new List<MysticsItemsSpotterHighlight>();
             }
 
             public class SyncClearTarget : INetMessage
@@ -354,7 +356,7 @@ namespace MysticsItems.Items
                 target = null;
                 while (highlights.Count > 0)
                 {
-                    Object.Destroy(highlights[0].gameObject);
+                    if (highlights[0] && highlights[0].gameObject) Object.Destroy(highlights[0].gameObject);
                     highlights.RemoveAt(0);
                 }
             }

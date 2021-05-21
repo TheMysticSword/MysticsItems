@@ -57,7 +57,7 @@ namespace MysticsItems.SoftDependencies
                 Stats = new List<ItemStat>()
                 {
                     new ItemStat(
-                        (itemCount, ctx) => 0.1f + (0.1f * itemCount - 1),
+                        (itemCount, ctx) => 0.1f + 0.1f * (itemCount - 1),
                         (value, ctx) => $"Heal Amount: {value.FormatPercentage()}"
                     )
                 }

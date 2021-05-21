@@ -41,7 +41,7 @@ namespace MysticsItems.ContentManagement
             }
             foreach (System.Type type in AssemblyTypes.Where(x => !x.IsAbstract && loadType.IsAssignableFrom(x)).ToList())
             {
-                BaseLoadableAsset loadableAsset = (BaseLoadableAsset)System.Activator.CreateInstance(type);
+                BaseLoadableAsset loadableAsset = BaseLoadableAsset.Get(type);
                 loadableAsset.OnPluginAwake();
             }
         }
@@ -111,7 +111,7 @@ namespace MysticsItems.ContentManagement
                 {
                     current = types[position];
 
-                    BaseLoadableAsset loadableAsset = (BaseLoadableAsset)System.Activator.CreateInstance(current);
+                    BaseLoadableAsset loadableAsset = BaseLoadableAsset.Get(current);
                     loadableAsset.Load();
                     loadedAssets.Add((OutType)loadableAsset.asset);
 
@@ -126,7 +126,7 @@ namespace MysticsItems.ContentManagement
                         loadedAssets.Sort((x, y) => {
                             Object xObject = x as Object;
                             Object yObject = y as Object;
-                            return string.Compare(xObject != null ? xObject.name : x.GetType().Name, yObject != null ? yObject.name : y.GetType().Name, System.StringComparison.OrdinalIgnoreCase);
+                            return string.Compare(xObject != null ? xObject.name : (x != null ? x.GetType().Name : ""), yObject != null ? yObject.name : (y != null ? y.GetType().Name : ""), System.StringComparison.OrdinalIgnoreCase);
                         });
                         progressReceiver.Report(0.97f);
                         sorted = true;
@@ -161,6 +161,19 @@ namespace MysticsItems.ContentManagement
         {
             asset = this;
             OnLoad();
+        }
+
+        public static Dictionary<System.Type, BaseLoadableAsset> staticAssetDictionary = new Dictionary<System.Type, BaseLoadableAsset>();
+
+        public static BaseLoadableAsset Get(System.Type type)
+        {
+            if (staticAssetDictionary.ContainsKey(type)) return staticAssetDictionary[type];
+            else
+            {
+                BaseLoadableAsset obj = (BaseLoadableAsset)System.Activator.CreateInstance(type);
+                staticAssetDictionary.Add(type, obj);
+                return obj;
+            }
         }
     }
 }

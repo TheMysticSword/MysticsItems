@@ -26,7 +26,7 @@ namespace MysticsItems
     {
         public const string PluginGUID = "com.themysticsword.mysticsitems";
         public const string PluginName = "MysticsItems";
-        public const string PluginVersion = "1.1.10";
+        public const string PluginVersion = "1.1.11";
 
         internal static BepInEx.Logging.ManualLogSource logger;
         internal static BepInEx.Configuration.ConfigFile config;
@@ -77,6 +77,7 @@ namespace MysticsItems
             CustomTempVFXManagement.Init();
             //Items.CharacterItems.Init();
             Equipment.BaseEquipment.Init();
+            Interactables.BaseInteractable.Init();
             GenericCostTypes.Init();
             GenericGameEvents.Init();
             LanguageLoader.Init();
@@ -88,9 +89,9 @@ namespace MysticsItems
             MysticsItems.ContentManagement.ContentLoadHelper.PluginAwakeLoad<Items.BaseItem>();
             MysticsItems.ContentManagement.ContentLoadHelper.PluginAwakeLoad<Equipment.BaseEquipment>();
             MysticsItems.ContentManagement.ContentLoadHelper.PluginAwakeLoad<Buffs.BaseBuff>();
+            MysticsItems.ContentManagement.ContentLoadHelper.PluginAwakeLoad<Interactables.BaseInteractable>();
 
             //LaserTurret.Init();
-            ShrineLegendary.Init();
 
             // Load console commands
             ConCommandHelper.Load(declaringType.GetMethod("CCUnlockLogs", bindingFlagAll));
@@ -142,8 +143,6 @@ namespace MysticsItems
                 }
             }
         }
-
-        public static List<GameObject> modifiedPrefabs = new List<GameObject>(); // Add to this list when modifying a base game prefab to keep Unity from destroying modified prefabs from cache
 
         public static class HopooShaderToMaterial
         {
@@ -222,12 +221,16 @@ namespace MysticsItems
                 public static void Apply(Material mat, Properties properties = default(Properties))
                 {
                     HopooShaderToMaterial.Apply(mat, shader, properties);
+                    mat.SetFloat("_AlphaBias", 0f);
+                    mat.SetFloat("_AlphaBoost", 1f);
                     mat.SetFloat("_Cull", 0f);
-                    mat.SetFloat("_ExternalAlpha", 1f);
+                    mat.SetFloat("_DepthOffset", 0f);
                     mat.SetFloat("_Fade", 1f);
-                    mat.SetFloat("_SkyboxOnly", 0f);
-                    mat.SetFloat("_ZWrite", 1f);
+                    mat.SetFloat("_FadeCloseDistance", 0.5f);
+                    mat.SetFloat("_FadeCloseOn", 0f);
+                    mat.SetFloat("_InvFade", 2f);
                     mat.SetFloat("_ZTest", 4f);
+                    mat.SetFloat("_ZWrite", 1f);
                 }
 
                 public static void Apply(Material mat, Texture remapTexture = null, Texture cloud1Texture = null, Texture cloud2Texture = null, Properties properties = default(Properties))
@@ -277,6 +280,10 @@ namespace MysticsItems
                 () =>
                 {
                     contentLoadHelper.DispatchLoad<AchievementDef>(typeof(MysticsItems.Achievements.BaseAchievement), null);
+                },
+                () =>
+                {
+                    contentLoadHelper.DispatchLoad<GameObject>(typeof(MysticsItems.Interactables.BaseInteractable), null);
                 }
             };
             int num;

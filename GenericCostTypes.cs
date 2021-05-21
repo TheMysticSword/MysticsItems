@@ -95,7 +95,7 @@ namespace MysticsItems
             CostTypeCreation.CreateCostType(new CostTypeCreation.CustomCostTypeInfo
             {
                 costTypeDef = costType_ItemFraction,
-                onRegister = OnItemFractionCostTypeRegister
+                onRegister = (costTypeIndex) => { OnItemFractionCostTypeRegister(costTypeIndex); }
             });
             On.RoR2.Language.GetLocalizedFormattedStringByToken += (orig, self, token, args) =>
             {

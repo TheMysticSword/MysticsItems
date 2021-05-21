@@ -62,7 +62,7 @@ namespace MysticsItems.Equipment
             wavePrefab = Main.AssetBundle.LoadAsset<GameObject>("Assets/Equipment/Microphone/MicrophoneSoundwaveGhost.prefab");
             wavePrefab.AddComponent<ProjectileGhostController>();
 
-            CustomUtils.CopyChildren(PrefabAPI.InstantiateClone(Main.AssetBundle.LoadAsset<GameObject>("Assets/Equipment/Microphone/MicrophoneSoundwave.prefab"), "MicrophoneSoundwave"), waveProjectile);
+            CustomUtils.CopyChildren(Main.AssetBundle.LoadAsset<GameObject>("Assets/Equipment/Microphone/MicrophoneSoundwave.prefab"), waveProjectile);
             MicrophoneSoundwaveProjectile msp = waveProjectile.AddComponent<MicrophoneSoundwaveProjectile>();
             msp.colorCurve = new AnimationCurve[]
             {
@@ -89,6 +89,7 @@ namespace MysticsItems.Equipment
             };
             ProjectileOverlapAttack projectileOverlapAttack = waveProjectile.AddComponent<ProjectileOverlapAttack>();
             projectileOverlapAttack.damageCoefficient = 0f;
+            projectileOverlapAttack.overlapProcCoefficient = 0f;
             ProjectileInflictTimedBuff projectileInflictTimedBuff = waveProjectile.AddComponent<ProjectileInflictTimedBuff>();
             projectileInflictTimedBuff.duration = 15f;
 

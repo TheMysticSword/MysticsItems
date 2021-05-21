@@ -5,11 +5,14 @@ using System.Linq;
 using Mono.Cecil.Cil;
 using MonoMod.Cil;
 using System.Collections.Generic;
+using RoR2.Audio;
 
 namespace MysticsItems.Items
 {
     public class AllyDeathRevenge : BaseItem
     {
+        public static NetworkSoundEventDef sfx;
+
         public override void PreLoad()
         {
             itemDef.name = "AllyDeathRevenge";
@@ -49,64 +52,31 @@ namespace MysticsItems.Items
             model.transform.Find("mdlAllyDeathRevenge").Rotate(new Vector3(0f, 0f, 160f), Space.Self);
             model.transform.Find("mdlAllyDeathRevenge").localScale *= 0.8f;
 
-            On.RoR2.CharacterMaster.Awake += (orig, self) =>
-            {
-                orig(self);
-                self.gameObject.AddComponent<SurvivedStageCounter>();
-            };
-
-            On.RoR2.Stage.Start += (orig, self) =>
-            {
-                orig(self);
-                foreach (CharacterMaster characterMaster in CharacterMaster.readOnlyInstancesList)
-                {
-                    SurvivedStageCounter component = characterMaster.GetComponent<SurvivedStageCounter>();
-                    if (component)
-                    {
-                        component.count++;
-                    }
-                }
-            };
-
             On.RoR2.CharacterMaster.OnBodyDeath += (orig, self, body) =>
             {
                 orig(self, body);
-                GameObject playSoundObject = null;
                 if (NetworkServer.active)
                 {
+                    bool weakAlly = false;
+                    if (body.inventory && body.inventory.GetItemCount(RoR2Content.Items.HealthDecay) > 0) weakAlly = true;
+
                     TeamIndex teamIndex = TeamComponent.GetObjectTeam(body.gameObject);
                     foreach (CharacterBody body2 in CharacterBody.readOnlyInstancesList)
                     {
                         Inventory inventory = body2.inventory;
                         if (inventory && inventory.GetItemCount(itemDef) > 0 && TeamComponent.GetObjectTeam(body2.gameObject) == teamIndex)
                         {
-                            playSoundObject = body2.gameObject;
+                            float time = weakAlly ? 1f + 1f * (inventory.GetItemCount(itemDef) - 1) : 8f + 8f * (inventory.GetItemCount(itemDef) - 1);
+                            
+                            if (!weakAlly && !body2.HasBuff(MysticsItemsContent.Buffs.AllyDeathRevenge)) EntitySoundManager.EmitSoundServer(sfx.index, body2.gameObject);
 
-                            float time = 15f + 15f * (inventory.GetItemCount(itemDef) - 1);
-                            float sameStageDeathTime = 1f + 1f * (inventory.GetItemCount(itemDef) - 1);
-                            if (body.master)
-                            {
-                                SurvivedStageCounter survivedStageCounter = body.master.GetComponent<SurvivedStageCounter>();
-                                if (survivedStageCounter && survivedStageCounter.count <= 0)
-                                {
-                                    time = sameStageDeathTime;
-                                    playSoundObject = null;
-                                }
-                            }
-                            else
-                            {
-                                // Masterless bodies don't get moved to the next stage anyway, so they definitely died on the same stage
-                                time = sameStageDeathTime;
-                                playSoundObject = null;
-                            }
                             body2.AddTimedBuff(MysticsItemsContent.Buffs.AllyDeathRevenge, time);
                         }
                     }
                 }
-                if (playSoundObject) Util.PlaySound("Play_item_allydeathrevenge_proc", playSoundObject);
             };
 
-            Overlays.CreateOverlay(Main.AssetBundle.LoadAsset<Material>("Assets/Misc/Materials/matAllyDeathRevengeOverlay.mat"), delegate (CharacterModel model)
+            Overlays.CreateOverlay(Main.AssetBundle.LoadAsset<Material>("Assets/Items/Ally Death Revenge/matAllyDeathRevengeOverlay.mat"), delegate (CharacterModel model)
             {
                 return model.body.HasBuff(MysticsItemsContent.Buffs.AllyDeathRevenge);
             });
@@ -132,11 +102,10 @@ namespace MysticsItems.Items
                 radius = CustomTempVFXManagement.DefaultRadiusCall,
                 child = "Head"
             });
-        }
 
-        public class SurvivedStageCounter : MonoBehaviour
-        {
-            public int count = 0;
+            sfx = ScriptableObject.CreateInstance<NetworkSoundEventDef>();
+            sfx.eventName = "Play_item_allydeathrevenge_proc";
+            MysticsItemsContent.Resources.networkSoundEventDefs.Add(sfx);
         }
     }
 }

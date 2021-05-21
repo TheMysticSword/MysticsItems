@@ -18,8 +18,13 @@ namespace MysticsItems
             return gameObject;
         }
 
-        public static void CopyChildren(GameObject from, GameObject to)
+        public static void CopyChildren(GameObject from, GameObject to, bool cloneFromThenDestroy = true)
         {
+            string trueName = to.name;
+            if (cloneFromThenDestroy) from = PrefabAPI.InstantiateClone(from, from.name + "Copy", false);
+
+            Transform parent = to.transform.parent;
+
             int childCount = from.transform.childCount;
             for (var i = 0; i < childCount; i++)
             {
@@ -31,6 +36,18 @@ namespace MysticsItems
 
                 Component toComponent = to.GetComponent(componentType);
                 if (!toComponent) toComponent = to.AddComponent(componentType);
+
+                bool isAnimator = typeof(Animator).IsAssignableFrom(fromComponent.GetType());
+                bool animatorLogWarnings = false;
+
+                if (isAnimator)
+                {
+                    Animator fromAnimator = (Animator)fromComponent;
+                    Animator toAnimator = (Animator)toComponent;
+                    animatorLogWarnings = fromAnimator.logWarnings;
+                    fromAnimator.logWarnings = false;
+                    toAnimator.logWarnings = false;
+                }
 
                 BindingFlags flags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Default;
                 foreach (PropertyInfo propertyInfo in componentType.GetProperties(flags))
@@ -48,7 +65,26 @@ namespace MysticsItems
                 {
                     fieldInfo.SetValue(toComponent, fieldInfo.GetValue(fromComponent));
                 }
+
+                if (isAnimator)
+                {
+                    Animator fromAnimator = (Animator)fromComponent;
+                    Animator toAnimator = (Animator)toComponent;
+                    fromAnimator.logWarnings = animatorLogWarnings;
+                    toAnimator.logWarnings = animatorLogWarnings;
+                }
             }
+
+            to.transform.SetParent(parent);
+            to.name = trueName;
+
+            if (cloneFromThenDestroy) Object.Destroy(from);
+        }
+
+        public static string TrimCloneFromString(string originalString)
+        {
+            if (originalString.EndsWith("(Clone)")) originalString = originalString.Remove(originalString.Length - "(Clone)".Length);
+            return originalString;
         }
     }
 }
