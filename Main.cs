@@ -221,12 +221,16 @@ namespace MysticsItems
                 public static void Apply(Material mat, Properties properties = default(Properties))
                 {
                     HopooShaderToMaterial.Apply(mat, shader, properties);
+                    mat.SetFloat("_AlphaBias", 0f);
+                    mat.SetFloat("_AlphaBoost", 1f);
                     mat.SetFloat("_Cull", 0f);
-                    mat.SetFloat("_ExternalAlpha", 1f);
+                    mat.SetFloat("_DepthOffset", 0f);
                     mat.SetFloat("_Fade", 1f);
-                    mat.SetFloat("_SkyboxOnly", 0f);
-                    mat.SetFloat("_ZWrite", 1f);
+                    mat.SetFloat("_FadeCloseDistance", 0.5f);
+                    mat.SetFloat("_FadeCloseOn", 0f);
+                    mat.SetFloat("_InvFade", 2f);
                     mat.SetFloat("_ZTest", 4f);
+                    mat.SetFloat("_ZWrite", 1f);
                 }
 
                 public static void Apply(Material mat, Texture remapTexture = null, Texture cloud1Texture = null, Texture cloud2Texture = null, Properties properties = default(Properties))
