@@ -66,7 +66,6 @@ namespace MysticsItems.Interactables
                     {
                         Main.HopooShaderToMaterial.Standard.Apply(material);
                         Main.HopooShaderToMaterial.Standard.Dither(material);
-                        Main.HopooShaderToMaterial.Standard.Emission(material, 1f);
                     }
                 }
             }

@@ -39,6 +39,7 @@ namespace MysticsItems.Interactables
             meshObject.GetComponent<Renderer>().sharedMaterial.mainTexture = Resources.Load<GameObject>("Prefabs/NetworkedObjects/Chest/Chest1").transform.Find("mdlChest1/Cube.001").gameObject.GetComponent<Renderer>().material.mainTexture;
             meshObject.GetComponent<Renderer>().sharedMaterial.SetFloat("_EmPower", 6f);
             meshObject.GetComponent<Renderer>().sharedMaterial.SetColor("_EmColor", Color.black);
+            Main.HopooShaderToMaterial.Standard.Emission(meshObject.GetComponent<Renderer>().sharedMaterial, 1f);
             PurchaseInteraction purchaseInteraction = prefab.AddComponent<PurchaseInteraction>();
             purchaseInteraction.displayNameToken = Main.TokenPrefix.ToUpper() + "CHARACTERITEMSHOPBEACON_NAME";
             purchaseInteraction.contextToken = Main.TokenPrefix.ToUpper() + "CHARACTERITEMSHOPBEACON_CONTEXT";
