@@ -255,6 +255,7 @@ namespace MysticsItems
         public static void CCSpawnInteractable(ConCommandArgs args)
         {
             InteractableSpawnCard interactableSpawnCard = Resources.LoadAll<InteractableSpawnCard>("SpawnCards/InteractableSpawnCard").ToList().FirstOrDefault(x => x.name == args[0] || x.name.Remove(0, 3) == args[0]);
+            if (!interactableSpawnCard) interactableSpawnCard = Interactables.BaseInteractable.interactableSpawnCards.ToList().FirstOrDefault(x => x.name == args[0] || x.name.Remove(0, 3 + Main.TokenPrefix.Length) == args[0]);
             if (interactableSpawnCard)
             {
                 Debug.Log("Spawning " + interactableSpawnCard.name);
