@@ -5,6 +5,8 @@ using UnityEngine.Networking;
 using System.Linq;
 using System.Reflection;
 using System.Collections;
+using System.Collections.Generic;
+using RoR2.Audio;
 
 namespace MysticsItems.Items
 {
@@ -19,6 +21,7 @@ namespace MysticsItems.Items
         public static float speedRequirementPerBuffStack = 100f;
 
         public static GameObject particleSystemPrefab;
+        public static NetworkSoundEventDef sfx;
 
         public override void PreLoad()
         {
@@ -60,21 +63,6 @@ namespace MysticsItems.Items
 
             model.transform.Find("speedpower_powerspeed").Rotate(new Vector3(60f, 0f, 0f), Space.Self);
 
-            CharacterStats.damageModifiers.Add(new CharacterStats.StatModifier
-            {
-                multiplier = 1f,
-                times = (genericCharacterInfo) =>
-                {
-                    Inventory inventory = genericCharacterInfo.inventory;
-                    if (inventory)
-                    {
-                        int itemCount = inventory.GetItemCount(itemDef);
-                        return itemCount != 0 ? Mathf.Max((0.01f + 0.005f * (float)(itemCount - 1)) * ((genericCharacterInfo.body.moveSpeed / (genericCharacterInfo.body.baseMoveSpeed + genericCharacterInfo.body.levelMoveSpeed * genericCharacterInfo.body.level) - 1f) / 0.025f), 0f) : 0f;
-                    }
-                    return 0f;
-                }
-            });
-
             On.RoR2.CharacterBody.Awake += (orig, self) =>
             {
                 orig(self);
@@ -85,9 +73,10 @@ namespace MysticsItems.Items
             };
 
             particleSystemPrefab = Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Nuclear Accelerator/Particles.prefab");
-            Material material = particleSystemPrefab.GetComponent<ParticleSystemRenderer>().sharedMaterial;
-            Main.HopooShaderToMaterial.Standard.Apply(material);
-            Main.HopooShaderToMaterial.Standard.Emission(material, 3f, new Color32(106, 255, 83, 255));
+
+            sfx = ScriptableObject.CreateInstance<NetworkSoundEventDef>();
+            sfx.eventName = "MysticsItems_Play_item_proc_nuclear_accelerator";
+            MysticsItemsContent.Resources.networkSoundEventDefs.Add(sfx);
         }
 
         public class MysticsItemsNuclearAcceleratorGlow : MonoBehaviour
@@ -117,29 +106,90 @@ namespace MysticsItems.Items
 
         public class MysticsItemsSpeedGivesDamageBehaviour : CharacterBody.ItemBehavior
         {
-            public ParticleSystem particleSystem;
-            public float effectMaxSpeedMult = 10f;
-            public float effectMaxMult = 20f;
+            public List<GameObject> particleHolders;
+            public float charge = 0f;
+            public float damageBoostPerSecond = 0.05f;
+            public float noSprintTimeThreshold = 0.1f;
+            public float noSprintTimeStopwatch = 0f;
+            public bool canPlaySound = false;
 
             public void Start()
             {
-                particleSystem = Object.Instantiate(particleSystemPrefab, body.transform).GetComponent<ParticleSystem>();
-                particleSystem.transform.localScale *= body.radius;
+                particleHolders = new List<GameObject>();
+
+                ModelLocator component = GetComponent<ModelLocator>();
+                if (component)
+                {
+                    Transform modelTransform = component.modelTransform;
+                    if (modelTransform)
+                    {
+                        CharacterModel characterModel = modelTransform.GetComponent<CharacterModel>();
+                        if (characterModel)
+                        {
+                            foreach (CharacterModel.ParentedPrefabDisplay parentedPrefabDisplay in characterModel.parentedPrefabDisplays.FindAll(x => x.itemIndex == MysticsItemsContent.Items.SpeedGivesDamage.itemIndex))
+                            {
+                                GameObject particleHolder = Object.Instantiate(particleSystemPrefab);
+                                particleHolder.transform.SetParent(parentedPrefabDisplay.instance.transform, false);
+                            }
+                        }
+                    }
+                }
             }
 
             public void OnDestroy()
             {
-                Object.Destroy(particleSystem.gameObject);
+                foreach (GameObject particleHolder in particleHolders) if (particleHolder) Object.Destroy(particleHolder);
             }
 
             public void FixedUpdate()
             {
-                float mult = (body.moveSpeed / (body.baseMoveSpeed + body.levelMoveSpeed * body.level) - 1f) / effectMaxSpeedMult * effectMaxMult;
-                if (particleSystem)
+                foreach (GameObject particleHolder in particleHolders)
                 {
-                    ParticleSystem.MainModule main = particleSystem.main;
-                    ParticleSystem.EmissionModule emission = particleSystem.emission;
-                    emission.rateOverTimeMultiplier = mult;
+                    if (particleHolder)
+                    {
+                        Transform spiralingRadsTransform = particleHolder.transform.Find("Spiraling Rads");
+                        if (spiralingRadsTransform)
+                        {
+                            ParticleSystem.EmissionModule spiralingRadsEmission = spiralingRadsTransform.gameObject.GetComponent<ParticleSystem>().emission;
+                            spiralingRadsEmission.rateOverTimeMultiplier = 30f * Mathf.Min(charge / 0.2f, 1f);
+                        }
+
+                        Transform chargeOverflowTransform = particleHolder.transform.Find("Charge Overflow");
+                        if (chargeOverflowTransform)
+                        {
+                            ParticleSystem.EmissionModule chargeOverflowEmission = chargeOverflowTransform.gameObject.GetComponent<ParticleSystem>().emission;
+                            chargeOverflowEmission.rateOverTimeMultiplier = 40f * Mathf.Min((charge - 0.2f) / 0.08f, 1f);
+                        }
+                    }
+                }
+
+                if (body.GetBuffCount(MysticsItemsContent.Buffs.SpeedGivesDamage) <= 0) canPlaySound = true;
+
+                if (body.isSprinting)
+                {
+                    charge += damageBoostPerSecond * (body.moveSpeed / 7f) * Time.fixedDeltaTime;
+                    noSprintTimeStopwatch = 0f;
+                }
+                else
+                {
+                    noSprintTimeStopwatch += Time.fixedDeltaTime;
+                    if (noSprintTimeStopwatch >= noSprintTimeThreshold)
+                    {
+                        float pendingBuffStacks = Mathf.Floor(charge / Buffs.SpeedGivesDamage.damagePerStack);
+                        if (pendingBuffStacks >= 1)
+                        {
+                            if (NetworkServer.active)
+                            {
+                                for (var i = 0; i < pendingBuffStacks; i++) body.AddTimedBuff(MysticsItemsContent.Buffs.SpeedGivesDamage, 2f + 2f * (stack - 1));
+                                if (canPlaySound)
+                                {
+                                    canPlaySound = false;
+                                    EntitySoundManager.EmitSoundServer(sfx.index, body.gameObject);
+                                }
+                            }
+                        }
+                        charge = 0f;
+                    }
                 }
             }
         }
