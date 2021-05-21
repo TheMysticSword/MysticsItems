@@ -260,18 +260,21 @@ namespace MysticsItems
                 Debug.Log("Spawning " + interactableSpawnCard.name);
                 if (args.senderBody)
                 {
-                    interactableSpawnCard.DoSpawn(args.senderBody.transform.position, Quaternion.identity, new DirectorSpawnRequest(
-                        interactableSpawnCard,
-                        new DirectorPlacementRule
-                        {
-                            placementMode = DirectorPlacementRule.PlacementMode.NearestNode,
-                            maxDistance = 100f,
-                            minDistance = 0f,
-                            position = args.sender.transform.position,
-                            preventOverhead = true
-                        },
-                        RoR2Application.rng
-                    ));
+                    RaycastHit hitInfo;
+                    if (args.senderBody.inputBank.GetAimRaycast(1000f, out hitInfo)) {
+                        interactableSpawnCard.DoSpawn(hitInfo.point, Quaternion.identity, new DirectorSpawnRequest(
+                            interactableSpawnCard,
+                            new DirectorPlacementRule
+                            {
+                                placementMode = DirectorPlacementRule.PlacementMode.NearestNode,
+                                maxDistance = 100f,
+                                minDistance = 0f,
+                                position = hitInfo.point,
+                                preventOverhead = true
+                            },
+                            RoR2Application.rng
+                        ));
+                    }
                 }
             }
         }
