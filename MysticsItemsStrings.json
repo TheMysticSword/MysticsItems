@@ -60,7 +60,7 @@
 
     "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_NAME": "Nuclear Accelerator",
     "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_PICKUP": "Gain a damage boost after sprinting.",
-    "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_DESC": "Charge up by sprinting. After sprinting, increase <style=cIsDamage>damage by 10%</style> per <style=cIsUtility>2 seconds</style> spent sprinting for <style=cIsUtility>4s <style=cStack>(+4s per stack)</style></style>. <style=cIsUtility>Charge rate increases with movement speed.</style>",
+    "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_DESC": "Charge up by sprinting. After sprinting, increase <style=cIsDamage>damage by 10%</style> per <style=cIsUtility>4 seconds</style> spent sprinting for <style=cIsUtility>4s <style=cStack>(+4s per stack)</style></style>. <style=cIsUtility>Charge rate increases with movement speed.</style>",
 
     "ITEM_MYSTICSITEMS_EXTRASHRINEUSE_NAME": "Mysterious Monolith",
     "ITEM_MYSTICSITEMS_EXTRASHRINEUSE_PICKUP": "All Shrines can be used one more time.",
@@ -249,7 +249,7 @@
 
     "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_NAME": "Ядерный ускоритель",
     "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_PICKUP": "Увеличивает урон после бега.",
-    "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_DESC": "Бегите, чтобы зарядить. После бега увеличивает <style=cIsDamage>урон на 10%</style> за каждые <style=cIsUtility>2 секунды</style> бега на <style=cIsUtility>4 сек. <style=cStack>(+4 сек. за шт.)</style></style>. <style=cIsUtility>Скорость зарядки увеличивается от скорости передвижения.</style>",
+    "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_DESC": "Бегите, чтобы зарядить. После бега увеличивает <style=cIsDamage>урон на 10%</style> за каждые <style=cIsUtility>4 секунды</style> бега на <style=cIsUtility>4 сек. <style=cStack>(+4 сек. за шт.)</style></style>. <style=cIsUtility>Скорость зарядки увеличивается от скорости передвижения.</style>",
 
     "ITEM_MYSTICSITEMS_EXTRASHRINEUSE_NAME": "Таинственный монолит",
     "ITEM_MYSTICSITEMS_EXTRASHRINEUSE_PICKUP": "Все святилища можно использовать ещё раз.",

@@ -108,7 +108,7 @@ namespace MysticsItems.Items
         {
             public List<GameObject> particleHolders;
             public float charge = 0f;
-            public float damageBoostPerSecond = 0.05f;
+            public float damageBoostPerSecond = 0.025f;
             public float noSprintTimeThreshold = 0.1f;
             public float noSprintTimeStopwatch = 0f;
             public bool canPlaySound = false;
