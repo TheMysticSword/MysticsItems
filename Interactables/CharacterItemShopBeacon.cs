@@ -23,7 +23,7 @@ namespace MysticsItems.Interactables
         {
             base.OnLoad();
 
-            CustomUtils.CopyChildren(PrefabAPI.InstantiateClone(Main.AssetBundle.LoadAsset<GameObject>("Assets/CharacterItems/Shop Beacon/ShopBeacon.prefab"), "ShopBeacon", false), prefab);
+            CustomUtils.CopyChildren(Main.AssetBundle.LoadAsset<GameObject>("Assets/CharacterItems/Shop Beacon/ShopBeacon.prefab"), prefab);
             modelBaseTransform = prefab.transform.Find("ModelBase");
             modelTransform = prefab.transform.Find("ModelBase/mdlShopBeacon");
             meshObject = prefab.transform.Find("ModelBase/mdlShopBeacon/Сетка").gameObject;

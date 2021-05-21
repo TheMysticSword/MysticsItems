@@ -61,7 +61,7 @@ namespace MysticsItems.Items
                 AddDisplayRule("ScavBody", "MuzzleEnergyCannon", new Vector3(0.586F, 3.872F, 0.073F), new Vector3(54.107F, 148.5F, 149.008F), new Vector3(0.835F, 0.858F, 0.835F));
             };
 
-            CustomUtils.CopyChildren(PrefabAPI.InstantiateClone(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Contraband Gunpowder/ExplosivePack.prefab"), "ExplosivePack"), gunpowderPickup);
+            CustomUtils.CopyChildren(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Contraband Gunpowder/ExplosivePack.prefab"), gunpowderPickup);
             gunpowderPickup.transform.localScale *= 0.33f;
             
             gunpowderPickup.layer = LayerIndex.debris.intVal;

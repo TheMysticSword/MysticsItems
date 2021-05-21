@@ -62,7 +62,7 @@ namespace MysticsItems.Equipment
             wavePrefab = Main.AssetBundle.LoadAsset<GameObject>("Assets/Equipment/Microphone/MicrophoneSoundwaveGhost.prefab");
             wavePrefab.AddComponent<ProjectileGhostController>();
 
-            CustomUtils.CopyChildren(PrefabAPI.InstantiateClone(Main.AssetBundle.LoadAsset<GameObject>("Assets/Equipment/Microphone/MicrophoneSoundwave.prefab"), "MicrophoneSoundwave"), waveProjectile);
+            CustomUtils.CopyChildren(Main.AssetBundle.LoadAsset<GameObject>("Assets/Equipment/Microphone/MicrophoneSoundwave.prefab"), waveProjectile);
             MicrophoneSoundwaveProjectile msp = waveProjectile.AddComponent<MicrophoneSoundwaveProjectile>();
             msp.colorCurve = new AnimationCurve[]
             {

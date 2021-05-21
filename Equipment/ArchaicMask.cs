@@ -45,7 +45,7 @@ namespace MysticsItems.Equipment
             );
             Main.HopooShaderToMaterial.CloudRemap.Boost(matArchaicMaskFire, 0.5f);
             CopyModelToFollower();
-            CustomUtils.CopyChildren(PrefabAPI.InstantiateClone(model, Main.TokenPrefix + "ArchaicMaskUnlockInteractable", false), unlockInteractablePrefab);
+            CustomUtils.CopyChildren(model, unlockInteractablePrefab);
 
             onSetupIDRS += () =>
             {
@@ -90,7 +90,7 @@ namespace MysticsItems.Equipment
             sphereCollider.isTrigger = true;
             entityLocatorHolder.AddComponent<EntityLocator>().entity = unlockInteractablePrefab;
 
-            CustomUtils.CopyChildren(PrefabAPI.InstantiateClone(Main.AssetBundle.LoadAsset<GameObject>("Assets/Equipment/Archaic Mask/ForcedPickup.prefab"), "ForcedPickup"), forcedPickupPrefab);
+            CustomUtils.CopyChildren(Main.AssetBundle.LoadAsset<GameObject>("Assets/Equipment/Archaic Mask/ForcedPickup.prefab"), forcedPickupPrefab);
             GenericPickupController genericPickupController = forcedPickupPrefab.AddComponent<GenericPickupController>();
             forcedPickupPrefab.AddComponent<Highlight>();
             PickupDisplay pickupDisplay = forcedPickupPrefab.transform.Find("PickupDisplay").gameObject.AddComponent<PickupDisplay>();

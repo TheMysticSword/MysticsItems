@@ -18,8 +18,10 @@ namespace MysticsItems
             return gameObject;
         }
 
-        public static void CopyChildren(GameObject from, GameObject to)
+        public static void CopyChildren(GameObject from, GameObject to, bool cloneFromThenDestroy = true)
         {
+            if (cloneFromThenDestroy) from = PrefabAPI.InstantiateClone(from, from.name + "Copy", false);
+
             Transform parent = to.transform.parent;
 
             int childCount = from.transform.childCount;
@@ -73,6 +75,8 @@ namespace MysticsItems
             }
 
             to.transform.SetParent(parent);
+
+            if (cloneFromThenDestroy) Object.Destroy(from);
         }
 
         public static string TrimCloneFromString(string originalString)

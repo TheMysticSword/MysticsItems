@@ -69,7 +69,7 @@ namespace MysticsItems.Items
                 AddDisplayRule("BrotherBody", "HandR", BrotherInfection.red, new Vector3(0.051F, -0.072F, 0.004F), new Vector3(44.814F, 122.901F, 267.545F), new Vector3(0.063F, 0.063F, 0.063F));
             };
             
-            CustomUtils.CopyChildren(PrefabAPI.InstantiateClone(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Treasure Map/TreasureMapZone.prefab"), "TreasureMapZone"), zonePrefab);
+            CustomUtils.CopyChildren(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Treasure Map/TreasureMapZone.prefab"), zonePrefab);
             HoldoutZoneController holdoutZone = zonePrefab.AddComponent<HoldoutZoneController>();
             holdoutZone.baseRadius = 15f;
             holdoutZone.baseChargeDuration = 120f;
