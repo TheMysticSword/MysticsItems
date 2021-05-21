@@ -66,7 +66,7 @@ namespace MysticsItems.Items
                         Inventory inventory = body2.inventory;
                         if (inventory && inventory.GetItemCount(itemDef) > 0 && TeamComponent.GetObjectTeam(body2.gameObject) == teamIndex)
                         {
-                            float time = weakAlly ? 1f + 1f * (inventory.GetItemCount(itemDef) - 1) : 10f + 10f * (inventory.GetItemCount(itemDef) - 1);
+                            float time = weakAlly ? 1f + 1f * (inventory.GetItemCount(itemDef) - 1) : 8f + 8f * (inventory.GetItemCount(itemDef) - 1);
                             
                             if (!weakAlly && !body2.HasBuff(MysticsItemsContent.Buffs.AllyDeathRevenge)) EntitySoundManager.EmitSoundServer(sfx.index, body2.gameObject);
 
