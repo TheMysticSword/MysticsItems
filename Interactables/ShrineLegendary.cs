@@ -38,8 +38,6 @@ namespace MysticsItems.Interactables
             Material prefabMaterial = meshObject.GetComponent<MeshRenderer>().sharedMaterial;
             prefabMaterial.SetFloat("_Glossiness", 0.5f);
             prefabMaterial.SetFloat("_GlossyReflections", 1f);
-            Main.HopooShaderToMaterial.Standard.Apply(prefabMaterial);
-            Main.HopooShaderToMaterial.Standard.Dither(prefabMaterial);
             Main.HopooShaderToMaterial.Standard.Gloss(prefabMaterial, 0.07f, 1.25f, new Color32(96, 86, 48, 255));
 
             GameObject shrineChanceSymbol = Resources.Load<GameObject>("Prefabs/NetworkedObjects/Shrines/ShrineGoldshoresAccess").transform.Find("Symbol").gameObject;
