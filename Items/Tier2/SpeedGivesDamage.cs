@@ -130,6 +130,7 @@ namespace MysticsItems.Items
                             {
                                 GameObject particleHolder = Object.Instantiate(particleSystemPrefab);
                                 particleHolder.transform.SetParent(parentedPrefabDisplay.instance.transform, false);
+                                particleHolders.Add(particleHolder);
                             }
                         }
                     }
@@ -151,14 +152,14 @@ namespace MysticsItems.Items
                         if (spiralingRadsTransform)
                         {
                             ParticleSystem.EmissionModule spiralingRadsEmission = spiralingRadsTransform.gameObject.GetComponent<ParticleSystem>().emission;
-                            spiralingRadsEmission.rateOverTimeMultiplier = 30f * Mathf.Min(charge / 0.2f, 1f);
+                            spiralingRadsEmission.rateOverTimeMultiplier = 30f * Mathf.Min(charge / 0.1f, 1f);
                         }
 
                         Transform chargeOverflowTransform = particleHolder.transform.Find("Charge Overflow");
                         if (chargeOverflowTransform)
                         {
                             ParticleSystem.EmissionModule chargeOverflowEmission = chargeOverflowTransform.gameObject.GetComponent<ParticleSystem>().emission;
-                            chargeOverflowEmission.rateOverTimeMultiplier = 40f * Mathf.Min((charge - 0.2f) / 0.08f, 1f);
+                            chargeOverflowEmission.rateOverTimeMultiplier = 40f * Mathf.Min((charge - 0.1f) / 0.9f, 1f);
                         }
                     }
                 }
