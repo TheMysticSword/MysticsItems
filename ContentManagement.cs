@@ -126,7 +126,7 @@ namespace MysticsItems.ContentManagement
                         loadedAssets.Sort((x, y) => {
                             Object xObject = x as Object;
                             Object yObject = y as Object;
-                            return string.Compare(xObject != null ? xObject.name : x.GetType().Name, yObject != null ? yObject.name : y.GetType().Name, System.StringComparison.OrdinalIgnoreCase);
+                            return string.Compare(xObject != null ? xObject.name : (x != null ? x.GetType().Name : ""), yObject != null ? yObject.name : (y != null ? y.GetType().Name : ""), System.StringComparison.OrdinalIgnoreCase);
                         });
                         progressReceiver.Report(0.97f);
                         sorted = true;
