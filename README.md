@@ -18,7 +18,7 @@ Make sure that your config matches with the configs of other players in the lobb
 ### Bug reports and suggestions
 If you find a bug or want to make a suggestion on a certain feature, make an issue on the [issue tracker](https://github.com/TheMysticSword/MysticsItems/issues) and make sure that a similar issue isn't open at the moment.  
 Consider providing an output log in your bug report to make the fixing process easier.  
-Make a post on the [Discussions](https://github.com/TheMysticSword/MysticsItems/discussions) tab if you want to leave an idea for a new item or make a balance suggestion.
+Make a post on the [Discussions](https://github.com/TheMysticSword/MysticsItems/discussions) tab if you want to leave an idea for a new item, to make a balance suggestion or to offer translation work.
 
 ### Credits
 TheMysticSword - Coding  
