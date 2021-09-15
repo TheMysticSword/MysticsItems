@@ -23,6 +23,7 @@ Make a post on the [Discussions](https://github.com/TheMysticSword/MysticsItems/
 ### Credits
 TheMysticSword - Coding  
 Marwan60 - Modelling  
+Omar Faruk - Turkish translation  
 Tuning fork SFX by Martin Chappell, used in Ratio Equalizer (https://freesound.org/people/martian/sounds/19308/)  
 Sounds from the Disc Room Game Jam audiopack by doseone, used in Timely Execution (https://discroom.com/game-jam-tutorial-audio.zip)  
 Other sounds made with sfxia by rxi (https://rxi.itch.io/sfxia)  
