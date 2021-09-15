@@ -1,5 +1,8 @@
+#### 1.1.13:
+* Added Turkish translation by Omar Faruk
 #### 1.1.12:
 * Fixed Treasure Map zone being visible with 1m radius when nobody has the item
+    * (Note added in 1.1.13) This bugfix was not done correctly, therefore the bug is present in 1.1.12 and 1.1.13
 #### 1.1.11:
 * Nuclear Accelerator:
 	* Changed function: sprint to charge, increase damage by 10% per 4 seconds spent sprinting for 4 seconds after sprinting
