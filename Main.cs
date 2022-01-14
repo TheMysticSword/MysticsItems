@@ -76,7 +76,6 @@ namespace MysticsItems
             //DebugTools.Init();
 
             GenericCostTypes.Init();
-            PlainHologram.Init();
             SoftDependencies.SoftDependenciesCore.Init();
 
             MysticsRisky2Utils.ContentManagement.ContentLoadHelper.PluginAwakeLoad<MysticsRisky2Utils.BaseAssetTypes.BaseItem>(executingAssembly);

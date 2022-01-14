@@ -279,12 +279,12 @@ namespace MysticsItems.Items
 
             public GameObject GetHologramContentPrefab()
             {
-                return PlainHologram.prefab;
+                return MysticsRisky2Utils.PlainHologram.hologramContentPrefab;
             }
 
             public void UpdateHologramContent(GameObject hologramContentObject)
             {
-                PlainHologram.MysticsItemsPlainHologramContent component = hologramContentObject.GetComponent<PlainHologram.MysticsItemsPlainHologramContent>();
+                var component = hologramContentObject.GetComponent<PlainHologram.MysticsRisky2UtilsPlainHologramContent>();
                 if (component)
                 {
                     component.text = string.Format(
