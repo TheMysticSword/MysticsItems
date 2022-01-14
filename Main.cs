@@ -236,6 +236,8 @@ namespace MysticsItems
             public static ItemDef MysticsItems_Idol;
             public static ItemDef MysticsItems_KeepShopTerminalOpen;
             public static ItemDef MysticsItems_KeepShopTerminalOpenConsumed;
+            public static ItemDef MysticsItems_LimitedArmor;
+            public static ItemDef MysticsItems_LimitedArmorBroken;
             public static ItemDef MysticsItems_Manuscript;
             public static ItemDef MysticsItems_Moonglasses;
             public static ItemDef MysticsItems_MysticSword;

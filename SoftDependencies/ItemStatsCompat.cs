@@ -117,6 +117,27 @@ namespace MysticsItems.SoftDependencies
                     )
                 }
             });
+            // Cutesy Bow
+            ItemStats.ItemStatsMod.AddCustomItemStatDef(MysticsItemsContent.Items.MysticsItems_LimitedArmor.itemIndex, new ItemStats.ItemStatDef
+            {
+                Stats = new List<ItemStats.Stat.ItemStat>()
+                {
+                    new ItemStats.Stat.ItemStat(
+                        (itemCount, ctx) => ctx.Master && ctx.Master.GetComponent<Items.LimitedArmor.MysticsItemsLimitedArmorBehavior>() ? ctx.Master.GetComponent<Items.LimitedArmor.MysticsItemsLimitedArmorBehavior>().remainingHits : 0,
+                        (value, ctx) => Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_REMAINING", ItemStats.ValueFormatters.Extensions.FormatInt(value: value))
+                    )
+                }
+            });
+            ItemStats.ItemStatsMod.AddCustomItemStatDef(MysticsItemsContent.Items.MysticsItems_LimitedArmorBroken.itemIndex, new ItemStats.ItemStatDef
+            {
+                Stats = new List<ItemStats.Stat.ItemStat>()
+                {
+                    new ItemStats.Stat.ItemStat(
+                        (itemCount, ctx) => Items.LimitedArmorBroken.brokenArmor * itemCount,
+                        (value, ctx) => Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_ARMOR", ItemStats.ValueFormatters.Extensions.FormatInt(value: value, signed: true))
+                    )
+                }
+            });
 
             // Tier2
             // Vendetta
@@ -220,6 +241,7 @@ namespace MysticsItems.SoftDependencies
             });
             // Faulty Spotter
 
+            // Tier3
             // Crystallized World
             ItemStats.ItemStatsMod.AddCustomItemStatDef(MysticsItemsContent.Items.MysticsItems_CrystalWorld.itemIndex, new ItemStats.ItemStatDef
             {

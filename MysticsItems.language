@@ -35,6 +35,10 @@
     "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPENCONSUMED_PICKUP": "Recharges on the next stage.",
     "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPENCONSUMED_DESC": "Recharges on the next stage.",
 
+    "ITEM_MYSTICSITEMS_LIMITEDARMORBROKEN_NAME": "Frayed Bow",
+    "ITEM_MYSTICSITEMS_LIMITEDARMORBROKEN_PICKUP": "Slight armor increase.",
+    "ITEM_MYSTICSITEMS_LIMITEDARMORBROKEN_DESC": "Increases armor by <style=cIsUtility>{BrokenArmor} <style=cStack>(+{BrokenArmor} per stack)</style></style>.",
+
     //[TIER1]
     "ITEM_MYSTICSITEMS_HEALORBONBARREL_NAME": "Donut", // ["Food for thought" in the lore entry is a wordplay on donuts as a kind of food and "food for thought" as a metaphorical phrase]
     "ITEM_MYSTICSITEMS_HEALORBONBARREL_PICKUP": "Activating an interactable creates a healing orb.",
@@ -55,6 +59,10 @@
     "ITEM_MYSTICSITEMS_MANUSCRIPT_PICKUP": "Increase random stat by {StatBonus}%.",
     "ITEM_MYSTICSITEMS_MANUSCRIPT_DESC": "Increase <style=cIsUtility>1 <style=cStack>(+1 per stack)</style></style> random stat (maximum health/health regeneration/damage/movement speed/attack speed/crit chance/armor) by <style=cIsUtility>{StatBonus}%</style>.",
     "ITEM_MYSTICSITEMS_MANUSCRIPT_LORE": "<style=cMono>Audio-transcription from of***er ***********'s Class Z-3 Army Helmet complete.</style>\r\n\r\nZ-3 Ra-2: Ridiculous, this is just a piece of junk paper [static noise] mission #[unintelligble mumbling]\r\n\r\nZ-3 LE0-5: [strong interference] the planet [strong interference] on guard [strong interference]\r\n\r\nZ-3 Ra-2: Yes, dangerous beasts, [strong interference], [strong interference], g[strong interference], deserters, <mark=#ff0000ff>IMPS</mark>, this planet is way too dangerous for such a small pay, and there's no contact with \"[unintelligble mumbling]\"\r\n\r\nZ-3 LE0-5: Ra[strong interference]\r\n\r\nZ-3 Ra-2: [strong interference]\r\n\r\nZ-3 LE0-5: [strong interference]\r\n\r\nZ-3 Ra-2: [unintelligble mumbling]\r\n\r\nZ-3 LE0-5: [strong interference]\r\n\r\n[sounds of unknown origin]\r\n\r\n<style=cMono>--End of recording--</style>\r\n\r\nThe helmet was found with fatal damage, without oculars and a geolocator.",
+
+    "ITEM_MYSTICSITEMS_LIMITEDARMOR_NAME": "Cutesy Bow",
+    "ITEM_MYSTICSITEMS_LIMITEDARMOR_PICKUP": "Reduce damage against {Hits} hits.",
+    "ITEM_MYSTICSITEMS_LIMITEDARMOR_DESC": "Increases armor by <style=cIsUtility>{Armor}</style> against <style=cIsUtility>{Hits} hits <style=cStack>(+{Hits} hits per stack)</style></style>. On exhaustion, turns into <style=cIsUtility>Frayed Bow (always increases armor by {BrokenArmor})</style>.",
 
     //[TIER2]
     "ITEM_MYSTICSITEMS_COFFEEBOOSTONITEMPICKUP_NAME": "Cup of Expresso", // [Yes, it is specifically "expresso" in this item, because it makes you fast and inflicts an Express Boost buff. It's not a misspelling.]
@@ -278,6 +286,7 @@
     "ITEMSTATS_MYSTICSITEMS_PULSES": "Pulses: {0}", // [Crystallized World's pulses]
     "ITEMSTATS_MYSTICSITEMS_RADIUS": "Radius: {0}",
     "ITEMSTATS_MYSTICSITEMS_REGEN": "Health Regeneration: {0}",
+    "ITEMSTATS_MYSTICSITEMS_REMAINING": "Remaining: {0}", // [For bonuses that have limited uses]
     "ITEMSTATS_MYSTICSITEMS_TIME": "Time: {0}",
     "ITEMSTATS_MYSTICSITEMS_UNSTABLERIFTS": "Unstable Rifts Each Level: {0}",
     "ITEMSTATS_MYSTICSITEMS_UPTO": "Up to: {0}", // [For bonuses that increase something up to a certain value]
