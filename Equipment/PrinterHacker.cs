@@ -157,6 +157,10 @@ namespace MysticsItems.Equipment
         {
             public Transform GetTransform(MysticsItemsDuplicatorLocator source)
             {
+                if (source.shopTerminalBehavior && source.shopTerminalBehavior.pickupDisplay)
+                {
+                    return source.shopTerminalBehavior.pickupDisplay.transform;
+                }
                 return source.childTransform;
             }
 
