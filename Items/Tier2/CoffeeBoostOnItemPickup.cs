@@ -3,6 +3,10 @@ using R2API;
 using UnityEngine;
 using UnityEngine.Networking;
 using System.Linq;
+using MysticsRisky2Utils;
+using MysticsRisky2Utils.BaseAssetTypes;
+using RoR2.Audio;
+using static MysticsItems.BalanceConfigManager;
 
 namespace MysticsItems.Items
 {
@@ -10,23 +14,43 @@ namespace MysticsItems.Items
     {
         public static GameObject visualEffect;
 
-        public override void PreLoad()
+        public static ConfigurableValue<int> maxBuffs = new ConfigurableValue<int>(
+            "Item: Cup of Expresso",
+            "MaxBuffs",
+            3,
+            "Maximum amount of Express Boost buff stacks",
+            new System.Collections.Generic.List<string>()
+            {
+                "ITEM_MYSTICSITEMS_COFFEEBOOSTONITEMPICKUP_PICKUP",
+                "ITEM_MYSTICSITEMS_COFFEEBOOSTONITEMPICKUP_DESC"
+            }
+        );
+        public static ConfigurableValue<int> maxBuffsPerStack = new ConfigurableValue<int>(
+            "Item: Cup of Expresso",
+            "MaxBuffsPerStack",
+            2,
+            "More maximum amount of Express Boost buff stacks for each additional stack of this item",
+            new System.Collections.Generic.List<string>()
+            {
+                "ITEM_MYSTICSITEMS_COFFEEBOOSTONITEMPICKUP_DESC"
+            }
+        );
+
+        public override void OnLoad()
         {
-            itemDef.name = "CoffeeBoostOnItemPickup";
+            base.OnLoad();
+            itemDef.name = "MysticsItems_CoffeeBoostOnItemPickup";
             itemDef.tier = ItemTier.Tier2;
             itemDef.tags = new ItemTag[]
             {
                 ItemTag.Utility,
                 ItemTag.AIBlacklist
             };
-        }
-
-        public override void OnLoad()
-        {
-            base.OnLoad();
-            SetAssets("Coffee");
-            Main.HopooShaderToMaterial.Standard.Gloss(model.transform.Find("Цилиндр").Find("Цилиндр.001").GetComponent<Renderer>().sharedMaterial, 0f);
-            model.transform.Find("Цилиндр").Rotate(new Vector3(-30f, 0f, 0f), Space.Self);
+            itemDef.pickupModelPrefab = PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Coffee/Model.prefab"));
+            itemDef.pickupIconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Items/Coffee/Icon.png");
+            HopooShaderToMaterial.Standard.Gloss(itemDef.pickupModelPrefab.transform.Find("Цилиндр").Find("Цилиндр.001").GetComponent<Renderer>().sharedMaterial, 0f);
+            itemDisplayPrefab = PrepareItemDisplayModel(PrefabAPI.InstantiateClone(itemDef.pickupModelPrefab, itemDef.pickupModelPrefab.name + "Display", false));
+            itemDef.pickupModelPrefab.transform.Find("Цилиндр").Rotate(new Vector3(-30f, 0f, 0f), Space.Self);
             onSetupIDRS += () =>
             {
                 AddDisplayRule("CommandoBody", "HandR", new Vector3(-0.016F, 0.214F, -0.111F), new Vector3(33.043F, 10.378F, 286.615F), new Vector3(0.072F, 0.072F, 0.072F));
@@ -43,11 +67,10 @@ namespace MysticsItems.Items
                 AddDisplayRule("BrotherBody", "HandR", BrotherInfection.green, new Vector3(0.002F, 0.109F, 0.031F), new Vector3(72.72F, 119.024F, 264.129F), new Vector3(0.043F, 0.043F, 0.043F));
             };
 
-            visualEffect = PrefabAPI.InstantiateClone(new GameObject(), Main.TokenPrefix + "CoffeeBoostEffect", false);
+            visualEffect = PrefabAPI.InstantiateClone(new GameObject(), "MysticsItems_CoffeeBoostEffect", false);
             EffectComponent effectComponent = visualEffect.AddComponent<EffectComponent>();
             effectComponent.applyScale = true;
             effectComponent.parentToReferencedTransform = true;
-            effectComponent.soundName = "Play_item_proc_coffee";
             VFXAttributes vfxAttributes = visualEffect.AddComponent<VFXAttributes>();
             vfxAttributes.vfxPriority = VFXAttributes.VFXPriority.Always;
             vfxAttributes.vfxIntensity = VFXAttributes.VFXIntensity.Low;
@@ -61,14 +84,17 @@ namespace MysticsItems.Items
 
             On.RoR2.Inventory.GiveItem_ItemIndex_int += (orig, self, itemIndex, count) =>
             {
-                if (NetworkServer.active)
+                CharacterBody body = CharacterBody.readOnlyInstancesList.ToList().Find(body2 => body2.inventory == self);
+                if (body && self.GetItemCount(itemDef) > 0)
                 {
-                    CharacterBody body = CharacterBody.readOnlyInstancesList.ToList().Find(body2 => body2.inventory == self);
-                    if (body && self.GetItemCount(itemDef) > 0)
+                    bool playSound = false;
+
+                    for (int i = 0; i < count * GetBuffCountFromTier(ItemCatalog.GetItemDef(itemIndex).tier); i++)
                     {
-                        for (int i = 0; i < count * GetBuffCountFromTier(ItemCatalog.GetItemDef(itemIndex).tier); i++)
+                        if (body.GetBuffCount(MysticsItemsContent.Buffs.MysticsItems_CoffeeBoost) < (maxBuffs + maxBuffsPerStack * (self.GetItemCount(itemDef) - 1)))
                         {
-                            if (body.GetBuffCount(MysticsItemsContent.Buffs.CoffeeBoost) < (3 + 3 * (self.GetItemCount(itemDef) - 1)))
+                            playSound = true;
+                            if (NetworkServer.active)
                             {
                                 EffectData effectData = new EffectData
                                 {
@@ -78,38 +104,44 @@ namespace MysticsItems.Items
                                 };
                                 effectData.SetHurtBoxReference(body.gameObject);
                                 EffectManager.SpawnEffect(visualEffect, effectData, true);
-                                body.AddBuff(MysticsItemsContent.Buffs.CoffeeBoost);
+                                body.AddBuff(MysticsItemsContent.Buffs.MysticsItems_CoffeeBoost);
                             }
-                            else break;
                         }
+                        else break;
                     }
+
+                    if (playSound) Util.PlayAttackSpeedSound("Play_item_proc_coffee", body.gameObject, 1f + 0.2f * (float)(body.GetBuffCount(MysticsItemsContent.Buffs.MysticsItems_CoffeeBoost) - 1));
                 }
                 orig(self, itemIndex, count);
             };
+
             On.RoR2.Inventory.RemoveItem_ItemIndex_int += (orig, self, itemIndex, count) =>
             {
-                if (NetworkServer.active)
+                orig(self, itemIndex, count);
+                if (NetworkServer.active && itemIndex == itemDef.itemIndex && self.GetItemCount(itemIndex) <= 0)
                 {
                     CharacterBody body = CharacterBody.readOnlyInstancesList.ToList().Find(body2 => body2.inventory == self);
                     if (body)
                     {
-                        for (int i = 0; i < count * GetBuffCountFromTier(ItemCatalog.GetItemDef(itemIndex).tier); i++)
-                        {
-                            if (body.HasBuff(MysticsItemsContent.Buffs.CoffeeBoost)) body.RemoveBuff(MysticsItemsContent.Buffs.CoffeeBoost);
-                            else break;
-                        }
+                        while (body.GetBuffCount(MysticsItemsContent.Buffs.MysticsItems_CoffeeBoost) > 0)
+                            body.RemoveBuff(MysticsItemsContent.Buffs.MysticsItems_CoffeeBoost);
                     }
                 }
-                orig(self, itemIndex, count);
             };
-            On.RoR2.CharacterBody.OnInventoryChanged += (orig, self) =>
-            {
-                orig(self);
-                if (NetworkServer.active && self.inventory && self.inventory.GetItemCount(itemDef) <= 0)
+
+            On.RoR2.Language.GetLocalizedStringByToken += Language_GetLocalizedStringByToken;
+        }
+
+        private string Language_GetLocalizedStringByToken(On.RoR2.Language.orig_GetLocalizedStringByToken orig, Language self, string token)
+        {
+            var result = orig(self, token);
+            if (token == "ITEM_MYSTICSITEMS_COFFEEBOOSTONITEMPICKUP_DESC")
+                result = Utils.FormatStringByDict(result, new System.Collections.Generic.Dictionary<string, string>()
                 {
-                    while (self.HasBuff(MysticsItemsContent.Buffs.CoffeeBoost)) self.RemoveBuff(MysticsItemsContent.Buffs.CoffeeBoost);
-                }
-            };
+                    { "BoostPowerMax", (Buffs.CoffeeBoost.boostPower * maxBuffs).ToString() },
+                    { "BoostPowerMaxPerStack", (Buffs.CoffeeBoost.boostPower * maxBuffsPerStack).ToString() }
+                });
+            return result;
         }
 
         public int GetBuffCountFromTier(ItemTier tier)
@@ -117,7 +149,6 @@ namespace MysticsItems.Items
             switch (tier)
             {
                 case ItemTier.NoTier:
-                case ItemTier.Lunar:
                     return 0;
                 case ItemTier.Tier2:
                 case ItemTier.Boss:

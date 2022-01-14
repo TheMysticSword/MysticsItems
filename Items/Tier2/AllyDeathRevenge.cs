@@ -6,6 +6,10 @@ using Mono.Cecil.Cil;
 using MonoMod.Cil;
 using System.Collections.Generic;
 using RoR2.Audio;
+using MysticsRisky2Utils;
+using MysticsRisky2Utils.BaseAssetTypes;
+using R2API;
+using static MysticsItems.BalanceConfigManager;
 
 namespace MysticsItems.Items
 {
@@ -13,24 +17,44 @@ namespace MysticsItems.Items
     {
         public static NetworkSoundEventDef sfx;
 
-        public override void PreLoad()
+        public static ConfigurableValue<float> duration = new ConfigurableValue<float>(
+            "Item: Vendetta",
+            "Duration",
+            16f,
+            "How long should the buff last (in seconds)",
+            new System.Collections.Generic.List<string>()
+            {
+                "ITEM_MYSTICSITEMS_ALLYDEATHREVENGE_DESC"
+            }
+        );
+        public static ConfigurableValue<float> durationPerStack = new ConfigurableValue<float>(
+            "Item: Vendetta",
+            "DurationPerStack",
+            16f,
+            "How long should the buff last for each additional stack of this item (in seconds)",
+            new System.Collections.Generic.List<string>()
+            {
+                "ITEM_MYSTICSITEMS_ALLYDEATHREVENGE_DESC"
+            }
+        );
+
+        public override void OnLoad()
         {
-            itemDef.name = "AllyDeathRevenge";
+            base.OnLoad();
+            itemDef.name = "MysticsItems_AllyDeathRevenge";
             itemDef.tier = ItemTier.Tier2;
             itemDef.tags = new ItemTag[]
             {
                 ItemTag.Damage,
                 ItemTag.Utility
             };
-            SetUnlockable();
-        }
-
-        public override void OnLoad()
-        {
-            base.OnLoad();
-            SetAssets("Ally Death Revenge");
-            SetModelPanelDistance(0.75f, 1.5f);
-            CopyModelToFollower();
+            MysticsItemsContent.Resources.unlockableDefs.Add(GetUnlockableDef());
+            itemDef.pickupModelPrefab = PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Ally Death Revenge/Model.prefab"));
+            itemDef.pickupIconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Items/Ally Death Revenge/Icon.png");
+            ModelPanelParameters modelPanelParams = itemDef.pickupModelPrefab.GetComponentInChildren<ModelPanelParameters>();
+            modelPanelParams.minDistance = 0.75f;
+            modelPanelParams.maxDistance = 1.5f;
+            itemDisplayPrefab = PrepareItemDisplayModel(PrefabAPI.InstantiateClone(itemDef.pickupModelPrefab, itemDef.pickupModelPrefab.name + "Display", false));
             onSetupIDRS += () =>
             {
                 AddDisplayRule("CommandoBody", "LowerArmR", new Vector3(0.001F, 0.274F, -0.078F), new Vector3(7.29F, 186.203F, 0.157F), new Vector3(0.277F, 0.389F, 0.277F));
@@ -49,56 +73,34 @@ namespace MysticsItems.Items
                 AddDisplayRule("BrotherBody", "HandL", BrotherInfection.green, new Vector3(0.019F, -0.013F, 0.017F), new Vector3(348.105F, 324.594F, 242.165F), new Vector3(0.061F, 0.019F, 0.061F));
                 AddDisplayRule("ScavBody", "HandL", new Vector3(-3.491F, 2.547F, -2.4F), new Vector3(354.216F, 329.486F, 87.688F), new Vector3(7.501F, 7.7F, 7.501F));
             };
-            model.transform.Find("mdlAllyDeathRevenge").Rotate(new Vector3(0f, 0f, 160f), Space.Self);
-            model.transform.Find("mdlAllyDeathRevenge").localScale *= 0.8f;
+            itemDef.pickupModelPrefab.transform.Find("mdlAllyDeathRevenge").Rotate(new Vector3(0f, 0f, 160f), Space.Self);
+            itemDef.pickupModelPrefab.transform.Find("mdlAllyDeathRevenge").localScale *= 0.8f;
 
-            On.RoR2.CharacterMaster.OnBodyDeath += (orig, self, body) =>
-            {
-                orig(self, body);
-                if (NetworkServer.active)
-                {
-                    bool weakAlly = false;
-                    if (body.inventory && body.inventory.GetItemCount(RoR2Content.Items.HealthDecay) > 0) weakAlly = true;
-
-                    TeamIndex teamIndex = TeamComponent.GetObjectTeam(body.gameObject);
-                    foreach (CharacterBody body2 in CharacterBody.readOnlyInstancesList)
-                    {
-                        Inventory inventory = body2.inventory;
-                        if (inventory && inventory.GetItemCount(itemDef) > 0 && TeamComponent.GetObjectTeam(body2.gameObject) == teamIndex)
-                        {
-                            float time = weakAlly ? 1f + 1f * (inventory.GetItemCount(itemDef) - 1) : 8f + 8f * (inventory.GetItemCount(itemDef) - 1);
-                            
-                            if (!weakAlly && !body2.HasBuff(MysticsItemsContent.Buffs.AllyDeathRevenge)) EntitySoundManager.EmitSoundServer(sfx.index, body2.gameObject);
-
-                            body2.AddTimedBuff(MysticsItemsContent.Buffs.AllyDeathRevenge, time);
-                        }
-                    }
-                }
-            };
+            GlobalEventManager.onCharacterDeathGlobal += GlobalEventManager_onCharacterDeathGlobal;
 
             Overlays.CreateOverlay(Main.AssetBundle.LoadAsset<Material>("Assets/Items/Ally Death Revenge/matAllyDeathRevengeOverlay.mat"), delegate (CharacterModel model)
             {
-                return model.body.HasBuff(MysticsItemsContent.Buffs.AllyDeathRevenge);
+                return model.body.HasBuff(MysticsItemsContent.Buffs.MysticsItems_AllyDeathRevenge);
             });
 
             GameObject burningVFX = Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Ally Death Revenge/BurningVFX.prefab");
-            CustomTempVFXManagement.MysticsItemsCustomTempVFX tempVFX = burningVFX.AddComponent<CustomTempVFXManagement.MysticsItemsCustomTempVFX>();
+            CustomTempVFXManagement.MysticsRisky2UtilsTempVFX tempVFX = burningVFX.AddComponent<CustomTempVFXManagement.MysticsRisky2UtilsTempVFX>();
             tempVFX.rotateWithParent = true;
             tempVFX.enterObjects = new GameObject[]
             {
                 burningVFX.transform.Find("Origin").gameObject
             };
             Material matBurningVFX = burningVFX.transform.Find("Origin/Left").gameObject.GetComponent<Renderer>().sharedMaterial;
-            Main.HopooShaderToMaterial.CloudRemap.Apply(
+            HopooShaderToMaterial.CloudRemap.Apply(
                 matBurningVFX,
                 Main.AssetBundle.LoadAsset<Texture>("Assets/Items/Ally Death Revenge/texRampAllyDeathRevengeBurningEyes.png")
             );
-            Main.HopooShaderToMaterial.CloudRemap.Boost(matBurningVFX, 3f);
+            HopooShaderToMaterial.CloudRemap.Boost(matBurningVFX, 3f);
             burningVFX.transform.Find("Origin").gameObject.AddComponent<RotateObject>().rotationSpeed = new Vector3(0f, 400f, 0f);
             CustomTempVFXManagement.allVFX.Add(new CustomTempVFXManagement.VFXInfo
             {
                 prefab = burningVFX,
-                condition = (x) => x.HasBuff(MysticsItemsContent.Buffs.AllyDeathRevenge),
+                condition = (x) => x.HasBuff(MysticsItemsContent.Buffs.MysticsItems_AllyDeathRevenge),
                 radius = CustomTempVFXManagement.DefaultRadiusCall,
                 child = "Head"
             });
@@ -106,6 +108,25 @@ namespace MysticsItems.Items
             sfx = ScriptableObject.CreateInstance<NetworkSoundEventDef>();
             sfx.eventName = "Play_item_allydeathrevenge_proc";
             MysticsItemsContent.Resources.networkSoundEventDefs.Add(sfx);
+        }
+
+        private void GlobalEventManager_onCharacterDeathGlobal(DamageReport damageReport)
+        {
+            if (NetworkServer.active && damageReport.victimMaster && damageReport.victimMaster.GetKillerBodyIndex() != BodyIndex.None)
+            {
+                foreach (var teamMember in TeamComponent.GetTeamMembers(damageReport.victimTeamIndex))
+                {
+                    if (teamMember.body && teamMember.body.inventory)
+                    {
+                        int itemCount = teamMember.body.inventory.GetItemCount(itemDef);
+                        if (itemCount > 0)
+                        {
+                            EntitySoundManager.EmitSoundServer(sfx.index, teamMember.body.gameObject);
+                            teamMember.body.AddTimedBuff(MysticsItemsContent.Buffs.MysticsItems_AllyDeathRevenge, duration + durationPerStack * (itemCount - 1));
+                        }
+                    }
+                }
+            }
         }
     }
 }

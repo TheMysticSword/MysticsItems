@@ -6,6 +6,9 @@ using UnityEngine;
 using UnityEngine.Networking;
 using System.Collections.Generic;
 using System.Linq;
+using MysticsRisky2Utils;
+using MysticsRisky2Utils.BaseAssetTypes;
+using static MysticsItems.BalanceConfigManager;
 
 namespace MysticsItems.Equipment
 {
@@ -13,21 +16,21 @@ namespace MysticsItems.Equipment
     {
         public static GameObject crosshairPrefab;
 
-        public override void PreLoad()
-        {
-            equipmentDef.name = "PrinterHacker";
-            equipmentDef.cooldown = 45f;
-            equipmentDef.canDrop = true;
-            equipmentDef.enigmaCompatible = true;
-        }
-
         public override void OnLoad()
         {
-            SetAssets("Wirehack Wrench");
-            Main.HopooShaderToMaterial.Standard.Gloss(GetModelMaterial(), 1f, 20f);
-            CopyModelToFollower();
-            model.transform.Find("d4b43750924799f8").Rotate(new Vector3(0f, 0f, -30f), Space.Self);
-            SetModelPanelDistance(5f, 10f);
+            equipmentDef.name = "MysticsItems_PrinterHacker";
+            equipmentDef.cooldown = new ConfigurableCooldown("Equipment: Wirehack Wrench", 45f).Value;
+            equipmentDef.canDrop = true;
+            equipmentDef.enigmaCompatible = new ConfigurableEnigmaCompatibleBool("Equipment: Wirehack Wrench", false).Value;
+            equipmentDef.pickupModelPrefab = PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Equipment/Wirehack Wrench/Model.prefab"));
+            equipmentDef.pickupIconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Equipment/Wirehack Wrench/Icon.png");
+
+            HopooShaderToMaterial.Standard.Gloss(equipmentDef.pickupModelPrefab.GetComponentInChildren<Renderer>().sharedMaterial, 1f, 20f);
+            itemDisplayPrefab = PrepareItemDisplayModel(PrefabAPI.InstantiateClone(equipmentDef.pickupModelPrefab, equipmentDef.pickupModelPrefab.name + "Display", false));
+            equipmentDef.pickupModelPrefab.transform.Find("d4b43750924799f8").Rotate(new Vector3(0f, 0f, -30f), Space.Self);
+            var modelPanelParams = equipmentDef.pickupModelPrefab.GetComponent<ModelPanelParameters>();
+            modelPanelParams.minDistance = 5;
+            modelPanelParams.maxDistance = 10;
             onSetupIDRS += () =>
             {
                 AddDisplayRule("CommandoBody", "Stomach", new Vector3(-0.163F, 0.092F, -0.036F), new Vector3(356.022F, 118.071F, 26.4F), new Vector3(0.024F, 0.024F, 0.024F));
@@ -45,7 +48,7 @@ namespace MysticsItems.Equipment
                 AddDisplayRule("EquipmentDroneBody", "GunBarrelBase", new Vector3(0F, 0F, 1.1F), new Vector3(52.577F, 0F, 0.001F), new Vector3(0.283F, 0.283F, 0.283F));
             };
 
-            crosshairPrefab = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/WoodSpriteIndicator"), Main.TokenPrefix + "PrinterHackerIndicator", false);
+            crosshairPrefab = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/WoodSpriteIndicator"), "MysticsItems_PrinterHackerIndicator", false);
             Object.Destroy(crosshairPrefab.GetComponentInChildren<Rewired.ComponentControls.Effects.RotateAroundAxis>());
             crosshairPrefab.GetComponentInChildren<SpriteRenderer>().sprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Equipment/Wirehack Wrench/Crosshair.png");
             crosshairPrefab.GetComponentInChildren<SpriteRenderer>().color = new Color32(255, 235, 75, 255);
@@ -61,7 +64,7 @@ namespace MysticsItems.Equipment
             On.RoR2.PurchaseInteraction.Awake += (orig, self) =>
             {
                 orig(self);
-                string properName = CustomUtils.TrimCloneFromString(self.name);
+                string properName = MysticsRisky2Utils.Utils.TrimCloneFromString(self.name);
                 if (properName == "Duplicator"
                 || properName == "DuplicatorLarge"
                 || properName == "DuplicatorWild"
@@ -81,7 +84,7 @@ namespace MysticsItems.Equipment
                 orig(self);
                 if (self.equipmentIndex == equipmentDef.equipmentIndex)
                 {
-                    MysticsItemsEquipmentTarget targetInfo = self.GetComponent<MysticsItemsEquipmentTarget>();
+                    MysticsRisky2UtilsEquipmentTarget targetInfo = self.GetComponent<MysticsRisky2UtilsEquipmentTarget>();
                     if (targetInfo)
                     {
                         DuplicatorSearch duplicatorSearch = targetInfo.GetCustomTargetFinder<DuplicatorSearch>();
@@ -115,7 +118,7 @@ namespace MysticsItems.Equipment
 
         public override bool OnUse(EquipmentSlot equipmentSlot)
         {
-            MysticsItemsEquipmentTarget targetInfo = equipmentSlot.GetComponent<MysticsItemsEquipmentTarget>();
+            MysticsRisky2UtilsEquipmentTarget targetInfo = equipmentSlot.GetComponent<MysticsRisky2UtilsEquipmentTarget>();
             if (targetInfo)
             {
                 if (targetInfo.obj)

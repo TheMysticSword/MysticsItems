@@ -11,7 +11,7 @@ namespace MysticsItems
 
         public static void Init()
         {
-            prefab = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/CostHologramContent"), Main.TokenPrefix + "TreasureMapHologramContent", false);
+            prefab = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/CostHologramContent"), "MysticsItems_TreasureMapHologramContent", false);
             CostHologramContent costHologramContent = prefab.GetComponent<CostHologramContent>();
             MysticsItemsPlainHologramContent plainHologramContent = prefab.AddComponent<MysticsItemsPlainHologramContent>();
             plainHologramContent.targetTextMesh = costHologramContent.targetTextMesh;

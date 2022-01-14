@@ -1,4 +1,6 @@
+using MysticsRisky2Utils.BaseAssetTypes;
 using RoR2;
+using UnityEngine;
 
 namespace MysticsItems.Achievements
 {
@@ -6,8 +8,9 @@ namespace MysticsItems.Achievements
     {
         public override void OnLoad()
         {
-            name = "FindArchaicMask";
-            unlockableName = Main.TokenPrefix + "Equipment.ArchaicMask";
+            name = "MysticsItems_FindArchaicMask";
+            unlockableName = "Equipment.MysticsItems_ArchaicMask";
+			iconSprite = MysticsRisky2Utils.Utils.AddItemIconBackgroundToSprite(Main.AssetBundle.LoadAsset<Sprite>("Assets/Equipment/Archaic Mask/Icon.png"), MysticsRisky2Utils.Utils.ItemIconBackgroundType.Equipment);
 			trackerType = typeof(Tracker);
 			serverTrackerType = typeof(Tracker.Server);
         }

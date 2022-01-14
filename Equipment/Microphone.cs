@@ -9,6 +9,9 @@ using MonoMod.Cil;
 using System.Reflection;
 using System.Collections.Generic;
 using RoR2.Audio;
+using MysticsRisky2Utils;
+using MysticsRisky2Utils.BaseAssetTypes;
+using static MysticsItems.BalanceConfigManager;
 
 namespace MysticsItems.Equipment
 {
@@ -21,27 +24,44 @@ namespace MysticsItems.Equipment
         public static int shotsPerCast = 3;
         public static NetworkSoundEventDef sound;
 
+        public static ConfigurableValue<float> duration = new ConfigurableValue<float>(
+            "Equipment: Vintage Microphone",
+            "Duration",
+            15f,
+            "Deafen debuff duration (in seconds)",
+            new List<string>()
+            {
+                "EQUIPMENT_MYSTICSITEMS_MICROPHONE_DESC"
+            }
+        );
+        public static ConfigurableValue<float> boostDistance = new ConfigurableValue<float>(
+            "Equipment: Vintage Microphone",
+            "BoostDistance",
+            15f,
+            "How far should it launch the owner when used mid-air (in meters)"
+        );
+        
         public override void OnPluginAwake()
         {
-            waveProjectile = PrefabAPI.InstantiateClone(new GameObject(), Main.TokenPrefix + "MicrophoneSoundwave", false);
+            waveProjectile = PrefabAPI.InstantiateClone(new GameObject(), "MysticsItems_MicrophoneSoundwave", false);
             waveProjectile.AddComponent<NetworkIdentity>().localPlayerAuthority = true;
             PrefabAPI.RegisterNetworkPrefab(waveProjectile);
         }
 
-        public override void PreLoad()
-        {
-            equipmentDef.name = "Microphone";
-            equipmentDef.cooldown = 60f;
-            equipmentDef.canDrop = true;
-            equipmentDef.enigmaCompatible = true;
-        }
-
         public override void OnLoad()
         {
-            SetAssets("Microphone");
-            SetModelPanelDistance(5f, 15f);
-            Main.HopooShaderToMaterial.Standard.Gloss(GetModelMaterial(), 1f, 15f);
-            CopyModelToFollower();
+            equipmentDef.name = "MysticsItems_Microphone";
+            equipmentDef.cooldown = new ConfigurableCooldown("Equipment: Vintage Microphone", 60f).Value;
+            equipmentDef.canDrop = true;
+            equipmentDef.enigmaCompatible = new ConfigurableEnigmaCompatibleBool("Equipment: Vintage Microphone", true).Value;
+            equipmentDef.pickupModelPrefab = PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Equipment/Microphone/Model.prefab"));
+            equipmentDef.pickupIconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Equipment/Microphone/Icon.png");
+
+            var modelPanelParams = equipmentDef.pickupModelPrefab.GetComponent<ModelPanelParameters>();
+            modelPanelParams.minDistance = 5;
+            modelPanelParams.maxDistance = 15;
+            HopooShaderToMaterial.Standard.Gloss(equipmentDef.pickupModelPrefab.GetComponentInChildren<Renderer>().sharedMaterial, 1f, 15f);
+            itemDisplayPrefab = PrepareItemDisplayModel(PrefabAPI.InstantiateClone(equipmentDef.pickupModelPrefab, equipmentDef.pickupModelPrefab.name + "Display", false));
             onSetupIDRS += () =>
             {
                 AddDisplayRule("CommandoBody", "Stomach", new Vector3(-0.131F, 0.101F, -0.106F), new Vector3(353.789F, 220.459F, 176.094F), new Vector3(0.024F, 0.024F, 0.024F));
@@ -62,7 +82,7 @@ namespace MysticsItems.Equipment
             wavePrefab = Main.AssetBundle.LoadAsset<GameObject>("Assets/Equipment/Microphone/MicrophoneSoundwaveGhost.prefab");
             wavePrefab.AddComponent<ProjectileGhostController>();
 
-            CustomUtils.CopyChildren(Main.AssetBundle.LoadAsset<GameObject>("Assets/Equipment/Microphone/MicrophoneSoundwave.prefab"), waveProjectile);
+            MysticsRisky2Utils.Utils.CopyChildren(Main.AssetBundle.LoadAsset<GameObject>("Assets/Equipment/Microphone/MicrophoneSoundwave.prefab"), waveProjectile);
             MicrophoneSoundwaveProjectile msp = waveProjectile.AddComponent<MicrophoneSoundwaveProjectile>();
             msp.colorCurve = new AnimationCurve[]
             {
@@ -77,6 +97,7 @@ namespace MysticsItems.Equipment
             };
             ProjectileController projectileController = waveProjectile.AddComponent<ProjectileController>();
             projectileController.ghostPrefab = wavePrefab;
+            projectileController.allowPrediction = true;
             waveProjectile.AddComponent<ProjectileNetworkTransform>();
             waveProjectile.AddComponent<TeamFilter>();
             ProjectileDamage projectileDamage = waveProjectile.AddComponent<ProjectileDamage>();
@@ -91,7 +112,7 @@ namespace MysticsItems.Equipment
             projectileOverlapAttack.damageCoefficient = 0f;
             projectileOverlapAttack.overlapProcCoefficient = 0f;
             ProjectileInflictTimedBuff projectileInflictTimedBuff = waveProjectile.AddComponent<ProjectileInflictTimedBuff>();
-            projectileInflictTimedBuff.duration = 15f;
+            projectileInflictTimedBuff.duration = duration.Value;
 
             MysticsItemsContent.Resources.projectilePrefabs.Add(waveProjectile);
 
@@ -163,6 +184,8 @@ namespace MysticsItems.Equipment
                             (byte)colorCurve[2].Evaluate(t),
                             (byte)colorCurve[3].Evaluate(t)
                         ));
+                        materialPropertyBlock.SetFloat("_Zoom", colorCurve[3].Evaluate(t));
+                        materialPropertyBlock.SetFloat("_DistortionPower", colorCurve[3].Evaluate(t));
                         renderer.SetPropertyBlock(materialPropertyBlock);
                     }
                 }
@@ -199,6 +222,28 @@ namespace MysticsItems.Equipment
                 {
                     interval = intervalMax;
                     ammo--;
+
+                    var characterBody = equipmentSlot.characterBody;
+                    if (characterBody)
+                    {
+                        if (!characterBody.characterMotor || !characterBody.characterMotor.isGrounded)
+                        {
+                            var height = boostDistance.Value;
+                            var mass = characterBody.characterMotor ? characterBody.characterMotor.mass : (characterBody.rigidbody ? characterBody.rigidbody.mass : 1f);
+                            var ySpeed = Trajectory.CalculateInitialYSpeedForHeight(height, -characterBody.acceleration);
+
+                            var force = -ySpeed * mass * equipmentSlot.GetAimRay().direction;
+
+                            if (characterBody.characterMotor)
+                            {
+                                characterBody.characterMotor.ApplyForce(force, false, false);
+                            }
+                            else if (characterBody.rigidbody)
+                            {
+                                characterBody.rigidbody.AddForce(force, ForceMode.Impulse);
+                            }
+                        }
+                    }
 
                     Vector3 position = transform.position;
                     for (int i = 0; i < shotsPerCast; i++)

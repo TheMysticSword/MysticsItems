@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using HG;
 using UnityEngine;
+using MysticsRisky2Utils;
 
 namespace MysticsItems
 {
@@ -11,7 +12,7 @@ namespace MysticsItems
         public static void Init()
         {
             CostTypeDef costType_ItemFraction = new CostTypeDef();
-            costType_ItemFraction.costStringFormatToken = "COST_" + Main.TokenPrefix.ToUpper() + "PERCENTAGEITEMS_FORMAT";
+            costType_ItemFraction.costStringFormatToken = "COST_MYSTICSITEMS_PERCENTAGEITEMS_FORMAT";
             costType_ItemFraction.isAffordable = delegate (CostTypeDef costTypeDef2, CostTypeDef.IsAffordableContext context)
             {
                 CharacterBody body = context.activator.gameObject.GetComponent<CharacterBody>();
@@ -95,7 +96,9 @@ namespace MysticsItems
             CostTypeCreation.CreateCostType(new CostTypeCreation.CustomCostTypeInfo
             {
                 costTypeDef = costType_ItemFraction,
-                onRegister = (costTypeIndex) => { OnItemFractionCostTypeRegister(costTypeIndex); }
+                onRegister = (costTypeIndex) => {
+                    if (OnItemFractionCostTypeRegister != null) OnItemFractionCostTypeRegister(costTypeIndex);
+                }
             });
             On.RoR2.Language.GetLocalizedFormattedStringByToken += (orig, self, token, args) =>
             {

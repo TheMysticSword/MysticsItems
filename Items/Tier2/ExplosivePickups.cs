@@ -5,6 +5,9 @@ using UnityEngine.Networking;
 using System.Linq;
 using Mono.Cecil.Cil;
 using MonoMod.Cil;
+using MysticsRisky2Utils;
+using MysticsRisky2Utils.BaseAssetTypes;
+using static MysticsItems.BalanceConfigManager;
 
 namespace MysticsItems.Items
 {
@@ -13,35 +16,87 @@ namespace MysticsItems.Items
         public static GameObject gunpowderPickup;
         public static GameObject explosionPrefab;
 
+        public static ConfigurableValue<float> damage = new ConfigurableValue<float>(
+            "Item: Contraband Gunpowder",
+            "Damage",
+            500f,
+            "Explosion damage (in %)",
+            new System.Collections.Generic.List<string>()
+            {
+                "ITEM_MYSTICSITEMS_EXPLOSIVEPICKUPS_DESC"
+            }
+        );
+        public static ConfigurableValue<float> damagePerStack = new ConfigurableValue<float>(
+            "Item: Contraband Gunpowder",
+            "DamagePerStack",
+            400f,
+            "Explosion damage for each additional stack of this item (in %)",
+            new System.Collections.Generic.List<string>()
+            {
+                "ITEM_MYSTICSITEMS_EXPLOSIVEPICKUPS_DESC"
+            }
+        );
+        public static ConfigurableValue<float> radius = new ConfigurableValue<float>(
+            "Item: Contraband Gunpowder",
+            "Radius",
+            15f,
+            "Explosion radius (in meters)",
+            new System.Collections.Generic.List<string>()
+            {
+                "ITEM_MYSTICSITEMS_EXPLOSIVEPICKUPS_DESC"
+            }
+        );
+        public static ConfigurableValue<float> radiusPerStack = new ConfigurableValue<float>(
+            "Item: Contraband Gunpowder",
+            "RadiusPerStack",
+            3f,
+            "Explosion radius for each additional stack of this item (in meters)",
+            new System.Collections.Generic.List<string>()
+            {
+                "ITEM_MYSTICSITEMS_EXPLOSIVEPICKUPS_DESC"
+            }
+        );
+        public static ConfigurableValue<float> procCoefficient = new ConfigurableValue<float>(
+            "Item: Contraband Gunpowder",
+            "ProcCoefficient",
+            1f,
+            "Explosion proc coefficient (in %)"
+        );
+        public static ConfigurableValue<float> flaskDropChance = new ConfigurableValue<float>(
+            "Item: Contraband Gunpowder",
+            "FlaskDropChance",
+            25f,
+            "Chance on kill to drop a powder flask pickup (in %)",
+            new System.Collections.Generic.List<string>()
+            {
+                "ITEM_MYSTICSITEMS_EXPLOSIVEPICKUPS_DESC"
+            }
+        );
+
         public override void OnPluginAwake()
         {
-            gunpowderPickup = CustomUtils.CreateBlankPrefab(Main.TokenPrefix + "ExplosivePack", true);
+            gunpowderPickup = MysticsRisky2Utils.Utils.CreateBlankPrefab("MysticsItems_ExplosivePack", true);
         }
 
-        public override void PreLoad()
+        public override void OnLoad()
         {
-            itemDef.name = "ExplosivePickups";
+            base.OnLoad();
+            itemDef.name = "MysticsItems_ExplosivePickups";
             itemDef.tier = ItemTier.Tier2;
             itemDef.tags = new ItemTag[]
             {
                 ItemTag.Utility,
                 ItemTag.OnKillEffect
             };
-        }
-
-        public override void OnLoad()
-        {
-            base.OnLoad();
-            SetAssets("Contraband Gunpowder");
-            Main.HopooShaderToMaterial.Standard.Apply(
-                model.transform.Find("мешок").Find("порох").GetComponent<MeshRenderer>().sharedMaterial,
-                model.transform.Find("мешок").GetComponent<MeshRenderer>().sharedMaterial,
-                model.transform.Find("мешок").Find("верёвка").GetComponent<MeshRenderer>().sharedMaterial
-            );
-            Main.HopooShaderToMaterial.Standard.Gloss(model.transform.Find("мешок").Find("порох").GetComponent<MeshRenderer>().sharedMaterial, 0f);
-            Main.HopooShaderToMaterial.Standard.Gloss(model.transform.Find("мешок").GetComponent<MeshRenderer>().sharedMaterial, 0f);
-            Main.HopooShaderToMaterial.Standard.Gloss(model.transform.Find("мешок").Find("верёвка").GetComponent<MeshRenderer>().sharedMaterial, 0.4f);
-            CopyModelToFollower();
+            itemDef.pickupModelPrefab = PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Contraband Gunpowder/Model.prefab"));
+            itemDef.pickupIconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Items/Contraband Gunpowder/Icon.png");
+            HopooShaderToMaterial.Standard.Apply(itemDef.pickupModelPrefab.transform.Find("мешок").Find("порох").GetComponent<MeshRenderer>().sharedMaterial);
+            HopooShaderToMaterial.Standard.Apply(itemDef.pickupModelPrefab.transform.Find("мешок").GetComponent<MeshRenderer>().sharedMaterial);
+            HopooShaderToMaterial.Standard.Apply(itemDef.pickupModelPrefab.transform.Find("мешок").Find("верёвка").GetComponent<MeshRenderer>().sharedMaterial);
+            HopooShaderToMaterial.Standard.Gloss(itemDef.pickupModelPrefab.transform.Find("мешок").Find("порох").GetComponent<MeshRenderer>().sharedMaterial, 0f);
+            HopooShaderToMaterial.Standard.Gloss(itemDef.pickupModelPrefab.transform.Find("мешок").GetComponent<MeshRenderer>().sharedMaterial, 0f);
+            HopooShaderToMaterial.Standard.Gloss(itemDef.pickupModelPrefab.transform.Find("мешок").Find("верёвка").GetComponent<MeshRenderer>().sharedMaterial, 0.4f);
+            itemDisplayPrefab = PrepareItemDisplayModel(PrefabAPI.InstantiateClone(itemDef.pickupModelPrefab, itemDef.pickupModelPrefab.name + "Display", false));
             onSetupIDRS += () =>
             {
                 AddDisplayRule("CommandoBody", "Stomach", new Vector3(-0.175F, 0.066F, 0.045F), new Vector3(16.687F, 66.665F, 36.228F), new Vector3(0.042F, 0.042F, 0.042F));
@@ -61,7 +116,7 @@ namespace MysticsItems.Items
                 AddDisplayRule("ScavBody", "MuzzleEnergyCannon", new Vector3(0.586F, 3.872F, 0.073F), new Vector3(54.107F, 148.5F, 149.008F), new Vector3(0.835F, 0.858F, 0.835F));
             };
 
-            CustomUtils.CopyChildren(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Contraband Gunpowder/ExplosivePack.prefab"), gunpowderPickup);
+            MysticsRisky2Utils.Utils.CopyChildren(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Contraband Gunpowder/ExplosivePack.prefab"), gunpowderPickup);
             gunpowderPickup.transform.localScale *= 0.33f;
             
             gunpowderPickup.layer = LayerIndex.debris.intVal;
@@ -136,19 +191,13 @@ namespace MysticsItems.Items
             AssetManager.RegisterEffect(explosionPrefab);
             */
 
-            explosionPrefab = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/Effects/OmniEffect/OmniExplosionVFXQuick"), Main.TokenPrefix + "OmiExplosionVFXExplosivePickups", false);
-            Object.Destroy(explosionPrefab.transform.Find("ScaledHitsparks 1").gameObject);
-            Object.Destroy(explosionPrefab.transform.Find("UnscaledHitsparks 1").gameObject);
-            Object.Destroy(explosionPrefab.transform.Find("ScaledSmoke, Billboard").gameObject);
-            Object.Destroy(explosionPrefab.transform.Find("ScaledSmokeRing, Mesh").gameObject);
-            Object.Destroy(explosionPrefab.transform.Find("Unscaled Smoke, Billboard").gameObject);
-            //Object.Destroy(explosionPrefab.transform.Find("AreaIndicatorRing, Billboard").gameObject);
-            Object.Destroy(explosionPrefab.transform.Find("AreaIndicatorRing, Random Billboard").gameObject);
-            Object.Destroy(explosionPrefab.transform.Find("Physics Sparks").gameObject);
-            Object.Destroy(explosionPrefab.transform.Find("Flash, Soft Glow").gameObject);
-            Object.Destroy(explosionPrefab.transform.Find("Unscaled Flames").gameObject);
-            Object.Destroy(explosionPrefab.transform.Find("Dash, Bright").gameObject);
-            Object.Destroy(explosionPrefab.transform.Find("Point Light").gameObject);
+            explosionPrefab = PrefabAPI.InstantiateClone(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Contraband Gunpowder/Explosion.prefab"), "MysticsItems_OmniExplosionVFXExplosivePickups", false);
+            VFXAttributes vfxAttributes = explosionPrefab.AddComponent<VFXAttributes>();
+            vfxAttributes.vfxIntensity = VFXAttributes.VFXIntensity.Medium;
+            vfxAttributes.vfxPriority = VFXAttributes.VFXPriority.Always;
+            EffectComponent effectComponent = explosionPrefab.AddComponent<EffectComponent>();
+            effectComponent.applyScale = true;
+            effectComponent.soundName = "MysticsItems_Play_item_proc_gunpowder";
             MysticsItemsContent.Resources.effectPrefabs.Add(explosionPrefab);
 
             /*
@@ -171,7 +220,7 @@ namespace MysticsItems.Items
             On.RoR2.CharacterBody.HandleOnKillEffectsServer += (orig, self, damageReport) =>
             {
                 orig(self, damageReport);
-                if (self.inventory && self.inventory.GetItemCount(MysticsItemsContent.Items.ExplosivePickups) > 0 && self.master && Util.CheckRoll(10f, self.master))
+                if (self.inventory && self.inventory.GetItemCount(MysticsItemsContent.Items.MysticsItems_ExplosivePickups) > 0 && self.master && Util.CheckRoll(flaskDropChance, self.master))
                 {
                     GameObject gameObject = Object.Instantiate(gunpowderPickup, Util.GetCorePosition(damageReport.victim.gameObject), Quaternion.Euler(Random.onUnitSphere.normalized));
                     gameObject.GetComponent<TeamFilter>().teamIndex = TeamComponent.GetObjectTeam(self.gameObject);
@@ -198,7 +247,7 @@ namespace MysticsItems.Items
                         if (body)
                         {
                             Inventory inventory = body.inventory;
-                            if (inventory && inventory.GetItemCount(MysticsItemsContent.Items.ExplosivePickups) > 0)
+                            if (inventory && inventory.GetItemCount(MysticsItemsContent.Items.MysticsItems_ExplosivePickups) > 0)
                             {
                                 Explode(body);
                             }
@@ -226,7 +275,7 @@ namespace MysticsItems.Items
                         if (body)
                         {
                             Inventory inventory = body.inventory;
-                            if (inventory && inventory.GetItemCount(MysticsItemsContent.Items.ExplosivePickups) > 0)
+                            if (inventory && inventory.GetItemCount(MysticsItemsContent.Items.MysticsItems_ExplosivePickups) > 0)
                             {
                                 Explode(body);
                             }
@@ -254,7 +303,7 @@ namespace MysticsItems.Items
                         if (body)
                         {
                             Inventory inventory = body.inventory;
-                            if (inventory && inventory.GetItemCount(MysticsItemsContent.Items.ExplosivePickups) > 0)
+                            if (inventory && inventory.GetItemCount(MysticsItemsContent.Items.MysticsItems_ExplosivePickups) > 0)
                             {
                                 Explode(body);
                             }
@@ -282,7 +331,7 @@ namespace MysticsItems.Items
                         if (body)
                         {
                             Inventory inventory = body.inventory;
-                            if (inventory && inventory.GetItemCount(MysticsItemsContent.Items.ExplosivePickups) > 0)
+                            if (inventory && inventory.GetItemCount(MysticsItemsContent.Items.MysticsItems_ExplosivePickups) > 0)
                             {
                                 Explode(body);
                             }
@@ -295,8 +344,8 @@ namespace MysticsItems.Items
         public static void Explode(CharacterBody body)
         {
             if (body.inventory) {
-                int itemCount = body.inventory.GetItemCount(MysticsItemsContent.Items.ExplosivePickups);
-                Explode(body.gameObject, body.corePosition, body.damage * 2.5f + 2f * (float)(itemCount - 1), 8f + 1.6f * (float)(itemCount - 1), body.RollCrit());
+                int itemCount = body.inventory.GetItemCount(MysticsItemsContent.Items.MysticsItems_ExplosivePickups);
+                Explode(body.gameObject, body.corePosition, body.damage * damage / 100f + damagePerStack / 100f * (float)(itemCount - 1), radius + radiusPerStack * (float)(itemCount - 1), body.RollCrit());
             }
         }
 
@@ -321,7 +370,7 @@ namespace MysticsItems.Items
                     teamIndex = TeamComponent.GetObjectTeam(attacker),
                     crit = crit,
                     procChainMask = default,
-                    procCoefficient = 0f, // Keep this at 0% to prevent elemental band proccing
+                    procCoefficient = procCoefficient,
                     damageColorIndex = DamageColorIndex.Item,
                     falloffModel = BlastAttack.FalloffModel.None,
                     damageType = DamageType.AOE
@@ -339,7 +388,7 @@ namespace MysticsItems.Items
 
             public void Awake()
             {
-                itemIndex = MysticsItemsContent.Items.ExplosivePickups.itemIndex;
+                itemIndex = MysticsItemsContent.Items.MysticsItems_ExplosivePickups.itemIndex;
             }
 
             public void OnTriggerStay(Collider collider)
@@ -372,7 +421,7 @@ namespace MysticsItems.Items
 
             public void Awake()
             {
-                itemIndex = MysticsItemsContent.Items.ExplosivePickups.itemIndex;
+                itemIndex = MysticsItemsContent.Items.MysticsItems_ExplosivePickups.itemIndex;
             }
 
             public void FixedUpdate()

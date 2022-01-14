@@ -6,6 +6,9 @@ using UnityEngine.Networking;
 using System.Linq;
 using Mono.Cecil.Cil;
 using MonoMod.Cil;
+using MysticsRisky2Utils;
+using MysticsRisky2Utils.BaseAssetTypes;
+using static MysticsItems.BalanceConfigManager;
 
 namespace MysticsItems.Items
 {
@@ -13,9 +16,51 @@ namespace MysticsItems.Items
     {
         public static GameObject visualEffect;
 
-        public override void PreLoad()
+        public static ConfigurableValue<float> passiveShield = new ConfigurableValue<float>(
+            "Item: Wireless Voltmeter",
+            "PassiveShield",
+            12f,
+            "Passive shield bonus for the first stack of this item (in %)",
+            new System.Collections.Generic.List<string>()
+            {
+                "ITEM_MYSTICSITEMS_VOLTMETER_DESC"
+            }
+        );
+        public static ConfigurableValue<float> damage = new ConfigurableValue<float>(
+            "Item: Wireless Voltmeter",
+            "Damage",
+            1600f,
+            "Reflected damage multiplier (in %)",
+            new System.Collections.Generic.List<string>()
+            {
+                "ITEM_MYSTICSITEMS_VOLTMETER_DESC"
+            }
+        );
+        public static ConfigurableValue<float> damagePerStack = new ConfigurableValue<float>(
+            "Item: Wireless Voltmeter",
+            "DamagePerStack",
+            800f,
+            "Reflected damage multiplier for each additional stack of this item (in %)",
+            new System.Collections.Generic.List<string>()
+            {
+                "ITEM_MYSTICSITEMS_VOLTMETER_DESC"
+            }
+        );
+        public static ConfigurableValue<float> radius = new ConfigurableValue<float>(
+            "Item: Wireless Voltmeter",
+            "Radius",
+            25f,
+            "Damage reflection radius (in meters)",
+            new System.Collections.Generic.List<string>()
+            {
+                "ITEM_MYSTICSITEMS_VOLTMETER_DESC"
+            }
+        );
+
+        public override void OnLoad()
         {
-            itemDef.name = "Voltmeter";
+            base.OnLoad();
+            itemDef.name = "MysticsItems_Voltmeter";
             itemDef.tier = ItemTier.Tier3;
             itemDef.tags = new ItemTag[]
             {
@@ -24,22 +69,18 @@ namespace MysticsItems.Items
                 ItemTag.AIBlacklist,
                 ItemTag.BrotherBlacklist
             };
-        }
-
-        public override void OnLoad()
-        {
-            base.OnLoad();
-            SetAssets("Voltmeter");
-            Material matVoltmeterCoil = model.transform.Find("Цилиндр.001").GetComponent<MeshRenderer>().sharedMaterial;
-            Main.HopooShaderToMaterial.Standard.Apply(matVoltmeterCoil);
-            Main.HopooShaderToMaterial.Standard.Emission(matVoltmeterCoil, 2f, matVoltmeterCoil.color);
-            Material matVoltmeter = model.transform.Find("Cube").GetComponent<MeshRenderer>().sharedMaterial;
-            Main.HopooShaderToMaterial.Standard.Apply(matVoltmeter);
-            Main.HopooShaderToMaterial.Standard.Gloss(matVoltmeter, 0.09f);
-            Main.HopooShaderToMaterial.Standard.Emission(matVoltmeter, 0.2f, new Color32(52, 37, 29, 255));
-            PointerAnimator pointerAnimator = model.AddComponent<PointerAnimator>();
-            pointerAnimator.pointer = model.transform.Find("PointerCenter").gameObject;
-            CopyModelToFollower();
+            itemDef.pickupModelPrefab = PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Voltmeter/Model.prefab"));
+            itemDef.pickupIconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Items/Voltmeter/Icon.png");
+            Material matVoltmeterCoil = itemDef.pickupModelPrefab.transform.Find("Цилиндр.001").GetComponent<MeshRenderer>().sharedMaterial;
+            HopooShaderToMaterial.Standard.Apply(matVoltmeterCoil);
+            HopooShaderToMaterial.Standard.Emission(matVoltmeterCoil, 2f, matVoltmeterCoil.color);
+            Material matVoltmeter = itemDef.pickupModelPrefab.transform.Find("Cube").GetComponent<MeshRenderer>().sharedMaterial;
+            HopooShaderToMaterial.Standard.Apply(matVoltmeter);
+            HopooShaderToMaterial.Standard.Gloss(matVoltmeter, 0.09f);
+            HopooShaderToMaterial.Standard.Emission(matVoltmeter, 0.2f, new Color32(52, 37, 29, 255));
+            PointerAnimator pointerAnimator = itemDef.pickupModelPrefab.AddComponent<PointerAnimator>();
+            pointerAnimator.pointer = itemDef.pickupModelPrefab.transform.Find("PointerCenter").gameObject;
+            itemDisplayPrefab = PrepareItemDisplayModel(PrefabAPI.InstantiateClone(itemDef.pickupModelPrefab, itemDef.pickupModelPrefab.name + "Display", false));
             onSetupIDRS += () =>
             {
                 AddDisplayRule("CommandoBody", "Stomach", new Vector3(0.042F, 0.096F, -0.119F), new Vector3(4.394F, 73.472F, 2.074F), new Vector3(0.02F, 0.02F, 0.02F));
@@ -64,19 +105,17 @@ namespace MysticsItems.Items
                 self.gameObject.AddComponent<PreDamageShield>();
             };
 
-            GenericGameEvents.BeforeTakeDamage += (damage, characterInfo) =>
+            GenericGameEvents.BeforeTakeDamage += (damageInfo, attackerInfo, victimInfo) =>
             {
-                PreDamageShield preDamageShield = characterInfo.gameObject.GetComponent<PreDamageShield>();
-                if (preDamageShield && characterInfo.healthComponent) preDamageShield.value = characterInfo.healthComponent.shield;
+                PreDamageShield preDamageShield = victimInfo.gameObject.GetComponent<PreDamageShield>();
+                if (preDamageShield && victimInfo.healthComponent) preDamageShield.value = victimInfo.healthComponent.shield;
             };
 
-            GenericGameEvents.OnTakeDamage += (damageInfo, characterInfo) =>
+            GenericGameEvents.OnTakeDamage += (damageReport) =>
             {
-                PreDamageShield preDamageShield = characterInfo.gameObject.GetComponent<PreDamageShield>();
-                if (characterInfo.inventory && characterInfo.inventory.GetItemCount(itemDef) > 0 && preDamageShield && preDamageShield.value > 0f)
+                PreDamageShield preDamageShield = damageReport.victim.GetComponent<PreDamageShield>();
+                if (damageReport.victimBody.inventory && damageReport.victimBody.inventory.GetItemCount(itemDef) > 0 && preDamageShield && preDamageShield.value > 0f)
                 {
-                    float radius = 25f;
-
                     /*
                     EffectManager.SpawnEffect(Resources.Load<GameObject>("Prefabs/Effects/LightningStakeNova"), new EffectData
                     {
@@ -106,26 +145,27 @@ namespace MysticsItems.Items
 
                     BullseyeSearch search = new BullseyeSearch
                     {
-                        searchOrigin = characterInfo.gameObject.transform.position,
+                        searchOrigin = damageReport.victim.transform.position,
                         searchDirection = Vector3.zero,
                         teamMaskFilter = TeamMask.allButNeutral
                     };
-                    search.teamMaskFilter.RemoveTeam(characterInfo.teamIndex);
+                    search.teamMaskFilter.RemoveTeam(damageReport.victimTeamIndex);
                     search.filterByLoS = false;
                     search.sortMode = BullseyeSearch.SortMode.Distance;
                     search.maxDistanceFilter = radius;
                     search.RefreshCandidates();
 
+                    bool crit = damageReport.victimBody.RollCrit();
                     foreach (HurtBox hurtBox in search.GetResults())
                     {
                         LightningOrb lightningOrb = new LightningOrb
                         {
-                            origin = characterInfo.body.corePosition,
-                            damageValue = damageInfo.damage * (8f + (characterInfo.inventory.GetItemCount(itemDef) - 1)),
-                            isCrit = damageInfo.crit,
+                            origin = damageReport.victimBody.corePosition,
+                            damageValue = damageReport.damageDealt * (damage / 100f + damagePerStack / 100f * (damageReport.victimBody.inventory.GetItemCount(itemDef) - 1)),
+                            isCrit = crit,
                             bouncesRemaining = 0,
-                            teamIndex = characterInfo.teamIndex,
-                            attacker = characterInfo.gameObject,
+                            teamIndex = damageReport.victimTeamIndex,
+                            attacker = damageReport.victim.gameObject,
                             procCoefficient = 0f,
                             lightningType = LightningOrb.LightningType.Ukulele,
                             damageColorIndex = DamageColorIndex.Item,
@@ -137,11 +177,15 @@ namespace MysticsItems.Items
                 }
             };
 
-            CharacterStats.shieldModifiers.Add(new CharacterStats.StatModifier
+            RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
+        }
+
+        private void RecalculateStatsAPI_GetStatCoefficients(CharacterBody sender, RecalculateStatsAPI.StatHookEventArgs args)
+        {
+            if (sender.inventory && sender.inventory.GetItemCount(itemDef) > 0)
             {
-                multiplier = 0.04f,
-                times = characterInfo => characterInfo.inventory && characterInfo.inventory.GetItemCount(itemDef) > 0 ? 1 : 0
-            });
+                args.shieldMultAdd += passiveShield / 100f;
+            }
         }
 
         public class PointerAnimator : MonoBehaviour

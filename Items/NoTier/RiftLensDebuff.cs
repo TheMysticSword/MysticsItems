@@ -1,31 +1,24 @@
 using RoR2;
 using UnityEngine;
 using Rewired.ComponentControls.Effects;
+using MysticsRisky2Utils;
+using MysticsRisky2Utils.BaseAssetTypes;
 
 namespace MysticsItems.Items
 {
     public class RiftLensDebuff : BaseItem
     {
-        public override void PreLoad()
-        {
-            itemDef.name = "RiftLensDebuff";
-            itemDef.tier = ItemTier.NoTier;
-        }
-
         public override void OnLoad()
         {
             base.OnLoad();
-            SetIcon("Rift Lens Debuff");
-
-            CharacterStats.moveSpeedModifiers.Add(new CharacterStats.StatModifier
-            {
-                multiplier = -0.5f,
-                times = (x) => ModifierTimesFunction(x, false)
-            });
+            itemDef.name = "MysticsItems_RiftLensDebuff";
+            itemDef.tier = ItemTier.NoTier;
+            itemDef.canRemove = false;
+            itemDef.pickupIconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Items/Rift Lens Debuff/Icon.png");
 
             GameObject debuffedVFX = Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Rift Lens Debuff/RiftLensAfflictionVFX.prefab");
             GameObject vfxOrigin = debuffedVFX.transform.Find("Origin").gameObject;
-            CustomTempVFXManagement.MysticsItemsCustomTempVFX tempVFX = debuffedVFX.AddComponent<CustomTempVFXManagement.MysticsItemsCustomTempVFX>();
+            CustomTempVFXManagement.MysticsRisky2UtilsTempVFX tempVFX = debuffedVFX.AddComponent<CustomTempVFXManagement.MysticsRisky2UtilsTempVFX>();
             RotateAroundAxis rotateAroundAxis = vfxOrigin.AddComponent<RotateAroundAxis>();
             rotateAroundAxis.relativeTo = Space.Self;
             rotateAroundAxis.rotateAroundAxis = RotateAroundAxis.RotationAxis.X;
@@ -52,7 +45,7 @@ namespace MysticsItems.Items
                 prefab = debuffedVFX,
                 condition = (x) => {
                     Inventory inventory = x.inventory;
-                    if (inventory) return inventory.GetItemCount(MysticsItemsContent.Items.RiftLensDebuff) > 0;
+                    if (inventory) return inventory.GetItemCount(MysticsItemsContent.Items.MysticsItems_RiftLensDebuff) > 0;
                     return false;
                 },
                 radius = CustomTempVFXManagement.DefaultRadiusCall

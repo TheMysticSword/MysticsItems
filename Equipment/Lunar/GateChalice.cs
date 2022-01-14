@@ -9,6 +9,11 @@ using MonoMod.Cil;
 using System.Reflection;
 using System.Collections.ObjectModel;
 using RoR2.UI;
+using MysticsRisky2Utils;
+using System.Linq;
+using System.Collections.Generic;
+using MysticsRisky2Utils.BaseAssetTypes;
+using static MysticsItems.BalanceConfigManager;
 
 namespace MysticsItems.Equipment
 {
@@ -18,32 +23,44 @@ namespace MysticsItems.Equipment
         public static GameObject visualEffectTeleportOut;
         public static GameObject sceneExitControllerObject;
 
+        public static GameObject itemDestroyEffectPrefab;
+
+        public static ConfigurableValue<int> itemsToDestroy = new ConfigurableValue<int>(
+            "Equipment: Gate Chalice",
+            "ItemsToDestroy",
+            2,
+            "Amount of random items to remove on use",
+            new List<string>()
+            {
+                "EQUIPMENT_MYSTICSITEMS_GATECHALICE_PICKUP",
+                "EQUIPMENT_MYSTICSITEMS_GATECHALICE_DESC"
+            }
+        );
+        
         public override void OnPluginAwake()
         {
-            sceneExitControllerObject = CustomUtils.CreateBlankPrefab(Main.TokenPrefix + "GateChaliceSceneExitControllerObject", true);
-        }
-
-        public override void PreLoad()
-        {
-            equipmentDef.name = "GateChalice";
-            equipmentDef.cooldown = 140f;
-            equipmentDef.canDrop = true;
-            equipmentDef.enigmaCompatible = true;
-            equipmentDef.isLunar = true;
-            equipmentDef.colorIndex = ColorCatalog.ColorIndex.LunarItem;
+            sceneExitControllerObject = MysticsRisky2Utils.Utils.CreateBlankPrefab("MysticsItems_GateChaliceSceneExitControllerObject", true);
         }
 
         public override void OnLoad()
         {
             base.OnLoad();
-            SetAssets("Gate Chalice");
-            Material mat = model.transform.Find("mdlGateChalice").gameObject.GetComponent<MeshRenderer>().sharedMaterial;
-            Main.HopooShaderToMaterial.Standard.Apply(mat);
-            Main.HopooShaderToMaterial.Standard.Gloss(mat, 0.5f);
-            Main.HopooShaderToMaterial.Standard.Emission(mat, 0.02f, new Color(48f / 255f, 127f / 255f, 255f / 255f));
-            foreach (Transform lightTransform in model.transform.Find("mdlGateChalice").Find("Lights"))
+            equipmentDef.name = "MysticsItems_GateChalice";
+            equipmentDef.cooldown = new ConfigurableCooldown("Equipment: Gate Chalice", 60f).Value;
+            equipmentDef.canDrop = true;
+            equipmentDef.enigmaCompatible = new ConfigurableEnigmaCompatibleBool("Equipment: Gate Chalice", false).Value;
+            equipmentDef.isLunar = true;
+            equipmentDef.colorIndex = ColorCatalog.ColorIndex.LunarItem;
+            equipmentDef.pickupModelPrefab = PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Equipment/Gate Chalice/Model.prefab"));
+            equipmentDef.pickupIconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Equipment/Gate Chalice/Icon.png");
+
+            Material mat = equipmentDef.pickupModelPrefab.transform.Find("mdlGateChalice").gameObject.GetComponent<MeshRenderer>().sharedMaterial;
+            HopooShaderToMaterial.Standard.Apply(mat);
+            HopooShaderToMaterial.Standard.Gloss(mat, 0.5f);
+            HopooShaderToMaterial.Standard.Emission(mat, 0.02f, new Color(48f / 255f, 127f / 255f, 255f / 255f));
+            foreach (Transform lightTransform in equipmentDef.pickupModelPrefab.transform.Find("mdlGateChalice").Find("Lights"))
             {
-                SetScalableChildEffect(lightTransform.gameObject);
+                SetScalableChildEffect(equipmentDef.pickupModelPrefab, lightTransform.gameObject);
                 FlickerLight flickerLight = lightTransform.gameObject.AddComponent<FlickerLight>();
                 flickerLight.light = lightTransform.gameObject.GetComponent<Light>();
                 flickerLight.sinWaves = new Wave[] {
@@ -61,7 +78,7 @@ namespace MysticsItems.Equipment
                     }
                 };
             }
-            CopyModelToFollower();
+            itemDisplayPrefab = PrepareItemDisplayModel(PrefabAPI.InstantiateClone(equipmentDef.pickupModelPrefab, equipmentDef.pickupModelPrefab.name + "Display", false));
             onSetupIDRS += () =>
             {
                 AddDisplayRule("CommandoBody", "Stomach", new Vector3(-0.09F, 0.1F, -0.102F), new Vector3(5.862F, 140.357F, 1.915F), new Vector3(0.059F, 0.059F, 0.059F));
@@ -79,7 +96,7 @@ namespace MysticsItems.Equipment
                 AddDisplayRule("EquipmentDroneBody", "GunBarrelBase", new Vector3(0F, 0F, 1.069F), new Vector3(0F, 0F, 0F), new Vector3(0.267F, 0.267F, 0.267F));
             };
             
-            visualEffectOnUse = PrefabAPI.InstantiateClone(new GameObject(), Main.TokenPrefix + "GateChaliceOnUseEffect", false);
+            visualEffectOnUse = PrefabAPI.InstantiateClone(new GameObject(), "MysticsItems_GateChaliceOnUseEffect", false);
             EffectComponent effectComponent = visualEffectOnUse.AddComponent<EffectComponent>();
             effectComponent.soundName = "Play_env_teleporter_active_button";
             effectComponent.positionAtReferencedTransform = true;
@@ -129,7 +146,7 @@ namespace MysticsItems.Equipment
 
             MysticsItemsContent.Resources.effectPrefabs.Add(visualEffectOnUse);
 
-            visualEffectTeleportOut = PrefabAPI.InstantiateClone(new GameObject(), Main.TokenPrefix + "GateChaliceTeleportOutEffect", false);
+            visualEffectTeleportOut = PrefabAPI.InstantiateClone(new GameObject(), "MysticsItems_GateChaliceTeleportOutEffect", false);
             effectComponent = visualEffectTeleportOut.AddComponent<EffectComponent>();
             vfxAttributes = visualEffectTeleportOut.AddComponent<VFXAttributes>();
             vfxAttributes.vfxPriority = VFXAttributes.VFXPriority.Always;
@@ -161,16 +178,94 @@ namespace MysticsItems.Equipment
             sceneExitController.useRunNextStageScene = true;
             sceneExitControllerObject.AddComponent<MysticsItemsGateChaliceSceneExit>();
 
-            TeleporterInteraction.onTeleporterChargedGlobal += (teleporterInteraction) =>
+            itemDestroyEffectPrefab = PrefabAPI.InstantiateClone(new GameObject(), "MysticsItems_GateChaliceItemDestroyEffect", false);
+            EntityStateMachine entityStateMachine = itemDestroyEffectPrefab.AddComponent<EntityStateMachine>();
+            entityStateMachine.initialStateType = entityStateMachine.mainStateType = new EntityStates.SerializableEntityStateType(typeof(MysticsItemsGateChaliceItemDestroyEffect));
+            PickupDisplay pickupDisplay = itemDestroyEffectPrefab.AddComponent<PickupDisplay>();
+            Rigidbody rigidbody = itemDestroyEffectPrefab.AddComponent<Rigidbody>();
+            rigidbody.useGravity = false;
+            rigidbody.drag = 2f;
+            effectComponent = itemDestroyEffectPrefab.AddComponent<EffectComponent>();
+            effectComponent.applyScale = true;
+            effectComponent.soundName = "Play_moonBrother_phase4_itemSuck_returnSingle";
+            vfxAttributes = itemDestroyEffectPrefab.AddComponent<VFXAttributes>();
+            vfxAttributes.vfxIntensity = VFXAttributes.VFXIntensity.High;
+            vfxAttributes.vfxPriority = VFXAttributes.VFXPriority.Always;
+            Highlight highlight = itemDestroyEffectPrefab.AddComponent<Highlight>();
+            pickupDisplay.highlight = highlight;
+            highlight.highlightColor = Highlight.HighlightColor.pickup;
+            MysticsItemsContent.Resources.effectPrefabs.Add(itemDestroyEffectPrefab);
+        }
+
+        public class MysticsItemsGateChaliceItemDestroyEffect : EntityStates.EntityState
+        {
+            public float shatterTime = 1.5f;
+            public bool shatterFlag = false;
+            public float duration = 3f;
+
+            public EffectComponent effectComponent;
+            public PickupDisplay pickupDisplay;
+            
+            public override void OnEnter()
             {
-                foreach (CharacterMaster master in CharacterMaster.readOnlyInstancesList)
+                base.OnEnter();
+                effectComponent = GetComponent<EffectComponent>();
+                pickupDisplay = GetComponent<PickupDisplay>();
+                if (effectComponent)
                 {
-                    if (master.teamIndex == TeamIndex.Player)
+                    if (pickupDisplay)
                     {
-                        master.inventory.RemoveItem(MysticsItemsContent.Items.GateChaliceDebuff, master.inventory.GetItemCount(MysticsItemsContent.Items.GateChaliceDebuff));
+                        pickupDisplay.SetPickupIndex(new PickupIndex((int)effectComponent.effectData.genericUInt), false);
+                    }
+                    if (rigidbody)
+                    {
+                        var force = Vector3.up;
+                        force = Quaternion.AngleAxis(45f, Vector3.forward) * force;
+                        force = Quaternion.AngleAxis(effectComponent.effectData.genericFloat, Vector3.up) * force;
+                        rigidbody.AddForce(force * 400f);
                     }
                 }
-            };
+            }
+
+            public override void Update()
+            {
+                base.Update();
+                if (age >= shatterTime && !shatterFlag)
+                {
+                    shatterFlag = true;
+                    if (pickupDisplay && pickupDisplay.modelObject)
+                    {
+                        var childLocator = pickupDisplay.modelObject.GetComponent<ChildLocator>();
+                        if (!childLocator) childLocator = pickupDisplay.modelObject.AddComponent<ChildLocator>();
+                        if (childLocator.transformPairs == null) childLocator.transformPairs = new ChildLocator.NameTransformPair[] { };
+                        var transformPair = new ChildLocator.NameTransformPair
+                        {
+                            name = "ShatterOrigin",
+                            transform = pickupDisplay.modelObject.transform
+                        };
+                        HGArrayUtilities.ArrayAppend(ref childLocator.transformPairs, ref transformPair);
+
+                        TemporaryOverlay temporaryOverlay = pickupDisplay.modelObject.AddComponent<TemporaryOverlay>();
+                        temporaryOverlay.duration = 0.5f;
+                        temporaryOverlay.destroyObjectOnEnd = true;
+                        temporaryOverlay.originalMaterial = Resources.Load<Material>("Materials/matShatteredGlass");
+                        temporaryOverlay.destroyEffectPrefab = (GameObject)Resources.Load("Prefabs/Effects/BrittleDeath");
+                        temporaryOverlay.destroyEffectChildString = "ShatterOrigin";
+                        temporaryOverlay.alphaCurve = AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
+                        temporaryOverlay.animateShaderAlpha = true;
+                        temporaryOverlay.SetupMaterial();
+
+                        var renderer = pickupDisplay.modelRenderer;
+                        if (renderer)
+                        {
+                            var materials = renderer.materials;
+                            HGArrayUtilities.ArrayAppend(ref materials, ref temporaryOverlay.materialInstance);
+                            renderer.materials = materials;
+                        }
+                    }
+                }
+                if (age >= duration) Object.Destroy(gameObject);
+            }
         }
 
         private class MysticsItemsGateChalicePPController : MonoBehaviour
@@ -206,10 +301,14 @@ namespace MysticsItems.Equipment
             public void Start()
             {
                 controller = GetComponent<SceneExitController>();
-                if (SceneInfo.instance && SceneInfo.instance.sceneDef.isFinalStage)
+                if (TeleporterInteraction.instance)
                 {
-                    controller.useRunNextStageScene = false;
-                    controller.destinationScene = SceneInfo.instance.sceneDef;
+                    var sceneExitController = TeleporterInteraction.instance.sceneExitController;
+                    if (sceneExitController && !sceneExitController.useRunNextStageScene)
+                    {
+                        controller.useRunNextStageScene = false;
+                        controller.destinationScene = sceneExitController.destinationScene;
+                    }
                 }
                 controller.Begin();
             }
@@ -227,31 +326,45 @@ namespace MysticsItems.Equipment
 
         public override bool OnUse(EquipmentSlot equipmentSlot)
         {
-            CharacterBody characterBody = equipmentSlot.characterBody;
-            if (!characterBody.healthComponent.alive) return false;
-            EffectData effectData = new EffectData
+            if (!SceneExitController.isRunning && (!SceneCatalog.currentSceneDef || !SceneCatalog.currentSceneDef.isFinalStage))
             {
-                origin = characterBody.corePosition,
-                scale = characterBody.radius
-            };
-            effectData.SetHurtBoxReference(characterBody.gameObject);
-            EffectManager.SpawnEffect(visualEffectOnUse, effectData, true);
-            GameObject sceneExit = Object.Instantiate(sceneExitControllerObject, characterBody.corePosition, Quaternion.identity);
-            sceneExit.GetComponent<MysticsItemsGateChaliceSceneExit>().attach = characterBody.gameObject.transform;
-
-            foreach (CharacterMaster master in CharacterMaster.readOnlyInstancesList)
-            {
-                if (master.teamIndex == TeamIndex.Player)
+                CharacterBody characterBody = equipmentSlot.characterBody;
+                if (characterBody.healthComponent.alive) return false;
+                EffectData effectData = new EffectData
                 {
-                    master.inventory.GiveItem(MysticsItemsContent.Items.GateChaliceDebuff);
-                    ReadOnlyCollection<NotificationQueue> readOnlyCollection = NotificationQueue.readOnlyInstancesList;
-                    for (int i = 0; i < readOnlyCollection.Count; i++)
+                    origin = characterBody.corePosition,
+                    scale = characterBody.radius
+                };
+                effectData.SetHurtBoxReference(characterBody.gameObject);
+                EffectManager.SpawnEffect(visualEffectOnUse, effectData, true);
+                GameObject sceneExit = Object.Instantiate(sceneExitControllerObject, characterBody.corePosition, Quaternion.identity);
+                sceneExit.GetComponent<MysticsItemsGateChaliceSceneExit>().attach = characterBody.gameObject.transform;
+
+                if (equipmentSlot.inventory)
+                {
+                    List<ItemIndex> list = equipmentSlot.inventory.itemAcquisitionOrder;
+                    for (var i = 0; i < itemsToDestroy.Value; i++)
                     {
-                        readOnlyCollection[i].OnPickup(master, PickupCatalog.FindPickupIndex(MysticsItemsContent.Items.GateChaliceDebuff.itemIndex));
+                        if (list.Count <= 0) break;
+                        ItemIndex itemIndex = list[Mathf.FloorToInt((list.Count - 1) * Random.value)];
+                        ItemDef itemDef = ItemCatalog.GetItemDef(itemIndex);
+                        if (itemDef.canRemove)
+                        {
+                            equipmentSlot.inventory.RemoveItem(itemIndex);
+
+                            PickupIndex pickupIndex = PickupCatalog.FindPickupIndex(itemIndex);
+
+                            EffectManager.SpawnEffect(itemDestroyEffectPrefab, new EffectData
+                            {
+                                origin = equipmentSlot.characterBody.corePosition,
+                                scale = equipmentSlot.characterBody.radius * 2f,
+                                genericUInt = (uint)pickupIndex.value,
+                                genericFloat = 360f / (float)itemsToDestroy.Value * (float)i
+                            }, true);
+                        }
                     }
                 }
             }
-
             return true;
         }
     }

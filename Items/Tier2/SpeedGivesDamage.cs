@@ -7,76 +7,115 @@ using System.Reflection;
 using System.Collections;
 using System.Collections.Generic;
 using RoR2.Audio;
+using MysticsRisky2Utils;
+using MysticsRisky2Utils.BaseAssetTypes;
+using MonoMod.Cil;
+using static MysticsItems.BalanceConfigManager;
 
 namespace MysticsItems.Items
 {
     public class SpeedGivesDamage : BaseItem
     {
-        public static BuffDef buffDef;
-
-        public static int maxDamageBoost = 10;
-        public static float maxSpeedMultiplierRequirement = 7f;
-
-        public static float percentPerBuffStack = 10f;
-        public static float speedRequirementPerBuffStack = 100f;
-
-        public static GameObject particleSystemPrefab;
-        public static NetworkSoundEventDef sfx;
-
-        public override void PreLoad()
-        {
-            itemDef.name = "SpeedGivesDamage";
-            itemDef.tier = ItemTier.Tier2;
-            itemDef.tags = new ItemTag[]
+        public static ConfigurableValue<float> passiveSpeed = new ConfigurableValue<float>(
+            "Item: Nuclear Accelerator",
+            "PassiveSpeed",
+            10f,
+            "Movement speed increase from the first stack of this item (in %)",
+            new System.Collections.Generic.List<string>()
             {
-                ItemTag.Utility
-            };
-        }
+                "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_DESC"
+            }
+        );
+        public static ConfigurableValue<float> damage = new ConfigurableValue<float>(
+            "Item: Nuclear Accelerator",
+            "Damage",
+            1f,
+            "Damage increase for every 1% of speed increase (in %)",
+            new System.Collections.Generic.List<string>()
+            {
+                "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_DESC"
+            }
+        );
+        public static ConfigurableValue<float> damagePerStack = new ConfigurableValue<float>(
+            "Item: Nuclear Accelerator",
+            "DamagePerStack",
+            0.5f,
+            "Damage increase for every 1% of speed increase for every additional stack of this item (in %)",
+            new System.Collections.Generic.List<string>()
+            {
+                "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_DESC"
+            }
+        );
+        public static ConfigurableValue<bool> sprintCounts = new ConfigurableValue<bool>(
+            "Item: Nuclear Accelerator",
+            "SprintCounts",
+            true,
+            "If true, sprint speed multiplier (x1.45 by default) also increases damage"
+        );
 
         public override void OnLoad()
         {
             base.OnLoad();
-            SetAssets("Nuclear Accelerator");
-            Main.HopooShaderToMaterial.Standard.Apply(GetModelMaterial());
-            Main.HopooShaderToMaterial.Standard.Emission(GetModelMaterial());
-            model.AddComponent<MysticsItemsNuclearAcceleratorGlow>();
-            CopyModelToFollower();
+            itemDef.name = "MysticsItems_SpeedGivesDamage";
+            itemDef.tier = ItemTier.Tier2;
+            itemDef.tags = new ItemTag[]
+            {
+                ItemTag.Damage,
+                ItemTag.Utility
+            };
+            itemDef.pickupModelPrefab = PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Nuclear Accelerator/Model.prefab"));
+            itemDef.pickupIconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Items/Nuclear Accelerator/Icon.png");
+            itemDisplayPrefab = PrepareItemDisplayModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Nuclear Accelerator/ItemDisplayModel.prefab"));
+            void ApplyToModel(GameObject model)
+            {
+                HopooShaderToMaterial.Standard.Apply(model.GetComponentInChildren<Renderer>().sharedMaterial);
+                HopooShaderToMaterial.Standard.Emission(model.GetComponentInChildren<Renderer>().sharedMaterial);
+                model.AddComponent<MysticsItemsNuclearAcceleratorGlow>();
+            }
+            ApplyToModel(itemDef.pickupModelPrefab);
+            ApplyToModel(itemDisplayPrefab);
             onSetupIDRS += () =>
             {
-                AddDisplayRule("CommandoBody", "CalfR", new Vector3(0.01F, 0.221F, 0.091F), new Vector3(283.928F, 181.008F, 20.003F), new Vector3(0.039F, 0.039F, 0.039F));
-                AddDisplayRule("HuntressBody", "CalfR", new Vector3(0.01F, 0.28F, 0.087F), new Vector3(295.556F, 204.302F, 333.758F), new Vector3(0.033F, 0.033F, 0.033F));
-                AddDisplayRule("Bandit2Body", "CalfR", new Vector3(0F, 0.354F, 0.06F), new Vector3(72.024F, 4.881F, 354.627F), new Vector3(0.039F, 0.039F, 0.039F));
-                AddDisplayRule("ToolbotBody", "CalfR", new Vector3(0.037F, -0.291F, -0.267F), new Vector3(3.679F, 176.776F, 177.782F), new Vector3(0.495F, 0.495F, 0.495F));
-                AddDisplayRule("EngiBody", "CannonHeadR", new Vector3(-0.185F, 0.279F, -0.044F), new Vector3(356.274F, 1.409F, 91.632F), new Vector3(0.052F, 0.093F, 0.052F));
-                AddDisplayRule("EngiTurretBody", "LegBar3", new Vector3(0F, -0.013F, 0.071F), new Vector3(270.02F, 180F, 0F), new Vector3(0.211F, 0.211F, 0.211F));
-                AddDisplayRule("EngiWalkerTurretBody", "LegBar3", new Vector3(0F, -0.013F, 0.071F), new Vector3(270.02F, 180F, 0F), new Vector3(0.211F, 0.211F, 0.211F));
-                AddDisplayRule("MageBody", "Chest", new Vector3(0.115F, 0.315F, -0.182F), new Vector3(351.323F, 180F, 0F), new Vector3(0.047F, 0.047F, 0.047F));
-                AddDisplayRule("MageBody", "Chest", new Vector3(-0.111F, 0.315F, -0.182F), new Vector3(351.323F, 180F, 0F), new Vector3(0.047F, 0.047F, 0.047F));
-                AddDisplayRule("MercBody", "CalfR", new Vector3(0F, 0.08F, 0.105F), new Vector3(85.174F, 0F, 0F), new Vector3(0.039F, 0.039F, 0.039F));
-                AddDisplayRule("TreebotBody", "FootBackR", new Vector3(0.124F, -0.044F, 0.006F), new Vector3(1.536F, 177.979F, 88.624F), new Vector3(0.077F, 0.077F, 0.077F));
-                AddDisplayRule("LoaderBody", "MechHandR", new Vector3(0.069F, 0.125F, 0.115F), new Vector3(279.578F, 350.353F, 218.5F), new Vector3(0.043F, 0.043F, 0.043F));
-                AddDisplayRule("CrocoBody", "CalfR", new Vector3(0.189F, 1.849F, 0.453F), new Vector3(279.59F, 160.263F, 10.136F), new Vector3(0.387F, 0.387F, 0.387F));
-                AddDisplayRule("CaptainBody", "CalfR", new Vector3(0.015F, 0.214F, 0.085F), new Vector3(74.208F, 0F, 0F), new Vector3(0.045F, 0.045F, 0.045F));
+                AddDisplayRule("CommandoBody", "ThighL", new Vector3(0.06317F, 0.35321F, -0.00313F), new Vector3(279.3661F, 188.532F, 65.6066F), new Vector3(0.04149F, 0.04149F, 0.04149F));
+                AddDisplayRule("HuntressBody", "ThighR", new Vector3(-0.10573F, 0.20407F, 0.05449F), new Vector3(88.68747F, 59.52037F, 158.7484F), new Vector3(0.04791F, 0.04791F, 0.04791F));
+                AddDisplayRule("Bandit2Body", "ThighR", new Vector3(-0.07541F, 0.27521F, 0.00958F), new Vector3(84.7448F, 48.91237F, 137.3522F), new Vector3(0.04852F, 0.04852F, 0.04852F));
+                AddDisplayRule("ToolbotBody", "ThighR", new Vector3(0.0691F, 1.59033F, 0.64486F), new Vector3(85.93443F, 273.296F, 271.2461F), new Vector3(0.495F, 0.495F, 0.495F));
+                AddDisplayRule("EngiBody", "CannonHeadR", new Vector3(-0.19011F, 0.28565F, -0.04556F), new Vector3(271.6535F, 281.4757F, 170.0434F), new Vector3(0.05734F, 0.20054F, 0.05734F));
+                AddDisplayRule("EngiTurretBody", "Neck", new Vector3(0.00631F, 0.09396F, -0.17715F), new Vector3(270.0198F, 3.60967F, 0F), new Vector3(0.15454F, 0.26937F, 0.211F));
+                AddDisplayRule("EngiWalkerTurretBody", "Neck", new Vector3(0F, 0.1756F, -0.18462F), new Vector3(270F, 0F, 0F), new Vector3(0.15894F, 0.30337F, 0.211F));
+                AddDisplayRule("MageBody", "Chest", new Vector3(0.115F, 0.06328F, -0.32405F), new Vector3(79.85654F, 180F, 0F), new Vector3(0.0335F, 0.047F, 0.047F));
+                AddDisplayRule("MageBody", "Chest", new Vector3(-0.11264F, 0.06343F, -0.32408F), new Vector3(80.6522F, 180F, 0F), new Vector3(0.0335F, 0.047F, 0.047F));
+                AddDisplayRule("MercBody", "ThighR", new Vector3(-0.03369F, 0.3048F, 0.13015F), new Vector3(81.77126F, 23.8203F, 40.4371F), new Vector3(0.04351F, 0.05609F, 0.04931F));
+                AddDisplayRule("TreebotBody", "PlatformBase", new Vector3(-0.48384F, -0.32524F, -0.00001F), new Vector3(0F, 0F, 121.4299F), new Vector3(0.12147F, 0.31448F, 0.12147F));
+                AddDisplayRule("LoaderBody", "MechLowerArmR", new Vector3(-0.00948F, 0.50984F, -0.09007F), new Vector3(275.6503F, 103.8318F, 260.0916F), new Vector3(0.04906F, 0.08035F, 0.04684F));
+                AddDisplayRule("CrocoBody", "ThighR", new Vector3(-1.12653F, 1.01827F, 0.15804F), new Vector3(278.8466F, 0F, 90F), new Vector3(0.46178F, 0.731F, 0.5194F));
+                AddDisplayRule("CaptainBody", "ThighR", new Vector3(0F, 0.32372F, 0.13409F), new Vector3(81.04952F, 0F, 0F), new Vector3(0.045F, 0.05004F, 0.04977F));
                 AddDisplayRule("BrotherBody", "CalfR", BrotherInfection.green, new Vector3(0.038F, 0.121F, 0.051F), new Vector3(43.102F, 358.401F, 241.259F), new Vector3(0.078F, 0.078F, 0.078F));
-                AddDisplayRule("ScavBody", "CalfR", new Vector3(0.102F, 1.306F, 0.604F), new Vector3(66.818F, 0F, 0F), new Vector3(0.358F, 0.367F, 0.358F));
+                AddDisplayRule("ScavBody", "ThighR", new Vector3(-1.84683F, 1.59361F, 0.91504F), new Vector3(57.83196F, 338.4957F, 56.00451F), new Vector3(0.99F, 1.01489F, 0.99F));
             };
 
-            model.transform.Find("speedpower_powerspeed").Rotate(new Vector3(60f, 0f, 0f), Space.Self);
+            RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
+        }
 
-            On.RoR2.CharacterBody.Awake += (orig, self) =>
+        private void RecalculateStatsAPI_GetStatCoefficients(CharacterBody sender, RecalculateStatsAPI.StatHookEventArgs args)
+        {
+            if (sender.inventory)
             {
-                orig(self);
-                self.onInventoryChanged += delegate ()
+                int itemCount = sender.inventory.GetItemCount(itemDef);
+                if (itemCount > 0)
                 {
-                    self.AddItemBehavior<MysticsItemsSpeedGivesDamageBehaviour>(self.inventory.GetItemCount(itemDef));
-                };
-            };
+                    args.moveSpeedMultAdd += passiveSpeed / 100f;
 
-            particleSystemPrefab = Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Nuclear Accelerator/Particles.prefab");
+                    args.damageMultAdd += CalculateDamageBonus(sender, itemCount);
+                }
+            }
+        }
 
-            sfx = ScriptableObject.CreateInstance<NetworkSoundEventDef>();
-            sfx.eventName = "MysticsItems_Play_item_proc_nuclear_accelerator";
-            MysticsItemsContent.Resources.networkSoundEventDefs.Add(sfx);
+        public static float CalculateDamageBonus(CharacterBody body, int itemCount)
+        {
+            float baseMoveSpeed = body.baseMoveSpeed + body.levelMoveSpeed * (body.level - 1f);
+            float moveSpeedIncrease = (body.moveSpeed / baseMoveSpeed / (!sprintCounts ? body.sprintingSpeedMultiplier : 1f)) - 1f;
+            return Mathf.Max(moveSpeedIncrease * (damage / 100f + damagePerStack / 100f * (itemCount - 1)), 0f);
         }
 
         public class MysticsItemsNuclearAcceleratorGlow : MonoBehaviour
@@ -104,15 +143,17 @@ namespace MysticsItems.Items
             }
         }
 
+        /*
         public class MysticsItemsSpeedGivesDamageBehaviour : CharacterBody.ItemBehavior
         {
             public List<GameObject> particleHolders;
             public float charge = 0f;
-            public float damageBoostPerSecond = 0.025f;
+            public float chargeDuration = 4f;
             public float noSprintTimeThreshold = 0.1f;
             public float noSprintTimeStopwatch = 0f;
-            public bool canPlaySound = false;
-
+            public float buffRefreshTimer = 0f;
+            public float buffRefreshDuration = 1f;
+            
             public void Start()
             {
                 particleHolders = new List<GameObject>();
@@ -152,47 +193,44 @@ namespace MysticsItems.Items
                         if (spiralingRadsTransform)
                         {
                             ParticleSystem.EmissionModule spiralingRadsEmission = spiralingRadsTransform.gameObject.GetComponent<ParticleSystem>().emission;
-                            spiralingRadsEmission.rateOverTimeMultiplier = 30f * Mathf.Min(charge / 0.1f, 1f);
+                            spiralingRadsEmission.rateOverTimeMultiplier = 30f * Mathf.Clamp01(charge / chargeDuration);
                         }
 
                         Transform chargeOverflowTransform = particleHolder.transform.Find("Charge Overflow");
                         if (chargeOverflowTransform)
                         {
                             ParticleSystem.EmissionModule chargeOverflowEmission = chargeOverflowTransform.gameObject.GetComponent<ParticleSystem>().emission;
-                            chargeOverflowEmission.rateOverTimeMultiplier = 40f * Mathf.Min((charge - 0.1f) / 0.9f, 1f);
+                            chargeOverflowEmission.rateOverTimeMultiplier = 40f * (charge >= chargeDuration ? Mathf.Clamp01((body.moveSpeed - (body.baseMoveSpeed + body.levelMoveSpeed * (body.level - 1))) / 3f) : 0f);
                         }
                     }
                 }
 
-                if (body.GetBuffCount(MysticsItemsContent.Buffs.SpeedGivesDamage) <= 0) canPlaySound = true;
-
                 if (body.isSprinting)
                 {
-                    charge += damageBoostPerSecond * (body.moveSpeed / 7f) * Time.fixedDeltaTime;
+                    charge += Time.fixedDeltaTime;
                     noSprintTimeStopwatch = 0f;
+                    if (charge >= chargeDuration)
+                    {
+                        if (NetworkServer.active)
+                        {
+                            buffRefreshTimer -= Time.fixedDeltaTime;
+                            if (buffRefreshTimer <= 0f)
+                            {
+                                buffRefreshTimer = buffRefreshDuration;
+                                body.AddTimedBuff(MysticsItemsContent.Buffs.SpeedGivesDamage, 6f * stack);
+                            }
+                        }
+                    }
                 }
                 else
                 {
                     noSprintTimeStopwatch += Time.fixedDeltaTime;
                     if (noSprintTimeStopwatch >= noSprintTimeThreshold)
                     {
-                        float pendingBuffStacks = Mathf.Floor(charge / Buffs.SpeedGivesDamage.damagePerStack);
-                        if (pendingBuffStacks >= 1)
-                        {
-                            if (NetworkServer.active)
-                            {
-                                for (var i = 0; i < pendingBuffStacks; i++) body.AddTimedBuff(MysticsItemsContent.Buffs.SpeedGivesDamage, 4f + 4f * (stack - 1));
-                                if (canPlaySound)
-                                {
-                                    canPlaySound = false;
-                                    EntitySoundManager.EmitSoundServer(sfx.index, body.gameObject);
-                                }
-                            }
-                        }
                         charge = 0f;
                     }
                 }
             }
-        }
+        }*/
     }
 }

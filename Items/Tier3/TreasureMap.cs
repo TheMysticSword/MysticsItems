@@ -14,6 +14,9 @@ using System.Text;
 using TMPro;
 using System.Collections.Generic;
 using ThreeEyedGames;
+using MysticsRisky2Utils;
+using MysticsRisky2Utils.BaseAssetTypes;
+using static MysticsItems.BalanceConfigManager;
 
 namespace MysticsItems.Items
 {
@@ -23,12 +26,51 @@ namespace MysticsItems.Items
         public static SpawnCard zoneSpawnCard;
         public static Material ghostMaterial;
         public static NetworkSoundEventDef soundEventDef;
-        public static GameObject rewardPrefab;
         public static GameObject effectPrefab;
 
-        public override void PreLoad()
+        public static ConfigurableValue<float> unearthTime = new ConfigurableValue<float>(
+            "Item: Treasure Map",
+            "UnearthTime",
+            120f,
+            "How long to stay in the treasure zone to unearth the legendary item (in seconds)",
+            new System.Collections.Generic.List<string>()
+            {
+                "ITEM_MYSTICSITEMS_TREASUREMAP_DESC"
+            }
+        );
+        public static ConfigurableValue<float> reductionPerStack = new ConfigurableValue<float>(
+            "Item: Treasure Map",
+            "ReductionPerStack",
+            50f,
+            "Unearth time reduction for each additional stack of this item (in %, hyperbolic)",
+            new System.Collections.Generic.List<string>()
+            {
+                "ITEM_MYSTICSITEMS_TREASUREMAP_DESC"
+            }
+        );
+        public static ConfigurableValue<float> radius = new ConfigurableValue<float>(
+            "Item: Treasure Map",
+            "Radius",
+            15f,
+            "Treasure zone radius (in meters)",
+            new System.Collections.Generic.List<string>()
+            {
+                "ITEM_MYSTICSITEMS_TREASUREMAP_DESC"
+            }
+        );
+
+        public override void OnPluginAwake()
         {
-            itemDef.name = "TreasureMap";
+            zonePrefab = MysticsRisky2Utils.Utils.CreateBlankPrefab("MysticsItems_TreasureMapZone", true);
+
+            NetworkingAPI.RegisterMessageType<MysticsItemsTreasureMapZone.SyncZoneShouldBeActive>();
+            NetworkingAPI.RegisterMessageType<MysticsItemsTreasureMapZone.RequestZoneShouldBeActive>();
+        }
+
+        public override void OnLoad()
+        {
+            base.OnLoad();
+            itemDef.name = "MysticsItems_TreasureMap";
             itemDef.tier = ItemTier.Tier3;
             itemDef.tags = new ItemTag[]
             {
@@ -36,23 +78,12 @@ namespace MysticsItems.Items
                 ItemTag.AIBlacklist,
                 ItemTag.CannotCopy
             };
-        }
-
-        public override void OnPluginAwake()
-        {
-            rewardPrefab = PrefabAPI.InstantiateClone(Resources.Load<InteractableSpawnCard>("SpawnCards/InteractableSpawnCard/iscGoldChest").prefab, Main.TokenPrefix + "TreasureMapReward");
-            zonePrefab = CustomUtils.CreateBlankPrefab(Main.TokenPrefix + "TreasureMapZone", true);
-
-            NetworkingAPI.RegisterMessageType<MysticsItemsTreasureMapZone.SyncZoneShouldBeActive>();
-            NetworkingAPI.RegisterMessageType<MysticsItemsTreasureMapZone.RequestZoneShouldBeActive>();
-            NetworkingAPI.RegisterMessageType<MysticsItemsTreasureMapZone.SyncCostHologramData>();
-        }
-
-        public override void OnLoad()
-        {
-            base.OnLoad();
-            SetAssets("Treasure Map");
-            SetModelPanelDistance(3f, 6f);
+            itemDef.pickupModelPrefab = PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Treasure Map/Model.prefab"));
+            itemDef.pickupIconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Items/Treasure Map/Icon.png");
+            ModelPanelParameters modelPanelParams = itemDef.pickupModelPrefab.GetComponentInChildren<ModelPanelParameters>();
+            modelPanelParams.minDistance = 3;
+            modelPanelParams.maxDistance = 6;
+            itemDisplayPrefab = PrepareItemDisplayModel(PrefabAPI.InstantiateClone(itemDef.pickupModelPrefab, itemDef.pickupModelPrefab.name + "Display", false));
             onSetupIDRS += () =>
             {
                 AddDisplayRule("CommandoBody", "LowerArmR", new Vector3(-0.084F, 0.183F, -0.006F), new Vector3(83.186F, 36.557F, 131.348F), new Vector3(0.053F, 0.053F, 0.053F));
@@ -69,14 +100,14 @@ namespace MysticsItems.Items
                 AddDisplayRule("BrotherBody", "HandR", BrotherInfection.red, new Vector3(0.051F, -0.072F, 0.004F), new Vector3(44.814F, 122.901F, 267.545F), new Vector3(0.063F, 0.063F, 0.063F));
             };
             
-            CustomUtils.CopyChildren(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Treasure Map/TreasureMapZone.prefab"), zonePrefab);
+            MysticsRisky2Utils.Utils.CopyChildren(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Treasure Map/TreasureMapZone.prefab"), zonePrefab);
             HoldoutZoneController holdoutZone = zonePrefab.AddComponent<HoldoutZoneController>();
-            holdoutZone.baseRadius = 15f;
-            holdoutZone.baseChargeDuration = 120f;
+            holdoutZone.baseRadius = radius;
+            holdoutZone.baseChargeDuration = unearthTime;
             holdoutZone.radiusSmoothTime = 1f;
             holdoutZone.radiusIndicator = zonePrefab.transform.Find("Visuals/Sphere").gameObject.GetComponent<Renderer>();
-            holdoutZone.inBoundsObjectiveToken = Main.TokenPrefix.ToUpper() + "OBJECTIVE_CHARGE_TREASUREMAPZONE";
-            holdoutZone.outOfBoundsObjectiveToken = Main.TokenPrefix.ToUpper() + "OBJECTIVE_CHARGE_TREASUREMAPZONE_OOB";
+            holdoutZone.inBoundsObjectiveToken = "OBJECTIVE_MYSTICSITEMS_CHARGE_TREASUREMAPZONE";
+            holdoutZone.outOfBoundsObjectiveToken = "OBJECTIVE_MYSTICSITEMS_CHARGE_TREASUREMAPZONE_OOB";
             holdoutZone.applyHealingNova = true;
             holdoutZone.applyFocusConvergence = true;
             holdoutZone.playerCountScaling = 0f; // Charge by 1 second regardless of how many players are charging the zone
@@ -94,7 +125,7 @@ namespace MysticsItems.Items
             decal.RenderMode = Decal.DecalRenderMode.Deferred;
             Material decalMaterial = new Material(Shader.Find("Decalicious/Deferred Decal"));
             decal.Material = decalMaterial;
-            decalMaterial.name = Main.TokenPrefix + "TreasureMapDecal";
+            decalMaterial.name = "MysticsItems_TreasureMapDecal";
             Texture decalTexture = Main.AssetBundle.LoadAsset<Texture>("Assets/Items/Treasure Map/texTreasureMapDecal.png");
             decalMaterial.SetTexture("_MainTex", decalTexture);
             decalMaterial.SetTexture("_MaskTex", decalTexture);
@@ -111,6 +142,11 @@ namespace MysticsItems.Items
             decal.Reset();
             decal.gameObject.transform.localScale = Vector3.one * 10f;
             HG.ArrayUtils.ArrayAppend(ref captureZone.toggleObjects, decal.gameObject);
+            ChestBehavior chestBehavior = zonePrefab.AddComponent<ChestBehavior>();
+            chestBehavior.dropTransform = zonePrefab.transform.Find("DropPivot");
+            chestBehavior.tier1Chance = 0f;
+            chestBehavior.tier2Chance = 0f;
+            chestBehavior.tier3Chance = 1f;
 
             On.RoR2.HoldoutZoneController.ChargeHoldoutZoneObjectiveTracker.ShouldBeFlashing += (orig, self) =>
             {
@@ -126,7 +162,7 @@ namespace MysticsItems.Items
             };
             
             zoneSpawnCard = ScriptableObject.CreateInstance<SpawnCard>();
-            zoneSpawnCard.name = "isc" + Main.TokenPrefix + "TreasureMapZone";
+            zoneSpawnCard.name = "iscMysticsItems_TreasureMapZone";
             zoneSpawnCard.prefab = zonePrefab;
             zoneSpawnCard.directorCreditCost = 0;
             zoneSpawnCard.sendOverNetwork = true;
@@ -171,30 +207,29 @@ namespace MysticsItems.Items
             MysticsItemsContent.Resources.effectPrefabs.Add(effectPrefab);
         }
 
+        public static float CalculateChargeTime(int itemCount)
+        {
+            return unearthTime * (1f - Util.ConvertAmplificationPercentageIntoReductionPercentage(reductionPerStack * (itemCount - 1)) / 100f);
+        }
+
         public class MysticsItemsTreasureMapZone : MonoBehaviour, IHologramContentProvider
         {
             public TeamIndex teamIndex = TeamIndex.Player;
-            public float baseCaptureTimeMax = 120f;
             public ItemDef itemDef;
             public HologramProjector hologramProjector;
             public HoldoutZoneController holdoutZoneController;
-            public int cost;
-            public CostTypeIndex costTypeIndex;
             public GameObject[] toggleObjects = new GameObject[] { };
+            public ChestBehavior chestBehavior;
 
             public void Start()
             {
                 holdoutZoneController = GetComponent<HoldoutZoneController>();
+                chestBehavior = GetComponent<ChestBehavior>();
 
                 if (NetworkServer.active)
                 {
-                    PurchaseInteraction prefabPurchaseInteraction = rewardPrefab.GetComponent<PurchaseInteraction>();
-                    if (prefabPurchaseInteraction) {
-                        cost = Run.instance.GetDifficultyScaledCost(prefabPurchaseInteraction.cost);
-                        costTypeIndex = prefabPurchaseInteraction.costType;
-                        new SyncCostHologramData(gameObject.GetComponent<NetworkIdentity>().netId, cost, (int)costTypeIndex).Send(NetworkDestination.Clients);
-                    }
                     ShouldBeActive = false;
+                    chestBehavior.RollItem();
                 }
                 else
                 {
@@ -210,23 +245,7 @@ namespace MysticsItems.Items
                 EffectManager.SimpleEffect(effectPrefab, transform.position, Quaternion.identity, true);
                 PointSoundManager.EmitSoundServer(soundEventDef.index, transform.position);
 
-                GameObject reward = Object.Instantiate(rewardPrefab, transform.position, transform.rotation);
-
-                RaycastHit raycastHit;
-                if (Physics.Raycast(new Ray(reward.transform.position + reward.transform.up * 1f, -reward.transform.up), out raycastHit, 2f, LayerIndex.world.mask))
-                {
-                    reward.transform.up = raycastHit.normal;
-                }
-                reward.transform.Rotate(Vector3.up, RoR2Application.rng.RangeFloat(0f, 360f), Space.Self);
-                reward.transform.Translate(Vector3.down * 0.3f, Space.Self);
-                reward.transform.rotation *= Quaternion.Euler(RoR2Application.rng.RangeFloat(-30f, 30f), RoR2Application.rng.RangeFloat(-30f, 30f), RoR2Application.rng.RangeFloat(-30f, 30f));
-                NetworkServer.Spawn(reward);
-
-                PurchaseInteraction purchaseInteraction = reward.GetComponent<PurchaseInteraction>();
-                if (purchaseInteraction)
-                {
-                    purchaseInteraction.Networkcost = cost;
-                }
+                chestBehavior.ItemDrop();
 
                 if (holdoutZoneController && holdoutZoneController.radiusIndicator) holdoutZoneController.radiusIndicator.transform.localScale = Vector3.zero;
 
@@ -235,8 +254,8 @@ namespace MysticsItems.Items
 
             public void FixedUpdate()
             {
-                int itemCount = Util.GetItemCountForTeam(teamIndex, MysticsItemsContent.Items.TreasureMap.itemIndex, true);
-                holdoutZoneController.baseChargeDuration = baseCaptureTimeMax * 1f / (1f + 0.5f * (itemCount - 1));
+                int itemCount = Util.GetItemCountForTeam(teamIndex, MysticsItemsContent.Items.MysticsItems_TreasureMap.itemIndex, true);
+                holdoutZoneController.baseChargeDuration = CalculateChargeTime(itemCount);
                 bool anyoneHasItem = itemCount > 0;
 
                 hologramProjector.displayDistance = holdoutZoneController.currentRadius + 15f;
@@ -268,20 +287,10 @@ namespace MysticsItems.Items
                 PlainHologram.MysticsItemsPlainHologramContent component = hologramContentObject.GetComponent<PlainHologram.MysticsItemsPlainHologramContent>();
                 if (component)
                 {
-                    CostTypeDef costTypeDef = CostTypeCatalog.GetCostTypeDef(costTypeIndex);
-                    Color costColor = Color.white;
-                    CostHologramContent.sharedStringBuilder.Clear();
-                    if (costTypeDef != null)
-                    {
-                        costTypeDef.BuildCostStringStyled(cost, CostHologramContent.sharedStringBuilder, true, false);
-                        costColor = costTypeDef.GetCostColor(true);
-                    }
                     component.text = string.Format(
-                        "<color=#{0}>{1}%</color>\n<color=#{3}>({2})</color>",
+                        "<color=#{0}>{1}%</color>",
                         ColorUtility.ToHtmlStringRGB(new Color32(248, 235, 39, 255)),
-                        Mathf.FloorToInt(holdoutZoneController.charge * 100f).ToString(),
-                        CostHologramContent.sharedStringBuilder,
-                        ColorUtility.ToHtmlStringRGB(costColor)
+                        Mathf.FloorToInt(holdoutZoneController.charge * 100f).ToString()
                     );
                     component.color = Color.white;
                 }
@@ -298,59 +307,12 @@ namespace MysticsItems.Items
                 {
                     shouldBeActive = value;
                     holdoutZoneController.enabled = value;
+                    if (value == false && holdoutZoneController.radiusIndicator) holdoutZoneController.radiusIndicator.transform.localScale = Vector3.zero;
                     foreach (GameObject toggleObject in toggleObjects)
                     {
                         toggleObject.SetActive(value);
                     }
                     if (NetworkServer.active) new SyncZoneShouldBeActive(gameObject.GetComponent<NetworkIdentity>().netId, value).Send(NetworkDestination.Clients);
-                }
-            }
-
-
-            public class SyncCostHologramData : INetMessage
-            {
-                NetworkInstanceId objID;
-                int cost;
-                int costTypeIndex;
-
-                public SyncCostHologramData()
-                {
-                }
-
-                public SyncCostHologramData(NetworkInstanceId objID, int cost, int costTypeIndex)
-                {
-                    this.objID = objID;
-                    this.cost = cost;
-                    this.costTypeIndex = costTypeIndex;
-                }
-
-                public void Deserialize(NetworkReader reader)
-                {
-                    objID = reader.ReadNetworkId();
-                    cost = reader.ReadInt32();
-                    costTypeIndex = reader.ReadInt32();
-                }
-
-                public void OnReceived()
-                {
-                    if (NetworkServer.active) return;
-                    GameObject obj = Util.FindNetworkObject(objID);
-                    if (obj)
-                    {
-                        MysticsItemsTreasureMapZone component = obj.GetComponent<MysticsItemsTreasureMapZone>();
-                        if (component)
-                        {
-                            component.cost = cost;
-                            component.costTypeIndex = (CostTypeIndex)costTypeIndex;
-                        }
-                    }
-                }
-
-                public void Serialize(NetworkWriter writer)
-                {
-                    writer.Write(objID);
-                    writer.Write(cost);
-                    writer.Write(costTypeIndex);
                 }
             }
 

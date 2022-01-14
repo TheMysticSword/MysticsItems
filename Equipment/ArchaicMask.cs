@@ -9,6 +9,9 @@ using System.Reflection;
 using System.Collections.Generic;
 using R2API.Networking.Interfaces;
 using R2API.Networking;
+using MysticsRisky2Utils;
+using MysticsRisky2Utils.BaseAssetTypes;
+using static MysticsItems.BalanceConfigManager;
 
 namespace MysticsItems.Equipment
 {
@@ -18,34 +21,90 @@ namespace MysticsItems.Equipment
         public static GameObject unlockInteractablePrefab;
         public static GameObject forcedPickupPrefab;
 
-        public override void PreLoad()
-        {
-            equipmentDef.name = "ArchaicMask";
-            equipmentDef.cooldown = 140f;
-            equipmentDef.canDrop = true;
-            equipmentDef.enigmaCompatible = true;
-            SetUnlockable();
-        }
+        public static ConfigurableValue<float> duration = new ConfigurableValue<float>(
+            "Equipment: Legendary Mask",
+            "Duration",
+            45f,
+            "Life time of the Wisp (in seconds)",
+            new List<string>()
+            {
+                "EQUIPMENT_MYSTICSITEMS_ARCHAICMASK_PICKUP",
+                "EQUIPMENT_MYSTICSITEMS_ARCHAICMASK_DESC"
+            }
+        );
+        public static ConfigurableValue<float> wispDamage = new ConfigurableValue<float>(
+            "Equipment: Legendary Mask",
+            "WispDamage",
+            300f,
+            "Damage multiplier of the Wisp (in %)",
+            new List<string>()
+            {
+                "EQUIPMENT_MYSTICSITEMS_ARCHAICMASK_DESC"
+            }
+        );
+        public static ConfigurableValue<float> wispHealth = new ConfigurableValue<float>(
+            "Equipment: Legendary Mask",
+            "WispHealth",
+            200f,
+            "Health multiplier of the Wisp (in %)",
+            new List<string>()
+            {
+                "EQUIPMENT_MYSTICSITEMS_ARCHAICMASK_DESC"
+            }
+        );
+        public static ConfigurableValue<float> wispCDR = new ConfigurableValue<float>(
+            "Equipment: Legendary Mask",
+            "WispCDR",
+            200f,
+            "Skill cooldown reduction multiplier of the Wisp (in %)",
+            new List<string>()
+            {
+                "EQUIPMENT_MYSTICSITEMS_ARCHAICMASK_DESC"
+            }
+        );
+        public static ConfigurableValue<float> wispAttackSpeed = new ConfigurableValue<float>(
+            "Equipment: Legendary Mask",
+            "WispAttackSpeed",
+            200f,
+            "Attack speed multiplier of the Wisp (in %)",
+            new List<string>()
+            {
+                "EQUIPMENT_MYSTICSITEMS_ARCHAICMASK_DESC"
+            }
+        );
+        public static ConfigurableValue<int> summonLimit = new ConfigurableValue<int>(
+            "Equipment: Legendary Mask",
+            "SummonLimit",
+            3,
+            "How many Wisps can be active at once"
+        );
 
         public override void OnPluginAwake()
         {
-            unlockInteractablePrefab = CustomUtils.CreateBlankPrefab(Main.TokenPrefix + "ArchaicMaskUnlockInteractable", true);
-            forcedPickupPrefab = CustomUtils.CreateBlankPrefab(Main.TokenPrefix + "ArchaicMaskForcedPickup", true);
+            unlockInteractablePrefab = MysticsRisky2Utils.Utils.CreateBlankPrefab("MysticsItems_ArchaicMaskUnlockInteractable", true);
+            forcedPickupPrefab = MysticsRisky2Utils.Utils.CreateBlankPrefab("MysticsItems_ArchaicMaskForcedPickup", true);
         }
 
         public override void OnLoad()
         {
-            SetAssets("Archaic Mask");
-            SetScalableChildEffect("Mask/Effects/Point Light");
-            SetScalableChildEffect("Mask/Effects/Fire");
-            Material matArchaicMaskFire = model.transform.Find("Mask/Effects/Fire").gameObject.GetComponent<Renderer>().sharedMaterial;
-            Main.HopooShaderToMaterial.CloudRemap.Apply(
+            equipmentDef.name = "MysticsItems_ArchaicMask";
+            equipmentDef.cooldown = new ConfigurableCooldown("Equipment: Legendary Mask", 140f).Value;
+            equipmentDef.canDrop = true;
+            equipmentDef.enigmaCompatible = new ConfigurableEnigmaCompatibleBool("Equipment: Legendary Mask", true).Value;
+            equipmentDef.pickupModelPrefab = PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Equipment/Archaic Mask/Model.prefab"));
+            equipmentDef.pickupIconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Equipment/Archaic Mask/Icon.png");
+            MysticsItemsContent.Resources.unlockableDefs.Add(GetUnlockableDef());
+
+            SetScalableChildEffect(equipmentDef.pickupModelPrefab, "Mask/Effects/Point Light");
+            SetScalableChildEffect(equipmentDef.pickupModelPrefab, "Mask/Effects/Fire");
+            Material matArchaicMaskFire = equipmentDef.pickupModelPrefab.transform.Find("Mask/Effects/Fire").gameObject.GetComponent<Renderer>().sharedMaterial;
+            HopooShaderToMaterial.CloudRemap.Apply(
                 matArchaicMaskFire,
                 Main.AssetBundle.LoadAsset<Texture>("Assets/Equipment/Archaic Mask/texRampArchaicMaskFire.png")
             );
-            Main.HopooShaderToMaterial.CloudRemap.Boost(matArchaicMaskFire, 0.5f);
-            CopyModelToFollower();
-            CustomUtils.CopyChildren(model, unlockInteractablePrefab);
+            HopooShaderToMaterial.CloudRemap.Boost(matArchaicMaskFire, 0.5f);
+            itemDisplayPrefab = PrepareItemDisplayModel(PrefabAPI.InstantiateClone(equipmentDef.pickupModelPrefab, equipmentDef.pickupModelPrefab.name + "Display", false));
+            MysticsRisky2Utils.Utils.CopyChildren(equipmentDef.pickupModelPrefab, unlockInteractablePrefab);
 
             onSetupIDRS += () =>
             {
@@ -64,7 +123,7 @@ namespace MysticsItems.Equipment
                 AddDisplayRule("EquipmentDroneBody", "HeadCenter", new Vector3(0F, -0.507F, -0.381F), new Vector3(0F, 270F, 270F), new Vector3(0.965F, 0.965F, 0.965F));
             };
 
-            crosshairPrefab = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/WoodSpriteIndicator"), Main.TokenPrefix + "ArchaicMaskIndicator", false);
+            crosshairPrefab = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/WoodSpriteIndicator"), "MysticsItems_ArchaicMaskIndicator", false);
             Object.Destroy(crosshairPrefab.GetComponentInChildren<Rewired.ComponentControls.Effects.RotateAroundAxis>());
             crosshairPrefab.GetComponentInChildren<SpriteRenderer>().sprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Equipment/Archaic Mask/Crosshair.png");
             crosshairPrefab.GetComponentInChildren<SpriteRenderer>().color = new Color(190f / 255f, 65f / 255f, 255f / 255f);
@@ -77,7 +136,12 @@ namespace MysticsItems.Equipment
 
             MysticsItemsArchaicMaskUnlockInteraction unlockInteraction = unlockInteractablePrefab.AddComponent<MysticsItemsArchaicMaskUnlockInteraction>();
             unlockInteraction.effects = unlockInteractablePrefab.transform.Find("Mask/Effects").gameObject;
-            unlockInteractablePrefab.AddComponent<GenericDisplayNameProvider>().displayToken = "EQUIPMENT_" + Main.TokenPrefix.ToUpper() + equipmentDef.name.ToUpper() + "_NAME";
+            
+            ParticleSystem particleSystem = unlockInteraction.effects.GetComponentInChildren<ParticleSystem>();
+            ParticleSystem.MainModule particleSystemMain = particleSystem.main;
+            particleSystemMain.startLifetime = 3.5f;
+
+            unlockInteractablePrefab.AddComponent<GenericDisplayNameProvider>().displayToken = "EQUIPMENT_" + equipmentDef.name.ToUpper(System.Globalization.CultureInfo.InvariantCulture) + "_NAME";
 
             Highlight highlight = unlockInteractablePrefab.AddComponent<Highlight>();
             highlight.targetRenderer = unlockInteractablePrefab.GetComponentInChildren<Renderer>();
@@ -90,7 +154,7 @@ namespace MysticsItems.Equipment
             sphereCollider.isTrigger = true;
             entityLocatorHolder.AddComponent<EntityLocator>().entity = unlockInteractablePrefab;
 
-            CustomUtils.CopyChildren(Main.AssetBundle.LoadAsset<GameObject>("Assets/Equipment/Archaic Mask/ForcedPickup.prefab"), forcedPickupPrefab);
+            MysticsRisky2Utils.Utils.CopyChildren(Main.AssetBundle.LoadAsset<GameObject>("Assets/Equipment/Archaic Mask/ForcedPickup.prefab"), forcedPickupPrefab);
             GenericPickupController genericPickupController = forcedPickupPrefab.AddComponent<GenericPickupController>();
             forcedPickupPrefab.AddComponent<Highlight>();
             PickupDisplay pickupDisplay = forcedPickupPrefab.transform.Find("PickupDisplay").gameObject.AddComponent<PickupDisplay>();
@@ -131,7 +195,7 @@ namespace MysticsItems.Equipment
 
         public override bool OnUse(EquipmentSlot equipmentSlot)
         {
-            MysticsItemsEquipmentTarget targetInfo = equipmentSlot.GetComponent<MysticsItemsEquipmentTarget>();
+            MysticsRisky2UtilsEquipmentTarget targetInfo = equipmentSlot.GetComponent<MysticsRisky2UtilsEquipmentTarget>();
             if (targetInfo && targetInfo.obj)
             {
                 CharacterMaster master = equipmentSlot.characterBody.master;
@@ -154,10 +218,11 @@ namespace MysticsItems.Equipment
                         {
                             GameObject wispMasterObject = spawnResult.spawnedInstance;
                             CharacterMaster wispMaster = wispMasterObject.GetComponent<CharacterMaster>();
-                            wispMaster.inventory.GiveItem(RoR2Content.Items.HealthDecay, 45);
-                            wispMaster.inventory.GiveItem(RoR2Content.Items.BoostDamage, 20);
-                            wispMaster.inventory.GiveItem(RoR2Content.Items.BoostHp, 10);
-                            wispMaster.inventory.GiveItem(RoR2Content.Items.AlienHead, 10);
+                            wispMaster.inventory.GiveItem(RoR2Content.Items.HealthDecay, (int)duration.Value);
+                            wispMaster.inventory.GiveItem(RoR2Content.Items.BoostDamage, (int)(wispDamage.Value - 100f) / 10);
+                            wispMaster.inventory.GiveItem(RoR2Content.Items.BoostHp, (int)(wispHealth.Value - 100f) / 10);
+                            wispMaster.inventory.GiveItem(RoR2Content.Items.AlienHead, (int)(wispCDR.Value - 100f) / 10);
+                            wispMaster.inventory.GiveItem(RoR2Content.Items.BoostAttackSpeed, (int)(wispAttackSpeed.Value - 100f) / 10);
                             wispMaster.GetComponent<RoR2.CharacterAI.BaseAI>().currentEnemy.gameObject = targetHB.healthComponent.gameObject;
                             wispMaster.GetComponent<RoR2.CharacterAI.BaseAI>().currentEnemy.bestHurtBox = targetHB;
                             summonLimit.Add(wispMasterObject);
@@ -174,13 +239,15 @@ namespace MysticsItems.Equipment
 
         public class MysticsItemsArchaicMaskUnlockInteraction : NetworkBehaviour, IInteractable
         {
-            public string contextString = Main.TokenPrefix.ToUpper() + "ARCHAICMASK_CONTEXT";
+            public string contextString = "MYSTICSITEMS_ARCHAICMASK_CONTEXT";
             public int lockTime = 600;
             public int minFadeTime = 590;
             public GameObject effects;
             public float initialLightIntensity = 0f;
             public Color initialColor;
             public GenericPickupController genericPickupController;
+
+            public MaterialPropertyBlock materialPropertyBlock;
 
             public string GetContextString(Interactor activator)
             {
@@ -204,13 +271,14 @@ namespace MysticsItems.Equipment
                     if (OnUnlock != null) OnUnlock(activator);
 
                     EquipmentIndex currentEquipmentIndex = inventory.currentEquipmentIndex;
-                    inventory.SetEquipmentIndex(MysticsItemsContent.Equipment.ArchaicMask.equipmentIndex);
-                    typeof(GenericPickupController).InvokeMethod("SendPickupMessage", inventory.GetComponent<CharacterMaster>(), PickupCatalog.FindPickupIndex(MysticsItemsContent.Equipment.ArchaicMask.equipmentIndex));
+                    inventory.SetEquipmentIndex(MysticsItemsContent.Equipment.MysticsItems_ArchaicMask.equipmentIndex);
+                    typeof(GenericPickupController).InvokeMethod("SendPickupMessage", inventory.GetComponent<CharacterMaster>(), PickupCatalog.FindPickupIndex(MysticsItemsContent.Equipment.MysticsItems_ArchaicMask.equipmentIndex));
 
                     GameObject forcedPickup = Object.Instantiate(forcedPickupPrefab, transform.position, transform.rotation);
                     forcedPickup.GetComponent<MysticsItemsArchaicMaskForcedPickup>().pickupIndex = PickupCatalog.FindPickupIndex(currentEquipmentIndex);
                     NetworkServer.Spawn(forcedPickup);
-                    
+
+                    if (NetworkServer.active) NetworkServer.UnSpawn(gameObject);
                     Object.Destroy(gameObject);
                 }
             }
@@ -230,10 +298,11 @@ namespace MysticsItems.Equipment
                 if (effects)
                 {
                     initialLightIntensity = effects.GetComponentInChildren<Light>().intensity;
-                    ParticleSystem.MainModule main = effects.GetComponentInChildren<ParticleSystem>().main;
-                    initialColor = main.startColor.color;
+                    ParticleSystemRenderer particleSystemRenderer = effects.GetComponentInChildren<ParticleSystemRenderer>();
+                    initialColor = particleSystemRenderer.material.GetColor("_TintColor");
                 }
                 genericPickupController = GetComponent<GenericPickupController>();
+                materialPropertyBlock = new MaterialPropertyBlock();
             }
 
             public void FixedUpdate()
@@ -243,7 +312,10 @@ namespace MysticsItems.Equipment
                     float t = Mathf.Clamp01((float)remainingTime / (float)(lockTime - minFadeTime));
                     effects.GetComponentInChildren<Light>().intensity = initialLightIntensity * t;
                     ParticleSystem.MainModule main = effects.GetComponentInChildren<ParticleSystem>().main;
-                    main.startColor = Color.Lerp(Color.black, initialColor, t);
+                    ParticleSystemRenderer particleSystemRenderer = effects.GetComponentInChildren<ParticleSystemRenderer>();
+                    particleSystemRenderer.GetPropertyBlock(materialPropertyBlock);
+                    materialPropertyBlock.SetColor("_TintColor", Color.Lerp(Color.black, initialColor, t));
+                    particleSystemRenderer.SetPropertyBlock(materialPropertyBlock);
                 }
             }
 
@@ -273,7 +345,7 @@ namespace MysticsItems.Equipment
 
         public class ArchaicMaskSummonLimit : MonoBehaviour
         {
-            public int max = 3;
+            public int max = summonLimit.Value;
             public List<GameObject> current;
 
             public void Awake()

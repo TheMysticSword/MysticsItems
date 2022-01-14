@@ -1,3 +1,4 @@
+using MysticsRisky2Utils.BaseAssetTypes;
 using RoR2;
 using RoR2.Projectile;
 using UnityEngine;
@@ -8,8 +9,9 @@ namespace MysticsItems.Achievements
     {
         public override void OnLoad()
         {
-            name = "MultishopTerminalsOnly";
-            unlockableName = Main.TokenPrefix + "Items.KeepShopTerminalOpen";
+            name = "MysticsItems_MultishopTerminalsOnly";
+            unlockableName = "Items.MysticsItems_KeepShopTerminalOpen";
+			iconSprite = MysticsRisky2Utils.Utils.AddItemIconBackgroundToSprite(Main.AssetBundle.LoadAsset<Sprite>("Assets/Items/Platinum Card/Icon.png"), MysticsRisky2Utils.Utils.ItemIconBackgroundType.Tier2);
 			trackerType = typeof(Tracker);
 			serverTrackerType = typeof(Tracker.Server);
         }
@@ -30,46 +32,43 @@ namespace MysticsItems.Achievements
 
 			public class Server : RoR2.Achievements.BaseServerAchievement
 			{
-				public int requirement = 5;
-				public int progress = 0;
-
+				public bool eligible = true;
+				public int stageRequirement = 6;
+				
 				public override void OnInstall()
 				{
 					base.OnInstall();
-                    On.RoR2.PurchaseInteraction.Awake += PurchaseInteraction_Awake;
-                    SceneExitController.onBeginExit += SceneExitController_onBeginExit;
+                    GlobalEventManager.OnInteractionsGlobal += GlobalEventManager_OnInteractionsGlobal;
+                    Stage.onServerStageBegin += Stage_onServerStageBegin;
+				}
+
+                private void Stage_onServerStageBegin(Stage obj)
+                {
+                    if (eligible && (Run.instance.stageClearCount + 1) >= stageRequirement)
+                    {
+						Grant();
+                    }
+                }
+
+                private void GlobalEventManager_OnInteractionsGlobal(Interactor interactor, IInteractable interactable, GameObject interactableObject)
+				{
+					if (!eligible) return;
+					if (IsCurrentBody(interactor.gameObject))
+					{
+						PurchaseInteraction purchaseInteraction = interactableObject.GetComponent<PurchaseInteraction>();
+						if (purchaseInteraction && purchaseInteraction.costType == CostTypeIndex.Money && purchaseInteraction.cost > 0)
+                        {
+							if (!MysticsRisky2Utils.Utils.TrimCloneFromString(interactableObject.name).StartsWith("MultiShopTerminal", false, System.Globalization.CultureInfo.InvariantCulture))
+								eligible = false;
+						}
+					}
 				}
 
                 public override void OnUninstall()
 				{
 					base.OnUninstall();
-					On.RoR2.PurchaseInteraction.Awake -= PurchaseInteraction_Awake;
-					SceneExitController.onBeginExit -= SceneExitController_onBeginExit;
-				}
-
-                private void PurchaseInteraction_Awake(On.RoR2.PurchaseInteraction.orig_Awake orig, PurchaseInteraction self)
-                {
-					orig(self);
-					self.onPurchase.AddListener((interactor) =>
-					{
-						if (interactor.GetComponent<CharacterBody>() == GetCurrentBody() && !self.GetComponent<ShopTerminalBehavior>()) progress = 0;
-					});
-                }
-
-				private void SceneExitController_onBeginExit(SceneExitController obj)
-				{
-					if (Run.instance && networkUser != null)
-					{
-						if (SceneInfo.instance.countsAsStage) progress++;
-						if (progress >= requirement)
-						{
-							CharacterBody currentBody = serverAchievementTracker.networkUser.GetCurrentBody();
-							if (currentBody)
-							{
-								Grant();
-							}
-						}
-					}
+					GlobalEventManager.OnInteractionsGlobal -= GlobalEventManager_OnInteractionsGlobal;
+					Stage.onServerStageBegin -= Stage_onServerStageBegin;
 				}
 			}
 		}

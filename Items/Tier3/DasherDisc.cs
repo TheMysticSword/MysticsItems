@@ -8,6 +8,9 @@ using Mono.Cecil.Cil;
 using MonoMod.Cil;
 using R2API.Networking.Interfaces;
 using R2API.Networking;
+using MysticsRisky2Utils;
+using MysticsRisky2Utils.BaseAssetTypes;
+using static MysticsItems.BalanceConfigManager;
 
 namespace MysticsItems.Items
 {
@@ -15,38 +18,67 @@ namespace MysticsItems.Items
     {
         public static GameObject controllerPrefab;
 
+        public static ConfigurableValue<float> duration = new ConfigurableValue<float>(
+            "Item: Timely Execution",
+            "Duration",
+            6f,
+            "Invincibility duration (in seconds)",
+            new System.Collections.Generic.List<string>()
+            {
+                "ITEM_MYSTICSITEMS_DASHERDISC_DESC"
+            }
+        );
+        public static ConfigurableValue<float> cooldown = new ConfigurableValue<float>(
+            "Item: Timely Execution",
+            "Cooldown",
+            60f,
+            "Invincibility cooldown (in seconds)",
+            new System.Collections.Generic.List<string>()
+            {
+                "ITEM_MYSTICSITEMS_DASHERDISC_PICKUP",
+                "ITEM_MYSTICSITEMS_DASHERDISC_DESC"
+            }
+        );
+        public static ConfigurableValue<float> cooldownReductionPerStack = new ConfigurableValue<float>(
+            "Item: Timely Execution",
+            "CooldownReductionPerStack",
+            50f,
+            "Invincibility cooldown reduction for each additional stack of this item (in %, hyperbolic)",
+            new System.Collections.Generic.List<string>()
+            {
+                "ITEM_MYSTICSITEMS_DASHERDISC_DESC"
+            }
+        );
+
         public override void OnPluginAwake()
         {
             controllerPrefab = PrefabAPI.InstantiateClone(new GameObject(), "DasherDiscController", false);
-            controllerPrefab.AddComponent<NetworkIdentity>().localPlayerAuthority = true;
+            controllerPrefab.AddComponent<NetworkIdentity>().localPlayerAuthority = false;
             PrefabAPI.RegisterNetworkPrefab(controllerPrefab);
 
             NetworkingAPI.RegisterMessageType<DiscBaseState.Ready.SyncFireTrigger>();
         }
 
-        public override void PreLoad()
+        public override void OnLoad()
         {
-            itemDef.name = "DasherDisc";
+            base.OnLoad();
+            itemDef.name = "MysticsItems_DasherDisc";
             itemDef.tier = ItemTier.Tier3;
             itemDef.tags = new ItemTag[]
             {
                 ItemTag.Utility
             };
-            SetUnlockable();
-        }
-
-        public override void OnLoad()
-        {
-            base.OnLoad();
-            SetAssets("Dasher Disc");
-            Material mat = model.transform.Find("mdlDasherDisc").GetComponent<MeshRenderer>().sharedMaterial;
-            Main.HopooShaderToMaterial.Standard.Apply(mat);
-            Main.HopooShaderToMaterial.Standard.Emission(mat, 4f);
-            Main.HopooShaderToMaterial.Standard.Gloss(mat);
-            MysticsItemsDasherDiscSpinner spinner = model.transform.Find("mdlDasherDisc").gameObject.AddComponent<MysticsItemsDasherDiscSpinner>();
-            spinner.trail = model.transform.Find("mdlDasherDisc").Find("Particle System").gameObject;
-            CopyModelToFollower();
-            followerModel.transform.Find("mdlDasherDisc").localScale = Vector3.one * 5f;
+            MysticsItemsContent.Resources.unlockableDefs.Add(GetUnlockableDef());
+            itemDef.pickupModelPrefab = PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Dasher Disc/Model.prefab"));
+            itemDef.pickupIconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Items/Dasher Disc/Icon.png");
+            Material mat = itemDef.pickupModelPrefab.transform.Find("mdlDasherDisc").GetComponent<MeshRenderer>().sharedMaterial;
+            HopooShaderToMaterial.Standard.Apply(mat);
+            HopooShaderToMaterial.Standard.Emission(mat, 4f);
+            HopooShaderToMaterial.Standard.Gloss(mat);
+            MysticsItemsDasherDiscSpinner spinner = itemDef.pickupModelPrefab.transform.Find("mdlDasherDisc").gameObject.AddComponent<MysticsItemsDasherDiscSpinner>();
+            spinner.trail = itemDef.pickupModelPrefab.transform.Find("mdlDasherDisc").Find("Particle System").gameObject;
+            itemDisplayPrefab = PrepareItemDisplayModel(PrefabAPI.InstantiateClone(itemDef.pickupModelPrefab, itemDef.pickupModelPrefab.name + "Display", false));
+            itemDisplayPrefab.transform.Find("mdlDasherDisc").localScale = Vector3.one * 5f;
 
             controllerPrefab.AddComponent<GenericOwnership>();
             controllerPrefab.AddComponent<NetworkedBodyAttachment>();
@@ -57,7 +89,7 @@ namespace MysticsItems.Items
                 stateMachine
             });
             DiscController component = controllerPrefab.AddComponent<DiscController>();
-            GameObject follower = PrefabAPI.InstantiateClone(followerModel, "DasherDiscFollower", false);
+            GameObject follower = PrefabAPI.InstantiateClone(itemDisplayPrefab, "DasherDiscFollower", false);
             follower.transform.SetParent(controllerPrefab.transform);
             component.follower = follower;
             component.disc = follower.transform.Find("mdlDasherDisc").gameObject;
@@ -75,52 +107,6 @@ namespace MysticsItems.Items
                 {
                     if (NetworkServer.active) self.AddItemBehavior<MysticsItemsDasherDiscBehaviour>(self.inventory.GetItemCount(itemDef));
                 };
-            };
-            IL.RoR2.HealthComponent.TakeDamage += (il) =>
-            {
-                ILCursor c = new ILCursor(il);
-                if (c.TryGotoNext(
-                    MoveType.AfterLabel,
-                    x => x.MatchLdarg(1),
-                    x => x.MatchLdfld<DamageInfo>("rejected"),
-                    x => x.MatchBrfalse(out _)
-                ))
-                {
-                    c.Emit(OpCodes.Ldarg_0);
-                    c.Emit(OpCodes.Ldarg_1);
-                    c.EmitDelegate<System.Action<HealthComponent, DamageInfo>>((healthComponent, damageInfo) =>
-                    {
-                        if (healthComponent.body.HasBuff(MysticsItemsContent.Buffs.DasherDiscActive)) damageInfo.rejected = true;
-                    });
-                }
-            };
-            IL.RoR2.CharacterModel.UpdateRendererMaterials += (il) =>
-            {
-                ILCursor c = new ILCursor(il);
-                if (c.TryGotoNext(
-                    MoveType.AfterLabel,
-                    x => x.MatchLdarg(3),
-                    x => x.MatchBrtrue(out _),
-                    x => x.MatchLdarg(0),
-                    x => x.MatchLdfld<CharacterModel>("activeOverlayCount")
-                ))
-                {
-                    c.Emit(OpCodes.Ldarg_0);
-                    c.Emit(OpCodes.Ldloc_0);
-                    c.Emit(OpCodes.Ldarg_3);
-                    c.EmitDelegate<System.Func<CharacterModel, Material, bool, Material>>((characterModel, material, ignoreOverlays) =>
-                    {
-                        if (characterModel.body && characterModel.visibility >= VisibilityLevel.Visible && !ignoreOverlays)
-                        {
-                            if (characterModel.body.HasBuff(MysticsItemsContent.Buffs.DasherDiscActive))
-                            {
-                                return CharacterModel.ghostMaterial;
-                            }
-                        }
-                        return material;
-                    });
-                    c.Emit(OpCodes.Stloc_0);
-                }
             };
         }
 
@@ -162,11 +148,16 @@ namespace MysticsItems.Items
                     if (controller) Object.Destroy(controller);
                     if (body)
                     {
-                        while (body.HasBuff(MysticsItemsContent.Buffs.DasherDiscActive)) body.RemoveBuff(MysticsItemsContent.Buffs.DasherDiscActive);
-                        while (body.HasBuff(MysticsItemsContent.Buffs.DasherDiscCooldown)) body.ClearTimedBuffs(MysticsItemsContent.Buffs.DasherDiscCooldown);
+                        while (body.HasBuff(MysticsItemsContent.Buffs.MysticsItems_DasherDiscActive)) body.RemoveBuff(MysticsItemsContent.Buffs.MysticsItems_DasherDiscActive);
+                        while (body.HasBuff(MysticsItemsContent.Buffs.MysticsItems_DasherDiscCooldown)) body.ClearTimedBuffs(MysticsItemsContent.Buffs.MysticsItems_DasherDiscCooldown);
                     }
                 }
             }
+        }
+
+        public static float CalculateCooldown(int itemCount)
+        {
+            return cooldown / (1f + cooldownReductionPerStack / 100f * (itemCount - 1));
         }
 
         public class DiscController : NetworkBehaviour
@@ -247,7 +238,7 @@ namespace MysticsItems.Items
             {
                 if (controller.body)
                 {
-                    return !controller.body.HasBuff(MysticsItemsContent.Buffs.DasherDiscCooldown);
+                    return !controller.body.HasBuff(MysticsItemsContent.Buffs.MysticsItems_DasherDiscCooldown);
                 }
                 return false;
             }
@@ -364,7 +355,7 @@ namespace MysticsItems.Items
                             }
                         }
 
-                        if (NetworkServer.active) controller.body.AddBuff(MysticsItemsContent.Buffs.DasherDiscActive);
+                        if (NetworkServer.active) controller.body.AddBuff(MysticsItemsContent.Buffs.MysticsItems_DasherDiscActive);
                     }
                 }
 
@@ -386,19 +377,15 @@ namespace MysticsItems.Items
 
                         if (NetworkServer.active)
                         {
-                            float cooldown = 60f;
                             Inventory inventory = controller.body.inventory;
-                            if (inventory)
-                            {
-                                cooldown /= 1f + 0.2f * (inventory.GetItemCount(MysticsItemsContent.Items.DasherDisc) - 1);
-                            }
+                            float cooldown = CalculateCooldown(inventory ? inventory.GetItemCount(MysticsItemsContent.Items.MysticsItems_DasherDisc) : 1);
                             int cooldownSeconds = Mathf.CeilToInt(cooldown);
                             for (int i = 0; i < cooldownSeconds; i++)
                             {
-                                controller.body.AddTimedBuff(MysticsItemsContent.Buffs.DasherDiscCooldown, cooldown / (float)cooldownSeconds * (i + 1));
+                                controller.body.AddTimedBuff(MysticsItemsContent.Buffs.MysticsItems_DasherDiscCooldown, cooldown / (float)cooldownSeconds * (i + 1));
                             }
 
-                            if (controller.body.HasBuff(MysticsItemsContent.Buffs.DasherDiscActive)) controller.body.RemoveBuff(MysticsItemsContent.Buffs.DasherDiscActive);
+                            if (controller.body.HasBuff(MysticsItemsContent.Buffs.MysticsItems_DasherDiscActive)) controller.body.RemoveBuff(MysticsItemsContent.Buffs.MysticsItems_DasherDiscActive);
                         }
                     }
                 }
@@ -412,7 +399,7 @@ namespace MysticsItems.Items
                     }
                 }
 
-                public static float duration = 6f;
+                public static float duration = DasherDisc.duration;
                 public override float DiscSpinBoost => 9f;
                 public override bool DiscRotatesAroundCharacter => false;
             }

@@ -8,6 +8,8 @@ using UnityEngine.Networking;
 using UnityEngine.Events;
 using System.Collections.Generic;
 using System.Linq;
+using MysticsRisky2Utils;
+using MysticsRisky2Utils.BaseAssetTypes;
 
 namespace MysticsItems.Interactables
 {
@@ -16,7 +18,7 @@ namespace MysticsItems.Interactables
         public override void OnPluginAwake()
         {
             base.OnPluginAwake();
-            prefab = CustomUtils.CreateBlankPrefab(Main.TokenPrefix + "ShrineLegendary", true);
+            prefab = MysticsRisky2Utils.Utils.CreateBlankPrefab("MysticsItems_ShrineLegendary", true);
             prefab.AddComponent<NetworkTransform>();
         }
 
@@ -24,13 +26,13 @@ namespace MysticsItems.Interactables
         {
             base.OnLoad();
 
-            CustomUtils.CopyChildren(Main.AssetBundle.LoadAsset<GameObject>("Assets/Interactables/Shrine of the Legend/ShrineLegendary.prefab"), prefab, true);
+            MysticsRisky2Utils.Utils.CopyChildren(Main.AssetBundle.LoadAsset<GameObject>("Assets/Interactables/Shrine of the Legend/ShrineLegendary.prefab"), prefab, true);
 
             modelBaseTransform = prefab.transform.Find("Base");
             modelTransform = prefab.transform.Find("Base/mdlShrineLegendary");
             meshObject = prefab.transform.Find("Base/mdlShrineLegendary").gameObject;
             prefab.transform.Find("Base/mdlShrineLegendary/Collision").gameObject.layer = LayerIndex.world.intVal;
-            genericDisplayNameToken = Main.TokenPrefix.ToUpper() + "SHRINE_LEGENDARY_NAME";
+            genericDisplayNameToken = "MYSTICSITEMS_SHRINE_LEGENDARY_NAME";
 
             Prepare();
             Dither();
@@ -38,7 +40,7 @@ namespace MysticsItems.Interactables
             Material prefabMaterial = meshObject.GetComponent<MeshRenderer>().sharedMaterial;
             prefabMaterial.SetFloat("_Glossiness", 0.5f);
             prefabMaterial.SetFloat("_GlossyReflections", 1f);
-            Main.HopooShaderToMaterial.Standard.Gloss(prefabMaterial, 0.07f, 1.25f, new Color32(96, 86, 48, 255));
+            HopooShaderToMaterial.Standard.Gloss(prefabMaterial, 0.07f, 1.25f, new Color32(96, 86, 48, 255));
 
             GameObject shrineChanceSymbol = Resources.Load<GameObject>("Prefabs/NetworkedObjects/Shrines/ShrineGoldshoresAccess").transform.Find("Symbol").gameObject;
             GameObject symbol = prefab.transform.Find("Symbol").gameObject;
@@ -51,11 +53,11 @@ namespace MysticsItems.Interactables
             symbol.AddComponent<Billboard>();
 
             PurchaseInteraction purchaseInteraction = prefab.AddComponent<PurchaseInteraction>();
-            purchaseInteraction.displayNameToken = Main.TokenPrefix.ToUpper() + "SHRINE_LEGENDARY_NAME";
-            purchaseInteraction.contextToken = Main.TokenPrefix.ToUpper() + "SHRINE_LEGENDARY_CONTEXT";
-            purchaseInteraction.costType = CostTypeIndex.WhiteItem;
+            purchaseInteraction.displayNameToken = "MYSTICSITEMS_SHRINE_LEGENDARY_NAME";
+            purchaseInteraction.contextToken = "MYSTICSITEMS_SHRINE_LEGENDARY_CONTEXT";
+            purchaseInteraction.costType = CostTypeIndex.LunarCoin;
             purchaseInteraction.available = true;
-            purchaseInteraction.cost = 5;
+            purchaseInteraction.cost = 1;
             purchaseInteraction.automaticallyScaleCostWithDifficulty = false;
             purchaseInteraction.ignoreSpherecastForInteractability = false;
             purchaseInteraction.setUnavailableOnTeleporterActivated = true;
@@ -79,24 +81,30 @@ namespace MysticsItems.Interactables
             spawnCard.slightlyRandomizeOrientation = false;
             spawnCard.skipSpawnWhenSacrificeArtifactEnabled = false;
 
-            AddDirectorCardTo("wispgraveyard", "Shrines", new DirectorCard
+            var enabled = Main.configGeneral.Bind<bool>("Secrets", "Enable secrets", true, "???");
+            if (enabled.Value)
             {
-                spawnCard = spawnCard,
-                selectionWeight = 1,
-                spawnDistance = 0f,
-                allowAmbushSpawn = true,
-                preventOverhead = false,
-                minimumStageCompletions = 1,
-                requiredUnlockableDef = null,
-                forbiddenUnlockableDef = null
-            });
+                AddDirectorCardTo("wispgraveyard", "Shrines", new DirectorCard
+                {
+                    spawnCard = spawnCard,
+                    selectionWeight = 1,
+                    spawnDistance = 0f,
+                    allowAmbushSpawn = true,
+                    preventOverhead = false,
+                    minimumStageCompletions = 1,
+                    requiredUnlockableDef = null,
+                    forbiddenUnlockableDef = null
+                });
+            }
 
-            // Custom purchase cost type to take half of the player's items
+            // Custom purchase cost type to take a fraction of the player's items
+            /*
             GenericCostTypes.OnItemFractionCostTypeRegister += (costTypeIndex) =>
             {
                 purchaseInteraction.costType = costTypeIndex;
-                purchaseInteraction.cost = 90;
+                purchaseInteraction.cost = 100;
             };
+            */
         }
 
 
@@ -182,16 +190,14 @@ namespace MysticsItems.Interactables
                         component.inventory.ResetItem(itemIndex);
                     }
                 }
-                for (int i = 0; i < addReds; i++)
-                {
-                    component.inventory.GiveItem(rng.NextElementUniform<ItemIndex>(availableItems));
-                }
+                var rolledRed = rng.NextElementUniform<ItemIndex>(availableItems);
+                component.inventory.GiveItem(rolledRed, addReds);
                 component.inventory.SetDirtyBit(8U);
 
                 Chat.SendBroadcastChat(new Chat.SubjectFormatChatMessage
                 {
                     subjectAsCharacterBody = component,
-                    baseToken = Main.TokenPrefix.ToUpper() + "SHRINE_LEGENDARY_USE_MESSAGE"
+                    baseToken = "MYSTICSITEMS_SHRINE_LEGENDARY_USE_MESSAGE"
                 });
                 EffectManager.SpawnEffect(Resources.Load<GameObject>("Prefabs/Effects/ShrineUseEffect"), new EffectData
                 {
