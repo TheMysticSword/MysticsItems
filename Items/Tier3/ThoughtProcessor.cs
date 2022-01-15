@@ -70,6 +70,38 @@ namespace MysticsItems.Items
 
             RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
             On.RoR2.Language.GetLocalizedStringByToken += Language_GetLocalizedStringByToken;
+
+            On.RoR2.CharacterBody.OnInventoryChanged += CharacterBody_OnInventoryChanged;
+        }
+
+        private void CharacterBody_OnInventoryChanged(On.RoR2.CharacterBody.orig_OnInventoryChanged orig, CharacterBody self)
+        {
+            orig(self);
+            self.AddItemBehavior<MysticsItemsThoughtProcessorBehaviour>(self.inventory.GetItemCount(itemDef));
+        }
+
+        public class MysticsItemsThoughtProcessorBehaviour : CharacterBody.ItemBehavior
+        {
+            public HealthComponent healthComponent;
+            public float healthFractionDivisor = 0.25f;
+            public int healthFractionPhase = -1;
+
+            public void Start()
+            {
+                healthComponent = GetComponent<HealthComponent>();
+            }
+
+            public void FixedUpdate()
+            {
+                if (healthComponent) {
+                    var newHealthFractionPhase = Mathf.FloorToInt(healthComponent.combinedHealthFraction / healthFractionDivisor);
+                    if (newHealthFractionPhase != healthFractionPhase)
+                    {
+                        healthFractionPhase = newHealthFractionPhase;
+                        body.statsDirty = true;
+                    }
+                }
+            }
         }
 
         private string Language_GetLocalizedStringByToken(On.RoR2.Language.orig_GetLocalizedStringByToken orig, Language self, string token)
