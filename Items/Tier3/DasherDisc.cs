@@ -81,7 +81,8 @@ namespace MysticsItems.Items
             itemDisplayPrefab.transform.Find("mdlDasherDisc").localScale = Vector3.one * 5f;
 
             controllerPrefab.AddComponent<GenericOwnership>();
-            controllerPrefab.AddComponent<NetworkedBodyAttachment>();
+            NetworkedBodyAttachment networkedBodyAttachment = controllerPrefab.AddComponent<NetworkedBodyAttachment>();
+            networkedBodyAttachment.forceHostAuthority = true;
             EntityStateMachine stateMachine = controllerPrefab.AddComponent<EntityStateMachine>();
             stateMachine.mainStateType = stateMachine.initialStateType = new SerializableEntityStateType(typeof(DiscBaseState.Ready));
             NetworkStateMachine networkStateMachine = controllerPrefab.AddComponent<NetworkStateMachine>();
@@ -255,7 +256,7 @@ namespace MysticsItems.Items
                             if (IsReady() && controller.body)
                             {
                                 HealthComponent healthComponent = controller.body.healthComponent;
-                                if (healthComponent && healthComponent.isHealthLow)
+                                if (healthComponent && healthComponent.isHealthLow && healthComponent.alive)
                                 {
                                     controller.mustTrigger = true;
                                     new SyncFireTrigger(controller.gameObject.GetComponent<NetworkIdentity>().netId).Send(NetworkDestination.Clients);
@@ -316,6 +317,7 @@ namespace MysticsItems.Items
                 {
                     base.OnEnter();
                     baseDistance = controller.distance;
+                    controller.mustTrigger = false;
                     Util.PlaySound("Play_item_proc_dasherdisc", gameObject);
                 }
 
@@ -323,7 +325,7 @@ namespace MysticsItems.Items
                 {
                     base.Update();
                     controller.distance = Mathf.Lerp(baseDistance, -baseDistance, Mathf.Clamp01(age / duration));
-                    if (isAuthority && age >= duration)
+                    if (isAuthority && age >= duration && controller.body && controller.body.healthComponent && controller.body.healthComponent.alive)
                     {
                         outer.SetNextState(new Invincible());
                     }
@@ -342,6 +344,7 @@ namespace MysticsItems.Items
                 public override void OnEnter()
                 {
                     base.OnEnter();
+                    controller.mustTrigger = false;
                     if (controller.body)
                     {
                         ModelLocator modelLocator = controller.body.modelLocator;
@@ -355,7 +358,7 @@ namespace MysticsItems.Items
                             }
                         }
 
-                        if (NetworkServer.active) controller.body.AddBuff(MysticsItemsContent.Buffs.MysticsItems_DasherDiscActive);
+                        if (NetworkServer.active) controller.body.AddTimedBuff(MysticsItemsContent.Buffs.MysticsItems_DasherDiscActive, DasherDisc.duration);
                     }
                 }
 
@@ -385,7 +388,7 @@ namespace MysticsItems.Items
                                 controller.body.AddTimedBuff(MysticsItemsContent.Buffs.MysticsItems_DasherDiscCooldown, cooldown / (float)cooldownSeconds * (i + 1));
                             }
 
-                            if (controller.body.HasBuff(MysticsItemsContent.Buffs.MysticsItems_DasherDiscActive)) controller.body.RemoveBuff(MysticsItemsContent.Buffs.MysticsItems_DasherDiscActive);
+                            controller.body.ClearTimedBuffs(MysticsItemsContent.Buffs.MysticsItems_DasherDiscActive);
                         }
                     }
                 }
@@ -393,13 +396,13 @@ namespace MysticsItems.Items
                 public override void FixedUpdate()
                 {
                     base.FixedUpdate();
-                    if (isAuthority && fixedAge >= duration)
+                    if (isAuthority && fixedAge >= minDuration && !controller.body.HasBuff(MysticsItemsContent.Buffs.MysticsItems_DasherDiscActive))
                     {
                         outer.SetNextState(new Ready());
                     }
                 }
 
-                public static float duration = DasherDisc.duration;
+                public static float minDuration = 1f;
                 public override float DiscSpinBoost => 9f;
                 public override bool DiscRotatesAroundCharacter => false;
             }
