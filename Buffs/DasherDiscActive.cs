@@ -3,6 +3,7 @@ using MonoMod.Cil;
 using MysticsRisky2Utils.BaseAssetTypes;
 using RoR2;
 using UnityEngine;
+using MysticsRisky2Utils;
 
 namespace MysticsItems.Buffs
 {
@@ -31,34 +32,19 @@ namespace MysticsItems.Buffs
                     });
                 }
             };
-            IL.RoR2.CharacterModel.UpdateRendererMaterials += (il) =>
+            CharacterModelMaterialOverrides.AddOverride(IncorporealMaterialOverride);
+        }
+
+        public void IncorporealMaterialOverride(CharacterModel characterModel, ref Material material, ref bool ignoreOverlays)
+        {
+            if (characterModel.body && characterModel.visibility >= VisibilityLevel.Visible && !ignoreOverlays)
             {
-                ILCursor c = new ILCursor(il);
-                if (c.TryGotoNext(
-                    MoveType.AfterLabel,
-                    x => x.MatchLdarg(3),
-                    x => x.MatchBrtrue(out _),
-                    x => x.MatchLdarg(0),
-                    x => x.MatchLdfld<CharacterModel>("activeOverlayCount")
-                ))
+                if (characterModel.body.HasBuff(buffDef))
                 {
-                    c.Emit(OpCodes.Ldarg_0);
-                    c.Emit(OpCodes.Ldloc_0);
-                    c.Emit(OpCodes.Ldarg_3);
-                    c.EmitDelegate<System.Func<CharacterModel, Material, bool, Material>>((characterModel, material, ignoreOverlays) =>
-                    {
-                        if (characterModel.body && characterModel.visibility >= VisibilityLevel.Visible && !ignoreOverlays)
-                        {
-                            if (characterModel.body.HasBuff(buffDef))
-                            {
-                                return CharacterModel.ghostMaterial;
-                            }
-                        }
-                        return material;
-                    });
-                    c.Emit(OpCodes.Stloc_0);
+                    ignoreOverlays = true;
+                    material = CharacterModel.ghostMaterial;
                 }
-            };
+            }
         }
     }
 }
