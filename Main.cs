@@ -258,6 +258,7 @@ namespace MysticsItems
             public static EquipmentDef MysticsItems_GateChalice;
             public static EquipmentDef MysticsItems_Microphone;
             public static EquipmentDef MysticsItems_MechanicalArm;
+            public static EquipmentDef MysticsItems_OmarHackTool;
             public static EquipmentDef MysticsItems_PrinterHacker;
             public static EquipmentDef MysticsItems_SirenPole;
             public static EquipmentDef MysticsItems_TuningFork;

@@ -173,6 +173,10 @@
     "EQUIPMENT_MYSTICSITEMS_MECHANICALARM_DESC": "Critical Strike chance is increased by <style=cIsDamage>{BaseCrit}%</style> while carrying this equipment.\r\n\r\nSwing in front for <style=cIsDamage>{Damage}% damage + {DamageBonusPerCharge}% damage for each Critical Strike dealt prior to activation</style>.",
     "EQUIPMENT_MYSTICSITEMS_MECHANICALARM_LORE": "UES Refund Request #793045\r\n\r\nRefund: 701***** Robot Cosplay Costume Gameshow Dice - 4,000 Credits\r\nTotal: 3,600 Credits will be refunded to your wallet\r\n\r\nReason: My package was not delivered\r\nNotes:\r\nThe arms are missing.",
 
+    "EQUIPMENT_MYSTICSITEMS_OMARHACKTOOL_NAME": "From Omar With Love",
+    "EQUIPMENT_MYSTICSITEMS_OMARHACKTOOL_PICKUP": "Hack a chest and open it for free. Once per stage.",
+    "EQUIPMENT_MYSTICSITEMS_OMARHACKTOOL_DESC": "Hack a chest and open it <style=cIsUtility>for free</style>. Limited to <style=cIsUtility>1</style> use per stage, <style=cIsUtility>limit is increased with additional equipment charges</style>.",
+
     "EQUIPMENT_MYSTICSITEMS_EQUIPMENTEATER_NAME": "Robot Buddy",
     "EQUIPMENT_MYSTICSITEMS_EQUIPMENTEATER_PICKUP": "Convert equipment into scrap.",
     "EQUIPMENT_MYSTICSITEMS_EQUIPMENTEATER_DESC": "Convert equipment into <style=cIsUtility>3 Item Scrap, White</style>.",
