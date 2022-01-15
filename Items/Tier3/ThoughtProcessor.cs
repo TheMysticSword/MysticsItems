@@ -123,7 +123,7 @@ namespace MysticsItems.Items
                 int itemCount = sender.inventory.GetItemCount(itemDef);
                 if (itemCount > 0)
                 {
-                    args.attackSpeedMultAdd += (attackSpeed / 100f + attackSpeedPerStack / 100f * (float)(itemCount - 1)) * sender.healthComponent.missingCombinedHealth;
+                    args.attackSpeedMultAdd += (attackSpeed + attackSpeedPerStack * (float)(itemCount - 1)) * Mathf.Max(1f - sender.healthComponent.combinedHealthFraction, 0f);
                 }
             }
         }
