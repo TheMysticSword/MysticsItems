@@ -14,7 +14,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> attackSpeed = new ConfigurableValue<float>(
             "Item: Thought Processor",
             "AttackSpeed",
-            2f,
+            1f,
             "Attack speed increase per 1% missing health (in %)",
             new System.Collections.Generic.List<string>()
             {
@@ -24,7 +24,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> attackSpeedPerStack = new ConfigurableValue<float>(
             "Item: Thought Processor",
             "AttackSpeedPerStack",
-            1f,
+            0.5f,
             "Attack speed increase per 1% missing health for each additional stack of this item (in %)",
             new System.Collections.Generic.List<string>()
             {
