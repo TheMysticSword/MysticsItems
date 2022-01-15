@@ -102,7 +102,7 @@ namespace MysticsItems.Items
             effectComponent.parentToReferencedTransform = true;
             effectComponent.soundName = "MysticsItems_Play_item_proc_spineimplant";
             VFXAttributes vfxAttributes = visualEffect.AddComponent<VFXAttributes>();
-            vfxAttributes.vfxPriority = VFXAttributes.VFXPriority.Always;
+            vfxAttributes.vfxPriority = VFXAttributes.VFXPriority.Medium;
             vfxAttributes.vfxIntensity = VFXAttributes.VFXIntensity.Low;
             visualEffect.AddComponent<DestroyOnTimer>().duration = 1f;
             MysticsItemsBackArmorVFX component = visualEffect.AddComponent<MysticsItemsBackArmorVFX>();

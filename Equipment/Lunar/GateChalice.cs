@@ -150,7 +150,7 @@ namespace MysticsItems.Equipment
             effectComponent = visualEffectTeleportOut.AddComponent<EffectComponent>();
             vfxAttributes = visualEffectTeleportOut.AddComponent<VFXAttributes>();
             vfxAttributes.vfxPriority = VFXAttributes.VFXPriority.Always;
-            vfxAttributes.vfxIntensity = VFXAttributes.VFXIntensity.High;
+            vfxAttributes.vfxIntensity = VFXAttributes.VFXIntensity.Medium;
             visualEffectTeleportOut.AddComponent<DestroyOnTimer>().duration = 4f;
 
             GameObject ppHolder = PrefabAPI.InstantiateClone(new GameObject(), "PP", false);

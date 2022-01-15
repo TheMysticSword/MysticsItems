@@ -72,8 +72,8 @@ namespace MysticsItems.Items
             effectComponent.applyScale = true;
             effectComponent.parentToReferencedTransform = true;
             VFXAttributes vfxAttributes = visualEffect.AddComponent<VFXAttributes>();
-            vfxAttributes.vfxPriority = VFXAttributes.VFXPriority.Always;
-            vfxAttributes.vfxIntensity = VFXAttributes.VFXIntensity.Low;
+            vfxAttributes.vfxPriority = VFXAttributes.VFXPriority.Medium;
+            vfxAttributes.vfxIntensity = VFXAttributes.VFXIntensity.Medium;
             visualEffect.AddComponent<DestroyOnTimer>().duration = 2f;
 
             GameObject particles = PrefabAPI.InstantiateClone(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Coffee/CoffeeBoostEffect.prefab"), "Particles", false);
