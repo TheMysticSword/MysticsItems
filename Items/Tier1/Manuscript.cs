@@ -10,6 +10,8 @@ using MysticsRisky2Utils.BaseAssetTypes;
 using R2API;
 using System.Linq;
 using static MysticsItems.BalanceConfigManager;
+using R2API.Networking.Interfaces;
+using R2API.Networking;
 
 namespace MysticsItems.Items
 {
@@ -26,6 +28,12 @@ namespace MysticsItems.Items
                 "ITEM_MYSTICSITEMS_MANUSCRIPT_DESC"
             }
         );
+
+        public override void OnPluginAwake()
+        {
+            NetworkingAPI.RegisterMessageType<MysticsItemsManuscript.SyncAddBuff>();
+            NetworkingAPI.RegisterMessageType<MysticsItemsManuscript.SyncRemoveBuff>();
+        }
 
         public override void OnLoad()
         {
@@ -125,7 +133,7 @@ namespace MysticsItems.Items
             MysticsItemsManuscript component = self.GetComponent<MysticsItemsManuscript>();
             if (!component) component = self.gameObject.AddComponent<MysticsItemsManuscript>();
             orig(self, itemIndex, count);
-            if (itemIndex == itemDef.itemIndex) for (var i = 0; i < count; i++) component.AddBuff();
+            if (NetworkServer.active && itemIndex == itemDef.itemIndex) for (var i = 0; i < count; i++) component.AddBuff();
         }
 
         public void Inventory_RemoveItem_ItemIndex_int(On.RoR2.Inventory.orig_RemoveItem_ItemIndex_int orig, Inventory self, ItemIndex itemIndex, int count)
@@ -133,7 +141,7 @@ namespace MysticsItems.Items
             MysticsItemsManuscript component = self.GetComponent<MysticsItemsManuscript>();
             if (!component) component = self.gameObject.AddComponent<MysticsItemsManuscript>();
             orig(self, itemIndex, count);
-            if (itemIndex == itemDef.itemIndex) for (var i = 0; i < count; i++) component.RemoveBuff();
+            if (NetworkServer.active && itemIndex == itemDef.itemIndex) for (var i = 0; i < count; i++) component.RemoveBuff();
         }
 
         public class MysticsItemsManuscript : MonoBehaviour
@@ -166,17 +174,105 @@ namespace MysticsItems.Items
 
             public void AddBuff()
             {
-                BuffType chosenBuffType = RoR2Application.rng.NextElementUniform(buffTypes);
+                AddBuff(RoR2Application.rng.NextElementUniform(buffTypes));
+            }
+
+            public void AddBuff(BuffType chosenBuffType)
+            {
+                if (NetworkServer.active)
+                    new SyncAddBuff(gameObject.GetComponent<NetworkIdentity>().netId, (int)chosenBuffType).Send(NetworkDestination.Clients);
                 if (!buffOrder.Contains(chosenBuffType)) buffOrder.Add(chosenBuffType);
                 buffStacks[chosenBuffType]++;
             }
 
             public void RemoveBuff()
             {
+                if (NetworkServer.active)
+                    new SyncRemoveBuff(gameObject.GetComponent<NetworkIdentity>().netId).Send(NetworkDestination.Clients);
                 if (buffOrder.Count > 0)
                 {
                     buffStacks[buffOrder[buffOrder.Count - 1]]--;
                     if (buffStacks[buffOrder[buffOrder.Count - 1]] <= 0) buffOrder.RemoveAt(buffOrder.Count - 1);
+                }
+            }
+
+            public class SyncAddBuff : INetMessage
+            {
+                NetworkInstanceId objID;
+                int chosenBuffType;
+
+                public SyncAddBuff()
+                {
+                }
+
+                public SyncAddBuff(NetworkInstanceId objID, int chosenBuffType)
+                {
+                    this.objID = objID;
+                    this.chosenBuffType = chosenBuffType;
+                }
+
+                public void Deserialize(NetworkReader reader)
+                {
+                    objID = reader.ReadNetworkId();
+                    chosenBuffType = reader.ReadInt32();
+                }
+
+                public void OnReceived()
+                {
+                    if (NetworkServer.active) return;
+                    GameObject obj = Util.FindNetworkObject(objID);
+                    if (obj)
+                    {
+                        MysticsItemsManuscript controller = obj.GetComponent<MysticsItemsManuscript>();
+                        if (controller)
+                        {
+                            controller.AddBuff((BuffType)chosenBuffType);
+                        }
+                    }
+                }
+
+                public void Serialize(NetworkWriter writer)
+                {
+                    writer.Write(objID);
+                    writer.Write(chosenBuffType);
+                }
+            }
+
+            public class SyncRemoveBuff : INetMessage
+            {
+                NetworkInstanceId objID;
+
+                public SyncRemoveBuff()
+                {
+                }
+
+                public SyncRemoveBuff(NetworkInstanceId objID)
+                {
+                    this.objID = objID;
+                }
+
+                public void Deserialize(NetworkReader reader)
+                {
+                    objID = reader.ReadNetworkId();
+                }
+
+                public void OnReceived()
+                {
+                    if (NetworkServer.active) return;
+                    GameObject obj = Util.FindNetworkObject(objID);
+                    if (obj)
+                    {
+                        MysticsItemsManuscript controller = obj.GetComponent<MysticsItemsManuscript>();
+                        if (controller)
+                        {
+                            controller.RemoveBuff();
+                        }
+                    }
+                }
+
+                public void Serialize(NetworkWriter writer)
+                {
+                    writer.Write(objID);
                 }
             }
         }
