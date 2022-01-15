@@ -383,7 +383,7 @@ namespace MysticsItems.Items
                 {
                     comboText.enabled = Rhythm.hudComboText.Value;
                     if (comboText.enabled && rhythmBehaviour)
-                        comboText.text = Language.GetStringFormatted("MYSTICSITEMS_GENERIC_COMBO", rhythmBehaviour.combo);
+                        comboText.text = "x" + rhythmBehaviour.combo;
                 }
             }
 
@@ -622,7 +622,7 @@ namespace MysticsItems.Items
                 {
                     comboText.enabled = Rhythm.hudComboText.Value;
                     if (comboText.enabled && rhythmBehaviour)
-                        comboText.text = Language.GetStringFormatted("MYSTICSITEMS_GENERIC_COMBO", rhythmBehaviour.combo);
+                        comboText.text = "x" + rhythmBehaviour.combo;
                 }
             }
 
