@@ -93,13 +93,18 @@ namespace MysticsItems.Items
             };
             */
 
-            CharacterBody.onBodyStartGlobal += CharacterBody_onBodyStartGlobal;
+            CharacterMaster.onStartGlobal += CharacterMaster_onStartGlobal;
             GlobalEventManager.onCharacterDeathGlobal += GlobalEventManager_onCharacterDeathGlobal;
             RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
 
             if (!SoftDependencies.SoftDependenciesCore.itemStatsCompatEnabled) On.RoR2.UI.ItemIcon.SetItemIndex += ItemIcon_SetItemIndex;
 
             GenericGameEvents.BeforeTakeDamage += GenericGameEvents_BeforeTakeDamage;
+        }
+
+        private void CharacterMaster_onStartGlobal(CharacterMaster obj)
+        {
+            if (obj.inventory) obj.inventory.gameObject.AddComponent<MysticsItemsMysticSwordBehaviour>();
         }
 
         private void GenericGameEvents_BeforeTakeDamage(DamageInfo damageInfo, MysticsRisky2UtilsPlugin.GenericCharacterInfo attackerInfo, MysticsRisky2UtilsPlugin.GenericCharacterInfo victimInfo)
@@ -122,26 +127,22 @@ namespace MysticsItems.Items
                     RoR2.UI.ItemInventoryDisplay itemInventoryDisplay = parent.GetComponent<RoR2.UI.ItemInventoryDisplay>();
                     if (itemInventoryDisplay && itemInventoryDisplay.inventory)
                     {
-                        var characterBody = CharacterBody.readOnlyInstancesList.FirstOrDefault(x => x.inventory == itemInventoryDisplay.inventory);
-                        if (characterBody)
+                        MysticsItemsMysticSwordBehaviour swordBehaviour = itemInventoryDisplay.inventory.GetComponent<MysticsItemsMysticSwordBehaviour>();
+                        if (swordBehaviour)
                         {
-                            MysticsItemsMysticSwordBehaviour swordBehaviour = itemInventoryDisplay.inventory.GetComponent<MysticsItemsMysticSwordBehaviour>();
-                            if (swordBehaviour)
-                            {
-                                globalStringBuilder.Clear();
-                                globalStringBuilder.Append(Language.GetString(self.tooltipProvider.bodyToken) + "\r\n");
-                                globalStringBuilder.Append("\r\n");
-                                globalStringBuilder.Append(Language.GetString("MYSTICSITEMS_STATCHANGE_LIST_HEADER"));
-                                globalStringBuilder.Append("\r\n");
-                                globalStringBuilder.Append(
-                                    Language.GetStringFormatted(
-                                        "MYSTICSITEMS_STATCHANGE_LIST_DAMAGE",
-                                        "+" + (int)(swordBehaviour.damageBonus * 100f)
-                                    )
-                                );
-                                self.tooltipProvider.overrideBodyText = globalStringBuilder.ToString();
-                                globalStringBuilder.Clear();
-                            }
+                            globalStringBuilder.Clear();
+                            globalStringBuilder.Append(Language.GetString(self.tooltipProvider.bodyToken) + "\r\n");
+                            globalStringBuilder.Append("\r\n");
+                            globalStringBuilder.Append(Language.GetString("MYSTICSITEMS_STATCHANGE_LIST_HEADER"));
+                            globalStringBuilder.Append("\r\n");
+                            globalStringBuilder.Append(
+                                Language.GetStringFormatted(
+                                    "MYSTICSITEMS_STATCHANGE_LIST_DAMAGE",
+                                    "+" + (int)(swordBehaviour.damageBonus * 100f)
+                                )
+                            );
+                            self.tooltipProvider.overrideBodyText = globalStringBuilder.ToString();
+                            globalStringBuilder.Clear();
                         }
                     }
                 }
@@ -155,22 +156,17 @@ namespace MysticsItems.Items
                 var itemCount = sender.inventory.GetItemCount(itemDef);
                 if (itemCount > 0)
                 {
-                    var component = sender.GetComponent<MysticsItemsMysticSwordBehaviour>();
+                    var component = sender.inventory.GetComponent<MysticsItemsMysticSwordBehaviour>();
                     if (component) args.damageMultAdd += component.damageBonus;
                 }
             }
-        }
-
-        private void CharacterBody_onBodyStartGlobal(CharacterBody characterBody)
-        {
-            characterBody.gameObject.AddComponent<MysticsItemsMysticSwordBehaviour>();
         }
 
         private void GlobalEventManager_onCharacterDeathGlobal(DamageReport damageReport)
         {
             if (!NetworkServer.active) return;
 
-            if (damageReport.victimBody && damageReport.attackerBody)
+            if (damageReport.victimBody && damageReport.attackerMaster)
             {
                 var healthMultiplier = 1f;
                 if (damageReport.victimBody.inventory)
@@ -182,7 +178,7 @@ namespace MysticsItems.Items
                         int itemCount = damageReport.attackerMaster.inventory.GetItemCount(itemDef);
                         if (itemCount > 0)
                         {
-                            var component = damageReport.attackerBody.GetComponent<MysticsItemsMysticSwordBehaviour>();
+                            var component = damageReport.attackerMaster.inventory.GetComponent<MysticsItemsMysticSwordBehaviour>();
                             if (component)
                             {
                                 component.damageBonus += damage / 100f + damagePerStack / 100f * (float)(itemCount - 1);
