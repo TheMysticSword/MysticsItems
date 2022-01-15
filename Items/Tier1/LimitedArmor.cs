@@ -30,6 +30,7 @@ namespace MysticsItems.Items
             "How many hits does this item protect you from until it turns into the weaker version",
             new System.Collections.Generic.List<string>()
             {
+                "ITEM_MYSTICSITEMS_LIMITEDARMOR_PICKUP",
                 "ITEM_MYSTICSITEMS_LIMITEDARMOR_DESC"
             }
         );
