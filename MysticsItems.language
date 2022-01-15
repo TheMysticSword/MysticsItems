@@ -64,6 +64,10 @@
     "ITEM_MYSTICSITEMS_LIMITEDARMOR_PICKUP": "Reduce damage against {Hits} hits.",
     "ITEM_MYSTICSITEMS_LIMITEDARMOR_DESC": "Increases armor by <style=cIsUtility>{Armor}</style> against <style=cIsUtility>{Hits} hits <style=cStack>(+{Hits} hits per stack)</style></style>. On exhaustion, turns into <style=cIsUtility>Frayed Bow (always increases armor by {BrokenArmor})</style>.",
 
+    "ITEM_MYSTICSITEMS_COOKIE_NAME": "Choc Chip",
+    "ITEM_MYSTICSITEMS_COOKIE_PICKUP": "Buffs last longer, debuffs last shorter.",
+    "ITEM_MYSTICSITEMS_COOKIE_DESC": "Increase the duration of positive status effects by <style=cIsUtility>{BuffDuration}s <style=cStack>(+{BuffDurationPerStack}s per stack)</style></style>. Reduce the duration of negative status effects by <style=cIsUtility>{DebuffDuration}s <style=cStack>(+{DebuffDuration}s per stack)</style></style>, cannot reduce below 1 second.",
+
     //[TIER2]
     "ITEM_MYSTICSITEMS_COFFEEBOOSTONITEMPICKUP_NAME": "Cup of Expresso", // [Yes, it is specifically "expresso" in this item, because it makes you fast and inflicts an Express Boost buff. It's not a misspelling.]
     "ITEM_MYSTICSITEMS_COFFEEBOOSTONITEMPICKUP_PICKUP": "Gain an express boost until the next stage on item pickup. Stacks {MaxBuffs} times.",
@@ -187,12 +191,16 @@
 
     //[LUNAR EQUIPMENT]
     "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_NAME": "Ratio Equalizer",
-    "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_PICKUP": "Make the current health percentage of <color=#FF7F7F>ALL nearby characters</color> equal to yours.\n",
+    "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_PICKUP": "Make the current health percentage of <color=#FF7F7F>ALL nearby characters</color> equal to yours.",
     "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_DESC": "Make the current health percentage of all characters in a {Radius}m radius equal to yours.",
 
     "EQUIPMENT_MYSTICSITEMS_GATECHALICE_NAME": "Gate Chalice", // [The word "gate" here refers to the teleporters that Mithrix and Providence created. They call them "gates" in the vanilla logbook entries (specifically, A Moment, Fractured (MAP_MYSTERYSPACE_LORE), A Moment, Whole (MAP_LIMBO_LORE), Commencement (MAP_MOON_LORE))]
-    "EQUIPMENT_MYSTICSITEMS_GATECHALICE_PICKUP": "Instantly teleport to the next stage... <color=#FF7F7F>BUT lose {ItemsToDestroy} items.</color>\n",
+    "EQUIPMENT_MYSTICSITEMS_GATECHALICE_PICKUP": "Instantly teleport to the next stage... <color=#FF7F7F>BUT lose {ItemsToDestroy} items.</color>",
     "EQUIPMENT_MYSTICSITEMS_GATECHALICE_DESC": "Teleports to the next stage and <style=cIsUtility>removes {ItemsToDestroy} random items</style>.",
+
+    "EQUIPMENT_MYSTICSITEMS_FRAGILEMASK_NAME": "Fragile Mask",
+    "EQUIPMENT_MYSTICSITEMS_FRAGILEMASK_PICKUP": "Use to toggle. While active, damage is {DamageMultiplier}x higher, <color=#FF7F7F>BUT you die from any damage</color>.",
+    "EQUIPMENT_MYSTICSITEMS_FRAGILEMASK_DESC": "Use to toggle. While active, <style=cIsDamage>base damage is increased by {BaseDamageBonus}%</style> and <style=cDeath>any damage kills you</style>.",
 
     //[ACHIEVEMENTS]
     "ACHIEVEMENT_MYSTICSITEMS_ESCAPEMOONALONE_NAME": "Last of Us", // [Reference to "The Last of Us"]
@@ -227,7 +235,7 @@
 
     "MYSTICSITEMS_SIRENPOLE_NAME": "Siren Pole",
 
-    "MYSTICSITEMS_SHRINE_LEGENDARY_NAME": "Shrine of the Legend (Mystic's Items)", // [Do not translate "Mystic's Items" - it's the name of the mod]
+    "MYSTICSITEMS_SHRINE_LEGENDARY_NAME": "Shrine of the Legend (Mystic's Items)",
     "MYSTICSITEMS_SHRINE_LEGENDARY_CONTEXT": "Offer to Shrine of the Legend",
     "MYSTICSITEMS_SHRINE_LEGENDARY_USE_MESSAGE_2P": "<style=cShrine>You have become the embodiment of the legend.</color>",
     "MYSTICSITEMS_SHRINE_LEGENDARY_USE_MESSAGE": "<style=cShrine>{0} has become the embodiment of the legend.</color>",
@@ -274,6 +282,7 @@
     "ITEMSTATS_MYSTICSITEMS_ARMOR": "Armor: {0}",
     "ITEMSTATS_MYSTICSITEMS_ATTACKSPEED": "Attack Speed: {0}",
     "ITEMSTATS_MYSTICSITEMS_BONUSPERKILL": "Bonus Per Kill: {0}",
+    "ITEMSTATS_MYSTICSITEMS_CHARGES": "Charges: {0}",
     "ITEMSTATS_MYSTICSITEMS_CRIT": "Critical Strike Chance: {0}",
     "ITEMSTATS_MYSTICSITEMS_CRITDAMAGE": "Critical Strike Damage: {0}",
     "ITEMSTATS_MYSTICSITEMS_CRITPERBUFFSTACK": "Crit Per Buff Stack: {0}",
@@ -283,7 +292,6 @@
     "ITEMSTATS_MYSTICSITEMS_DAMAGEPERSPEEDINCREASE": "Damage Per 1% Speed Increase: {0}",
     "ITEMSTATS_MYSTICSITEMS_DIFFICULTYSPEED": "Difficulty Scaling Speed: {0}",
     "ITEMSTATS_MYSTICSITEMS_DURATION": "Duration: {0}",
-    "ITEMSTATS_MYSTICSITEMS_EXTRASHRINEUSES": "Extra Shrine Uses: {0}",
     "ITEMSTATS_MYSTICSITEMS_GOLDFORMAXBUFF": "Gold For Maximum Buff: {0}",
     "ITEMSTATS_MYSTICSITEMS_HEALING": "Healing: {0}",
     "ITEMSTATS_MYSTICSITEMS_MAXATTACKSPEEDBONUS": "Maximum Attack Speed Bonus: {0}",
@@ -307,9 +315,7 @@
     "MYSTICSITEMS_STATCHANGE_LIST_MOVESPEED": "* {0}% movement speed",
     "MYSTICSITEMS_STATCHANGE_LIST_ATTACKSPEED": "* {0}% attack speed",
     "MYSTICSITEMS_STATCHANGE_LIST_CRIT": "* {0}% Critical Strike chance",
-    "MYSTICSITEMS_STATCHANGE_LIST_ARMOR": "* {0} armor",
-
-    "MYSTICSITEMS_GENERIC_COMBO": "x{0}"
+    "MYSTICSITEMS_STATCHANGE_LIST_ARMOR": "* {0} armor"
   },
   "RU": {
     //[ITEMS]

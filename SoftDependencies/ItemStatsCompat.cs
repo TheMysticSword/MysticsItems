@@ -138,6 +138,21 @@ namespace MysticsItems.SoftDependencies
                     )
                 }
             });
+            // Choc Chip
+            ItemStats.ItemStatsMod.AddCustomItemStatDef(MysticsItemsContent.Items.MysticsItems_Cookie.itemIndex, new ItemStats.ItemStatDef
+            {
+                Stats = new List<ItemStats.Stat.ItemStat>()
+                {
+                    new ItemStats.Stat.ItemStat(
+                        (itemCount, ctx) => Items.Cookie.buffDuration + Items.Cookie.buffDurationPerStack * (itemCount - 1),
+                        (value, ctx) => Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_DURATION", ItemStats.ValueFormatters.Extensions.FormatInt(value: value, postfix: Language.GetString("ITEMSTATS_MYSTICSITEMS_POSTFIX_SECONDS"), signed: true))
+                    ),
+                    new ItemStats.Stat.ItemStat(
+                        (itemCount, ctx) => Items.Cookie.debuffDuration + Items.Cookie.debuffDurationPerStack * (itemCount - 1),
+                        (value, ctx) => Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_DURATION", ItemStats.ValueFormatters.Extensions.FormatInt(value: value, postfix: Language.GetString("ITEMSTATS_MYSTICSITEMS_POSTFIX_SECONDS"), signed: true))
+                    )
+                }
+            });
 
             // Tier2
             // Vendetta
@@ -186,16 +201,7 @@ namespace MysticsItems.SoftDependencies
                 }
             });
             // Black Monolith
-            ItemStats.ItemStatsMod.AddCustomItemStatDef(MysticsItemsContent.Items.MysticsItems_ExtraShrineUse.itemIndex, new ItemStats.ItemStatDef
-            {
-                Stats = new List<ItemStats.Stat.ItemStat>()
-                {
-                    new ItemStats.Stat.ItemStat(
-                        (itemCount, ctx) => itemCount,
-                        (value, ctx) => Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_EXTRASHRINEUSES", ItemStats.ValueFormatters.Extensions.FormatInt(value: value))
-                    )
-                }
-            });
+            
             // Platinum Card
 
             // Mystic Sword
@@ -309,6 +315,17 @@ namespace MysticsItems.SoftDependencies
                     new ItemStats.Stat.ItemStat(
                         (itemCount, ctx) => Items.Voltmeter.damage + Items.Voltmeter.damagePerStack * (itemCount - 1),
                         (value, ctx) => Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_DAMAGE", ItemStats.ValueFormatters.Extensions.FormatPercentage(value: value, scale: 1f))
+                    )
+                }
+            });
+            // Hiker's Backpack
+            ItemStats.ItemStatsMod.AddCustomItemStatDef(MysticsItemsContent.Items.MysticsItems_Backpack.itemIndex, new ItemStats.ItemStatDef
+            {
+                Stats = new List<ItemStats.Stat.ItemStat>()
+                {
+                    new ItemStats.Stat.ItemStat(
+                        (itemCount, ctx) => Items.Backpack.charges + Items.Backpack.chargesPerStack * (itemCount - 1),
+                        (value, ctx) => Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_CHARGES", ItemStats.ValueFormatters.Extensions.FormatInt(value: value, signed: true))
                     )
                 }
             });

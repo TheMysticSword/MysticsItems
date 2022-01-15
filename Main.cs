@@ -228,6 +228,7 @@ namespace MysticsItems
             public static ItemDef MysticsItems_BackArmor;
             public static ItemDef MysticsItems_Backpack;
             public static ItemDef MysticsItems_CoffeeBoostOnItemPickup;
+            public static ItemDef MysticsItems_Cookie;
             public static ItemDef MysticsItems_CrystalWorld;
             public static ItemDef MysticsItems_DasherDisc;
             public static ItemDef MysticsItems_ExplosivePickups;
@@ -256,6 +257,7 @@ namespace MysticsItems
         public static class Equipment
         {
             public static EquipmentDef MysticsItems_ArchaicMask;
+            public static EquipmentDef MysticsItems_FragileMask;
             public static EquipmentDef MysticsItems_GateChalice;
             public static EquipmentDef MysticsItems_Microphone;
             public static EquipmentDef MysticsItems_MechanicalArm;
