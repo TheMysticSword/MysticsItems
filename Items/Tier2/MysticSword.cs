@@ -48,7 +48,7 @@ namespace MysticsItems.Items
             }
         );
 
-        public static DamageColorIndex damageColorIndex = DamageColorAPI.RegisterDamageColor(new Color32(117, 245, 255, 255));
+        public static DamageColorIndex damageColorIndex = DamageColorAPI.RegisterDamageColor(new Color32(191, 255, 255, 255));
 
         public override void OnPluginAwake()
         {
