@@ -226,6 +226,7 @@ namespace MysticsItems
         {
             public static ItemDef MysticsItems_AllyDeathRevenge;
             public static ItemDef MysticsItems_BackArmor;
+            public static ItemDef MysticsItems_Backpack;
             public static ItemDef MysticsItems_CoffeeBoostOnItemPickup;
             public static ItemDef MysticsItems_CrystalWorld;
             public static ItemDef MysticsItems_DasherDisc;
