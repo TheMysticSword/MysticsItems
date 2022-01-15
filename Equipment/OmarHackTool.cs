@@ -11,6 +11,8 @@ using MysticsRisky2Utils.BaseAssetTypes;
 using static MysticsItems.BalanceConfigManager;
 using RoR2.UI;
 using TMPro;
+using R2API.Networking.Interfaces;
+using R2API.Networking;
 
 namespace MysticsItems.Equipment
 {
@@ -19,6 +21,11 @@ namespace MysticsItems.Equipment
         public static GameObject crosshairPrefab;
         public static GameObject hudPrefab;
         public static GameObject hackVFXPrefab;
+
+        public override void OnPluginAwake()
+        {
+            NetworkingAPI.RegisterMessageType<MysticsItemsOmarHackToolBehaviour.SyncUsesLeft>();
+        }
 
         public override void OnLoad()
         {
@@ -231,7 +238,61 @@ namespace MysticsItems.Equipment
 
         public class MysticsItemsOmarHackToolBehaviour : MonoBehaviour
         {
-            public int usesLeft = 0;
+            private int _usesLeft = 0;
+            public int usesLeft
+            {
+                get { return _usesLeft; }
+                set
+                {
+                    if (_usesLeft != value)
+                    {
+                        _usesLeft = value;
+                        MysticsItemsOmarHackToolHUD.RefreshAll();
+                        if (NetworkServer.active)
+                            new SyncUsesLeft(gameObject.GetComponent<NetworkIdentity>().netId, value).Send(NetworkDestination.Clients);
+                    }
+                }
+            }
+
+            public class SyncUsesLeft : INetMessage
+            {
+                NetworkInstanceId objID;
+                int usesLeft;
+
+                public SyncUsesLeft()
+                {
+                }
+
+                public SyncUsesLeft(NetworkInstanceId objID, int usesLeft)
+                {
+                    this.objID = objID;
+                    this.usesLeft = usesLeft;
+                }
+
+                public void Deserialize(NetworkReader reader)
+                {
+                    objID = reader.ReadNetworkId();
+                    usesLeft = reader.ReadInt32();
+                }
+
+                public void OnReceived()
+                {
+                    if (NetworkServer.active) return;
+                    GameObject obj = Util.FindNetworkObject(objID);
+                    if (obj)
+                    {
+                        var component = obj.GetComponent<MysticsItemsOmarHackToolBehaviour>();
+                        if (component) component.usesLeft = usesLeft;
+                    }
+                }
+
+                public void Serialize(NetworkWriter writer)
+                {
+                    writer.Write(objID);
+                    writer.Write(usesLeft);
+                }
+            }
+
             private int _maxUses = 0;
             public int maxUses
             {
@@ -284,7 +345,6 @@ namespace MysticsItems.Equipment
 
                     targetInfo.Invalidate();
 
-                    MysticsItemsOmarHackToolHUD.RefreshAll();
                     return true;
                 }
             }
@@ -410,7 +470,7 @@ namespace MysticsItems.Equipment
                 {
                     if (usesLeftText)
                     {
-                        usesLeftText.text = Language.GetStringFormatted("MYSTICSITEMS_GENERIC_NUMBERWITHLIMIT", equipmentBehaviour.usesLeft, equipmentBehaviour.maxUses);
+                        usesLeftText.text = equipmentBehaviour.usesLeft + "/" + equipmentBehaviour.maxUses;
                     }
                 }
             }
