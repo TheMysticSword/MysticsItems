@@ -65,8 +65,7 @@ namespace MysticsItems.Items
             {
                 ItemTag.Damage,
                 ItemTag.OnKillEffect,
-                ItemTag.AIBlacklist,
-                ItemTag.WorldUnique
+                ItemTag.AIBlacklist
             };
             /*
             itemDef.pickupModelPrefab = PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Hexahedral Monolith/Model.prefab"));
