@@ -30,7 +30,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> damage = new ConfigurableValue<float>(
             "Item: Mystic Sword",
             "Damage",
-            2f,
+            5f,
             "Damage bonus for each strong enemy killed (in %)",
             new System.Collections.Generic.List<string>()
             {
@@ -40,7 +40,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> damagePerStack = new ConfigurableValue<float>(
             "Item: Mystic Sword",
             "DamagePerStack",
-            2f,
+            5f,
             "Damage bonus for each strong enemy killed for each additional stack of this item (in %)",
             new System.Collections.Generic.List<string>()
             {
