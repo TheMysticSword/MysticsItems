@@ -19,7 +19,7 @@ namespace MysticsItems.Buffs
 
             GenericGameEvents.BeforeTakeDamage += (damageInfo, attackerInfo, victimInfo) =>
             {
-                if (victimInfo.body.HasBuff(buffDef)) damageInfo.crit = true;
+                if (victimInfo.body && victimInfo.body.HasBuff(buffDef)) damageInfo.crit = true;
             };
 
             Overlays.CreateOverlay(Main.AssetBundle.LoadAsset<Material>("Assets/Items/Spotter/matSpotterMarked.mat"), delegate (CharacterModel model)
