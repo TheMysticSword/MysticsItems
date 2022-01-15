@@ -60,7 +60,7 @@ namespace MysticsItems.Equipment
         {
             base.OnPluginAwake();
             mechanicalArmControllerPrefab = MysticsRisky2Utils.Utils.CreateBlankPrefab("MysticsItems_MechanicalArmController", true);
-            mechanicalArmControllerPrefab.GetComponent<NetworkIdentity>().localPlayerAuthority = true;
+            mechanicalArmControllerPrefab.GetComponent<NetworkIdentity>().localPlayerAuthority = false;
         }
 
         public override void OnLoad()
@@ -107,7 +107,7 @@ namespace MysticsItems.Equipment
 
             NetworkedBodyAttachment networkedBodyAttachment = mechanicalArmControllerPrefab.AddComponent<NetworkedBodyAttachment>();
             networkedBodyAttachment.shouldParentToAttachedBody = true;
-            networkedBodyAttachment.forceHostAuthority = false;
+            networkedBodyAttachment.forceHostAuthority = true;
 
             EntityStateMachine entityStateMachine = mechanicalArmControllerPrefab.AddComponent<EntityStateMachine>();
             entityStateMachine.initialStateType = entityStateMachine.mainStateType = new EntityStates.SerializableEntityStateType(typeof(MysticsItemsMechanicalArmState.Idle));
@@ -116,6 +116,10 @@ namespace MysticsItems.Equipment
             networkStateMachine.SetFieldValue("stateMachines", new EntityStateMachine[] {
                 entityStateMachine
             });
+
+            MysticsItemsContent.Resources.entityStateTypes.Add(typeof(MysticsItemsMechanicalArmState));
+            MysticsItemsContent.Resources.entityStateTypes.Add(typeof(MysticsItemsMechanicalArmState.Idle));
+            MysticsItemsContent.Resources.entityStateTypes.Add(typeof(MysticsItemsMechanicalArmState.Swing));
 
             ModelLocator modelLocator = mechanicalArmControllerPrefab.AddComponent<ModelLocator>();
             modelLocator.dontReleaseModelOnDeath = false;
