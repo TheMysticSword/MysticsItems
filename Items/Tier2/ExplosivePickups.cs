@@ -345,7 +345,7 @@ namespace MysticsItems.Items
         {
             if (body.inventory) {
                 int itemCount = body.inventory.GetItemCount(MysticsItemsContent.Items.MysticsItems_ExplosivePickups);
-                Explode(body.gameObject, body.corePosition, body.damage * damage / 100f + damagePerStack / 100f * (float)(itemCount - 1), radius + radiusPerStack * (float)(itemCount - 1), body.RollCrit());
+                if (itemCount > 0) Explode(body.gameObject, body.corePosition, body.damage * damage / 100f + damagePerStack / 100f * (float)(itemCount - 1), radius + radiusPerStack * (float)(itemCount - 1), body.RollCrit());
             }
         }
 
