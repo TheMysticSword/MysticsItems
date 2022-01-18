@@ -25,7 +25,7 @@ namespace MysticsItems.Items
 
         public static BepInEx.Configuration.ConfigEntry<bool> hudUnderCrosshair = Main.configGeneral.Bind("UI", "RhythmItemHUDUnderCrosshair", true, "Enable Metronome's HUD indicator under the crosshair.");
         public static BepInEx.Configuration.ConfigEntry<bool> hudOverSkills = Main.configGeneral.Bind("UI", "RhythmItemHUDOverSkills", true, "Enable Metronome's HUD indicator over skill cooldown icons.");
-        public static BepInEx.Configuration.ConfigEntry<bool> hudComboText = Main.configGeneral.Bind("UI", "RhythmItemHUDComboText", true, "Enable the combo counter to Metronome's HUD indicators.");
+        public static BepInEx.Configuration.ConfigEntry<bool> hudComboText = Main.configGeneral.Bind("UI", "RhythmItemHUDComboText", true, "Enable the combo counter near Metronome's HUD indicators.");
 
         public static ConfigurableValue<float> interval = new ConfigurableValue<float>(
             "Item: Metronome",

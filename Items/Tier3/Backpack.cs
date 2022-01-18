@@ -111,7 +111,7 @@ namespace MysticsItems.Items
         }
 
         public static ConfigEntry<bool> enableSkillFixes = Main.configGeneral.Bind<bool>(
-            "Vanilla changes",
+            "Gameplay changes",
             "BackpackEnableSkillFixes",
             true,
             "Make certain skills require pressing a key instead of holding it down while carrying the Hikers Backpack item to fix these skills consuming all charges at once."
