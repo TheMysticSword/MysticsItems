@@ -91,6 +91,7 @@ namespace MysticsItems.Items
             itemDef.tags = new ItemTag[]
             {
                 ItemTag.Damage,
+                ItemTag.CannotCopy,
                 ItemTag.AIBlacklist
             };
             
