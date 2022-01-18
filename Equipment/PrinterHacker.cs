@@ -16,6 +16,18 @@ namespace MysticsItems.Equipment
     {
         public static GameObject crosshairPrefab;
 
+        public static ConfigurableValue<int> amount = new ConfigurableValue<int>(
+            "Item: Wirehack Wrench",
+            "Amount",
+            2,
+            "Amount of items to drop from the hacked printer",
+            new System.Collections.Generic.List<string>()
+            {
+                "EQUIPMENT_MYSTICSITEMS_PRINTERHACKER_PICKUP",
+                "EQUIPMENT_MYSTICSITEMS_PRINTERHACKER_DESC"
+            }
+        );
+
         public override void OnLoad()
         {
             equipmentDef.name = "MysticsItems_PrinterHacker";
@@ -129,11 +141,12 @@ namespace MysticsItems.Equipment
                     ShopTerminalBehavior shopTerminalBehavior = targetInfo.obj.GetComponent<MysticsItemsDuplicatorLocator>().shopTerminalBehavior;
                     EffectManager.SimpleEffect(Resources.Load<GameObject>("Prefabs/Effects/OmniEffect/OmniRecycleEffect"), shopTerminalBehavior.pickupDisplay.transform.position, Quaternion.identity, true);
                     shopTerminalBehavior.SetHasBeenPurchased(true);
-                    PickupDropletController.CreatePickupDroplet(
-                        shopTerminalBehavior.pickupIndex,
-                        (shopTerminalBehavior.dropTransform ? shopTerminalBehavior.dropTransform : shopTerminalBehavior.transform).position,
-                        shopTerminalBehavior.transform.TransformVector(shopTerminalBehavior.dropVelocity)
-                    );
+                    for (var i = 0; i < amount; i++)
+                        PickupDropletController.CreatePickupDroplet(
+                            shopTerminalBehavior.pickupIndex,
+                            (shopTerminalBehavior.dropTransform ? shopTerminalBehavior.dropTransform : shopTerminalBehavior.transform).position,
+                            shopTerminalBehavior.transform.TransformVector(shopTerminalBehavior.dropVelocity)
+                        );
                     shopTerminalBehavior.SetNoPickup();
                     targetInfo.Invalidate();
                     return true;

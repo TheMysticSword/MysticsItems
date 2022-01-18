@@ -173,8 +173,9 @@
     "EQUIPMENT_MYSTICSITEMS_ARCHAICMASK_LORE": "<style=cMono>\r\nAudio transcription complete from portable recorder.</style>\r\n\r\nThe mask is still burning hot, but the rest of the body has already cooled down. Is it holding on to its life?\r\n\r\nCan I... 'resurrect' the wisp by applying fire to this mask? This may be a grave mistake, but it's my only chance to get an ally.\r\n\r\nThere's no time for asking questions. Time to find out...\r\n\r\n[Fire bursts]\r\n\r\n<style=cMono>End of requested transcript.</style>\r\n",
 
     "EQUIPMENT_MYSTICSITEMS_PRINTERHACKER_NAME": "Wirehack Wrench",
-    "EQUIPMENT_MYSTICSITEMS_PRINTERHACKER_PICKUP": "Get an item from a 3D Printer for free, then destroy the printer.",
-    "EQUIPMENT_MYSTICSITEMS_PRINTERHACKER_DESC": "Get an item from a 3D Printer <style=cIsUtility>for free</style>, then destroy the printer.",
+    "EQUIPMENT_MYSTICSITEMS_PRINTERHACKER_PICKUP": "Get {Amount} copies of a 3D Printer's item for free, then destroy the printer.",
+    "EQUIPMENT_MYSTICSITEMS_PRINTERHACKER_DESC": "Receive <style=cIsUtility>{Amount}</style> copies of a 3D Printer's item <style=cIsUtility>for free</style>, then <style=cIsDamage>destroy</style> the printer, permanently making it unusable.",
+    "EQUIPMENT_MYSTICSITEMS_PRINTERHACKER_LORE": "\"...perfect one-to-one replication is maintained by including one or more pre-printed copies of the original item deep inside the reader module. The more, the better.\"\r\n\r\n- From the MassDuplix 3D Printer presentation speech",
 
     "EQUIPMENT_MYSTICSITEMS_MICROPHONE_NAME": "Vintage Microphone",
     "EQUIPMENT_MYSTICSITEMS_MICROPHONE_PICKUP": "Deafen enemies in front, reducing movement, armor, damage and attack speed. Use mid-air to boost yourself backwards.",
