@@ -848,7 +848,7 @@ namespace MysticsItems.Items
                             preparePhase = newPreparePhase;
                             if (preparePhase <= (prepareTicks - 1))
                             {
-                                Util.PlayAttackSpeedSound(prepareSoundString, gameObject, 1f + 0.1f * (combo - 1f));
+                                if (body.hasEffectiveAuthority) Util.PlayAttackSpeedSound(prepareSoundString, gameObject, 1f + 0.1f * (combo - 1f));
                             }
                         }
                     }
@@ -857,7 +857,7 @@ namespace MysticsItems.Items
 
             public void Beat()
             {
-                Util.PlayAttackSpeedSound(beatSoundString, gameObject, 1f + 0.1f * (combo - 1f));
+                if (body.hasEffectiveAuthority) Util.PlayAttackSpeedSound(beatSoundString, gameObject, 1f + 0.1f * (combo - 1f));
             }
 
             public bool IsOnBeat()
