@@ -244,7 +244,7 @@
 
     "MYSTICSITEMS_SIRENPOLE_NAME": "Siren Pole",
 
-    "MYSTICSITEMS_SHRINE_LEGENDARY_NAME": "Shrine of the Legend (Mystic's Items)",
+    "MYSTICSITEMS_SHRINE_LEGENDARY_NAME": "Shrine of the Legend [Mystic's Items]",
     "MYSTICSITEMS_SHRINE_LEGENDARY_CONTEXT": "Offer to Shrine of the Legend",
     "MYSTICSITEMS_SHRINE_LEGENDARY_USE_MESSAGE_2P": "<style=cShrine>You have become the embodiment of the legend.</color>",
     "MYSTICSITEMS_SHRINE_LEGENDARY_USE_MESSAGE": "<style=cShrine>{0} has become the embodiment of the legend.</color>",
