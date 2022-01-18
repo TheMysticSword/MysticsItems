@@ -581,27 +581,27 @@ namespace MysticsItems.Items
                     return;
                 }
                 Vector3 screenPoint = sceneCam.WorldToScreenPoint(targetBody.corePosition);
-                bool targetBehindCamera = screenPoint.z < 0f;
-                screenPoint.z = 1f;
+                bool targetBehindCamera = screenPoint.z <= 0f;
+                bool targetInsideView = !targetBehindCamera && sceneCam.pixelRect.Contains(new Vector2(screenPoint.x, screenPoint.y));
                 if (insideViewObject)
                 {
                     insideViewObject.transform.position = screenPoint;
-                    insideViewObject.SetActive(RoR2.UI.HUD.cvHudEnable.value && !targetBehindCamera);
+                    insideViewObject.SetActive(RoR2.UI.HUD.cvHudEnable.value && targetInsideView);
                 }
                 if (outsideViewObject)
                 {
                     Vector2 screenCenter = new Vector2(sceneCam.pixelWidth * 0.5f, sceneCam.pixelHeight * 0.5f);
-                    Vector2 centerOffset = new Vector2(screenPoint.x, screenPoint.y) - screenCenter;
-                    Vector3 outsideViewScreenPoint = screenCenter - centerOffset / Mathf.Max(
+                    Vector2 centerOffset = (new Vector2(screenPoint.x, screenPoint.y) - screenCenter) * (targetBehindCamera ? -1f : 1f);
+                    Vector2 outsideViewScreenPoint = screenCenter + centerOffset / Mathf.Max(
                         Mathf.Abs(centerOffset.x / (sceneCam.pixelWidth * 0.5f)),
                         Mathf.Abs(centerOffset.y / (sceneCam.pixelHeight * 0.5f))
                     );
 
-                    outsideViewObject.transform.position = outsideViewScreenPoint;
+                    outsideViewObject.transform.position = new Vector3(outsideViewScreenPoint.x, outsideViewScreenPoint.y, 1f);
                     outsideViewObject.transform.localEulerAngles = new Vector3(0f, 0f,
-                        Vector2.SignedAngle(Vector2.up, centerOffset)
+                        Vector2.SignedAngle(Vector2.up, -centerOffset)
                     );
-                    outsideViewObject.SetActive(RoR2.UI.HUD.cvHudEnable.value && targetBehindCamera);
+                    outsideViewObject.SetActive(RoR2.UI.HUD.cvHudEnable.value && !targetInsideView);
                 }
                 if (scanPosition < scans.Length)
                 {
