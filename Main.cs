@@ -232,6 +232,7 @@ namespace MysticsItems
             public static ItemDef MysticsItems_CrystalWorld;
             public static ItemDef MysticsItems_DasherDisc;
             public static ItemDef MysticsItems_DroneWires;
+            public static ItemDef MysticsItems_ElitePotion;
             public static ItemDef MysticsItems_ExplosivePickups;
             public static ItemDef MysticsItems_ExtraShrineUse;
             public static ItemDef MysticsItems_HealOrbOnBarrel;
