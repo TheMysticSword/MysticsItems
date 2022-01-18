@@ -13,11 +13,11 @@
 
     // [Line breaks are indicated by \r\n (or just \n if I forgot to add the \r somewhere)]
 
-    // [Do not translate formatting tags that look like this: {ChanceBonus}, {0}, {1}, {ArmorAdd}. They get auto-replaced with words and numbers by the game.]
+    // [Do not translate formatting tags that look like this: {ChanceBonus}, {0}, {1}, {ArmorAdd}. They get auto-replaced with numbers by the game.]
 
     // [Do not translate style tag parameters, but translate things inside the tags. For example, if you see "<style=cIsHealing>increases health</style>", translate only the "increases health", don't translate "<style=cIsHealing>" and "</style>"]
 
-    // ["for {Time}s" usually means "for {Time} seconds", but shortened to "s" in case a config sets the {Time} to 1, in which case "for 1 seconds" would become grammatically incorrect and "for 1s" would be okay]
+    // ["for {Time}s" usually means "for {Time} seconds"]
     // [Same with "{Radius}m" meaning "{Radius} meters"]
 
     // [If you want to check what your translation looks like in-game, use the CheatUnlocks mod to unlock logbook entries for all items]
@@ -158,7 +158,7 @@
     "ITEM_MYSTICSITEMS_RIFTLENS_PICKUP": "Every stage contains rifts with free items... <color=#FF7F7F>BUT you will die if you don't close the rifts in time.</color>\n",
     "ITEM_MYSTICSITEMS_RIFTLENS_DESC": "Every stage contains <style=cIsDamage>{BaseRifts} <style=cStack>(+{RiftsPerStack} per stack)</style></style> rifts with free items. Failing to close all of them in time will result in <style=cDeath>death</style>.",
 
-    "ITEM_MYSTICSITEMS_MOONGLASSES_NAME": "Moonglasses", // epic comment fail, laugh at this user
+    "ITEM_MYSTICSITEMS_MOONGLASSES_NAME": "Moonglasses", // [Wordplay on "sunglasses"]
     "ITEM_MYSTICSITEMS_MOONGLASSES_PICKUP": "Increase Critical Strike damage... <color=#FF7F7F>BUT halve Critical Strike chance.</color>\n",
     "ITEM_MYSTICSITEMS_MOONGLASSES_DESC": "Increase Critical Strike damage by <style=cIsDamage>{CritDamageIncrease}% <style=cStack>(+{CritDamageIncreasePerStack}% per stack)</style></style>. <style=cIsUtility>Halve Critical Strike chance for each stack.</style>",
 
