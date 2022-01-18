@@ -116,7 +116,7 @@
 
     "ITEM_MYSTICSITEMS_DRONEWIRES_NAME": "Spare Wiring",
     "ITEM_MYSTICSITEMS_DRONEWIRES_PICKUP": "You and your drones emit damaging sparks.",
-    "ITEM_MYSTICSITEMS_DRONEWIRES_DESC": "You and your drones have a chance to drop a <style=cIsDamage>damaging spark</style> every second that deals <style=cIsDamage>{Damage}% <style=cStack>(+{DamagePerStack}% per stack)</style></style> base damage on contact with an enemy.",
+    "ITEM_MYSTICSITEMS_DRONEWIRES_DESC": "You and your drones occasionally drop <style=cIsDamage>electric sparks</style> that deal <style=cIsDamage>{Damage}% <style=cStack>(+{DamagePerStack}% per stack)</style></style> base damage on contact with an enemy.",
 
     //[TIER3]
     "ITEM_MYSTICSITEMS_VOLTMETER_NAME": "Wireless Voltmeter", // [WV in the lore entry stands for "wireless voltmeter"]
