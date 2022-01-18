@@ -67,13 +67,13 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> beatWindowEarly = new ConfigurableValue<float>(
             "Item: Metronome",
             "BeatWindowEarly",
-            0.1f,
+            0.08333f,
             "How early can you press to score a hit (in seconds)"
         );
         public static ConfigurableValue<float> beatWindowLate = new ConfigurableValue<float>(
             "Item: Metronome",
             "BeatWindowLate",
-            0.2f,
+            0.08333f,
             "How late can you press to score a hit (in seconds)"
         );
 
