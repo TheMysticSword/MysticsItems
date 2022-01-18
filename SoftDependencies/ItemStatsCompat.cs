@@ -247,6 +247,33 @@ namespace MysticsItems.SoftDependencies
             });
             // Faulty Spotter
 
+            // Failed Experiment
+            ItemStats.ItemStatsMod.AddCustomItemStatDef(MysticsItemsContent.Items.MysticsItems_ElitePotion.itemIndex, new ItemStats.ItemStatDef
+            {
+                Stats = new List<ItemStats.Stat.ItemStat>()
+                {
+                    new ItemStats.Stat.ItemStat(
+                        (itemCount, ctx) => Items.ElitePotion.radius + Items.ElitePotion.radiusPerStack * (itemCount - 1),
+                        (value, ctx) => Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_RADIUS", ItemStats.ValueFormatters.Extensions.FormatInt(value: value, postfix: Language.GetString("ITEMSTATS_MYSTICSITEMS_POSTFIX_METERS")))
+                    ),
+                    new ItemStats.Stat.ItemStat(
+                        (itemCount, ctx) => Items.ElitePotion.duration + Items.ElitePotion.durationPerStack * (itemCount - 1),
+                        (value, ctx) => Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_DURATION", ItemStats.ValueFormatters.Extensions.FormatInt(value: value, postfix: Language.GetString("ITEMSTATS_MYSTICSITEMS_POSTFIX_SECONDS")))
+                    )
+                }
+            });
+            // Spare Wiring
+            ItemStats.ItemStatsMod.AddCustomItemStatDef(MysticsItemsContent.Items.MysticsItems_DroneWires.itemIndex, new ItemStats.ItemStatDef
+            {
+                Stats = new List<ItemStats.Stat.ItemStat>()
+                {
+                    new ItemStats.Stat.ItemStat(
+                        (itemCount, ctx) => Items.DroneWires.damage + Items.DroneWires.damagePerStack * (itemCount - 1),
+                        (value, ctx) => Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_DAMAGE", ItemStats.ValueFormatters.Extensions.FormatPercentage(value: value))
+                    )
+                }
+            });
+
             // Tier3
             // Crystallized World
             ItemStats.ItemStatsMod.AddCustomItemStatDef(MysticsItemsContent.Items.MysticsItems_CrystalWorld.itemIndex, new ItemStats.ItemStatDef
