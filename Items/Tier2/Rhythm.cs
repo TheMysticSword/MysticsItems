@@ -99,22 +99,21 @@ namespace MysticsItems.Items
             itemDisplayPrefab = PrepareItemDisplayModel(PrefabAPI.InstantiateClone(itemDef.pickupModelPrefab, itemDef.pickupModelPrefab.name + "Display", false));
             onSetupIDRS += () =>
             {
-                AddDisplayRule("CommandoBody", "GunMeshR", new Vector3(-0.13951F, -0.01505F, 0.13151F), new Vector3(0F, 0F, 90F), new Vector3(0.00856F, 0.00856F, 0.00856F));
-                AddDisplayRule("HuntressBody", "UpperArmL", new Vector3(0.06909F, 0.10681F, -0.00977F), new Vector3(3.66903F, 357.0302F, 178.0301F), new Vector3(0.01358F, 0.01358F, 0.01358F));
-                AddDisplayRule("Bandit2Body", "MainWeapon", new Vector3(-0.05477F, 0.2274F, -0.04443F), new Vector3(359.4865F, 89.48757F, 206.7464F), new Vector3(0.0135F, 0.00485F, 0.00485F));
-                AddDisplayRule("ToolbotBody", "Chest", new Vector3(-1.77361F, 2.53066F, 1.76556F), new Vector3(0F, 90F, 90F), new Vector3(0.10065F, 0.10065F, 0.10065F));
-                AddDisplayRule("EngiBody", "LowerArmR", new Vector3(0.0113F, 0.13437F, -0.05836F), new Vector3(1.34564F, 72.93568F, 188.458F), new Vector3(0.01476F, 0.01476F, 0.01476F));
-                AddDisplayRule("EngiTurretBody", "Head", new Vector3(0.035F, 0.89075F, -1.47928F), new Vector3(0F, 90F, 303.695F), new Vector3(0.07847F, 0.07847F, 0.07847F));
-                AddDisplayRule("EngiWalkerTurretBody", "Head", new Vector3(0.03562F, 1.40676F, -1.39837F), new Vector3(0F, 90F, 303.1705F), new Vector3(0.08093F, 0.09844F, 0.07912F));
-                AddDisplayRule("MageBody", "Chest", new Vector3(-0.10398F, 0.07562F, -0.31389F), new Vector3(359.7522F, 90.11677F, 8.18118F), new Vector3(0.01236F, 0.01035F, 0.00964F));
-                AddDisplayRule("MageBody", "Chest", new Vector3(0.11942F, 0.07423F, -0.30928F), new Vector3(359.136F, 95.88205F, 8.14244F), new Vector3(0.01236F, 0.01035F, 0.00787F));
-                AddDisplayRule("MercBody", "HandL", new Vector3(0.01326F, 0.1146F, 0.04565F), new Vector3(88.10731F, 183.3846F, 89.99922F), new Vector3(0.00961F, 0.00961F, 0.00965F));
-                AddDisplayRule("TreebotBody", "FlowerBase", new Vector3(0.69564F, -0.5422F, -0.29426F), new Vector3(46.13942F, 241.7613F, 12.79626F), new Vector3(0.03647F, 0.03647F, 0.03647F));
-                AddDisplayRule("LoaderBody", "MechBase", new Vector3(0.01517F, -0.06288F, -0.17121F), new Vector3(90F, 90F, 0F), new Vector3(0.0207F, 0.0207F, 0.0207F));
-                AddDisplayRule("CrocoBody", "SpineChest1", new Vector3(1.39693F, -0.10569F, -0.18201F), new Vector3(55.10429F, 175.6143F, 292.3791F), new Vector3(0.1379F, 0.1379F, 0.1379F));
-                AddDisplayRule("CaptainBody", "MuzzleGun", new Vector3(0.00467F, 0.05642F, -0.1194F), new Vector3(357.9892F, 90.52832F, 89.76476F), new Vector3(0.05388F, 0.01322F, 0.0146F));
-                AddDisplayRule("BrotherBody", "UpperArmL", BrotherInfection.green, new Vector3(0.06646F, 0.22781F, -0.00154F), new Vector3(77.05167F, 128.9087F, 289.6219F), new Vector3(0.04861F, 0.10534F, 0.10724F));
-                AddDisplayRule("ScavBody", "Stomach", new Vector3(-0.92389F, 11.6509F, -5.90638F), new Vector3(20.93637F, 118.4181F, 332.9505F), new Vector3(0.24839F, 0.25523F, 0.24839F));
+                AddDisplayRule("CommandoBody", "GunMeshR", new Vector3(-0.14977F, -0.00011F, 0.19943F), new Vector3(357.2297F, 89.56014F, 94.90321F), new Vector3(0.06413F, 0.06413F, 0.06413F));
+                AddDisplayRule("HuntressBody", "Muzzle", new Vector3(0.5712F, -0.07049F, -0.35215F), new Vector3(6.74464F, 202.348F, 181.4547F), new Vector3(0.06599F, 0.06599F, 0.06599F));
+                AddDisplayRule("Bandit2Body", "MainWeapon", new Vector3(-0.04183F, 0.35156F, -0.0992F), new Vector3(88.13229F, 267.2944F, 94.61585F), new Vector3(0.08705F, 0.08705F, 0.08705F));
+                AddDisplayRule("ToolbotBody", "Head", new Vector3(-0.91116F, 1.81749F, -1.53393F), new Vector3(307.0614F, 172.1482F, 186.2799F), new Vector3(1.12349F, 1.12349F, 1.12349F));
+                AddDisplayRule("EngiBody", "Chest", new Vector3(0.15956F, 0.09173F, 0.2025F), new Vector3(25.66347F, 26.21173F, 15.26607F), new Vector3(0.10282F, 0.10282F, 0.10282F));
+                //AddDisplayRule("EngiTurretBody", "Head", new Vector3(0.035F, 0.89075F, -1.47928F), new Vector3(0F, 90F, 303.695F), new Vector3(0.07847F, 0.07847F, 0.07847F));
+                //AddDisplayRule("EngiWalkerTurretBody", "Head", new Vector3(0.03562F, 1.40676F, -1.39837F), new Vector3(0F, 90F, 303.1705F), new Vector3(0.08093F, 0.09844F, 0.07912F));
+                AddDisplayRule("MageBody", "LowerArmR", new Vector3(0.00535F, 0.17996F, 0.16359F), new Vector3(78.29745F, 168.3501F, 168.913F), new Vector3(0.11636F, 0.11636F, 0.11636F));
+                AddDisplayRule("MercBody", "Head", new Vector3(0.04902F, 0.12013F, -0.1775F), new Vector3(71.07915F, 177.6901F, 358.0208F), new Vector3(0.06645F, 0.06645F, 0.06645F));
+                AddDisplayRule("TreebotBody", "Chest", new Vector3(0.24295F, -0.27633F, 0.51083F), new Vector3(23.09669F, 28.90149F, 30.20801F), new Vector3(0.21041F, 0.21041F, 0.20824F));
+                AddDisplayRule("LoaderBody", "MechBase", new Vector3(0.11134F, 0.33975F, 0.46839F), new Vector3(0F, 0F, 0F), new Vector3(0.09109F, 0.09109F, 0.09109F));
+                AddDisplayRule("CrocoBody", "LowerArmL", new Vector3(-0.95799F, 3.65747F, -1.35262F), new Vector3(72.10529F, 137.362F, 285.0087F), new Vector3(1F, 1F, 1F));
+                AddDisplayRule("CaptainBody", "MuzzleGun", new Vector3(0.00434F, 0.07836F, 0.00366F), new Vector3(355.4746F, 178.9148F, 3.6623F), new Vector3(0.08307F, 0.08307F, 0.08307F));
+                AddDisplayRule("BrotherBody", "LowerArmL", BrotherInfection.green, new Vector3(0.06027F, 0.23329F, 0.00112F), new Vector3(39.08279F, 113.2626F, 275.5628F), new Vector3(0.04861F, 0.04367F, 0.10724F));
+                //AddDisplayRule("ScavBody", "Stomach", new Vector3(-0.92389F, 11.6509F, -5.90638F), new Vector3(20.93637F, 118.4181F, 332.9505F), new Vector3(0.24839F, 0.25523F, 0.24839F));
             };
             
             CharacterBody.onBodyStartGlobal += CharacterBody_onBodyStartGlobal;
