@@ -40,7 +40,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> duration = new ConfigurableValue<float>(
             "Item: Failed Experiment",
             "Duration",
-            4f,
+            8f,
             "Duration of the inflicted status (in seconds)",
             new System.Collections.Generic.List<string>()
             {
@@ -50,7 +50,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> durationPerStack = new ConfigurableValue<float>(
             "Item: Failed Experiment",
             "DurationPerStack",
-            2f,
+            4f,
             "Duration of the inflicted status for each additional stack of this item (in seconds)",
             new System.Collections.Generic.List<string>()
             {
@@ -108,7 +108,8 @@ namespace MysticsItems.Items
                 {
                     eliteBuffDef = RoR2Content.Buffs.AffixBlue,
                     vfx = Resources.Load<GameObject>("Prefabs/Effects/CaptainTazerSupplyDropNova"),
-                    damage = 1f
+                    damage = 7f,
+                    procCoefficient = 1f
                 });
                 spreadEffectInfos.Add(new SpreadEffectInfo
                 {
@@ -147,6 +148,7 @@ namespace MysticsItems.Items
                     {
                         var radius = ElitePotion.radius + ElitePotion.radiusPerStack * (itemCount - 1);
                         var duration = ElitePotion.duration + ElitePotion.durationPerStack * (itemCount - 1);
+                        var damageMult = 1f + 0.8f * (itemCount - 1);
 
                         foreach (var buffIndex in BuffCatalog.eliteBuffIndices.Where(x => damageReport.victimBody.HasBuff(x)))
                         {
@@ -185,7 +187,7 @@ namespace MysticsItems.Items
                                     new BlastAttack
                                     {
                                         radius = radius,
-                                        baseDamage = damageReport.attackerBody.damage * spreadEffectInfo.damage,
+                                        baseDamage = damageReport.attackerBody.damage * spreadEffectInfo.damage * damageMult,
                                         procCoefficient = spreadEffectInfo.procCoefficient,
                                         crit = Util.CheckRoll(damageReport.attackerBody.crit, damageReport.attackerMaster),
                                         damageColorIndex = DamageColorIndex.Item,
