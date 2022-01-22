@@ -196,7 +196,7 @@ namespace MysticsItems.Items
                     }
                     else
                     {
-                        Destroy(targetIndicatorInstance);
+                        Destroy(targetIndicatorInstance.gameObject);
                     }
                 }
 
