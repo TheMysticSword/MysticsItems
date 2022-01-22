@@ -138,8 +138,8 @@ namespace MysticsItems.Items
             if (token == "ITEM_MYSTICSITEMS_COFFEEBOOSTONITEMPICKUP_DESC")
                 result = Utils.FormatStringByDict(result, new System.Collections.Generic.Dictionary<string, string>()
                 {
-                    { "BoostPowerMax", (Buffs.CoffeeBoost.boostPower * maxBuffs).ToString() },
-                    { "BoostPowerMaxPerStack", (Buffs.CoffeeBoost.boostPower * maxBuffsPerStack).ToString() }
+                    { "BoostPowerMax", (Buffs.CoffeeBoost.boostPower * maxBuffs).ToString(System.Globalization.CultureInfo.InvariantCulture) },
+                    { "BoostPowerMaxPerStack", (Buffs.CoffeeBoost.boostPower * maxBuffsPerStack).ToString(System.Globalization.CultureInfo.InvariantCulture) }
                 });
             return result;
         }

@@ -111,7 +111,7 @@ namespace MysticsItems.Equipment
             if (token == "EQUIPMENT_MYSTICSITEMS_FRAGILEMASK_DESC")
                 result = Utils.FormatStringByDict(result, new System.Collections.Generic.Dictionary<string, string>()
                 {
-                    { "BaseDamageBonus", (damageMultiplier * 100f - 100f).ToString() }
+                    { "BaseDamageBonus", (damageMultiplier * 100f - 100f).ToString(System.Globalization.CultureInfo.InvariantCulture) }
                 });
             return result;
         }

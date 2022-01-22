@@ -191,7 +191,7 @@ namespace MysticsItems.Equipment
             if (token == "EQUIPMENT_MYSTICSITEMS_SIRENPOLE_DESC")
                 result = Utils.FormatStringByDict(result, new System.Collections.Generic.Dictionary<string, string>()
                 {
-                    { "WaveSpawnInterval", (100f / (float)totalWaves).ToString() }
+                    { "WaveSpawnInterval", (100f / (float)totalWaves).ToString(System.Globalization.CultureInfo.InvariantCulture) }
                 });
             return result;
         }

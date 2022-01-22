@@ -97,7 +97,7 @@ namespace MysticsItems.Items
                                 globalStringBuilder.Append(
                                     Language.GetStringFormatted(
                                         "MYSTICSITEMS_STATCHANGE_LIST_" + buffType.ToString().ToUpperInvariant(),
-                                        "+" + manuscript.buffStacks[buffType] * statBonus
+                                        "+" + (manuscript.buffStacks[buffType] * statBonus).ToString(System.Globalization.CultureInfo.InvariantCulture)
                                     )
                                 );
                             }

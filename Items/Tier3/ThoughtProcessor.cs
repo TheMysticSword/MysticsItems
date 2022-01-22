@@ -110,8 +110,8 @@ namespace MysticsItems.Items
             if (token == "ITEM_MYSTICSITEMS_THOUGHTPROCESSOR_DESC")
                 result = Utils.FormatStringByDict(result, new System.Collections.Generic.Dictionary<string, string>()
                 {
-                    { "AttackSpeedMax", (attackSpeed * 100f).ToString() },
-                    { "AttackSpeedMaxPerStack", (attackSpeedPerStack * 100f).ToString() }
+                    { "AttackSpeedMax", (attackSpeed * 100f).ToString(System.Globalization.CultureInfo.InvariantCulture) },
+                    { "AttackSpeedMaxPerStack", (attackSpeedPerStack * 100f).ToString(System.Globalization.CultureInfo.InvariantCulture) }
                 });
             return result;
         }

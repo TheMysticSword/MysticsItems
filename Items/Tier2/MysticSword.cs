@@ -137,7 +137,7 @@ namespace MysticsItems.Items
                             globalStringBuilder.Append(
                                 Language.GetStringFormatted(
                                     "MYSTICSITEMS_STATCHANGE_LIST_DAMAGE",
-                                    "+" + (int)(swordBehaviour.damageBonus * 100f)
+                                    "+" + ((int)(swordBehaviour.damageBonus * 100f)).ToString(System.Globalization.CultureInfo.InvariantCulture)
                                 )
                             );
                             self.tooltipProvider.overrideBodyText = globalStringBuilder.ToString();

@@ -62,7 +62,7 @@ namespace MysticsItems
 
             public override string ToString()
             {
-                return Value.ToString();
+                return System.Convert.ToString(Value, System.Globalization.CultureInfo.InvariantCulture);
             }
 
             public static implicit operator T(ConfigurableValue<T> configurableValue)
