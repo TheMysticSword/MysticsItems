@@ -112,14 +112,14 @@ namespace MysticsItems.Equipment
                 AddDisplayRule("HuntressBody", "Head", new Vector3(-0.001F, 0.221F, 0.039F), new Vector3(0.073F, 269.903F, 25.101F), new Vector3(0.119F, 0.119F, 0.121F));
                 AddDisplayRule("Bandit2Body", "Head", new Vector3(0F, 0.047F, 0.102F), new Vector3(0F, 270F, 0F), new Vector3(0.097F, 0.097F, 0.097F));
                 AddDisplayRule("ToolbotBody", "Head", new Vector3(0.321F, 3.4F, -0.667F), new Vector3(0F, 90F, 56.608F), new Vector3(0.933F, 0.933F, 0.933F));
-                AddDisplayRule("EngiBody", "Head", new Vector3(0F, 0F, 0.117F), new Vector3(0F, 270F, 0F), new Vector3(0.12F, 0.12F, 0.12F));
+                AddDisplayRule("EngiBody", "HeadCenter", new Vector3(0F, 0F, 0.117F), new Vector3(0F, 270F, 0F), new Vector3(0.12F, 0.12F, 0.12F));
                 AddDisplayRule("MageBody", "Head", new Vector3(0F, 0.05F, 0.104F), new Vector3(0F, 270F, 0F), new Vector3(0.07F, 0.07F, 0.07F));
                 AddDisplayRule("MercBody", "Head", new Vector3(0F, 0.135F, 0.117F), new Vector3(0F, 270F, 11.977F), new Vector3(0.123F, 0.123F, 0.123F));
                 AddDisplayRule("TreebotBody", "FlowerBase", new Vector3(0.2F, 0.873F, 0.344F), new Vector3(0F, 295.888F, 344.74F), new Vector3(0.283F, 0.283F, 0.283F));
                 AddDisplayRule("LoaderBody", "Head", new Vector3(0F, 0.097F, 0.116F), new Vector3(0F, 270F, 4.685F), new Vector3(0.117F, 0.117F, 0.117F));
                 AddDisplayRule("CrocoBody", "Head", new Vector3(0.012F, 4.425F, 1.271F), new Vector3(355.778F, 271.534F, 2.51F), new Vector3(0.973F, 0.973F, 0.973F));
                 AddDisplayRule("CaptainBody", "Head", new Vector3(0F, 0.064F, 0.12F), new Vector3(0F, 270F, 0F), new Vector3(0.104F, 0.107F, 0.118F));
-                AddDisplayRule("ScavBody", "Backpack", new Vector3(5.161F, 3.722F, -0.213F), new Vector3(342.055F, 261.468F, 115.963F), new Vector3(1.363F, 1.363F, 1.363F));
+                AddDisplayRule("ScavBody", "MuzzleEnergyCannon", new Vector3(-0.26641F, -0.48169F, 0.74377F), new Vector3(9.57747F, 91.16208F, 178.8642F), new Vector3(2.78505F, 2.78505F, 2.78505F));
                 AddDisplayRule("EquipmentDroneBody", "HeadCenter", new Vector3(0F, -0.507F, -0.381F), new Vector3(0F, 270F, 270F), new Vector3(0.965F, 0.965F, 0.965F));
             };
 
