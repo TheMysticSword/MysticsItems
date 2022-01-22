@@ -91,11 +91,12 @@ namespace MysticsItems.Items
 
             On.RoR2.CharacterBody.AddTimedBuff_BuffDef_float += CharacterBody_AddTimedBuff_BuffDef_float;
             On.RoR2.CharacterBody.AddTimedBuff_BuffDef_float_int += CharacterBody_AddTimedBuff_BuffDef_float_int;
+            On.RoR2.DotController.AddDot += DotController_AddDot;
         }
 
         private void CharacterBody_AddTimedBuff_BuffDef_float(On.RoR2.CharacterBody.orig_AddTimedBuff_BuffDef_float orig, CharacterBody self, BuffDef buffDef, float duration)
         {
-            duration = GetModifiedDuration(self, buffDef, duration);
+            duration = GetModifiedDuration(self, buffDef.isDebuff, duration);
             orig(self, buffDef, duration);
         }
 
@@ -104,11 +105,17 @@ namespace MysticsItems.Items
             orig(self, buffDef, duration, maxStacks);
             foreach (var timedBuff in self.timedBuffs.Where(x => x.buffIndex == buffDef.buffIndex && x.timer == duration))
             {
-                timedBuff.timer = GetModifiedDuration(self, buffDef, duration);
+                timedBuff.timer = GetModifiedDuration(self, buffDef.isDebuff, duration);
             }
         }
 
-        public static float GetModifiedDuration(CharacterBody body, BuffDef buffDef, float duration)
+        private void DotController_AddDot(On.RoR2.DotController.orig_AddDot orig, DotController self, GameObject attackerObject, float duration, DotController.DotIndex dotIndex, float damageMultiplier)
+        {
+            duration = GetModifiedDuration(self.victimBody, true, duration);
+            orig(self, attackerObject, duration, dotIndex, damageMultiplier);
+        }
+
+        public static float GetModifiedDuration(CharacterBody body, bool isDebuff, float duration)
         {
             Inventory inventory = body.inventory;
             if (inventory)
@@ -116,7 +123,7 @@ namespace MysticsItems.Items
                 int itemCount = inventory.GetItemCount(MysticsItemsContent.Items.MysticsItems_Cookie);
                 if (itemCount > 0)
                 {
-                    if (buffDef.isDebuff)
+                    if (isDebuff)
                         duration = Mathf.Max(duration - debuffDuration - debuffDurationPerStack * (itemCount - 1), 1f);
                     else
                         duration += buffDuration + buffDurationPerStack * (itemCount - 1);
