@@ -216,7 +216,6 @@ namespace MysticsItems.Equipment
             foreach (var component in InstanceTracker.GetInstancesList<MysticsItemsOmarHackToolBehaviour>())
             {
                 component.usesLeft = component.maxUses;
-                MysticsItemsOmarHackToolHUD.RefreshAll();
             }
         }
 
@@ -445,7 +444,7 @@ namespace MysticsItems.Equipment
                     }
                     else
                     {
-                        Destroy(targetIndicatorInstance);
+                        Destroy(targetIndicatorInstance.gameObject);
                     }
                 }
 

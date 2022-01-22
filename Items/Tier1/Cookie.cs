@@ -37,7 +37,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> debuffDuration = new ConfigurableValue<float>(
             "Item: Choc Chip",
             "DebuffDuration",
-            1f,
+            0.2f,
             "Reduce debuff duration by this amount (in seconds)",
             new System.Collections.Generic.List<string>()
             {
@@ -47,7 +47,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> debuffDurationPerStack = new ConfigurableValue<float>(
             "Item: Choc Chip",
             "DebuffDurationPerStack",
-            1f,
+            0.2f,
             "Reduce debuff duration by this amount for each additional stack of this item (in seconds)",
             new System.Collections.Generic.List<string>()
             {
