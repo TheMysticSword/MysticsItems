@@ -33,28 +33,30 @@ namespace MysticsItems.Equipment
             equipmentDef.cooldown = new ConfigurableCooldown("Equipment: From Omar With Love", 60f).Value;
             equipmentDef.canDrop = true;
             equipmentDef.enigmaCompatible = new ConfigurableEnigmaCompatibleBool("Equipment: From Omar With Love", false).Value;
-            //equipmentDef.pickupModelPrefab = PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Equipment/Wirehack Wrench/Model.prefab"));
-            //equipmentDef.pickupIconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Equipment/Wirehack Wrench/Icon.png");
+            equipmentDef.pickupModelPrefab = PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Equipment/From Omar With Love/Model.prefab"));
+            equipmentDef.pickupIconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Equipment/From Omar With Love/Icon.png");
 
-            //itemDisplayPrefab = PrepareItemDisplayModel(PrefabAPI.InstantiateClone(equipmentDef.pickupModelPrefab, equipmentDef.pickupModelPrefab.name + "Display", false));
-            /*
+            ModelPanelParameters modelPanelParameters = equipmentDef.pickupModelPrefab.GetComponent<ModelPanelParameters>();
+            modelPanelParameters.minDistance = 3f;
+            modelPanelParameters.maxDistance = 15f;
+
+            itemDisplayPrefab = PrepareItemDisplayModel(PrefabAPI.InstantiateClone(equipmentDef.pickupModelPrefab, equipmentDef.pickupModelPrefab.name + "Display", false));
             onSetupIDRS += () =>
             {
-                AddDisplayRule("CommandoBody", "Stomach", new Vector3(-0.163F, 0.092F, -0.036F), new Vector3(356.022F, 118.071F, 26.4F), new Vector3(0.024F, 0.024F, 0.024F));
-                AddDisplayRule("HuntressBody", "Pelvis", new Vector3(-0.088F, -0.085F, 0.059F), new Vector3(0.679F, 36.762F, 196.086F), new Vector3(0.019F, 0.019F, 0.019F));
-                AddDisplayRule("Bandit2Body", "Stomach", new Vector3(0.129F, 0.025F, -0.111F), new Vector3(316.052F, 250.792F, 338.145F), new Vector3(0.038F, 0.038F, 0.038F));
-                AddDisplayRule("ToolbotBody", "Hip", new Vector3(-1.202F, 0.577F, -0.876F), new Vector3(0F, 180F, 180F), new Vector3(0.349F, 0.349F, 0.349F));
-                AddDisplayRule("EngiBody", "Pelvis", new Vector3(-0.178F, 0.078F, 0.157F), new Vector3(11.745F, 186.295F, 185.936F), new Vector3(0.047F, 0.047F, 0.047F));
-                AddDisplayRule("MageBody", "Pelvis", new Vector3(-0.172F, -0.067F, -0.078F), new Vector3(7.421F, 5.596F, 187.29F), new Vector3(0.027F, 0.027F, 0.027F));
-                AddDisplayRule("MercBody", "Chest", new Vector3(-0.115F, 0.032F, 0.083F), new Vector3(18.292F, 60.198F, 185.734F), new Vector3(0.027F, 0.027F, 0.027F));
-                AddDisplayRule("TreebotBody", "FlowerBase", new Vector3(-0.485F, 0.701F, -0.803F), new Vector3(26.173F, 24.306F, 86.838F), new Vector3(0.061F, 0.061F, 0.061F));
-                AddDisplayRule("LoaderBody", "Pelvis", new Vector3(-0.216F, -0.016F, -0.022F), new Vector3(342.363F, 183.205F, 159.555F), new Vector3(0.045F, 0.045F, 0.045F));
-                AddDisplayRule("CrocoBody", "SpineStomach1", new Vector3(0.845F, 0.495F, 1.289F), new Vector3(74.633F, 327.618F, 247.859F), new Vector3(0.361F, 0.361F, 0.361F));
-                AddDisplayRule("CaptainBody", "Stomach", new Vector3(-0.195F, 0.128F, 0.126F), new Vector3(336.504F, 156.734F, 358.159F), new Vector3(0.041F, 0.041F, 0.041F));
-                AddDisplayRule("ScavBody", "Backpack", new Vector3(-5.969F, 10.94F, 0.665F), new Vector3(338.478F, 350.544F, 54.934F), new Vector3(1.363F, 1.363F, 1.363F));
-                AddDisplayRule("EquipmentDroneBody", "GunBarrelBase", new Vector3(0F, 0F, 1.1F), new Vector3(52.577F, 0F, 0.001F), new Vector3(0.283F, 0.283F, 0.283F));
+                AddDisplayRule("CommandoBody", "Stomach", new Vector3(0.07132F, 0.06612F, 0.16335F), new Vector3(356.4405F, 183.4027F, 175.2333F), new Vector3(0.05273F, 0.05273F, 0.05273F));
+                AddDisplayRule("HuntressBody", "Pelvis", new Vector3(0.16212F, -0.06929F, -0.04928F), new Vector3(346.9094F, 305.4124F, 344.1372F), new Vector3(0.05129F, 0.05129F, 0.05129F));
+                AddDisplayRule("Bandit2Body", "Stomach", new Vector3(-0.08026F, 0.03366F, -0.14135F), new Vector3(25.90035F, 4.31119F, 171.9758F), new Vector3(0.05568F, 0.05568F, 0.05568F));
+                AddDisplayRule("ToolbotBody", "Head", new Vector3(2.44491F, 1.16734F, 0.31814F), new Vector3(327.4072F, -0.00001F, 88.11515F), new Vector3(0.88852F, 0.88852F, 0.88852F));
+                AddDisplayRule("EngiBody", "LowerArmL", new Vector3(0.00352F, 0.24612F, -0.05998F), new Vector3(0.32021F, 358.9018F, 358.6807F), new Vector3(0.05067F, 0.05067F, 0.05067F));
+                AddDisplayRule("MageBody", "Pelvis", new Vector3(-0.17887F, -0.07933F, -0.17931F), new Vector3(357.9544F, 233.4202F, 346.881F), new Vector3(0.04982F, 0.04982F, 0.04982F));
+                AddDisplayRule("MercBody", "Pelvis", new Vector3(0.1129F, 0.0254F, -0.17644F), new Vector3(13.57408F, 151.9048F, 358.9593F), new Vector3(0.05206F, 0.05206F, 0.05206F));
+                AddDisplayRule("TreebotBody", "WeaponPlatformEnd", new Vector3(0.00002F, 0.09097F, 0.24047F), new Vector3(0F, 0F, 0F), new Vector3(0.11139F, 0.11139F, 0.11139F));
+                AddDisplayRule("LoaderBody", "MechBase", new Vector3(0.23928F, -0.07178F, 0.33048F), new Vector3(356.9285F, 91.33677F, 183.2036F), new Vector3(0.06152F, 0.06152F, 0.06152F));
+                AddDisplayRule("CrocoBody", "LowerArmR", new Vector3(0.59287F, 4.87558F, 0.47809F), new Vector3(359.8608F, 58.79917F, 8.98919F), new Vector3(0.55777F, 0.55777F, 0.55777F));
+                AddDisplayRule("CaptainBody", "Stomach", new Vector3(0.15397F, 0.13966F, 0.16991F), new Vector3(356.0198F, 17.26032F, 189.3092F), new Vector3(0.05578F, 0.05578F, 0.05578F));
+                AddDisplayRule("ScavBody", "MuzzleEnergyCannon", new Vector3(4.83208F, -2.97995F, -10.98303F), new Vector3(0F, 0F, 56.95893F), new Vector3(1.363F, 1.363F, 1.363F));
+                AddDisplayRule("EquipmentDroneBody", "HeadCenter", new Vector3(0.92365F, 0F, -0.60534F), new Vector3(270F, 270F, 0F), new Vector3(0.32166F, 0.32166F, 0.32166F));
             };
-            */
 
             crosshairPrefab = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/WoodSpriteIndicator"), "MysticsItems_OmarHackToolIndicator", false);
             var spriteTransform = crosshairPrefab.GetComponentInChildren<SpriteRenderer>().transform;
