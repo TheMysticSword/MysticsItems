@@ -44,28 +44,29 @@ namespace MysticsItems.Equipment
             equipmentDef.enigmaCompatible = new ConfigurableEnigmaCompatibleBool("Equipment: Fragile Mask", false).Value;
             equipmentDef.isLunar = true;
             equipmentDef.colorIndex = ColorCatalog.ColorIndex.LunarItem;
-            //equipmentDef.pickupModelPrefab = PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Equipment/Gate Chalice/Model.prefab"));
-            //equipmentDef.pickupIconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Equipment/Gate Chalice/Icon.png");
+            equipmentDef.pickupModelPrefab = PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Equipment/Fragile Mask/Model.prefab"));
+            var mat = equipmentDef.pickupModelPrefab.GetComponentInChildren<Renderer>().sharedMaterial;
+            HopooShaderToMaterial.Standard.Apply(mat);
+            HopooShaderToMaterial.Standard.Emission(mat, 3f, new Color32(43, 255, 251, 255));
+            equipmentDef.pickupIconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Equipment/Fragile Mask/Icon2.png");
 
-            //itemDisplayPrefab = PrepareItemDisplayModel(PrefabAPI.InstantiateClone(equipmentDef.pickupModelPrefab, equipmentDef.pickupModelPrefab.name + "Display", false));
-            /*
+            itemDisplayPrefab = PrepareItemDisplayModel(PrefabAPI.InstantiateClone(equipmentDef.pickupModelPrefab, equipmentDef.pickupModelPrefab.name + "Display", false));
             onSetupIDRS += () =>
             {
-                AddDisplayRule("CommandoBody", "Stomach", new Vector3(-0.09F, 0.1F, -0.102F), new Vector3(5.862F, 140.357F, 1.915F), new Vector3(0.059F, 0.059F, 0.059F));
-                AddDisplayRule("HuntressBody", "Pelvis", new Vector3(-0.082F, -0.111F, 0.085F), new Vector3(0.679F, 36.762F, 188.148F), new Vector3(0.047F, 0.047F, 0.048F));
-                AddDisplayRule("Bandit2Body", "Stomach", new Vector3(-0.096F, 0.027F, -0.151F), new Vector3(337.162F, 337.663F, 11.532F), new Vector3(0.04F, 0.04F, 0.04F));
-                AddDisplayRule("ToolbotBody", "Hip", new Vector3(-1.239F, 0.577F, -1.044F), new Vector3(0F, 180F, 180F), new Vector3(0.349F, 0.349F, 0.349F));
-                AddDisplayRule("EngiBody", "Pelvis", new Vector3(-0.178F, 0.078F, 0.157F), new Vector3(11.745F, 186.295F, 185.936F), new Vector3(0.047F, 0.047F, 0.047F));
-                AddDisplayRule("MageBody", "Pelvis", new Vector3(-0.128F, -0.131F, 0.024F), new Vector3(6.286F, 3.408F, 167.572F), new Vector3(0.044F, 0.044F, 0.044F));
-                AddDisplayRule("MercBody", "Chest", new Vector3(0F, 0.193F, -0.286F), new Vector3(71.925F, 180F, 0F), new Vector3(0.027F, 0.027F, 0.027F));
-                AddDisplayRule("TreebotBody", "FlowerBase", new Vector3(-0.485F, 0.701F, -0.803F), new Vector3(26.173F, 24.306F, 86.838F), new Vector3(0.061F, 0.061F, 0.061F));
-                AddDisplayRule("LoaderBody", "Pelvis", new Vector3(-0.216F, -0.016F, -0.022F), new Vector3(342.363F, 183.205F, 159.555F), new Vector3(0.045F, 0.045F, 0.045F));
-                AddDisplayRule("CrocoBody", "SpineStomach1", new Vector3(0.845F, 0.495F, 1.289F), new Vector3(74.633F, 327.618F, 247.859F), new Vector3(0.361F, 0.361F, 0.361F));
-                AddDisplayRule("CaptainBody", "Stomach", new Vector3(-0.195F, 0.128F, 0.126F), new Vector3(336.504F, 156.734F, 358.159F), new Vector3(0.041F, 0.041F, 0.041F));
-                AddDisplayRule("ScavBody", "MuzzleEnergyCannon", new Vector3(0F, 0F, -1.503F), new Vector3(90F, 0F, 0F), new Vector3(2.281F, 2.281F, 2.281F));
-                AddDisplayRule("EquipmentDroneBody", "GunBarrelBase", new Vector3(0F, 0F, 1.069F), new Vector3(0F, 0F, 0F), new Vector3(0.267F, 0.267F, 0.267F));
+                AddDisplayRule("CommandoBody", "Head", new Vector3(-0.00016F, 0.16862F, 0.22667F), new Vector3(0F, 0F, 0F), new Vector3(0.147F, 0.147F, 0.147F));
+                AddDisplayRule("HuntressBody", "Head", new Vector3(-0.01269F, 0.19186F, 0.14171F), new Vector3(342.3076F, 0F, 0F), new Vector3(0.119F, 0.119F, 0.121F));
+                AddDisplayRule("Bandit2Body", "Head", new Vector3(-0.00647F, 0.00004F, 0.15421F), new Vector3(0F, 0F, 0F), new Vector3(0.097F, 0.097F, 0.097F));
+                AddDisplayRule("ToolbotBody", "Head", new Vector3(0.17721F, 3.27152F, -1.81851F), new Vector3(306.0066F, 180F, 0F), new Vector3(1.24747F, 1.24747F, 1.24747F));
+                AddDisplayRule("EngiBody", "HeadCenter", new Vector3(-0.00145F, -0.04144F, 0.22149F), new Vector3(0F, 0F, 0F), new Vector3(0.15596F, 0.15596F, 0.15596F));
+                AddDisplayRule("MageBody", "Head", new Vector3(0F, 0.03035F, 0.14915F), new Vector3(0F, 0F, 0F), new Vector3(0.10014F, 0.10014F, 0.10014F));
+                AddDisplayRule("MercBody", "Head", new Vector3(-0.01324F, 0.07837F, 0.20433F), new Vector3(0F, 0F, 0F), new Vector3(0.123F, 0.123F, 0.123F));
+                AddDisplayRule("TreebotBody", "PlatformBase", new Vector3(0.01191F, 0.29394F, 0.88825F), new Vector3(21.4706F, 359.7744F, 16.32179F), new Vector3(0.3626F, 0.3626F, 0.3626F));
+                AddDisplayRule("LoaderBody", "Head", new Vector3(-0.01458F, 0.04875F, 0.16764F), new Vector3(0F, 0F, 0F), new Vector3(0.14481F, 0.14481F, 0.14481F));
+                AddDisplayRule("CrocoBody", "MouthMuzzle", new Vector3(-0.16546F, -0.03058F, 3.43643F), new Vector3(67.59733F, 0.04097F, 359.0291F), new Vector3(1.49662F, 1.49662F, 1.49662F));
+                AddDisplayRule("CaptainBody", "Head", new Vector3(-0.01887F, 0.03281F, 0.24355F), new Vector3(1.79143F, 0F, 0F), new Vector3(0.1343F, 0.13818F, 0.15238F));
+                AddDisplayRule("ScavBody", "Chest", new Vector3(-1.90286F, 4.41959F, -7.60945F), new Vector3(319.543F, 180F, 18.09413F), new Vector3(2.08147F, 2.08147F, 2.08147F));
+                AddDisplayRule("EquipmentDroneBody", "HeadCenter", new Vector3(-0.06693F, -1.12064F, -0.77318F), new Vector3(90F, 0F, 0F), new Vector3(0.5795F, 0.5795F, 0.5795F));
             };
-            */
 
             On.RoR2.CharacterBody.OnInventoryChanged += CharacterBody_OnInventoryChanged;
             RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
