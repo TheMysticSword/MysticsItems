@@ -21,7 +21,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> damage = new ConfigurableValue<float>(
             "Item: Spare Wiring",
             "Damage",
-            150f,
+            125f,
             "Base damage of the sparks (in %)",
             new System.Collections.Generic.List<string>()
             {
@@ -31,12 +31,42 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> damagePerStack = new ConfigurableValue<float>(
             "Item: Spare Wiring",
             "DamagePerStack",
-            120f,
+            100f,
             "Base damage of the sparks for each additional stack of this item (in %)",
             new System.Collections.Generic.List<string>()
             {
                 "ITEM_MYSTICSITEMS_DRONEWIRES_DESC"
             }
+        );
+        public static ConfigurableValue<float> procCoefficient = new ConfigurableValue<float>(
+            "Item: Spare Wiring",
+            "ProcCoefficient",
+            1f,
+            "Spark proc coefficient"
+        );
+        public static ConfigurableValue<float> droneFireInterval = new ConfigurableValue<float>(
+            "Item: Spare Wiring",
+            "DroneFireInterval",
+            0.3f,
+            "How much time should pass between each time a drone drops sparks (in seconds)"
+        );
+        public static ConfigurableValue<int> droneFireCount = new ConfigurableValue<int>(
+            "Item: Spare Wiring",
+            "DroneFireCount",
+            1,
+            "How many sparks should a drone drop in each fire cycle"
+        );
+        public static ConfigurableValue<float> playerFireInterval = new ConfigurableValue<float>(
+            "Item: Spare Wiring",
+            "DroneFireInterval",
+            3f,
+            "How much time should pass between each time a player drops sparks (in seconds)"
+        );
+        public static ConfigurableValue<int> playerFireCount = new ConfigurableValue<int>(
+            "Item: Spare Wiring",
+            "DroneFireCount",
+            5,
+            "How many sparks should a player drop in each fire cycle"
         );
 
         public static GameObject sparkProjectilePrefab;
@@ -84,6 +114,8 @@ namespace MysticsItems.Items
             On.RoR2.CharacterBody.OnInventoryChanged += CharacterBody_OnInventoryChanged;
 
             MysticsRisky2Utils.Utils.CopyChildren(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Wires/SparkProjectile.prefab"), sparkProjectilePrefab);
+            
+            float sparkDuration = 4f;
 
             ProjectileController projectileController = sparkProjectilePrefab.AddComponent<ProjectileController>();
             projectileController.ghostPrefab = Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Wires/SparkProjectileGhost.prefab");
@@ -91,7 +123,7 @@ namespace MysticsItems.Items
             ObjectScaleCurve objectScaleCurve = projectileController.ghostPrefab.AddComponent<ObjectScaleCurve>();
             objectScaleCurve.overallCurve = AnimationCurve.Linear(0f, 1f, 1f, 0f);
             objectScaleCurve.useOverallCurveOnly = true;
-            objectScaleCurve.timeMax = 4f;
+            objectScaleCurve.timeMax = sparkDuration;
             projectileController.allowPrediction = true;
             sparkProjectilePrefab.AddComponent<ProjectileNetworkTransform>();
             sparkProjectilePrefab.AddComponent<TeamFilter>();
@@ -103,12 +135,12 @@ namespace MysticsItems.Items
                 sparkProjectilePrefab.transform.Find("HitBox").gameObject.AddComponent<HitBox>()
             };
             ProjectileSimple projectileSimple = sparkProjectilePrefab.AddComponent<ProjectileSimple>();
-            projectileSimple.desiredForwardSpeed = 17f;
-            projectileSimple.lifetime = 4f;
+            projectileSimple.desiredForwardSpeed = 14f;
+            projectileSimple.lifetime = sparkDuration;
             ProjectileOverlapAttack projectileOverlapAttack = sparkProjectilePrefab.AddComponent<ProjectileOverlapAttack>();
             projectileOverlapAttack.damageCoefficient = 1f;
-            projectileOverlapAttack.overlapProcCoefficient = 1f;
-            projectileOverlapAttack.resetInterval = 0.333f;
+            projectileOverlapAttack.overlapProcCoefficient = procCoefficient;
+            projectileOverlapAttack.resetInterval = 0.5f;
             sparkProjectilePrefab.layer = LayerIndex.projectile.intVal;
             
             MysticsItemsContent.Resources.projectilePrefabs.Add(sparkProjectilePrefab);
@@ -129,14 +161,22 @@ namespace MysticsItems.Items
             public int oldStack = 0;
             public bool firstInit = false;
             public float timer = 0f;
-            public float interval = 1f;
-            public bool crit = false;
-            public int critRerollIn = 0;
-            public int critRerollInterval = 10;
-
+            public float interval = droneFireInterval;
+            public int sparksToFire = droneFireCount;
+            public float accurateShotChance = 20f;
+            public float minSpeed = 7f;
+            public float maxSpeed = 25f;
+            public float coneAngle = 45f;
+            
             public void Start()
             {
                 firstInit = true;
+                var isMinion = body.master && body.master.minionOwnership && body.master.minionOwnership.group != null && body.master.minionOwnership.group.isMinion;
+                if (!isMinion)
+                {
+                    interval = playerFireInterval;
+                    sparksToFire = playerFireCount;
+                }
                 timer = UnityEngine.Random.value * interval;
                 UpdateDroneInventories();
                 MasterSummon.onServerMasterSummonGlobal += MasterSummon_onServerMasterSummonGlobal;
@@ -191,31 +231,58 @@ namespace MysticsItems.Items
 
             public void FixedUpdate()
             {
-                timer += Time.fixedDeltaTime;
-                if (timer >= interval)
+                if (!body.outOfCombat)
                 {
-                    timer = 0;
-                    critRerollIn--;
-                    if (critRerollIn <= 0)
+                    timer += Time.fixedDeltaTime;
+                    if (timer >= interval)
                     {
-                        critRerollIn = critRerollInterval;
-                        crit = body.RollCrit();
+                        timer = 0;
+
+                        var crit = body.RollCrit();
+                        float initialAngle = UnityEngine.Random.value * 360f;
+
+                        bool accurateShot = false;
+                        RaycastHit accurateShotRaycast = default(RaycastHit);
+                        if (accurateShotChance > 0f && Util.CheckRoll(accurateShotChance) && body.inputBank && body.inputBank.GetAimRaycast(300f, out accurateShotRaycast))
+                        {
+                            accurateShot = true;
+                        }
+
+                        for (var i = 0; i < sparksToFire; i++)
+                        {
+                            Vector3 fireOrigin = body.corePosition;
+                            Vector3 direction = Vector3.up;
+                            direction = Quaternion.AngleAxis(UnityEngine.Random.value * coneAngle, Vector3.forward) * direction;
+                            direction = Quaternion.AngleAxis(initialAngle + 360f / sparksToFire * i, Vector3.up) * direction;
+                            float speed = UnityEngine.Random.Range(minSpeed, maxSpeed);
+
+                            if (accurateShot && i == 0)
+                            {
+                                float accurateShotTime = UnityEngine.Random.Range(0.2f, 0.5f);
+
+                                var distance = accurateShotRaycast.point - fireOrigin;
+                                direction = new Vector3(
+                                    distance.x / accurateShotTime,
+                                    Trajectory.CalculateInitialYSpeed(accurateShotTime, distance.y),
+                                    distance.z / accurateShotTime
+                                );
+                                speed = direction.magnitude;
+                            }
+
+                            ProjectileManager.instance.FireProjectile(
+                                sparkProjectilePrefab,
+                                fireOrigin,
+                                Util.QuaternionSafeLookRotation(direction),
+                                body.gameObject,
+                                body.damage * (damage / 100f + damagePerStack / 100f * (float)(stack - 1)),
+                                0f,
+                                crit,
+                                DamageColorIndex.Default,
+                                null,
+                                speed
+                            );
+                        }
                     }
-                    Vector3 direction = Vector3.up;
-                    direction = Quaternion.AngleAxis(UnityEngine.Random.value * 30f, Vector3.forward) * direction;
-                    direction = Quaternion.AngleAxis(UnityEngine.Random.value * 360f, Vector3.up) * direction;
-                    ProjectileManager.instance.FireProjectile(
-                        sparkProjectilePrefab,
-                        body.corePosition,
-                        Util.QuaternionSafeLookRotation(direction),
-                        body.gameObject,
-                        body.damage * (damage / 100f + damagePerStack / 100f * (float)(stack - 1)),
-                        0f,
-                        crit,
-                        DamageColorIndex.Default,
-                        null,
-                        -1f
-                    );
                 }
             }
         }
