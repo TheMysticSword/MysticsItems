@@ -107,12 +107,14 @@ namespace MysticsItems.Items
 
             GenericGameEvents.BeforeTakeDamage += (damageInfo, attackerInfo, victimInfo) =>
             {
+                if (!victimInfo.gameObject) return;
                 PreDamageShield preDamageShield = victimInfo.gameObject.GetComponent<PreDamageShield>();
                 if (preDamageShield && victimInfo.healthComponent) preDamageShield.value = victimInfo.healthComponent.shield;
             };
 
             GenericGameEvents.OnTakeDamage += (damageReport) =>
             {
+                if (!damageReport.victim) return;
                 PreDamageShield preDamageShield = damageReport.victim.GetComponent<PreDamageShield>();
                 if (damageReport.victimBody.inventory && damageReport.victimBody.inventory.GetItemCount(itemDef) > 0 && preDamageShield && preDamageShield.value > 0f)
                 {
