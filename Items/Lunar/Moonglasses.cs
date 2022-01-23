@@ -42,6 +42,10 @@ namespace MysticsItems.Items
             itemDef.pickupModelPrefab = PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Moonglasses/Model.prefab"));
             itemDef.pickupIconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Items/Moonglasses/Icon.png");
 
+            ModelPanelParameters modelPanelParameters = itemDef.pickupModelPrefab.GetComponent<ModelPanelParameters>();
+            modelPanelParameters.minDistance = 0.1f;
+            modelPanelParameters.maxDistance = 0.2f;
+
             HopooShaderToMaterial.Standard.Apply(itemDef.pickupModelPrefab.GetComponentInChildren<MeshRenderer>().sharedMaterial);
             ColorUtility.TryParseHtmlString("#3D8AFF", out Color color);
             HopooShaderToMaterial.Standard.Emission(itemDef.pickupModelPrefab.GetComponentInChildren<MeshRenderer>().sharedMaterial, 0.5f, color);
