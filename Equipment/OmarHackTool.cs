@@ -21,6 +21,7 @@ namespace MysticsItems.Equipment
         public static GameObject crosshairPrefab;
         public static GameObject hudPrefab;
         public static GameObject hackVFXPrefab;
+        public static GameObject hackOverlayPrefab;
 
         public override void OnPluginAwake()
         {
@@ -90,7 +91,8 @@ namespace MysticsItems.Equipment
             On.RoR2.PurchaseInteraction.Awake += (orig, self) =>
             {
                 orig(self);
-                if (self.GetComponent<ChestBehavior>() && self.GetComponent<PurchaseInteraction>() && self.displayNameToken.Contains("CHEST"))
+                var purchaseInteraction = self.GetComponent<PurchaseInteraction>();
+                if (purchaseInteraction && purchaseInteraction.costType == CostTypeIndex.Money && (self.displayNameToken.Contains("CHEST") || self.displayNameToken.Contains("SHRINE")))
                 {
                     ModelLocator modelLocator = self.GetComponent<ModelLocator>();
                     if (modelLocator && modelLocator.modelTransform)
@@ -163,12 +165,37 @@ namespace MysticsItems.Equipment
             hackVFXPrefab = Main.AssetBundle.LoadAsset<GameObject>("Assets/Equipment/From Omar With Love/HackVFX.prefab");
             EffectComponent effectComponent = hackVFXPrefab.AddComponent<EffectComponent>();
             effectComponent.applyScale = true;
-            effectComponent.soundName = "MysticsItems_Play_item_use_OmarHackTool";
+            effectComponent.soundName = "MysticsItems_Play_env_OmarHackTool";
             VFXAttributes vfxAttributes = hackVFXPrefab.AddComponent<VFXAttributes>();
             vfxAttributes.vfxIntensity = VFXAttributes.VFXIntensity.Low;
             vfxAttributes.vfxPriority = VFXAttributes.VFXPriority.Medium;
             hackVFXPrefab.AddComponent<DestroyOnTimer>().duration = 10f;
             MysticsItemsContent.Resources.effectPrefabs.Add(hackVFXPrefab);
+
+            On.RoR2.ChestBehavior.ItemDrop += ChestBehavior_ItemDrop;
+
+            hackOverlayPrefab = PrefabAPI.InstantiateClone(new GameObject(), "MysticsItems_OmarHackToolHackOverlay", false);
+            EntityStateMachine entityStateMachine = hackOverlayPrefab.AddComponent<EntityStateMachine>();
+            entityStateMachine.initialStateType = entityStateMachine.mainStateType = new EntityStates.SerializableEntityStateType(typeof(MysticsItemsOmarHackToolOverlay));
+            effectComponent = hackOverlayPrefab.AddComponent<EffectComponent>();
+            effectComponent.parentToReferencedTransform = true;
+            vfxAttributes = hackOverlayPrefab.AddComponent<VFXAttributes>();
+            vfxAttributes.vfxIntensity = VFXAttributes.VFXIntensity.Low;
+            vfxAttributes.vfxPriority = VFXAttributes.VFXPriority.Low;
+            MysticsItemsContent.Resources.effectPrefabs.Add(hackOverlayPrefab);
+        }
+
+        private void ChestBehavior_ItemDrop(On.RoR2.ChestBehavior.orig_ItemDrop orig, ChestBehavior self)
+        {
+            if (NetworkServer.active && self.dropPickup != PickupIndex.none)
+            {
+                var component = self.GetComponent<MysticsItemsOmarHackToolHackingManager>();
+                if (component)
+                {
+                    component.PlayFX(3f);
+                }
+            }
+            orig(self);
         }
 
         private void HUD_onHudTargetChangedGlobal(HUD hud)
@@ -323,26 +350,28 @@ namespace MysticsItems.Equipment
             {
                 if (targetInfo.obj)
                 {
-                    PurchaseInteraction purchaseInteraction = targetInfo.obj.GetComponent<MysticsItemsChestLocator>().purchaseInteraction;
-                    purchaseInteraction.Networkcost = 0;
-
+                    var hackingManager = targetInfo.obj.AddComponent<MysticsItemsOmarHackToolHackingManager>();
+                    hackingManager.purchaseInteraction = targetInfo.obj.GetComponent<MysticsItemsChestLocator>().purchaseInteraction;
                     if (equipmentSlot.characterBody)
                     {
-                        Interactor component = equipmentSlot.characterBody.GetComponent<Interactor>();
-                        if (component)
-                        {
-                            component.AttemptInteraction(targetInfo.obj);
-                        }
+                        hackingManager.interactor = equipmentSlot.characterBody.GetComponent<Interactor>();
                     }
+                    if (hackingManager.GetComponent<ChestBehavior>())
+                    {
+                        hackingManager.delay = 0.1f;
+                    }
+                    else
+                    {
+                        hackingManager.purchaseInteraction.SetAvailable(false);
+                    }
+
+                    EffectManager.SpawnEffect(hackOverlayPrefab, new EffectData
+                    {
+                        rootObject = hackingManager.gameObject
+                    }, true);
 
                     var component2 = equipmentSlot.GetComponent<MysticsItemsOmarHackToolBehaviour>();
                     if (component2 && component2.usesLeft > 0) component2.usesLeft--;
-
-                    EffectManager.SpawnEffect(hackVFXPrefab, new EffectData
-                    {
-                        origin = targetInfo.obj.transform.position + Vector3.up * 0.5f,
-                        scale = 3f
-                    }, true);
 
                     targetInfo.Invalidate();
 
@@ -350,6 +379,12 @@ namespace MysticsItems.Equipment
                 }
             }
             return false;
+        }
+
+        public override void OnUseClient(EquipmentSlot equipmentSlot)
+        {
+            base.OnUseClient(equipmentSlot);
+            Util.PlaySound("MysticsItems_Play_item_use_OmarHackTool", equipmentSlot.gameObject);
         }
 
         public class ChestSearch : BaseDirectionalSearch<MysticsItemsChestLocator, ChestSearchSelector, ChestSearchFilter>
@@ -384,22 +419,20 @@ namespace MysticsItems.Equipment
         {
             public bool PassesFilter(MysticsItemsChestLocator source)
             {
-                return source.purchaseInteraction.available && source.chestBehavior && source.purchaseInteraction.cost > 0;
+                return source.purchaseInteraction.available && source.purchaseInteraction.cost > 0;
             }
         }
 
         public class MysticsItemsChestLocator : MonoBehaviour
         {
             public PurchaseInteraction purchaseInteraction;
-            public ChestBehavior chestBehavior;
             public Transform childTransform;
             public RoR2.Hologram.HologramProjector hologramProjector;
 
             public void Awake()
             {
                 purchaseInteraction = gameObject.GetComponent<PurchaseInteraction>();
-                chestBehavior = gameObject.GetComponent<ChestBehavior>();
-                hologramProjector = gameObject.GetComponent<RoR2.Hologram.HologramProjector>();
+                hologramProjector = gameObject.GetComponentInChildren<RoR2.Hologram.HologramProjector>();
             }
 
             public void OnEnable()
@@ -425,8 +458,10 @@ namespace MysticsItems.Equipment
                 CharacterMaster targetMaster = hudInstance.targetMaster;
                 CharacterBody characterBody = hudInstance.targetBodyObject ? hudInstance.targetBodyObject.GetComponent<CharacterBody>() : null;
                 EquipmentSlot equipmentSlot = characterBody ? characterBody.equipmentSlot : null;
+                EquipmentIndex equipmentIndex = characterBody && characterBody.inventory ? characterBody.inventory.currentEquipmentIndex : EquipmentIndex.None;
 
-                var shouldDisplay = equipmentSlot ? equipmentSlot.equipmentIndex == MysticsItemsContent.Equipment.MysticsItems_OmarHackTool.equipmentIndex : false;
+                var ei = MysticsItemsContent.Equipment.MysticsItems_OmarHackTool.equipmentIndex;
+                var shouldDisplay = equipmentSlot ? (equipmentSlot.equipmentIndex == ei || equipmentIndex == ei) : false;
 
                 MysticsItemsOmarHackToolHUD targetIndicatorInstance = instancesList.FirstOrDefault(x => x.hud == hudInstance);
 
@@ -490,6 +525,113 @@ namespace MysticsItems.Equipment
             public EquipmentSlot equipmentSlot;
             public MysticsItemsOmarHackToolBehaviour equipmentBehaviour;
             public TextMeshProUGUI usesLeftText;
+        }
+
+        public class MysticsItemsOmarHackToolHackingManager : MonoBehaviour
+        {
+            public bool fxPlayed = false;
+            public float delay = 0.8f;
+            public PurchaseInteraction purchaseInteraction;
+            public Interactor interactor;
+
+            public void PlayFX(float fxScale)
+            {
+                if (!fxPlayed)
+                {
+                    fxPlayed = true;
+                    EffectManager.SpawnEffect(hackVFXPrefab, new EffectData
+                    {
+                        origin = transform.position + Vector3.up * 0.5f,
+                        scale = fxScale
+                    }, true);
+                }
+            }
+
+            public void FixedUpdate()
+            {
+                if (delay > 0f)
+                {
+                    delay -= Time.fixedDeltaTime;
+                    if (delay <= 0f)
+                    {
+                        purchaseInteraction.Networkcost = 0;
+                        purchaseInteraction.SetAvailable(true);
+                        if (interactor)
+                        {
+                            interactor.AttemptInteraction(purchaseInteraction.gameObject);
+                        }
+                    }
+                }
+            }
+        }
+
+        public class MysticsItemsOmarHackToolOverlay : EntityStates.EntityState
+        {
+            public bool started = false;
+            public bool ended = false;
+
+            public TemporaryOverlay temporaryOverlay;
+            public Material materialInstance;
+            public new ModelLocator modelLocator;
+            public Renderer renderer;
+            public float duration = 0.8f;
+
+            public override void OnEnter()
+            {
+                base.OnEnter();
+            }
+
+            public override void Update()
+            {
+                base.Update();
+
+                if (!started)
+                {
+                    var parent = transform.parent;
+                    if (parent)
+                    {
+                        started = true;
+
+                        modelLocator = parent.GetComponent<ModelLocator>();
+                        if (modelLocator && modelLocator.modelTransform)
+                        {
+                            temporaryOverlay = modelLocator.modelTransform.gameObject.AddComponent<TemporaryOverlay>();
+                            temporaryOverlay.duration = duration;
+                            temporaryOverlay.originalMaterial = Main.AssetBundle.LoadAsset<Material>("Assets/Equipment/From Omar With Love/matOmarHackToolVFXOverlay.mat");
+                            //temporaryOverlay.alphaCurve = AnimationCurve.EaseInOut(0f, 0f, 0.2f, 1f);
+                            //temporaryOverlay.animateShaderAlpha = true;
+                            temporaryOverlay.destroyComponentOnEnd = false;
+                            temporaryOverlay.destroyObjectOnEnd = false;
+                            temporaryOverlay.SetupMaterial();
+                            
+                            renderer = modelLocator.modelTransform.GetComponentInChildren<Renderer>();
+                            if (renderer)
+                            {
+                                var materials = renderer.materials;
+                                HG.ArrayUtils.ArrayAppend(ref materials, temporaryOverlay.materialInstance);
+                                renderer.materials = materials;
+                                materialInstance = renderer.materials.Last();
+                            }
+                        }
+                    }
+                }
+
+                if (age >= duration && !ended)
+                {
+                    ended = true;
+
+                    if (renderer && materialInstance)
+                    {
+                        var materials = renderer.materials;
+                        var index = System.Array.IndexOf(materials, materialInstance);
+                        if (index != -1)
+                        {
+                            HG.ArrayUtils.ArrayRemoveAtAndResize(ref materials, index);
+                        }
+                        renderer.materials = materials;
+                    }
+                }
+            }
         }
     }
 }
