@@ -39,7 +39,7 @@ namespace MysticsItems.Equipment
         {
             base.OnLoad();
             equipmentDef.name = "MysticsItems_FragileMask";
-            equipmentDef.cooldown = new ConfigurableCooldown("Equipment: Fragile Mask", 3f).Value;
+            equipmentDef.cooldown = new ConfigurableCooldown("Equipment: Fragile Mask", 0f).Value;
             equipmentDef.canDrop = true;
             equipmentDef.enigmaCompatible = new ConfigurableEnigmaCompatibleBool("Equipment: Fragile Mask", false).Value;
             equipmentDef.isLunar = true;
@@ -240,7 +240,7 @@ namespace MysticsItems.Equipment
             {
                 var component = equipmentSlot.characterBody.GetComponent<MysticsItemsFragileMaskBehaviour>();
                 var inventory = equipmentSlot.characterBody.inventory;
-                var autoCast = inventory && inventory.GetItemCount(RoR2Content.Items.AutoCastEquipment) > 0;
+                var autoCast = equipmentDef.cooldown <= 0f && inventory && inventory.GetItemCount(RoR2Content.Items.AutoCastEquipment) > 0;
                 if (component)
                 {
                     component.SetMaskActive(!component.maskActive || autoCast);
