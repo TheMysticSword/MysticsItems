@@ -172,15 +172,23 @@ namespace MysticsItems.Items
                     healthMultiplier += damageReport.victimBody.inventory.GetItemCount(RoR2Content.Items.BoostHp) * 0.1f;
                 if ((damageReport.victimBody.baseMaxHealth * healthMultiplier) >= 1000f)
                 {
-                    if (damageReport.attackerMaster && damageReport.attackerMaster.inventory)
+                    foreach (var teamMember in TeamComponent.GetTeamMembers(damageReport.attackerTeamIndex))
                     {
-                        int itemCount = damageReport.attackerMaster.inventory.GetItemCount(itemDef);
-                        if (itemCount > 0)
+                        var teamMemberBody = teamMember.body;
+                        if (teamMemberBody)
                         {
-                            var component = damageReport.attackerMaster.inventory.GetComponent<MysticsItemsMysticSwordBehaviour>();
-                            if (component)
+                            var inventory = teamMemberBody.inventory;
+                            if (inventory)
                             {
-                                component.damageBonus += damage / 100f + damagePerStack / 100f * (float)(itemCount - 1);
+                                int itemCount = inventory.GetItemCount(itemDef);
+                                if (itemCount > 0)
+                                {
+                                    var component = inventory.GetComponent<MysticsItemsMysticSwordBehaviour>();
+                                    if (component)
+                                    {
+                                        component.damageBonus += damage / 100f + damagePerStack / 100f * (float)(itemCount - 1);
+                                    }
+                                }
                             }
                         }
                     }
