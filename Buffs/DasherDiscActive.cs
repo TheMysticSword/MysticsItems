@@ -32,18 +32,22 @@ namespace MysticsItems.Buffs
                     });
                 }
             };
-            CharacterModelMaterialOverrides.AddOverride(IncorporealMaterialOverride);
+            On.RoR2.CharacterModel.UpdateMaterials += CharacterModel_UpdateMaterials;
+            CharacterModelMaterialOverrides.AddOverride("DasherDiscActive", IncorporealMaterialOverride);
+        }
+
+        private void CharacterModel_UpdateMaterials(On.RoR2.CharacterModel.orig_UpdateMaterials orig, CharacterModel self)
+        {
+            CharacterModelMaterialOverrides.SetOverrideActive(self, "DasherDiscActive", self.visibility >= VisibilityLevel.Visible && self.body && self.body.HasBuff(buffDef));
+            orig(self);
         }
 
         public void IncorporealMaterialOverride(CharacterModel characterModel, ref Material material, ref bool ignoreOverlays)
         {
-            if (characterModel.body && characterModel.visibility >= VisibilityLevel.Visible && !ignoreOverlays)
+            if (!ignoreOverlays)
             {
-                if (characterModel.body.HasBuff(buffDef))
-                {
-                    ignoreOverlays = true;
-                    material = CharacterModel.ghostMaterial;
-                }
+                ignoreOverlays = true;
+                material = CharacterModel.ghostMaterial;
             }
         }
     }

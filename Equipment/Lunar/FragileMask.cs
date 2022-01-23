@@ -77,7 +77,7 @@ namespace MysticsItems.Equipment
 
             var materials = Resources.Load<GameObject>("Prefabs/CharacterBodies/BrotherGlassBody").GetComponentInChildren<SkinnedMeshRenderer>().sharedMaterials;
             overrideMaterial = materials[1];
-            CharacterModelMaterialOverrides.AddOverride(BrittleMaterialOverride);
+            CharacterModelMaterialOverrides.AddOverride("FragileMask", BrittleMaterialOverride);
             Overlays.CreateOverlay(materials[0], (characterModel) =>
             {
                 if (characterModel.body)
@@ -171,6 +171,21 @@ namespace MysticsItems.Equipment
                 if (maskWasActive != maskActive)
                 {
                     body.statsDirty = true;
+                    Util.PlaySound("MysticsItems_Play_item_use_fragileMask_" + (maskActive ? "on" : "off"), gameObject);
+                    var modelLocator = body.modelLocator;
+                    if (modelLocator)
+                    {
+                        var modelTransform = modelLocator.modelTransform;
+                        if (modelTransform)
+                        {
+                            var model = modelTransform.GetComponent<CharacterModel>();
+                            if (model)
+                            {
+                                CharacterModelMaterialOverrides.SetOverrideActive(model, "FragileMask", maskActive);
+                            }
+                        }
+                    }
+
                     if (NetworkServer.active)
                         new SyncMaskSetActive(gameObject.GetComponent<NetworkIdentity>().netId, enable).Send(NetworkDestination.Clients);
                 }
@@ -239,11 +254,7 @@ namespace MysticsItems.Equipment
         {
             if (characterModel.body && characterModel.visibility >= VisibilityLevel.Visible && !ignoreOverlays)
             {
-                var component = characterModel.body.GetComponent<MysticsItemsFragileMaskBehaviour>();
-                if (component && component.maskActive)
-                {
-                    material = overrideMaterial;
-                }
+                material = overrideMaterial;
             }
         }
     }
