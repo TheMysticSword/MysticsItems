@@ -12,6 +12,7 @@ using MysticsRisky2Utils.BaseAssetTypes;
 using R2API.Networking.Interfaces;
 using R2API.Networking;
 using static MysticsItems.BalanceConfigManager;
+using RoR2.Orbs;
 
 namespace MysticsItems.Items
 {
@@ -49,6 +50,9 @@ namespace MysticsItems.Items
         );
 
         public static DamageColorIndex damageColorIndex = DamageColorAPI.RegisterDamageColor(new Color32(191, 255, 255, 255));
+        public static GameObject onKillOrbEffect;
+        public static GameObject onKillVFX;
+        public static NetworkSoundEventDef onKillSFX;
 
         public override void OnPluginAwake()
         {
@@ -91,6 +95,54 @@ namespace MysticsItems.Items
                 AddDisplayRule("ScavBody", "Stomach", new Vector3(-0.92389F, 11.6509F, -5.90638F), new Vector3(20.93637F, 118.4181F, 332.9505F), new Vector3(0.24839F, 0.25523F, 0.24839F));
             };
             */
+
+            {
+                onKillVFX = Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Mystic Sword/SwordPowerUpKillEffect.prefab");
+                EffectComponent effectComponent = onKillVFX.AddComponent<EffectComponent>();
+                effectComponent.applyScale = true;
+                VFXAttributes vfxAttributes = onKillVFX.AddComponent<VFXAttributes>();
+                vfxAttributes.vfxPriority = VFXAttributes.VFXPriority.Medium;
+                vfxAttributes.vfxIntensity = VFXAttributes.VFXIntensity.Medium;
+                onKillVFX.AddComponent<DestroyOnTimer>().duration = 1f;
+                MysticsItemsContent.Resources.effectPrefabs.Add(onKillVFX);
+            }
+
+            {
+                onKillOrbEffect = Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Mystic Sword/SwordPowerUpOrbEffect.prefab");
+                EffectComponent effectComponent = onKillOrbEffect.AddComponent<EffectComponent>();
+                effectComponent.positionAtReferencedTransform = false;
+                effectComponent.parentToReferencedTransform = false;
+                effectComponent.applyScale = true;
+                VFXAttributes vfxAttributes = onKillOrbEffect.AddComponent<VFXAttributes>();
+                vfxAttributes.vfxPriority = VFXAttributes.VFXPriority.Always;
+                vfxAttributes.vfxIntensity = VFXAttributes.VFXIntensity.Medium;
+                OrbEffect orbEffect = onKillOrbEffect.AddComponent<OrbEffect>();
+                orbEffect.startVelocity1 = new Vector3(-25f, 5f, -25f);
+                orbEffect.startVelocity2 = new Vector3(25f, 50f, 25f);
+                orbEffect.endVelocity1 = new Vector3(0f, 0f, 0f);
+                orbEffect.endVelocity2 = new Vector3(0f, 0f, 0f);
+                var curveHolder = onKillVFX.transform.Find("Origin/Particle System").GetComponent<ParticleSystem>().sizeOverLifetime;
+                orbEffect.movementCurve = curveHolder.size.curve;
+                orbEffect.faceMovement = true;
+                orbEffect.callArrivalIfTargetIsGone = false;
+                DestroyOnTimer destroyOnTimer = onKillOrbEffect.transform.Find("Origin/Unparent").gameObject.AddComponent<DestroyOnTimer>();
+                destroyOnTimer.duration = 0.5f;
+                destroyOnTimer.enabled = false;
+                MysticsRisky2Utils.MonoBehaviours.MysticsRisky2UtilsOrbEffectOnArrivalDefaults onArrivalDefaults = onKillOrbEffect.AddComponent<MysticsRisky2Utils.MonoBehaviours.MysticsRisky2UtilsOrbEffectOnArrivalDefaults>();
+                onArrivalDefaults.orbEffect = orbEffect;
+                onArrivalDefaults.transformsToUnparentChildren = new Transform[] {
+                    onKillOrbEffect.transform.Find("Origin/Unparent")
+                };
+                onArrivalDefaults.componentsToEnable = new MonoBehaviour[]
+                {
+                    destroyOnTimer
+                };
+                MysticsItemsContent.Resources.effectPrefabs.Add(onKillOrbEffect);
+            }
+
+            onKillSFX = ScriptableObject.CreateInstance<NetworkSoundEventDef>();
+            onKillSFX.eventName = "MysticsItems_Play_item_proc_MysticSword";
+            MysticsItemsContent.Resources.networkSoundEventDefs.Add(onKillSFX);
 
             CharacterMaster.onStartGlobal += CharacterMaster_onStartGlobal;
             GlobalEventManager.onCharacterDeathGlobal += GlobalEventManager_onCharacterDeathGlobal;
@@ -165,13 +217,15 @@ namespace MysticsItems.Items
         {
             if (!NetworkServer.active) return;
 
-            if (damageReport.victimBody && damageReport.attackerMaster)
+            if (damageReport.victimBody)
             {
                 var healthMultiplier = 1f;
                 if (damageReport.victimBody.inventory)
                     healthMultiplier += damageReport.victimBody.inventory.GetItemCount(RoR2Content.Items.BoostHp) * 0.1f;
                 if ((damageReport.victimBody.baseMaxHealth * healthMultiplier) >= 1000f)
                 {
+                    var onKillOrbTargets = new List<GameObject>();
+
                     foreach (var teamMember in TeamComponent.GetTeamMembers(damageReport.attackerTeamIndex))
                     {
                         var teamMemberBody = teamMember.body;
@@ -187,11 +241,33 @@ namespace MysticsItems.Items
                                     if (component)
                                     {
                                         component.damageBonus += damage / 100f + damagePerStack / 100f * (float)(itemCount - 1);
+                                        onKillOrbTargets.Add(teamMemberBody.gameObject);
+                                        //RoR2.Audio.EntitySoundManager.EmitSoundServer(onKillSFX.index, teamMember.body.gameObject);
                                     }
                                 }
                             }
                         }
                     }
+
+                    if (onKillOrbTargets.Count > 0)
+                        for (var i = 0; i < 5; i++)
+                        {
+                            EffectData effectData = new EffectData
+                            {
+                                origin = damageReport.victimBody.corePosition,
+                                genericFloat = 1.5f,
+                                scale = UnityEngine.Random.Range(0.02f, 0.2f)
+                            };
+                            effectData.SetHurtBoxReference(RoR2Application.rng.NextElementUniform(onKillOrbTargets));
+                            EffectManager.SpawnEffect(onKillOrbEffect, effectData, true);
+                        }
+
+                    EffectManager.SpawnEffect(onKillVFX, new EffectData
+                    {
+                        origin = damageReport.victimBody.corePosition,
+                        scale = damageReport.victimBody.radius
+                    }, true);
+                    RoR2.Audio.PointSoundManager.EmitSoundServer(onKillSFX.index, damageReport.victimBody.corePosition);
                 }
             }
         }
