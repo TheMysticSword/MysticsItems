@@ -15,7 +15,7 @@ namespace MysticsItems.Items
     public class Backpack : BaseItem
     {
         public static ConfigurableValue<int> charges = new ConfigurableValue<int>(
-            "Item: Hikers Backpack",
+            "Item: Hiker s Backpack",
             "Charges",
             1,
             "Additional charges to all skills",
@@ -26,7 +26,7 @@ namespace MysticsItems.Items
             }
         );
         public static ConfigurableValue<int> chargesPerStack = new ConfigurableValue<int>(
-            "Item: Hikers Backpack",
+            "Item: Hiker s Backpack",
             "ChargesPerStack",
             1,
             "Additional charges to all skills for each additional stack of this item",
@@ -36,7 +36,7 @@ namespace MysticsItems.Items
             }
         );
         public static ConfigurableValue<float> cdr = new ConfigurableValue<float>(
-            "Item: Hikers Backpack",
+            "Item: Hiker s Backpack",
             "CDR",
             8f,
             "Cooldown reduction to all skills for the first stack of this item",
