@@ -22,7 +22,7 @@ namespace MysticsItems
     [BepInDependency("dev.ontrigger.itemstats", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("com.xoxfaby.BetterUI", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInPlugin(PluginGUID, PluginName, PluginVersion)]
-    [R2APISubmoduleDependency(nameof(NetworkingAPI), nameof(PrefabAPI), nameof(SoundAPI))]
+    [R2APISubmoduleDependency(nameof(DamageAPI), nameof(NetworkingAPI), nameof(PrefabAPI), nameof(SoundAPI))]
     public class MysticsItemsPlugin : BaseUnityPlugin
     {
         public const string PluginGUID = "com.themysticsword.mysticsitems";
