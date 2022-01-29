@@ -208,7 +208,7 @@ namespace MysticsItems.Items
 
         private void GenericGameEvents_OnHitEnemy(DamageInfo damageInfo, MysticsRisky2UtilsPlugin.GenericCharacterInfo attackerInfo, MysticsRisky2UtilsPlugin.GenericCharacterInfo victimInfo)
         {
-            if (!DamageAPI.HasModdedDamageType(damageInfo, damageShareDamageType) && attackerInfo.body && attackerInfo.inventory && victimInfo.body)
+            if (!DamageAPI.HasModdedDamageType(damageInfo, damageShareDamageType) && !damageInfo.rejected && attackerInfo.body && attackerInfo.inventory && victimInfo.body)
             {
                 var component = victimInfo.body.GetComponent<MysticsItemsDeathCeremonyMark>();
                 if (component)
