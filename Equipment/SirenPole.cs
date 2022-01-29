@@ -103,7 +103,7 @@ namespace MysticsItems.Equipment
 
             CombatDirector phaseCombatDirector = inWorldPrefab.AddComponent<CombatDirector>();
             phaseCombatDirector.customName = "WeakMonsters";
-            phaseCombatDirector.expRewardCoefficient = 0.3f;
+            phaseCombatDirector.expRewardCoefficient = 0.1f;
             phaseCombatDirector.minSeriesSpawnInterval = 0.5f;
             phaseCombatDirector.maxSeriesSpawnInterval = 0.5f;
             phaseCombatDirector.minRerollSpawnInterval = 2f;
