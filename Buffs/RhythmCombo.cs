@@ -13,7 +13,7 @@ namespace MysticsItems.Buffs
         public static ConfigurableValue<float> comboCrit = new ConfigurableValue<float>(
             "Item: Metronome",
             "ComboCrit",
-            5f,
+            10f,
             "Critical Strike chance per combo (in %)",
             new System.Collections.Generic.List<string>()
             {

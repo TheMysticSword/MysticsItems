@@ -30,7 +30,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> interval = new ConfigurableValue<float>(
             "Item: Metronome",
             "Interval",
-            45f,
+            30f,
             "How much time between each metronome beat & how long the buff lasts (in seconds)",
             new System.Collections.Generic.List<string>()
             {
@@ -41,7 +41,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> hudAppearTime = new ConfigurableValue<float>(
             "Item: Metronome",
             "HUDAppearTime",
-            7f,
+            5f,
             "How long should the HUD indiactors be visible on-screen before a beat (in seconds)"
         );
         public static float hudFadeInTime = 0.8f;
@@ -153,7 +153,7 @@ namespace MysticsItems.Items
 
         private void HUD_onHudTargetChangedGlobal(HUD obj)
         {
-            MysticsItemsRhythmHUD.RefreshAll();
+            MysticsItemsRhythmHUD.RefreshForHUDInstance(obj);
         }
 
         private void CharacterBody_OnInventoryChanged(On.RoR2.CharacterBody.orig_OnInventoryChanged orig, CharacterBody self)
@@ -221,6 +221,12 @@ namespace MysticsItems.Items
                 }
             }
 
+            public static void RefreshForHUDInstance(HUD hudInstance)
+            {
+                MysticsItemsRhythmHUDUnderCrosshair.RefreshForHUDInstance(hudInstance);
+                MysticsItemsRhythmHUDOverSkills.RefreshForHUDInstance(hudInstance);
+            }
+
             public void OnEnable()
             {
                 instancesList.Add(this);
@@ -257,7 +263,7 @@ namespace MysticsItems.Items
 
         public class MysticsItemsRhythmHUDUnderCrosshair : MysticsItemsRhythmHUD
         {
-            public static void RefreshForHUDInstance(HUD hudInstance)
+            public static new void RefreshForHUDInstance(HUD hudInstance)
             {
                 CharacterMaster targetMaster = hudInstance.targetMaster;
                 CharacterBody targetBody = targetMaster ? targetMaster.GetBody() : null;
@@ -484,7 +490,7 @@ namespace MysticsItems.Items
 
         public class MysticsItemsRhythmHUDOverSkills : MysticsItemsRhythmHUD
         {
-            public static void RefreshForHUDInstance(HUD hudInstance)
+            public static new void RefreshForHUDInstance(HUD hudInstance)
             {
                 CharacterMaster targetMaster = hudInstance.targetMaster;
                 CharacterBody targetBody = targetMaster ? targetMaster.GetBody() : null;
