@@ -90,7 +90,7 @@ namespace MysticsItems.Equipment
             HoldoutZoneController holdoutZoneController = inWorldPrefab.AddComponent<HoldoutZoneController>();
             holdoutZoneController.baseRadius = baseRadius.Value;
             holdoutZoneController.baseChargeDuration = chargeTime.Value;
-            holdoutZoneController.radiusSmoothTime = 1f;
+            holdoutZoneController.radiusSmoothTime = 0.3f;
             holdoutZoneController.radiusIndicator = inWorldPrefab.transform.Find("RadiusIndicator").gameObject.GetComponent<Renderer>();
             holdoutZoneController.inBoundsObjectiveToken = "OBJECTIVE_MYSTICSITEMS_CHARGE_SIRENPOLE";
             holdoutZoneController.outOfBoundsObjectiveToken = "OBJECTIVE_MYSTICSITEMS_CHARGE_SIRENPOLE_OOB";
