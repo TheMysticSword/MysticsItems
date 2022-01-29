@@ -113,6 +113,53 @@ namespace MysticsItems
                     return result;
                 };
             }
+
+            /*
+            // Generate item preview table image
+            RoR2Application.onLoad += () =>
+            {
+                var itemDefs = typeof(MysticsItemsContent.Items).GetFields().Select(x => x.GetValue(null) as ItemDef)
+                .Where(x => !x.hidden && x.inDroppableTier).ToList();
+                var equipmentDefs = typeof(MysticsItemsContent.Equipment).GetFields().Select(x => x.GetValue(null) as EquipmentDef)
+                    .Where(x => x.canDrop).ToList();
+
+                var sections = new List<ImageGeneration.ItemTableSection>()
+                {
+                    new ImageGeneration.ItemTableSection()
+                    {
+                        itemDefs = itemDefs.Where(x => x.tier == ItemTier.Tier1).ToList(),
+                        color = ColorCatalog.GetColor(ColorCatalog.ColorIndex.Tier1Item)
+                    },
+                    new ImageGeneration.ItemTableSection()
+                    {
+                        itemDefs = itemDefs.Where(x => x.tier == ItemTier.Tier2).ToList(),
+                        color = ColorCatalog.GetColor(ColorCatalog.ColorIndex.Tier2Item)
+                    },
+                    new ImageGeneration.ItemTableSection()
+                    {
+                        itemDefs = itemDefs.Where(x => x.tier == ItemTier.Tier3).ToList(),
+                        color = ColorCatalog.GetColor(ColorCatalog.ColorIndex.Tier3Item)
+                    },
+                    new ImageGeneration.ItemTableSection()
+                    {
+                        itemDefs = itemDefs.Where(x => x.tier == ItemTier.Lunar).ToList(),
+                        color = ColorCatalog.GetColor(ColorCatalog.ColorIndex.LunarItem)
+                    },
+                    new ImageGeneration.ItemTableSection()
+                    {
+                        equipmentDefs = equipmentDefs.Where(x => !x.isLunar).ToList(),
+                        color = ColorCatalog.GetColor(ColorCatalog.ColorIndex.Equipment)
+                    },
+                    new ImageGeneration.ItemTableSection()
+                    {
+                        equipmentDefs = equipmentDefs.Where(x => x.isLunar).ToList(),
+                        color = ColorCatalog.GetColor(ColorCatalog.ColorIndex.LunarItem)
+                    }
+                };
+
+                ImageGeneration.GenerateItemTable(50f, 512f, 107f, 3, Language.english, sections);
+            };
+            */
         }
     }
 
