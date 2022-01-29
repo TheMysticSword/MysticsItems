@@ -352,6 +352,7 @@ namespace MysticsItems
             public static AchievementDef MysticsItems_FindArchaicMask;
             public static AchievementDef MysticsItems_HellSpeedrun;
             public static AchievementDef MysticsItems_MultishopTerminalsOnly;
+            public static AchievementDef MysticsItems_ReachHighPoint;
             public static AchievementDef MysticsItems_RepairBrokenSpotter;
         }
     }
