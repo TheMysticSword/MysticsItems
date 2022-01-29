@@ -162,7 +162,8 @@ namespace MysticsItems.Items
         {
             if (attackerInfo.inventory && attackerInfo.inventory.GetItemCount(itemDef) > 0)
             {
-                damageInfo.damageColorIndex = damageColorIndex;
+                if (damageInfo.damageColorIndex == DamageColorIndex.Default)
+                    damageInfo.damageColorIndex = damageColorIndex;
             }
         }
 
