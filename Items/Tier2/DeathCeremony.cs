@@ -236,7 +236,10 @@ namespace MysticsItems.Items
                             markDamageInfo.procCoefficient = damageInfo.procCoefficient;
                             markDamageInfo.position = body.corePosition;
                             markDamageInfo.crit = damageInfo.crit;
+                            markDamageInfo.damageType = damageInfo.damageType;
                             DamageAPI.AddModdedDamageType(markDamageInfo, damageShareDamageType);
+                            markDamageInfo.procChainMask = damageInfo.procChainMask;
+                            markDamageInfo.damageColorIndex = damageInfo.damageColorIndex;
                             body.healthComponent.TakeDamage(markDamageInfo);
                             GlobalEventManager.instance.OnHitEnemy(markDamageInfo, body.healthComponent.gameObject);
                         }
