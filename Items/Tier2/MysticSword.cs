@@ -251,6 +251,7 @@ namespace MysticsItems.Items
                     }
 
                     if (onKillOrbTargets.Count > 0)
+                    {
                         for (var i = 0; i < 5; i++)
                         {
                             EffectData effectData = new EffectData
@@ -263,12 +264,13 @@ namespace MysticsItems.Items
                             EffectManager.SpawnEffect(onKillOrbEffect, effectData, true);
                         }
 
-                    EffectManager.SpawnEffect(onKillVFX, new EffectData
-                    {
-                        origin = damageReport.victimBody.corePosition,
-                        scale = damageReport.victimBody.radius
-                    }, true);
-                    RoR2.Audio.PointSoundManager.EmitSoundServer(onKillSFX.index, damageReport.victimBody.corePosition);
+                        EffectManager.SpawnEffect(onKillVFX, new EffectData
+                        {
+                            origin = damageReport.victimBody.corePosition,
+                            scale = damageReport.victimBody.radius
+                        }, true);
+                        RoR2.Audio.PointSoundManager.EmitSoundServer(onKillSFX.index, damageReport.victimBody.corePosition);
+                    }
                 }
             }
         }
