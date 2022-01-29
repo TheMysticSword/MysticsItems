@@ -293,6 +293,7 @@ namespace MysticsItems
             public static ItemDef MysticsItems_Cookie;
             public static ItemDef MysticsItems_CrystalWorld;
             public static ItemDef MysticsItems_DasherDisc;
+            public static ItemDef MysticsItems_DeathCeremony;
             public static ItemDef MysticsItems_DroneWires;
             public static ItemDef MysticsItems_ElitePotion;
             public static ItemDef MysticsItems_ExplosivePickups;

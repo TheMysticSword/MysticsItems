@@ -273,6 +273,17 @@ namespace MysticsItems.SoftDependencies
                     )
                 }
             });
+            // Ceremony of Perdition
+            ItemStats.ItemStatsMod.AddCustomItemStatDef(MysticsItemsContent.Items.MysticsItems_DeathCeremony.itemIndex, new ItemStats.ItemStatDef
+            {
+                Stats = new List<ItemStats.Stat.ItemStat>()
+                {
+                    new ItemStats.Stat.ItemStat(
+                        (itemCount, ctx) => Util.ConvertAmplificationPercentageIntoReductionPercentage(Items.DeathCeremony.damage + Items.DeathCeremony.damagePerStack * (itemCount - 1)),
+                        (value, ctx) => Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_DAMAGE", ItemStats.ValueFormatters.Extensions.FormatPercentage(value: value))
+                    )
+                }
+            });
 
             // Tier3
             // Crystallized World
