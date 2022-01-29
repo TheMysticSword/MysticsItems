@@ -194,7 +194,7 @@ namespace MysticsItems.Items
             explosionPrefab = PrefabAPI.InstantiateClone(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Contraband Gunpowder/Explosion.prefab"), "MysticsItems_OmniExplosionVFXExplosivePickups", false);
             VFXAttributes vfxAttributes = explosionPrefab.AddComponent<VFXAttributes>();
             vfxAttributes.vfxIntensity = VFXAttributes.VFXIntensity.High;
-            vfxAttributes.vfxPriority = VFXAttributes.VFXPriority.Medium;
+            vfxAttributes.vfxPriority = VFXAttributes.VFXPriority.Always;
             EffectComponent effectComponent = explosionPrefab.AddComponent<EffectComponent>();
             effectComponent.applyScale = true;
             effectComponent.soundName = "MysticsItems_Play_item_proc_gunpowder";
