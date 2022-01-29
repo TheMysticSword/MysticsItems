@@ -49,7 +49,7 @@ namespace MysticsItems.Items
             }
         );
 
-        public static DamageColorIndex damageColorIndex = DamageColorAPI.RegisterDamageColor(new Color32(191, 255, 255, 255));
+        public static DamageColorIndex damageColorIndex = DamageColorAPI.RegisterDamageColor(new Color32(247, 245, 197, 255));
         public static GameObject onKillOrbEffect;
         public static GameObject onKillVFX;
         public static NetworkSoundEventDef onKillSFX;
@@ -255,7 +255,7 @@ namespace MysticsItems.Items
                             EffectData effectData = new EffectData
                             {
                                 origin = damageReport.victimBody.corePosition,
-                                genericFloat = 1.5f,
+                                genericFloat = UnityEngine.Random.Range(1.35f, 1.7f),
                                 scale = UnityEngine.Random.Range(0.02f, 0.2f)
                             };
                             effectData.SetHurtBoxReference(RoR2Application.rng.NextElementUniform(onKillOrbTargets));
