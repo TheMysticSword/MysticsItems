@@ -35,6 +35,12 @@ namespace MysticsItems.Equipment
 
         public static Material overrideMaterial;
 
+        public override void OnPluginAwake()
+        {
+            base.OnPluginAwake();
+            NetworkingAPI.RegisterMessageType<MysticsItemsFragileMaskBehaviour.SyncMaskSetActive>();
+        }
+
         public override void OnLoad()
         {
             base.OnLoad();
