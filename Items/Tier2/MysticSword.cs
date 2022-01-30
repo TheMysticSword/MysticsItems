@@ -71,30 +71,66 @@ namespace MysticsItems.Items
                 ItemTag.OnKillEffect,
                 ItemTag.AIBlacklist
             };
-            /*
-            itemDef.pickupModelPrefab = PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Hexahedral Monolith/Model.prefab"));
-            itemDef.pickupIconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Items/Hexahedral Monolith/Icon.png");
-            itemDisplayPrefab = PrepareItemDisplayModel(PrefabAPI.InstantiateClone(itemDef.pickupModelPrefab, itemDef.pickupModelPrefab.name + "Display", false));
+            
+            itemDef.pickupModelPrefab = PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Mystic Sword/Model.prefab"));
+            itemDef.pickupIconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Items/Mystic Sword/Icon.png");
+            var mat = itemDef.pickupModelPrefab.GetComponentInChildren<Renderer>().sharedMaterial;
+            HopooShaderToMaterial.Standard.Apply(mat);
+            HopooShaderToMaterial.Standard.Emission(mat, 1f, new Color32(0, 250, 255, 255));
+            itemDef.pickupModelPrefab.transform.Find("GameObject").localScale *= 0.1f;
+
+            var swordFollowerPrefab = PrefabAPI.InstantiateClone(PrepareItemDisplayModel(PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Mystic Sword/DisplayModel.prefab"))), "MysticsItems_MysticSwordItemFollowerPrefab", false);
+            swordFollowerPrefab.transform.Find("TranslatePivot").transform.localScale *= 0.015f;
+            ObjectTransformCurve objectTransformCurve = swordFollowerPrefab.transform.Find("TranslatePivot").gameObject.AddComponent<ObjectTransformCurve>();
+            objectTransformCurve.translationCurveX = AnimationCurve.Constant(0f, 1f, 0f);
+            var floatY = 0.1f;
+            objectTransformCurve.translationCurveY = new AnimationCurve
+            {
+                keys = new Keyframe[]
+                {
+                    new Keyframe(0.25f, floatY),
+                    new Keyframe(0.75f, -floatY)
+                },
+                preWrapMode = WrapMode.PingPong,
+                postWrapMode = WrapMode.PingPong
+            };
+            objectTransformCurve.translationCurveZ = AnimationCurve.Constant(0f, 1f, 0f);
+            objectTransformCurve.useTranslationCurves = true;
+            objectTransformCurve.timeMax = 10f;
+            objectTransformCurve.rotationCurveX = AnimationCurve.Constant(0f, 1f, 0f);
+            objectTransformCurve.rotationCurveY = AnimationCurve.Linear(0f, 0f, 1f, 360f);
+            objectTransformCurve.rotationCurveY.preWrapMode = WrapMode.Loop;
+            objectTransformCurve.rotationCurveY.postWrapMode = WrapMode.Loop;
+            objectTransformCurve.rotationCurveZ = AnimationCurve.Constant(0f, 1f, 0f);
+            objectTransformCurve.useRotationCurves = true;
+            objectTransformCurve.gameObject.AddComponent<MysticSwordAnimationReset>();
+
+            itemDisplayPrefab = PrefabAPI.InstantiateClone(new GameObject("MysticsItems_MysticSwordFollower"), "MysticsItems_MysticSwordFollower", false);
+            itemDisplayPrefab.AddComponent<ItemDisplay>();
+            ItemFollower itemFollower = itemDisplayPrefab.AddComponent<ItemFollower>();
+            itemFollower.followerPrefab = swordFollowerPrefab;
+            itemFollower.distanceDampTime = 0.1f;
+            itemFollower.distanceMaxSpeed = 20f;
+            itemFollower.targetObject = itemDisplayPrefab;
+
             onSetupIDRS += () =>
             {
-                AddDisplayRule("CommandoBody", "GunMeshR", new Vector3(-0.13951F, -0.01505F, 0.13151F), new Vector3(0F, 0F, 90F), new Vector3(0.00856F, 0.00856F, 0.00856F));
-                AddDisplayRule("HuntressBody", "UpperArmL", new Vector3(0.06909F, 0.10681F, -0.00977F), new Vector3(3.66903F, 357.0302F, 178.0301F), new Vector3(0.01358F, 0.01358F, 0.01358F));
-                AddDisplayRule("Bandit2Body", "MainWeapon", new Vector3(-0.05477F, 0.2274F, -0.04443F), new Vector3(359.4865F, 89.48757F, 206.7464F), new Vector3(0.0135F, 0.00485F, 0.00485F));
-                AddDisplayRule("ToolbotBody", "Chest", new Vector3(-1.77361F, 2.53066F, 1.76556F), new Vector3(0F, 90F, 90F), new Vector3(0.10065F, 0.10065F, 0.10065F));
-                AddDisplayRule("EngiBody", "LowerArmR", new Vector3(0.0113F, 0.13437F, -0.05836F), new Vector3(1.34564F, 72.93568F, 188.458F), new Vector3(0.01476F, 0.01476F, 0.01476F));
-                AddDisplayRule("EngiTurretBody", "Head", new Vector3(0.035F, 0.89075F, -1.47928F), new Vector3(0F, 90F, 303.695F), new Vector3(0.07847F, 0.07847F, 0.07847F));
-                AddDisplayRule("EngiWalkerTurretBody", "Head", new Vector3(0.03562F, 1.40676F, -1.39837F), new Vector3(0F, 90F, 303.1705F), new Vector3(0.08093F, 0.09844F, 0.07912F));
-                AddDisplayRule("MageBody", "Chest", new Vector3(-0.10398F, 0.07562F, -0.31389F), new Vector3(359.7522F, 90.11677F, 8.18118F), new Vector3(0.01236F, 0.01035F, 0.00964F));
-                AddDisplayRule("MageBody", "Chest", new Vector3(0.11942F, 0.07423F, -0.30928F), new Vector3(359.136F, 95.88205F, 8.14244F), new Vector3(0.01236F, 0.01035F, 0.00787F));
-                AddDisplayRule("MercBody", "HandL", new Vector3(0.01326F, 0.1146F, 0.04565F), new Vector3(88.10731F, 183.3846F, 89.99922F), new Vector3(0.00961F, 0.00961F, 0.00965F));
-                AddDisplayRule("TreebotBody", "FlowerBase", new Vector3(0.69564F, -0.5422F, -0.29426F), new Vector3(46.13942F, 241.7613F, 12.79626F), new Vector3(0.03647F, 0.03647F, 0.03647F));
-                AddDisplayRule("LoaderBody", "MechBase", new Vector3(0.01517F, -0.06288F, -0.17121F), new Vector3(90F, 90F, 0F), new Vector3(0.0207F, 0.0207F, 0.0207F));
-                AddDisplayRule("CrocoBody", "SpineChest1", new Vector3(1.39693F, -0.10569F, -0.18201F), new Vector3(55.10429F, 175.6143F, 292.3791F), new Vector3(0.1379F, 0.1379F, 0.1379F));
-                AddDisplayRule("CaptainBody", "MuzzleGun", new Vector3(0.00467F, 0.05642F, -0.1194F), new Vector3(357.9892F, 90.52832F, 89.76476F), new Vector3(0.05388F, 0.01322F, 0.0146F));
-                AddDisplayRule("BrotherBody", "UpperArmL", BrotherInfection.green, new Vector3(0.06646F, 0.22781F, -0.00154F), new Vector3(77.05167F, 128.9087F, 289.6219F), new Vector3(0.04861F, 0.10534F, 0.10724F));
-                AddDisplayRule("ScavBody", "Stomach", new Vector3(-0.92389F, 11.6509F, -5.90638F), new Vector3(20.93637F, 118.4181F, 332.9505F), new Vector3(0.24839F, 0.25523F, 0.24839F));
+                AddDisplayRule("CommandoBody", "Base", new Vector3(0.17794F, -0.28733F, -0.73752F), new Vector3(3.15473F, 89.99998F, 270.0002F), Vector3.one);
+                AddDisplayRule("HuntressBody", "Base", new Vector3(0.17816F, -0.23663F, -0.52846F), new Vector3(2.42504F, 269.9999F, 90.0001F), Vector3.one);
+                AddDisplayRule("Bandit2Body", "Base", new Vector3(0.4537F, 0.29041F, -0.57258F), new Vector3(270F, 0F, 0F), Vector3.one);
+                AddDisplayRule("ToolbotBody", "Base", new Vector3(-1.04879F, -4.19278F, 5.42458F), new Vector3(0F, 90F, 90F), Vector3.one);
+                AddDisplayRule("EngiBody", "Base", new Vector3(0.0113F, -0.52335F, -0.69199F), new Vector3(270F, 0F, 0F), Vector3.one);
+                AddDisplayRule("EngiTurretBody", "Base", new Vector3(1.03266F, 3.98892F, -2.18302F), new Vector3(0F, 90F, 0F), Vector3.one);
+                AddDisplayRule("EngiWalkerTurretBody", "Base", new Vector3(1.53037F, 3.79942F, -2.10391F), new Vector3(0F, 90F, 0F), Vector3.one);
+                AddDisplayRule("MageBody", "Base", new Vector3(0.38669F, -0.43447F, -0.48611F), new Vector3(270F, 0F, 0F), Vector3.one);
+                AddDisplayRule("MercBody", "Base", new Vector3(0.38005F, -0.35752F, -0.53391F), new Vector3(270F, 0F, 0F), Vector3.one);
+                AddDisplayRule("TreebotBody", "Base", new Vector3(0.69145F, -1.39195F, -1.94014F), new Vector3(270F, 0F, 0F), Vector3.one * 1f);
+                AddDisplayRule("LoaderBody", "Base", new Vector3(0.26563F, -0.57799F, -0.60309F), new Vector3(270F, 0F, 0F), Vector3.one);
+                AddDisplayRule("CrocoBody", "Base", new Vector3(2.43278F, 4.85691F, 4.92643F), new Vector3(90F, 0F, 0F), Vector3.one * 1f);
+                AddDisplayRule("CaptainBody", "Base", new Vector3(0.52281F, -0.26508F, -0.8575F), new Vector3(270F, 0F, 0F), Vector3.one);
+                AddDisplayRule("BrotherBody", "HandR", BrotherInfection.green, new Vector3(-0.00915F, 0.08592F, 0.02786F), new Vector3(77.05167F, 128.9087F, 289.6218F), new Vector3(0.06672F, 0.02927F, 0.06676F));
+                AddDisplayRule("ScavBody", "Base", new Vector3(4.53188F, 14.35975F, 10.88982F), new Vector3(90F, 0F, 0F), Vector3.one * 2f);
             };
-            */
 
             {
                 onKillVFX = Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Mystic Sword/SwordPowerUpKillEffect.prefab");
@@ -151,6 +187,24 @@ namespace MysticsItems.Items
             if (!SoftDependencies.SoftDependenciesCore.itemStatsCompatEnabled) On.RoR2.UI.ItemIcon.SetItemIndex += ItemIcon_SetItemIndex;
 
             GenericGameEvents.BeforeTakeDamage += GenericGameEvents_BeforeTakeDamage;
+        }
+
+        private class MysticSwordAnimationReset : MonoBehaviour
+        {
+            public ObjectTransformCurve objectTransformCurve;
+
+            public void Awake()
+            {
+                objectTransformCurve = GetComponent<ObjectTransformCurve>();
+            }
+
+            public void LateUpdate()
+            {
+                if (objectTransformCurve.time >= objectTransformCurve.timeMax)
+                {
+                    objectTransformCurve.time -= objectTransformCurve.timeMax;
+                }
+            }
         }
 
         private void CharacterMaster_onStartGlobal(CharacterMaster obj)
