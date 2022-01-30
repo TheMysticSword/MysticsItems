@@ -278,30 +278,38 @@ namespace MysticsItems.Items
                     itemCount = body.inventory.GetItemCount(MysticsItemsContent.Items.MysticsItems_MarwanAsh1);
                     if (itemLevel == 2 && NetworkServer.active)
                     {
+                        body.inventory.RemoveItem(MysticsItemsContent.Items.MysticsItems_MarwanAsh1, itemCount);
                         body.inventory.GiveItem(MysticsItemsContent.Items.MysticsItems_MarwanAsh2, itemCount);
-                        CustomChatMessages.SendUpgradeMessage(
+
+                        CustomChatMessages.SendConversionMessage(
                             body.master,
                             PickupCatalog.FindPickupIndex(MysticsItemsContent.Items.MysticsItems_MarwanAsh1.itemIndex),
-                            PickupCatalog.FindPickupIndex(MysticsItemsContent.Items.MysticsItems_MarwanAsh2.itemIndex)
+                            (uint)itemCount,
+                            PickupCatalog.FindPickupIndex(MysticsItemsContent.Items.MysticsItems_MarwanAsh2.itemIndex),
+                            (uint)body.inventory.GetItemCount(MysticsItemsContent.Items.MysticsItems_MarwanAsh2)
                         );
-                        body.inventory.RemoveItem(MysticsItemsContent.Items.MysticsItems_MarwanAsh1, itemCount);
                     }
                     itemCount += body.inventory.GetItemCount(MysticsItemsContent.Items.MysticsItems_MarwanAsh2);
                     if (itemLevel == 3 && NetworkServer.active)
                     {
-                        body.inventory.GiveItem(MysticsItemsContent.Items.MysticsItems_MarwanAsh3, itemCount);
-                        CustomChatMessages.SendUpgradeMessage(
-                            body.master,
-                            PickupCatalog.FindPickupIndex(MysticsItemsContent.Items.MysticsItems_MarwanAsh1.itemIndex),
-                            PickupCatalog.FindPickupIndex(MysticsItemsContent.Items.MysticsItems_MarwanAsh3.itemIndex)
-                        );
-                        CustomChatMessages.SendUpgradeMessage(
-                            body.master,
-                            PickupCatalog.FindPickupIndex(MysticsItemsContent.Items.MysticsItems_MarwanAsh2.itemIndex),
-                            PickupCatalog.FindPickupIndex(MysticsItemsContent.Items.MysticsItems_MarwanAsh3.itemIndex)
-                        );
                         body.inventory.RemoveItem(MysticsItemsContent.Items.MysticsItems_MarwanAsh1, itemCount);
                         body.inventory.RemoveItem(MysticsItemsContent.Items.MysticsItems_MarwanAsh2, itemCount);
+                        body.inventory.GiveItem(MysticsItemsContent.Items.MysticsItems_MarwanAsh3, itemCount);
+
+                        CustomChatMessages.SendConversionMessage(
+                            body.master,
+                            PickupCatalog.FindPickupIndex(MysticsItemsContent.Items.MysticsItems_MarwanAsh1.itemIndex),
+                            (uint)itemCount,
+                            PickupCatalog.FindPickupIndex(MysticsItemsContent.Items.MysticsItems_MarwanAsh3.itemIndex),
+                            (uint)body.inventory.GetItemCount(MysticsItemsContent.Items.MysticsItems_MarwanAsh3)
+                        );
+                        CustomChatMessages.SendConversionMessage(
+                            body.master,
+                            PickupCatalog.FindPickupIndex(MysticsItemsContent.Items.MysticsItems_MarwanAsh2.itemIndex),
+                            (uint)itemCount,
+                            PickupCatalog.FindPickupIndex(MysticsItemsContent.Items.MysticsItems_MarwanAsh3.itemIndex),
+                            (uint)body.inventory.GetItemCount(MysticsItemsContent.Items.MysticsItems_MarwanAsh3)
+                        );
                     }
                     itemCount += body.inventory.GetItemCount(MysticsItemsContent.Items.MysticsItems_MarwanAsh3);
                 }

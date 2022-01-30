@@ -13,57 +13,43 @@ namespace MysticsItems
     {
         internal static void Init()
         {
-            NetworkingAPI.RegisterMessageType<SyncUpgradeMessage>();
+            NetworkingAPI.RegisterMessageType<SyncConversionMessage>();
         }
 
-        public static void SendUpgradeMessage(CharacterMaster master, PickupIndex originalPickupIndex, PickupIndex upgradePickupIndex)
+        public static void SendConversionMessage(CharacterMaster master, PickupIndex originalPickupIndex, uint originalPickupQuantity, PickupIndex convertedPickupIndex, uint convertedPickupQuantity)
         {
             if (NetworkServer.active)
             {
-                uint originalPickupQuantity = 1U;
-                uint upgradePickupQuantity = 1U;
-                if (master.inventory)
-                {
-                    var pickupDef = PickupCatalog.GetPickupDef(originalPickupIndex);
-                    var itemIndex = (pickupDef != null) ? pickupDef.itemIndex : ItemIndex.None;
-                    if (itemIndex != ItemIndex.None)
-                        originalPickupQuantity = (uint)master.inventory.GetItemCount(itemIndex);
-
-                    pickupDef = PickupCatalog.GetPickupDef(upgradePickupIndex);
-                    itemIndex = (pickupDef != null) ? pickupDef.itemIndex : ItemIndex.None;
-                    if (itemIndex != ItemIndex.None)
-                        upgradePickupQuantity = (uint)master.inventory.GetItemCount(itemIndex);
-                }
-                if (originalPickupQuantity > 0U && upgradePickupQuantity > 0U)
-                    new SyncUpgradeMessage(
+                if (originalPickupQuantity > 0U && convertedPickupQuantity > 0U)
+                    new SyncConversionMessage(
                         master.GetComponent<NetworkIdentity>().netId,
                         originalPickupIndex.value,
                         originalPickupQuantity,
-                        upgradePickupIndex.value,
-                        upgradePickupQuantity
+                        convertedPickupIndex.value,
+                        convertedPickupQuantity
                     ).Send(NetworkDestination.Clients);
             }
         }
 
-        private class SyncUpgradeMessage : INetMessage
+        private class SyncConversionMessage : INetMessage
         {
             NetworkInstanceId objID;
             int originalPickupIndex;
             uint originalPickupQuantity;
-            int upgradePickupIndex;
-            uint upgradePickupQuantity;
+            int convertedPickupIndex;
+            uint convertedPickupQuantity;
 
-            public SyncUpgradeMessage()
+            public SyncConversionMessage()
             {
             }
 
-            public SyncUpgradeMessage(NetworkInstanceId objID, int originalPickupIndex, uint originalPickupQuantity, int upgradePickupIndex, uint upgradePickupQuantity)
+            public SyncConversionMessage(NetworkInstanceId objID, int originalPickupIndex, uint originalPickupQuantity, int convertedPickupIndex, uint convertedPickupQuantity)
             {
                 this.objID = objID;
                 this.originalPickupIndex = originalPickupIndex;
                 this.originalPickupQuantity = originalPickupQuantity;
-                this.upgradePickupIndex = upgradePickupIndex;
-                this.upgradePickupQuantity = upgradePickupQuantity;
+                this.convertedPickupIndex = convertedPickupIndex;
+                this.convertedPickupQuantity = convertedPickupQuantity;
             }
 
             public void Deserialize(NetworkReader reader)
@@ -71,8 +57,8 @@ namespace MysticsItems
                 objID = reader.ReadNetworkId();
                 originalPickupIndex = reader.ReadInt32();
                 originalPickupQuantity = reader.ReadUInt32();
-                upgradePickupIndex = reader.ReadInt32();
-                upgradePickupQuantity = reader.ReadUInt32();
+                convertedPickupIndex = reader.ReadInt32();
+                convertedPickupQuantity = reader.ReadUInt32();
             }
 
             public void OnReceived()
@@ -90,9 +76,9 @@ namespace MysticsItems
                         var originalItemDef = ItemCatalog.GetItemDef((originalPickupDef != null) ? originalPickupDef.itemIndex : ItemIndex.None);
                         if (originalItemDef == null || originalItemDef.hidden) return;
 
-                        var upgradePickupDef = PickupCatalog.GetPickupDef(new PickupIndex(upgradePickupIndex));
-                        var upgradeItemDef = ItemCatalog.GetItemDef((upgradePickupDef != null) ? upgradePickupDef.itemIndex : ItemIndex.None);
-                        if (upgradeItemDef == null || upgradeItemDef.hidden) return;
+                        var convertedPickupDef = PickupCatalog.GetPickupDef(new PickupIndex(convertedPickupIndex));
+                        var convertedItemDef = ItemCatalog.GetItemDef((convertedPickupDef != null) ? convertedPickupDef.itemIndex : ItemIndex.None);
+                        if (convertedItemDef == null || convertedItemDef.hidden) return;
 
                         PlayerCharacterMasterController pcmc = master.GetComponent<PlayerCharacterMasterController>();
                         if (pcmc)
@@ -103,7 +89,7 @@ namespace MysticsItems
                                 LocalUser localUser = networkUser.localUser;
                                 if (localUser != null)
                                 {
-                                    localUser.userProfile.DiscoverPickup(new PickupIndex(upgradePickupIndex));
+                                    localUser.userProfile.DiscoverPickup(new PickupIndex(convertedPickupIndex));
                                 }
                             }
                         }
@@ -120,20 +106,20 @@ namespace MysticsItems
 
                                     notificationQueueHandler.notificationQueue.Enqueue(new NotificationQueue.NotificationInfo
                                     {
-                                        data = ItemCatalog.GetItemDef(upgradeItemDef.itemIndex)
+                                        data = ItemCatalog.GetItemDef(convertedItemDef.itemIndex)
                                     });
                                 }
                             }
                         }
 
-                        AddUpgradeMessage(
+                        AddConversionMessage(
                             body,
                             ((originalPickupDef != null) ? originalPickupDef.nameToken : null) ?? PickupCatalog.invalidPickupToken,
                             (originalPickupDef != null) ? originalPickupDef.baseColor : Color.black,
                             originalPickupQuantity,
-                            ((upgradePickupDef != null) ? upgradePickupDef.nameToken : null) ?? PickupCatalog.invalidPickupToken,
-                            (upgradePickupDef != null) ? upgradePickupDef.baseColor : Color.black,
-                            upgradePickupQuantity
+                            ((convertedPickupDef != null) ? convertedPickupDef.nameToken : null) ?? PickupCatalog.invalidPickupToken,
+                            (convertedPickupDef != null) ? convertedPickupDef.baseColor : Color.black,
+                            convertedPickupQuantity
                         );
                     }
                 });
@@ -144,27 +130,27 @@ namespace MysticsItems
                 writer.Write(objID);
                 writer.Write(originalPickupIndex);
                 writer.Write(originalPickupQuantity);
-                writer.Write(upgradePickupIndex);
-                writer.Write(upgradePickupQuantity);
+                writer.Write(convertedPickupIndex);
+                writer.Write(convertedPickupQuantity);
             }
         }
 
-        public static void AddUpgradeMessage(CharacterBody body, string originalToken, Color32 originalColor, uint originalQuantity, string upgradeToken, Color32 upgradeColor, uint upgradeQuantity)
+        public static void AddConversionMessage(CharacterBody body, string originalToken, Color32 originalColor, uint originalQuantity, string convertedToken, Color32 convertedColor, uint convertedQuantity)
         {
-            Chat.AddMessage(new PlayerUpgradeChatMessage
+            Chat.AddMessage(new PlayerConversionChatMessage
             {
                 subjectAsCharacterBody = body,
-                baseToken = "MYSTICSITEMS_PLAYER_UPGRADE",
+                baseToken = "MYSTICSITEMS_PLAYER_CONVERT",
                 originalToken = originalToken,
                 originalColor = originalColor,
                 originalQuantity = originalQuantity,
-                upgradeToken = upgradeToken,
-                upgradeColor = upgradeColor,
-                upgradeQuantity = upgradeQuantity
+                convertedToken = convertedToken,
+                convertedColor = convertedColor,
+                convertedQuantity = convertedQuantity
             });
         }
 
-        public class PlayerUpgradeChatMessage : SubjectChatMessage
+        public class PlayerConversionChatMessage : SubjectChatMessage
         {
             public override string ConstructChatString()
             {
@@ -179,24 +165,24 @@ namespace MysticsItems
                     originalQuantityString = "(" + originalQuantity + ")";
                 }
 
-                string upgradeName = Language.GetString(upgradeToken) ?? "???";
-                upgradeName = Util.GenerateColoredString(upgradeName, upgradeColor);
-                string upgradeQuantityString = "";
-                if (upgradeQuantity != 1U)
+                string convertedName = Language.GetString(convertedToken) ?? "???";
+                convertedName = Util.GenerateColoredString(convertedName, convertedColor);
+                string convertedQuantityString = "";
+                if (convertedQuantity != 1U)
                 {
-                    upgradeQuantityString = "(" + upgradeQuantity + ")";
+                    convertedQuantityString = "(" + convertedQuantity + ")";
                 }
 
-                return string.Format(constructedChatString, subjectName, originalName, originalQuantityString, upgradeName, upgradeQuantityString);
+                return string.Format(constructedChatString, subjectName, originalName, originalQuantityString, convertedName, convertedQuantityString);
             }
 
             public string originalToken;
             public Color32 originalColor;
             public uint originalQuantity;
 
-            public string upgradeToken;
-            public Color32 upgradeColor;
-            public uint upgradeQuantity;
+            public string convertedToken;
+            public Color32 convertedColor;
+            public uint convertedQuantity;
         }
     }
 }
