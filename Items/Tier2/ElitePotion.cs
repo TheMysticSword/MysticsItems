@@ -103,32 +103,38 @@ namespace MysticsItems.Items
                 {
                     eliteBuffDef = RoR2Content.Buffs.AffixRed,
                     dot = DotController.DotIndex.Burn,
-                    vfx = Resources.Load<GameObject>("Prefabs/Effects/OmniEffect/OmniExplosionVFXLemurianBruiserFireballImpact")
+                    vfx = Resources.Load<GameObject>("Prefabs/Effects/OmniEffect/OmniExplosionVFXLemurianBruiserFireballImpact"),
+                    damage = 4f,
+                    procCoefficient = 0f
                 });
                 spreadEffectInfos.Add(new SpreadEffectInfo
                 {
                     eliteBuffDef = RoR2Content.Buffs.AffixBlue,
                     vfx = Resources.Load<GameObject>("Prefabs/Effects/CaptainTazerSupplyDropNova"),
-                    damage = 7f,
-                    procCoefficient = 1f
+                    damage = 10f,
+                    procCoefficient = 1f,
+                    damageType = DamageType.Shock5s
                 });
                 spreadEffectInfos.Add(new SpreadEffectInfo
                 {
                     eliteBuffDef = RoR2Content.Buffs.AffixWhite,
                     vfx = Resources.Load<GameObject>("Prefabs/Effects/OmniEffect/OmniImpactVFXFrozen"),
-                    debuff = RoR2Content.Buffs.Slow80
+                    debuff = RoR2Content.Buffs.Slow80,
+                    damageType = DamageType.Freeze2s
                 });
                 spreadEffectInfos.Add(new SpreadEffectInfo
                 {
                     eliteBuffDef = RoR2Content.Buffs.AffixPoison,
                     vfx = Resources.Load<GameObject>("Prefabs/Effects/OmniEffect/OmniExplosionVFXUrchin"),
-                    debuff = RoR2Content.Buffs.HealingDisabled
+                    debuff = RoR2Content.Buffs.HealingDisabled,
+                    damageType = DamageType.WeakOnHit
                 });
                 spreadEffectInfos.Add(new SpreadEffectInfo
                 {
                     eliteBuffDef = RoR2Content.Buffs.AffixHaunted,
                     vfx = Resources.Load<GameObject>("Prefabs/Effects/OmniEffect/OmniExplosionVFXGreaterWisp"),
-                    debuff = RoR2Content.Buffs.Slow80
+                    debuff = RoR2Content.Buffs.Slow80,
+                    damageType = DamageType.Stun1s
                 });
                 spreadEffectInfos.Add(new SpreadEffectInfo
                 {
@@ -191,6 +197,7 @@ namespace MysticsItems.Items
                                         baseDamage = damageReport.attackerBody.damage * spreadEffectInfo.damage * damageMult,
                                         procCoefficient = spreadEffectInfo.procCoefficient,
                                         crit = Util.CheckRoll(damageReport.attackerBody.crit, damageReport.attackerMaster),
+                                        damageType = spreadEffectInfo.damageType | DamageType.AOE,
                                         damageColorIndex = DamageColorIndex.Item,
                                         attackerFiltering = AttackerFiltering.Default,
                                         falloffModel = BlastAttack.FalloffModel.None,
@@ -213,6 +220,7 @@ namespace MysticsItems.Items
             public DotController.DotIndex dot;
             public float damage;
             public float procCoefficient;
+            public DamageType damageType;
         }
         public static List<SpreadEffectInfo> spreadEffectInfos = new List<SpreadEffectInfo>();
 

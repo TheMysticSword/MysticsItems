@@ -10,7 +10,7 @@ namespace MysticsItems
             Items.ExplosivePickups.Explode(body);
         }
 
-        public static void ElitePotion_AddSpreadEffect(BuffDef eliteBuffDef, GameObject vfx = null, BuffDef debuff = null, DotController.DotIndex dot = DotController.DotIndex.None, float damage = 0f, float procCoefficient = 0f)
+        public static void ElitePotion_AddSpreadEffect(BuffDef eliteBuffDef, GameObject vfx = null, BuffDef debuff = null, DotController.DotIndex dot = DotController.DotIndex.None, float damage = 0f, float procCoefficient = 0f, DamageType damageType = DamageType.Generic)
         {
             Items.ElitePotion.spreadEffectInfos.Add(new Items.ElitePotion.SpreadEffectInfo
             {
@@ -19,7 +19,8 @@ namespace MysticsItems
                 debuff = debuff,
                 dot = dot,
                 damage = damage,
-                procCoefficient = procCoefficient
+                procCoefficient = procCoefficient,
+                damageType = damageType
             });
         }
     }
