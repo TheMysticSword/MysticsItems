@@ -80,7 +80,7 @@ namespace MysticsItems.Items
             itemDef.pickupModelPrefab.transform.Find("GameObject").localScale *= 0.1f;
 
             var swordFollowerPrefab = PrefabAPI.InstantiateClone(PrepareItemDisplayModel(PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Mystic Sword/DisplayModel.prefab"))), "MysticsItems_MysticSwordItemFollowerPrefab", false);
-            swordFollowerPrefab.transform.Find("TranslatePivot").transform.localScale *= 0.015f;
+            swordFollowerPrefab.transform.Find("TranslatePivot").transform.localScale *= 0.02f;
             ObjectTransformCurve objectTransformCurve = swordFollowerPrefab.transform.Find("TranslatePivot").gameObject.AddComponent<ObjectTransformCurve>();
             objectTransformCurve.translationCurveX = AnimationCurve.Constant(0f, 1f, 0f);
             var floatY = 0.1f;
