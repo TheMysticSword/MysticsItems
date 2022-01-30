@@ -121,7 +121,7 @@ namespace MysticsItems
             RoR2Application.onLoad += () =>
             {
                 var itemDefs = typeof(MysticsItemsContent.Items).GetFields().Select(x => x.GetValue(null) as ItemDef)
-                .Where(x => !x.hidden && x.inDroppableTier).ToList();
+                .Where(x => !x.hidden && x.inDroppableTier && x.DoesNotContainTag(ItemTag.WorldUnique)).ToList();
                 var equipmentDefs = typeof(MysticsItemsContent.Equipment).GetFields().Select(x => x.GetValue(null) as EquipmentDef)
                     .Where(x => x.canDrop).ToList();
 
