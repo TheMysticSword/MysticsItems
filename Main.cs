@@ -22,7 +22,7 @@ namespace MysticsItems
     [BepInDependency("dev.ontrigger.itemstats", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("com.xoxfaby.BetterUI", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInPlugin(PluginGUID, PluginName, PluginVersion)]
-    [R2APISubmoduleDependency(nameof(DamageAPI), nameof(NetworkingAPI), nameof(PrefabAPI), nameof(SoundAPI))]
+    [R2APISubmoduleDependency(nameof(DamageAPI), nameof(DotAPI), nameof(NetworkingAPI), nameof(PrefabAPI), nameof(SoundAPI))]
     public class MysticsItemsPlugin : BaseUnityPlugin
     {
         public const string PluginGUID = "com.themysticsword.mysticsitems";
@@ -75,6 +75,7 @@ namespace MysticsItems
 
             //DebugTools.Init();
 
+            CustomChatMessages.Init();
             GenericCostTypes.Init();
             ImageGeneration.Init();
             SoftDependencies.SoftDependenciesCore.Init();
@@ -306,6 +307,9 @@ namespace MysticsItems
             public static ItemDef MysticsItems_LimitedArmor;
             public static ItemDef MysticsItems_LimitedArmorBroken;
             public static ItemDef MysticsItems_Manuscript;
+            public static ItemDef MysticsItems_MarwanAsh1;
+            public static ItemDef MysticsItems_MarwanAsh2;
+            public static ItemDef MysticsItems_MarwanAsh3;
             public static ItemDef MysticsItems_Moonglasses;
             public static ItemDef MysticsItems_MysticSword;
             public static ItemDef MysticsItems_RegenAndDifficultySpeed;
@@ -341,6 +345,7 @@ namespace MysticsItems
             public static BuffDef MysticsItems_DasherDiscActive;
             public static BuffDef MysticsItems_DasherDiscCooldown;
             public static BuffDef MysticsItems_Deafened;
+            public static BuffDef MysticsItems_MarwanAshBurn;
             public static BuffDef MysticsItems_MechanicalArmCharge;
             public static BuffDef MysticsItems_RhythmCombo;
             public static BuffDef MysticsItems_SpotterMarked;

@@ -153,6 +153,45 @@ namespace MysticsItems.SoftDependencies
                     )
                 }
             });
+            // Marwan's Ash
+            {
+                var damageStat = new ItemStats.Stat.ItemStat(
+                    (itemCount, ctx) => Items.MarwanAsh1.damage + Items.MarwanAsh1.damagePerLevel * (ctx.Master && ctx.Master.hasBody ? ctx.Master.GetBody().level : 0f) * itemCount,
+                    (value, ctx) => Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_DAMAGE", ItemStats.ValueFormatters.Extensions.FormatInt(value: value))
+                );
+                var dotStat = new ItemStats.Stat.ItemStat(
+                    (itemCount, ctx) => Items.MarwanAsh1.dotPercent + Items.MarwanAsh1.dotPercentPerLevel * (ctx.Master && ctx.Master.hasBody ? ctx.Master.GetBody().level - Items.MarwanAsh1.upgradeLevel12 : 0f) * itemCount,
+                    (value, ctx) => Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_MAXHEALTH", ItemStats.ValueFormatters.Extensions.FormatPercentage(value: value, scale: 1f))
+                );
+                var radiusStat = new ItemStats.Stat.ItemStat(
+                    (itemCount, ctx) => Items.MarwanAsh1.radius + Items.MarwanAsh1.radiusPerLevel * (ctx.Master && ctx.Master.hasBody ? ctx.Master.GetBody().level - Items.MarwanAsh1.upgradeLevel23 : 0f) * itemCount,
+                    (value, ctx) => Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_RADIUS", ItemStats.ValueFormatters.Extensions.FormatInt(value: value, postfix: Language.GetString("ITEMSTATS_MYSTICSITEMS_POSTFIX_METERS")))
+                );
+                ItemStats.ItemStatsMod.AddCustomItemStatDef(MysticsItemsContent.Items.MysticsItems_MarwanAsh1.itemIndex, new ItemStats.ItemStatDef
+                {
+                    Stats = new List<ItemStats.Stat.ItemStat>()
+                    {
+                        damageStat
+                    }
+                });
+                ItemStats.ItemStatsMod.AddCustomItemStatDef(MysticsItemsContent.Items.MysticsItems_MarwanAsh2.itemIndex, new ItemStats.ItemStatDef
+                {
+                    Stats = new List<ItemStats.Stat.ItemStat>()
+                    {
+                        damageStat,
+                        dotStat
+                    }
+                });
+                ItemStats.ItemStatsMod.AddCustomItemStatDef(MysticsItemsContent.Items.MysticsItems_MarwanAsh3.itemIndex, new ItemStats.ItemStatDef
+                {
+                    Stats = new List<ItemStats.Stat.ItemStat>()
+                    {
+                        damageStat,
+                        dotStat,
+                        radiusStat
+                    }
+                });
+            }
 
             // Tier2
             // Vendetta
