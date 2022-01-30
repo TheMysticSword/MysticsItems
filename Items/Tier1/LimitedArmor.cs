@@ -109,6 +109,14 @@ namespace MysticsItems.Items
                                         inventory.RemoveItem(itemDef);
                                         component.remainingHits += LimitedArmor.hits; // the previous RemoveItem also removes 100 hits, so we should give them back
                                         inventory.GiveItem(MysticsItemsContent.Items.MysticsItems_LimitedArmorBroken);
+
+                                        CustomChatMessages.SendConversionMessage(
+                                            damageReport.victimMaster,
+                                            PickupCatalog.FindPickupIndex(MysticsItemsContent.Items.MysticsItems_LimitedArmor.itemIndex),
+                                            1u,
+                                            PickupCatalog.FindPickupIndex(MysticsItemsContent.Items.MysticsItems_LimitedArmorBroken.itemIndex),
+                                            (uint)inventory.GetItemCount(MysticsItemsContent.Items.MysticsItems_LimitedArmorBroken)
+                                        );
                                     }
                                 }
                             }
