@@ -17,7 +17,8 @@ namespace MysticsItems.Items
             "Armor increase from Frayed Bow (the weaker version of the item)",
             new System.Collections.Generic.List<string>()
             {
-                "ITEM_MYSTICSITEMS_LIMITEDARMOR_DESC"
+                "ITEM_MYSTICSITEMS_LIMITEDARMOR_DESC",
+                "ITEM_MYSTICSITEMS_LIMITEDARMORBROKEN_DESC"
             }
         );
 
@@ -25,15 +26,16 @@ namespace MysticsItems.Items
         {
             base.OnLoad();
             itemDef.name = "MysticsItems_LimitedArmorBroken";
-            itemDef.tier = ItemTier.NoTier;
+            itemDef.tier = ItemTier.Tier1;
             itemDef.tags = new ItemTag[]
             {
                 ItemTag.Utility,
                 ItemTag.WorldUnique
             };
+            itemDef.pickupModelPrefab = PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Bow/ModelFrayed.prefab"));
             itemDef.pickupIconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Items/Bow/IconFrayed.png");
 
-            itemDisplayPrefab = PrepareItemDisplayModel(PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Bow/ModelFrayed.prefab")));
+            itemDisplayPrefab = PrepareItemDisplayModel(PrefabAPI.InstantiateClone(itemDef.pickupModelPrefab, itemDef.pickupModelPrefab.name + "Display", false));
             HopooShaderToMaterial.Standard.Gloss(itemDisplayPrefab.GetComponentInChildren<Renderer>().material, 0f, 0f);
             onSetupIDRS += () =>
             {
