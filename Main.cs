@@ -302,6 +302,7 @@ namespace MysticsItems
             public static ItemDef MysticsItems_ExtraShrineUse;
             public static ItemDef MysticsItems_HealOrbOnBarrel;
             public static ItemDef MysticsItems_Idol;
+            public static ItemDef MysticsItems_JudgementCut;
             public static ItemDef MysticsItems_KeepShopTerminalOpen;
             public static ItemDef MysticsItems_KeepShopTerminalOpenConsumed;
             public static ItemDef MysticsItems_LimitedArmor;

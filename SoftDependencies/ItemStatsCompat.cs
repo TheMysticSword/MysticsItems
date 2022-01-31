@@ -323,6 +323,21 @@ namespace MysticsItems.SoftDependencies
                     )
                 }
             });
+            // Devil's Cry
+            ItemStats.ItemStatsMod.AddCustomItemStatDef(MysticsItemsContent.Items.MysticsItems_JudgementCut.itemIndex, new ItemStats.ItemStatDef
+            {
+                Stats = new List<ItemStats.Stat.ItemStat>()
+                {
+                    new ItemStats.Stat.ItemStat(
+                        (itemCount, ctx) => Items.JudgementCut.damagePerSlash * (Items.JudgementCut.slashCount + Items.JudgementCut.slashCountPerStack * (itemCount - 1)),
+                        (value, ctx) => Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_DAMAGE", ItemStats.ValueFormatters.Extensions.FormatPercentage(value: value, scale: 1f))
+                    ),
+                    new ItemStats.Stat.ItemStat(
+                        (itemCount, ctx) => Items.JudgementCut.radius + Items.JudgementCut.radiusPerStack * (itemCount - 1),
+                        (value, ctx) => Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_RADIUS", ItemStats.ValueFormatters.Extensions.FormatInt(value: value, postfix: Language.GetString("ITEMSTATS_MYSTICSITEMS_POSTFIX_METERS")))
+                    )
+                }
+            });
 
             // Tier3
             // Crystallized World
