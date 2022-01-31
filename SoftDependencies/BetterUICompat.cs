@@ -2,6 +2,7 @@ using RoR2;
 using BepInEx.Configuration;
 using System.Collections.Generic;
 using System;
+using System.Linq;
 
 namespace MysticsItems.SoftDependencies
 {
@@ -9,6 +10,8 @@ namespace MysticsItems.SoftDependencies
     {
         internal static void Init()
         {
+            RoR2Application.onLoad += RegisterBuffInfos;
+
             if (SoftDependenciesCore.betterUICompatEnableOverrides.Value)
             {
                 System.Func<CharacterBody, string> func;
@@ -43,6 +46,18 @@ namespace MysticsItems.SoftDependencies
                     return crit.ToString("0.##");
                 };
                 BetterUI.StatsDisplay.AddStatsDisplay("$luckcrit", func);
+            }
+        }
+
+        private static void RegisterBuffInfos()
+        {
+            foreach (var buffDef in typeof(MysticsItemsContent.Buffs).GetFields().Select(x => x.GetValue(null) as BuffDef))
+            {
+                if (buffDef != null)
+                {
+                    var tokenStart = "BUFF_" + buffDef.name.ToUpperInvariant() + "_";
+                    BetterUI.Buffs.RegisterBuffInfo(buffDef, tokenStart + "NAME", tokenStart + "DESC");
+                }
             }
         }
     }
