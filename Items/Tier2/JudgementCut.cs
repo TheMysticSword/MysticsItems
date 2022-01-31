@@ -41,7 +41,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> damagePerSlash = new ConfigurableValue<float>(
             "Item: Devil s Cry",
             "DamagePerSlash",
-            200f,
+            300f,
             "Base damage of each slash (in %)",
             new System.Collections.Generic.List<string>()
             {
