@@ -201,16 +201,17 @@ namespace MysticsItems.Items
         public static void FireJudgementCut(CharacterBody attackerBody, int itemCount, Vector3 position)
         {
             var totalSlashes = slashCount + slashCountPerStack * (itemCount - 1);
+            var thisRadius = radius + radiusPerStack * (itemCount - 1);
             for (var i = 0; i < totalSlashes; i++)
             {
                 GameObject delayBlastObject = UnityEngine.Object.Instantiate(Resources.Load<GameObject>("Prefabs/NetworkedObjects/GenericDelayBlast"), position, Quaternion.identity);
-                delayBlastObject.transform.localScale = radius * Vector3.one;
+                delayBlastObject.transform.localScale = thisRadius * Vector3.one;
                 DelayBlast delayBlast = delayBlastObject.GetComponent<DelayBlast>();
                 delayBlast.position = position;
                 delayBlast.baseDamage = attackerBody.damage * damagePerSlash / 100f;
                 delayBlast.baseForce = 200f;
                 delayBlast.attacker = attackerBody.gameObject;
-                delayBlast.radius = radius;
+                delayBlast.radius = thisRadius;
                 delayBlast.crit = false; // don't crit on judgement attacks to prevent it from proccing itself
                 delayBlast.procCoefficient = procCoefficient;
                 delayBlast.maxTimer = 0.1f * i;
