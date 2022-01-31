@@ -60,7 +60,7 @@ namespace MysticsItems.Items
         );
         public static ConfigurableValue<float> radiusPerStack = new ConfigurableValue<float>(
             "Item: Devil s Cry",
-            "Radius",
+            "RadiusPerStack",
             1.2f,
             "Radius of the slash barrage for each additional stack of this item (in m)",
             new System.Collections.Generic.List<string>()
