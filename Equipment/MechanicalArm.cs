@@ -28,7 +28,7 @@ namespace MysticsItems.Equipment
         public static ConfigurableValue<float> damage = new ConfigurableValue<float>(
             "Equipment: Mechanical Arm",
             "Damage",
-            2000f,
+            1000f,
             "Swing damage (in %)",
             new List<string>()
             {
@@ -38,7 +38,7 @@ namespace MysticsItems.Equipment
         public static ConfigurableValue<float> damageBonusPerCharge = new ConfigurableValue<float>(
             "Equipment: Mechanical Arm",
             "DamageBonusPerCharge",
-            400f,
+            200f,
             "How much more damage (in %) should the swing do for each Critical Strike dealt before activation",
             new List<string>()
             {
@@ -66,7 +66,7 @@ namespace MysticsItems.Equipment
         public override void OnLoad()
         {
             equipmentDef.name = "MysticsItems_MechanicalArm";
-            equipmentDef.cooldown = new ConfigurableCooldown("Equipment: Mechanical Arm", 45f).Value;
+            equipmentDef.cooldown = new ConfigurableCooldown("Equipment: Mechanical Arm", 20f).Value;
             equipmentDef.canDrop = true;
             equipmentDef.enigmaCompatible = new ConfigurableEnigmaCompatibleBool("Equipment: Mechanical Arm", true).Value;
             equipmentDef.pickupModelPrefab = PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Equipment/Mechanical Arm/Model.prefab"));
