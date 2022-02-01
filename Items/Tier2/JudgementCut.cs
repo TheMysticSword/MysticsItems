@@ -147,7 +147,7 @@ namespace MysticsItems.Items
                 judgementCutSingleSlashVFX = Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Katana/JudgementCutSingleSlashVFX.prefab");
                 EffectComponent effectComponent = judgementCutSingleSlashVFX.AddComponent<EffectComponent>();
                 effectComponent.applyScale = true;
-                effectComponent.soundName = "Play_merc_shift_slice";
+                effectComponent.soundName = "MysticsItems_Play_item_proc_katana";
                 VFXAttributes vfxAttributes = judgementCutSingleSlashVFX.AddComponent<VFXAttributes>();
                 vfxAttributes.vfxIntensity = VFXAttributes.VFXIntensity.Low;
                 vfxAttributes.vfxPriority = VFXAttributes.VFXPriority.Always;
