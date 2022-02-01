@@ -94,6 +94,12 @@ namespace MysticsItems.Items
                 "ITEM_MYSTICSITEMS_JUDGEMENTCUT_DESC"
             }
         );
+        public static ConfigurableValue<bool> alternateDamage = new ConfigurableValue<bool>(
+            "Item: Devil s Cry",
+            "AlternateDamage",
+            false,
+            "If true, slash damage will scale with total damage instead of base damage"
+        );
 
         public static GameObject judgementCutVFX;
         public static GameObject judgementCutSingleSlashVFX;
@@ -187,7 +193,28 @@ namespace MysticsItems.Items
                     {
                         component.count = 0;
 
-                        FireJudgementCut(attackerInfo.body, itemCount, damageInfo.position);
+                        var totalSlashes = slashCount + slashCountPerStack * (itemCount - 1);
+                        var thisRadius = radius + radiusPerStack * (itemCount - 1);
+                        for (var i = 0; i < totalSlashes; i++)
+                        {
+                            GameObject delayBlastObject = UnityEngine.Object.Instantiate(Resources.Load<GameObject>("Prefabs/NetworkedObjects/GenericDelayBlast"), damageInfo.position, Quaternion.identity);
+                            delayBlastObject.transform.localScale = thisRadius * Vector3.one;
+                            DelayBlast delayBlast = delayBlastObject.GetComponent<DelayBlast>();
+                            delayBlast.position = damageInfo.position;
+                            delayBlast.baseDamage = (!alternateDamage ? attackerInfo.body.damage : damageInfo.damage) * damagePerSlash / 100f;
+                            delayBlast.baseForce = 200f;
+                            delayBlast.attacker = attackerInfo.gameObject;
+                            delayBlast.radius = thisRadius;
+                            delayBlast.crit = false; // don't crit on judgement attacks to prevent it from proccing itself
+                            delayBlast.procCoefficient = procCoefficient;
+                            delayBlast.maxTimer = 0.1f * i;
+                            delayBlast.timerStagger = 0f;
+                            delayBlast.falloffModel = BlastAttack.FalloffModel.None;
+                            delayBlast.explosionEffect = judgementCutSingleSlashVFX;
+                            delayBlast.delayEffect = i == 0 ? judgementCutVFX : null;
+                            delayBlast.damageColorIndex = DamageColorIndex.Item;
+                            delayBlastObject.GetComponent<TeamFilter>().teamIndex = TeamComponent.GetObjectTeam(delayBlast.attacker);
+                        }
                     }
                 }
             }
@@ -196,31 +223,6 @@ namespace MysticsItems.Items
         public class MysticsItemsJudgementCutCounter : MonoBehaviour
         {
             public int count = 0;
-        }
-
-        public static void FireJudgementCut(CharacterBody attackerBody, int itemCount, Vector3 position)
-        {
-            var totalSlashes = slashCount + slashCountPerStack * (itemCount - 1);
-            var thisRadius = radius + radiusPerStack * (itemCount - 1);
-            for (var i = 0; i < totalSlashes; i++)
-            {
-                GameObject delayBlastObject = UnityEngine.Object.Instantiate(Resources.Load<GameObject>("Prefabs/NetworkedObjects/GenericDelayBlast"), position, Quaternion.identity);
-                delayBlastObject.transform.localScale = thisRadius * Vector3.one;
-                DelayBlast delayBlast = delayBlastObject.GetComponent<DelayBlast>();
-                delayBlast.position = position;
-                delayBlast.baseDamage = attackerBody.damage * damagePerSlash / 100f;
-                delayBlast.baseForce = 200f;
-                delayBlast.attacker = attackerBody.gameObject;
-                delayBlast.radius = thisRadius;
-                delayBlast.crit = false; // don't crit on judgement attacks to prevent it from proccing itself
-                delayBlast.procCoefficient = procCoefficient;
-                delayBlast.maxTimer = 0.1f * i;
-                delayBlast.timerStagger = 0f;
-                delayBlast.falloffModel = BlastAttack.FalloffModel.None;
-                delayBlast.explosionEffect = judgementCutSingleSlashVFX;
-                delayBlast.delayEffect = i == 0 ? judgementCutVFX : null;
-                delayBlastObject.GetComponent<TeamFilter>().teamIndex = TeamComponent.GetObjectTeam(delayBlast.attacker);
-            }
         }
     }
 }
