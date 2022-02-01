@@ -227,6 +227,10 @@ namespace MysticsItems.Equipment
             shakeEmitter.shakeOnEnable = false;
 
             MysticsItemsMechanicalArmState.Swing.hitEffectPrefab = Resources.Load<GameObject>("Prefabs/Effects/ImpactEffects/SawmerangImpact");
+            var snd = ScriptableObject.CreateInstance<NetworkSoundEventDef>();
+            snd.eventName = "MysticsItems_Play_mechanicalArm_impact";
+            MysticsItemsContent.Resources.networkSoundEventDefs.Add(snd);
+            MysticsItemsMechanicalArmState.Swing.impactSound = snd;
 
             GenericGameEvents.OnHitEnemy += GenericGameEvents_OnHitEnemy;
 
@@ -363,11 +367,6 @@ namespace MysticsItems.Equipment
                 public override void OnEnter()
                 {
                     base.OnEnter();
-
-                    if (!impactSound)
-                    {
-                        impactSound = Resources.Load<NetworkSoundEventDef>("NetworkSoundEventDefs/nseLoaderM2Impact");
-                    }
 
                     attackSpeedStat = (body ? body.attackSpeed : 1f) * baseAttackSpeedMultiplier;
 
