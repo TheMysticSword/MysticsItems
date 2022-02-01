@@ -42,7 +42,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> procCoefficient = new ConfigurableValue<float>(
             "Item: Marwan s Ash/Light/Weapon",
             "ProcCoefficient",
-            1f,
+            0f,
             "Proc coefficient of the extra hit"
         );
         public static ConfigurableValue<float> dotPercent = new ConfigurableValue<float>(
@@ -170,19 +170,20 @@ namespace MysticsItems.Items
 
         private void GenericGameEvents_OnHitEnemy(DamageInfo damageInfo, MysticsRisky2UtilsPlugin.GenericCharacterInfo attackerInfo, MysticsRisky2UtilsPlugin.GenericCharacterInfo victimInfo)
         {
-            if (attackerInfo.body && victimInfo.body && attackerInfo.inventory)
+            if (attackerInfo.body && victimInfo.body && attackerInfo.inventory && !damageInfo.rejected)
             {
                 var isAshDamage = DamageAPI.HasModdedDamageType(damageInfo, ashDamageType);
 
+                var itemCount = 0;
                 var itemLevel = 1;
                 var ashHelper = attackerInfo.body.GetComponent<MysticsItemsMarwanAshHelper>();
-                if (ashHelper) itemLevel = ashHelper.itemLevel;
+                if (ashHelper)
+                {
+                    itemCount = ashHelper.itemCount;
+                    itemLevel = ashHelper.itemLevel;
+                }
 
-                var itemCount = attackerInfo.inventory.GetItemCount(MysticsItemsContent.Items.MysticsItems_MarwanAsh1);
-                itemCount += attackerInfo.inventory.GetItemCount(MysticsItemsContent.Items.MysticsItems_MarwanAsh2);
-                itemCount += attackerInfo.inventory.GetItemCount(MysticsItemsContent.Items.MysticsItems_MarwanAsh3);
-
-                if (!isAshDamage && !damageInfo.rejected && damageInfo.procCoefficient > 0f && victimInfo.healthComponent && attackerInfo.gameObject)
+                if (!isAshDamage && victimInfo.healthComponent && attackerInfo.gameObject && damageInfo.procCoefficient > 0f)
                 {
                     if (itemCount > 0)
                     {
@@ -197,6 +198,8 @@ namespace MysticsItems.Items
                             extraDamageInfo.position = damageInfo.position;
                             extraDamageInfo.crit = _crit;
                             extraDamageInfo.damageColorIndex = ashDamageColor;
+                            extraDamageInfo.procChainMask = damageInfo.procChainMask;
+                            extraDamageInfo.damageType = damageInfo.damageType;
                             DamageAPI.AddModdedDamageType(extraDamageInfo, ashDamageType);
                             victimInfo.healthComponent.TakeDamage(extraDamageInfo);
                             GlobalEventManager.instance.OnHitEnemy(extraDamageInfo, victimInfo.healthComponent.gameObject);
