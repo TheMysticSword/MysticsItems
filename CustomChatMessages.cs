@@ -100,10 +100,6 @@ namespace MysticsItems
                             {
                                 if (notificationQueueHandler.hud.targetMaster == master)
                                 {
-                                    notificationQueueHandler.notificationQueue = new Queue<NotificationQueue.NotificationInfo>(notificationQueueHandler.notificationQueue.Where(x => x.data != (object)originalItemDef));
-                                    if (notificationQueueHandler.currentNotification.titleText.token == originalItemDef.nameToken)
-                                        notificationQueueHandler.currentNotification.age = notificationQueueHandler.currentNotification.duration;
-
                                     notificationQueueHandler.notificationQueue.Enqueue(new NotificationQueue.NotificationInfo
                                     {
                                         data = ItemCatalog.GetItemDef(convertedItemDef.itemIndex)
