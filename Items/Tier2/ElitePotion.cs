@@ -190,7 +190,7 @@ namespace MysticsItems.Items
                                     }
                                 }
 
-                                if (spreadEffectInfo.damage != 0)
+                                if (spreadEffectInfo.damage != 0 || spreadEffectInfo.damageType != default)
                                     new BlastAttack
                                     {
                                         radius = radius,
