@@ -109,7 +109,8 @@ namespace MysticsItems
                     if ((
                         token.StartsWith("ITEM_MYSTICSITEMS_", false, System.Globalization.CultureInfo.InvariantCulture) ||
                         token.StartsWith("EQUIPMENT_MYSTICSITEMS_", false, System.Globalization.CultureInfo.InvariantCulture) ||
-                        token.StartsWith("ACHIEVEMENT_MYSTICSITEMS_", false, System.Globalization.CultureInfo.InvariantCulture)
+                        token.StartsWith("ACHIEVEMENT_MYSTICSITEMS_", false, System.Globalization.CultureInfo.InvariantCulture) ||
+                        token.StartsWith("BUFF_MYSTICSITEMS_", false, System.Globalization.CultureInfo.InvariantCulture)
                     ) && token.EndsWith("_NAME", false, System.Globalization.CultureInfo.InvariantCulture))
                         result = "[Mystic's Items] " + result;
                     return result;
