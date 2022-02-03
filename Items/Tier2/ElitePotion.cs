@@ -120,21 +120,24 @@ namespace MysticsItems.Items
                     eliteBuffDef = RoR2Content.Buffs.AffixWhite,
                     vfx = Resources.Load<GameObject>("Prefabs/Effects/OmniEffect/OmniImpactVFXFrozen"),
                     debuff = RoR2Content.Buffs.Slow80,
-                    damageType = DamageType.Freeze2s
+                    damageType = DamageType.Freeze2s,
+                    procCoefficient = 1f
                 });
                 spreadEffectInfos.Add(new SpreadEffectInfo
                 {
                     eliteBuffDef = RoR2Content.Buffs.AffixPoison,
                     vfx = Resources.Load<GameObject>("Prefabs/Effects/OmniEffect/OmniExplosionVFXUrchin"),
                     debuff = RoR2Content.Buffs.HealingDisabled,
-                    damageType = DamageType.WeakOnHit
+                    damageType = DamageType.WeakOnHit,
+                    procCoefficient = 1f
                 });
                 spreadEffectInfos.Add(new SpreadEffectInfo
                 {
                     eliteBuffDef = RoR2Content.Buffs.AffixHaunted,
                     vfx = Resources.Load<GameObject>("Prefabs/Effects/OmniEffect/OmniExplosionVFXGreaterWisp"),
                     debuff = RoR2Content.Buffs.Slow80,
-                    damageType = DamageType.Stun1s
+                    damageType = DamageType.Stun1s,
+                    procCoefficient = 1f
                 });
                 spreadEffectInfos.Add(new SpreadEffectInfo
                 {
@@ -197,7 +200,7 @@ namespace MysticsItems.Items
                                         baseDamage = damageReport.attackerBody.damage * spreadEffectInfo.damage * damageMult,
                                         procCoefficient = spreadEffectInfo.procCoefficient,
                                         crit = Util.CheckRoll(damageReport.attackerBody.crit, damageReport.attackerMaster),
-                                        damageType = spreadEffectInfo.damageType | DamageType.AOE,
+                                        damageType = spreadEffectInfo.damageType,
                                         damageColorIndex = DamageColorIndex.Item,
                                         attackerFiltering = AttackerFiltering.Default,
                                         falloffModel = BlastAttack.FalloffModel.None,
