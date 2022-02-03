@@ -123,7 +123,7 @@ namespace MysticsItems.SoftDependencies
                 Stats = new List<ItemStats.Stat.ItemStat>()
                 {
                     new ItemStats.Stat.ItemStat(
-                        (itemCount, ctx) => ctx.Master && ctx.Master.GetComponent<Items.LimitedArmor.MysticsItemsLimitedArmorBehavior>() ? ctx.Master.GetComponent<Items.LimitedArmor.MysticsItemsLimitedArmorBehavior>().remainingHits : 0,
+                        (itemCount, ctx) => ctx.Master && ctx.Master.GetComponent<Items.LimitedArmor.MysticsItemsLimitedArmorBehavior>() ? ctx.Master.GetComponent<Items.LimitedArmor.MysticsItemsLimitedArmorBehavior>().GetTotalStock() : 0,
                         (value, ctx) => Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_REMAINING", ItemStats.ValueFormatters.Extensions.FormatInt(value: value))
                     )
                 }

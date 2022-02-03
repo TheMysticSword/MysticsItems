@@ -8,6 +8,7 @@ using MysticsRisky2Utils;
 using MysticsRisky2Utils.BaseAssetTypes;
 using R2API;
 using static MysticsItems.BalanceConfigManager;
+using System.Collections.Generic;
 
 namespace MysticsItems.Items
 {
@@ -84,7 +85,7 @@ namespace MysticsItems.Items
                     {
                         MysticsItemsLimitedArmorBehavior component = victimInfo.master.gameObject.GetComponent<MysticsItemsLimitedArmorBehavior>();
                         if (!component) component = victimInfo.master.gameObject.AddComponent<MysticsItemsLimitedArmorBehavior>();
-                        component.doCheck++;
+                        if (component.HasAtLeastOneStock()) component.doDamageCheck++;
                     }
                 }
             };
@@ -95,19 +96,20 @@ namespace MysticsItems.Items
                     MysticsItemsLimitedArmorBehavior component = damageReport.victimMaster.GetComponent<MysticsItemsLimitedArmorBehavior>();
                     if (component)
                     {
-                        if (component.doCheck > 0)
+                        if (component.doDamageCheck > 0)
                         {
-                            component.doCheck--;
+                            component.doDamageCheck--;
                             if (damageReport.damageInfo != null && !damageReport.damageInfo.rejected && damageReport.damageInfo.damage > 0)
                             {
-                                component.remainingHits--;
-                                if (component.remainingHits <= 0)
+                                var lostFinalHitInStock = component.RemoveStockAndCheck();
+                                if (lostFinalHitInStock)
                                 {
                                     Inventory inventory = damageReport.victimMaster.inventory;
                                     if (inventory)
                                     {
+                                        component.skipItemCheck = true;
                                         inventory.RemoveItem(itemDef);
-                                        component.remainingHits += LimitedArmor.hits; // the previous RemoveItem also removes 100 hits, so we should give them back
+                                        component.skipItemCheck = false;
                                         inventory.GiveItem(MysticsItemsContent.Items.MysticsItems_LimitedArmorBroken);
 
                                         CustomChatMessages.SendConversionMessage(
@@ -147,17 +149,61 @@ namespace MysticsItems.Items
             
             MysticsItemsLimitedArmorBehavior component = self.GetComponent<MysticsItemsLimitedArmorBehavior>();
             if (!component) component = self.gameObject.AddComponent<MysticsItemsLimitedArmorBehavior>();
-
-            int itemCount = self.inventory.GetItemCount(itemDef);
-            component.remainingHits += LimitedArmor.hits * (itemCount - component.oldItemCount);
-            component.oldItemCount = itemCount;
+            if (!component.skipItemCheck)
+            {
+                int itemCount = self.inventory.GetItemCount(itemDef);
+                var difference = itemCount - component.oldItemCount;
+                for (var i = 0; i < difference; i++)
+                {
+                    if (difference > 0) component.AddStock();
+                    else component.RemoveStock();
+                }
+                component.oldItemCount = itemCount;
+            }
         }
 
         public class MysticsItemsLimitedArmorBehavior : MonoBehaviour
         {
-            public int doCheck = 0;
-            public int remainingHits = 0;
+            public int doDamageCheck = 0;
+            public bool skipItemCheck = false;
+            public List<int> stockHolders = new List<int>();
             public int oldItemCount = 0;
+
+            public void AddStock()
+            {
+                stockHolders.Add(LimitedArmor.hits);
+            }
+
+            public void RemoveStock()
+            {
+                if (HasAtLeastOneStock()) stockHolders.RemoveAt(0);
+            }
+
+            public bool RemoveStockAndCheck()
+            {
+                if (HasAtLeastOneStock())
+                {
+                    stockHolders[0]--;
+                    if (stockHolders[0] <= 0)
+                    {
+                        RemoveStock();
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+            public int GetTotalStock()
+            {
+                var total = 0;
+                foreach (var stock in stockHolders) total += stock;
+                return total;
+            }
+
+            public bool HasAtLeastOneStock()
+            {
+                return stockHolders.Count > 0;
+            }
         }
     }
 }
