@@ -126,7 +126,7 @@ namespace MysticsItems.Items
                 if (itemCount > 0)
                 {
                     if (isDebuff)
-                        duration = Mathf.Max(duration - debuffDuration - debuffDurationPerStack * (itemCount - 1), 1f);
+                        duration = Mathf.Min(Mathf.Max(duration - debuffDuration - debuffDurationPerStack * (itemCount - 1), 1f), duration);
                     else
                         duration += buffDuration + buffDurationPerStack * (itemCount - 1);
                 }
