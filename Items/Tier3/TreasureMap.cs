@@ -306,8 +306,11 @@ namespace MysticsItems.Items
                 set
                 {
                     shouldBeActive = value;
-                    holdoutZoneController.enabled = value;
-                    if (value == false && holdoutZoneController.radiusIndicator) holdoutZoneController.radiusIndicator.transform.localScale = Vector3.zero;
+                    if (holdoutZoneController)
+                    {
+                        holdoutZoneController.enabled = value;
+                        if (value == false && holdoutZoneController.radiusIndicator) holdoutZoneController.radiusIndicator.transform.localScale = Vector3.zero;
+                    }
                     foreach (GameObject toggleObject in toggleObjects)
                     {
                         toggleObject.SetActive(value);
