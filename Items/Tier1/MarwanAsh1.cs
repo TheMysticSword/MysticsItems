@@ -238,7 +238,8 @@ namespace MysticsItems.Items
 
         private void CharacterBody_onBodyStartGlobal(CharacterBody body)
         {
-            body.gameObject.AddComponent<MysticsItemsMarwanAshHelper>();
+            MysticsItemsMarwanAshHelper component = body.gameObject.AddComponent<MysticsItemsMarwanAshHelper>();
+            component.dirty = true;
         }
 
         private void CharacterBody_OnInventoryChanged(On.RoR2.CharacterBody.orig_OnInventoryChanged orig, CharacterBody self)
