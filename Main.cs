@@ -324,6 +324,7 @@ namespace MysticsItems
             public static ItemDef MysticsItems_ThoughtProcessor;
             public static ItemDef MysticsItems_TreasureMap;
             public static ItemDef MysticsItems_Voltmeter;
+            public static ItemDef MysticsItems_VyraelCommandments;
         }
 
         public static class Equipment
