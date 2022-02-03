@@ -62,6 +62,7 @@ namespace MysticsItems.Items
                 AddDisplayRule("ScavBody", "MuzzleEnergyCannon", new Vector3(2.28289F, -3.68348F, -17.40374F), new Vector3(58.55879F, 87.78275F, 267.3442F), new Vector3(1.94718F, 2.00081F, 1.94718F));
             };
 
+            On.RoR2.CharacterBody.OnInventoryChanged += CharacterBody_OnInventoryChanged;
             On.RoR2.Inventory.GiveItem_ItemIndex_int += Inventory_GiveItem_ItemIndex_int;
             On.RoR2.Inventory.RemoveItem_ItemIndex_int += Inventory_RemoveItem_ItemIndex_int;
 
@@ -70,6 +71,15 @@ namespace MysticsItems.Items
             if (!SoftDependencies.SoftDependenciesCore.itemStatsCompatEnabled) On.RoR2.UI.ItemIcon.SetItemIndex += ItemIcon_SetItemIndex;
 
             MysticsItemsManuscript.Init();
+        }
+
+        private void CharacterBody_OnInventoryChanged(On.RoR2.CharacterBody.orig_OnInventoryChanged orig, CharacterBody self)
+        {
+            orig(self);
+            if (!self.inventory.GetComponent<MysticsItemsManuscript>())
+            {
+                self.inventory.gameObject.AddComponent<MysticsItemsManuscript>();
+            }
         }
 
         private void ItemIcon_SetItemIndex(On.RoR2.UI.ItemIcon.orig_SetItemIndex orig, RoR2.UI.ItemIcon self, ItemIndex newItemIndex, int newItemCount)
