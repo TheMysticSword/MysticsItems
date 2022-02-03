@@ -160,7 +160,7 @@ namespace MysticsItems
                     }
                 };
 
-                ImageGeneration.GenerateItemTable(50f, 512f, 107f, 3, Language.english, sections);
+                ImageGeneration.GenerateItemTable(100f, 1024f, 214f, 3, Language.english, sections);
             };
             */
         }

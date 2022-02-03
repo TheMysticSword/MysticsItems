@@ -27,6 +27,9 @@ namespace MysticsItems
 
         public static void GenerateItemTable(float padding, float columnWidth, float rowHeight, int columns, Language language, List<ItemTableSection> sections)
         {
+            var relativeScaleX = columnWidth / 512f;
+            var relativeScaleY = rowHeight / 107f;
+
             var currentColumn = 1;
             var currentRow = 1;
 
@@ -106,7 +109,7 @@ namespace MysticsItems
 
             foreach (var visualSlot in visualSlots)
             {
-                visualSlot.y = rows * rowHeight - (visualSlot.row - 1) * rowHeight - padding - rows; // I don't know why I need to put the "- rows" part, but without it all slots are offset by a few pixels up
+                visualSlot.y = -visualSlot.row * rowHeight - padding;
                 
                 RenderTexture renderTexture;
 
@@ -221,8 +224,8 @@ namespace MysticsItems
                         }
                 }
 
-                DrawText(visualSlot.name, visualSlot.color, (float)resizedIcon.width + 10f, 10f, notifTitleTmp);
-                DrawText(visualSlot.description, notifDescriptionTmp.color, (float)resizedIcon.width + 10f, 42f, notifDescriptionTmp);
+                DrawText(visualSlot.name, visualSlot.color, (float)resizedIcon.width + 10f * relativeScaleX, 10f * relativeScaleY, notifTitleTmp);
+                DrawText(visualSlot.description, notifDescriptionTmp.color, (float)resizedIcon.width + 10f * relativeScaleX, 42f * relativeScaleY, notifDescriptionTmp);
             }
             texture.Apply();
 
