@@ -230,7 +230,7 @@ namespace MysticsItems.Items
                         {
                             characterMaster.inventory.RemoveItem(MysticsItemsContent.Items.MysticsItems_RiftLensDebuff, characterMaster.inventory.GetItemCount(MysticsItemsContent.Items.MysticsItems_RiftLensDebuff));
                             characterMaster.inventory.GiveItem(MysticsItemsContent.Items.MysticsItems_RiftLensDebuff, thisItemCount * riftsPerStack);
-                            riftsToSpawn += baseRifts.Value + thisItemCount * (riftsPerStack.Value - 1);
+                            riftsToSpawn += baseRifts.Value + riftsPerStack.Value * (thisItemCount - 1);
                         }
                     }
                 if (riftsToSpawn > 0)
@@ -519,7 +519,7 @@ namespace MysticsItems.Items
             {
                 if (!body) return;
                 riftsLeft = body.inventory.GetItemCount(MysticsItemsContent.Items.MysticsItems_RiftLensDebuff);
-                riftsTotal = Mathf.Max(stack * riftsPerStack, riftsTotal); // the Max call is here to avoid riftsTotal becoming less than riftsLeft in case the player removes a lens before opening all chests
+                riftsTotal = Mathf.Max(baseRifts + riftsPerStack * (stack - 1), riftsTotal); // the Max call is here to avoid riftsTotal becoming less than riftsLeft in case the player removes a lens before opening all chests
             }
 
             public void SetHudCountdownEnabled(HUD hud, bool shouldEnableCountdownPanel)
