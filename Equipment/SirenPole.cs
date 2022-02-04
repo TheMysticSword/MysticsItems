@@ -183,6 +183,8 @@ namespace MysticsItems.Equipment
             };
 
             On.RoR2.Language.GetLocalizedStringByToken += Language_GetLocalizedStringByToken;
+
+            On.RoR2.PurchaseInteraction.OnTeleporterBeginCharging += PurchaseInteraction_OnTeleporterBeginCharging;
         }
 
         private string Language_GetLocalizedStringByToken(On.RoR2.Language.orig_GetLocalizedStringByToken orig, Language self, string token)
@@ -194,6 +196,22 @@ namespace MysticsItems.Equipment
                     { "WaveSpawnInterval", (100f / (float)totalWaves).ToString(System.Globalization.CultureInfo.InvariantCulture) }
                 });
             return result;
+        }
+
+        private void PurchaseInteraction_OnTeleporterBeginCharging(On.RoR2.PurchaseInteraction.orig_OnTeleporterBeginCharging orig, TeleporterInteraction teleporterInteraction)
+        {
+            var availablePurchaseInteractions = InstanceTracker.GetInstancesList<PurchaseInteraction>().Where(x => x.setUnavailableOnTeleporterActivated && x.available);
+            orig(teleporterInteraction);
+            if (NetworkServer.active)
+            {
+                foreach (var purchaseInteraction in availablePurchaseInteractions)
+                {
+                    if (!purchaseInteraction.available)
+                    {
+                        purchaseInteraction.SetAvailable(true);
+                    }
+                }
+            }
         }
 
         public override bool OnUse(EquipmentSlot equipmentSlot)
