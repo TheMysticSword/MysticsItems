@@ -21,7 +21,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> healthThreshold = new ConfigurableValue<float>(
             "Item: Mystic Sword",
             "HealthThreshold",
-            1000f,
+            1900f,
             "How many HP should the killed enemy have to trigger this item's effect",
             new System.Collections.Generic.List<string>()
             {
