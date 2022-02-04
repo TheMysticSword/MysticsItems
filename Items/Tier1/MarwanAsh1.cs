@@ -103,7 +103,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> upgradeLevel23 = new ConfigurableValue<float>(
             "Item: Marwan s Ash/Light/Weapon",
             "UpgradeLevel23",
-            24f,
+            21f,
             "Level required for upgrading from level 2 to level 3",
             new System.Collections.Generic.List<string>()
             {
