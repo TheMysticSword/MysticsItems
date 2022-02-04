@@ -277,7 +277,7 @@ namespace MysticsItems.Items
                 var healthMultiplier = 1f;
                 if (damageReport.victimBody.inventory)
                     healthMultiplier += damageReport.victimBody.inventory.GetItemCount(RoR2Content.Items.BoostHp) * 0.1f;
-                if ((damageReport.victimBody.baseMaxHealth * healthMultiplier) >= 1000f)
+                if ((damageReport.victimBody.baseMaxHealth * healthMultiplier) >= healthThreshold)
                 {
                     var onKillOrbTargets = new List<GameObject>();
 
