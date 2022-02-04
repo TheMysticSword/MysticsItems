@@ -201,6 +201,7 @@ namespace MysticsItems.Equipment
             if (TeleporterInteraction.instance && (TeleporterInteraction.instance.currentState is TeleporterInteraction.IdleToChargingState || TeleporterInteraction.instance.currentState is TeleporterInteraction.ChargingState)) return false;
             if (MysticsItemsSirenPoleController.instance) return false;
             Object.Instantiate(inWorldPrefab, equipmentSlot.characterBody.corePosition, Quaternion.identity);
+            NetworkServer.Spawn(inWorldPrefab);
             return true;
         }
 
@@ -304,6 +305,7 @@ namespace MysticsItems.Equipment
                         else
                         {
                             Object.Destroy(gameObject);
+                            if (NetworkServer.active) NetworkServer.UnSpawn(gameObject);
                         }
                     }
                 }
