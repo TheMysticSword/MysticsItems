@@ -7,6 +7,7 @@ using R2API;
 using R2API.Utils;
 using RoR2;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
 using static MysticsItems.BalanceConfigManager;
