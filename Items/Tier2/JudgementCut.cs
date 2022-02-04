@@ -181,7 +181,7 @@ namespace MysticsItems.Items
 
         private void GenericGameEvents_OnHitEnemy(DamageInfo damageInfo, MysticsRisky2UtilsPlugin.GenericCharacterInfo attackerInfo, MysticsRisky2UtilsPlugin.GenericCharacterInfo victimInfo)
         {
-            if (damageInfo.crit && damageInfo.procCoefficient > 0f && attackerInfo.inventory && attackerInfo.body && attackerInfo.body.inputBank)
+            if (damageInfo.crit && !damageInfo.damageType.HasFlag(DamageType.FallDamage) && damageInfo.procCoefficient > 0f && attackerInfo.inventory && attackerInfo.body && attackerInfo.body.inputBank)
             {
                 var itemCount = attackerInfo.inventory.GetItemCount(itemDef);
                 if (itemCount > 0)
@@ -195,6 +195,7 @@ namespace MysticsItems.Items
 
                         var totalSlashes = slashCount + slashCountPerStack * (itemCount - 1);
                         var thisRadius = radius + radiusPerStack * (itemCount - 1);
+                        var isCrit = attackerInfo.body.RollCrit();
                         for (var i = 0; i < totalSlashes; i++)
                         {
                             GameObject delayBlastObject = UnityEngine.Object.Instantiate(Resources.Load<GameObject>("Prefabs/NetworkedObjects/GenericDelayBlast"), damageInfo.position, Quaternion.identity);
@@ -205,7 +206,7 @@ namespace MysticsItems.Items
                             delayBlast.baseForce = 200f;
                             delayBlast.attacker = attackerInfo.gameObject;
                             delayBlast.radius = thisRadius;
-                            delayBlast.crit = false; // don't crit on judgement attacks to prevent it from proccing itself
+                            delayBlast.crit = isCrit;
                             delayBlast.procCoefficient = procCoefficient;
                             delayBlast.maxTimer = 0.1f * i;
                             delayBlast.timerStagger = 0f;
@@ -213,6 +214,7 @@ namespace MysticsItems.Items
                             delayBlast.explosionEffect = judgementCutSingleSlashVFX;
                             delayBlast.delayEffect = i == 0 ? judgementCutVFX : null;
                             delayBlast.damageColorIndex = DamageColorIndex.Item;
+                            delayBlast.damageType = DamageType.FallDamage; // hacky way to prevent it from proccing itself
                             delayBlastObject.GetComponent<TeamFilter>().teamIndex = TeamComponent.GetObjectTeam(delayBlast.attacker);
                         }
                     }
