@@ -394,10 +394,10 @@ namespace MysticsItems.Items
                 var distanceToNearestRift = distanceToNearestRiftForEachPlayer.Count > 0 ? distanceToNearestRiftForEachPlayer.Max() : 1f;
 
                 var totalDistance = distanceToNearestRift + distanceBetweenAllRifts;
-                var averageWalkSpeed = 7f;
+                var averageWalkSpeed = 7f * 1.45f;
                 // players can't always go through the shortest path due to terrain and gravity, so we'll add bonus time
-                var timeBonusMultiplier = 3f;
-                var timeBonusFlat = 10f;
+                var timeBonusMultiplier = 1.66f;
+                var timeBonusFlat = 20f;
                 var calculatedCountdownTime = (totalDistance / averageWalkSpeed) * timeBonusMultiplier + timeBonusFlat;
 
                 maxCountdown = calculatedCountdownTime;
@@ -465,7 +465,7 @@ namespace MysticsItems.Items
                         {
                             foreach (HUD hud in HUD.readOnlyInstanceList)
                             {
-                                SetHudCountdownEnabled(hud, hud.targetBodyObject == body);
+                                SetHudCountdownEnabled(hud, hud.targetBodyObject == body.gameObject);
                             }
                             SetCountdownTime(countdownTimer);
                         }
