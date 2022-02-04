@@ -465,7 +465,7 @@ namespace MysticsItems.Items
                         {
                             foreach (HUD hud in HUD.readOnlyInstanceList)
                             {
-                                SetHudCountdownEnabled(hud, hud.targetBodyObject);
+                                SetHudCountdownEnabled(hud, hud.targetBodyObject == body);
                             }
                             SetCountdownTime(countdownTimer);
                         }
