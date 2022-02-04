@@ -80,7 +80,7 @@ namespace MysticsItems.Items
 
             Overlays.CreateOverlay(Main.AssetBundle.LoadAsset<Material>("Assets/Items/Ally Death Revenge/matAllyDeathRevengeOverlay.mat"), delegate (CharacterModel model)
             {
-                return model.body.HasBuff(MysticsItemsContent.Buffs.MysticsItems_AllyDeathRevenge);
+                return model.body ? model.body.HasBuff(MysticsItemsContent.Buffs.MysticsItems_AllyDeathRevenge) : false;
             });
 
             GameObject burningVFX = Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Ally Death Revenge/BurningVFX.prefab");

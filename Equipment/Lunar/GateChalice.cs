@@ -316,7 +316,7 @@ namespace MysticsItems.Equipment
             public void FixedUpdate()
             {
                 if (attach) transform.position = attach.position;
-                if (!effectCreated && controller.GetFieldValue<SceneExitController.ExitState>("exitState") == SceneExitController.ExitState.TeleportOut)
+                if (!effectCreated && controller.exitState == SceneExitController.ExitState.TeleportOut)
                 {
                     effectCreated = true;
                     EffectManager.SimpleEffect(visualEffectTeleportOut, Vector3.zero, Quaternion.identity, true);

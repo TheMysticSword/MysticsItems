@@ -170,7 +170,7 @@ namespace MysticsItems.Interactables
                 CharacterBody component = interactor.GetComponent<CharacterBody>();
 
                 int addReds = 0;
-                int[] itemStacks = component.inventory.GetFieldValue<int[]>("itemStacks");
+                int[] itemStacks = component.inventory.itemStacks;
                 for (int i = 0; i < itemStacks.Length; i++)
                 {
                     ItemIndex itemIndex = (ItemIndex)i;

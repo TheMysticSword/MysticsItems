@@ -48,19 +48,19 @@ namespace MysticsItems.Buffs
                 orig(self);
                 if (self.skillLocator)
                 {
-                    List<GenericSkill> skillControllers = new List<GenericSkill>(){
-                        self.skillLocator.primary,
-                        self.skillLocator.secondary,
-                        self.skillLocator.utility,
-                        self.skillLocator.special
-                    };
                     if (self.HasBuff(buffDef))
                     {
-                        foreach (GenericSkill skillController in skillControllers) if (skillController) skillController.SetSkillOverride(self, skillDef, GenericSkill.SkillOverridePriority.Replacement);
+                        if (self.skillLocator.primary) self.skillLocator.primary.SetSkillOverride(self, skillDef, GenericSkill.SkillOverridePriority.Replacement);
+                        if (self.skillLocator.secondary) self.skillLocator.primary.SetSkillOverride(self, skillDef, GenericSkill.SkillOverridePriority.Replacement);
+                        if (self.skillLocator.utility) self.skillLocator.primary.SetSkillOverride(self, skillDef, GenericSkill.SkillOverridePriority.Replacement);
+                        if (self.skillLocator.special) self.skillLocator.primary.SetSkillOverride(self, skillDef, GenericSkill.SkillOverridePriority.Replacement);
                     }
                     else
                     {
-                        foreach (GenericSkill skillController in skillControllers) if (skillController) skillController.UnsetSkillOverride(self, skillDef, GenericSkill.SkillOverridePriority.Replacement);
+                        if (self.skillLocator.primary) self.skillLocator.primary.UnsetSkillOverride(self, skillDef, GenericSkill.SkillOverridePriority.Replacement);
+                        if (self.skillLocator.secondary) self.skillLocator.primary.UnsetSkillOverride(self, skillDef, GenericSkill.SkillOverridePriority.Replacement);
+                        if (self.skillLocator.utility) self.skillLocator.primary.UnsetSkillOverride(self, skillDef, GenericSkill.SkillOverridePriority.Replacement);
+                        if (self.skillLocator.special) self.skillLocator.primary.UnsetSkillOverride(self, skillDef, GenericSkill.SkillOverridePriority.Replacement);
                     }
                 }
             };
