@@ -249,7 +249,7 @@ namespace MysticsItems.Equipment
         {
             if (!damageInfo.rejected && damageInfo.crit && attackerInfo.body && attackerInfo.body.equipmentSlot && attackerInfo.body.equipmentSlot.equipmentIndex == equipmentDef.equipmentIndex)
             {
-                attackerInfo.body.AddBuff(MysticsItemsContent.Buffs.MysticsItems_MechanicalArmCharge);
+                attackerInfo.body.AddTimedBuff(MysticsItemsContent.Buffs.MysticsItems_MechanicalArmCharge, equipmentDef.cooldown + 10f);
             }
         }
 
@@ -407,8 +407,12 @@ namespace MysticsItems.Equipment
 
                             if (NetworkServer.active)
                             {
+                                if (body)
+                                    body.ClearTimedBuffs(MysticsItemsContent.Buffs.MysticsItems_MechanicalArmCharge);
+                                /*
                                 while (body && body.HasBuff(MysticsItemsContent.Buffs.MysticsItems_MechanicalArmCharge))
                                     body.RemoveBuff(MysticsItemsContent.Buffs.MysticsItems_MechanicalArmCharge);
+                                */
                             }
                         }
                     }
