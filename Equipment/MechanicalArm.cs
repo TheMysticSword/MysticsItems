@@ -249,7 +249,7 @@ namespace MysticsItems.Equipment
         {
             if (!damageInfo.rejected && damageInfo.crit && attackerInfo.body && attackerInfo.body.equipmentSlot && attackerInfo.body.equipmentSlot.equipmentIndex == equipmentDef.equipmentIndex)
             {
-                attackerInfo.body.AddTimedBuff(MysticsItemsContent.Buffs.MysticsItems_MechanicalArmCharge, equipmentDef.cooldown + 10f);
+                attackerInfo.body.AddTimedBuff(MysticsItemsContent.Buffs.MysticsItems_MechanicalArmCharge, equipmentDef.cooldown + 10f + UnityEngine.Random.value);
             }
         }
 
