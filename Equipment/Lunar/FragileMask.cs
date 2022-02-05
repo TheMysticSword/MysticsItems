@@ -102,12 +102,10 @@ namespace MysticsItems.Equipment
                 var component = damageReport.victimBody.GetComponent<MysticsItemsFragileMaskBehaviour>();
                 if (component && component.maskActive)
                 {
-                    if (component.skipDamageCheck <= 0 && damageReport.victimBody.healthComponent)
+                    if (damageReport.victimBody.healthComponent)
                     {
-                        component.skipDamageCheck++;
-                        damageReport.victimBody.healthComponent.Suicide(damageReport.damageInfo.attacker, damageReport.damageInfo.inflictor, damageReport.damageInfo.damageType);
+                        damageReport.victimBody.healthComponent.Networkhealth = 0;
                     }
-                    if (component.skipDamageCheck > 0) component.skipDamageCheck--;
                 }
             }
         }
@@ -162,7 +160,6 @@ namespace MysticsItems.Equipment
         {
             public bool maskActive = false;
             public bool maskWasActive = false;
-            public int skipDamageCheck = 0;
             public CharacterBody body;
 
             public void Awake()
