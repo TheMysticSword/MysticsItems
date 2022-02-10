@@ -44,7 +44,7 @@ namespace MysticsItems.Achievements
 
                 private void Stage_onServerStageBegin(Stage obj)
                 {
-                    if (eligible && (Run.instance.stageClearCount + 1) >= stageRequirement)
+                    if (eligible && !RunArtifactManager.instance.IsArtifactEnabled(RoR2Content.Artifacts.Sacrifice) && (Run.instance.stageClearCount + 1) >= stageRequirement)
                     {
 						Grant();
                     }
