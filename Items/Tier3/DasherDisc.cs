@@ -21,7 +21,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> duration = new ConfigurableValue<float>(
             "Item: Timely Execution",
             "Duration",
-            6f,
+            9f,
             "Invincibility duration (in seconds)",
             new System.Collections.Generic.List<string>()
             {
