@@ -162,7 +162,7 @@ namespace MysticsItems.Equipment
                 }
                 else
                 {
-                    if (childName.StartsWith("arm."))
+                    if (childName.StartsWith("arm.", false, System.Globalization.CultureInfo.InvariantCulture))
                     {
                         var ntp = new ChildLocator.NameTransformPair
                         {
