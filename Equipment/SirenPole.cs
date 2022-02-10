@@ -184,8 +184,6 @@ namespace MysticsItems.Equipment
             };
 
             On.RoR2.Language.GetLocalizedStringByToken += Language_GetLocalizedStringByToken;
-
-            On.RoR2.PurchaseInteraction.OnTeleporterBeginCharging += PurchaseInteraction_OnTeleporterBeginCharging;
         }
 
         private string Language_GetLocalizedStringByToken(On.RoR2.Language.orig_GetLocalizedStringByToken orig, Language self, string token)
@@ -199,28 +197,12 @@ namespace MysticsItems.Equipment
             return result;
         }
 
-        private void PurchaseInteraction_OnTeleporterBeginCharging(On.RoR2.PurchaseInteraction.orig_OnTeleporterBeginCharging orig, TeleporterInteraction teleporterInteraction)
-        {
-            var availablePurchaseInteractions = InstanceTracker.GetInstancesList<PurchaseInteraction>().Where(x => x.setUnavailableOnTeleporterActivated && x.available);
-            orig(teleporterInteraction);
-            if (NetworkServer.active)
-            {
-                foreach (var purchaseInteraction in availablePurchaseInteractions)
-                {
-                    if (!purchaseInteraction.available)
-                    {
-                        purchaseInteraction.SetAvailable(true);
-                    }
-                }
-            }
-        }
-
         public override bool OnUse(EquipmentSlot equipmentSlot)
         {
             if (TeleporterInteraction.instance && (TeleporterInteraction.instance.currentState is TeleporterInteraction.IdleToChargingState || TeleporterInteraction.instance.currentState is TeleporterInteraction.ChargingState)) return false;
             if (MysticsItemsSirenPoleController.instance) return false;
-            Object.Instantiate(inWorldPrefab, equipmentSlot.characterBody.corePosition, Quaternion.identity);
-            NetworkServer.Spawn(inWorldPrefab);
+            var inst = Object.Instantiate(inWorldPrefab, equipmentSlot.characterBody.corePosition, Quaternion.identity);
+            NetworkServer.Spawn(inst);
             return true;
         }
 
@@ -253,9 +235,17 @@ namespace MysticsItems.Equipment
                     delay = delayMax;
                     Util.PlaySound("Play_loader_shift_release", gameObject);
                     ShakeEmitter.CreateSimpleShakeEmitter(transform.position, new Wave { amplitude = 7f, frequency = 2.4f }, 0.1f, zone.currentRadius, true);
+
+                    if (NetworkServer.active)
+                    {
+                        foreach (var purchaseInteraction in InstanceTracker.GetInstancesList<PurchaseInteraction>().Where(x => x.setUnavailableOnTeleporterActivated))
+                        {
+                            purchaseInteraction.SetAvailable(true);
+                        }
+                    }
                 });
                 waveCombatDirector.currentSpawnTarget = gameObject;
-                monsterCredit = baseMonsterCredit * (Run.instance ? Run.instance.difficultyCoefficient : 1f);
+                monsterCredit = baseMonsterCredit/* * (Run.instance ? Run.instance.difficultyCoefficient : 1f)*/;
 
                 if (Physics.Raycast(transform.position, Vector3.down, out var raycastHit, 500f, LayerIndex.world.mask))
                 {
