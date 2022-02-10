@@ -119,6 +119,7 @@ namespace MysticsItems.Items
                 {
                     eliteBuffDef = RoR2Content.Buffs.AffixWhite,
                     vfx = Resources.Load<GameObject>("Prefabs/Effects/OmniEffect/OmniImpactVFXFrozen"),
+                    vfxScaleMultiplier = 0.3f,
                     debuff = RoR2Content.Buffs.Slow80,
                     damageType = DamageType.Freeze2s,
                     procCoefficient = 1f
@@ -169,7 +170,7 @@ namespace MysticsItems.Items
                                     EffectManager.SpawnEffect(spreadEffectInfo.vfx, new EffectData
                                     {
                                         origin = damageReport.victimBody.corePosition,
-                                        scale = radius
+                                        scale = radius * (spreadEffectInfo.vfxScaleMultiplier != 0f ? spreadEffectInfo.vfxScaleMultiplier : 1f)
                                     }, true);
                                 }
 
@@ -224,6 +225,7 @@ namespace MysticsItems.Items
             public float damage;
             public float procCoefficient;
             public DamageType damageType;
+            public float vfxScaleMultiplier;
         }
         public static List<SpreadEffectInfo> spreadEffectInfos = new List<SpreadEffectInfo>();
 
