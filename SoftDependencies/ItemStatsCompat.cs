@@ -249,7 +249,7 @@ namespace MysticsItems.SoftDependencies
                 Stats = new List<ItemStats.Stat.ItemStat>()
                 {
                     new ItemStats.Stat.ItemStat(
-                        (itemCount, ctx) => ctx.Master && ctx.Master.hasBody && ctx.Master.GetBody().GetComponent<Items.MysticSword.MysticsItemsMysticSwordBehaviour>() ? ctx.Master.GetBody().GetComponent<Items.MysticSword.MysticsItemsMysticSwordBehaviour>().damageBonus : 0f,
+                        (itemCount, ctx) => ctx.Inventory && ctx.Inventory.GetComponent<Items.MysticSword.MysticsItemsMysticSwordBehaviour>() ? ctx.Inventory.GetComponent<Items.MysticSword.MysticsItemsMysticSwordBehaviour>().damageBonus : 0f,
                         (value, ctx) => Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_DAMAGE", ItemStats.ValueFormatters.Extensions.FormatPercentage(value: value, signed: true))
                     ),
                     new ItemStats.Stat.ItemStat(
