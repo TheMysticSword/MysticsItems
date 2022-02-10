@@ -48,7 +48,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> dotPercent = new ConfigurableValue<float>(
             "Item: Marwan s Ash/Light/Weapon",
             "DoTPercent",
-            1f,
+            0.3f,
             "How much health should the afflicted enemies lose every second on item level 2 (in %)",
             new System.Collections.Generic.List<string>()
             {
@@ -59,7 +59,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> dotPercentPerLevel = new ConfigurableValue<float>(
             "Item: Marwan s Ash/Light/Weapon",
             "DoTPercentPerLevel",
-            0.2f,
+            0.03f,
             "How much health should the afflicted enemies lose every second on item level 2 for each additional level of the owner (in %)",
             new System.Collections.Generic.List<string>()
             {
