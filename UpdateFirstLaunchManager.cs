@@ -12,7 +12,7 @@ namespace MysticsItems
             {
                 var prefix = "MysticsItems_LastModVersion_";
                 var lastModVersion = "0.0.0";
-                var storedAchievement = user.userProfile.achievementsList.FirstOrDefault(x => x.StartsWith(prefix));
+                var storedAchievement = user.userProfile.achievementsList.FirstOrDefault(x => x.StartsWith(prefix, false, System.Globalization.CultureInfo.InvariantCulture));
                 if (!string.IsNullOrEmpty(storedAchievement)) lastModVersion = storedAchievement.Remove(0, prefix.Length);
                 var lastModVersionNum = ConvertVersionStringToInt(lastModVersion);
                 if (lastModVersionNum != currentVersionNum)
@@ -21,9 +21,18 @@ namespace MysticsItems
                     {
                         foreach (var achievementToReset in achievementsToReset)
                         {
-                            var ach = MysticsRisky2Utils.BaseAssetTypes.BaseAchievement.loadedDictionary[achievementToReset];
-                            user.userProfile.RevokeAchievement(ach.name);
-                            user.userProfile.RevokeUnlockable(UnlockableCatalog.GetUnlockableDef(ach.unlockableName));
+                            if (MysticsRisky2Utils.BaseAssetTypes.BaseAchievement.loadedDictionary.TryGetValue(achievementToReset, out var ach))
+                            {
+                                var achievementDef = ach.achievementDef;
+                                if (achievementDef != null)
+                                {
+                                    if (user.userProfile.HasAchievement(achievementDef.identifier))
+                                        user.userProfile.RevokeAchievement(achievementDef.identifier);
+                                    var unlockable = UnlockableCatalog.GetUnlockableDef(achievementDef.unlockableRewardIdentifier);
+                                    if (unlockable && user.userProfile.HasUnlockable(unlockable))
+                                        user.userProfile.RevokeUnlockable(unlockable);
+                                }
+                            }
                         }
                     }
 
@@ -48,7 +57,7 @@ namespace MysticsItems
             var versionSplit = versionString.Split('.');
             for (var i = 0; i < versionSplit.Length; i++)
             {
-                result += (int)(Mathf.Pow(10, versionSplit.Length - i - 1) * int.Parse(versionSplit[i]));
+                result += (int)(Mathf.Pow(10, versionSplit.Length - i - 1) * int.Parse(versionSplit[i], System.Globalization.CultureInfo.InvariantCulture));
             }
             return result;
         }
