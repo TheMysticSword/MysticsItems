@@ -4,11 +4,19 @@ using MysticsRisky2Utils.BaseAssetTypes;
 using RoR2;
 using UnityEngine;
 using MysticsRisky2Utils;
+using static MysticsItems.BalanceConfigManager;
 
 namespace MysticsItems.Buffs
 {
     public class DasherDiscActive : BaseBuff
     {
+        public static ConfigurableValue<float> moveSpeedBuff = new ConfigurableValue<float>(
+            "Item: Timely Execution",
+            "MoveSpeedBuff",
+            30f,
+            "Movement speed increase when buffed (in %)"
+        );
+
         public override void OnLoad() {
             buffDef.name = "MysticsItems_DasherDiscActive";
             buffDef.buffColor = UnityEngine.Color.white;
@@ -34,6 +42,16 @@ namespace MysticsItems.Buffs
             };
             On.RoR2.CharacterModel.UpdateMaterials += CharacterModel_UpdateMaterials;
             CharacterModelMaterialOverrides.AddOverride("DasherDiscActive", IncorporealMaterialOverride);
+
+            R2API.RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
+        }
+
+        private void RecalculateStatsAPI_GetStatCoefficients(CharacterBody sender, R2API.RecalculateStatsAPI.StatHookEventArgs args)
+        {
+            if (sender.HasBuff(buffDef))
+            {
+                args.moveSpeedMultAdd += moveSpeedBuff / 100f;
+            }
         }
 
         private void CharacterModel_UpdateMaterials(On.RoR2.CharacterModel.orig_UpdateMaterials orig, CharacterModel self)
