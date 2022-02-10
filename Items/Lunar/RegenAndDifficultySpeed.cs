@@ -41,7 +41,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> timerSpeedIncrease = new ConfigurableValue<float>(
             "Item: Puzzle of Chronos",
             "TimerSpeedIncrease",
-            50f,
+            20f,
             "How much faster should difficulty scale over time (in %)",
             new System.Collections.Generic.List<string>()
             {
@@ -51,7 +51,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> timerSpeedIncreasePerStack = new ConfigurableValue<float>(
             "Item: Puzzle of Chronos",
             "TimerSpeedIncreasePerStack",
-            50f,
+            20f,
             "How much faster should difficulty scale over time for each additional stack of this item (in %)",
             new System.Collections.Generic.List<string>()
             {
