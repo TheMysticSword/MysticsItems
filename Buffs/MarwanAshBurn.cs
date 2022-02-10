@@ -45,7 +45,7 @@ namespace MysticsItems.Buffs
                     var attackerBody = dotStack.attackerObject.GetComponent<CharacterBody>();
                     if (attackerBody) attackerLevel = attackerBody.level;
                 }
-                dotStack.damage = self.victimHealthComponent ? self.victimHealthComponent.fullCombinedHealth * (Items.MarwanAsh1.dotPercent / 100f + Items.MarwanAsh1.dotPercentPerLevel / 100f * (attackerLevel - (float)Items.MarwanAsh1.upgradeLevel12) * itemCount) * ashDotDef.interval : 0;
+                dotStack.damage = Mathf.Max(self.victimHealthComponent ? self.victimHealthComponent.fullCombinedHealth * (Items.MarwanAsh1.dotPercent / 100f + Items.MarwanAsh1.dotPercentPerLevel / 100f * (attackerLevel - (float)Items.MarwanAsh1.upgradeLevel12) * itemCount) : 0, dotStack.damage) * ashDotDef.interval;
             }, (self) =>
             {
                 Items.MarwanAsh1.MysticsItemsMarwanAshHelper ashHelper = self.victimBody ? self.victimBody.GetComponent<Items.MarwanAsh1.MysticsItemsMarwanAshHelper>() : null;
