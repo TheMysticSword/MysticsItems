@@ -131,7 +131,9 @@ namespace MysticsItems.Items
             itemDef.tier = ItemTier.Tier1;
             itemDef.tags = new ItemTag[]
             {
-                ItemTag.Damage
+                ItemTag.Damage,
+                ItemTag.BrotherBlacklist,
+                ItemTag.AIBlacklist
             };
             itemDef.pickupModelPrefab = PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Marwan's Ash/Level 1/Model.prefab"));
             itemDef.pickupIconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Items/Marwan's Ash/Level 1/Icon.png");
