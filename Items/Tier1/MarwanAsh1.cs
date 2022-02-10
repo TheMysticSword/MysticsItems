@@ -205,7 +205,7 @@ namespace MysticsItems.Items
                             extraDamageInfo.crit = _crit;
                             extraDamageInfo.damageColorIndex = ashDamageColor;
                             extraDamageInfo.procChainMask = damageInfo.procChainMask;
-                            extraDamageInfo.damageType = damageInfo.damageType;
+                            extraDamageInfo.damageType = DamageType.Silent;
                             DamageAPI.AddModdedDamageType(extraDamageInfo, ashDamageType);
                             victimInfo.healthComponent.TakeDamage(extraDamageInfo);
                             GlobalEventManager.instance.OnHitEnemy(extraDamageInfo, victimInfo.healthComponent.gameObject);
