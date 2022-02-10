@@ -28,7 +28,7 @@ namespace MysticsItems.Equipment
         public static ConfigurableValue<int> itemsToDestroy = new ConfigurableValue<int>(
             "Equipment: Gate Chalice",
             "ItemsToDestroy",
-            2,
+            3,
             "Amount of random items to remove on use",
             new List<string>()
             {
