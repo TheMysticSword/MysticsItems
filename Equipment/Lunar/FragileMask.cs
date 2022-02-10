@@ -34,6 +34,8 @@ namespace MysticsItems.Equipment
         );
 
         public static Material overrideMaterial;
+        public static NetworkSoundEventDef sfxEnable;
+        public static NetworkSoundEventDef sfxDisable;
 
         public override void OnPluginAwake()
         {
@@ -45,7 +47,7 @@ namespace MysticsItems.Equipment
         {
             base.OnLoad();
             equipmentDef.name = "MysticsItems_FragileMask";
-            equipmentDef.cooldown = new ConfigurableCooldown("Equipment: Fragile Mask", 0f).Value;
+            equipmentDef.cooldown = new ConfigurableCooldown("Equipment: Fragile Mask", 3f).Value;
             equipmentDef.canDrop = true;
             equipmentDef.enigmaCompatible = new ConfigurableEnigmaCompatibleBool("Equipment: Fragile Mask", false).Value;
             equipmentDef.isLunar = true;
@@ -93,6 +95,14 @@ namespace MysticsItems.Equipment
                 }
                 return false;
             });
+
+            sfxEnable = ScriptableObject.CreateInstance<NetworkSoundEventDef>();
+            sfxEnable.eventName = "MysticsItems_Play_item_use_fragileMask_on";
+            MysticsItemsContent.Resources.networkSoundEventDefs.Add(sfxEnable);
+
+            sfxDisable = ScriptableObject.CreateInstance<NetworkSoundEventDef>();
+            sfxDisable.eventName = "MysticsItems_Play_item_use_fragileMask_off";
+            MysticsItemsContent.Resources.networkSoundEventDefs.Add(sfxDisable);
         }
 
         private void GenericGameEvents_OnTakeDamage(DamageReport damageReport)
@@ -160,6 +170,7 @@ namespace MysticsItems.Equipment
         {
             public bool maskActive = false;
             public bool maskWasActive = false;
+            public float maskDisableDelay = 0f;
             public CharacterBody body;
 
             public void Awake()
@@ -174,7 +185,6 @@ namespace MysticsItems.Equipment
                 if (maskWasActive != maskActive)
                 {
                     body.statsDirty = true;
-                    Util.PlaySound("MysticsItems_Play_item_use_fragileMask_" + (maskActive ? "on" : "off"), gameObject);
                     var modelLocator = body.modelLocator;
                     if (modelLocator)
                     {
@@ -191,6 +201,18 @@ namespace MysticsItems.Equipment
 
                     if (NetworkServer.active)
                         new SyncMaskSetActive(gameObject.GetComponent<NetworkIdentity>().netId, enable).Send(NetworkDestination.Clients);
+                }
+            }
+
+            public void FixedUpdate()
+            {
+                if (NetworkServer.active && maskActive && maskDisableDelay > 0f)
+                {
+                    maskDisableDelay -= Time.fixedDeltaTime;
+                    if (maskDisableDelay <= 0f)
+                    {
+                        SetMaskActive(false);
+                    }
                 }
             }
 
@@ -243,11 +265,24 @@ namespace MysticsItems.Equipment
             {
                 var component = equipmentSlot.characterBody.GetComponent<MysticsItemsFragileMaskBehaviour>();
                 var inventory = equipmentSlot.characterBody.inventory;
-                var autoCast = equipmentDef.cooldown <= 0f && inventory && inventory.GetItemCount(RoR2Content.Items.AutoCastEquipment) > 0;
+                var autoCast = inventory && inventory.GetItemCount(RoR2Content.Items.AutoCastEquipment) > 0;
                 if (component)
                 {
-                    component.SetMaskActive(!component.maskActive || autoCast);
-                    if (!autoCast) return true;
+                    if (component.maskActive && component.maskDisableDelay <= 0f && !autoCast)
+                    {
+                        component.maskDisableDelay = 1f;
+                        RoR2.Audio.EntitySoundManager.EmitSoundServer(sfxDisable.index, equipmentSlot.characterBody.gameObject);
+                        return true;
+                    }
+                    if (!component.maskActive)
+                    {
+                        component.SetMaskActive(true);
+                        if (!autoCast)
+                        {
+                            RoR2.Audio.EntitySoundManager.EmitSoundServer(sfxEnable.index, equipmentSlot.characterBody.gameObject);
+                            return true;
+                        }
+                    }
                 }
             }
             return false;
