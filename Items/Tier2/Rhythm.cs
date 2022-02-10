@@ -67,13 +67,13 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> beatWindowEarly = new ConfigurableValue<float>(
             "Item: Metronome",
             "BeatWindowEarly",
-            0.08333f,
+            0.09f,
             "How early can you press to score a hit (in seconds)"
         );
         public static ConfigurableValue<float> beatWindowLate = new ConfigurableValue<float>(
             "Item: Metronome",
             "BeatWindowLate",
-            0.08333f,
+            0.09f,
             "How late can you press to score a hit (in seconds)"
         );
 
@@ -137,6 +137,12 @@ namespace MysticsItems.Items
             indicatorComponent.comboBreakAnimationMultiplier = 2f;
             indicatorComponent.noteFadeInAnimation = AnimationCurve.EaseInOut(0f, 0f, 0.3f, 1f);
 
+            RectTransform rectTransform = indicatorComponent.noteTemplate.GetComponent<RectTransform>();
+            var size = Mathf.Abs(rectTransform.localPosition.x) / readTime * beatWindowEarly * 2f;
+            rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, size);
+            rectTransform = indicatorComponent.barTransform.Find("Judgement") as RectTransform;
+            rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, size + 4f);
+
             rhythmHUDOverSkills = Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Metronome/RhythmHUDOverSkills.prefab");
             rhythmHUDOverSkills.AddComponent<HudElement>();
             MysticsItemsRhythmHUDOverSkills indicatorComponent2 = rhythmHUDOverSkills.AddComponent<MysticsItemsRhythmHUDOverSkills>();
@@ -149,6 +155,12 @@ namespace MysticsItems.Items
             indicatorComponent2.comboBreakAnimation = animationCurveHolder.startSpeed.curve;
             indicatorComponent2.comboBreakAnimationMultiplier = 5f;
             indicatorComponent2.noteFadeInAnimation = AnimationCurve.EaseInOut(0f, 0f, 0.3f, 1f);
+
+            rectTransform = indicatorComponent2.noteTemplate.GetComponent<RectTransform>();
+            size = Mathf.Abs((rectTransform.parent.Find("Bar") as RectTransform).rect.height) / readTime * beatWindowEarly;
+            rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, size);
+            rectTransform = rectTransform.parent.Find("Judgement") as RectTransform;
+            rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, size + 4f);
         }
 
         private void HUD_onHudTargetChangedGlobal(HUD obj)
@@ -342,6 +354,7 @@ namespace MysticsItems.Items
                 noteComponent.noteFadeInAnimation = noteFadeInAnimation;
                 noteComponent.materialInstance = Material.Instantiate(note.GetComponent<Image>().material);
                 note.GetComponent<Image>().material = noteComponent.materialInstance;
+                noteComponent.UpdateAlpha();
                 notes.Add(noteComponent);
 
                 note = Instantiate(noteTemplate, barTransform);
@@ -354,6 +367,7 @@ namespace MysticsItems.Items
                 noteComponent.noteFadeInAnimation = noteFadeInAnimation;
                 noteComponent.materialInstance = Material.Instantiate(note.GetComponent<Image>().material);
                 note.GetComponent<Image>().material = noteComponent.materialInstance;
+                noteComponent.UpdateAlpha();
                 notes.Add(noteComponent);
             }
 
@@ -588,10 +602,11 @@ namespace MysticsItems.Items
                     note.SetActive(true);
                     MysticsItemsRhythmHUDOverSkillsNote noteComponent = note.AddComponent<MysticsItemsRhythmHUDOverSkillsNote>();
                     noteComponent.maxTime = noteComponent.remainingTime = rhythmBehaviour.readTime;
-                    noteComponent.yOffset = (overSkillTransform.Find("Bar") as RectTransform).rect.height + (note.transform as RectTransform).rect.height;
+                    noteComponent.yOffset = (overSkillTransform.Find("Bar") as RectTransform).rect.height;
                     noteComponent.noteFadeInAnimation = noteFadeInAnimation;
                     noteComponent.materialInstance = Material.Instantiate(note.GetComponent<Image>().material);
                     note.GetComponent<Image>().material = noteComponent.materialInstance;
+                    noteComponent.UpdateAlpha();
                     notes.Add(noteComponent);
                 }
             }
@@ -813,11 +828,11 @@ namespace MysticsItems.Items
 
             public void Update()
             {
-                var wasInBeatWindow = currentTime > beatWindowLate;
+                var wasInBeatWindow = currentTime <= beatWindowLate;
 
                 currentTime += Time.deltaTime;
 
-                if (body.hasEffectiveAuthority && !wasInBeatWindow && currentTime > beatWindowLate)
+                if (body.hasEffectiveAuthority && wasInBeatWindow && currentTime > beatWindowLate)
                 {
                     if (beatNotPressedYet)
                     {
@@ -825,7 +840,6 @@ namespace MysticsItems.Items
                         {
                             combo = 0;
                             body.statsDirty = true;
-                            currentTime = 0f;
                             MysticsItemsRhythmHUD.OnComboBreakForInstance(this);
                         }
                     }
@@ -840,7 +854,7 @@ namespace MysticsItems.Items
 
                 if (currentTime >= interval)
                 {
-                    currentTime = 0f;
+                    currentTime -= interval;
                     readStarted = false;
                     preparePhase = Mathf.FloorToInt(interval);
                     Beat();
