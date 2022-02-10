@@ -17,7 +17,7 @@ namespace MysticsItems.Equipment
         public static GameObject crosshairPrefab;
 
         public static ConfigurableValue<int> amount = new ConfigurableValue<int>(
-            "Item: Wirehack Wrench",
+            "Equipment: Wirehack Wrench",
             "Amount",
             2,
             "Amount of items to drop from the hacked printer",
