@@ -67,6 +67,12 @@ namespace MysticsItems.Items
                 "ITEM_MYSTICSITEMS_MARWANASH3_DESC"
             }
         );
+        public static ConfigurableValue<float> dotDuration = new ConfigurableValue<float>(
+            "Item: Marwan s Ash/Light/Weapon",
+            "DoTDuration",
+            10f,
+            "How long should the damage over time effect last (in seconds)"
+        );
         public static ConfigurableValue<float> radius = new ConfigurableValue<float>(
             "Item: Marwan s Ash/Light/Weapon",
             "Radius",
@@ -230,7 +236,7 @@ namespace MysticsItems.Items
                     
                     if (itemLevel >= 2)
                     {
-                        DotController.InflictDot(victimInfo.gameObject, attackerInfo.gameObject, Buffs.MarwanAshBurn.ashDotIndex, 10f, dotPercent + dotPercentPerLevel * attackerInfo.body.level * itemCount);
+                        DotController.InflictDot(victimInfo.gameObject, attackerInfo.gameObject, Buffs.MarwanAshBurn.ashDotIndex, dotDuration, 1f);
                     }
                 }
             }
