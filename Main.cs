@@ -13,36 +13,37 @@ using Mono.Cecil.Cil;
 using MonoMod.Cil;
 using RoR2.ContentManagement;
 using System.Collections;
+using MysticsRisky2Utils;
 
 namespace MysticsItems
 {
     [BepInDependency(R2API.R2API.PluginGUID)]
-    [BepInDependency(SoftDependencies.ItemStatsSoftDependency.PluginGUID, BepInDependency.DependencyFlags.SoftDependency)]
-    [BepInDependency(SoftDependencies.Starstorm2SoftDependency.PluginGUID, BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency(MysticsRisky2UtilsPlugin.PluginGUID)]
+    [BepInDependency("dev.ontrigger.itemstats", BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency("com.xoxfaby.BetterUI", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInPlugin(PluginGUID, PluginName, PluginVersion)]
-    [R2APISubmoduleDependency(nameof(NetworkingAPI), nameof(PrefabAPI), nameof(SoundAPI))]
-
+    [R2APISubmoduleDependency(nameof(DamageAPI), nameof(DotAPI), nameof(NetworkingAPI), nameof(PrefabAPI), nameof(SoundAPI))]
     public class MysticsItemsPlugin : BaseUnityPlugin
     {
         public const string PluginGUID = "com.themysticsword.mysticsitems";
         public const string PluginName = "MysticsItems";
-        public const string PluginVersion = "1.1.13";
+        public const string PluginVersion = "2.0.0";
 
         internal static BepInEx.Logging.ManualLogSource logger;
-        internal static BepInEx.Configuration.ConfigFile config;
+        internal static BepInEx.Configuration.ConfigFile configGeneral;
+        internal static BepInEx.Configuration.ConfigFile configBalance;
 
         public void Awake()
         {
             logger = Logger;
-            config = Config;
+            configGeneral = new BepInEx.Configuration.ConfigFile(Paths.ConfigPath + "\\MysticsItems_General.cfg", true);
+            configBalance = new BepInEx.Configuration.ConfigFile(Paths.ConfigPath + "\\MysticsItems_Balance.cfg", true);
             Main.Init();
         }
     }
 
     public static partial class Main
     {
-        public const string TokenPrefix = MysticsItemsPlugin.PluginName + "_";
-        
         public static AssetBundle AssetBundle = AssetBundle.LoadFromStream(Assembly.GetExecutingAssembly().GetManifestResourceStream("MysticsItems.mysticsitemsunityassetbundle"));
 
         internal const BindingFlags bindingFlagAll = (BindingFlags)(-1);
@@ -50,12 +51,18 @@ namespace MysticsItems
 
         internal static bool isDedicatedServer = Application.isBatchMode;
 
+        public static Assembly executingAssembly;
         internal static System.Type declaringType;
 
+        internal static BepInEx.Configuration.ConfigFile configGeneral;
+        
         public static void Init()
         {
             logger = MysticsItemsPlugin.logger;
             
+            configGeneral = MysticsItemsPlugin.configGeneral;
+            BalanceConfigManager.Init();
+
             using (var soundBankStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("MysticsItems.MysticsItemsWwiseSoundbank.bnk"))
             {
                 var bytes = new byte[soundBankStream.Length];
@@ -63,41 +70,22 @@ namespace MysticsItems
                 SoundAPI.SoundBanks.Add(bytes);
             }
 
+            executingAssembly = Assembly.GetExecutingAssembly();
             declaringType = MethodBase.GetCurrentMethod().DeclaringType;
-
-            RoR2Application.onLoad += PostGameLoad;
 
             //DebugTools.Init();
 
-            Achievements.BaseAchievement.Init();
-            BaseItemLike.Init();
-            CharacterStats.Init();
-            ConCommandHelper.Init();
-            CostTypeCreation.Init();
-            CustomTempVFXManagement.Init();
-            //Items.CharacterItems.Init();
-            Equipment.BaseEquipment.Init();
-            Interactables.BaseInteractable.Init();
+            CustomChatMessages.Init();
             GenericCostTypes.Init();
-            GenericGameEvents.Init();
-            LanguageLoader.Init();
-            Outlines.Init();
-            Overlays.Init();
-            PlainHologram.Init();
-            StateSeralizerFix.Init();
+            ImageGeneration.Init();
+            SoftDependencies.SoftDependenciesCore.Init();
 
-            MysticsItems.ContentManagement.ContentLoadHelper.PluginAwakeLoad<Items.BaseItem>();
-            MysticsItems.ContentManagement.ContentLoadHelper.PluginAwakeLoad<Equipment.BaseEquipment>();
-            MysticsItems.ContentManagement.ContentLoadHelper.PluginAwakeLoad<Buffs.BaseBuff>();
-            MysticsItems.ContentManagement.ContentLoadHelper.PluginAwakeLoad<Interactables.BaseInteractable>();
+            MysticsRisky2Utils.ContentManagement.ContentLoadHelper.PluginAwakeLoad<MysticsRisky2Utils.BaseAssetTypes.BaseItem>(executingAssembly);
+            MysticsRisky2Utils.ContentManagement.ContentLoadHelper.PluginAwakeLoad<MysticsRisky2Utils.BaseAssetTypes.BaseEquipment>(executingAssembly);
+            MysticsRisky2Utils.ContentManagement.ContentLoadHelper.PluginAwakeLoad<MysticsRisky2Utils.BaseAssetTypes.BaseBuff>(executingAssembly);
+            MysticsRisky2Utils.ContentManagement.ContentLoadHelper.PluginAwakeLoad<MysticsRisky2Utils.BaseAssetTypes.BaseInteractable>(executingAssembly);
 
             //LaserTurret.Init();
-
-            // Load console commands
-            ConCommandHelper.Load(declaringType.GetMethod("CCUnlockLogs", bindingFlagAll));
-            ConCommandHelper.Load(declaringType.GetMethod("CCGrantAll", bindingFlagAll));
-
-            LanguageLoader.Load("MysticsItemsStrings.json");
 
             // Load the content pack
             ContentManager.collectContentPackProviders += (addContentPackProvider) =>
@@ -105,147 +93,78 @@ namespace MysticsItems
                 addContentPackProvider(new MysticsItemsContent());
             };
 
-            if (BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey(SoftDependencies.Starstorm2SoftDependency.PluginGUID)) SoftDependencies.Starstorm2SoftDependency.Init();
-        }
-
-        public static void PostGameLoad()
-        {
-            BrotherInfection.Init();
-            BaseItemLike.PostGameLoad();
-            
-            if (BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey(SoftDependencies.ItemStatsSoftDependency.PluginGUID)) SoftDependencies.ItemStatsSoftDependency.Init();
-        }
-
-        [ConCommand(commandName = Main.TokenPrefix + "unlocklogs", flags = ConVarFlags.None, helpText = "Unlocks all logbook entries")]
-        private static void CCUnlockLogs(ConCommandArgs args)
-        {
-            foreach (LocalUser user in LocalUserManager.readOnlyLocalUsersList)
+            On.RoR2.ItemCatalog.Init += (orig) =>
             {
-                foreach (Items.BaseItem item in Items.BaseItem.loadedItems)
-                {
-                    user.userProfile.DiscoverPickup(item.GetPickupIndex());
-                }
-                foreach (Equipment.BaseEquipment equipment in Equipment.BaseEquipment.loadedEquipment)
-                {
-                    user.userProfile.DiscoverPickup(equipment.GetPickupIndex());
-                }
-            }
-        }
+                orig();
+                BrotherInfection.Init();
+            };
 
-        [ConCommand(commandName = Main.TokenPrefix + "grantall", flags = ConVarFlags.None, helpText = "Grant all achievements")]
-        private static void CCGrantAll(ConCommandArgs args)
-        {
-            foreach (LocalUser user in LocalUserManager.readOnlyLocalUsersList)
+            UpdateFirstLaunchManager.Init();
+
+            /* WhatAmILookingAt mod came out so this is useless now
+            if (configGeneral.Bind<bool>("Misc", "PrefixModContent", false, "If true, content from this mod will have [Mystic's Items] written at the start of its name").Value)
             {
-                foreach (Achievements.BaseAchievement achievement in Achievements.BaseAchievement.registeredAchievements)
+                On.RoR2.Language.GetLocalizedStringByToken += (orig, self, token) =>
                 {
-                    AchievementManager.GetUserAchievementManager(user).GrantAchievement(achievement.achievementDef);
-                }
+                    var result = orig(self, token);
+                    if ((
+                        token.StartsWith("ITEM_MYSTICSITEMS_", false, System.Globalization.CultureInfo.InvariantCulture) ||
+                        token.StartsWith("EQUIPMENT_MYSTICSITEMS_", false, System.Globalization.CultureInfo.InvariantCulture) ||
+                        token.StartsWith("ACHIEVEMENT_MYSTICSITEMS_", false, System.Globalization.CultureInfo.InvariantCulture) ||
+                        token.StartsWith("BUFF_MYSTICSITEMS_", false, System.Globalization.CultureInfo.InvariantCulture)
+                    ) && token.EndsWith("_NAME", false, System.Globalization.CultureInfo.InvariantCulture))
+                        result = "[Mystic's Items] " + result;
+                    return result;
+                };
             }
-        }
+            */
 
-        public static class HopooShaderToMaterial
-        {
-            public struct Properties
+            /*
+            // Generate item preview table image
+            RoR2Application.onLoad += () =>
             {
-                public Dictionary<string, float> floats;
-                public Dictionary<string, Color> colors;
-                public Dictionary<string, Texture> textures;
-            }
+                var itemDefs = typeof(MysticsItemsContent.Items).GetFields().Select(x => x.GetValue(null) as ItemDef)
+                .Where(x => !x.hidden && x.inDroppableTier && x.DoesNotContainTag(ItemTag.WorldUnique)).ToList();
+                var equipmentDefs = typeof(MysticsItemsContent.Equipment).GetFields().Select(x => x.GetValue(null) as EquipmentDef)
+                    .Where(x => x.canDrop).ToList();
 
-            public static void Apply(Material mat, Shader shader, Properties properties = default(Properties))
-            {
-                mat.shader = shader;
-                if (properties.floats != null) foreach (KeyValuePair<string, float> keyValuePair in properties.floats) mat.SetFloat(keyValuePair.Key, keyValuePair.Value);
-                if (properties.colors != null) foreach (KeyValuePair<string, Color> keyValuePair in properties.colors) mat.SetColor(keyValuePair.Key, keyValuePair.Value);
-                if (properties.textures != null) foreach (KeyValuePair<string, Texture> keyValuePair in properties.textures) mat.SetTexture(keyValuePair.Key, keyValuePair.Value);
-            }
-
-            public class Standard
-            {
-                public static Shader shader = Resources.Load<Shader>("shaders/deferred/hgstandard");
-
-                public static void Apply(Material mat, Properties properties = default(Properties))
+                var sections = new List<ImageGeneration.ItemTableSection>()
                 {
-                    HopooShaderToMaterial.Apply(mat, shader, properties);
-                    mat.SetTexture("_NormalTex", mat.GetTexture("_BumpMap"));
-                    mat.SetTexture("_EmTex", mat.GetTexture("_EmissionMap"));
-                }
-                public static void Apply(params Material[] mats)
-                {
-                    foreach (Material mat in mats) Apply(mat);
-                }
+                    new ImageGeneration.ItemTableSection()
+                    {
+                        itemDefs = itemDefs.Where(x => x.tier == ItemTier.Tier1).ToList(),
+                        color = ColorCatalog.GetColor(ColorCatalog.ColorIndex.Tier1Item)
+                    },
+                    new ImageGeneration.ItemTableSection()
+                    {
+                        itemDefs = itemDefs.Where(x => x.tier == ItemTier.Tier2).ToList(),
+                        color = ColorCatalog.GetColor(ColorCatalog.ColorIndex.Tier2Item)
+                    },
+                    new ImageGeneration.ItemTableSection()
+                    {
+                        itemDefs = itemDefs.Where(x => x.tier == ItemTier.Tier3).ToList(),
+                        color = ColorCatalog.GetColor(ColorCatalog.ColorIndex.Tier3Item)
+                    },
+                    new ImageGeneration.ItemTableSection()
+                    {
+                        itemDefs = itemDefs.Where(x => x.tier == ItemTier.Lunar).ToList(),
+                        color = ColorCatalog.GetColor(ColorCatalog.ColorIndex.LunarItem)
+                    },
+                    new ImageGeneration.ItemTableSection()
+                    {
+                        equipmentDefs = equipmentDefs.Where(x => !x.isLunar).ToList(),
+                        color = ColorCatalog.GetColor(ColorCatalog.ColorIndex.Equipment)
+                    },
+                    new ImageGeneration.ItemTableSection()
+                    {
+                        equipmentDefs = equipmentDefs.Where(x => x.isLunar).ToList(),
+                        color = ColorCatalog.GetColor(ColorCatalog.ColorIndex.LunarItem)
+                    }
+                };
 
-                public static void DisableEverything(Material mat)
-                {
-                    mat.DisableKeyword("DITHER");
-                    mat.SetFloat("_DitherOn", 0f);
-                    mat.DisableKeyword("FORCE_SPEC");
-                    mat.SetFloat("_SpecularHighlights", 0f);
-                    mat.SetFloat("_SpecularStrength", 0f);
-                    mat.DisableKeyword("_EMISSION");
-                    mat.SetFloat("_EmPower", 0f);
-                    mat.SetColor("_EmColor", new Color(0f, 0f, 0f, 1f));
-                    mat.DisableKeyword("FRESNEL_EMISSION");
-                    mat.SetFloat("_FresnelBoost", 0f);
-                }
-
-                public static void Dither(Material mat)
-                {
-                    mat.EnableKeyword("DITHER");
-                    mat.SetFloat("_DitherOn", 1f);
-                }
-
-                public static void Gloss(Material mat, float glossiness = 1f, float specularExponent = 10f, Color? color = null)
-                {
-                    mat.EnableKeyword("FORCE_SPEC");
-                    mat.SetFloat("_SpecularHighlights", 1f);
-                    mat.SetFloat("_SpecularExponent", specularExponent);
-                    mat.SetFloat("_SpecularStrength", glossiness);
-                    mat.SetColor("_SpecularTint", color ?? Color.white);
-                }
-
-                public static void Emission(Material mat, float power = 1f, Color? color = null)
-                {
-                    mat.EnableKeyword("_EMISSION");
-                    mat.EnableKeyword("FRESNEL_EMISSION");
-                    mat.SetFloat("_EmPower", power);
-                    mat.SetColor("_EmColor", color ?? Color.white);
-                }
-            }
-
-            public class CloudRemap
-            {
-                public static Shader shader = Resources.Load<Shader>("shaders/fx/hgcloudremap");
-
-                public static void Apply(Material mat, Properties properties = default(Properties))
-                {
-                    HopooShaderToMaterial.Apply(mat, shader, properties);
-                    mat.SetFloat("_AlphaBias", 0f);
-                    mat.SetFloat("_AlphaBoost", 1f);
-                    mat.SetFloat("_Cull", 0f);
-                    mat.SetFloat("_DepthOffset", 0f);
-                    mat.SetFloat("_Fade", 1f);
-                    mat.SetFloat("_FadeCloseDistance", 0.5f);
-                    mat.SetFloat("_FadeCloseOn", 0f);
-                    mat.SetFloat("_InvFade", 2f);
-                    mat.SetFloat("_ZTest", 4f);
-                    mat.SetFloat("_ZWrite", 1f);
-                }
-
-                public static void Apply(Material mat, Texture remapTexture = null, Texture cloud1Texture = null, Texture cloud2Texture = null, Properties properties = default(Properties))
-                {
-                    Apply(mat, properties);
-                    mat.SetTexture("_Cloud1Tex", cloud1Texture);
-                    mat.SetTexture("_Cloud2Tex", cloud2Texture);
-                    mat.SetTexture("_RemapTex", remapTexture);
-                }
-
-                public static void Boost(Material mat, float power = 1f)
-                {
-                    mat.SetFloat("_Boost", power);
-                }
-            }
+                ImageGeneration.GenerateItemTable(100f, 1024f, 214f, 3, Language.english, sections);
+            };
+            */
         }
     }
 
@@ -262,28 +181,28 @@ namespace MysticsItems
         public IEnumerator LoadStaticContentAsync(LoadStaticContentAsyncArgs args)
         {
             contentPack.identifier = identifier;
-            MysticsItems.ContentManagement.ContentLoadHelper contentLoadHelper = new MysticsItems.ContentManagement.ContentLoadHelper();
+            MysticsRisky2Utils.ContentManagement.ContentLoadHelper contentLoadHelper = new MysticsRisky2Utils.ContentManagement.ContentLoadHelper();
             System.Action[] loadDispatchers = new System.Action[]
             {
                 () =>
                 {
-                    contentLoadHelper.DispatchLoad<ItemDef>(typeof(MysticsItems.Items.BaseItem), x => contentPack.itemDefs.Add(x));
+                    contentLoadHelper.DispatchLoad<ItemDef>(Main.executingAssembly, typeof(MysticsRisky2Utils.BaseAssetTypes.BaseItem), x => contentPack.itemDefs.Add(x));
                 },
                 () =>
                 {
-                    contentLoadHelper.DispatchLoad<EquipmentDef>(typeof(MysticsItems.Equipment.BaseEquipment), x => contentPack.equipmentDefs.Add(x));
+                    contentLoadHelper.DispatchLoad<EquipmentDef>(Main.executingAssembly, typeof(MysticsRisky2Utils.BaseAssetTypes.BaseEquipment), x => contentPack.equipmentDefs.Add(x));
                 },
                 () =>
                 {
-                    contentLoadHelper.DispatchLoad<BuffDef>(typeof(MysticsItems.Buffs.BaseBuff), x => contentPack.buffDefs.Add(x));
+                    contentLoadHelper.DispatchLoad<BuffDef>(Main.executingAssembly, typeof(MysticsRisky2Utils.BaseAssetTypes.BaseBuff), x => contentPack.buffDefs.Add(x));
                 },
                 () =>
                 {
-                    contentLoadHelper.DispatchLoad<AchievementDef>(typeof(MysticsItems.Achievements.BaseAchievement), null);
+                    contentLoadHelper.DispatchLoad<AchievementDef>(Main.executingAssembly, typeof(MysticsRisky2Utils.BaseAssetTypes.BaseAchievement), null);
                 },
                 () =>
                 {
-                    contentLoadHelper.DispatchLoad<GameObject>(typeof(MysticsItems.Interactables.BaseInteractable), null);
+                    contentLoadHelper.DispatchLoad<GameObject>(Main.executingAssembly, typeof(MysticsRisky2Utils.BaseAssetTypes.BaseInteractable), null);
                 }
             };
             int num;
@@ -304,17 +223,14 @@ namespace MysticsItems
                 () =>
                 {
                     ContentLoadHelper.PopulateTypeFields<ItemDef>(typeof(Items), contentPack.itemDefs);
-                    MysticsItems.ContentManagement.ContentLoadHelper.AddModPrefixToAssets<ItemDef>(contentPack.itemDefs);
                 },
                 () =>
                 {
                     ContentLoadHelper.PopulateTypeFields<EquipmentDef>(typeof(Equipment), contentPack.equipmentDefs);
-                    MysticsItems.ContentManagement.ContentLoadHelper.AddModPrefixToAssets<EquipmentDef>(contentPack.equipmentDefs);
                 },
                 () =>
                 {
                     ContentLoadHelper.PopulateTypeFields<BuffDef>(typeof(Buffs), contentPack.buffDefs);
-                    MysticsItems.ContentManagement.ContentLoadHelper.AddModPrefixToAssets<BuffDef>(contentPack.buffDefs);
                 },
                 () =>
                 {
@@ -326,6 +242,7 @@ namespace MysticsItems
                     contentPack.unlockableDefs.Add(Resources.unlockableDefs.ToArray());
                     contentPack.entityStateTypes.Add(Resources.entityStateTypes.ToArray());
                     contentPack.skillDefs.Add(Resources.skillDefs.ToArray());
+                    contentPack.skillFamilies.Add(Resources.skillFamilies.ToArray());
                 }
             };
             for (int i = 0; i < loadDispatchers.Length; i = num)
@@ -335,6 +252,11 @@ namespace MysticsItems
                 yield return null;
                 num = i + 1;
             }
+            MysticsRisky2Utils.ContentManagement.ContentLoadHelper.InvokeAfterContentPackLoaded<MysticsRisky2Utils.BaseAssetTypes.BaseItem>(Main.executingAssembly);
+            MysticsRisky2Utils.ContentManagement.ContentLoadHelper.InvokeAfterContentPackLoaded<MysticsRisky2Utils.BaseAssetTypes.BaseEquipment>(Main.executingAssembly);
+            MysticsRisky2Utils.ContentManagement.ContentLoadHelper.InvokeAfterContentPackLoaded<MysticsRisky2Utils.BaseAssetTypes.BaseBuff>(Main.executingAssembly);
+            MysticsRisky2Utils.ContentManagement.ContentLoadHelper.InvokeAfterContentPackLoaded<MysticsRisky2Utils.BaseAssetTypes.BaseAchievement>(Main.executingAssembly);
+            MysticsRisky2Utils.ContentManagement.ContentLoadHelper.InvokeAfterContentPackLoaded<MysticsRisky2Utils.BaseAssetTypes.BaseInteractable>(Main.executingAssembly);
             loadDispatchers = null;
             yield break;
         }
@@ -364,64 +286,85 @@ namespace MysticsItems
             public static List<UnlockableDef> unlockableDefs = new List<UnlockableDef>();
             public static List<System.Type> entityStateTypes = new List<System.Type>();
             public static List<RoR2.Skills.SkillDef> skillDefs = new List<RoR2.Skills.SkillDef>();
+            public static List<RoR2.Skills.SkillFamily> skillFamilies = new List<RoR2.Skills.SkillFamily>();
         }
 
         public static class Items
         {
-            public static ItemDef AllyDeathRevenge;
-            //public static ItemDef ArtificerNanobots;
-            public static ItemDef BackArmor;
-            public static ItemDef CoffeeBoostOnItemPickup;
-            //public static ItemDef CommandoRevolverDrum;
-            //public static ItemDef CommandoScope;
-            public static ItemDef CrystalWorld;
-            public static ItemDef DasherDisc;
-            public static ItemDef ExplosivePickups;
-            public static ItemDef ExtraShrineUse;
-            public static ItemDef GateChaliceDebuff;
-            public static ItemDef HealOrbOnBarrel;
-            //public static ItemDef KeepShopTerminalOpen;
-            //public static ItemDef KeepShopTerminalOpenConsumed;
-            //public static ItemDef Moonglasses;
-            public static ItemDef RiftLens;
-            public static ItemDef RiftLensDebuff;
-            public static ItemDef ScratchTicket;
-            public static ItemDef SpeedGivesDamage;
-            public static ItemDef Spotter;
-            public static ItemDef ThoughtProcessor;
-            public static ItemDef TreasureMap;
-            public static ItemDef Voltmeter;
+            public static ItemDef MysticsItems_AllyDeathRevenge;
+            public static ItemDef MysticsItems_BackArmor;
+            public static ItemDef MysticsItems_Backpack;
+            public static ItemDef MysticsItems_CoffeeBoostOnItemPickup;
+            public static ItemDef MysticsItems_Cookie;
+            public static ItemDef MysticsItems_CrystalWorld;
+            public static ItemDef MysticsItems_DasherDisc;
+            public static ItemDef MysticsItems_DeathCeremony;
+            public static ItemDef MysticsItems_DroneWires;
+            public static ItemDef MysticsItems_ElitePotion;
+            public static ItemDef MysticsItems_ExplosivePickups;
+            public static ItemDef MysticsItems_ExtraShrineUse;
+            public static ItemDef MysticsItems_HealOrbOnBarrel;
+            public static ItemDef MysticsItems_Idol;
+            public static ItemDef MysticsItems_JudgementCut;
+            public static ItemDef MysticsItems_KeepShopTerminalOpen;
+            public static ItemDef MysticsItems_KeepShopTerminalOpenConsumed;
+            public static ItemDef MysticsItems_LimitedArmor;
+            public static ItemDef MysticsItems_LimitedArmorBroken;
+            public static ItemDef MysticsItems_Manuscript;
+            public static ItemDef MysticsItems_MarwanAsh1;
+            public static ItemDef MysticsItems_MarwanAsh2;
+            public static ItemDef MysticsItems_MarwanAsh3;
+            public static ItemDef MysticsItems_Moonglasses;
+            public static ItemDef MysticsItems_MysticSword;
+            public static ItemDef MysticsItems_RegenAndDifficultySpeed;
+            public static ItemDef MysticsItems_Rhythm;
+            public static ItemDef MysticsItems_RiftLens;
+            public static ItemDef MysticsItems_RiftLensDebuff;
+            public static ItemDef MysticsItems_ScratchTicket;
+            public static ItemDef MysticsItems_SpeedGivesDamage;
+            public static ItemDef MysticsItems_Spotter;
+            public static ItemDef MysticsItems_ThoughtProcessor;
+            public static ItemDef MysticsItems_TreasureMap;
+            public static ItemDef MysticsItems_Voltmeter;
+            public static ItemDef MysticsItems_VyraelCommandments;
         }
 
         public static class Equipment
         {
-            public static EquipmentDef ArchaicMask;
-            public static EquipmentDef GateChalice;
-            public static EquipmentDef Microphone;
-            public static EquipmentDef PrinterHacker;
-            public static EquipmentDef TuningFork;
+            public static EquipmentDef MysticsItems_ArchaicMask;
+            public static EquipmentDef MysticsItems_FragileMask;
+            public static EquipmentDef MysticsItems_GateChalice;
+            public static EquipmentDef MysticsItems_Microphone;
+            public static EquipmentDef MysticsItems_MechanicalArm;
+            public static EquipmentDef MysticsItems_OmarHackTool;
+            public static EquipmentDef MysticsItems_PrinterHacker;
+            public static EquipmentDef MysticsItems_SirenPole;
+            public static EquipmentDef MysticsItems_TuningFork;
         }
 
         public static class Buffs
         {
-            public static BuffDef AllyDeathRevenge;
-            public static BuffDef CoffeeBoost;
-            public static BuffDef DasherDiscActive;
-            public static BuffDef DasherDiscCooldown;
-            public static BuffDef Deafened;
-            public static BuffDef GateChalice;
-            public static BuffDef RiftLens;
-            public static BuffDef SpeedGivesDamage;
-            public static BuffDef SpotterMarked;
+            public static BuffDef MysticsItems_AllyDeathRevenge;
+            public static BuffDef MysticsItems_CoffeeBoost;
+            public static BuffDef MysticsItems_Crystallized;
+            public static BuffDef MysticsItems_DasherDiscActive;
+            public static BuffDef MysticsItems_DasherDiscCooldown;
+            public static BuffDef MysticsItems_Deafened;
+            public static BuffDef MysticsItems_MarwanAshBurn;
+            public static BuffDef MysticsItems_MechanicalArmCharge;
+            public static BuffDef MysticsItems_RhythmCombo;
+            public static BuffDef MysticsItems_SpotterMarked;
         }
 
         public static class Achievements
         {
-            public static AchievementDef DiscDeath;
-            public static AchievementDef EscapeMoonAlone;
-            public static AchievementDef FindArchaicMask;
-            //public static AchievementDef MultishopTerminalsOnly;
-            public static AchievementDef RepairBrokenSpotter;
+            public static AchievementDef MysticsItems_DiscDeath;
+            public static AchievementDef MysticsItems_EscapeMoonAlone;
+            public static AchievementDef MysticsItems_FindArchaicMask;
+            public static AchievementDef MysticsItems_HellSpeedrun;
+            public static AchievementDef MysticsItems_MultishopTerminalsOnly;
+            public static AchievementDef MysticsItems_ReachHighPoint;
+            public static AchievementDef MysticsItems_RepairBrokenSpotter;
         }
     }
 

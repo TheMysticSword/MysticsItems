@@ -1,3 +1,4 @@
+using MysticsRisky2Utils.BaseAssetTypes;
 using RoR2;
 using UnityEngine;
 
@@ -7,38 +8,56 @@ namespace MysticsItems.Achievements
     {
         public override void OnLoad()
         {
-            name = "EscapeMoonAlone";
-            unlockableName = Main.TokenPrefix + "Items.AllyDeathRevenge";
+            name = "MysticsItems_EscapeMoonAlone";
+            unlockableName = "Items.MysticsItems_AllyDeathRevenge";
+			iconSprite = MysticsRisky2Utils.Utils.AddItemIconBackgroundToSprite(Main.AssetBundle.LoadAsset<Sprite>("Assets/Items/Ally Death Revenge/Icon.png"), MysticsRisky2Utils.Utils.ItemIconBackgroundType.Tier2);
 			trackerType = typeof(Tracker);
+			serverTrackerType = typeof(Tracker.Server);
         }
 
-        public class Tracker : RoR2.Achievements.BaseAchievement
+		public class Tracker : RoR2.Achievements.BaseAchievement
 		{
 			public override void OnInstall()
 			{
 				base.OnInstall();
-				Run.onClientGameOverGlobal += OnClientGameOverGlobal;
+				SetServerTracked(true);
 			}
 
 			public override void OnUninstall()
 			{
+				SetServerTracked(false);
 				base.OnUninstall();
-				Run.onClientGameOverGlobal -= OnClientGameOverGlobal;
 			}
 
-			public void OnClientGameOverGlobal(Run run, RunReport runReport)
+			public class Server : RoR2.Achievements.BaseServerAchievement
 			{
-				if (runReport.gameEnding && runReport.gameEnding == RoR2Content.GameEndings.MainEnding && run.livingPlayerCount == 1)
+				public BodyIndex requiredBodyIndex;
+
+				public override void OnInstall()
 				{
-					CharacterBody characterBody = localUser.cachedBody;
-					if (characterBody)
+					base.OnInstall();
+                    GlobalEventManager.onCharacterDeathGlobal += GlobalEventManager_onCharacterDeathGlobal;
+					requiredBodyIndex = BodyCatalog.FindBodyIndex("BrotherHurt");
+				}
+
+
+				public override void OnUninstall()
+				{
+					base.OnUninstall();
+					GlobalEventManager.onCharacterDeathGlobal -= GlobalEventManager_onCharacterDeathGlobal;
+				}
+
+				private void GlobalEventManager_onCharacterDeathGlobal(DamageReport damageReport)
+				{
+					if (damageReport.victimBodyIndex != requiredBodyIndex) return;
+					foreach (var teamMember in TeamComponent.GetTeamMembers(serverAchievementTracker.networkUser.master.teamIndex))
 					{
-						HealthComponent healthComponent = characterBody.healthComponent;
-						if (healthComponent && healthComponent.alive)
+						if (teamMember.body != serverAchievementTracker.networkUser.GetCurrentBody() && teamMember.body.healthComponent && teamMember.body.healthComponent.alive)
 						{
-							Grant();
+							return;
 						}
 					}
+					Grant();
 				}
 			}
 		}

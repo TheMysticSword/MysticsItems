@@ -1,10 +1,12 @@
 {
-    "name": "MysticsItems",
-    "version_number": "1.1.13",
-    "website_url": "https://github.com/TheMysticSword/MysticsItems",
-    "description": "Adds 20 new items!",
-    "dependencies": [
-        "bbepis-BepInExPack-5.4.9",
-        "tristanmcpherson-R2API-3.0.7"
-    ]
+  "name": "MysticsItems",
+  "version_number": "2.0.0",
+  "website_url": "https://themysticsword.itch.io/ror2-mystics-items/community",
+  "description": "Adds 40 new items!",
+  "dependencies": [
+    "bbepis-BepInExPack-5.4.1801",
+    "tristanmcpherson-R2API-3.0.71",
+    "RiskofThunder-HookGenPatcher-1.2.1",
+    "TheMysticSword-MysticsRisky2Utils-2.0.0"
+  ]
 }

@@ -13,6 +13,10 @@ using System.Linq;
 using System.Collections.ObjectModel;
 using RoR2.UI;
 using UnityEngine.Rendering.PostProcessing;
+using MysticsRisky2Utils;
+using MysticsRisky2Utils.BaseAssetTypes;
+using UnityEngine.UI;
+using static MysticsItems.BalanceConfigManager;
 
 namespace MysticsItems.Items
 {
@@ -22,21 +26,37 @@ namespace MysticsItems.Items
         public static InteractableSpawnCard riftChestSpawnCard;
         public static CostTypeIndex riftLensDebuffCostType;
 
-        public override void PreLoad()
-        {
-            itemDef.name = "RiftLens";
-            itemDef.tier = ItemTier.Lunar;
-            itemDef.tags = new ItemTag[]
+        public static GameObject hudPanelPrefab;
+        public static GameObject riftPositionIndicator;
+
+        public static ConfigurableValue<int> baseRifts = new ConfigurableValue<int>(
+            "Item: Rift Lens",
+            "BaseRifts",
+            3,
+            "How many rifts should spawn",
+            new System.Collections.Generic.List<string>()
             {
-                ItemTag.Utility,
-                ItemTag.AIBlacklist,
-                ItemTag.CannotCopy
-            };
-        }
+                "ITEM_MYSTICSITEMS_RIFTLENS_DESC"
+            }
+        );
+        public static ConfigurableValue<int> riftsPerStack = new ConfigurableValue<int>(
+            "Item: Rift Lens",
+            "RiftsPerStack",
+            3,
+            "How many rifts should spawn for each additional stack of this item",
+            new System.Collections.Generic.List<string>()
+            {
+                "ITEM_MYSTICSITEMS_RIFTLENS_DESC"
+            }
+        );
 
         public override void OnPluginAwake()
         {
-            riftChest = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/NetworkedObjects/Lockbox"), Main.TokenPrefix + "RiftChest");
+            riftChest = PrefabAPI.InstantiateClone(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Rift Lens/UnstableRift.prefab"), "MysticsItems_UnstableRift", false);
+            riftChest.AddComponent<NetworkIdentity>();
+            PrefabAPI.RegisterNetworkPrefab(riftChest);
+
+            riftPositionIndicator = PrefabAPI.InstantiateClone(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Rift Lens/UnstableRiftPositionIndicator.prefab"), "MysticsItems_UnstableRiftPositionIndicator", false);
 
             OnRiftLensCostTypeRegister += (costTypeIndex) =>
             {
@@ -47,14 +67,14 @@ namespace MysticsItems.Items
             //add a custom purchase cost type - we will require the interactor pay with the debuff so that players
             //without the debuff can't help them open chests faster
             CostTypeDef costTypeDef = new CostTypeDef();
-            costTypeDef.costStringFormatToken = "COST_" + Main.TokenPrefix.ToUpper() + "RIFTLENSDEBUFF_FORMAT";
+            costTypeDef.costStringFormatToken = "COST_MYSTICSITEMS_RIFTLENSDEBUFF_FORMAT";
             costTypeDef.isAffordable = delegate (CostTypeDef costTypeDef2, CostTypeDef.IsAffordableContext context)
             {
                 CharacterBody body = context.activator.gameObject.GetComponent<CharacterBody>();
                 if (body)
                 {
                     Inventory inventory = body.inventory;
-                    return inventory ? inventory.GetItemCount(MysticsItemsContent.Items.RiftLensDebuff) > 0 : false;
+                    return inventory ? inventory.GetItemCount(MysticsItemsContent.Items.MysticsItems_RiftLensDebuff) > 0 : false;
                 }
                 return false;
             };
@@ -64,7 +84,7 @@ namespace MysticsItems.Items
                 if (body)
                 {
                     Inventory inventory = body.inventory;
-                    if (inventory.GetItemCount(MysticsItemsContent.Items.RiftLensDebuff) > 0) inventory.RemoveItem(MysticsItemsContent.Items.RiftLensDebuff);
+                    if (inventory.GetItemCount(MysticsItemsContent.Items.MysticsItems_RiftLensDebuff) > 0) inventory.RemoveItem(MysticsItemsContent.Items.MysticsItems_RiftLensDebuff);
                 }
             };
             costTypeDef.colorIndex = ColorCatalog.ColorIndex.LunarItem;
@@ -74,7 +94,8 @@ namespace MysticsItems.Items
                 onRegister = OnRiftLensCostTypeRegister
             });
 
-            NetworkingAPI.RegisterMessageType<RiftChest.SyncDestroyThingsOnOpen>();
+            NetworkingAPI.RegisterMessageType<MysticsItemsRiftChest.SyncDestroyThingsOnOpen>();
+            NetworkingAPI.RegisterMessageType<MysticsItemsRiftLensBehaviour.SyncMaxCountdown>();
         }
 
         public static System.Action<CostTypeIndex> OnRiftLensCostTypeRegister;
@@ -82,8 +103,21 @@ namespace MysticsItems.Items
         public override void OnLoad()
         {
             base.OnLoad();
-            SetAssets("Rift Lens");
-            SetModelPanelDistance(2f, 6f);
+            itemDef.name = "MysticsItems_RiftLens";
+            itemDef.tier = ItemTier.Lunar;
+            itemDef.tags = new ItemTag[]
+            {
+                ItemTag.Utility,
+                ItemTag.AIBlacklist,
+                ItemTag.CannotCopy
+            };
+            MysticsItemsContent.Resources.unlockableDefs.Add(GetUnlockableDef());
+            itemDef.pickupModelPrefab = PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Rift Lens/Model.prefab"));
+            itemDef.pickupIconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Items/Rift Lens/Icon.png");
+            ModelPanelParameters modelPanelParams = itemDef.pickupModelPrefab.GetComponentInChildren<ModelPanelParameters>();
+            modelPanelParams.minDistance = 2;
+            modelPanelParams.maxDistance = 6;
+            itemDisplayPrefab = PrepareItemDisplayModel(PrefabAPI.InstantiateClone(itemDef.pickupModelPrefab, itemDef.pickupModelPrefab.name + "Display", false));
             onSetupIDRS += () =>
             {
                 AddDisplayRule("CommandoBody", "Head", new Vector3(0.1f, 0.25f, 0.15f), new Vector3(20f, 210f, 0f), new Vector3(0.06f, 0.06f, 0.06f));
@@ -103,49 +137,41 @@ namespace MysticsItems.Items
                 AddDisplayRule("ScavBody", "Head", new Vector3(5.068F, 4.15F, -0.55F), new Vector3(46.576F, 301.45F, 310.155F), new Vector3(1.363F, 1.363F, 1.363F));
             };
 
-            RiftChest component = riftChest.AddComponent<RiftChest>();
-            riftChest.GetComponent<SfxLocator>().openSound = "Play_env_riftchest_open";
-            //replace tokens
-            riftChest.GetComponent<GenericDisplayNameProvider>().displayToken = Main.TokenPrefix.ToUpper() + "RIFTCHEST_NAME";
-            riftChest.GetComponent<PurchaseInteraction>().displayNameToken = Main.TokenPrefix.ToUpper() + "RIFTCHEST_NAME";
-            riftChest.GetComponent<PurchaseInteraction>().contextToken = Main.TokenPrefix.ToUpper() + "RIFTCHEST_CONTEXT";
-            ChestBehavior chestBehavior = riftChest.GetComponent<ChestBehavior>();
+            MysticsItemsRiftChest component = riftChest.AddComponent<MysticsItemsRiftChest>();
+            
+            SfxLocator sfxLocator = riftChest.AddComponent<SfxLocator>();
+            sfxLocator.openSound = "Play_env_riftchest_open";
+            
+            riftChest.AddComponent<GenericDisplayNameProvider>().displayToken = "MYSTICSITEMS_RIFTCHEST_NAME";
+
+            PurchaseInteraction purchaseInteraction = riftChest.AddComponent<PurchaseInteraction>();
+            purchaseInteraction.displayNameToken = "MYSTICSITEMS_RIFTCHEST_NAME";
+            purchaseInteraction.contextToken = "MYSTICSITEMS_RIFTCHEST_CONTEXT";
+
+            ChestBehavior chestBehavior = riftChest.AddComponent<ChestBehavior>();
             chestBehavior.tier1Chance = 80f;
             chestBehavior.tier2Chance = 20f;
             chestBehavior.tier3Chance = 1f;
-            Transform modelBase = riftChest.transform.Find("ModelBase");
-            //replace lockbox model with chest model
-            GameObject regularChest = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/NetworkedObjects/Chest/Chest1"), Main.TokenPrefix + "RiftChest_TempRegularChest", false);
-            Object.Destroy(riftChest.transform.Find("ModelBase").Find("mdlKeyLockbox").gameObject);
-            GameObject mdlChest1 = regularChest.transform.Find("mdlChest1").gameObject;
-            mdlChest1.transform.SetParent(modelBase);
-            mdlChest1.GetComponent<EntityLocator>().entity = riftChest;
-            mdlChest1.transform.Find("Cube.001").gameObject.GetComponent<EntityLocator>().entity = riftChest;
-            riftChest.GetComponent<ModelLocator>().modelBaseTransform = riftChest.transform.Find("ModelBase").transform;
-            riftChest.GetComponent<ModelLocator>().modelTransform = mdlChest1.transform;
-            riftChest.GetComponent<Highlight>().targetRenderer = mdlChest1.transform.Find("Cube.001").gameObject.GetComponent<SkinnedMeshRenderer>();
-            //custom visuals to make it stand out:
-            //new material
-            Material matRiftChest = Object.Instantiate(Resources.Load<GameObject>("Prefabs/NetworkedObjects/DamageZoneWard").transform.Find("Shrinker").Find("Totem").Find("Mesh").GetComponent<MeshRenderer>().material);
-            matRiftChest.SetFloat("_SplatmapOn", 0f);
-            mdlChest1.transform.Find("Cube.001").GetComponent<SkinnedMeshRenderer>().material = matRiftChest;
-            //light beam
-            GameObject timeCrystal = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/CharacterBodies/TimeCrystalBody"), Main.TokenPrefix + "RiftChest_TempTimeCrystal", false);
-            GameObject beam = timeCrystal.transform.Find("ModelBase").Find("Mesh").Find("Beam").gameObject;
-            beam.transform.SetParent(modelBase);
-            beam.transform.localPosition = Vector3.zero;
-            beam.GetComponent<ParticleSystemRenderer>().material.SetTexture("_RemapTex", Main.AssetBundle.LoadAsset<Texture>("Assets/Items/Rift Lens/texRampRiftChest.png"));
-            component.destroyOnOpen.Add(beam);
-            //point light
-            GameObject pointLight = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/NetworkedObjects/DamageZoneWard").transform.Find("Shrinker").Find("Totem").Find("Point Light").gameObject, "Point Light", false);
-            pointLight.transform.SetParent(modelBase);
-            pointLight.transform.localPosition = Vector3.zero;
-            component.destroyOnOpen.Add(pointLight);
-            //custom vfx
-            GameObject customVFX = Object.Instantiate(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Rift Lens Debuff/RiftLensChestVFX.prefab"), modelBase, false);
-            component.destroyOnOpen.Add(customVFX);
+
+            riftChest.transform.Find("InteractionCollider").gameObject.AddComponent<EntityLocator>().entity = riftChest;
+
+            riftChest.transform.Find("RiftOrigin/Sprite").gameObject.AddComponent<Billboard>();
+
+            ObjectScaleCurve objectScaleCurve = riftChest.transform.Find("RiftOrigin").gameObject.AddComponent<ObjectScaleCurve>();
+            objectScaleCurve.useOverallCurveOnly = true;
+            objectScaleCurve.overallCurve = new AnimationCurve()
+            {
+                keys = new Keyframe[]
+                {
+                    new Keyframe(0f, 1f),
+                    new Keyframe(1f, 0f)
+                }
+            };
+            objectScaleCurve.timeMax = 0.5f;
+            objectScaleCurve.enabled = false;
+
             //post processing
-            GameObject ppHolder = Object.Instantiate(PrefabAPI.InstantiateClone(new GameObject("RiftLensPostProcessing"), "RiftLensPostProcessing", false), modelBase);
+            GameObject ppHolder = Object.Instantiate(PrefabAPI.InstantiateClone(new GameObject("RiftLensPostProcessing"), "RiftLensPostProcessing", false), riftChest.transform);
             ppHolder.layer = LayerIndex.postProcess.intVal;
             PostProcessVolume pp = ppHolder.AddComponent<PostProcessVolume>();
             pp.isGlobal = false;
@@ -183,33 +209,33 @@ namespace MysticsItems.Items
             component.ppDuration = ppDuration;
 
             riftChestSpawnCard = ScriptableObject.CreateInstance<InteractableSpawnCard>();
-            riftChestSpawnCard.name = "isc" + Main.TokenPrefix + "RiftChest";
+            riftChestSpawnCard.name = "iscMysticsItems_UnstableRift";
             riftChestSpawnCard.directorCreditCost = 0;
             riftChestSpawnCard.forbiddenFlags = NodeFlags.NoChestSpawn;
             riftChestSpawnCard.hullSize = HullClassification.Human;
             riftChestSpawnCard.nodeGraphType = MapNodeGroup.GraphType.Ground;
             riftChestSpawnCard.occupyPosition = true;
-            riftChestSpawnCard.orientToFloor = true;
+            riftChestSpawnCard.orientToFloor = false;
             riftChestSpawnCard.sendOverNetwork = true;
             riftChestSpawnCard.prefab = riftChest;
 
             GenericGameEvents.OnPopulateScene += (rng) =>
             {
-                int itemCount = 0;
+                int riftsToSpawn = 0;
                 foreach (CharacterMaster characterMaster in CharacterMaster.readOnlyInstancesList)
                     if (characterMaster.teamIndex == TeamIndex.Player)
                     {
                         int thisItemCount = characterMaster.inventory.GetItemCount(itemDef);
                         if (thisItemCount > 0)
                         {
-                            characterMaster.inventory.RemoveItem(MysticsItemsContent.Items.RiftLensDebuff, characterMaster.inventory.GetItemCount(MysticsItemsContent.Items.RiftLensDebuff));
-                            characterMaster.inventory.GiveItem(MysticsItemsContent.Items.RiftLensDebuff, thisItemCount);
-                            itemCount += thisItemCount;
+                            characterMaster.inventory.RemoveItem(MysticsItemsContent.Items.MysticsItems_RiftLensDebuff, characterMaster.inventory.GetItemCount(MysticsItemsContent.Items.MysticsItems_RiftLensDebuff));
+                            characterMaster.inventory.GiveItem(MysticsItemsContent.Items.MysticsItems_RiftLensDebuff, thisItemCount * riftsPerStack);
+                            riftsToSpawn += baseRifts.Value + riftsPerStack.Value * (thisItemCount - 1);
                         }
                     }
-                if (itemCount > 0)
+                if (riftsToSpawn > 0)
                 {
-                    for (int i = 0; i < itemCount; i++)
+                    for (int i = 0; i < riftsToSpawn; i++)
                     {
                         GameObject riftChest = DirectorCore.instance.TrySpawnObject(new DirectorSpawnRequest(riftChestSpawnCard, new DirectorPlacementRule
                         {
@@ -217,14 +243,339 @@ namespace MysticsItems.Items
                         }, rng));
                     }
                 }
+                MysticsItemsRiftLensBehaviour.RecalculateMaxCountdown();
             };
+
+            On.RoR2.CharacterBody.OnInventoryChanged += (orig, self) =>
+            {
+                orig(self);
+                self.AddItemBehavior<MysticsItemsRiftLensBehaviour>(self.inventory.GetItemCount(itemDef));
+            };
+
+            ObjectivePanelController.collectObjectiveSources += ObjectivePanelController_collectObjectiveSources;
+
+            hudPanelPrefab = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/UI/HudModules/HudCountdownPanel"), "RiftLensHUDPanel");
+            hudPanelPrefab.transform.Find("Juice/Container/CountdownTitleLabel").GetComponent<LanguageTextMeshController>().token = "OBJECTIVE_MYSTICSITEMS_RIFTLENS_FLAVOUR";
+            var col = new Color32(0, 157, 255, 255);
+            hudPanelPrefab.transform.Find("Juice/Container/Border").GetComponent<Image>().color = col;
+            hudPanelPrefab.transform.Find("Juice/Container/CountdownLabel").GetComponent<HGTextMeshProUGUI>().color = col;
+
+            PositionIndicator positionIndicator = riftPositionIndicator.AddComponent<PositionIndicator>();
+            positionIndicator.insideViewObject = riftPositionIndicator.transform.Find("InsideFrame").gameObject;
+            positionIndicator.outsideViewObject = riftPositionIndicator.transform.Find("OutsideFrame").gameObject;
+            positionIndicator.alwaysVisibleObject = riftPositionIndicator.transform.Find("Sprite").gameObject;
+            positionIndicator.shouldRotateOutsideViewObject = true;
+            positionIndicator.outsideViewRotationOffset = 90f;
+
+            GenericGameEvents.OnPlayerCharacterDeath += GenericGameEvents_OnPlayerCharacterDeath;
         }
 
-        public class RiftChest : MonoBehaviour
+        public static string[] riftDeathQuoteTokens = (from i in Enumerable.Range(0, 5) select "PLAYER_DEATH_QUOTE_MYSTICSITEMS_RIFTLENS_" + TextSerialization.ToStringInvariant(i)).ToArray();
+        
+        public void GenericGameEvents_OnPlayerCharacterDeath(DamageReport damageReport, ref string deathQuote)
         {
-            public bool open = true;
-            public List<GameObject> destroyOnOpen = new List<GameObject>();
+            if (damageReport.victimBody)
+            {
+                MysticsItemsRiftLensBehaviour component = damageReport.victimBody.GetComponent<MysticsItemsRiftLensBehaviour>();
+                if (component && component.diedFromTimer)
+                {
+                    deathQuote = riftDeathQuoteTokens[Random.Range(0, riftDeathQuoteTokens.Length)];
+                }
+            }
+        }
+
+        public static void ObjectivePanelController_collectObjectiveSources(CharacterMaster master, List<ObjectivePanelController.ObjectiveSourceDescriptor> objectiveSourcesList)
+        {
+            foreach (MysticsItemsRiftLensBehaviour component in InstanceTracker.GetInstancesList<MysticsItemsRiftLensBehaviour>())
+            {
+                if (component.stack > 0 && component.body && component.riftsLeft > 0 && LocalUserManager.readOnlyLocalUsersList.Any(x => x.cachedBody == component.body))
+                {
+                    objectiveSourcesList.Add(new ObjectivePanelController.ObjectiveSourceDescriptor
+                    {
+                        master = master,
+                        objectiveType = typeof(RiftLensObjectiveTracker),
+                        source = component
+                    });
+                }
+            }
+        }
+
+        public class RiftLensObjectiveTracker : ObjectivePanelController.ObjectiveTracker
+        {
+            public override string GenerateString()
+            {
+                MysticsItemsRiftLensBehaviour component = (MysticsItemsRiftLensBehaviour)sourceDescriptor.source;
+                riftsLeft = component.riftsLeft;
+                return string.Format(Language.GetString("OBJECTIVE_MYSTICSITEMS_RIFTLENS_CLOSE_RIFTS"), riftsLeft, component.riftsTotal);
+            }
+
+            public override bool IsDirty()
+            {
+                return ((MysticsItemsRiftLensBehaviour)sourceDescriptor.source).riftsLeft != riftsLeft;
+            }
+
+            public int riftsLeft = -1;
+        }
+
+        public class MysticsItemsRiftLensBehaviour : CharacterBody.ItemBehavior
+        {
+            public int riftsLeft = 0;
+            public int riftsTotal = 0;
+            public float countdownTimer = 0;
+            public bool diedFromTimer = false;
+
+            public bool nearNodes = false;
+            public float nearNodeCheckTimer = 0;
+            public float nearNodeCheckDuration = 1f;
+
+            public Dictionary<HUD, GameObject> hudPanels = new Dictionary<HUD, GameObject>();
+
+            public bool countdown10Played = false;
+            public uint countdown10ID;
+
+            public void Start()
+            {
+                body.onInventoryChanged += Body_onInventoryChanged;
+                UpdateItemBasedInfo();
+                countdownTimer = maxCountdown;
+                diedFromTimer = false;
+                nearNodes = true;
+            }
+
+            public static float maxCountdown = 150f;
+
+            public static void RecalculateMaxCountdown()
+            {
+                if (!NetworkServer.active) return;
+
+                // calculate the shortest distance between all rifts
+                var distanceBetweenAllRifts = 0f;
+                var rifts = InstanceTracker.GetInstancesList<MysticsItemsRiftChest>();
+                while (rifts.Count > 1) // we don't do "while (rifts.Count > 0)" because we can't measure the distance to the next rift if there's only one left
+                {
+                    var rift = rifts[0];
+                    rifts.RemoveAt(0);
+                    var pos = rift.transform.position;
+                    var dist = Mathf.Infinity;
+
+                    // find the distance to the closest rift
+                    foreach (var rift2 in rifts)
+                    {
+                        var dist2 = Vector3.Distance(pos, rift2.transform.position);
+                        if (dist2 < dist)
+                        {
+                            dist = dist2;
+                        }
+                    }
+
+                    distanceBetweenAllRifts += dist;
+                }
+
+                // calculate the shortest distance to the nearest rift for each player...
+                var distanceToNearestRiftForEachPlayer = new List<float>();
+                foreach (var instance in InstanceTracker.GetInstancesList<MysticsItemsRiftLensBehaviour>())
+                {
+                    var pos = instance.body ? instance.body.corePosition : instance.transform.position;
+                    var dist = Mathf.Infinity;
+
+                    foreach (var rift in InstanceTracker.GetInstancesList<MysticsItemsRiftChest>())
+                    {
+                        var dist2 = Vector3.Distance(pos, rift.transform.position);
+                        if (dist2 < dist)
+                        {
+                            dist = dist2;
+                        }
+                    }
+
+                    distanceToNearestRiftForEachPlayer.Add(dist);
+                }
+
+                // and pick the longest one out of them to compensate for the unluckiest player
+                var distanceToNearestRift = distanceToNearestRiftForEachPlayer.Count > 0 ? distanceToNearestRiftForEachPlayer.Max() : 1f;
+
+                var totalDistance = distanceToNearestRift + distanceBetweenAllRifts;
+                var averageWalkSpeed = 7f * 1.45f;
+                // players can't always go through the shortest path due to terrain and gravity, so we'll add bonus time
+                var timeBonusMultiplier = 1.66f;
+                var timeBonusFlat = 20f;
+                var calculatedCountdownTime = (totalDistance / averageWalkSpeed) * timeBonusMultiplier + timeBonusFlat;
+
+                maxCountdown = calculatedCountdownTime;
+                new SyncMaxCountdown(calculatedCountdownTime).Send(NetworkDestination.Clients);
+                foreach (var instance in InstanceTracker.GetInstancesList<MysticsItemsRiftLensBehaviour>())
+                {
+                    instance.countdownTimer = maxCountdown;
+                }
+            }
+
+            public class SyncMaxCountdown : INetMessage
+            {
+                float maxCountdown;
+
+                public SyncMaxCountdown()
+                {
+                }
+
+                public SyncMaxCountdown(float maxCountdown)
+                {
+                    this.maxCountdown = maxCountdown;
+                }
+
+                public void Deserialize(NetworkReader reader)
+                {
+                    maxCountdown = reader.ReadSingle();
+                }
+
+                public void OnReceived()
+                {
+                    var difference = maxCountdown - MysticsItemsRiftLensBehaviour.maxCountdown;
+                    MysticsItemsRiftLensBehaviour.maxCountdown = maxCountdown;
+                    foreach (var instance in InstanceTracker.GetInstancesList<MysticsItemsRiftLensBehaviour>())
+                    {
+                        instance.countdownTimer += difference;
+                    }
+                }
+
+                public void Serialize(NetworkWriter writer)
+                {
+                    writer.Write(maxCountdown);
+                }
+            }
+
+            public void Update()
+            {
+                if (!nearNodes)
+                {
+                    nearNodeCheckTimer -= Time.deltaTime;
+                    if (nearNodeCheckTimer <= 0)
+                    {
+                        nearNodeCheckTimer = nearNodeCheckDuration;
+                        if (SceneInfo.instance.GetNodeGraph(MapNodeGroup.GraphType.Ground).FindNodesInRangeWithFlagConditions(body.corePosition, 0f, 20f, HullMask.Human, NodeFlags.None, NodeFlags.NoCharacterSpawn, true).Count > 0)
+                        {
+                            nearNodes = true;
+                        }
+                    }
+                }
+                else {
+                    if (riftsLeft > 0)
+                    {
+                        countdownTimer -= Time.deltaTime;
+
+                        if (!diedFromTimer)
+                        {
+                            foreach (HUD hud in HUD.readOnlyInstanceList)
+                            {
+                                SetHudCountdownEnabled(hud, hud.targetBodyObject == body.gameObject);
+                            }
+                            SetCountdownTime(countdownTimer);
+                        }
+                        else
+                        {
+                            foreach (HUD hud in HUD.readOnlyInstanceList)
+                            {
+                                SetHudCountdownEnabled(hud, false);
+                            }
+                        }
+
+                        if (countdownTimer <= 10f && !countdown10Played)
+                        {
+                            countdown10Played = true;
+                            countdown10ID = Util.PlaySound("MysticsItems_Play_riftLens_countdown_10", body.gameObject);
+                        }
+
+                        if (countdownTimer <= 0 && !diedFromTimer)
+                        {
+                            diedFromTimer = true;
+                            if (NetworkServer.active) body.healthComponent.Suicide();
+                        }
+                    }
+                    else
+                    {
+                        foreach (HUD hud in HUD.readOnlyInstanceList)
+                        {
+                            SetHudCountdownEnabled(hud, false);
+                        }
+                        if (countdown10Played)
+                        {
+                            countdown10Played = false;
+                            AkSoundEngine.StopPlayingID(countdown10ID);
+                        }
+                    }
+                }
+            }
+
+            public void OnDestroy()
+            {
+                if (body) body.onInventoryChanged -= Body_onInventoryChanged;
+                AkSoundEngine.StopPlayingID(countdown10ID);
+            }
+
+            public void Body_onInventoryChanged()
+            {
+                UpdateItemBasedInfo();
+            }
+
+            public void UpdateItemBasedInfo()
+            {
+                if (!body) return;
+                riftsLeft = body.inventory.GetItemCount(MysticsItemsContent.Items.MysticsItems_RiftLensDebuff);
+                riftsTotal = Mathf.Max(baseRifts + riftsPerStack * (stack - 1), riftsTotal); // the Max call is here to avoid riftsTotal becoming less than riftsLeft in case the player removes a lens before opening all chests
+            }
+
+            public void SetHudCountdownEnabled(HUD hud, bool shouldEnableCountdownPanel)
+            {
+                hudPanels.TryGetValue(hud, out GameObject hudPanel);
+                if (hudPanel != shouldEnableCountdownPanel)
+                {
+                    if (shouldEnableCountdownPanel)
+                    {
+                        RectTransform rectTransform = hud.GetComponent<ChildLocator>().FindChild("TopCenterCluster") as RectTransform;
+                        if (rectTransform)
+                        {
+                            GameObject value = Object.Instantiate<GameObject>(hudPanelPrefab, rectTransform);
+                            hudPanels[hud] = value;
+                        }
+                    }
+                    else
+                    {
+                        Object.Destroy(hudPanel);
+                        hudPanels.Remove(hud);
+                    }
+                }
+            }
+
+            public void SetCountdownTime(double secondsRemaining)
+            {
+                foreach (KeyValuePair<HUD, GameObject> keyValuePair in hudPanels)
+                {
+                    keyValuePair.Value.GetComponent<TimerText>().seconds = secondsRemaining;
+                }
+            }
+
+            public void OnEnable()
+            {
+                InstanceTracker.Add(this);
+            }
+
+            public void OnDisable()
+            {
+                InstanceTracker.Remove(this);
+                foreach (HUD hud in HUD.readOnlyInstanceList)
+                {
+                    SetHudCountdownEnabled(hud, false);
+                }
+            }
+        }
+
+        public class MysticsItemsRiftChest : MonoBehaviour
+        {
             public PostProcessDuration ppDuration;
+            public PositionIndicator positionIndicator;
+
+            public void Awake()
+            {
+                if (NetworkServer.active) GetComponent<ChestBehavior>().RollItem();
+            }
 
             public void Start()
             {
@@ -233,20 +584,28 @@ namespace MysticsItems.Items
                 purchaseInteraction.onPurchase.AddListener((interactor) =>
                 {
                     purchaseInteraction.SetAvailable(false);
-                    GetComponent<ChestBehavior>().Open();
-                    open = false;
-                    unopenedCount--;
+                    GetComponent<ChestBehavior>().ItemDrop();
                     DestroyThingsOnOpen();
                 });
+
+                positionIndicator = Object.Instantiate<GameObject>(riftPositionIndicator, transform.position, Quaternion.identity).GetComponent<PositionIndicator>();
+                positionIndicator.targetTransform = transform;
             }
 
             public void DestroyThingsOnOpen()
             {
+                SfxLocator sfxLocator = GetComponent<SfxLocator>();
+                if (sfxLocator) Util.PlaySound(sfxLocator.openSound, gameObject);
+
                 if (ppDuration) ppDuration.enabled = true;
-                foreach (GameObject gameObject in destroyOnOpen)
+                if (positionIndicator) positionIndicator.gameObject.SetActive(false);
+
+                ObjectScaleCurve objectScaleCurve = GetComponentInChildren<ObjectScaleCurve>();
+                if (objectScaleCurve)
                 {
-                    Object.Destroy(gameObject);
+                    objectScaleCurve.enabled = true;
                 }
+
                 if (NetworkServer.active)
                 {
                     new SyncDestroyThingsOnOpen(gameObject.GetComponent<NetworkIdentity>().netId).Send(NetworkDestination.Clients);
@@ -277,7 +636,7 @@ namespace MysticsItems.Items
                     GameObject obj = Util.FindNetworkObject(objID);
                     if (obj)
                     {
-                        RiftChest component = obj.GetComponent<RiftChest>();
+                        MysticsItemsRiftChest component = obj.GetComponent<MysticsItemsRiftChest>();
                         if (component)
                         {
                             component.DestroyThingsOnOpen();
@@ -293,15 +652,13 @@ namespace MysticsItems.Items
 
             public void OnEnable()
             {
-                if (open) unopenedCount++;
+                InstanceTracker.Add<MysticsItemsRiftChest>(this);
             }
 
             public void OnDisable()
             {
-                if (open) unopenedCount--;
+                InstanceTracker.Remove<MysticsItemsRiftChest>(this);
             }
-
-            public static int unopenedCount = 0;
         }
     }
 }

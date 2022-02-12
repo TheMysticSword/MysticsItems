@@ -1,4 +1,6 @@
+using MysticsRisky2Utils.BaseAssetTypes;
 using RoR2;
+using UnityEngine;
 
 namespace MysticsItems.Achievements
 {
@@ -6,8 +8,9 @@ namespace MysticsItems.Achievements
     {
         public override void OnLoad()
         {
-            name = "RepairBrokenSpotter";
-            unlockableName = Main.TokenPrefix + "Items.Spotter";
+            name = "MysticsItems_RepairBrokenSpotter";
+            unlockableName = "Items.MysticsItems_Spotter";
+			iconSprite = MysticsRisky2Utils.Utils.AddItemIconBackgroundToSprite(Main.AssetBundle.LoadAsset<Sprite>("Assets/Items/Spotter/Icon.png"), MysticsRisky2Utils.Utils.ItemIconBackgroundType.Tier2);
 			trackerType = typeof(Tracker);
 			serverTrackerType = typeof(Tracker.Server);
         }

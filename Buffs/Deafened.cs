@@ -4,95 +4,69 @@ using UnityEngine;
 using Mono.Cecil.Cil;
 using MonoMod.Cil;
 using Rewired.ComponentControls.Effects;
+using MysticsRisky2Utils;
+using MysticsRisky2Utils.BaseAssetTypes;
+using static MysticsItems.BalanceConfigManager;
+using System.Collections.Generic;
 
 namespace MysticsItems.Buffs
 {
     public class Deafened : BaseBuff
     {
-        public static float multiplier = 1.5f;
-        
+        public static ConfigurableValue<float> moveSpeedReduction = new ConfigurableValue<float>(
+            "Equipment: Vintage Microphone",
+            "MoveSpeedReduction",
+            50f,
+            "Movement speed reduction to Deafened enemies (in %)",
+            new List<string>()
+            {
+                "EQUIPMENT_MYSTICSITEMS_MICROPHONE_DESC"
+            }
+        );
+        public static ConfigurableValue<float> armorReduction = new ConfigurableValue<float>(
+            "Equipment: Vintage Microphone",
+            "ArmorReduction",
+            20f,
+            "Armor reduction to Deafened enemies",
+            new List<string>()
+            {
+                "EQUIPMENT_MYSTICSITEMS_MICROPHONE_DESC"
+            }
+        );
+        public static ConfigurableValue<float> attackSpeedReduction = new ConfigurableValue<float>(
+            "Equipment: Vintage Microphone",
+            "AttackSpeedReduction",
+            50f,
+            "Attack speed reduction to Deafened enemies (in %)",
+            new List<string>()
+            {
+                "EQUIPMENT_MYSTICSITEMS_MICROPHONE_DESC"
+            }
+        );
+        public static ConfigurableValue<float> damageReduction = new ConfigurableValue<float>(
+            "Equipment: Vintage Microphone",
+            "DamageReduction",
+            30f,
+            "Damage reduction to Deafened enemies (in %)",
+            new List<string>()
+            {
+                "EQUIPMENT_MYSTICSITEMS_MICROPHONE_DESC"
+            }
+        );
+
         public override void OnLoad() {
-            buffDef.name = "Deafened";
+            buffDef.name = "MysticsItems_Deafened";
             buffDef.buffColor = new Color32(255, 195, 112, 255);
             buffDef.isDebuff = true;
+            buffDef.iconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Buffs/Deafened.png");
 
             Equipment.Microphone.buffDef = buffDef;
-            AddMoveSpeedModifier(-0.5f);
-            AddArmorModifier(-20f);
 
-            IL.RoR2.CharacterBody.RecalculateStats += (il) =>
-            {
-                ILCursor c = new ILCursor(il);
-
-                // force skill value recalculation
-                c.Emit(OpCodes.Ldarg_0);
-                c.EmitDelegate<System.Action<CharacterBody>>((characterBody) =>
-                {
-                    if (characterBody.HasBuff(buffDef))
-                    {
-                        if (characterBody.skillLocator.primary) characterBody.skillLocator.primary.RecalculateValues();
-                        if (characterBody.skillLocator.secondary) characterBody.skillLocator.secondary.RecalculateValues();
-                        if (characterBody.skillLocator.utility) characterBody.skillLocator.utility.RecalculateValues();
-                        if (characterBody.skillLocator.special) characterBody.skillLocator.special.RecalculateValues();
-                    }
-                });
-            };
-            // cooldown increase (can't do this in RecalculateStats because this function makes it so the modified cooldown can't be higher than the base cooldown)
-            On.RoR2.GenericSkill.CalculateFinalRechargeInterval += (orig, self) =>
-            {
-                return orig(self) * (self.characterBody.HasBuff(buffDef) ? multiplier : 1f);
-            };
-
-            // when the debuff is first received, add a few seconds to current skill cooldowns
-            On.RoR2.CharacterBody.OnBuffFirstStackGained += (orig, self, buffDef) =>
-            {
-                if (buffDef == this.buffDef)
-                {
-                    GenericSkill[] skills =
-                    {
-                        self.skillLocator.primary,
-                        self.skillLocator.secondary,
-                        self.skillLocator.utility,
-                        self.skillLocator.special
-                    };
-                    foreach (GenericSkill skill in skills)
-                    {
-                        if (skill)
-                        {
-                            if (skill.stock > 0) skill.DeductStock(1);
-                            skill.rechargeStopwatch = Mathf.Min(skill.CalculateFinalRechargeInterval() / multiplier, skill.rechargeStopwatch);
-                        }
-                    }
-                }
-                orig(self, buffDef);
-            };
-
-            // force cd recalculation when final debuff stack lost
-            On.RoR2.CharacterBody.OnBuffFinalStackLost += (orig, self, buffDef) =>
-            {
-                orig(self, buffDef);
-                if (buffDef == this.buffDef)
-                {
-                    GenericSkill[] skills =
-                    {
-                        self.skillLocator.primary,
-                        self.skillLocator.secondary,
-                        self.skillLocator.utility,
-                        self.skillLocator.special
-                    };
-                    foreach (GenericSkill skill in skills)
-                    {
-                        if (skill)
-                        {
-                            skill.RecalculateValues();
-                        }
-                    }
-                }
-            };
-
+            R2API.RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
+            
             GameObject debuffedVFX = Main.AssetBundle.LoadAsset<GameObject>("Assets/Equipment/Microphone/DeafenedVFX.prefab");
             GameObject vfxOrigin = debuffedVFX.transform.Find("Origin").gameObject;
-            CustomTempVFXManagement.MysticsItemsCustomTempVFX tempVFX = debuffedVFX.AddComponent<CustomTempVFXManagement.MysticsItemsCustomTempVFX>();
+            CustomTempVFXManagement.MysticsRisky2UtilsTempVFX tempVFX = debuffedVFX.AddComponent<CustomTempVFXManagement.MysticsRisky2UtilsTempVFX>();
             RotateAroundAxis rotateAroundAxis = vfxOrigin.transform.Find("Ring").gameObject.AddComponent<RotateAroundAxis>();
             rotateAroundAxis.relativeTo = Space.Self;
             rotateAroundAxis.rotateAroundAxis = RotateAroundAxis.RotationAxis.X;
@@ -141,6 +115,17 @@ namespace MysticsItems.Buffs
                 condition = (x) => x.HasBuff(buffDef),
                 radius = CustomTempVFXManagement.DefaultRadiusCall
             });
+        }
+
+        private void RecalculateStatsAPI_GetStatCoefficients(CharacterBody sender, R2API.RecalculateStatsAPI.StatHookEventArgs args)
+        {
+            if (sender.HasBuff(buffDef))
+            {
+                args.moveSpeedReductionMultAdd += moveSpeedReduction.Value / 100f;
+                args.armorAdd -= armorReduction.Value;
+                args.attackSpeedMultAdd -= attackSpeedReduction.Value / 100f;
+                args.damageMultAdd -= damageReduction.Value / 100f;
+            }
         }
     }
 }

@@ -7,6 +7,9 @@ using MonoMod.Cil;
 using System.Collections.Generic;
 using System.Linq;
 using R2API;
+using MysticsRisky2Utils;
+using MysticsRisky2Utils.BaseAssetTypes;
+using static MysticsItems.BalanceConfigManager;
 
 namespace MysticsItems.Items
 {
@@ -14,9 +17,41 @@ namespace MysticsItems.Items
     {
         public static GameObject delayedHealOrbSpawner;
 
-        public override void PreLoad()
+        public static ConfigurableValue<float> flatHealing = new ConfigurableValue<float>(
+            "Item: Donut",
+            "FlatHealing",
+            8f,
+            "How much flat HP the healing orbs regenerate",
+            new System.Collections.Generic.List<string>()
+            {
+                "ITEM_MYSTICSITEMS_HEALORBONBARREL_DESC"
+            }
+        );
+        public static ConfigurableValue<float> fractionalHealing = new ConfigurableValue<float>(
+            "Item: Donut",
+            "FractionalHealing",
+            10f,
+            "How much HP the healing orbs regenerate (in %)",
+            new System.Collections.Generic.List<string>()
+            {
+                "ITEM_MYSTICSITEMS_HEALORBONBARREL_DESC"
+            }
+        );
+        public static ConfigurableValue<float> fractionalHealingPerStack = new ConfigurableValue<float>(
+            "Item: Donut",
+            "FractionalHealingPerStack",
+            10f,
+            "How much HP the healing orbs regenerate (in %)",
+            new System.Collections.Generic.List<string>()
+            {
+                "ITEM_MYSTICSITEMS_HEALORBONBARREL_DESC"
+            }
+        );
+
+        public override void OnLoad()
         {
-            itemDef.name = "HealOrbOnBarrel";
+            base.OnLoad();
+            itemDef.name = "MysticsItems_HealOrbOnBarrel";
             itemDef.tier = ItemTier.Tier1;
             itemDef.tags = new ItemTag[]
             {
@@ -24,13 +59,9 @@ namespace MysticsItems.Items
                 ItemTag.Utility,
                 ItemTag.AIBlacklist
             };
-        }
-
-        public override void OnLoad()
-        {
-            base.OnLoad();
-            SetAssets("Donut");
-            foreach (Transform childTransform in model.transform.Find("Torus.001"))
+            itemDef.pickupModelPrefab = PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Donut/Model.prefab"));
+            itemDef.pickupIconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Items/Donut/Icon.png");
+            foreach (Transform childTransform in itemDef.pickupModelPrefab.transform.Find("Torus.001"))
             {
                 GameObject child = childTransform.gameObject;
                 Renderer renderer = child.GetComponentInChildren<Renderer>();
@@ -38,7 +69,7 @@ namespace MysticsItems.Items
                 h += Random.value;
                 renderer.material.color = Color.HSVToRGB(h % 1, s, v);
             }
-            CopyModelToFollower();
+            itemDisplayPrefab = PrepareItemDisplayModel(PrefabAPI.InstantiateClone(itemDef.pickupModelPrefab, itemDef.pickupModelPrefab.name + "Display", false));
             onSetupIDRS += () =>
             {
                 AddDisplayRule("CommandoBody", "Head", new Vector3(0f, 0.35f, 0f), new Vector3(0f, 180f, 0f), new Vector3(0.15f, 0.15f, 0.15f));
@@ -93,7 +124,7 @@ namespace MysticsItems.Items
                 }
             };
 
-            delayedHealOrbSpawner = PrefabAPI.InstantiateClone(new GameObject(), Main.TokenPrefix + "DelayedHealOrbSpawner");
+            delayedHealOrbSpawner = PrefabAPI.InstantiateClone(new GameObject(), "MysticsItems_DelayedHealOrbSpawner");
             MysticsItemsHealOrbOnBarrelSpawner delayedSpawnerComponent = delayedHealOrbSpawner.AddComponent<MysticsItemsHealOrbOnBarrelSpawner>();
         }
 
@@ -107,7 +138,7 @@ namespace MysticsItems.Items
                     Inventory inventory = characterBody.inventory;
                     if (inventory)
                     {
-                        int itemCount = inventory.GetItemCount(MysticsItemsContent.Items.HealOrbOnBarrel);
+                        int itemCount = inventory.GetItemCount(MysticsItemsContent.Items.MysticsItems_HealOrbOnBarrel);
                         if (itemCount > 0)
                         {
                             GameObject spawner = Object.Instantiate(delayedHealOrbSpawner, interactableObject.transform.position, interactableObject.transform.rotation);
@@ -133,8 +164,8 @@ namespace MysticsItems.Items
             {
                 var orb = Object.Instantiate<GameObject>(Resources.Load<GameObject>("Prefabs/NetworkedObjects/HealPack"), position, rotation);
                 orb.GetComponent<TeamFilter>().teamIndex = teamIndex;
-                orb.GetComponentInChildren<HealthPickup>().flatHealing = 8;
-                orb.GetComponentInChildren<HealthPickup>().fractionalHealing = 0.1f + 0.1f * (itemCount - 1);
+                orb.GetComponentInChildren<HealthPickup>().flatHealing = flatHealing;
+                orb.GetComponentInChildren<HealthPickup>().fractionalHealing = fractionalHealing / 100f + fractionalHealingPerStack / 100f * (float)(itemCount - 1);
                 var ror1style = orb.GetComponentInChildren<GravitatePickup>().gameObject.AddComponent<GravitatePickupRoR1Style>();
                 ror1style.targetPosition = position + rotation * Vector3.up * 4f;
                 orb.GetComponent<Rigidbody>().useGravity = false;

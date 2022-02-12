@@ -14,6 +14,9 @@ using MonoMod.Cil;
 using System.Collections.Generic;
 using TMPro;
 using System.Collections.ObjectModel;
+using MysticsRisky2Utils;
+using MysticsRisky2Utils.BaseAssetTypes;
+using static MysticsItems.BalanceConfigManager;
 
 namespace MysticsItems.Items
 {
@@ -22,50 +25,76 @@ namespace MysticsItems.Items
         public static BuffDef buffDef;
         public static GameObject enemyFollowerPrefab;
         public static GameObject highlightPrefab;
-        public static float interval = 30f;
-        public static float duration = 10f;
         public static GameObject unlockInteractablePrefab;
         public static NetworkSoundEventDef repairSoundEventDef;
 
+        public static ConfigurableValue<float> interval = new ConfigurableValue<float>(
+            "Item: Faulty Spotter",
+            "Interval",
+            30f,
+            "Time between each enemy scan (in seconds)",
+            new System.Collections.Generic.List<string>()
+            {
+                "ITEM_MYSTICSITEMS_SPOTTER_DESC"
+            }
+        );
+        public static ConfigurableValue<float> noEnemiesRetryTime = new ConfigurableValue<float>(
+            "Item: Faulty Spotter",
+            "NoEnemiesRetryTime",
+            3f,
+            "Time until next enemy scan if no enemies were found (in seconds)"
+        );
+        public static ConfigurableValue<float> duration = new ConfigurableValue<float>(
+            "Item: Faulty Spotter",
+            "Duration",
+            10f,
+            "Debuff duration (in seconds)",
+            new System.Collections.Generic.List<string>()
+            {
+                "ITEM_MYSTICSITEMS_SPOTTER_DESC"
+            }
+        );
+
         public override void OnPluginAwake()
         {
-            enemyFollowerPrefab = CustomUtils.CreateBlankPrefab(Main.TokenPrefix + "SpotterController", true);
+            enemyFollowerPrefab = MysticsRisky2Utils.Utils.CreateBlankPrefab("MysticsItems_SpotterController", true);
             enemyFollowerPrefab.AddComponent<CharacterNetworkTransform>();
-            unlockInteractablePrefab = CustomUtils.CreateBlankPrefab(Main.TokenPrefix + "SpotterUnlockInteractable", true);
+            unlockInteractablePrefab = MysticsRisky2Utils.Utils.CreateBlankPrefab("MysticsItems_SpotterUnlockInteractable", true);
 
             NetworkingAPI.RegisterMessageType<MysticsItemsSpotterController.SyncClearTarget>();
             NetworkingAPI.RegisterMessageType<MysticsItemsSpotterController.SyncSetTarget>();
         }
 
-        public override void PreLoad()
+        public override void OnLoad()
         {
-            itemDef.name = "Spotter";
+            base.OnLoad();
+            itemDef.name = "MysticsItems_Spotter";
             itemDef.tier = ItemTier.Tier2;
             itemDef.tags = new ItemTag[]
             {
                 ItemTag.Damage
             };
-            SetUnlockable();
-        }
+            MysticsItemsContent.Resources.unlockableDefs.Add(GetUnlockableDef());
+            itemDef.pickupModelPrefab = PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Spotter/Model.prefab"));
+            itemDef.pickupIconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Items/Spotter/Icon.png");
+            Material mat = itemDef.pickupModelPrefab.transform.Find("mdlSpotterBroken").gameObject.GetComponent<MeshRenderer>().sharedMaterial;
+            HopooShaderToMaterial.Standard.Apply(mat);
+            HopooShaderToMaterial.Standard.Gloss(mat, 0.2f, 1f);
+            HopooShaderToMaterial.Standard.Emission(mat, 1f);
+            itemDisplayPrefab = PrepareItemDisplayModel(PrefabAPI.InstantiateClone(itemDef.pickupModelPrefab, itemDef.pickupModelPrefab.name + "Display", false));
+            MysticsRisky2Utils.Utils.CopyChildren(itemDef.pickupModelPrefab, unlockInteractablePrefab);
 
-        public override void OnLoad()
-        {
-            base.OnLoad();
-            SetAssets("Spotter");
-            Material mat = model.transform.Find("mdlSpotterBroken").gameObject.GetComponent<MeshRenderer>().sharedMaterial;
-            Main.HopooShaderToMaterial.Standard.Apply(mat);
-            Main.HopooShaderToMaterial.Standard.Gloss(mat, 0.2f, 1f);
-            Main.HopooShaderToMaterial.Standard.Emission(mat, 1f);
-            CopyModelToFollower();
-            CustomUtils.CopyChildren(model, unlockInteractablePrefab);
-            
-            followerModel.transform.localScale = Vector3.one * 0.2f;
-            followerModel.transform.localRotation = Quaternion.Euler(new Vector3(0f, -90f, 0f));
+            ModelPanelParameters modelPanelParameters = itemDef.pickupModelPrefab.GetComponent<ModelPanelParameters>();
+            modelPanelParameters.minDistance = 6f;
+            modelPanelParameters.maxDistance = 12f;
+
+            itemDisplayPrefab.transform.localScale = Vector3.one * 0.2f;
+            itemDisplayPrefab.transform.localRotation = Quaternion.Euler(new Vector3(0f, -90f, 0f));
             Rigidbody rigidbody = enemyFollowerPrefab.AddComponent<Rigidbody>();
             rigidbody.useGravity = false;
             enemyFollowerPrefab.AddComponent<GenericOwnership>();
             MysticsItemsSpotterController component = enemyFollowerPrefab.AddComponent<MysticsItemsSpotterController>();
-            component.follower = PrefabAPI.InstantiateClone(followerModel, "SpotterFollower", false);
+            component.follower = PrefabAPI.InstantiateClone(itemDisplayPrefab, "SpotterFollower", false);
             component.follower.transform.SetParent(enemyFollowerPrefab.transform);
             SimpleLeash leash = component.leash = enemyFollowerPrefab.AddComponent<SimpleLeash>();
             leash.minLeashRadius = 0f;
@@ -75,7 +104,7 @@ namespace MysticsItems.Items
             rotateToDirection.maxRotationSpeed = 720f;
             rotateToDirection.smoothTime = 0.1f;
 
-            unlockInteractablePrefab.transform.localScale *= 0.25f;
+            unlockInteractablePrefab.transform.localScale *= 0.4f;
             unlockInteractablePrefab.AddComponent<MysticsItemsSpotterUnlockInteraction>();
 
             GameObject sparks = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/NetworkedObjects/RadarTower").transform.Find("mdlRadar").Find("Sparks").gameObject, "Sparks", false);
@@ -89,8 +118,8 @@ namespace MysticsItems.Items
             highlight.highlightColor = Highlight.HighlightColor.interactive;
 
             PurchaseInteraction purchaseInteraction = unlockInteractablePrefab.AddComponent<PurchaseInteraction>();
-            purchaseInteraction.displayNameToken = Main.TokenPrefix.ToUpper() + "BROKENSPOTTER_NAME";
-            purchaseInteraction.contextToken = Main.TokenPrefix.ToUpper() + "BROKENSPOTTER_CONTEXT";
+            purchaseInteraction.displayNameToken = "MYSTICSITEMS_BROKENSPOTTER_NAME";
+            purchaseInteraction.contextToken = "MYSTICSITEMS_BROKENSPOTTER_CONTEXT";
             purchaseInteraction.costType = CostTypeIndex.VolatileBattery;
             purchaseInteraction.available = true;
             purchaseInteraction.cost = 1;
@@ -110,7 +139,7 @@ namespace MysticsItems.Items
                 orig(self);
                 if (SceneCatalog.GetSceneDefForCurrentScene().baseSceneName == "rootjungle")
                 {
-                    GameObject obj = Object.Instantiate(unlockInteractablePrefab, new Vector3(-95.4724f, -45.03653f, -48.84156f), Quaternion.Euler(new Vector3(29f, 25f, 348f)));
+                    GameObject obj = Object.Instantiate(unlockInteractablePrefab, new Vector3(-139.576f, -0.824233f - 1f, 35.42688f), Quaternion.Euler(new Vector3(-29f, 25f, 348f)));
                     NetworkServer.Spawn(obj);
                 }
             };
@@ -120,7 +149,7 @@ namespace MysticsItems.Items
                 orig(self);
                 self.onInventoryChanged += delegate ()
                 {
-                    if (NetworkServer.active) self.AddItemBehavior<MysticsItemsSpotterBehaviour>(self.inventory.GetItemCount(MysticsItemsContent.Items.Spotter));
+                    if (NetworkServer.active) self.AddItemBehavior<MysticsItemsSpotterBehaviour>(self.inventory.GetItemCount(MysticsItemsContent.Items.MysticsItems_Spotter));
                 };
             };
 
@@ -130,11 +159,12 @@ namespace MysticsItems.Items
 
             highlightPrefab = Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Spotter/SpotterTargetHighlight.prefab");
             MysticsItemsSpotterHighlight highlightComponent = highlightPrefab.AddComponent<MysticsItemsSpotterHighlight>();
-            highlightComponent.displayParent = highlightPrefab.transform.Find("Pivot").gameObject;
+            highlightComponent.insideViewObject = highlightPrefab.transform.Find("Pivot").gameObject;
+            highlightComponent.outsideViewObject = highlightPrefab.transform.Find("PivotOutsideView").gameObject;
             highlightComponent.textTargetName = highlightPrefab.transform.Find("Pivot/Rectangle/Enemy Name").gameObject.GetComponent<TextMeshProUGUI>();
-            highlightComponent.textTargetName.gameObject.AddComponent<TextMeshUseLanguageDefaultFont>();
+            highlightComponent.textTargetName.gameObject.AddComponent<MysticsRisky2Utils.MonoBehaviours.MysticsRisky2UtilsTextMeshUseLanguageDefaultFont>();
             highlightComponent.textTargetHP = highlightPrefab.transform.Find("Pivot/Rectangle/Health").gameObject.GetComponent<TextMeshProUGUI>();
-            highlightComponent.textTargetHP.gameObject.AddComponent<TextMeshUseLanguageDefaultFont>();
+            highlightComponent.textTargetHP.gameObject.AddComponent<MysticsRisky2Utils.MonoBehaviours.MysticsRisky2UtilsTextMeshUseLanguageDefaultFont>();
 
             RoR2Application.onLateUpdate += MysticsItemsSpotterHighlight.UpdateAll;
         }
@@ -154,18 +184,17 @@ namespace MysticsItems.Items
                         Inventory inventory = body.inventory;
                         if (inventory)
                         {
-                            inventory.GiveItem(MysticsItemsContent.Items.Spotter);
+                            inventory.GiveItem(MysticsItemsContent.Items.MysticsItems_Spotter);
                             GenericPickupController.PickupMessage msg = new GenericPickupController.PickupMessage
                             {
                                 masterGameObject = body.master.gameObject,
-                                pickupIndex = PickupCatalog.FindPickupIndex(MysticsItemsContent.Items.Spotter.itemIndex),
+                                pickupIndex = PickupCatalog.FindPickupIndex(MysticsItemsContent.Items.MysticsItems_Spotter.itemIndex),
                                 pickupQuantity = 1u
                             };
                             NetworkServer.SendByChannelToAll(57, msg, QosChannelIndex.chat.intVal);
                         }
                     }
                     PointSoundManager.EmitSoundServer(repairSoundEventDef.index, transform.position);
-                    Object.Destroy(this.gameObject);
                 });
             }
 
@@ -335,7 +364,7 @@ namespace MysticsItems.Items
                             {
                                 Renderer renderer = rendererInfo.renderer;
                                 renderer.GetPropertyBlock(materialPropertyBlock);
-                                materialPropertyBlock.SetFloat("_Fade", target ? 1f : 1f / body.inventory.GetItemCount(MysticsItemsContent.Items.Spotter));
+                                materialPropertyBlock.SetFloat("_Fade", target ? 1f : 1f / body.inventory.GetItemCount(MysticsItemsContent.Items.MysticsItems_Spotter));
                                 renderer.SetPropertyBlock(materialPropertyBlock);
                             }
                         }
@@ -349,7 +378,7 @@ namespace MysticsItems.Items
                 {
                     if (target && target.HasBuff(buffDef))
                     {
-                        target.RemoveBuff(buffDef);
+                        target.ClearTimedBuffs(buffDef);
                     }
                     new SyncClearTarget(gameObject.GetComponent<NetworkIdentity>().netId).Send(NetworkDestination.Clients);
                 }
@@ -383,7 +412,7 @@ namespace MysticsItems.Items
             public List<MysticsItemsSpotterController> enemyFollowers = new List<MysticsItemsSpotterController>();
             public float cooldown = 0f;
             public float cooldownMax = interval;
-            public float cooldownIfNoEnemiesFound = 3f;
+            public float cooldownIfNoEnemiesFound = noEnemiesRetryTime;
             public BullseyeSearch bullseyeSearch = new BullseyeSearch();
 
             public void Start()
@@ -405,6 +434,7 @@ namespace MysticsItems.Items
                     while (enemyFollowers.Count > stack)
                     {
                         MysticsItemsSpotterController enemyFollower = enemyFollowers.Last();
+                        NetworkServer.UnSpawn(enemyFollower.gameObject);
                         Object.Destroy(enemyFollower.gameObject);
                         enemyFollowers.Remove(enemyFollower);
                     }
@@ -418,8 +448,6 @@ namespace MysticsItems.Items
                     {
                         bullseyeSearch.teamMaskFilter = TeamMask.allButNeutral;
                         bullseyeSearch.teamMaskFilter.RemoveTeam(body.teamComponent.teamIndex);
-                        bullseyeSearch.sortMode = BullseyeSearch.SortMode.Angle;
-                        bullseyeSearch.filterByLoS = true;
                         Ray ray = CameraRigController.ModifyAimRayIfApplicable(new Ray
                         {
                             origin = body.inputBank.aimOrigin,
@@ -427,9 +455,8 @@ namespace MysticsItems.Items
                         }, body.gameObject, out _);
                         bullseyeSearch.searchOrigin = ray.origin;
                         bullseyeSearch.searchDirection = ray.direction;
-                        bullseyeSearch.maxAngleFilter = 60f;
                         bullseyeSearch.viewer = body;
-                        bullseyeSearch.maxDistanceFilter = 1000f;
+                        bullseyeSearch.maxDistanceFilter = 200f;
                         bullseyeSearch.RefreshCandidates();
                         bullseyeSearch.FilterOutGameObject(body.gameObject);
                         List<HurtBox> enemies = bullseyeSearch.GetResults().ToList();
@@ -481,6 +508,7 @@ namespace MysticsItems.Items
                     if (enemyFollowers[i])
                     {
                         enemyFollowers[i].ClearTarget();
+                        if (NetworkServer.active) NetworkServer.UnSpawn(enemyFollowers[i].gameObject);
                         Object.Destroy(enemyFollowers[i].gameObject);
                     }
                 }
@@ -501,7 +529,8 @@ namespace MysticsItems.Items
             public float timeWriteMax = 0.5f;
             public float[] scans;
             public int scanPosition = 0;
-            public GameObject displayParent;
+            public GameObject insideViewObject;
+            public GameObject outsideViewObject;
 
             public static List<MysticsItemsSpotterHighlight> Create(CharacterBody targetBody, TeamIndex teamIndex)
             {
@@ -551,11 +580,28 @@ namespace MysticsItems.Items
                     Object.Destroy(gameObject);
                     return;
                 }
-                if (displayParent)
+                Vector3 screenPoint = sceneCam.WorldToScreenPoint(targetBody.corePosition);
+                bool targetBehindCamera = screenPoint.z <= 0f;
+                bool targetInsideView = !targetBehindCamera && sceneCam.pixelRect.Contains(new Vector2(screenPoint.x, screenPoint.y));
+                if (insideViewObject)
                 {
-                    Vector3 screenPoint = sceneCam.WorldToScreenPoint(targetBody.corePosition);
-                    displayParent.GetComponent<RectTransform>().position = screenPoint;
-                    displayParent.SetActive(RoR2.UI.HUD.cvHudEnable.value && screenPoint.z >= 0f); // z < 0 means that the object is behind the camera
+                    insideViewObject.transform.position = screenPoint;
+                    insideViewObject.SetActive(RoR2.UI.HUD.cvHudEnable.value && targetInsideView);
+                }
+                if (outsideViewObject)
+                {
+                    Vector2 screenCenter = new Vector2(sceneCam.pixelWidth * 0.5f, sceneCam.pixelHeight * 0.5f);
+                    Vector2 centerOffset = (new Vector2(screenPoint.x, screenPoint.y) - screenCenter) * (targetBehindCamera ? -1f : 1f);
+                    Vector2 outsideViewScreenPoint = screenCenter + centerOffset / Mathf.Max(
+                        Mathf.Abs(centerOffset.x / (sceneCam.pixelWidth * 0.5f)),
+                        Mathf.Abs(centerOffset.y / (sceneCam.pixelHeight * 0.5f))
+                    );
+
+                    outsideViewObject.transform.position = new Vector3(outsideViewScreenPoint.x, outsideViewScreenPoint.y, 1f);
+                    outsideViewObject.transform.localEulerAngles = new Vector3(0f, 0f,
+                        Vector2.SignedAngle(Vector2.up, -centerOffset)
+                    );
+                    outsideViewObject.SetActive(RoR2.UI.HUD.cvHudEnable.value && !targetInsideView);
                 }
                 if (scanPosition < scans.Length)
                 {

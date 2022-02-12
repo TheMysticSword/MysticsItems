@@ -9,6 +9,9 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Rendering.PostProcessing;
 using System.Collections.Generic;
 using System.Linq;
+using MysticsRisky2Utils;
+using MysticsRisky2Utils.BaseAssetTypes;
+using static MysticsItems.BalanceConfigManager;
 
 namespace MysticsItems.Items
 {
@@ -27,11 +30,41 @@ namespace MysticsItems.Items
         public static GameObject pulsePrefab;
         public static GameObject ballPrefab;
 
-        public static float freezeTime = 5f;
+        public static ConfigurableValue<float> freezeTime = new ConfigurableValue<float>(
+            "Item: Crystallized World",
+            "FreezeTime",
+            7f,
+            "Freeze duration (in seconds)",
+            new System.Collections.Generic.List<string>()
+            {
+                "ITEM_MYSTICSITEMS_CRYSTALWORLD_DESC"
+            }
+        );
+        public static ConfigurableValue<int> pulses = new ConfigurableValue<int>(
+            "Item: Crystallized World",
+            "Pulses",
+            2,
+            "Total freeze pulses per Teleporter event",
+            new System.Collections.Generic.List<string>()
+            {
+                "ITEM_MYSTICSITEMS_CRYSTALWORLD_DESC"
+            }
+        );
+        public static ConfigurableValue<int> pulsesPerStack = new ConfigurableValue<int>(
+            "Item: Crystallized World",
+            "PulsesPerStack",
+            1,
+            "Extra freeze pulses per Teleporter event for each additional stack of this item",
+            new System.Collections.Generic.List<string>()
+            {
+                "ITEM_MYSTICSITEMS_CRYSTALWORLD_DESC"
+            }
+        );
 
-        public override void PreLoad()
+        public override void OnLoad()
         {
-            itemDef.name = "CrystalWorld";
+            base.OnLoad();
+            itemDef.name = "MysticsItems_CrystalWorld";
             itemDef.tier = ItemTier.Tier3;
             itemDef.tags = new ItemTag[]
             {
@@ -40,15 +73,29 @@ namespace MysticsItems.Items
                 ItemTag.AIBlacklist,
                 ItemTag.CannotCopy
             };
-        }
-
-        public override void OnLoad()
-        {
-            base.OnLoad();
-            SetAssets("Crystal World");
-            model.AddComponent<CrystalWorldContainer>();
-            CopyModelToFollower();
-            ballPrefab = PrefabAPI.InstantiateClone(model, Main.TokenPrefix + "CrystalWorldBall", false);
+            itemDef.pickupModelPrefab = PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Crystal World/Model.prefab"));
+            itemDef.pickupIconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Items/Crystal World/Icon.png");
+            itemDef.pickupModelPrefab.AddComponent<CrystalWorldContainer>();
+            itemDisplayPrefab = PrepareItemDisplayModel(PrefabAPI.InstantiateClone(itemDef.pickupModelPrefab, itemDef.pickupModelPrefab.name + "Display", false));
+            onSetupIDRS += () =>
+            {
+                AddDisplayRule("CommandoBody", "Stomach", new Vector3(-0.17426F, 0.07766F, -0.05266F), new Vector3(16.68701F, 66.665F, 36.228F), new Vector3(0.042F, 0.042F, 0.042F));
+                AddDisplayRule("HuntressBody", "Muzzle", new Vector3(-0.1516F, -0.0345F, -0.09869F), new Vector3(355.162F, 32.177F, 180.96F), new Vector3(0.042F, 0.042F, 0.042F));
+                AddDisplayRule("Bandit2Body", "Stomach", new Vector3(0.19815F, 0.04837F, 0.02337F), new Vector3(350.191F, 244.703F, 340.178F), new Vector3(0.037F, 0.037F, 0.037F));
+                AddDisplayRule("ToolbotBody", "Chest", new Vector3(3.83001F, 1.891F, 0.03063F), new Vector3(29.795F, 9.384F, 2.716F), new Vector3(0.489F, 0.489F, 0.489F));
+                AddDisplayRule("EngiBody", "Chest", new Vector3(-0.20791F, 0.30973F, 0.18735F), new Vector3(4.991F, 46.464F, 181.437F), new Vector3(0.065F, 0.065F, 0.065F));
+                AddDisplayRule("EngiTurretBody", "Head", new Vector3(0F, 0.56045F, 0F), new Vector3(33.04002F, 48.09F, 359.072F), new Vector3(0.168F, 0.168F, 0.168F));
+                AddDisplayRule("EngiWalkerTurretBody", "Head", new Vector3(0F, 0.78124F, 0.82794F), new Vector3(22.677F, 152.024F, 24.393F), new Vector3(0.134F, 0.163F, 0.131F));
+                AddDisplayRule("MageBody", "Chest", new Vector3(0.06498F, 0.25775F, 0.30228F), new Vector3(0.366F, 347.899F, 165.881F), new Vector3(0.0827F, 0.0827F, 0.0827F));
+                AddDisplayRule("MercBody", "HandR", new Vector3(0.00372F, 0.11846F, 0.0863F), new Vector3(0F, 0F, 0F), new Vector3(0.07229F, 0.07229F, 0.07217F));
+                AddDisplayRule("TreebotBody", "FlowerBase", new Vector3(-0.45015F, 0.77395F, -0.18053F), new Vector3(0F, 0F, 0F), new Vector3(0.29135F, 0.29135F, 0.29135F));
+                AddDisplayRule("LoaderBody", "MechUpperArmL", new Vector3(0.07707F, 0.07703F, -0.00595F), new Vector3(7.628F, 218.893F, 342.184F), new Vector3(0.10413F, 0.10413F, 0.10413F));
+                AddDisplayRule("CrocoBody", "SpineChest2", new Vector3(-1.42325F, 2.10075F, 1.05927F), new Vector3(337.83F, 226.76F, 273.311F), new Vector3(0.411F, 0.411F, 0.411F));
+                AddDisplayRule("CaptainBody", "MuzzleGun", new Vector3(-0.0034F, 0.03444F, -0.31976F), new Vector3(0F, 0F, 0F), new Vector3(0.04057F, 0.03674F, 0.04057F));
+                AddDisplayRule("BrotherBody", "UpperArmL", new Vector3(0.02255F, -0.01451F, -0.00259F), new Vector3(303.36F, 82.77999F, 101.5723F), new Vector3(0.05297F, 0.08504F, 0.08504F));
+                AddDisplayRule("ScavBody", "UpperArmL", new Vector3(0.32551F, 0.61566F, 1.17648F), new Vector3(0F, 0F, 0F), new Vector3(2.65712F, 2.73031F, 2.65712F));
+            };
+            ballPrefab = PrefabAPI.InstantiateClone(itemDef.pickupModelPrefab, "MysticsItems_CrystalWorldBall", false);
 
             // DefaultDisplayRule("Head", new Vector3(0f, 0.5f, 0f), new Vector3(0f, -90f, 180f), new Vector3(0.2f, 0.2f, 0.2f));
 
@@ -85,8 +132,8 @@ namespace MysticsItems.Items
                         Material material = renderer.material;
                         if (material.shader.name == "Standard")
                         {
-                            Main.HopooShaderToMaterial.Standard.Apply(material);
-                            Main.HopooShaderToMaterial.Standard.DisableEverything(material);
+                            HopooShaderToMaterial.Standard.Apply(material);
+                            HopooShaderToMaterial.Standard.DisableEverything(material);
                         }
                     }
                 }
@@ -95,9 +142,9 @@ namespace MysticsItems.Items
                 {
                     case "Crystallize":
                         ParticleSystemRenderer snowRenderer = world.transform.Find("Snow").gameObject.GetComponent<ParticleSystemRenderer>();
-                        Material snowMaterial = new Material(Main.HopooShaderToMaterial.Standard.shader);
+                        Material snowMaterial = new Material(HopooShaderToMaterial.Standard.shader);
                         snowRenderer.material = snowMaterial;
-                        Main.HopooShaderToMaterial.Standard.Emission(snowMaterial, 2f, Color.white);
+                        HopooShaderToMaterial.Standard.Emission(snowMaterial, 2f, Color.white);
                         break;
                 }
                 worlds.Add(new WorldInfo
@@ -135,12 +182,12 @@ namespace MysticsItems.Items
 
             GameObject ppHolder = pulsePrefab.transform.Find("PP").gameObject;
             SphereCollider ppSphere = ppHolder.AddComponent<SphereCollider>();
-            ppSphere.radius = 100f;
+            ppSphere.radius = 60f;
             ppSphere.isTrigger = true;
             ppHolder.layer = LayerIndex.postProcess.intVal;
             PostProcessVolume pp = ppHolder.AddComponent<PostProcessVolume>();
-            pp.blendDistance = 0.7f;
-            pp.isGlobal = true;
+            pp.blendDistance = 30f;
+            pp.isGlobal = false;
             pp.weight = 0.2f;
             pp.priority = 10;
             PostProcessProfile ppProfile = ScriptableObject.CreateInstance<PostProcessProfile>();
@@ -178,7 +225,7 @@ namespace MysticsItems.Items
                 if (!component)
                 {
                     component = self.gameObject.AddComponent<MysticsItemsCrystalWorldTeleporterEffect>();
-                    switch (CustomUtils.TrimCloneFromString(self.gameObject.name))
+                    switch (MysticsRisky2Utils.Utils.TrimCloneFromString(self.gameObject.name))
                     {
                         case "Teleporter1":
                             component.displayModel = true;
@@ -281,10 +328,10 @@ namespace MysticsItems.Items
                 predictionChargeFractionLast = holdoutZoneController.charge;
                 chargeFraction = Mathf.Clamp01(chargeFraction + predictionChargeSpeed * Time.deltaTime);
 
-                int itemCount = Util.GetItemCountForTeam(TeamIndex.Player, MysticsItemsContent.Items.CrystalWorld.itemIndex, true);
+                int itemCount = Util.GetItemCountForTeam(TeamIndex.Player, MysticsItemsContent.Items.MysticsItems_CrystalWorld.itemIndex, true);
                 if (itemCount > 0)
                 {
-                    float nextPulse = NextPulse(2 + (itemCount - 1));
+                    float nextPulse = NextPulse(pulses + pulsesPerStack * (itemCount - 1));
                     if (!holdoutZoneController.enabled) nextPulse = 100f;
                     if (nextPulse >= 1f) nextPulse = 100f;
 
@@ -335,6 +382,10 @@ namespace MysticsItems.Items
                                                 crit = false
                                             };
                                             healthComponent.TakeDamage(damageInfo);
+                                        }
+                                        else
+                                        {
+                                            body.AddTimedBuff(MysticsItemsContent.Buffs.MysticsItems_Crystallized, freezeTime);
                                         }
                                     }
                                 }

@@ -3,6 +3,9 @@ using RoR2.Audio;
 using R2API;
 using R2API.Utils;
 using UnityEngine;
+using MysticsRisky2Utils;
+using MysticsRisky2Utils.BaseAssetTypes;
+using static MysticsItems.BalanceConfigManager;
 
 namespace MysticsItems.Items
 {
@@ -11,22 +14,43 @@ namespace MysticsItems.Items
         public static float distance = 0.01f;
         public static GameObject visualEffect;
 
-        public override void PreLoad()
+        public static ConfigurableValue<float> armorAdd = new ConfigurableValue<float>(
+            "Item: Spine Implant",
+            "ArmorAdd",
+            15f,
+            "Bonus armor against attacks from the back",
+            new System.Collections.Generic.List<string>()
+            {
+                "ITEM_MYSTICSITEMS_BACKARMOR_DESC"
+            }
+        );
+        public static ConfigurableValue<float> armorAddPerStack = new ConfigurableValue<float>(
+            "Item: Spine Implant",
+            "ArmorAddPerStack",
+            15f,
+            "Bonus armor against attacks from the back for each additional stack of this item",
+            new System.Collections.Generic.List<string>()
+            {
+                "ITEM_MYSTICSITEMS_BACKARMOR_DESC"
+            }
+        );
+
+        public override void OnLoad()
         {
-            itemDef.name = "BackArmor";
+            base.OnLoad();
+            itemDef.name = "MysticsItems_BackArmor";
             itemDef.tier = ItemTier.Tier1;
             itemDef.tags = new ItemTag[]
             {
                 ItemTag.Utility
             };
-        }
-
-        public override void OnLoad()
-        {
-            base.OnLoad();
-            SetAssets("Spine Implant");
-            Main.HopooShaderToMaterial.Standard.Gloss(GetModelMaterial(), 0.5f, 10f);
-            SetModelPanelDistance(3f, 6f);
+            itemDef.pickupModelPrefab = PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Spine Implant/Model.prefab"));
+            itemDef.pickupIconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Items/Spine Implant/Icon.png");
+            HopooShaderToMaterial.Standard.Gloss(itemDef.pickupModelPrefab.GetComponentInChildren<Renderer>().sharedMaterial, 0.5f, 10f);
+            ModelPanelParameters modelPanelParams = itemDef.pickupModelPrefab.GetComponentInChildren<ModelPanelParameters>();
+            modelPanelParams.minDistance = 3;
+            modelPanelParams.maxDistance = 6;
+            itemDisplayPrefab = PrepareItemDisplayModel(PrefabAPI.InstantiateClone(itemDef.pickupModelPrefab, itemDef.pickupModelPrefab.name + "Display", false));
             onSetupIDRS += () =>
             {
                 AddDisplayRule("CommandoBody", "Chest", new Vector3(0.001F, 0.248F, -0.191F), new Vector3(10.681F, 0.007F, 0.071F), new Vector3(0.053F, 0.053F, 0.053F));
@@ -72,21 +96,21 @@ namespace MysticsItems.Items
                 AddDisplayRule("ScavBody", "Backpack", new Vector3(-1.588F, 9.252F, -3.947F), new Vector3(358.543F, 1.155F, 125.647F), new Vector3(1.363F, 1.363F, 1.363F));
             };
             
-            visualEffect = PrefabAPI.InstantiateClone(new GameObject(), Main.TokenPrefix + "BackArmorVFX", false);
+            visualEffect = PrefabAPI.InstantiateClone(new GameObject(), "MysticsItems_BackArmorVFX", false);
             EffectComponent effectComponent = visualEffect.AddComponent<EffectComponent>();
             effectComponent.applyScale = true;
             effectComponent.parentToReferencedTransform = true;
             effectComponent.soundName = "MysticsItems_Play_item_proc_spineimplant";
             VFXAttributes vfxAttributes = visualEffect.AddComponent<VFXAttributes>();
-            vfxAttributes.vfxPriority = VFXAttributes.VFXPriority.Always;
+            vfxAttributes.vfxPriority = VFXAttributes.VFXPriority.Medium;
             vfxAttributes.vfxIntensity = VFXAttributes.VFXIntensity.Low;
             visualEffect.AddComponent<DestroyOnTimer>().duration = 1f;
             MysticsItemsBackArmorVFX component = visualEffect.AddComponent<MysticsItemsBackArmorVFX>();
 
             GameObject particles = PrefabAPI.InstantiateClone(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Spine Implant/ProcParticles.prefab"), "ProcParticles", false);
             Material material = particles.GetComponent<ParticleSystemRenderer>().sharedMaterial;
-            Main.HopooShaderToMaterial.Standard.Apply(material);
-            Main.HopooShaderToMaterial.Standard.Emission(material, 2.5f, Color.red);
+            HopooShaderToMaterial.Standard.Apply(material);
+            HopooShaderToMaterial.Standard.Emission(material, 2.5f, Color.red);
             particles.transform.SetParent(visualEffect.transform);
 
             component.particleSystem = particles.GetComponent<ParticleSystem>();
@@ -94,43 +118,47 @@ namespace MysticsItems.Items
 
             MysticsItemsContent.Resources.effectPrefabs.Add(visualEffect);
 
-            GenericGameEvents.BeforeTakeDamage += (damageInfo, characterInfo) =>
+            GenericGameEvents.BeforeTakeDamage += (damageInfo, attackerInfo, victimInfo) =>
             {
-                if (characterInfo.inventory)
+                if (victimInfo.inventory)
                 {
-                    int itemCount = characterInfo.inventory.GetItemCount(MysticsItemsContent.Items.BackArmor);
+                    int itemCount = victimInfo.inventory.GetItemCount(MysticsItemsContent.Items.MysticsItems_BackArmor);
                     if (itemCount > 0)
                     {
-                        float distance = Vector3.Distance(damageInfo.position, characterInfo.body.corePosition);
+                        float distance = Vector3.Distance(damageInfo.position, victimInfo.body.corePosition);
                         if (distance >= BackArmor.distance)
                         {
-                            if (BackstabManager.IsBackstab(characterInfo.body.corePosition - damageInfo.position, characterInfo.body))
+                            if (BackstabManager.IsBackstab(victimInfo.body.corePosition - damageInfo.position, victimInfo.body))
                             {
-                                BackArmorTempArmor tempArmor = characterInfo.gameObject.GetComponent<BackArmorTempArmor>();
-                                if (!tempArmor) tempArmor = characterInfo.gameObject.AddComponent<BackArmorTempArmor>();
-                                float tempArmorValue = 10f + 10f * (float)(itemCount - 1);
+                                BackArmorTempArmor tempArmor = victimInfo.gameObject.GetComponent<BackArmorTempArmor>();
+                                if (!tempArmor) tempArmor = victimInfo.gameObject.AddComponent<BackArmorTempArmor>();
+                                float tempArmorValue = armorAdd + armorAddPerStack * (float)(itemCount - 1);
                                 tempArmor.value += tempArmorValue;
-                                characterInfo.body.SetPropertyValue("armor", characterInfo.body.armor + tempArmorValue);
-
-                                EffectData effectData = new EffectData
-                                {
-                                    origin = characterInfo.body.corePosition,
-                                    genericFloat = damageInfo.damage / characterInfo.healthComponent.combinedHealth,
-                                    scale = 3.5f * characterInfo.body.radius
-                                };
-                                effectData.SetNetworkedObjectReference(characterInfo.gameObject);
-                                EffectManager.SpawnEffect(visualEffect, effectData, true);
+                                victimInfo.body.armor += tempArmorValue;
                             }
                         }
                     }
                 }
             };
-            GenericGameEvents.OnTakeDamage += (damageInfo, characterInfo) =>
+            GenericGameEvents.OnTakeDamage += (damageReport) =>
             {
-                BackArmorTempArmor tempArmor = characterInfo.gameObject.GetComponent<BackArmorTempArmor>();
-                if (tempArmor)
+                BackArmorTempArmor tempArmor = damageReport.victim.GetComponent<BackArmorTempArmor>();
+                if (tempArmor && damageReport.victimBody)
                 {
-                    characterInfo.body.SetPropertyValue("armor", characterInfo.body.armor - tempArmor.value);
+                    if (tempArmor.value > 0f) {
+                        if (damageReport.damageInfo != null && !damageReport.damageInfo.rejected && damageReport.damageInfo.damage > 0)
+                        {
+                            EffectData effectData = new EffectData
+                            {
+                                origin = damageReport.victimBody.corePosition,
+                                genericFloat = damageReport.damageInfo.damage / damageReport.victimBody.healthComponent.combinedHealth,
+                                scale = 3.5f * damageReport.victimBody.radius
+                            };
+                            effectData.SetNetworkedObjectReference(damageReport.victimBody.gameObject);
+                            EffectManager.SpawnEffect(visualEffect, effectData, true);
+                        }
+                    }
+                    damageReport.victimBody.armor -= tempArmor.value;
                     tempArmor.value = 0f;
                 }
             };
