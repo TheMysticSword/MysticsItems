@@ -1,3 +1,5 @@
+#### 2.0.1:
+* Fixed a bug where the current profile fails to load if HereticUnchained mod is enabled
 #### 2.0.0:
 * **Added 20 New Items**
     * New Item: Manuscript

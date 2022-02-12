@@ -71,6 +71,8 @@ Please check out our post about the new update!
 https://themysticsword.itch.io/ror2-mystics-items/devlog/344340/update-20-and-itchio-release
 
 ### Changelog
+#### 2.0.1:
+* Fixed a bug where the current profile fails to load if HereticUnchained mod is enabled
 #### 2.0.0:
 * **Added 20 New Items**
     * New Item: Manuscript

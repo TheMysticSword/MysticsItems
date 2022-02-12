@@ -138,7 +138,10 @@ namespace MysticsItems.Items
             foreach (var skillDef in newSkillDefs)
             {
                 if (skillsToFix.Contains(RoR2.Skills.SkillCatalog.GetSkillName(skillDef.skillIndex)) && !skillDef.mustKeyPress)
-                    skillDefsToFix.Add(skillDef, false);
+                {
+                    if (!skillDefsToFix.ContainsKey(skillDef))
+                        skillDefsToFix.Add(skillDef, false);
+                }
             }
         }
 
