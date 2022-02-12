@@ -144,7 +144,7 @@ namespace MysticsItems.Items
                         {
                             origin = transform.position,
                             rotation = transform.rotation,
-                            scale = transform.lossyScale.x
+                            scale = transform.lossyScale.x * 2f
                         };
                         EffectManager.SpawnEffect(procVFX, effectData, true);
                     }
