@@ -21,8 +21,8 @@ You can also report the bug on the [itch.io board](https://itch.io/board/1788781
 
 ### Configuration
 The mod creates two config files on the first launch:
-    * MysticsItems_General.cfg - general mod settings
-    * MysticsItems_Balance.cfg - item and equipment value tweaking
+* MysticsItems_General.cfg - general mod settings
+* MysticsItems_Balance.cfg - item and equipment value tweaking
 
 ### Mod compatibility
 This mod supports ItemStats and BetterUI buff tooltips.  
