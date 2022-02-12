@@ -14,7 +14,7 @@ namespace MysticsItems.Items
         {
             base.OnLoad();
             itemDef.name = "MysticsItems_MarwanAsh2";
-            itemDef.tier = ItemTier.Tier2;
+            itemDef.tier = ItemTier.Tier1;
             itemDef.tags = new ItemTag[]
             {
                 ItemTag.Damage,
@@ -23,7 +23,7 @@ namespace MysticsItems.Items
                 ItemTag.AIBlacklist
             };
             itemDef.pickupModelPrefab = PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Marwan's Ash/Level 2/Model.prefab"));
-            itemDef.pickupIconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Items/Marwan's Ash/Level 2/Icon.png");
+            itemDef.pickupIconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Items/Marwan's Ash/Level 2/IconWhite.png");
 
             itemDisplayPrefab = PrepareItemDisplayModel(PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Marwan's Ash/Level 2/DisplayModel.prefab")));
 

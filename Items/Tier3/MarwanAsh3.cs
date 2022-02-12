@@ -14,7 +14,7 @@ namespace MysticsItems.Items
         {
             base.OnLoad();
             itemDef.name = "MysticsItems_MarwanAsh3";
-            itemDef.tier = ItemTier.Tier3;
+            itemDef.tier = ItemTier.Tier1;
             itemDef.tags = new ItemTag[]
             {
                 ItemTag.Damage,
@@ -23,7 +23,7 @@ namespace MysticsItems.Items
                 ItemTag.AIBlacklist
             };
             itemDef.pickupModelPrefab = PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Marwan's Ash/Level 3/Model.prefab"));
-            itemDef.pickupIconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Items/Marwan's Ash/Level 3/Icon.png");
+            itemDef.pickupIconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Items/Marwan's Ash/Level 3/IconWhite.png");
 
             HopooShaderToMaterial.Standard.Apply(itemDef.pickupModelPrefab.GetComponentInChildren<Renderer>().sharedMaterial);
             HopooShaderToMaterial.Standard.Emission(itemDef.pickupModelPrefab.GetComponentInChildren<Renderer>().sharedMaterial, 1f);
