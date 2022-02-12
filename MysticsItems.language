@@ -421,7 +421,7 @@
 
     "ITEM_MYSTICSITEMS_LIMITEDARMOR_NAME": "Миленький бантик", // [Hair bow]
     "ITEM_MYSTICSITEMS_LIMITEDARMOR_PICKUP": "Снижает урон от {Hits} ударов.",
-    "ITEM_MYSTICSITEMS_LIMITEDARMOR_DESC": "Увеличивает урон на <style=cIsUtility>{Armor}</style> от <style=cIsUtility>{Hits} ударов <style=cStack>(+{Hits} ударов за шт.)</style></style>. При израсходовании превращается в <style=cIsUtility>Потрёпанный бантик (всегда увеличивает броню на {BrokenArmor} <style=cStack>(+{BrokenArmor} за шт.)</style>)</style>.",
+    "ITEM_MYSTICSITEMS_LIMITEDARMOR_DESC": "Увеличивает броню на <style=cIsUtility>{Armor}</style> от <style=cIsUtility>{Hits} ударов <style=cStack>(+{Hits} ударов за шт.)</style></style>. При израсходовании превращается в <style=cIsUtility>Потрёпанный бантик (всегда увеличивает броню на {BrokenArmor} <style=cStack>(+{BrokenArmor} за шт.)</style>)</style>.",
 
     "ITEM_MYSTICSITEMS_LIMITEDARMORBROKEN_NAME": "Потрёпанный бантик",
     "ITEM_MYSTICSITEMS_LIMITEDARMORBROKEN_PICKUP": "Слегка увеличивает броню.",
@@ -429,7 +429,7 @@
 
     "ITEM_MYSTICSITEMS_COOKIE_NAME": "Печенье с шоколадом", // [It's a chocolate chip cookie]
     "ITEM_MYSTICSITEMS_COOKIE_PICKUP": "Усиления длятся дольше, ослабления длятся меньше.",
-    "ITEM_MYSTICSITEMS_COOKIE_DESC": "Увеличивает длительность положительных эффектов статуса на <style=cIsUtility>{BuffDuration}s <style=cStack>(+{BuffDurationPerStack}s за шт.)</style></style>. Сокращает длительность негативных эффектов статуса на <style=cIsUtility>{DebuffDuration}s <style=cStack>(+{DebuffDuration}s за шт.)</style></style>, не сокращает до менее 1 секунды.",
+    "ITEM_MYSTICSITEMS_COOKIE_DESC": "Увеличивает длительность положительных эффектов статуса на <style=cIsUtility>{BuffDuration} сек. <style=cStack>(+{BuffDurationPerStack} сек. за шт.)</style></style>. Сокращает длительность негативных эффектов статуса на <style=cIsUtility>{DebuffDuration} сек. <style=cStack>(+{DebuffDuration} сек. за шт.)</style></style>, не сокращает до менее 1 секунды.",
 
     "ITEM_MYSTICSITEMS_MARWANASH1_NAME": "Пепел Марвана", // [Marwan's developer item]
     "ITEM_MYSTICSITEMS_MARWANASH1_PICKUP": "При попадании наносит дополнительный урон. Улучшается на уровне {UpgradeLevel12}.",
@@ -460,7 +460,7 @@
 
     "ITEM_MYSTICSITEMS_SPOTTER_NAME": "Неисправный корректировщик", // [A reference to Sniper's Spotter ability from Risk of Rain 1]
     "ITEM_MYSTICSITEMS_SPOTTER_PICKUP": "Увеличивает шанс критического удара по случайному врагу на 100%.",
-    "ITEM_MYSTICSITEMS_SPOTTER_DESC": "Каждые <style=cIsUtility>{Interval} сек.</style> анализирует 1 <style=cStack>(+1 per stack)</style> случайного врага, увеличивая <style=cIsDamage>вероятность критического попадания</style> по нему <style=cIsDamage>на 100%</style> в течение <style=cIsUtility>{Duration} сек.</style>",
+    "ITEM_MYSTICSITEMS_SPOTTER_DESC": "Каждые <style=cIsUtility>{Interval} сек.</style> анализирует 1 <style=cStack>(+1 за шт.)</style> случайного врага, увеличивая <style=cIsDamage>вероятность критического попадания</style> по нему <style=cIsDamage>на 100%</style> в течение <style=cIsUtility>{Duration} сек.</style>",
 
     "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_NAME": "Ядерный ускоритель", // [Like a particle accelerator, but "nuclear" to make it sound cool and unique]
     "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_PICKUP": "Чем быстрее вы передвигаетесь, тем больше урона вы наносите.",
@@ -504,7 +504,7 @@
     //[TIER3]
     "ITEM_MYSTICSITEMS_VOLTMETER_NAME": "Беспроводной вольтметр", // [WV in the lore entry stands for "wireless voltmeter"]
     "ITEM_MYSTICSITEMS_VOLTMETER_PICKUP": "Отражает полученный урон врагам поблизости, пока щит активен.",
-    "ITEM_MYSTICSITEMS_VOLTMETER_DESC": "Создаёт <style=cIsHealing>щит</style> на <style=cIsHealing>4%</style> от максимального запаса здоровья. При получении урона, когда <style=cIsUtility>щит</style> активен, близжайших врагов в радиусе <style=cIsDamage>{Radius}м</style> поражает ток, нанося им <style=cIsDamage>{Damage}% <style=cStack>(+{DamagePerStack}% за шт.)</style></style> от полученного урона.",
+    "ITEM_MYSTICSITEMS_VOLTMETER_DESC": "Создаёт <style=cIsHealing>щит</style> на <style=cIsHealing>{PassiveShield}%</style> от максимального запаса здоровья. При получении урона, когда <style=cIsUtility>щит</style> активен, близжайших врагов в радиусе <style=cIsDamage>{Radius}м</style> поражает ток, нанося им <style=cIsDamage>{Damage}% <style=cStack>(+{DamagePerStack}% за шт.)</style></style> от полученного урона.",
     "ITEM_MYSTICSITEMS_VOLTMETER_LORE": "ИНСТРУКЦИЯ ПО ИСПОЛЬЗОВАНИЮ ПРОТОТИПА БВ-1\n\nНе разбирайте БВ ни при каких обстоятельствах, или ваша гарантия аннулируется. В случае возникновения проблемы, обратитесь к производителю (см. стр. 9).\nНе подвергайте воздействию жидкостей.\nНе подвергайте воздействию другого активного БВ.\nНе держите около электронных приборов в течение более 7200 часов.\nСоблюдайте дистанцию 30+ метров во время броска БВ о твёрдый объект, чтобы избежать воздействия взрыва электрического разряда.\n\nСТРАНИЦА 4 - МЕРЫ ПРЕДОСТОРОЖНОСТИ",
 
     "ITEM_MYSTICSITEMS_THOUGHTPROCESSOR_NAME": "Стимулятор мыслей", // [Wordplay on "food processor" and "thought process"]
