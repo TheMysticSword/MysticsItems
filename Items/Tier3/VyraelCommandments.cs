@@ -86,10 +86,10 @@ namespace MysticsItems.Items
                     if (!component) component = attackerInfo.body.gameObject.AddComponent<MysticsItemsVyraelCommandmentsHelper>();
                     if (component.bonusActive <= 0)
                     {
-                        component.hitCount++;
-                        if (component.hitCount >= 10)
+                        component.hitCount += damageInfo.procCoefficient;
+                        if (component.hitCount >= 10f)
                         {
-                            component.hitCount -= 10;
+                            component.hitCount -= 10f;
                             component.bonusActive++;
                             for (var i = 0; i < itemCount; i++)
                                 GlobalEventManager.instance.OnHitEnemy(damageInfo, victimInfo.gameObject);
@@ -114,7 +114,7 @@ namespace MysticsItems.Items
 
         public class MysticsItemsVyraelCommandmentsHelper : MonoBehaviour
         {
-            public int hitCount = 0;
+            public float hitCount = 0;
             public int bonusActive = 0;
             public bool playEffect = false;
         }
