@@ -9,6 +9,7 @@ using MysticsRisky2Utils.BaseAssetTypes;
 using R2API;
 using static MysticsItems.BalanceConfigManager;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace MysticsItems.Items
 {
@@ -55,6 +56,8 @@ namespace MysticsItems.Items
             }
         );
 
+        public static List<BuffDef> ignoredBuffDefs = new List<BuffDef>();
+
         public override void OnLoad()
         {
             base.OnLoad();
@@ -94,20 +97,31 @@ namespace MysticsItems.Items
             On.RoR2.CharacterBody.AddTimedBuff_BuffDef_float += CharacterBody_AddTimedBuff_BuffDef_float;
             On.RoR2.CharacterBody.AddTimedBuff_BuffDef_float_int += CharacterBody_AddTimedBuff_BuffDef_float_int;
             On.RoR2.DotController.AddDot += DotController_AddDot;
+
+            RoR2Application.onLoad += () =>
+            {
+                ignoredBuffDefs.Add(RoR2Content.Buffs.MedkitHeal);
+                ignoredBuffDefs.Add(RoR2Content.Buffs.NullSafeZone);
+            };
         }
 
         private void CharacterBody_AddTimedBuff_BuffDef_float(On.RoR2.CharacterBody.orig_AddTimedBuff_BuffDef_float orig, CharacterBody self, BuffDef buffDef, float duration)
         {
-            duration = GetModifiedDuration(self, buffDef.isDebuff, duration);
+            if (!ignoredBuffDefs.Contains(buffDef))
+                duration = GetModifiedDuration(self, buffDef.isDebuff, duration);
             orig(self, buffDef, duration);
         }
 
         private void CharacterBody_AddTimedBuff_BuffDef_float_int(On.RoR2.CharacterBody.orig_AddTimedBuff_BuffDef_float_int orig, CharacterBody self, BuffDef buffDef, float duration, int maxStacks)
         {
             orig(self, buffDef, duration, maxStacks);
-            foreach (var timedBuff in self.timedBuffs.Where(x => x.buffIndex == buffDef.buffIndex && x.timer == duration))
+            if (!ignoredBuffDefs.Contains(buffDef))
             {
-                timedBuff.timer = GetModifiedDuration(self, buffDef.isDebuff, duration);
+                var modifiedDuration = GetModifiedDuration(self, buffDef.isDebuff, duration);
+                foreach (var timedBuff in self.timedBuffs.Where(x => x.buffIndex == buffDef.buffIndex && x.timer == duration))
+                {
+                    timedBuff.timer = modifiedDuration;
+                }
             }
         }
 
