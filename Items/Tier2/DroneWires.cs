@@ -21,7 +21,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> damage = new ConfigurableValue<float>(
             "Item: Spare Wiring",
             "Damage",
-            125f,
+            200f,
             "Base damage of the sparks (in %)",
             new System.Collections.Generic.List<string>()
             {
@@ -31,7 +31,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> damagePerStack = new ConfigurableValue<float>(
             "Item: Spare Wiring",
             "DamagePerStack",
-            100f,
+            160f,
             "Base damage of the sparks for each additional stack of this item (in %)",
             new System.Collections.Generic.List<string>()
             {
