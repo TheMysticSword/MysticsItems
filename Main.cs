@@ -101,6 +101,7 @@ namespace MysticsItems
 
             UpdateFirstLaunchManager.Init();
 
+            /* WhatAmILookingAt mod came out so this is useless now
             if (configGeneral.Bind<bool>("Misc", "PrefixModContent", false, "If true, content from this mod will have [Mystic's Items] written at the start of its name").Value)
             {
                 On.RoR2.Language.GetLocalizedStringByToken += (orig, self, token) =>
@@ -116,6 +117,7 @@ namespace MysticsItems
                     return result;
                 };
             }
+            */
 
             /*
             // Generate item preview table image
