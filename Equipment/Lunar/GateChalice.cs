@@ -329,7 +329,7 @@ namespace MysticsItems.Equipment
             if (!SceneExitController.isRunning && (!SceneCatalog.currentSceneDef || !SceneCatalog.currentSceneDef.isFinalStage))
             {
                 CharacterBody characterBody = equipmentSlot.characterBody;
-                if (characterBody.healthComponent.alive) return false;
+                if (characterBody.healthComponent && !characterBody.healthComponent.alive) return false;
                 EffectData effectData = new EffectData
                 {
                     origin = characterBody.corePosition,
