@@ -308,7 +308,7 @@ namespace MysticsItems.SoftDependencies
                 {
                     new ItemStats.Stat.ItemStat(
                         (itemCount, ctx) => Items.DroneWires.damage + Items.DroneWires.damagePerStack * (itemCount - 1),
-                        (value, ctx) => Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_DAMAGE", ItemStats.ValueFormatters.Extensions.FormatPercentage(value: value))
+                        (value, ctx) => Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_DAMAGE", ItemStats.ValueFormatters.Extensions.FormatPercentage(value: value, scale: 1f))
                     )
                 }
             });
@@ -319,7 +319,7 @@ namespace MysticsItems.SoftDependencies
                 {
                     new ItemStats.Stat.ItemStat(
                         (itemCount, ctx) => Util.ConvertAmplificationPercentageIntoReductionPercentage(Items.DeathCeremony.damage + Items.DeathCeremony.damagePerStack * (itemCount - 1)),
-                        (value, ctx) => Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_DAMAGE", ItemStats.ValueFormatters.Extensions.FormatPercentage(value: value))
+                        (value, ctx) => Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_DAMAGE", ItemStats.ValueFormatters.Extensions.FormatPercentage(value: value, scale: 1f))
                     )
                 }
             });
