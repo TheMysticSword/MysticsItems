@@ -58,7 +58,7 @@ namespace MysticsItems.Achievements
 						PurchaseInteraction purchaseInteraction = interactableObject.GetComponent<PurchaseInteraction>();
 						if (purchaseInteraction && purchaseInteraction.costType == CostTypeIndex.Money && purchaseInteraction.cost > 0)
                         {
-							if (!MysticsRisky2Utils.Utils.TrimCloneFromString(interactableObject.name).StartsWith("MultiShopTerminal", false, System.Globalization.CultureInfo.InvariantCulture))
+							if (!purchaseInteraction.displayNameToken.Contains("MULTISHOP_TERMINAL_"))
 								eligible = false;
 						}
 					}
