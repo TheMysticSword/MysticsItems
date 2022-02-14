@@ -55,15 +55,19 @@ namespace MysticsItems.Items
                 "ITEM_MYSTICSITEMS_DEATHCEREMONY_DESC"
             }
         );
+        public static ConfigurableValue<bool> canProc = new ConfigurableValue<bool>(
+            "Item: Ceremony of Perdition",
+            "CanProc",
+            false,
+            "Hits shared to other enemies can proc item effects"
+        );
 
         public static GameObject damageShareOrbEffect;
-        public static DamageAPI.ModdedDamageType damageShareDamageType;
-
+        
         public override void OnPluginAwake()
         {
             base.OnPluginAwake();
             NetworkingAPI.RegisterMessageType<MysticsItemsDeathCeremonyMark.SyncMarked>();
-            damageShareDamageType = DamageAPI.ReserveDamageType();
         }
 
         public override void OnLoad()
@@ -199,6 +203,21 @@ namespace MysticsItems.Items
 
             CharacterBody.onBodyStartGlobal += CharacterBody_onBodyStartGlobal;
             GenericGameEvents.OnHitEnemy += GenericGameEvents_OnHitEnemy;
+
+            R2API.RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
+        }
+
+        private void RecalculateStatsAPI_GetStatCoefficients(CharacterBody sender, RecalculateStatsAPI.StatHookEventArgs args)
+        {
+            var inventory = sender.inventory;
+            if (inventory)
+            {
+                var itemCount = inventory.GetItemCount(itemDef);
+                if (itemCount > 0)
+                {
+                    args.critAdd += baseCrit;
+                }
+            }
         }
 
         private void CharacterBody_onBodyStartGlobal(CharacterBody body)
@@ -208,7 +227,7 @@ namespace MysticsItems.Items
 
         private void GenericGameEvents_OnHitEnemy(DamageInfo damageInfo, MysticsRisky2UtilsPlugin.GenericCharacterInfo attackerInfo, MysticsRisky2UtilsPlugin.GenericCharacterInfo victimInfo)
         {
-            if (!DamageAPI.HasModdedDamageType(damageInfo, damageShareDamageType) && !damageInfo.rejected && attackerInfo.body && attackerInfo.inventory && victimInfo.body)
+            if (!damageInfo.procChainMask.HasProc(ProcType.ChainLightning) && !damageInfo.rejected && attackerInfo.body && attackerInfo.inventory && victimInfo.body)
             {
                 var component = victimInfo.body.GetComponent<MysticsItemsDeathCeremonyMark>();
                 if (component)
@@ -233,12 +252,12 @@ namespace MysticsItems.Items
                             DamageInfo markDamageInfo = new DamageInfo();
                             markDamageInfo.damage = damageInfo.damage * Util.ConvertAmplificationPercentageIntoReductionPercentage(damage + damagePerStack * (itemCount - 1)) / 100f;
                             markDamageInfo.attacker = attackerInfo.gameObject;
-                            markDamageInfo.procCoefficient = damageInfo.procCoefficient;
+                            markDamageInfo.procCoefficient = canProc ? damageInfo.procCoefficient : 0f;
                             markDamageInfo.position = body.corePosition;
                             markDamageInfo.crit = damageInfo.crit;
-                            markDamageInfo.damageType = damageInfo.damageType;
-                            DamageAPI.AddModdedDamageType(markDamageInfo, damageShareDamageType);
+                            markDamageInfo.damageType = DamageType.Generic;
                             markDamageInfo.procChainMask = damageInfo.procChainMask;
+                            markDamageInfo.procChainMask.AddProc(ProcType.ChainLightning);
                             markDamageInfo.damageColorIndex = damageInfo.damageColorIndex;
                             body.healthComponent.TakeDamage(markDamageInfo);
                             GlobalEventManager.instance.OnHitEnemy(markDamageInfo, body.healthComponent.gameObject);
