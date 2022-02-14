@@ -485,7 +485,7 @@ namespace MysticsItems.Equipment
                     }
                 }
 
-                if (shouldDisplay)
+                if (shouldDisplay && targetIndicatorInstance)
                 {
                     targetIndicatorInstance.equipmentSlot = equipmentSlot;
                     targetIndicatorInstance.equipmentBehaviour = equipmentSlot.GetComponent<MysticsItemsOmarHackToolBehaviour>();
