@@ -1,3 +1,17 @@
+#### 2.0.2:
+* Increased Warning System's charge radius from 30m to 50m
+* Improved Rift Lens time calculation
+* Set Ceremony of Perdition's proc coefficient to 0
+    * Can be reverted with the Balance config
+* Reduced Mystic Sword SFX volume
+* Fixed Ceremony of Perdition being able to proc itself
+* Fixed Last of Us challenge unlocking on killing Birdsharks on Distant Roost and Wandering Vagrant's tracking bombs instead of the final boss
+* Fixed Smart Shopper challenge failing on purchasing a Multishop Terminal of any item tier other than common
+* Fixed ItemStats display for Spare Wiring and Ceremony of Perdition being 100x higher
+* Fixed Wireless Voltmeter not giving base shield
+* Fixed Ceremony of Perdition not giving base crit chance
+* Fixed Gate Chalice not doing anything on use
+* Fixed Puzzle of Chronos additional scaling not resetting between runs
 #### 2.0.1:
 * Fixed a bug where the current profile fails to load if HereticUnchained mod is enabled
 #### 2.0.0:
