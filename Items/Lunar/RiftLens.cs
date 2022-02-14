@@ -317,37 +317,125 @@ namespace MysticsItems.Items
             public int riftsLeft = -1;
         }
 
-        public class MysticsItemsRiftLensBehaviour : CharacterBody.ItemBehavior
+        public static float GetMaxCountdownForCurrentStage()
         {
-            public int riftsLeft = 0;
-            public int riftsTotal = 0;
-            public float countdownTimer = 0;
-            public bool diedFromTimer = false;
-
-            public bool nearNodes = false;
-            public float nearNodeCheckTimer = 0;
-            public float nearNodeCheckDuration = 1f;
-
-            public Dictionary<HUD, GameObject> hudPanels = new Dictionary<HUD, GameObject>();
-
-            public bool countdown10Played = false;
-            public uint countdown10ID;
-
-            public void Start()
+            // smart time calculation using node path lengths
+            if (SceneInfo.instance && SceneInfo.instance.groundNodes)
             {
-                body.onInventoryChanged += Body_onInventoryChanged;
-                UpdateItemBasedInfo();
-                countdownTimer = maxCountdown;
-                diedFromTimer = false;
-                nearNodes = true;
+                var nodeGraph = SceneInfo.instance.groundNodes;
+
+                var distanceBetweenAllRifts = 0f;
+                var rifts = InstanceTracker.GetInstancesList<MysticsItemsRiftChest>();
+                while (rifts.Count > 1) // we don't do "while (rifts.Count > 0)" because we can't measure the distance to the next rift if there's only one left
+                {
+                    var riftStart = rifts[0];
+                    rifts.RemoveAt(0);
+                    var startPos = riftStart.transform.position;
+                    var dist = Mathf.Infinity;
+                    MysticsItemsRiftChest riftEnd = null;
+
+                    // find the closest rift
+                    foreach (var rift2 in rifts)
+                    {
+                        var dist2 = Vector3.Distance(startPos, rift2.transform.position);
+                        if (dist2 < dist)
+                        {
+                            dist = dist2;
+                            riftEnd = rift2;
+                        }
+                    }
+
+                    if (riftEnd)
+                    {
+                        var endPos = riftEnd.transform.position;
+
+                        var path = new Path(nodeGraph);
+                        nodeGraph.ComputePath(new NodeGraph.PathRequest
+                        {
+                            startPos = startPos,
+                            endPos = endPos,
+                            path = path,
+                            hullClassification = HullClassification.Human
+                        }).Wait();
+                        if (path.status == PathStatus.Valid)
+                        {
+                            for (int i = 1; i < path.waypointsCount; i++)
+                            {
+                                var pointA = nodeGraph.nodes[path[i - 1].nodeIndex.nodeIndex].position;
+                                var pointB = nodeGraph.nodes[path[i].nodeIndex.nodeIndex].position;
+                                var pointDistance = Vector3.Distance(pointA, pointB);
+                                distanceBetweenAllRifts += pointDistance;
+                            }
+                        }
+                        else if (path.status == PathStatus.Invalid)
+                        {
+                            distanceBetweenAllRifts += Vector3.Distance(startPos, endPos) * 3.5f;
+                        }
+                    }
+                }
+
+                // calculate the shortest distance to the nearest rift for each player...
+                var distanceToNearestRiftForEachPlayer = new List<float>();
+                foreach (var instance in InstanceTracker.GetInstancesList<MysticsItemsRiftLensBehaviour>())
+                {
+                    var startPos = instance.body ? instance.body.corePosition : instance.transform.position;
+                    var dist = Mathf.Infinity;
+                    MysticsItemsRiftChest riftEnd = null;
+
+                    foreach (var rift in InstanceTracker.GetInstancesList<MysticsItemsRiftChest>())
+                    {
+                        var dist2 = Vector3.Distance(startPos, rift.transform.position);
+                        if (dist2 < dist)
+                        {
+                            dist = dist2;
+                            riftEnd = rift;
+                        }
+                    }
+
+                    if (riftEnd)
+                    {
+                        var endPos = riftEnd.transform.position;
+
+                        var path = new Path(nodeGraph);
+                        nodeGraph.ComputePath(new NodeGraph.PathRequest
+                        {
+                            startPos = startPos,
+                            endPos = endPos,
+                            path = path,
+                            hullClassification = HullClassification.Human
+                        }).Wait();
+                        if (path.status == PathStatus.Valid)
+                        {
+                            dist = 0f;
+                            for (int i = 1; i < path.waypointsCount; i++)
+                            {
+                                var pointA = nodeGraph.nodes[path[i - 1].nodeIndex.nodeIndex].position;
+                                var pointB = nodeGraph.nodes[path[i].nodeIndex.nodeIndex].position;
+                                var pointDistance = Vector3.Distance(pointA, pointB);
+                                dist += pointDistance;
+                            }
+                        }
+                        else if (path.status == PathStatus.Invalid)
+                        {
+                            dist = Vector3.Distance(startPos, endPos) * 3.5f;
+                        }
+                    }
+
+                    distanceToNearestRiftForEachPlayer.Add(dist);
+                }
+
+                // and pick the longest one out of them to compensate for the unluckiest player
+                var distanceToNearestRift = distanceToNearestRiftForEachPlayer.Count > 0 ? distanceToNearestRiftForEachPlayer.Max() : 1f;
+
+                var totalDistance = distanceToNearestRift + distanceBetweenAllRifts;
+                var averageWalkSpeed = 7f * 1.45f;
+                var timeBonusFlat = 10f;
+                var calculatedCountdownTime = (totalDistance / averageWalkSpeed) + timeBonusFlat;
+                return calculatedCountdownTime;
             }
 
-            public static float maxCountdown = 150f;
-
-            public static void RecalculateMaxCountdown()
+            // fallback time calculation
             {
-                if (!NetworkServer.active) return;
-
                 // calculate the shortest distance between all rifts
                 var distanceBetweenAllRifts = 0f;
                 var rifts = InstanceTracker.GetInstancesList<MysticsItemsRiftChest>();
@@ -399,9 +487,45 @@ namespace MysticsItems.Items
                 var timeBonusMultiplier = 1.66f;
                 var timeBonusFlat = 20f;
                 var calculatedCountdownTime = (totalDistance / averageWalkSpeed) * timeBonusMultiplier + timeBonusFlat;
+                return calculatedCountdownTime;
+            }
+        }
 
-                maxCountdown = calculatedCountdownTime;
-                new SyncMaxCountdown(calculatedCountdownTime).Send(NetworkDestination.Clients);
+        public class MysticsItemsRiftLensBehaviour : CharacterBody.ItemBehavior
+        {
+            public int riftsLeft = 0;
+            public int riftsTotal = 0;
+            public float countdownTimer = 0;
+            public bool diedFromTimer = false;
+
+            public bool nearNodes = false;
+            public float nearNodeCheckTimer = 0;
+            public float nearNodeCheckDuration = 1f;
+
+            public Dictionary<HUD, GameObject> hudPanels = new Dictionary<HUD, GameObject>();
+
+            public bool countdown10Played = false;
+            public uint countdown10ID;
+
+            public void Start()
+            {
+                body.onInventoryChanged += Body_onInventoryChanged;
+                UpdateItemBasedInfo();
+                countdownTimer = maxCountdown;
+                diedFromTimer = false;
+                nearNodes = true;
+            }
+
+            public static float maxCountdown = 150f;
+
+            public static void RecalculateMaxCountdown()
+            {
+                if (!NetworkServer.active) return;
+
+                var newCountdownTime = GetMaxCountdownForCurrentStage();
+
+                maxCountdown = newCountdownTime;
+                new SyncMaxCountdown(newCountdownTime).Send(NetworkDestination.Clients);
                 foreach (var instance in InstanceTracker.GetInstancesList<MysticsItemsRiftLensBehaviour>())
                 {
                     instance.countdownTimer = maxCountdown;
