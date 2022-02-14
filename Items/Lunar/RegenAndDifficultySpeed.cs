@@ -92,6 +92,12 @@ namespace MysticsItems.Items
 
             RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
 
+            On.RoR2.Run.Start += (orig, self) =>
+            {
+                orig(self);
+                extraDifficultyTime = 0f;
+            };
+
             On.RoR2.Run.RecalculateDifficultyCoefficentInternal += (orig, self) =>
             {
                 calculatingDifficultyCoefficient = true;
