@@ -23,7 +23,7 @@ namespace MysticsItems.Equipment
         public static ConfigurableValue<float> baseRadius = new ConfigurableValue<float>(
             "Equipment: Warning System",
             "BaseRadius",
-            30f,
+            50f,
             "Charge zone base radius (in meters)"
         );
         public static ConfigurableValue<float> chargeTime = new ConfigurableValue<float>(
