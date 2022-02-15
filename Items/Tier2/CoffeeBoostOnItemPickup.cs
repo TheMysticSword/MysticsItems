@@ -65,6 +65,7 @@ namespace MysticsItems.Items
                 AddDisplayRule("CrocoBody", "Head", new Vector3(0.919F, 4.774F, -1.755F), new Vector3(25.068F, 0.938F, 231.2F), new Vector3(1F, 1F, 1F));
                 AddDisplayRule("CaptainBody", "HandR", new Vector3(-0.09F, 0.124F, 0.046F), new Vector3(352.642F, 118.248F, 97.772F), new Vector3(0.076F, 0.069F, 0.076F));
                 AddDisplayRule("BrotherBody", "HandR", BrotherInfection.green, new Vector3(0.002F, 0.109F, 0.031F), new Vector3(72.72F, 119.024F, 264.129F), new Vector3(0.043F, 0.043F, 0.043F));
+                if (SoftDependencies.SoftDependenciesCore.itemDisplaysSniper) AddDisplayRule("SniperClassicBody", "Muzzle", new Vector3(-3.90342F, 0.4645F, -0.00028F), new Vector3(90F, 90F, 0F), new Vector3(0.24699F, 0.41591F, 0.24699F));
             };
 
             visualEffect = PrefabAPI.InstantiateClone(new GameObject(), "MysticsItems_CoffeeBoostEffect", false);

@@ -56,6 +56,7 @@ namespace MysticsItems.Items
                 AddDisplayRule("CaptainBody", "Chest", new Vector3(-0.16687F, 0.22055F, -0.20227F), new Vector3(16.87567F, 355.1706F, 29.03075F), new Vector3(0.10211F, 0.10211F, 0.10211F));
                 AddDisplayRule("BrotherBody", "chest", BrotherInfection.green, new Vector3(-0.22101F, 0.42643F, -0.064F), new Vector3(0F, 0F, 281.5435F), new Vector3(0.04683F, 0.09274F, 0.10516F));
                 AddDisplayRule("ScavBody", "Chest", new Vector3(7.79231F, -2.96603F, 2.57057F), new Vector3(349.2455F, 291.8784F, 352.6789F), new Vector3(2.1017F, 2.15959F, 2.1017F));
+                if (SoftDependencies.SoftDependenciesCore.itemDisplaysSniper) AddDisplayRule("SniperClassicBody", "Chest", new Vector3(0.0428F, 0.26372F, -0.34036F), new Vector3(338.6975F, 6.87321F, 337.6585F), new Vector3(0.053F, 0.053F, 0.053F));
             };
         }
     }

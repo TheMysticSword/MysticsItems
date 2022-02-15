@@ -77,6 +77,7 @@ namespace MysticsItems.Equipment
                 AddDisplayRule("CaptainBody", "HandR", new Vector3(0.002F, 0.155F, -0.014F), new Vector3(53.771F, 271.897F, 272.032F), new Vector3(0.041F, 0.041F, 0.041F));
                 AddDisplayRule("ScavBody", "HandL", new Vector3(0.469F, 2.35F, -0.273F), new Vector3(305.162F, 137.483F, 278.565F), new Vector3(0.883F, 0.883F, 0.883F));
                 AddDisplayRule("EquipmentDroneBody", "GunBarrelBase", new Vector3(0F, 0F, 1.453F), new Vector3(0F, 90F, 0F), new Vector3(0.265F, 0.265F, 0.265F));
+                if (SoftDependencies.SoftDependenciesCore.itemDisplaysSniper) AddDisplayRule("SniperClassicBody", "Head", new Vector3(-0.12632F, 0.03962F, -0.03585F), new Vector3(339.427F, 188.6309F, 0F), new Vector3(0.03139F, 0.03139F, 0.03139F));
             };
 
             wavePrefab = Main.AssetBundle.LoadAsset<GameObject>("Assets/Equipment/Microphone/MicrophoneSoundwaveGhost.prefab");

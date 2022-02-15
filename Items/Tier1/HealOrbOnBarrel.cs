@@ -86,6 +86,11 @@ namespace MysticsItems.Items
                 AddDisplayRule("CrocoBody", "Head", new Vector3(-0.946F, 3.963F, -0.229F), new Vector3(279.836F, 0F, 170.118F), new Vector3(1.602F, 1.602F, 1.602F));
                 AddDisplayRule("CaptainBody", "Stomach", new Vector3(0.002F, 0.134F, 0.176F), new Vector3(313.466F, 271.294F, 278.969F), new Vector3(0.086F, 0.086F, 0.086F));
                 AddDisplayRule("BrotherBody", "Head", BrotherInfection.white, new Vector3(-0.01F, 0.044F, 0.12F), new Vector3(65.585F, 339.303F, 255.053F), new Vector3(0.107F, 0.107F, 0.107F));
+                if (SoftDependencies.SoftDependenciesCore.itemDisplaysSniper)
+                {
+                    AddDisplayRule("SniperClassicBody", "AntennaL", new Vector3(-0.00991F, 0.78285F, 0.00312F), new Vector3(0F, 0F, 0F), new Vector3(0.11502F, 0.11502F, 0.11502F));
+                    AddDisplayRule("SniperClassicBody", "AntennaR", new Vector3(0.01191F, 0.78284F, 0.00313F), new Vector3(0F, 0F, 0F), new Vector3(0.11502F, 0.11502F, 0.11502F));
+                }
             };
             
             GenericGameEvents.OnInteractionBegin += GenericGameEvents_OnInteractionBegin;

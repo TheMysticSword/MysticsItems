@@ -92,6 +92,7 @@ namespace MysticsItems.Items
                 AddDisplayRule("CaptainBody", "Head", new Vector3(0F, -0.0366F, 0.16365F), new Vector3(25.47889F, 0F, 0F), new Vector3(0.086F, 0.086F, 0.086F));
                 AddDisplayRule("BrotherBody", "Head", BrotherInfection.white, new Vector3(-0.00094F, -0.05567F, 0.03761F), new Vector3(0F, 88.56445F, 15.20469F), new Vector3(0.09773F, 0.063F, 0.063F));
                 AddDisplayRule("ScavBody", "Head", new Vector3(0F, 4.3108F, 0.00021F), new Vector3(270.1856F, 0F, 0F), new Vector3(2.62999F, 2.70243F, 2.62999F));
+                if (SoftDependencies.SoftDependenciesCore.itemDisplaysSniper) AddDisplayRule("SniperClassicBody", "Head", new Vector3(0.00003F, 0.19399F, 0.0348F), new Vector3(287.3143F, 0F, 0F), new Vector3(0.06746F, 0.06746F, 0.06746F));
             };
 
             On.RoR2.CharacterBody.AddTimedBuff_BuffDef_float += CharacterBody_AddTimedBuff_BuffDef_float;

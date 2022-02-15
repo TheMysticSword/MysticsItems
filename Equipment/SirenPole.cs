@@ -83,6 +83,7 @@ namespace MysticsItems.Equipment
                 AddDisplayRule("CaptainBody", "Chest", new Vector3(0.26173F, 0.18196F, 0.04468F), new Vector3(0F, 304.076F, 0F), new Vector3(0.09072F, 0.09072F, 0.09072F));
                 AddDisplayRule("ScavBody", "Backpack", new Vector3(0.93854F, 9.81353F, 0.67947F), new Vector3(23.62728F, 47.52236F, 14.61215F), new Vector3(1.66171F, 1.66171F, 1.66171F));
                 AddDisplayRule("EquipmentDroneBody", "GunBarrelBase", new Vector3(0.00002F, -0.72671F, 0.39234F), new Vector3(47.37738F, -0.00013F, 0.0009F), new Vector3(0.42601F, 0.42601F, 0.42601F));
+                if (SoftDependencies.SoftDependenciesCore.itemDisplaysSniper) AddDisplayRule("SniperClassicBody", "AntennaL", new Vector3(-0.00958F, 0.16798F, 0.00024F), new Vector3(0F, 91.3699F, 0F), new Vector3(0.0678F, 0.0678F, 0.0678F));
             };
 
             MysticsItemsSirenPoleController sirenPoleController = inWorldPrefab.AddComponent<MysticsItemsSirenPoleController>();

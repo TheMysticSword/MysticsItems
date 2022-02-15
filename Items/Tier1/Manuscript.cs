@@ -62,6 +62,7 @@ namespace MysticsItems.Items
                 AddDisplayRule("CaptainBody", "HandR", new Vector3(0.07594F, 0.19539F, -0.01458F), new Vector3(302.5499F, 277.2516F, 189.9369F), new Vector3(0.086F, 0.086F, 0.086F));
                 AddDisplayRule("BrotherBody", "ThighL", BrotherInfection.white, new Vector3(0.00936F, -0.12183F, 0.03127F), new Vector3(7.67382F, 142.5023F, 346.2559F), new Vector3(0.115F, 0.063F, 0.063F));
                 AddDisplayRule("ScavBody", "MuzzleEnergyCannon", new Vector3(2.28289F, -3.68348F, -17.40374F), new Vector3(58.55879F, 87.78275F, 267.3442F), new Vector3(1.94718F, 2.00081F, 1.94718F));
+                if (SoftDependencies.SoftDependenciesCore.itemDisplaysSniper) AddDisplayRule("SniperClassicBody", "Pelvis", new Vector3(-0.21358F, 0.15963F, 0.03212F), new Vector3(349.8637F, 270.5938F, 7.77555F), new Vector3(0.05876F, 0.05876F, 0.05876F));
             };
 
             On.RoR2.CharacterBody.OnInventoryChanged += CharacterBody_OnInventoryChanged;

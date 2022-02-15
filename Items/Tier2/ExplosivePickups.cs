@@ -114,6 +114,7 @@ namespace MysticsItems.Items
                 AddDisplayRule("CaptainBody", "Stomach", new Vector3(-0.102F, 0.12F, 0.147F), new Vector3(11.46F, 212.011F, 335.706F), new Vector3(0.053F, 0.048F, 0.053F));
                 AddDisplayRule("BrotherBody", "Stomach", BrotherInfection.green, new Vector3(-0.18F, 0.131F, 0.075F), new Vector3(303.36F, 82.78F, 283.641F), new Vector3(0.063F, 0.063F, 0.063F));
                 AddDisplayRule("ScavBody", "MuzzleEnergyCannon", new Vector3(0.586F, 3.872F, 0.073F), new Vector3(54.107F, 148.5F, 149.008F), new Vector3(0.835F, 0.858F, 0.835F));
+                if (SoftDependencies.SoftDependenciesCore.itemDisplaysSniper) AddDisplayRule("SniperClassicBody", "Pelvis", new Vector3(-0.19573F, 0.1786F, -0.09573F), new Vector3(4.5648F, 55.41101F, 9.99794F), new Vector3(0.053F, 0.053F, 0.053F));
             };
 
             MysticsRisky2Utils.Utils.CopyChildren(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Contraband Gunpowder/ExplosivePack.prefab"), gunpowderPickup);

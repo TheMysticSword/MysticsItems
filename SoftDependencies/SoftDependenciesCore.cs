@@ -6,6 +6,7 @@ namespace MysticsItems.SoftDependencies
     {
         internal static bool betterUICompatEnabled = false;
         internal static bool itemStatsCompatEnabled = false;
+        internal static bool itemDisplaysSniper = false;
 
         internal static void Init()
         {
@@ -27,6 +28,7 @@ namespace MysticsItems.SoftDependencies
                 }
                 catch { }
             }
+            itemDisplaysSniper = BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("com.Moffein.SniperClassic") && GeneralConfigManager.itemDisplaysSniper.Value;
         }
     }
 }

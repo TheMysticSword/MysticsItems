@@ -78,6 +78,7 @@ namespace MysticsItems.Items
                 AddDisplayRule("CaptainBody", "Chest", new Vector3(0.32895F, 0.03454F, 0.05078F), new Vector3(3.45364F, 74.41675F, 19.36633F), new Vector3(0.07825F, 0.07825F, 0.07825F));
                 AddDisplayRule("BrotherBody", "UpperArmR", BrotherInfection.red, new Vector3(-0.03472F, -0.0628F, 0.05088F), new Vector3(340.2432F, 34.20839F, 49.33977F), new Vector3(0.10485F, 0.10485F, 0.10485F));
                 AddDisplayRule("ScavBody", "Chest", new Vector3(7.69683F, 4.43335F, 0.0701F), new Vector3(344.7279F, 181.2736F, 27.68404F), new Vector3(1.98721F, 1.98721F, 1.98721F));
+                if (SoftDependencies.SoftDependenciesCore.itemDisplaysSniper) AddDisplayRule("SniperClassicBody", "Chest", new Vector3(-0.15735F, 0.48555F, -0.15454F), new Vector3(5.92817F, 15.42453F, 20.44858F), new Vector3(0.08192F, 0.08192F, 0.08192F));
             };
 
             RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;

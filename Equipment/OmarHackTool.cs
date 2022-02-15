@@ -57,6 +57,7 @@ namespace MysticsItems.Equipment
                 AddDisplayRule("CaptainBody", "Stomach", new Vector3(0.15397F, 0.13966F, 0.16991F), new Vector3(356.0198F, 17.26032F, 189.3092F), new Vector3(0.05578F, 0.05578F, 0.05578F));
                 AddDisplayRule("ScavBody", "MuzzleEnergyCannon", new Vector3(4.83208F, -2.97995F, -10.98303F), new Vector3(0F, 0F, 56.95893F), new Vector3(1.363F, 1.363F, 1.363F));
                 AddDisplayRule("EquipmentDroneBody", "HeadCenter", new Vector3(0.92365F, 0F, -0.60534F), new Vector3(270F, 270F, 0F), new Vector3(0.32166F, 0.32166F, 0.32166F));
+                if (SoftDependencies.SoftDependenciesCore.itemDisplaysSniper) AddDisplayRule("SniperClassicBody", "Pelvis", new Vector3(0.15563F, 0.20335F, 0.15945F), new Vector3(358.1388F, 35.73481F, 190.192F), new Vector3(0.053F, 0.053F, 0.053F));
             };
 
             crosshairPrefab = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/WoodSpriteIndicator"), "MysticsItems_OmarHackToolIndicator", false);

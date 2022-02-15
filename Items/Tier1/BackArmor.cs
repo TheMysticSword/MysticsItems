@@ -94,6 +94,12 @@ namespace MysticsItems.Items
                 AddDisplayRule("ScavBody", "Backpack", new Vector3(-2.907F, 3.344F, -3.861F), new Vector3(359.95F, 0.351F, 16.311F), new Vector3(1.363F, 1.363F, 1.363F));
                 AddDisplayRule("ScavBody", "Backpack", new Vector3(1.977F, 6.937F, -3.851F), new Vector3(359.832F, 358.468F, 326.995F), new Vector3(1.363F, 1.363F, 1.363F));
                 AddDisplayRule("ScavBody", "Backpack", new Vector3(-1.588F, 9.252F, -3.947F), new Vector3(358.543F, 1.155F, 125.647F), new Vector3(1.363F, 1.363F, 1.363F));
+                if (SoftDependencies.SoftDependenciesCore.itemDisplaysSniper)
+                {
+                    AddDisplayRule("SniperClassicBody", "Chest", new Vector3(0.001F, 0.27712F, -0.33412F), new Vector3(356.6703F, 359.9898F, 0.06989F), new Vector3(0.06633F, 0.06633F, 0.06633F));
+                    AddDisplayRule("SniperClassicBody", "Chest", new Vector3(0.00195F, 0.13704F, -0.27314F), new Vector3(334.2708F, 359.8518F, 0.21636F), new Vector3(0.06109F, 0.06109F, 0.06109F));
+                    AddDisplayRule("SniperClassicBody", "Chest", new Vector3(-0.00074F, 0.02772F, -0.25266F), new Vector3(351.8274F, 0.31362F, 359.074F), new Vector3(0.04578F, 0.04578F, 0.04578F));
+                }
             };
             
             visualEffect = PrefabAPI.InstantiateClone(new GameObject(), "MysticsItems_BackArmorVFX", false);

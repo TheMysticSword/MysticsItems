@@ -94,6 +94,7 @@ namespace MysticsItems.Equipment
                 AddDisplayRule("CaptainBody", "Stomach", new Vector3(-0.195F, 0.128F, 0.126F), new Vector3(336.504F, 156.734F, 358.159F), new Vector3(0.041F, 0.041F, 0.041F));
                 AddDisplayRule("ScavBody", "MuzzleEnergyCannon", new Vector3(0F, 0F, -1.503F), new Vector3(90F, 0F, 0F), new Vector3(2.281F, 2.281F, 2.281F));
                 AddDisplayRule("EquipmentDroneBody", "GunBarrelBase", new Vector3(0F, 0F, 1.069F), new Vector3(0F, 0F, 0F), new Vector3(0.267F, 0.267F, 0.267F));
+                if (SoftDependencies.SoftDependenciesCore.itemDisplaysSniper) AddDisplayRule("SniperClassicBody", "Pelvis", new Vector3(0.19432F, 0.18834F, -0.17385F), new Vector3(343.5044F, 339.549F, 357.2065F), new Vector3(0.05181F, 0.05181F, 0.05181F));
             };
             
             visualEffectOnUse = PrefabAPI.InstantiateClone(new GameObject(), "MysticsItems_GateChaliceOnUseEffect", false);

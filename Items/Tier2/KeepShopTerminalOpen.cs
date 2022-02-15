@@ -67,6 +67,7 @@ namespace MysticsItems.Items
                 AddDisplayRule("CaptainBody", "Stomach", new Vector3(0.10938F, 0.16565F, 0.15251F), new Vector3(351.8886F, 224.6353F, 241.3711F), new Vector3(0.053F, 0.048F, 0.053F));
                 AddDisplayRule("BrotherBody", "Stomach", BrotherInfection.green, new Vector3(0.1446F, 0.10245F, 0.12114F), new Vector3(296.6585F, 215.6237F, 260.6332F), new Vector3(0.063F, 0.063F, 0.06164F));
                 AddDisplayRule("ScavBody", "Backpack", new Vector3(-5.27366F, 11.30539F, 2.34812F), new Vector3(26.35906F, 351.5907F, 98.18745F), new Vector3(1.31515F, 1.35137F, 1.31515F));
+                if (SoftDependencies.SoftDependenciesCore.itemDisplaysSniper) AddDisplayRule("SniperClassicBody", "Chest", new Vector3(0.10082F, 0.38579F, -0.25451F), new Vector3(0F, 90F, 270F), new Vector3(0.05257F, 0.05257F, 0.05257F));
             };
 
             On.RoR2.MultiShopController.Start += (orig, self) =>

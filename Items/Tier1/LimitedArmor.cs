@@ -72,6 +72,7 @@ namespace MysticsItems.Items
                 AddDisplayRule("CaptainBody", "Chest", new Vector3(0.00136F, 0.37981F, 0.1799F), new Vector3(350.816F, 280.0829F, 276.5578F), new Vector3(0.02509F, 0.02509F, 0.02509F));
                 AddDisplayRule("BrotherBody", "Head", BrotherInfection.white, new Vector3(0.18348F, 0.10434F, 0.01567F), new Vector3(0F, 0F, 295.3276F), new Vector3(0.08227F, 0.04507F, 0.04507F));
                 AddDisplayRule("ScavBody", "Chest", new Vector3(3.64754F, 6.52544F, -3.91259F), new Vector3(342.9161F, 287.3514F, 19.34576F), new Vector3(1.36506F, 1.40266F, 1.36506F));
+                if (SoftDependencies.SoftDependenciesCore.itemDisplaysSniper) AddDisplayRule("SniperClassicBody", "Head", new Vector3(0.07554F, -0.03519F, -0.19979F), new Vector3(348.2051F, 48.22592F, 228.5832F), new Vector3(0.02543F, 0.02543F, 0.02543F));
             };
 
             On.RoR2.CharacterMaster.OnInventoryChanged += CharacterMaster_OnInventoryChanged;

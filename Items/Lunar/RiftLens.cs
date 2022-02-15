@@ -135,6 +135,7 @@ namespace MysticsItems.Items
                 AddDisplayRule("CaptainBody", "HandR", new Vector3(-0.085F, 0.108F, 0.013F), new Vector3(69.075F, 70.114F, 350.542F), new Vector3(0.026F, 0.03F, 0.042F));
                 AddDisplayRule("BrotherBody", "Head", BrotherInfection.blue, new Vector3(0.003F, -0.01F, 0.061F), new Vector3(349.888F, 70.121F, 339.729F), new Vector3(0.133F, 0.133F, 0.133F));
                 AddDisplayRule("ScavBody", "Head", new Vector3(5.068F, 4.15F, -0.55F), new Vector3(46.576F, 301.45F, 310.155F), new Vector3(1.363F, 1.363F, 1.363F));
+                if (SoftDependencies.SoftDependenciesCore.itemDisplaysSniper) AddDisplayRule("SniperClassicBody", "GunBarrel", new Vector3(0.00002F, 0.07266F, -0.32569F), new Vector3(0F, 180F, 0F), new Vector3(0.02325F, 0.02325F, 0.02325F));
             };
 
             MysticsItemsRiftChest component = riftChest.AddComponent<MysticsItemsRiftChest>();

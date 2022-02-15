@@ -157,6 +157,7 @@ namespace MysticsItems.Items
                 AddDisplayRule("CaptainBody", "Chest", new Vector3(-0.38388F, 0.39949F, -0.01551F), new Vector3(15.849F, 346.474F, 26.10147F), new Vector3(0.10616F, 0.10616F, 0.10616F));
                 AddDisplayRule("BrotherBody", "chest", BrotherInfection.white, new Vector3(-0.22101F, 0.42643F, -0.064F), new Vector3(0F, 0F, 281.5435F), new Vector3(0.04683F, 0.09274F, 0.10516F));
                 AddDisplayRule("ScavBody", "Chest", new Vector3(9.15645F, 0.11521F, -0.43519F), new Vector3(305.6901F, 285.3795F, 356.474F), new Vector3(2.5856F, 2.65682F, 2.5856F));
+                if (SoftDependencies.SoftDependenciesCore.itemDisplaysSniper) AddDisplayRule("SniperClassicBody", "Chest", new Vector3(0.11749F, 0.41517F, -0.24199F), new Vector3(0.37534F, 284.0059F, 0.99266F), new Vector3(0.07834F, 0.07834F, 0.07834F));
             };
 
             GenericGameEvents.OnHitEnemy += GenericGameEvents_OnHitEnemy;

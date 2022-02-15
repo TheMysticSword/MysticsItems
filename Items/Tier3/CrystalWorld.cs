@@ -94,6 +94,7 @@ namespace MysticsItems.Items
                 AddDisplayRule("CaptainBody", "MuzzleGun", new Vector3(-0.0034F, 0.03444F, -0.31976F), new Vector3(0F, 0F, 0F), new Vector3(0.04057F, 0.03674F, 0.04057F));
                 AddDisplayRule("BrotherBody", "UpperArmL", new Vector3(0.02255F, -0.01451F, -0.00259F), new Vector3(303.36F, 82.77999F, 101.5723F), new Vector3(0.05297F, 0.08504F, 0.08504F));
                 AddDisplayRule("ScavBody", "UpperArmL", new Vector3(0.32551F, 0.61566F, 1.17648F), new Vector3(0F, 0F, 0F), new Vector3(2.65712F, 2.73031F, 2.65712F));
+                if (SoftDependencies.SoftDependenciesCore.itemDisplaysSniper) AddDisplayRule("SniperClassicBody", "Chest", new Vector3(0.1151F, 0.32048F, -0.33018F), new Vector3(10.681F, 0.007F, 0.071F), new Vector3(0.07588F, 0.07588F, 0.07588F));
             };
             ballPrefab = PrefabAPI.InstantiateClone(itemDef.pickupModelPrefab, "MysticsItems_CrystalWorldBall", false);
 

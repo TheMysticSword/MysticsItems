@@ -101,6 +101,7 @@ namespace MysticsItems.Equipment
                 AddDisplayRule("CaptainBody", "Chest", new Vector3(-0.00812F, 0.17595F, -0.14316F), new Vector3(0F, 218.1953F, 0F), new Vector3(0.09604F, 0.09604F, 0.09604F));
                 AddDisplayRule("ScavBody", "Backpack", new Vector3(6.49963F, 6.38849F, 0.00031F), new Vector3(0F, 180F, 0F), new Vector3(2.02387F, 2.02387F, 2.02387F));
                 AddDisplayRule("EquipmentDroneBody", "HeadCenter", new Vector3(0.4758F, 0F, -0.48188F), new Vector3(270F, 180F, 0F), new Vector3(0.42601F, 0.42601F, 0.42601F));
+                if (SoftDependencies.SoftDependenciesCore.itemDisplaysSniper) AddDisplayRule("SniperClassicBody", "Chest", new Vector3(0.1706F, 0.13246F, -0.20744F), new Vector3(0F, 180F, 0F), new Vector3(0.053F, 0.053F, 0.053F));
             };
 
             ChildLocator childLocator = itemDisplayPrefab.AddComponent<ChildLocator>();

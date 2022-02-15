@@ -111,6 +111,7 @@ namespace MysticsItems.Items
                 AddDisplayRule("CaptainBody", "MuzzleGun", new Vector3(0.00434F, 0.07836F, 0.00366F), new Vector3(355.4746F, 178.9148F, 3.6623F), new Vector3(0.08307F, 0.08307F, 0.08307F));
                 AddDisplayRule("BrotherBody", "LowerArmL", BrotherInfection.green, new Vector3(0.06027F, 0.23329F, 0.00112F), new Vector3(39.08279F, 113.2626F, 275.5628F), new Vector3(0.04861F, 0.04367F, 0.10724F));
                 //AddDisplayRule("ScavBody", "Stomach", new Vector3(-0.92389F, 11.6509F, -5.90638F), new Vector3(20.93637F, 118.4181F, 332.9505F), new Vector3(0.24839F, 0.25523F, 0.24839F));
+                if (SoftDependencies.SoftDependenciesCore.itemDisplaysSniper) AddDisplayRule("SniperClassicBody", "Chest", new Vector3(0.00594F, 0.11541F, -0.28484F), new Vector3(17.80415F, 179.5633F, 359.9077F), new Vector3(0.09333F, 0.09333F, 0.09333F));
             };
             
             CharacterBody.onBodyStartGlobal += CharacterBody_onBodyStartGlobal;

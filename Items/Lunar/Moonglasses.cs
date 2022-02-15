@@ -70,6 +70,7 @@ namespace MysticsItems.Items
                 AddDisplayRule("CaptainBody", "Head", new Vector3(-0.01724F, 0.18671F, 0.06974F), new Vector3(21.27818F, 180F, 0F), new Vector3(4.28179F, 5.0806F, 5.0806F));
                 AddDisplayRule("BrotherBody", "chest", BrotherInfection.blue, new Vector3(-0.05805F, 0.3807F, 0.05423F), new Vector3(322.4044F, 96.87862F, 314.7067F), new Vector3(0.12293F, 0.12293F, 0.12293F));
                 AddDisplayRule("ScavBody", "Head", new Vector3(-0.78245F, -0.32694F, 0.85024F), new Vector3(66.96695F, 8.55508F, 183.8605F), new Vector3(273.8666F, 291.7011F, 291.7011F));
+                if (SoftDependencies.SoftDependenciesCore.itemDisplaysSniper) AddDisplayRule("SniperClassicBody", "Head", new Vector3(-0.01805F, 0.12711F, -0.12674F), new Vector3(75.45986F, 179.9725F, 0.06272F), new Vector3(4.6839F, 5.28335F, 5.28335F));
             };
 
             GenericGameEvents.OnApplyDamageIncreaseModifiers += GenericGameEvents_OnApplyDamageIncreaseModifiers;

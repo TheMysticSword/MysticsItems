@@ -58,6 +58,7 @@ namespace MysticsItems.Equipment
                 AddDisplayRule("CaptainBody", "Stomach", new Vector3(-0.195F, 0.128F, 0.126F), new Vector3(336.504F, 156.734F, 358.159F), new Vector3(0.041F, 0.041F, 0.041F));
                 AddDisplayRule("ScavBody", "Backpack", new Vector3(-5.969F, 10.94F, 0.665F), new Vector3(338.478F, 350.544F, 54.934F), new Vector3(1.363F, 1.363F, 1.363F));
                 AddDisplayRule("EquipmentDroneBody", "GunBarrelBase", new Vector3(0F, 0F, 1.1F), new Vector3(52.577F, 0F, 0.001F), new Vector3(0.283F, 0.283F, 0.283F));
+                if (SoftDependencies.SoftDependenciesCore.itemDisplaysSniper) AddDisplayRule("SniperClassicBody", "Pelvis", new Vector3(0.24189F, 0.23523F, -0.05035F), new Vector3(309.5458F, 359.9093F, 0.10958F), new Vector3(0.04303F, 0.04303F, 0.04303F));
             };
 
             crosshairPrefab = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/WoodSpriteIndicator"), "MysticsItems_PrinterHackerIndicator", false);
