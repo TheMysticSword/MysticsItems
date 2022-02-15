@@ -36,7 +36,8 @@ namespace MysticsItems.Items
             itemDef.pickupIconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Items/Bow/IconFrayed.png");
 
             itemDisplayPrefab = PrepareItemDisplayModel(PrefabAPI.InstantiateClone(itemDef.pickupModelPrefab, itemDef.pickupModelPrefab.name + "Display", false));
-            HopooShaderToMaterial.Standard.Gloss(itemDisplayPrefab.GetComponentInChildren<Renderer>().sharedMaterial, 0f, 0f);
+            HopooShaderToMaterial.Standard.DisableEverything(itemDef.pickupModelPrefab.GetComponentInChildren<Renderer>().sharedMaterial);
+            HopooShaderToMaterial.Standard.DisableEverything(itemDisplayPrefab.GetComponentInChildren<Renderer>().sharedMaterial);
             itemDisplayPrefab.transform.localScale *= 0.8f;
             onSetupIDRS += () =>
             {
