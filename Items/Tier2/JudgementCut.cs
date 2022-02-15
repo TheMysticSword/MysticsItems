@@ -103,6 +103,8 @@ namespace MysticsItems.Items
 
         public static GameObject judgementCutVFX;
         public static GameObject judgementCutSingleSlashVFX;
+
+        public static GameObject judgementCutHitterPrefab;
         
         public override void OnLoad()
         {
@@ -165,6 +167,12 @@ namespace MysticsItems.Items
                 MysticsItemsContent.Resources.effectPrefabs.Add(judgementCutSingleSlashVFX);
             }
 
+            {
+                judgementCutHitterPrefab = PrefabAPI.InstantiateClone(new GameObject(), "MysticsItems_JudgementCutHitter", false);
+                judgementCutHitterPrefab.AddComponent<TeamFilter>();
+                judgementCutHitterPrefab.AddComponent<MysticsItemsJudgementCutHitter>();
+            }
+
             RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
             GenericGameEvents.OnHitEnemy += GenericGameEvents_OnHitEnemy;
         }
@@ -181,7 +189,7 @@ namespace MysticsItems.Items
 
         private void GenericGameEvents_OnHitEnemy(DamageInfo damageInfo, MysticsRisky2UtilsPlugin.GenericCharacterInfo attackerInfo, MysticsRisky2UtilsPlugin.GenericCharacterInfo victimInfo)
         {
-            if (damageInfo.crit && !damageInfo.damageType.HasFlag(DamageType.FallDamage) && damageInfo.procCoefficient > 0f && attackerInfo.inventory && attackerInfo.body && attackerInfo.body.inputBank)
+            if (damageInfo.crit && !damageInfo.procChainMask.HasProc(ProcType.Behemoth) && damageInfo.procCoefficient > 0f && attackerInfo.inventory && attackerInfo.body && attackerInfo.body.inputBank)
             {
                 var itemCount = attackerInfo.inventory.GetItemCount(itemDef);
                 if (itemCount > 0)
@@ -193,30 +201,22 @@ namespace MysticsItems.Items
                     {
                         component.count = 0;
 
-                        var totalSlashes = slashCount + slashCountPerStack * (itemCount - 1);
-                        var thisRadius = radius + radiusPerStack * (itemCount - 1);
-                        var isCrit = attackerInfo.body.RollCrit();
-                        for (var i = 0; i < totalSlashes; i++)
-                        {
-                            GameObject delayBlastObject = UnityEngine.Object.Instantiate(Resources.Load<GameObject>("Prefabs/NetworkedObjects/GenericDelayBlast"), damageInfo.position, Quaternion.identity);
-                            delayBlastObject.transform.localScale = thisRadius * Vector3.one;
-                            DelayBlast delayBlast = delayBlastObject.GetComponent<DelayBlast>();
-                            delayBlast.position = damageInfo.position;
-                            delayBlast.baseDamage = (!alternateDamage ? attackerInfo.body.damage : damageInfo.damage) * damagePerSlash / 100f;
-                            delayBlast.baseForce = 200f;
-                            delayBlast.attacker = attackerInfo.gameObject;
-                            delayBlast.radius = thisRadius;
-                            delayBlast.crit = isCrit;
-                            delayBlast.procCoefficient = procCoefficient;
-                            delayBlast.maxTimer = 0.1f * i;
-                            delayBlast.timerStagger = 0f;
-                            delayBlast.falloffModel = BlastAttack.FalloffModel.None;
-                            delayBlast.explosionEffect = judgementCutSingleSlashVFX;
-                            delayBlast.delayEffect = i == 0 ? judgementCutVFX : null;
-                            delayBlast.damageColorIndex = DamageColorIndex.Item;
-                            delayBlast.damageType = DamageType.FallDamage; // hacky way to prevent it from proccing itself
-                            delayBlastObject.GetComponent<TeamFilter>().teamIndex = TeamComponent.GetObjectTeam(delayBlast.attacker);
-                        }
+                        GameObject hitterObject = UnityEngine.Object.Instantiate(judgementCutHitterPrefab, damageInfo.position, Quaternion.identity);
+                        MysticsItemsJudgementCutHitter hitter = hitterObject.GetComponent<MysticsItemsJudgementCutHitter>();
+                        hitter.position = damageInfo.position;
+                        hitter.baseDamage = (!alternateDamage ? attackerInfo.body.damage : damageInfo.damage) * damagePerSlash / 100f;
+                        hitter.baseForce = 200f;
+                        hitter.attacker = attackerInfo.gameObject;
+                        hitter.radius = radius + radiusPerStack * (itemCount - 1);
+                        hitter.crit = attackerInfo.body.RollCrit();
+                        hitter.procCoefficient = procCoefficient;
+                        hitter.maxTimer = 0.1f;
+                        hitter.falloffModel = BlastAttack.FalloffModel.None;
+                        hitter.damageColorIndex = DamageColorIndex.Item;
+                        hitter.procChainMask = damageInfo.procChainMask;
+                        hitter.procChainMask.AddProc(ProcType.Behemoth);
+                        hitter.ammo = slashCount + slashCountPerStack * (itemCount - 1);
+                        hitterObject.GetComponent<TeamFilter>().teamIndex = TeamComponent.GetObjectTeam(hitter.attacker);
                     }
                 }
             }
@@ -225,6 +225,85 @@ namespace MysticsItems.Items
         public class MysticsItemsJudgementCutCounter : MonoBehaviour
         {
             public int count = 0;
+        }
+
+        public class MysticsItemsJudgementCutHitter : MonoBehaviour
+        {
+            public void Awake()
+            {
+                teamFilter = GetComponent<TeamFilter>();
+                if (!NetworkServer.active) enabled = false;
+            }
+
+            public void FixedUpdate()
+            {
+                if (NetworkServer.active)
+                {
+                    timer += Time.fixedDeltaTime;
+                    if (!initialVFXSpawned)
+                    {
+                        initialVFXSpawned = true;
+                        EffectManager.SpawnEffect(judgementCutVFX, new EffectData
+                        {
+                            origin = transform.position,
+                            scale = radius
+                        }, true);
+                    }
+                    if (timer >= maxTimer && ammo > 0)
+                    {
+                        Detonate();
+                        timer -= maxTimer;
+                        ammo--;
+                        if (ammo <= 0)
+                            UnityEngine.Object.Destroy(gameObject);
+                    }
+                }
+            }
+
+            public void Detonate()
+            {
+                EffectManager.SpawnEffect(judgementCutSingleSlashVFX, new EffectData
+                {
+                    origin = transform.position,
+                    scale = radius
+                }, true);
+                new BlastAttack
+                {
+                    position = position,
+                    baseDamage = baseDamage,
+                    baseForce = baseForce,
+                    bonusForce = bonusForce,
+                    radius = radius,
+                    attacker = attacker,
+                    inflictor = inflictor,
+                    teamIndex = teamFilter.teamIndex,
+                    crit = crit,
+                    damageColorIndex = damageColorIndex,
+                    damageType = damageType,
+                    falloffModel = falloffModel,
+                    procCoefficient = procCoefficient,
+                    procChainMask = procChainMask
+                }.Fire();
+            }
+
+            public Vector3 position;
+            public GameObject attacker;
+            public GameObject inflictor;
+            public float baseDamage;
+            public bool crit;
+            public float baseForce;
+            public float radius;
+            public Vector3 bonusForce;
+            public float maxTimer;
+            public DamageColorIndex damageColorIndex;
+            public BlastAttack.FalloffModel falloffModel;
+            public DamageType damageType;
+            public float procCoefficient = 1f;
+            public ProcChainMask procChainMask;
+            public int ammo = 3;
+            private float timer;
+            private bool initialVFXSpawned;
+            private TeamFilter teamFilter;
         }
     }
 }
