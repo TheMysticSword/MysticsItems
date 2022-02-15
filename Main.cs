@@ -54,8 +54,6 @@ namespace MysticsItems
         public static Assembly executingAssembly;
         internal static System.Type declaringType;
 
-        internal static BepInEx.Configuration.ConfigFile configGeneral;
-        
         public static void Init()
         {
             logger = MysticsItemsPlugin.logger;
