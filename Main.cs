@@ -60,7 +60,7 @@ namespace MysticsItems
         {
             logger = MysticsItemsPlugin.logger;
             
-            configGeneral = MysticsItemsPlugin.configGeneral;
+            GeneralConfigManager.Init();
             BalanceConfigManager.Init();
 
             using (var soundBankStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("MysticsItems.MysticsItemsWwiseSoundbank.bnk"))

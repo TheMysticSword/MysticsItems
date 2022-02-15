@@ -92,7 +92,7 @@ namespace MysticsItems.Items
 
         private void GenericCharacterMain_PerformInputs(On.EntityStates.GenericCharacterMain.orig_PerformInputs orig, EntityStates.GenericCharacterMain self)
         {
-            var hasThisItem = self.characterBody && self.characterBody.inventory && self.characterBody.inventory.GetItemCount(itemDef) > 0;
+            var hasThisItem = GeneralConfigManager.backpackEnableSkillFixes.Value && self.characterBody && self.characterBody.inventory && self.characterBody.inventory.GetItemCount(itemDef) > 0;
             if (hasThisItem)
             {
                 for (var i = 0; i < skillDefsToFix.Count; i++)
@@ -113,34 +113,31 @@ namespace MysticsItems.Items
             }
         }
 
-        public static ConfigEntry<bool> enableSkillFixes = Main.configGeneral.Bind<bool>(
-            "Gameplay changes",
-            "BackpackEnableSkillFixes",
-            true,
-            "Make certain skills require pressing a key instead of holding it down while carrying the Hikers Backpack item to fix these skills consuming all charges at once."
-        );
         public static Dictionary<RoR2.Skills.SkillDef, bool> skillDefsToFix = new Dictionary<RoR2.Skills.SkillDef, bool>();
 
         private void SkillCatalog_SetSkillDefs(On.RoR2.Skills.SkillCatalog.orig_SetSkillDefs orig, RoR2.Skills.SkillDef[] newSkillDefs)
         {
             orig(newSkillDefs);
-            var skillsToFix = new List<string>()
+            if (GeneralConfigManager.backpackEnableSkillFixes.Value)
             {
-                "ResetRevolver", "SkullRevolver",
-                "ThrowGrenade", "ThrowStickyGrenade", "CommandoBodySweepBarrage", "CommandoBodyBarrage",
-                "CrocoDisease",
-                "HuntressBodyArrowRain", "FireArrowSnipe", "AimArrowSnipe",
-                "MageBodyFlyUp", "MageBodyFlamethrower",
-                "MercBodyEvisProjectile", "MercBodyEvis",
-                "ToolbotDualWield", "ToolbotCancelDualWield",
-                "LunarDetonatorSpecialReplacement"
-            };
-            foreach (var skillDef in newSkillDefs)
-            {
-                if (skillsToFix.Contains(RoR2.Skills.SkillCatalog.GetSkillName(skillDef.skillIndex)) && !skillDef.mustKeyPress)
+                var skillsToFix = new List<string>()
                 {
-                    if (!skillDefsToFix.ContainsKey(skillDef))
-                        skillDefsToFix.Add(skillDef, false);
+                    "ResetRevolver", "SkullRevolver",
+                    "ThrowGrenade", "ThrowStickyGrenade", "CommandoBodySweepBarrage", "CommandoBodyBarrage",
+                    "CrocoDisease",
+                    "HuntressBodyArrowRain", "FireArrowSnipe", "AimArrowSnipe",
+                    "MageBodyFlyUp", "MageBodyFlamethrower",
+                    "MercBodyEvisProjectile", "MercBodyEvis",
+                    "ToolbotDualWield", "ToolbotCancelDualWield",
+                    "LunarDetonatorSpecialReplacement"
+                };
+                foreach (var skillDef in newSkillDefs)
+                {
+                    if (skillsToFix.Contains(RoR2.Skills.SkillCatalog.GetSkillName(skillDef.skillIndex)) && !skillDef.mustKeyPress)
+                    {
+                        if (!skillDefsToFix.ContainsKey(skillDef))
+                            skillDefsToFix.Add(skillDef, false);
+                    }
                 }
             }
         }

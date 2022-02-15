@@ -81,8 +81,7 @@ namespace MysticsItems.Interactables
             spawnCard.slightlyRandomizeOrientation = false;
             spawnCard.skipSpawnWhenSacrificeArtifactEnabled = false;
 
-            var enabled = Main.configGeneral.Bind<bool>("Misc", "EnableSecrets", true, "Enable secrets");
-            if (enabled.Value)
+            if (GeneralConfigManager.enableSecrets.Value)
             {
                 AddDirectorCardTo("wispgraveyard", "Shrines", new DirectorCard
                 {

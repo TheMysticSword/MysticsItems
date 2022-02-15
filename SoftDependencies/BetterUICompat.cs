@@ -12,7 +12,7 @@ namespace MysticsItems.SoftDependencies
         {
             RoR2Application.onLoad += RegisterBuffInfos;
 
-            if (SoftDependenciesCore.betterUICompatEnableOverrides.Value)
+            if (GeneralConfigManager.betterUICompatEnableOverrides.Value)
             {
                 System.Func<CharacterBody, string> func;
 
