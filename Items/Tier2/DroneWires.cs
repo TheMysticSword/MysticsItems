@@ -224,9 +224,10 @@ namespace MysticsItems.Items
                 }
             }
 
-            public void OnDisable()
+            public void OnDestroy()
             {
                 UpdateDroneInventories(-stack);
+                MasterSummon.onServerMasterSummonGlobal -= MasterSummon_onServerMasterSummonGlobal;
             }
 
             public void FixedUpdate()
