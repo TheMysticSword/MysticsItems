@@ -49,6 +49,8 @@ namespace MysticsItems.Items
             }
         );
 
+        private static string tooltipString = "<color=#BE2BE1></color><color=#EAEEDD></color><color=#AAAAA5></color>";
+
         public static DamageColorIndex damageColorIndex = DamageColorAPI.RegisterDamageColor(new Color32(247, 245, 197, 255));
         public static GameObject onKillOrbEffect;
         public static GameObject onKillVFX;
@@ -247,11 +249,17 @@ namespace MysticsItems.Items
                                     "+" + (Mathf.RoundToInt(swordBehaviour.damageBonus * 100f)).ToString(System.Globalization.CultureInfo.InvariantCulture)
                                 )
                             );
+                            globalStringBuilder.Append(tooltipString);
                             self.tooltipProvider.overrideBodyText = globalStringBuilder.ToString();
                             globalStringBuilder.Clear();
                         }
                     }
                 }
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(self.tooltipProvider.overrideBodyText) && self.tooltipProvider.overrideBodyText.Contains(tooltipString))
+                    self.tooltipProvider.overrideBodyText = "";
             }
         }
 

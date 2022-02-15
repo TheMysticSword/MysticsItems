@@ -29,6 +29,8 @@ namespace MysticsItems.Items
             }
         );
 
+        private static string tooltipString = "<color=#E6BC4D></color><color=#D4CB6E></color><color=#ABEFA2></color>";
+
         public override void OnPluginAwake()
         {
             NetworkingAPI.RegisterMessageType<MysticsItemsManuscript.SyncAddBuff>();
@@ -111,11 +113,17 @@ namespace MysticsItems.Items
                                     )
                                 );
                             }
+                            globalStringBuilder.Append(tooltipString);
                             self.tooltipProvider.overrideBodyText = globalStringBuilder.ToString();
                             globalStringBuilder.Clear();
                         }
                     }
                 }
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(self.tooltipProvider.overrideBodyText) && self.tooltipProvider.overrideBodyText.Contains(tooltipString))
+                    self.tooltipProvider.overrideBodyText = "";
             }
         }
 
