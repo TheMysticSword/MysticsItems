@@ -102,6 +102,7 @@ namespace MysticsItems.Items
             {
                 ignoredBuffDefs.Add(RoR2Content.Buffs.MedkitHeal);
                 ignoredBuffDefs.Add(RoR2Content.Buffs.NullSafeZone);
+                ignoredBuffDefs.Add(RoR2Content.Buffs.HiddenInvincibility);
             };
         }
 
