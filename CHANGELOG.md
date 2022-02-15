@@ -1,3 +1,9 @@
+#### 2.0.3:
+* Added item displays for SniperClassic
+* Choc Chip no longer affects the Invincibility buff
+* Devil's Cry can no longer proc itself in a proc chain
+* Fixed Manuscript and Mystic Sword hover tooltips in the Tab menu overriding other item descriptions when these items are lost (through Scrappers, 3D Printers, etc.)
+* Fixed Spare Wiring affecting drones bought after the owner had lost the item
 #### 2.0.2:
 * Increased Warning System's charge radius from 30m to 50m
 * Improved Rift Lens time calculation
