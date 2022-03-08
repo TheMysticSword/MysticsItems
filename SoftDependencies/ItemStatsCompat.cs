@@ -148,7 +148,7 @@ namespace MysticsItems.SoftDependencies
                         (value, ctx) => Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_DURATION", ItemStats.ValueFormatters.Extensions.FormatInt(value: value, postfix: Language.GetString("ITEMSTATS_MYSTICSITEMS_POSTFIX_SECONDS"), signed: true))
                     ),
                     new ItemStats.Stat.ItemStat(
-                        (itemCount, ctx) => Items.Cookie.debuffDuration + Items.Cookie.debuffDurationPerStack * (itemCount - 1),
+                        (itemCount, ctx) => -Items.Cookie.debuffDuration - Items.Cookie.debuffDurationPerStack * (itemCount - 1),
                         (value, ctx) => Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_DURATION", ItemStats.ValueFormatters.Extensions.FormatInt(value: value, postfix: Language.GetString("ITEMSTATS_MYSTICSITEMS_POSTFIX_SECONDS"), signed: true))
                     )
                 }
