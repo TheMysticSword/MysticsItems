@@ -47,7 +47,7 @@ namespace MysticsItems.Equipment
         {
             base.OnLoad();
             equipmentDef.name = "MysticsItems_FragileMask";
-            equipmentDef.cooldown = new ConfigurableCooldown("Equipment: Fragile Mask", 3f).Value;
+            equipmentDef.cooldown = new ConfigurableCooldown("Equipment: Fragile Mask", 0f).Value;
             equipmentDef.canDrop = true;
             equipmentDef.enigmaCompatible = new ConfigurableEnigmaCompatibleBool("Equipment: Fragile Mask", false).Value;
             equipmentDef.canBeRandomlyTriggered = new ConfigurableCanBeRandomlyTriggeredBool("Equipment: Fragile Mask", false).Value;
