@@ -18,7 +18,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> damage = new ConfigurableValue<float>(
             "Item: Marwan s Ash/Light/Weapon",
             "Damage",
-            5f,
+            2f,
             "Base damage",
             new System.Collections.Generic.List<string>()
             {
@@ -30,7 +30,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> damagePerLevel = new ConfigurableValue<float>(
             "Item: Marwan s Ash/Light/Weapon",
             "DamagePerLevel",
-            1f,
+            0.2f,
             "Base damage for each additional level of the owner",
             new System.Collections.Generic.List<string>()
             {
@@ -48,7 +48,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> dotPercent = new ConfigurableValue<float>(
             "Item: Marwan s Ash/Light/Weapon",
             "DoTPercent",
-            0.3f,
+            0.2f,
             "How much health should the afflicted enemies lose every second on item level 2 (in %)",
             new System.Collections.Generic.List<string>()
             {
@@ -59,7 +59,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> dotPercentPerLevel = new ConfigurableValue<float>(
             "Item: Marwan s Ash/Light/Weapon",
             "DoTPercentPerLevel",
-            0.03f,
+            0.02f,
             "How much health should the afflicted enemies lose every second on item level 2 for each additional level of the owner (in %)",
             new System.Collections.Generic.List<string>()
             {
@@ -70,7 +70,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> dotDuration = new ConfigurableValue<float>(
             "Item: Marwan s Ash/Light/Weapon",
             "DoTDuration",
-            10f,
+            2f,
             "How long should the damage over time effect last (in seconds)"
         );
         public static ConfigurableValue<float> radius = new ConfigurableValue<float>(
@@ -96,7 +96,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> upgradeLevel12 = new ConfigurableValue<float>(
             "Item: Marwan s Ash/Light/Weapon",
             "UpgradeLevel12",
-            14f,
+            17f,
             "Level required for upgrading from level 1 to level 2",
             new System.Collections.Generic.List<string>()
             {
@@ -109,7 +109,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> upgradeLevel23 = new ConfigurableValue<float>(
             "Item: Marwan s Ash/Light/Weapon",
             "UpgradeLevel23",
-            21f,
+            23f,
             "Level required for upgrading from level 2 to level 3",
             new System.Collections.Generic.List<string>()
             {
