@@ -199,6 +199,18 @@ namespace MysticsItems.Items
             EffectComponent effectComponent = explosionPrefab.AddComponent<EffectComponent>();
             effectComponent.applyScale = true;
             effectComponent.soundName = "MysticsItems_Play_item_proc_gunpowder";
+            explosionPrefab.AddComponent<DestroyOnTimer>().duration = 2f;
+            ShakeEmitter shakeEmitter = explosionPrefab.AddComponent<ShakeEmitter>();
+            shakeEmitter.duration = 0.1f;
+            shakeEmitter.scaleShakeRadiusWithLocalScale = true;
+            shakeEmitter.amplitudeTimeDecay = true;
+            shakeEmitter.radius = 1.5f;
+            shakeEmitter.shakeOnStart = true;
+            shakeEmitter.wave = new Wave
+            {
+                amplitude = 9f,
+                frequency = 4f
+            };
             MysticsItemsContent.Resources.effectPrefabs.Add(explosionPrefab);
 
             /*
