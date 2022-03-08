@@ -40,7 +40,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> armorBonus = new ConfigurableValue<float>(
             "Item: Super Idol",
             "ArmorBonus",
-            50f,
+            90f,
             "Extra armor at full buff power",
             new System.Collections.Generic.List<string>()
             {
