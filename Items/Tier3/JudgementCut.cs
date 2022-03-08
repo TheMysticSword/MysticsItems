@@ -110,7 +110,7 @@ namespace MysticsItems.Items
         {
             base.OnLoad();
             itemDef.name = "MysticsItems_JudgementCut";
-            itemDef.tier = ItemTier.Tier2;
+            itemDef.tier = ItemTier.Tier3;
             itemDef.tags = new ItemTag[]
             {
                 ItemTag.Damage
@@ -119,7 +119,7 @@ namespace MysticsItems.Items
             itemDef.pickupModelPrefab = PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Katana/Model.prefab"));
             HopooShaderToMaterial.Standard.Apply(itemDef.pickupModelPrefab.GetComponentInChildren<Renderer>().sharedMaterial);
             HopooShaderToMaterial.Standard.Emission(itemDef.pickupModelPrefab.GetComponentInChildren<Renderer>().sharedMaterial, 1f);
-            itemDef.pickupIconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Items/Katana/Icon.png");
+            itemDef.pickupIconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Items/Katana/IconRed.png");
             itemDisplayPrefab = PrepareItemDisplayModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Katana/DisplayModel.prefab"));
             onSetupIDRS += () =>
             {
@@ -197,7 +197,7 @@ namespace MysticsItems.Items
                 {
                     var component = attackerInfo.body.GetComponent<MysticsItemsJudgementCutCounter>();
                     if (!component) component = attackerInfo.body.gameObject.AddComponent<MysticsItemsJudgementCutCounter>();
-                    component.count++;
+                    component.count += damageInfo.procCoefficient;
                     if (component.count >= critInterval)
                     {
                         component.count = 0;
@@ -225,7 +225,7 @@ namespace MysticsItems.Items
 
         public class MysticsItemsJudgementCutCounter : MonoBehaviour
         {
-            public int count = 0;
+            public float count = 0;
         }
 
         public class MysticsItemsJudgementCutHitter : MonoBehaviour
