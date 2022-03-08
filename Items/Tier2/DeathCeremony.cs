@@ -28,7 +28,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> damage = new ConfigurableValue<float>(
             "Item: Ceremony of Perdition",
             "Damage",
-            25f,
+            10f,
             "Fractional damage on mark trigger (in %)",
             new System.Collections.Generic.List<string>()
             {
@@ -38,7 +38,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> damagePerStack = new ConfigurableValue<float>(
             "Item: Ceremony of Perdition",
             "DamagePerStack",
-            25f,
+            10f,
             "Fractional damage on mark trigger for each additional stack of this item (in %)",
             new System.Collections.Generic.List<string>()
             {
@@ -48,7 +48,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> duration = new ConfigurableValue<float>(
             "Item: Ceremony of Perdition",
             "Duration",
-            20f,
+            10f,
             "How long should the crit mark last (in seconds)",
             new System.Collections.Generic.List<string>()
             {
