@@ -120,7 +120,7 @@ namespace MysticsItems.Items
                 if (damageReport.victimBody.inventory && damageReport.victimBody.inventory.GetItemCount(itemDef) > 0 && preDamageShield && preDamageShield.value > 0f)
                 {
                     /*
-                    EffectManager.SpawnEffect(Resources.Load<GameObject>("Prefabs/Effects/LightningStakeNova"), new EffectData
+                    EffectManager.SpawnEffect(LegacyResourcesAPI.Load<GameObject>("Prefabs/Effects/LightningStakeNova"), new EffectData
                     {
                         origin = characterInfo.body.corePosition,
                         scale = radius,

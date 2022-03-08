@@ -94,15 +94,19 @@ namespace MysticsItems
                             }
                         }
 
-                        foreach (var notificationQueueHandler in NotificationQueue.readOnlyInstancesList)
+                        if (originalItemDef && !originalItemDef.hidden)
                         {
-                            if (originalItemDef && !originalItemDef.hidden)
+                            var notificationQueueHandler = CharacterMasterNotificationQueue.GetNotificationQueueForMaster(master);
+                            if (notificationQueueHandler)
                             {
-                                if (notificationQueueHandler.hud.targetMaster == master)
+                                var info = new CharacterMasterNotificationQueue.NotificationInfo(ItemCatalog.GetItemDef(convertedItemDef.itemIndex));
+                                if (notificationQueueHandler.notifications.Count <= 0 || notificationQueueHandler.notifications.Last().notification != info)
                                 {
-                                    notificationQueueHandler.notificationQueue.Enqueue(new NotificationQueue.NotificationInfo
+                                    notificationQueueHandler.notifications.Add(new CharacterMasterNotificationQueue.TimedNotificationInfo
                                     {
-                                        data = ItemCatalog.GetItemDef(convertedItemDef.itemIndex)
+                                        notification = info,
+                                        startTime = Run.instance.fixedTime,
+                                        duration = 6f
                                     });
                                 }
                             }

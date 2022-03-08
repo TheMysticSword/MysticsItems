@@ -85,7 +85,7 @@ namespace MysticsItems.Equipment
 
             On.RoR2.Language.GetLocalizedStringByToken += Language_GetLocalizedStringByToken;
 
-            var materials = Resources.Load<GameObject>("Prefabs/CharacterBodies/BrotherGlassBody").GetComponentInChildren<SkinnedMeshRenderer>().sharedMaterials;
+            var materials = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/BrotherGlassBody").GetComponentInChildren<SkinnedMeshRenderer>().sharedMaterials;
             overrideMaterial = materials[1];
             CharacterModelMaterialOverrides.AddOverride("FragileMask", BrittleMaterialOverride);
             Overlays.CreateOverlay(materials[0], (characterModel) =>

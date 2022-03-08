@@ -255,7 +255,7 @@ namespace MysticsItems.Items
 
             ObjectivePanelController.collectObjectiveSources += ObjectivePanelController_collectObjectiveSources;
 
-            hudPanelPrefab = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/UI/HudModules/HudCountdownPanel"), "RiftLensHUDPanel");
+            hudPanelPrefab = PrefabAPI.InstantiateClone(LegacyResourcesAPI.Load<GameObject>("Prefabs/UI/HudModules/HudCountdownPanel"), "RiftLensHUDPanel");
             hudPanelPrefab.transform.Find("Juice/Container/CountdownTitleLabel").GetComponent<LanguageTextMeshController>().token = "OBJECTIVE_MYSTICSITEMS_RIFTLENS_FLAVOUR";
             var col = new Color32(0, 157, 255, 255);
             hudPanelPrefab.transform.Find("Juice/Container/Border").GetComponent<Image>().color = col;

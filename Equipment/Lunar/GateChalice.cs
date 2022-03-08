@@ -111,7 +111,7 @@ namespace MysticsItems.Equipment
 
             GameObject massSparks = PrefabAPI.InstantiateClone(new GameObject(), "MassSparks", false);
             ParticleSystem particleSystem = massSparks.AddComponent<ParticleSystem>();
-            massSparks.GetComponent<ParticleSystemRenderer>().material = Object.Instantiate(Resources.Load<GameObject>("Prefabs/Effects/ActivateRadarTowerEffect").transform.Find("MassSparks").gameObject.GetComponent<ParticleSystemRenderer>().material);
+            massSparks.GetComponent<ParticleSystemRenderer>().material = Object.Instantiate(LegacyResourcesAPI.Load<GameObject>("Prefabs/Effects/ActivateRadarTowerEffect").transform.Find("MassSparks").gameObject.GetComponent<ParticleSystemRenderer>().material);
             particleSystem.useAutoRandomSeed = true;
             ParticleSystem.MainModule mainModule = particleSystem.main;
             mainModule.simulationSpace = ParticleSystemSimulationSpace.World;
@@ -250,8 +250,8 @@ namespace MysticsItems.Equipment
                         TemporaryOverlay temporaryOverlay = pickupDisplay.modelObject.AddComponent<TemporaryOverlay>();
                         temporaryOverlay.duration = 0.5f;
                         temporaryOverlay.destroyObjectOnEnd = true;
-                        temporaryOverlay.originalMaterial = Resources.Load<Material>("Materials/matShatteredGlass");
-                        temporaryOverlay.destroyEffectPrefab = (GameObject)Resources.Load("Prefabs/Effects/BrittleDeath");
+                        temporaryOverlay.originalMaterial = LegacyResourcesAPI.Load<Material>("Materials/matShatteredGlass");
+                        temporaryOverlay.destroyEffectPrefab = (GameObject)LegacyResourcesAPI.Load<GameObject>("Prefabs/Effects/BrittleDeath");
                         temporaryOverlay.destroyEffectChildString = "ShatterOrigin";
                         temporaryOverlay.alphaCurve = AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
                         temporaryOverlay.animateShaderAlpha = true;

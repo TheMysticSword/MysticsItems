@@ -62,7 +62,7 @@ namespace MysticsItems.Equipment
                 if (SoftDependencies.SoftDependenciesCore.itemDisplaysSniper) AddDisplayRule("SniperClassicBody", "Pelvis", new Vector3(0.24189F, 0.23523F, -0.05035F), new Vector3(309.5458F, 359.9093F, 0.10958F), new Vector3(0.04303F, 0.04303F, 0.04303F));
             };
 
-            crosshairPrefab = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/WoodSpriteIndicator"), "MysticsItems_PrinterHackerIndicator", false);
+            crosshairPrefab = PrefabAPI.InstantiateClone(LegacyResourcesAPI.Load<GameObject>("Prefabs/WoodSpriteIndicator"), "MysticsItems_PrinterHackerIndicator", false);
             Object.Destroy(crosshairPrefab.GetComponentInChildren<Rewired.ComponentControls.Effects.RotateAroundAxis>());
             crosshairPrefab.GetComponentInChildren<SpriteRenderer>().sprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Equipment/Wirehack Wrench/Crosshair.png");
             crosshairPrefab.GetComponentInChildren<SpriteRenderer>().color = new Color32(255, 235, 75, 255);
@@ -141,7 +141,7 @@ namespace MysticsItems.Equipment
                     purchaseInteraction.SetAvailable(false);
                     purchaseInteraction.lockGameObject = null;
                     ShopTerminalBehavior shopTerminalBehavior = targetInfo.obj.GetComponent<MysticsItemsDuplicatorLocator>().shopTerminalBehavior;
-                    EffectManager.SimpleEffect(Resources.Load<GameObject>("Prefabs/Effects/OmniEffect/OmniRecycleEffect"), shopTerminalBehavior.pickupDisplay.transform.position, Quaternion.identity, true);
+                    EffectManager.SimpleEffect(LegacyResourcesAPI.Load<GameObject>("Prefabs/Effects/OmniEffect/OmniRecycleEffect"), shopTerminalBehavior.pickupDisplay.transform.position, Quaternion.identity, true);
                     shopTerminalBehavior.SetHasBeenPurchased(true);
                     for (var i = 0; i < amount; i++)
                         PickupDropletController.CreatePickupDroplet(

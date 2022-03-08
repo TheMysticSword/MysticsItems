@@ -116,7 +116,7 @@ namespace MysticsItems
         {
             while (weightedSelection.Count > 0 && itemsToTake.Count < halfTotalItemCount)
             {
-                int choiceIndex = weightedSelection.EvaluteToChoiceIndex(context.rng.nextNormalizedFloat);
+                int choiceIndex = weightedSelection.EvaluateToChoiceIndex(context.rng.nextNormalizedFloat);
                 WeightedSelection<ItemIndex>.ChoiceInfo choice = weightedSelection.GetChoice(choiceIndex);
                 ItemIndex value = choice.value;
                 int num = (int)choice.weight;

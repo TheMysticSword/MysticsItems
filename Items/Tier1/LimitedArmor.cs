@@ -113,12 +113,11 @@ namespace MysticsItems.Items
                                         component.skipItemCheck = false;
                                         inventory.GiveItem(MysticsItemsContent.Items.MysticsItems_LimitedArmorBroken);
 
-                                        CustomChatMessages.SendConversionMessage(
+                                        CharacterMasterNotificationQueue.PushItemTransformNotification(
                                             damageReport.victimMaster,
-                                            PickupCatalog.FindPickupIndex(MysticsItemsContent.Items.MysticsItems_LimitedArmor.itemIndex),
-                                            1u,
-                                            PickupCatalog.FindPickupIndex(MysticsItemsContent.Items.MysticsItems_LimitedArmorBroken.itemIndex),
-                                            (uint)inventory.GetItemCount(MysticsItemsContent.Items.MysticsItems_LimitedArmorBroken)
+                                            MysticsItemsContent.Items.MysticsItems_LimitedArmor.itemIndex,
+                                            MysticsItemsContent.Items.MysticsItems_LimitedArmorBroken.itemIndex,
+                                            CharacterMasterNotificationQueue.TransformationType.Default
                                         );
                                     }
                                 }

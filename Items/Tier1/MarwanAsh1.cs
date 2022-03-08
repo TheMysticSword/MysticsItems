@@ -239,7 +239,24 @@ namespace MysticsItems.Items
                     
                     if (itemLevel >= 2)
                     {
-                        DotController.InflictDot(victimInfo.gameObject, attackerInfo.gameObject, Buffs.MarwanAshBurn.ashDotIndex, dotDuration, 1f);
+                        var dotInfo = new InflictDotInfo
+                        {
+                            victimObject = victimInfo.gameObject,
+                            attackerObject = attackerInfo.gameObject,
+                            dotIndex = Buffs.MarwanAshBurn.ashDotIndex,
+                            duration = dotDuration,
+                            damageMultiplier = 1f,
+                            totalDamage = null
+                        };
+                        /*
+                        var strengthenBurnCount = attackerInfo.inventory.GetItemCount(DLC1Content.Items.StrengthenBurn);
+                        if (strengthenBurnCount > 0)
+                        {
+                            var multiplier = 1f + 3f * (float)strengthenBurnCount;
+                            dotInfo.duration *= multiplier;
+                        }
+                        */
+                        DotController.InflictDot(ref dotInfo);
                     }
                 }
             }
@@ -297,13 +314,14 @@ namespace MysticsItems.Items
                         body.inventory.RemoveItem(MysticsItemsContent.Items.MysticsItems_MarwanAsh1, itemCount1);
                         body.inventory.GiveItem(MysticsItemsContent.Items.MysticsItems_MarwanAsh2, itemCount1);
 
-                        CustomChatMessages.SendConversionMessage(
-                            body.master,
-                            PickupCatalog.FindPickupIndex(MysticsItemsContent.Items.MysticsItems_MarwanAsh1.itemIndex),
-                            (uint)itemCount1,
-                            PickupCatalog.FindPickupIndex(MysticsItemsContent.Items.MysticsItems_MarwanAsh2.itemIndex),
-                            (uint)(itemCount1 + itemCount2)
-                        );
+                        if (itemCount1 > 0)
+                            CharacterMasterNotificationQueue.PushItemTransformNotification(
+                                body.master,
+                                MysticsItemsContent.Items.MysticsItems_MarwanAsh1.itemIndex,
+                                MysticsItemsContent.Items.MysticsItems_MarwanAsh2.itemIndex,
+                                CharacterMasterNotificationQueue.TransformationType.Default
+                            );
+
                         itemCount2 += itemCount1;
                         itemCount1 = 0;
                     }
@@ -313,20 +331,21 @@ namespace MysticsItems.Items
                         body.inventory.RemoveItem(MysticsItemsContent.Items.MysticsItems_MarwanAsh2, itemCount2);
                         body.inventory.GiveItem(MysticsItemsContent.Items.MysticsItems_MarwanAsh3, itemCount1 + itemCount2);
 
-                        CustomChatMessages.SendConversionMessage(
-                            body.master,
-                            PickupCatalog.FindPickupIndex(MysticsItemsContent.Items.MysticsItems_MarwanAsh1.itemIndex),
-                            (uint)itemCount1,
-                            PickupCatalog.FindPickupIndex(MysticsItemsContent.Items.MysticsItems_MarwanAsh3.itemIndex),
-                            (uint)(itemCount1 + itemCount2 + itemCount3)
-                        );
-                        CustomChatMessages.SendConversionMessage(
-                            body.master,
-                            PickupCatalog.FindPickupIndex(MysticsItemsContent.Items.MysticsItems_MarwanAsh2.itemIndex),
-                            (uint)itemCount2,
-                            PickupCatalog.FindPickupIndex(MysticsItemsContent.Items.MysticsItems_MarwanAsh3.itemIndex),
-                            (uint)(itemCount1 + itemCount2 + itemCount3)
-                        );
+                        if (itemCount1 > 0)
+                            CharacterMasterNotificationQueue.PushItemTransformNotification(
+                                body.master,
+                                MysticsItemsContent.Items.MysticsItems_MarwanAsh1.itemIndex,
+                                MysticsItemsContent.Items.MysticsItems_MarwanAsh3.itemIndex,
+                                CharacterMasterNotificationQueue.TransformationType.Default
+                            );
+                        if (itemCount2 > 0)
+                            CharacterMasterNotificationQueue.PushItemTransformNotification(
+                                body.master,
+                                MysticsItemsContent.Items.MysticsItems_MarwanAsh2.itemIndex,
+                                MysticsItemsContent.Items.MysticsItems_MarwanAsh3.itemIndex,
+                                CharacterMasterNotificationQueue.TransformationType.Default
+                            );
+
                         itemCount3 += itemCount1 + itemCount2;
                         itemCount1 = 0;
                         itemCount2 = 0;

@@ -107,7 +107,7 @@ namespace MysticsItems.Items
             unlockInteractablePrefab.transform.localScale *= 0.4f;
             unlockInteractablePrefab.AddComponent<MysticsItemsSpotterUnlockInteraction>();
 
-            GameObject sparks = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/NetworkedObjects/RadarTower").transform.Find("mdlRadar").Find("Sparks").gameObject, "Sparks", false);
+            GameObject sparks = PrefabAPI.InstantiateClone(LegacyResourcesAPI.Load<GameObject>("Prefabs/NetworkedObjects/RadarTower").transform.Find("mdlRadar").Find("Sparks").gameObject, "Sparks", false);
             sparks.transform.localPosition = new Vector3(0f, 1f, 0f);
             ParticleSystem.MainModule particleSystem = sparks.GetComponentInChildren<ParticleSystem>().main;
             particleSystem.scalingMode = ParticleSystemScalingMode.Hierarchy;

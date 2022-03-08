@@ -107,7 +107,7 @@ namespace MysticsItems.Equipment
             pp.sharedProfile = ppProfile;
             ppHolder.transform.SetParent(visualEffect.transform);
 
-            GameObject radiusIndicator = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/NetworkedObjects/Teleporters/Teleporter1").transform.Find("TeleporterBaseMesh").Find("BuiltInEffects").Find("ChargingEffect").Find("RadiusScaler").Find("ClearAreaIndicator").gameObject, "RadiusIndicator", false);
+            GameObject radiusIndicator = PrefabAPI.InstantiateClone(LegacyResourcesAPI.Load<GameObject>("Prefabs/NetworkedObjects/Teleporters/Teleporter1").transform.Find("TeleporterBaseMesh").Find("BuiltInEffects").Find("ChargingEffect").Find("RadiusScaler").Find("ClearAreaIndicator").gameObject, "RadiusIndicator", false);
             radiusIndicator.AddComponent<MysticsItemsTuningForkRadiusIndicatorController>();
             MeshRenderer meshRenderer = radiusIndicator.GetComponent<MeshRenderer>();
             meshRenderer.material.SetFloat("_RimPower", 1.2f);

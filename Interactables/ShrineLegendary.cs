@@ -42,7 +42,7 @@ namespace MysticsItems.Interactables
             prefabMaterial.SetFloat("_GlossyReflections", 1f);
             HopooShaderToMaterial.Standard.Gloss(prefabMaterial, 0.07f, 1.25f, new Color32(96, 86, 48, 255));
 
-            GameObject shrineChanceSymbol = Resources.Load<GameObject>("Prefabs/NetworkedObjects/Shrines/ShrineGoldshoresAccess").transform.Find("Symbol").gameObject;
+            GameObject shrineChanceSymbol = LegacyResourcesAPI.Load<GameObject>("Prefabs/NetworkedObjects/Shrines/ShrineGoldshoresAccess").transform.Find("Symbol").gameObject;
             GameObject symbol = prefab.transform.Find("Symbol").gameObject;
             symbol.GetComponent<MeshFilter>().mesh = Object.Instantiate(shrineChanceSymbol.GetComponent<MeshFilter>().mesh);
             Material symbolMaterial = Object.Instantiate(shrineChanceSymbol.GetComponent<MeshRenderer>().material);
@@ -88,7 +88,6 @@ namespace MysticsItems.Interactables
                     spawnCard = spawnCard,
                     selectionWeight = 1,
                     spawnDistance = 0f,
-                    allowAmbushSpawn = true,
                     preventOverhead = false,
                     minimumStageCompletions = 1,
                     requiredUnlockableDef = null,
@@ -198,7 +197,7 @@ namespace MysticsItems.Interactables
                     subjectAsCharacterBody = component,
                     baseToken = "MYSTICSITEMS_SHRINE_LEGENDARY_USE_MESSAGE"
                 });
-                EffectManager.SpawnEffect(Resources.Load<GameObject>("Prefabs/Effects/ShrineUseEffect"), new EffectData
+                EffectManager.SpawnEffect(LegacyResourcesAPI.Load<GameObject>("Prefabs/Effects/ShrineUseEffect"), new EffectData
                 {
                     origin = transform.position,
                     rotation = Quaternion.identity,

@@ -61,7 +61,7 @@ namespace MysticsItems.Equipment
                 if (SoftDependencies.SoftDependenciesCore.itemDisplaysSniper) AddDisplayRule("SniperClassicBody", "Pelvis", new Vector3(0.15563F, 0.20335F, 0.15945F), new Vector3(358.1388F, 35.73481F, 190.192F), new Vector3(0.053F, 0.053F, 0.053F));
             };
 
-            crosshairPrefab = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/WoodSpriteIndicator"), "MysticsItems_OmarHackToolIndicator", false);
+            crosshairPrefab = PrefabAPI.InstantiateClone(LegacyResourcesAPI.Load<GameObject>("Prefabs/WoodSpriteIndicator"), "MysticsItems_OmarHackToolIndicator", false);
             var spriteTransform = crosshairPrefab.GetComponentInChildren<SpriteRenderer>().transform;
             var rotateComponent = crosshairPrefab.GetComponentInChildren<Rewired.ComponentControls.Effects.RotateAroundAxis>();
             var crosshairSprites = Main.AssetBundle.LoadAssetWithSubAssets<Sprite>("Assets/Equipment/From Omar With Love/HoverIndicator.png");
@@ -150,7 +150,7 @@ namespace MysticsItems.Equipment
                 }
             };
 
-            On.RoR2.EquipmentSlot.Awake += EquipmentSlot_Awake;
+            On.RoR2.EquipmentSlot.Start += EquipmentSlot_Start;
             On.RoR2.EquipmentSlot.ExecuteIfReady += EquipmentSlot_ExecuteIfReady;
             On.RoR2.EquipmentSlot.UpdateInventory += EquipmentSlot_UpdateInventory;
             On.RoR2.CharacterBody.OnInventoryChanged += CharacterBody_OnInventoryChanged;
@@ -260,7 +260,7 @@ namespace MysticsItems.Equipment
             return orig(self);
         }
 
-        private void EquipmentSlot_Awake(On.RoR2.EquipmentSlot.orig_Awake orig, EquipmentSlot self)
+        private void EquipmentSlot_Start(On.RoR2.EquipmentSlot.orig_Start orig, EquipmentSlot self)
         {
             orig(self);
             self.gameObject.AddComponent<MysticsItemsOmarHackToolBehaviour>();

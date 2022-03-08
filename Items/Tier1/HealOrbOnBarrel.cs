@@ -167,7 +167,7 @@ namespace MysticsItems.Items
         {
             if (NetworkServer.active)
             {
-                var orb = Object.Instantiate<GameObject>(Resources.Load<GameObject>("Prefabs/NetworkedObjects/HealPack"), position, rotation);
+                var orb = Object.Instantiate<GameObject>(LegacyResourcesAPI.Load<GameObject>("Prefabs/NetworkedObjects/HealPack"), position, rotation);
                 orb.GetComponent<TeamFilter>().teamIndex = teamIndex;
                 orb.GetComponentInChildren<HealthPickup>().flatHealing = flatHealing;
                 orb.GetComponentInChildren<HealthPickup>().fractionalHealing = fractionalHealing / 100f + fractionalHealingPerStack / 100f * (float)(itemCount - 1);

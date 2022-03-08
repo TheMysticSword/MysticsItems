@@ -104,14 +104,14 @@ namespace MysticsItems.Items
                 {
                     eliteBuffDef = RoR2Content.Buffs.AffixRed,
                     dot = DotController.DotIndex.Burn,
-                    vfx = Resources.Load<GameObject>("Prefabs/Effects/OmniEffect/OmniExplosionVFXLemurianBruiserFireballImpact"),
+                    vfx = LegacyResourcesAPI.Load<GameObject>("Prefabs/Effects/OmniEffect/OmniExplosionVFXLemurianBruiserFireballImpact"),
                     damage = 4f,
                     procCoefficient = 0f
                 });
                 spreadEffectInfos.Add(new SpreadEffectInfo
                 {
                     eliteBuffDef = RoR2Content.Buffs.AffixBlue,
-                    vfx = Resources.Load<GameObject>("Prefabs/Effects/CaptainTazerSupplyDropNova"),
+                    vfx = LegacyResourcesAPI.Load<GameObject>("Prefabs/Effects/CaptainTazerSupplyDropNova"),
                     damage = 10f,
                     procCoefficient = 1f,
                     damageType = DamageType.Shock5s
@@ -119,7 +119,7 @@ namespace MysticsItems.Items
                 spreadEffectInfos.Add(new SpreadEffectInfo
                 {
                     eliteBuffDef = RoR2Content.Buffs.AffixWhite,
-                    vfx = Resources.Load<GameObject>("Prefabs/Effects/OmniEffect/OmniImpactVFXFrozen"),
+                    vfx = LegacyResourcesAPI.Load<GameObject>("Prefabs/Effects/OmniEffect/OmniImpactVFXFrozen"),
                     vfxScaleMultiplier = 0.3f,
                     debuff = RoR2Content.Buffs.Slow80,
                     damageType = DamageType.Freeze2s,
@@ -128,7 +128,7 @@ namespace MysticsItems.Items
                 spreadEffectInfos.Add(new SpreadEffectInfo
                 {
                     eliteBuffDef = RoR2Content.Buffs.AffixPoison,
-                    vfx = Resources.Load<GameObject>("Prefabs/Effects/OmniEffect/OmniExplosionVFXUrchin"),
+                    vfx = LegacyResourcesAPI.Load<GameObject>("Prefabs/Effects/OmniEffect/OmniExplosionVFXUrchin"),
                     debuff = RoR2Content.Buffs.HealingDisabled,
                     damageType = DamageType.WeakOnHit,
                     procCoefficient = 1f
@@ -136,7 +136,7 @@ namespace MysticsItems.Items
                 spreadEffectInfos.Add(new SpreadEffectInfo
                 {
                     eliteBuffDef = RoR2Content.Buffs.AffixHaunted,
-                    vfx = Resources.Load<GameObject>("Prefabs/Effects/OmniEffect/OmniExplosionVFXGreaterWisp"),
+                    vfx = LegacyResourcesAPI.Load<GameObject>("Prefabs/Effects/OmniEffect/OmniExplosionVFXGreaterWisp"),
                     debuff = RoR2Content.Buffs.Slow80,
                     damageType = DamageType.Stun1s,
                     procCoefficient = 1f
@@ -144,7 +144,7 @@ namespace MysticsItems.Items
                 spreadEffectInfos.Add(new SpreadEffectInfo
                 {
                     eliteBuffDef = RoR2Content.Buffs.AffixLunar,
-                    vfx = Resources.Load<GameObject>("Prefabs/Effects/LunarGolemTwinShotExplosion"),
+                    vfx = LegacyResourcesAPI.Load<GameObject>("Prefabs/Effects/LunarGolemTwinShotExplosion"),
                     debuff = RoR2Content.Buffs.Cripple
                 });
             };

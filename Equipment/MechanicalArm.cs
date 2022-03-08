@@ -228,7 +228,7 @@ namespace MysticsItems.Equipment
             shakeEmitter.shakeOnStart = true;
             shakeEmitter.shakeOnEnable = false;
 
-            MysticsItemsMechanicalArmState.Swing.hitEffectPrefab = Resources.Load<GameObject>("Prefabs/Effects/ImpactEffects/SawmerangImpact");
+            MysticsItemsMechanicalArmState.Swing.hitEffectPrefab = LegacyResourcesAPI.Load<GameObject>("Prefabs/Effects/ImpactEffects/SawmerangImpact");
             var snd = ScriptableObject.CreateInstance<NetworkSoundEventDef>();
             snd.eventName = "MysticsItems_Play_mechanicalArm_impact";
             MysticsItemsContent.Resources.networkSoundEventDefs.Add(snd);

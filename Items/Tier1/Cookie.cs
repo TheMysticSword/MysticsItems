@@ -97,14 +97,23 @@ namespace MysticsItems.Items
 
             On.RoR2.CharacterBody.AddTimedBuff_BuffDef_float += CharacterBody_AddTimedBuff_BuffDef_float;
             On.RoR2.CharacterBody.AddTimedBuff_BuffDef_float_int += CharacterBody_AddTimedBuff_BuffDef_float_int;
-            On.RoR2.DotController.AddDot += DotController_AddDot;
+            On.RoR2.DotController.OnDotStackAddedServer += DotController_OnDotStackAddedServer;
 
             RoR2Application.onLoad += () =>
             {
                 ignoredBuffDefs.Add(RoR2Content.Buffs.MedkitHeal);
-                ignoredBuffDefs.Add(RoR2Content.Buffs.NullSafeZone);
                 ignoredBuffDefs.Add(RoR2Content.Buffs.HiddenInvincibility);
             };
+        }
+
+        private void DotController_OnDotStackAddedServer(On.RoR2.DotController.orig_OnDotStackAddedServer orig, DotController self, object dotStack)
+        {
+            orig(self, dotStack);
+            var _dotStack = (dotStack as DotController.DotStack);
+            if (self.victimBody && _dotStack.dotDef.associatedBuff && !ignoredBuffDefs.Contains(_dotStack.dotDef.associatedBuff))
+            {
+                _dotStack.timer = GetModifiedDuration(self.victimBody, _dotStack.dotDef.associatedBuff.isDebuff, _dotStack.timer);
+            }
         }
 
         private void CharacterBody_AddTimedBuff_BuffDef_float(On.RoR2.CharacterBody.orig_AddTimedBuff_BuffDef_float orig, CharacterBody self, BuffDef buffDef, float duration)
@@ -125,12 +134,6 @@ namespace MysticsItems.Items
                     timedBuff.timer = modifiedDuration;
                 }
             }
-        }
-
-        private void DotController_AddDot(On.RoR2.DotController.orig_AddDot orig, DotController self, GameObject attackerObject, float duration, DotController.DotIndex dotIndex, float damageMultiplier)
-        {
-            duration = GetModifiedDuration(self.victimBody, true, duration);
-            orig(self, attackerObject, duration, dotIndex, damageMultiplier);
         }
 
         public static float GetModifiedDuration(CharacterBody body, bool isDebuff, float duration)

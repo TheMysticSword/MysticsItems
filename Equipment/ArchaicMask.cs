@@ -125,7 +125,7 @@ namespace MysticsItems.Equipment
                 if (SoftDependencies.SoftDependenciesCore.itemDisplaysSniper) AddDisplayRule("SniperClassicBody", "Head", new Vector3(-0.0039F, 0.15803F, -0.07916F), new Vector3(356.8718F, 270F, 87.82172F), new Vector3(0.14049F, 0.14049F, 0.14049F));
             };
 
-            crosshairPrefab = PrefabAPI.InstantiateClone(Resources.Load<GameObject>("Prefabs/WoodSpriteIndicator"), "MysticsItems_ArchaicMaskIndicator", false);
+            crosshairPrefab = PrefabAPI.InstantiateClone(LegacyResourcesAPI.Load<GameObject>("Prefabs/WoodSpriteIndicator"), "MysticsItems_ArchaicMaskIndicator", false);
             Object.Destroy(crosshairPrefab.GetComponentInChildren<Rewired.ComponentControls.Effects.RotateAroundAxis>());
             crosshairPrefab.GetComponentInChildren<SpriteRenderer>().sprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Equipment/Archaic Mask/Crosshair.png");
             crosshairPrefab.GetComponentInChildren<SpriteRenderer>().color = new Color(190f / 255f, 65f / 255f, 255f / 255f);
@@ -208,7 +208,7 @@ namespace MysticsItems.Equipment
                     HurtBox targetHB = targetInfo.obj.GetComponent<CharacterBody>().mainHurtBox;
                     if (targetHB)
                     {
-                        DirectorSpawnRequest directorSpawnRequest = new DirectorSpawnRequest((SpawnCard)Resources.Load("SpawnCards/CharacterSpawnCards/cscArchWisp"), new DirectorPlacementRule
+                        DirectorSpawnRequest directorSpawnRequest = new DirectorSpawnRequest((SpawnCard)LegacyResourcesAPI.Load<CharacterSpawnCard>("SpawnCards/CharacterSpawnCards/cscArchWisp"), new DirectorPlacementRule
                         {
                             placementMode = DirectorPlacementRule.PlacementMode.NearestNode,
                             spawnOnTarget = targetHB.transform

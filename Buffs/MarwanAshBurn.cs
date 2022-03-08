@@ -18,7 +18,7 @@ namespace MysticsItems.Buffs
             buffDef.buffColor = new Color32(96, 245, 250, 255);
             buffDef.canStack = false;
             buffDef.isDebuff = true;
-            buffDef.iconSprite = Resources.Load<Sprite>("Textures/BuffIcons/texBuffOnFireIcon");
+            buffDef.iconSprite = LegacyResourcesAPI.Load<Sprite>("Textures/BuffIcons/texBuffOnFireIcon");
 
             ashDotDef = new DotController.DotDef
             {

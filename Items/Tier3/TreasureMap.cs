@@ -17,6 +17,7 @@ using ThreeEyedGames;
 using MysticsRisky2Utils;
 using MysticsRisky2Utils.BaseAssetTypes;
 using static MysticsItems.BalanceConfigManager;
+using UnityEngine.AddressableAssets;
 
 namespace MysticsItems.Items
 {
@@ -124,7 +125,7 @@ namespace MysticsItems.Items
             captureZone.hologramProjector = hologramProjector;
             Decal decal = zonePrefab.transform.Find("Decal").gameObject.AddComponent<Decal>();
             decal.RenderMode = Decal.DecalRenderMode.Deferred;
-            Material decalMaterial = new Material(Shader.Find("Decalicious/Deferred Decal"));
+            Material decalMaterial = new Material(LegacyShaderAPI.Find("Decalicious/Deferred Decal"));
             decal.Material = decalMaterial;
             decalMaterial.name = "MysticsItems_TreasureMapDecal";
             Texture decalTexture = Main.AssetBundle.LoadAsset<Texture>("Assets/Items/Treasure Map/texTreasureMapDecal.png");
@@ -140,14 +141,12 @@ namespace MysticsItems.Items
             decal.UseLightProbes = true;
             decal.DrawNormalAndGloss = false;
             decal.HighQualityBlending = false;
-            decal.Reset();
+            //decal.Reset();
             decal.gameObject.transform.localScale = Vector3.one * 10f;
             HG.ArrayUtils.ArrayAppend(ref captureZone.toggleObjects, decal.gameObject);
             ChestBehavior chestBehavior = zonePrefab.AddComponent<ChestBehavior>();
             chestBehavior.dropTransform = zonePrefab.transform.Find("DropPivot");
-            chestBehavior.tier1Chance = 0f;
-            chestBehavior.tier2Chance = 0f;
-            chestBehavior.tier3Chance = 1f;
+            chestBehavior.dropTable = Addressables.LoadAssetAsync<PickupDropTable>("RoR2/Base/Interactables/GoldChest/dtGoldChest.asset").WaitForCompletion();
 
             On.RoR2.HoldoutZoneController.ChargeHoldoutZoneObjectiveTracker.ShouldBeFlashing += (orig, self) =>
             {
@@ -181,7 +180,7 @@ namespace MysticsItems.Items
                 }, rng));
             };
 
-            ghostMaterial = Resources.Load<Material>("Materials/matGhostEffect");
+            ghostMaterial = LegacyResourcesAPI.Load<Material>("Materials/matGhostEffect");
 
             soundEventDef = ScriptableObject.CreateInstance<NetworkSoundEventDef>();
             soundEventDef.eventName = "MysticsItems_Play_env_treasuremap";
@@ -230,7 +229,6 @@ namespace MysticsItems.Items
                 if (NetworkServer.active)
                 {
                     ShouldBeActive = false;
-                    chestBehavior.RollItem();
                 }
                 else
                 {
@@ -246,7 +244,11 @@ namespace MysticsItems.Items
                 EffectManager.SimpleEffect(effectPrefab, transform.position, Quaternion.identity, true);
                 PointSoundManager.EmitSoundServer(soundEventDef.index, transform.position);
 
+                chestBehavior.dropCount = Mathf.Max(Run.instance.participatingPlayerCount, 1);
+                var dropTable = chestBehavior.dropTable;
+                chestBehavior.dropTable = null; // this dropTable = null temporary wrap is needed so ItemDrop doesn't roll a separate item for each player
                 chestBehavior.ItemDrop();
+                chestBehavior.dropTable = dropTable;
 
                 if (holdoutZoneController && holdoutZoneController.radiusIndicator) holdoutZoneController.radiusIndicator.transform.localScale = Vector3.zero;
 
