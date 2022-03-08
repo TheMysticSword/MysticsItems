@@ -35,7 +35,13 @@ namespace MysticsItems.Items
                 "ITEM_MYSTICSITEMS_LIMITEDARMOR_DESC"
             }
         );
-        
+        public static ConfigurableValue<float> breakTimer = new ConfigurableValue<float>(
+            "Item: Cutesy Bow",
+            "BreakTimer",
+            0.5f,
+            "How much time should pass between each hit to affect the remaining hit counter.\r\nPrevents the item from breaking too quickly from multi-hits (e.g. Wisps) and damage-over-time effects (e.g. Blazing elites, Void Fields)."
+        );
+
         public override void OnLoad()
         {
             base.OnLoad();
@@ -168,6 +174,8 @@ namespace MysticsItems.Items
             public bool skipItemCheck = false;
             public List<int> stockHolders = new List<int>();
             public int oldItemCount = 0;
+            public float breakTimer;
+            public float breakTimerMax = LimitedArmor.breakTimer;
 
             public void AddStock()
             {
@@ -181,9 +189,10 @@ namespace MysticsItems.Items
 
             public bool RemoveStockAndCheck()
             {
-                if (HasAtLeastOneStock())
+                if (HasAtLeastOneStock() && breakTimer <= 0f)
                 {
                     stockHolders[0]--;
+                    breakTimer = breakTimerMax;
                     if (stockHolders[0] <= 0)
                     {
                         RemoveStock();
@@ -203,6 +212,11 @@ namespace MysticsItems.Items
             public bool HasAtLeastOneStock()
             {
                 return stockHolders.Count > 0;
+            }
+
+            public void FixedUpdate()
+            {
+                breakTimer -= Time.fixedDeltaTime;
             }
         }
     }
