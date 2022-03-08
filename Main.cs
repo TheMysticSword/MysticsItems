@@ -32,12 +32,14 @@ namespace MysticsItems
         internal static BepInEx.Logging.ManualLogSource logger;
         internal static BepInEx.Configuration.ConfigFile configGeneral;
         internal static BepInEx.Configuration.ConfigFile configBalance;
+        internal static BepInEx.Configuration.ConfigFile configContentToggle;
 
         public void Awake()
         {
             logger = Logger;
             configGeneral = new BepInEx.Configuration.ConfigFile(Paths.ConfigPath + "\\MysticsItems_General.cfg", true);
             configBalance = new BepInEx.Configuration.ConfigFile(Paths.ConfigPath + "\\MysticsItems_Balance.cfg", true);
+            configContentToggle = new BepInEx.Configuration.ConfigFile(Paths.ConfigPath + "\\MysticsItems_ContentToggle.cfg", true);
             Main.Init();
         }
     }
@@ -60,6 +62,7 @@ namespace MysticsItems
             
             GeneralConfigManager.Init();
             BalanceConfigManager.Init();
+            ContentToggleConfigManager.Init();
 
             using (var soundBankStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("MysticsItems.MysticsItemsWwiseSoundbank.bnk"))
             {

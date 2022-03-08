@@ -18,9 +18,6 @@ namespace MysticsItems
         public static ConfigEntry<bool> rhythmHudOverSkills;
         public static ConfigEntry<bool> rhythmHudComboText;
         
-        // Misc
-        public static ConfigEntry<bool> enableSecrets;
-
         internal static void Init()
         {
             backpackEnableSkillFixes = MysticsItemsPlugin.configGeneral.Bind<bool>(
@@ -37,8 +34,6 @@ namespace MysticsItems
             rhythmHudUnderCrosshair = MysticsItemsPlugin.configGeneral.Bind("UI", "RhythmItemHUDUnderCrosshair", true, "Enable Metronome's HUD indicator under the crosshair.");
             rhythmHudOverSkills = MysticsItemsPlugin.configGeneral.Bind("UI", "RhythmItemHUDOverSkills", true, "Enable Metronome's HUD indicator over skill cooldown icons.");
             rhythmHudComboText = MysticsItemsPlugin.configGeneral.Bind("UI", "RhythmItemHUDComboText", true, "Enable the combo counter near Metronome's HUD indicators.");
-
-            enableSecrets = MysticsItemsPlugin.configGeneral.Bind<bool>("Misc", "EnableSecrets", true, "Enable secrets");
         }
     }
 }
