@@ -91,6 +91,7 @@ namespace MysticsItems.Equipment
             equipmentDef.cooldown = new ConfigurableCooldown("Equipment: Legendary Mask", 140f).Value;
             equipmentDef.canDrop = true;
             equipmentDef.enigmaCompatible = new ConfigurableEnigmaCompatibleBool("Equipment: Legendary Mask", true).Value;
+            equipmentDef.canBeRandomlyTriggered = new ConfigurableCanBeRandomlyTriggeredBool("Equipment: Legendary Mask", false).Value;
             equipmentDef.pickupModelPrefab = PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Equipment/Archaic Mask/Model.prefab"));
             equipmentDef.pickupIconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Equipment/Archaic Mask/Icon.png");
             MysticsItemsContent.Resources.unlockableDefs.Add(GetUnlockableDef());

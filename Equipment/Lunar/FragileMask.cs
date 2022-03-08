@@ -50,6 +50,7 @@ namespace MysticsItems.Equipment
             equipmentDef.cooldown = new ConfigurableCooldown("Equipment: Fragile Mask", 3f).Value;
             equipmentDef.canDrop = true;
             equipmentDef.enigmaCompatible = new ConfigurableEnigmaCompatibleBool("Equipment: Fragile Mask", false).Value;
+            equipmentDef.canBeRandomlyTriggered = new ConfigurableCanBeRandomlyTriggeredBool("Equipment: Fragile Mask", false).Value;
             equipmentDef.isLunar = true;
             equipmentDef.colorIndex = ColorCatalog.ColorIndex.LunarItem;
             equipmentDef.pickupModelPrefab = PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Equipment/Fragile Mask/Model.prefab"));

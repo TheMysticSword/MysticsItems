@@ -34,6 +34,7 @@ namespace MysticsItems.Equipment
             equipmentDef.cooldown = new ConfigurableCooldown("Equipment: From Omar With Love", 60f).Value;
             equipmentDef.canDrop = true;
             equipmentDef.enigmaCompatible = new ConfigurableEnigmaCompatibleBool("Equipment: From Omar With Love", false).Value;
+            equipmentDef.canBeRandomlyTriggered = new ConfigurableCanBeRandomlyTriggeredBool("Equipment: From Omar With Love", false).Value;
             equipmentDef.pickupModelPrefab = PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Equipment/From Omar With Love/Model.prefab"));
             equipmentDef.pickupIconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Equipment/From Omar With Love/Icon.png");
 

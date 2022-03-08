@@ -86,5 +86,13 @@ namespace MysticsItems
 
             }
         }
+
+        public class ConfigurableCanBeRandomlyTriggeredBool : ConfigurableValue<bool>
+        {
+            public ConfigurableCanBeRandomlyTriggeredBool(string section, bool defaultValue) : base(section, "CanBeRandomlyTriggered", defaultValue, "Can be rolled by the Bottled Chaos item from the Survivors of the Void DLC")
+            {
+
+            }
+        }
     }
 }
