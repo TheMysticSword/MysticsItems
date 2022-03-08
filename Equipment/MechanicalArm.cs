@@ -249,9 +249,12 @@ namespace MysticsItems.Equipment
 
         private void GenericGameEvents_OnHitEnemy(DamageInfo damageInfo, MysticsRisky2UtilsPlugin.GenericCharacterInfo attackerInfo, MysticsRisky2UtilsPlugin.GenericCharacterInfo victimInfo)
         {
-            if (!damageInfo.rejected && damageInfo.crit && attackerInfo.body && attackerInfo.body.equipmentSlot && attackerInfo.body.equipmentSlot.equipmentIndex == equipmentDef.equipmentIndex)
+            if (!damageInfo.rejected && damageInfo.procCoefficient > 0f && damageInfo.crit && attackerInfo.body && attackerInfo.body.equipmentSlot && attackerInfo.body.equipmentSlot.equipmentIndex == equipmentDef.equipmentIndex)
             {
-                attackerInfo.body.AddTimedBuff(MysticsItemsContent.Buffs.MysticsItems_MechanicalArmCharge, equipmentDef.cooldown + 20f + UnityEngine.Random.value);
+                attackerInfo.body.AddTimedBuff(
+                    MysticsItemsContent.Buffs.MysticsItems_MechanicalArmCharge,
+                    (attackerInfo.body.equipmentSlot.stock <= 0 ? attackerInfo.body.equipmentSlot.cooldownTimer : 0f) + (10f + UnityEngine.Random.value) * damageInfo.procCoefficient
+                );
             }
         }
 
