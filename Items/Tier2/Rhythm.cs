@@ -885,7 +885,7 @@ namespace MysticsItems.Items
 
             public void OnSkillActivatedAuthority()
             {
-                if (IsOnBeat())
+                if (IsOnBeat() && beatNotPressedYet)
                 {
                     combo++;
                     body.statsDirty = true;
