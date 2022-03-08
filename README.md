@@ -20,13 +20,18 @@ Make only one issue per bug.
 You can also report the bug on the [itch.io board](https://itch.io/board/1788781/issue-tracker) if you don't have an account on GitHub but have one on itch.io.
 
 ### Configuration
-The mod creates two config files on the first launch:
+The mod creates several config files on the first launch:
 * MysticsItems_General.cfg - general mod settings
 * MysticsItems_Balance.cfg - item and equipment value tweaking
+* MysticsItems_ContentToggle.cfg - enable or disable specific items, equipment and other content
 
 ### Mod compatibility
 This mod supports ItemStats and BetterUI buff tooltips.  
 If you want to add Mystic's Items support for your own mod, read [this document](https://github.com/TheMysticSword/MysticsItems/blob/main/FORMODDERS.md).
+
+### Languages
+The mod is available in English, Russian, French and Spanish.  
+Turkish translation will be brought back in the future.
 
 ### Donations
 The credits section below includes some of the team members' personal donation links (certain members don't have one for personal reasons).  
@@ -34,12 +39,13 @@ Please note a few things before making a donation:
 * This mod is **completely free** - none of its features require paying money and never will. ​You will not get any special perks, benefits or rewards for donating.​
 * Donations through each link go **specifically to that individual team member** and **not** to the team as a whole.​
 
-### Credits
+# Credits
 #### Main team
 TheMysticSword ([donations](https://themysticsword.itch.io/ror2-mystics-items)) - Coding, Russian translation  
 Marwan60 ([donations](https://ko-fi.com/marwan6097266)) - Modelling  
 Omar Faruk - Turkish translation (for version 1.1.13)  
 Vyrael ([donations](https://ko-fi.com/vyrael_)) - French translation
+RCaled - Spanish translation
 #### External assets
 Contains sounds from [freesound.org](https://freesound.org/):  
 ["tim ring tone sharp.wav"](https://freesound.org/people/martian/sounds/19308/) by [Martin Chappell (martian)](https://freesound.org/people/martian/)  
@@ -70,7 +76,45 @@ Contains assets from [ambientCG.com](https://ambientcg.com/), licensed under CC0
 Please check out our post about the new update!  
 https://themysticsword.itch.io/ror2-mystics-items/devlog/344340/update-20-and-itchio-release
 
-### Changelog
+# Changelog
+#### 2.0.4:
+* **Updated for the 1st March 2022 version of the game**
+    * Note: the mod wasn't fully tested on the new version. Bug reports are appreciated!
+* **Gameplay Changes**
+    * Marwan's Ash:
+        * Damage: ~~5 (+1 per level)~~ ⇒ 2 (+0.2 per level)
+        * Damage Over Time Duration: ~~10s~~ ⇒ 2s
+        * Level for First Upgrade: ~~14~~ ⇒ 17
+        * Level for Second Upgrade: ~~21~~ ⇒ 23
+    * Rift Lens:
+        * Rifts: ~~3 (+3 per stack)~~ ⇒ 3 (+1 per stack)
+        * Countdown time now becomes slightly shorter on each loop
+    * Fragile Mask:
+        * Cooldown: ~~3s~~ ⇒ 0s
+    * Mystic Sword:
+        * Now doesn't trigger on non-Teleporter-boss enemies after reaching stage 6
+            * This should prevent the item from becoming too powerful on loops
+    * Cutesy Bow:
+        * Now has an internal 0.5s timer that prevents multi-hits and damage-over-time effects from breaking the item too quickly
+    * Ceremony of Perdition:
+        * Shared Damage: ~~25% (+25% per stack)~~ ⇒ 10% (+10% per stack)
+    * Devil's Cry:
+        * Moved to Legendary tier
+        * Hits with less than 1.0 proc coefficient contribute less to the hit counter
+    * Super Idol:
+        * Armor at Full Power: ~~50~~ ⇒ 90
+    * Mechanical Arm:
+        * Damage Bonus Per Crit: ~~200%~~ ⇒ 100%
+        * Charge buff timer is now affected by proc coefficient, and runs out faster when the equipment is charged
+    * Treasure Map:
+        * Now spawns an item for each player in Multiplayer
+* Added a new config file - MysticsItems_ContentToggle.cfg
+* Added Spanish translation - thank you, RCaled!
+* Added screenshake to Contraband Gunpowder explosions for greater impact
+* Fixed Nuclear Accelerator damage bonus being 100x less effective than intended
+* Fixed Contraband Gunpowder FX not clearing themselves until stage teleportation, leading to high memory usage
+* Fixed non-Primary skills without cooldowns having the ability to trigger Metronome multiple times in a single beat
+* Fixed Cup of Expresso not playing SFX on clients
 #### 2.0.3:
 * Added item displays for SniperClassic
 * Choc Chip no longer affects the Invincibility buff
