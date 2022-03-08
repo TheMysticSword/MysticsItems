@@ -368,7 +368,7 @@ namespace MysticsItems.Items
                                 distanceBetweenAllRifts += pointDistance;
                             }
                         }
-                        else if (path.status == PathStatus.Invalid)
+                        else
                         {
                             distanceBetweenAllRifts += Vector3.Distance(startPos, endPos) * 3.5f;
                         }
@@ -416,7 +416,7 @@ namespace MysticsItems.Items
                                 dist += pointDistance;
                             }
                         }
-                        else if (path.status == PathStatus.Invalid)
+                        else
                         {
                             dist = Vector3.Distance(startPos, endPos) * 3.5f;
                         }
@@ -429,7 +429,7 @@ namespace MysticsItems.Items
                 var distanceToNearestRift = distanceToNearestRiftForEachPlayer.Count > 0 ? distanceToNearestRiftForEachPlayer.Max() : 1f;
 
                 var totalDistance = distanceToNearestRift + distanceBetweenAllRifts;
-                var averageWalkSpeed = 7f * 1.45f;
+                var averageWalkSpeed = 7f * 1.45f * (0.25f * Run.instance.loopClearCount);
                 var timeBonusFlat = 10f;
                 var calculatedCountdownTime = (totalDistance / averageWalkSpeed) + timeBonusFlat;
                 return calculatedCountdownTime;
@@ -483,9 +483,9 @@ namespace MysticsItems.Items
                 var distanceToNearestRift = distanceToNearestRiftForEachPlayer.Count > 0 ? distanceToNearestRiftForEachPlayer.Max() : 1f;
 
                 var totalDistance = distanceToNearestRift + distanceBetweenAllRifts;
-                var averageWalkSpeed = 7f * 1.45f;
+                var averageWalkSpeed = 7f * 1.45f * (0.25f * Run.instance.loopClearCount);
                 // players can't always go through the shortest path due to terrain and gravity, so we'll add bonus time
-                var timeBonusMultiplier = 1.66f;
+                var timeBonusMultiplier = 3f;
                 var timeBonusFlat = 20f;
                 var calculatedCountdownTime = (totalDistance / averageWalkSpeed) * timeBonusMultiplier + timeBonusFlat;
                 return calculatedCountdownTime;
