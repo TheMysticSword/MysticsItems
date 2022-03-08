@@ -42,7 +42,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<int> riftsPerStack = new ConfigurableValue<int>(
             "Item: Rift Lens",
             "RiftsPerStack",
-            3,
+            1,
             "How many rifts should spawn for each additional stack of this item",
             new System.Collections.Generic.List<string>()
             {
