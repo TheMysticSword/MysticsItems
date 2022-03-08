@@ -38,7 +38,7 @@ namespace MysticsItems.Equipment
         public static ConfigurableValue<float> damageBonusPerCharge = new ConfigurableValue<float>(
             "Equipment: Mechanical Arm",
             "DamageBonusPerCharge",
-            200f,
+            100f,
             "How much more damage (in %) should the swing do for each Critical Strike dealt before activation",
             new List<string>()
             {
