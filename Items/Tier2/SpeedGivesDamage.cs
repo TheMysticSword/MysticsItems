@@ -116,7 +116,7 @@ namespace MysticsItems.Items
         {
             float baseMoveSpeed = body.baseMoveSpeed + body.levelMoveSpeed * (body.level - 1f);
             float moveSpeedIncrease = (body.moveSpeed / baseMoveSpeed / (!sprintCounts ? body.sprintingSpeedMultiplier : 1f)) - 1f;
-            return Mathf.Max(moveSpeedIncrease * (damage / 100f + damagePerStack / 100f * (itemCount - 1)), 0f);
+            return Mathf.Max(moveSpeedIncrease * (damage + damagePerStack * (itemCount - 1)), 0f);
         }
 
         public class MysticsItemsNuclearAcceleratorGlow : MonoBehaviour
