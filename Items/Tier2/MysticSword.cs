@@ -1,18 +1,14 @@
-using RoR2;
-using R2API;
-using R2API.Utils;
-using UnityEngine;
-using UnityEngine.Networking;
-using System;
-using System.Linq;
-using System.Reflection;
-using System.Collections.Generic;
 using MysticsRisky2Utils;
 using MysticsRisky2Utils.BaseAssetTypes;
-using R2API.Networking.Interfaces;
+using R2API;
 using R2API.Networking;
-using static MysticsItems.BalanceConfigManager;
+using R2API.Networking.Interfaces;
+using RoR2;
 using RoR2.Orbs;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Networking;
+using static MysticsItems.BalanceConfigManager;
 
 namespace MysticsItems.Items
 {
@@ -47,6 +43,12 @@ namespace MysticsItems.Items
             {
                 "ITEM_MYSTICSITEMS_MYSTICSWORD_DESC"
             }
+        );
+        public static ConfigurableValue<int> stageToStopRegularEnemyProcs = new ConfigurableValue<int>(
+            "Item: Mystic Sword",
+            "StageToStopRegularEnemyProcs",
+            6,
+            "At what stage should this item stop proccing off non-Teleporter-boss enemies to avoid making the item too powerful"
         );
 
         private static string tooltipString = "<color=#BE2BE1></color><color=#EAEEDD></color><color=#AAAAA5></color>";
@@ -286,7 +288,10 @@ namespace MysticsItems.Items
                 var healthMultiplier = 1f;
                 if (damageReport.victimBody.inventory)
                     healthMultiplier += damageReport.victimBody.inventory.GetItemCount(RoR2Content.Items.BoostHp) * 0.1f;
-                if ((damageReport.victimBody.baseMaxHealth * healthMultiplier) >= healthThreshold)
+                var strongEnemy = (damageReport.victimBody.baseMaxHealth * healthMultiplier) >= healthThreshold;
+                var isTeleporterBoss = damageReport.victimBody.isBoss;
+                var canProcOffRegularEnemeies = Run.instance ? (Run.instance.stageClearCount + 1) >= stageToStopRegularEnemyProcs : true;
+                if (strongEnemy && (isTeleporterBoss || !isTeleporterBoss && canProcOffRegularEnemeies))
                 {
                     var onKillOrbTargets = new List<GameObject>();
 
