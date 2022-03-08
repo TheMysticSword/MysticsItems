@@ -130,6 +130,15 @@ namespace MysticsItems.Items
             On.RoR2.CharacterBody.OnInventoryChanged += CharacterBody_OnInventoryChanged;
 
             On.RoR2.CharacterMaster.GiveMoney += CharacterMaster_GiveMoney;
+
+            RoR2Application.onNextUpdate += () =>
+            {
+                if (MysticsItemsIdolIndicator.dirty)
+                {
+                    MysticsItemsIdolIndicator.dirty = false;
+                    MysticsItemsIdolIndicator.RefreshAll();
+                }
+            };
         }
 
         private void CharacterMaster_GiveMoney(On.RoR2.CharacterMaster.orig_GiveMoney orig, CharacterMaster self, uint amount)
@@ -151,17 +160,19 @@ namespace MysticsItems.Items
         private void CharacterBody_OnInventoryChanged(On.RoR2.CharacterBody.orig_OnInventoryChanged orig, CharacterBody self)
         {
             orig(self);
-            MysticsItemsIdolIndicator.RefreshAll();
+            MysticsItemsIdolIndicator.dirty = true;
         }
 
         private void HUD_onHudTargetChangedGlobal(HUD hud)
         {
-            MysticsItemsIdolIndicator.RefreshAll();
+            MysticsItemsIdolIndicator.dirty = true;
         }
 
         [RequireComponent(typeof(HudElement))]
         public class MysticsItemsIdolIndicator : MonoBehaviour
         {
+            public static bool dirty = false;
+
             public static void RefreshAll()
             {
                 foreach (var hudInstance in HUD.readOnlyInstanceList) RefreshForHUDInstance(hudInstance);
@@ -201,7 +212,7 @@ namespace MysticsItems.Items
                     }
                 }
 
-                if (shouldDisplay)
+                if (shouldDisplay && targetIndicatorInstance)
                 {
                     targetIndicatorInstance.targetMaster = targetMaster;
                     targetIndicatorInstance.itemCount = itemCount;
