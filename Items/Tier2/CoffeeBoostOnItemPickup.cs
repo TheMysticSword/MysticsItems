@@ -88,30 +88,17 @@ namespace MysticsItems.Items
                 CharacterBody body = CharacterBody.readOnlyInstancesList.ToList().Find(body2 => body2.inventory == self);
                 if (body && self.GetItemCount(itemDef) > 0)
                 {
-                    bool playSound = false;
-
                     for (int i = 0; i < count * GetBuffCountFromTier(ItemCatalog.GetItemDef(itemIndex).tier); i++)
                     {
                         if (body.GetBuffCount(MysticsItemsContent.Buffs.MysticsItems_CoffeeBoost) < (maxBuffs + maxBuffsPerStack * (self.GetItemCount(itemDef) - 1)))
                         {
-                            playSound = true;
                             if (NetworkServer.active)
                             {
-                                EffectData effectData = new EffectData
-                                {
-                                    origin = body.corePosition,
-                                    scale = body.radius,
-                                    rotation = Util.QuaternionSafeLookRotation(Vector3.forward)
-                                };
-                                effectData.SetHurtBoxReference(body.gameObject);
-                                EffectManager.SpawnEffect(visualEffect, effectData, true);
                                 body.AddBuff(MysticsItemsContent.Buffs.MysticsItems_CoffeeBoost);
                             }
                         }
                         else break;
                     }
-
-                    if (playSound) Util.PlayAttackSpeedSound("Play_item_proc_coffee", body.gameObject, 1f + 0.2f * (float)(body.GetBuffCount(MysticsItemsContent.Buffs.MysticsItems_CoffeeBoost) - 1));
                 }
                 orig(self, itemIndex, count);
             };

@@ -27,6 +27,35 @@ namespace MysticsItems.Buffs
             buffDef.canStack = true;
             buffDef.iconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Buffs/CoffeeBoost.png");
             RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
+
+            On.RoR2.CharacterBody.OnClientBuffsChanged += CharacterBody_OnClientBuffsChanged;
+        }
+
+        private void CharacterBody_OnClientBuffsChanged(On.RoR2.CharacterBody.orig_OnClientBuffsChanged orig, CharacterBody self)
+        {
+            orig(self);
+            var component = self.GetComponent<MysticsItemsCoffeeBoostHelper>();
+            if (!component) component = self.gameObject.AddComponent<MysticsItemsCoffeeBoostHelper>();
+            var currentCount = self.GetBuffCount(buffDef);
+            if (currentCount > component.oldCount)
+            {
+                Util.PlayAttackSpeedSound("Play_item_proc_coffee", self.gameObject, 1f + 0.2f * (float)(currentCount - 1));
+
+                EffectData effectData = new EffectData
+                {
+                    origin = self.corePosition,
+                    scale = self.radius,
+                    rotation = Util.QuaternionSafeLookRotation(Vector3.forward)
+                };
+                effectData.SetHurtBoxReference(self.gameObject);
+                EffectManager.SpawnEffect(Items.CoffeeBoostOnItemPickup.visualEffect, effectData, false);
+            }
+            component.oldCount = currentCount;
+        }
+
+        public class MysticsItemsCoffeeBoostHelper : MonoBehaviour
+        {
+            public int oldCount;
         }
 
         private void RecalculateStatsAPI_GetStatCoefficients(CharacterBody sender, RecalculateStatsAPI.StatHookEventArgs args)
