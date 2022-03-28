@@ -1,6 +1,7 @@
 ﻿using BepInEx.Configuration;
 using RoR2;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace MysticsItems
@@ -9,6 +10,8 @@ namespace MysticsItems
     {
         internal static ConfigEntry<bool> enabled;
         internal static ConfigEntry<bool> secrets;
+        internal static List<ItemIndex> disabledItems = new List<ItemIndex>();
+        internal static List<EquipmentIndex> disabledEquipment = new List<EquipmentIndex>();
 
         internal static void Init()
         {
@@ -25,6 +28,21 @@ namespace MysticsItems
                 true,
                 "Enable secret content"
             );
+
+            Run.onRunSetRuleBookGlobal += (run, rulebook) =>
+            {
+                foreach (var disabledItem in disabledItems)
+                {
+                    if (run.availableItems.Contains(disabledItem))
+                        run.availableItems.Remove(disabledItem);
+                }
+                foreach (var equipmentIndex in disabledEquipment)
+                {
+                    if (run.availableEquipment.Contains(equipmentIndex))
+                        run.availableEquipment.Remove(equipmentIndex);
+                }
+                PickupDropTable.RegenerateAll(run);
+            };
 
             RoR2Application.onLoad += () =>
             {
@@ -53,6 +71,7 @@ namespace MysticsItems
                     {
                         itemDef.tier = ItemTier.NoTier;
                         HG.ArrayUtils.ArrayAppend(ref itemDef.tags, ItemTag.WorldUnique);
+                        disabledItems.Add(itemDef.itemIndex);
 
                         On.RoR2.Language.GetLocalizedStringByToken += (orig, self, token) =>
                         {
@@ -60,11 +79,6 @@ namespace MysticsItems
                             if (string.Equals(token, itemDef.nameToken, StringComparison.InvariantCulture))
                                 result = "[X] <s>" + result + "</s>";
                             return result;
-                        };
-                        Run.onRunSetRuleBookGlobal += (run, rulebook) =>
-                        {
-                            if (run.availableItems.Contains(itemDef.itemIndex))
-                                run.availableItems.Remove(itemDef.itemIndex);
                         };
                     }
                 }
@@ -84,6 +98,7 @@ namespace MysticsItems
                         equipmentDef.enigmaCompatible = false;
                         equipmentDef.appearsInMultiPlayer = false;
                         equipmentDef.appearsInSinglePlayer = false;
+                        disabledEquipment.Add(equipmentDef.equipmentIndex);
 
                         On.RoR2.Language.GetLocalizedStringByToken += (orig, self, token) =>
                         {
@@ -91,11 +106,6 @@ namespace MysticsItems
                             if (string.Equals(token, equipmentDef.nameToken, StringComparison.InvariantCulture))
                                 result = "[X] <s>" + result + "</s>";
                             return result;
-                        };
-                        Run.onRunSetRuleBookGlobal += (run, rulebook) =>
-                        {
-                            if (run.availableEquipment.Contains(equipmentDef.equipmentIndex))
-                                run.availableEquipment.Remove(equipmentDef.equipmentIndex);
                         };
                     }
                 }
