@@ -20,7 +20,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> radius = new ConfigurableValue<float>(
             "Item: Failed Experiment",
             "Radius",
-            12f,
+            15f,
             "Radius of the AoE status infliction (in meters)",
             new System.Collections.Generic.List<string>()
             {
@@ -30,7 +30,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> radiusPerStack = new ConfigurableValue<float>(
             "Item: Failed Experiment",
             "RadiusPerStack",
-            2.4f,
+            3f,
             "Radius of the AoE status infliction for each additional stack of this item (in meters)",
             new System.Collections.Generic.List<string>()
             {
