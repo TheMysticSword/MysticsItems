@@ -29,6 +29,26 @@ namespace MysticsItems.Items
                 "ITEM_MYSTICSITEMS_MOONGLASSES_DESC"
             }
         );
+        /*
+        public static ConfigurableValue<string> halveNonCritDamageForBodies = new ConfigurableValue<string>(
+            "Item: Moonglasses",
+            "HalveNonCritDamageForBodies",
+            "Bandit2Body,RailgunnerBody",
+            "All non-crit damage for these characters will be halved with this item to compensate for their ability to deal guaranteed crits. Comma-separated, using internal body names."
+        );
+        */
+        public static ConfigurableValue<bool> halveNonCritDamageForBackstabbers = new ConfigurableValue<bool>(
+            "Item: Moonglasses",
+            "HalveNonCritDamageForBackstabbers",
+            true,
+            "All non-crit damage for characters with a backstab passive (e.g. Bandit) will be halved with this item to compensate for their ability to deal guaranteed crits"
+        );
+        public static ConfigurableValue<bool> halveNonCritDamageForCritChanceConverters = new ConfigurableValue<bool>(
+            "Item: Moonglasses",
+            "HalveNonCritDamageForCritChanceConverters",
+            true,
+            "All non-crit damage for characters with a 'crit chance is converted into crit damage' passive (e.g. Railgunner) will be halved with this item to compensate for their ability to deal guaranteed crits"
+        );
 
         public override void OnLoad()
         {
@@ -75,6 +95,8 @@ namespace MysticsItems.Items
 
             GenericGameEvents.OnApplyDamageIncreaseModifiers += GenericGameEvents_OnApplyDamageIncreaseModifiers;
 
+            RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
+
             // Apply the crit multiplier after all stats are calculated
             On.RoR2.CharacterBody.RecalculateStats += (orig, self) =>
             {
@@ -91,14 +113,28 @@ namespace MysticsItems.Items
             };
         }
 
+        private void RecalculateStatsAPI_GetStatCoefficients(CharacterBody sender, RecalculateStatsAPI.StatHookEventArgs args)
+        {
+            if (sender.inventory)
+            {
+                var itemCount = sender.inventory.GetItemCount(itemDef);
+                if (itemCount > 0)
+                {
+                    args.critDamageMultAdd += critDamageIncrease.Value / 100f + critDamageIncreasePerStack.Value / 100f * (float)(itemCount - 1);
+                }
+            }
+        }
+
         public void GenericGameEvents_OnApplyDamageIncreaseModifiers(DamageInfo damageInfo, MysticsRisky2UtilsPlugin.GenericCharacterInfo attackerInfo, MysticsRisky2UtilsPlugin.GenericCharacterInfo victimInfo, ref float damage)
         {
-            if (damageInfo.crit)
+            if (!damageInfo.crit && attackerInfo.inventory)
             {
-                if (attackerInfo.inventory && attackerInfo.inventory.GetItemCount(itemDef) > 0)
+                var itemCount = attackerInfo.inventory.GetItemCount(itemDef);
+                if (attackerInfo.body && itemCount > 0)
                 {
-                    damage /= 2f; // Undo default crit multiplier
-                    damage *= 2f + critDamageIncrease.Value / 100f + critDamageIncreasePerStack.Value / 100f * (attackerInfo.inventory.GetItemCount(itemDef) - 1);
+                    if (halveNonCritDamageForBackstabbers && attackerInfo.body.bodyFlags.HasFlag(CharacterBody.BodyFlags.HasBackstabPassive) ||
+                        halveNonCritDamageForCritChanceConverters && attackerInfo.inventory.GetItemCount(DLC1Content.Items.ConvertCritChanceToCritDamage) > 0)
+                        damage /= Mathf.Pow(2, itemCount);
                 }
             }
         }
