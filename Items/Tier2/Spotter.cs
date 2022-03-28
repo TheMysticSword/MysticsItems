@@ -47,7 +47,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> duration = new ConfigurableValue<float>(
             "Item: Faulty Spotter",
             "Duration",
-            10f,
+            7f,
             "Debuff duration (in seconds)",
             new System.Collections.Generic.List<string>()
             {
