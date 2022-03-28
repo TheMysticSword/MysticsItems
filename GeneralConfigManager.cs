@@ -11,6 +11,7 @@ namespace MysticsItems
         // Mod Compatibility
         public static ConfigEntry<bool> betterUICompatEnableOverrides;
         public static ConfigEntry<bool> itemStatsCompatEnabledByConfig;
+        public static ConfigEntry<bool> properSaveCompatEnabledByConfig;
         public static ConfigEntry<bool> itemDisplaysSniper;
         
         // UI
@@ -31,6 +32,7 @@ namespace MysticsItems
 
             betterUICompatEnableOverrides = MysticsItemsPlugin.configGeneral.Bind("Mod Compatibility", "BetterUICompatEnableOverrides", true, "Allow this mod to override certain BetterUI calculations (for example, adding Scratch Ticket chance bonus to the Crit Chance stat display).");
             itemStatsCompatEnabledByConfig = MysticsItemsPlugin.configGeneral.Bind("Mod Compatibility", "ItemStatsCompatEnable", true, "Enable ItemStats integration");
+            properSaveCompatEnabledByConfig = MysticsItemsPlugin.configGeneral.Bind("Mod Compatibility", "ProperSaveCompatEnable", true, "Enable ProperSave integration");
             itemDisplaysSniper = MysticsItemsPlugin.configGeneral.Bind("Mod Compatibility", "ItemDisplaysSniper", true, "Make this mod's items show up on the Sniper added by SniperClassic mod");
 
             rhythmHudUnderCrosshair = MysticsItemsPlugin.configGeneral.Bind("UI", "RhythmItemHUDUnderCrosshair", true, "Enable Metronome's HUD indicator under the crosshair.");

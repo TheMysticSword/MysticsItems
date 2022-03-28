@@ -28,6 +28,14 @@ namespace MysticsItems.SoftDependencies
                 }
                 catch { }
             }
+            if (BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("com.KingEnderBrine.ProperSave") && GeneralConfigManager.properSaveCompatEnabledByConfig.Value)
+            {
+                try
+                {
+                    ProperSaveCompat.Init();
+                }
+                catch { }
+            }
             itemDisplaysSniper = BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("com.Moffein.SniperClassic") && GeneralConfigManager.itemDisplaysSniper.Value;
         }
     }
