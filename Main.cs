@@ -352,6 +352,7 @@ namespace MysticsItems
             public static BuffDef MysticsItems_DasherDiscCooldown;
             public static BuffDef MysticsItems_Deafened;
             public static BuffDef MysticsItems_MarwanAshBurn;
+            public static BuffDef MysticsItems_MarwanAshBurnStrong;
             public static BuffDef MysticsItems_MechanicalArmCharge;
             public static BuffDef MysticsItems_RhythmCombo;
             public static BuffDef MysticsItems_SpotterMarked;
