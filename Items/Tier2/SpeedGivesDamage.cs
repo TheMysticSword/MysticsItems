@@ -11,6 +11,7 @@ using MysticsRisky2Utils;
 using MysticsRisky2Utils.BaseAssetTypes;
 using MonoMod.Cil;
 using static MysticsItems.BalanceConfigManager;
+using Mono.Cecil.Cil;
 
 namespace MysticsItems.Items
 {
@@ -95,7 +96,51 @@ namespace MysticsItems.Items
                 if (SoftDependencies.SoftDependenciesCore.itemDisplaysSniper) AddDisplayRule("SniperClassicBody", "ThighR", new Vector3(-0.01739F, 0.46343F, 0.11342F), new Vector3(82.73656F, 358.8853F, 0F), new Vector3(0.05528F, 0.10105F, 0.05528F));
             };
 
+            IL.RoR2.CharacterBody.RecalculateStats += CharacterBody_RecalculateStats;
             RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
+        }
+
+        private void CharacterBody_RecalculateStats(ILContext il)
+        {
+            ILCursor c = new ILCursor(il);
+
+            int locBaseDamageIndex = -1;
+            int locDamageMultIndex = -1;
+            bool ILFound = c.TryGotoNext(
+                x => x.MatchLdfld<CharacterBody>(nameof(CharacterBody.baseDamage)),
+                x => x.MatchLdarg(0),
+                x => x.MatchLdfld<CharacterBody>(nameof(CharacterBody.levelDamage))
+            ) && c.TryGotoNext(
+                x => x.MatchStloc(out locBaseDamageIndex)
+            ) && c.TryGotoNext(
+                x => x.MatchLdloc(locBaseDamageIndex),
+                x => x.MatchLdloc(out locDamageMultIndex),
+                x => x.MatchMul(),
+                x => x.MatchStloc(locBaseDamageIndex)
+            );
+
+            if (ILFound)
+            {
+                c.GotoPrev(x => x.MatchLdfld<CharacterBody>(nameof(CharacterBody.baseDamage)));
+                c.GotoNext(x => x.MatchStloc(locDamageMultIndex));
+                c.Emit(OpCodes.Ldarg, 0);
+                c.EmitDelegate<System.Func<float, CharacterBody, float>>((origDamageMult, body) => {
+                    var newDamageMult = origDamageMult;
+                    if (body.inventory)
+                    {
+                        int itemCount = body.inventory.GetItemCount(itemDef);
+                        if (itemCount > 0)
+                        {
+                            newDamageMult += CalculateDamageBonus(body, itemCount);
+                        }
+                    }
+                    return newDamageMult;
+                });
+            }
+            else
+            {
+                Main.logger.LogError("Nuclear Accelerator won't work");
+            }
         }
 
         private void RecalculateStatsAPI_GetStatCoefficients(CharacterBody sender, RecalculateStatsAPI.StatHookEventArgs args)
@@ -106,8 +151,6 @@ namespace MysticsItems.Items
                 if (itemCount > 0)
                 {
                     args.moveSpeedMultAdd += passiveSpeed / 100f;
-
-                    args.damageMultAdd += CalculateDamageBonus(sender, itemCount);
                 }
             }
         }
