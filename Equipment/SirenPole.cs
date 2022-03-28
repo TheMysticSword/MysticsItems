@@ -23,13 +23,13 @@ namespace MysticsItems.Equipment
         public static ConfigurableValue<float> baseRadius = new ConfigurableValue<float>(
             "Equipment: Warning System",
             "BaseRadius",
-            50f,
+            75f,
             "Charge zone base radius (in meters)"
         );
         public static ConfigurableValue<float> chargeTime = new ConfigurableValue<float>(
             "Equipment: Warning System",
             "ChargeTime",
-            30f,
+            45f,
             "Zone charge time (in seconds)",
             new List<string>()
             {
@@ -54,7 +54,7 @@ namespace MysticsItems.Equipment
         public override void OnLoad()
         {
             equipmentDef.name = "MysticsItems_SirenPole";
-            equipmentDef.cooldown = new ConfigurableCooldown("Equipment: Warning System", 75f).Value;
+            equipmentDef.cooldown = new ConfigurableCooldown("Equipment: Warning System", 90f).Value;
             equipmentDef.canDrop = true;
             equipmentDef.enigmaCompatible = new ConfigurableEnigmaCompatibleBool("Equipment: Warning System", false).Value;
             equipmentDef.canBeRandomlyTriggered = new ConfigurableCanBeRandomlyTriggeredBool("Equipment: Warning System", false).Value;
@@ -99,7 +99,7 @@ namespace MysticsItems.Equipment
             holdoutZoneController.outOfBoundsObjectiveToken = "OBJECTIVE_MYSTICSITEMS_CHARGE_SIRENPOLE_OOB";
             holdoutZoneController.applyHealingNova = true;
             holdoutZoneController.applyFocusConvergence = true;
-            holdoutZoneController.playerCountScaling = 1f;
+            holdoutZoneController.playerCountScaling = 0f;
             holdoutZoneController.dischargeRate = 0f;
             holdoutZoneController.enabled = false;
             sirenPoleController.holdoutZoneController = holdoutZoneController;
@@ -246,6 +246,7 @@ namespace MysticsItems.Equipment
                         }
                     }
                 });
+                holdoutZoneController.calcChargeRate += HoldoutZoneController_calcChargeRate;
                 waveCombatDirector.currentSpawnTarget = gameObject;
                 monsterCredit = baseMonsterCredit/* * (Run.instance ? Run.instance.difficultyCoefficient : 1f)*/;
 
@@ -267,6 +268,14 @@ namespace MysticsItems.Equipment
                 }
 
                 ShakeEmitter.CreateSimpleShakeEmitter(transform.position, new Wave { amplitude = 0.5f, frequency = 10f }, 0.1f, 15f, true);
+            }
+
+            private void HoldoutZoneController_calcChargeRate(ref float rate)
+            {
+                if (holdoutZoneController)
+                {
+                    holdoutZoneController.dischargeRate = -rate;
+                }
             }
 
             public void RunOnTeleporterBeginChargingGlobal(TeleporterInteraction teleporterInteraction)
