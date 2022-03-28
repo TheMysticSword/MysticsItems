@@ -87,10 +87,13 @@ namespace MysticsItems.Items
             RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
             On.RoR2.CharacterBody.RecalculateStats += CharacterBody_RecalculateStats;
 
+            /*
             On.RoR2.Skills.SkillCatalog.SetSkillDefs += SkillCatalog_SetSkillDefs;
             On.EntityStates.GenericCharacterMain.PerformInputs += GenericCharacterMain_PerformInputs;
+            */
         }
 
+        /*
         private void GenericCharacterMain_PerformInputs(On.EntityStates.GenericCharacterMain.orig_PerformInputs orig, EntityStates.GenericCharacterMain self)
         {
             var hasThisItem = GeneralConfigManager.backpackEnableSkillFixes.Value && self.characterBody && self.characterBody.inventory && self.characterBody.inventory.GetItemCount(itemDef) > 0;
@@ -142,6 +145,7 @@ namespace MysticsItems.Items
                 }
             }
         }
+        */
 
         private void RecalculateStatsAPI_GetStatCoefficients(CharacterBody sender, RecalculateStatsAPI.StatHookEventArgs args)
         {

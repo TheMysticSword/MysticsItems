@@ -6,7 +6,7 @@ namespace MysticsItems
     public static class GeneralConfigManager
     {
         // Gameplay
-        public static ConfigEntry<bool> backpackEnableSkillFixes;
+        //public static ConfigEntry<bool> backpackEnableSkillFixes;
 
         // Mod Compatibility
         public static ConfigEntry<bool> betterUICompatEnableOverrides;
@@ -20,12 +20,14 @@ namespace MysticsItems
         
         internal static void Init()
         {
+            /*
             backpackEnableSkillFixes = MysticsItemsPlugin.configGeneral.Bind<bool>(
                 "Gameplay",
                 "BackpackEnableSkillFixes",
                 true,
                 "Make certain skills require pressing a key instead of holding it down while carrying the Hikers Backpack item to fix these skills consuming all charges at once."
             );
+            */
 
             betterUICompatEnableOverrides = MysticsItemsPlugin.configGeneral.Bind("Mod Compatibility", "BetterUICompatEnableOverrides", true, "Allow this mod to override certain BetterUI calculations (for example, adding Scratch Ticket chance bonus to the Crit Chance stat display).");
             itemStatsCompatEnabledByConfig = MysticsItemsPlugin.configGeneral.Bind("Mod Compatibility", "ItemStatsCompatEnable", true, "Enable ItemStats integration");
