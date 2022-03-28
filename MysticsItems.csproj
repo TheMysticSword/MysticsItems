@@ -62,6 +62,9 @@
     <Reference Include="MysticsRisky2Utils">
       <HintPath>..\..\..\..\Risk of Rain 2\Modding References\MysticsRisky2Utils.dll</HintPath>
     </Reference>
+    <Reference Include="ProperSave">
+      <HintPath>..\..\..\..\Risk of Rain 2\Modding References\ProperSave.dll</HintPath>
+    </Reference>
     <Reference Include="R2API">
       <HintPath>..\..\..\..\Risk of Rain 2\Modding References\R2API.dll</HintPath>
     </Reference>
