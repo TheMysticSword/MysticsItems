@@ -178,18 +178,20 @@ namespace MysticsItems.Interactables
                         {
                             case ItemTier.Tier1:
                             case ItemTier.Tier2:
-                            case ItemTier.Tier3:
                             case ItemTier.Lunar:
                             case ItemTier.Boss:
                                 addReds += itemStacks[i];
+                                component.inventory.itemAcquisitionOrder.Remove(itemIndex);
+                                component.inventory.ResetItem(itemIndex);
                                 break;
                         }
-                        component.inventory.itemAcquisitionOrder.Remove(itemIndex);
-                        component.inventory.ResetItem(itemIndex);
                     }
                 }
-                var rolledRed = rng.NextElementUniform<ItemIndex>(availableItems);
-                component.inventory.GiveItem(rolledRed, addReds);
+                for (var i = 0; i < addReds; i++)
+                {
+                    var rolledRed = rng.NextElementUniform<ItemIndex>(availableItems);
+                    component.inventory.GiveItem(rolledRed);
+                }
                 component.inventory.SetDirtyBit(8U);
 
                 Chat.SendBroadcastChat(new Chat.SubjectFormatChatMessage
