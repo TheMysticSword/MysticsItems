@@ -119,7 +119,7 @@
 
     "ITEM_MYSTICSITEMS_MYSTICSWORD_NAME": "Mystic Sword", // [TheMysticSword's developer item]
     "ITEM_MYSTICSITEMS_MYSTICSWORD_PICKUP": "Killing strong enemies permanently increases damage.",
-    "ITEM_MYSTICSITEMS_MYSTICSWORD_DESC": "Increase damage by <style=cIsDamage>{Damage}% <style=cStack>(+{DamagePerStack}% per stack)</style></style> for each kill of an enemy with more than <style=cIsHealth>{HealthThreshold} base health <style=cIsUtility>(with or without elite health multipliers)</style></style>.",
+    "ITEM_MYSTICSITEMS_MYSTICSWORD_DESC": "Increase damage by <style=cIsDamage>{Damage}% <style=cStack>(+{DamagePerStack}% per stack)</style></style> for each kill of an enemy with more than <style=cIsHealth>{HealthThreshold} base health <style=cIsUtility>(with or without elite health multipliers)</style></style> up to <style=cIsDamage>{MaxDamage}% <style=cStack>(+{MaxDamagePerStack}% per stack)</style></style>.",
     "ITEM_MYSTICSITEMS_MYSTICSWORD_LORE": "\"Ornate pommel - for style.\r\n\r\nFluted grip - for control.\r\n\r\nThick angular guard - for power.\r\n\r\nSingle-edged blades - for concentration.\r\n\r\nTwo blades - for, uhh...\"\r\n\r\n\"Okay, okay, I get it, you *really* like your new prop sword.\"",
 
     "ITEM_MYSTICSITEMS_RHYTHM_NAME": "Metronome",
@@ -478,7 +478,7 @@
 
     "ITEM_MYSTICSITEMS_MYSTICSWORD_NAME": "Мистический меч", // [TheMysticSword's developer item]
     "ITEM_MYSTICSITEMS_MYSTICSWORD_PICKUP": "Убийство сильных врагов навсегда увеличивает урон.",
-    "ITEM_MYSTICSITEMS_MYSTICSWORD_DESC": "Увеличивает урон на <style=cIsDamage>{Damage}% <style=cStack>(+{DamagePerStack}% за шт.)</style></style> за каждое убийство врага, у которого более <style=cIsHealth>{HealthThreshold} базового здоровья <style=cIsUtility>(вместе с множителями здоровья элитных врагов или без)</style></style>.",
+    "ITEM_MYSTICSITEMS_MYSTICSWORD_DESC": "Увеличивает урон на <style=cIsDamage>{Damage}% <style=cStack>(+{DamagePerStack}% за шт.)</style></style> за каждое убийство врага, у которого более <style=cIsHealth>{HealthThreshold} базового здоровья <style=cIsUtility>(вместе с множителями здоровья элитных врагов или без)</style></style> вплоть до <style=cIsDamage>{MaxDamage}% <style=cStack>(+{MaxDamagePerStack}% за шт.)</style></style>.",
     "ITEM_MYSTICSITEMS_MYSTICSWORD_LORE": "\"Украшеннное навершие - для стиля.\r\n\r\nРифлёная рукоять - для контроля.\r\n\r\nПлотная угловатая гарда - для силы.\r\n\r\nОдносторонне заточенные лезвия - для концентрации.\r\n\r\nДва лезвия - для, э-э...\"\r\n\r\n\"Ладно, ладно, перестань, все уже поняли, тебе *очень* нравится твой новый реквизитный меч.\"",
 
     "ITEM_MYSTICSITEMS_RHYTHM_NAME": "Метроном",
