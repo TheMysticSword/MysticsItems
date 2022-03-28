@@ -17,6 +17,7 @@ using MysticsRisky2Utils;
 using MysticsRisky2Utils.BaseAssetTypes;
 using UnityEngine.UI;
 using static MysticsItems.BalanceConfigManager;
+using UnityEngine.AddressableAssets;
 
 namespace MysticsItems.Items
 {
@@ -151,9 +152,7 @@ namespace MysticsItems.Items
             purchaseInteraction.contextToken = "MYSTICSITEMS_RIFTCHEST_CONTEXT";
 
             ChestBehavior chestBehavior = riftChest.AddComponent<ChestBehavior>();
-            chestBehavior.tier1Chance = 80f;
-            chestBehavior.tier2Chance = 20f;
-            chestBehavior.tier3Chance = 1f;
+            chestBehavior.dropTable = Addressables.LoadAssetAsync<PickupDropTable>("RoR2/Base/Chest1/dtChest1.asset").WaitForCompletion();
 
             riftChest.transform.Find("InteractionCollider").gameObject.AddComponent<EntityLocator>().entity = riftChest;
 
@@ -697,11 +696,6 @@ namespace MysticsItems.Items
         {
             public PostProcessDuration ppDuration;
             public PositionIndicator positionIndicator;
-
-            public void Awake()
-            {
-                if (NetworkServer.active) GetComponent<ChestBehavior>().RollItem();
-            }
 
             public void Start()
             {
