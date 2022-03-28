@@ -51,7 +51,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<int> prepareTicks = new ConfigurableValue<int>(
             "Item: Metronome",
             "PrepareTicks",
-            3,
+            4,
             "How many low-pitch preparation ticks should play before a beat (in seconds)"
         );
         public static ConfigurableValue<float> prepareTickInterval = new ConfigurableValue<float>(
