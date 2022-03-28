@@ -141,7 +141,15 @@ namespace MysticsItems.Items
             decal.UseLightProbes = true;
             decal.DrawNormalAndGloss = false;
             decal.HighQualityBlending = false;
-            //decal.Reset();
+            {
+                decal.GetComponent<MeshFilter>().sharedMesh = LegacyResourcesAPI.Load<Mesh>("DecalCube");
+                MeshRenderer component = decal.GetComponent<MeshRenderer>();
+                component.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+                component.receiveShadows = false;
+                component.materials = new Material[0];
+                component.lightProbeUsage = UnityEngine.Rendering.LightProbeUsage.BlendProbes;
+                component.reflectionProbeUsage = UnityEngine.Rendering.ReflectionProbeUsage.Off;
+            }
             decal.gameObject.transform.localScale = Vector3.one * 10f;
             HG.ArrayUtils.ArrayAppend(ref captureZone.toggleObjects, decal.gameObject);
             ChestBehavior chestBehavior = zonePrefab.AddComponent<ChestBehavior>();
