@@ -115,7 +115,8 @@ namespace MysticsItems.Items
             ) && c.TryGotoNext(
                 x => x.MatchLdloc(locBaseDamageIndex),
                 x => x.MatchLdloc(out locDamageMultIndex),
-                x => x.MatchMul(),
+                x => x.MatchMul()
+            ) && c.TryGotoNext(
                 x => x.MatchStloc(locBaseDamageIndex)
             );
 
