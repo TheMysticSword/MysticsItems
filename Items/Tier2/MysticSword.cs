@@ -44,11 +44,25 @@ namespace MysticsItems.Items
                 "ITEM_MYSTICSITEMS_MYSTICSWORD_DESC"
             }
         );
-        public static ConfigurableValue<int> stageToStopRegularEnemyProcs = new ConfigurableValue<int>(
+        public static ConfigurableValue<float> maxDamage = new ConfigurableValue<float>(
             "Item: Mystic Sword",
-            "StageToStopRegularEnemyProcs",
-            6,
-            "At what stage should this item stop proccing off non-Teleporter-boss enemies to avoid making the item too powerful"
+            "MaxDamage",
+            100f,
+            "Maximum damage bonus from the first stack of this item (in %)",
+            new System.Collections.Generic.List<string>()
+            {
+                "ITEM_MYSTICSITEMS_MYSTICSWORD_DESC"
+            }
+        );
+        public static ConfigurableValue<float> maxDamagePerStack = new ConfigurableValue<float>(
+            "Item: Mystic Sword",
+            "MaxDamagePerStack",
+            100f,
+            "Maximum damage bonus for each additional stack of this item (in %)",
+            new System.Collections.Generic.List<string>()
+            {
+                "ITEM_MYSTICSITEMS_MYSTICSWORD_DESC"
+            }
         );
 
         private static string tooltipString = "<color=#BE2BE1></color><color=#EAEEDD></color><color=#AAAAA5></color>";
@@ -289,9 +303,7 @@ namespace MysticsItems.Items
                 if (damageReport.victimBody.inventory)
                     healthMultiplier += damageReport.victimBody.inventory.GetItemCount(RoR2Content.Items.BoostHp) * 0.1f;
                 var strongEnemy = (damageReport.victimBody.baseMaxHealth * healthMultiplier) >= healthThreshold;
-                var isTeleporterBoss = damageReport.victimBody.isBoss;
-                var canProcOffRegularEnemeies = Run.instance ? (Run.instance.stageClearCount + 1) >= stageToStopRegularEnemyProcs : true;
-                if (strongEnemy && (isTeleporterBoss || !isTeleporterBoss && canProcOffRegularEnemeies))
+                if (strongEnemy)
                 {
                     var onKillOrbTargets = new List<GameObject>();
 
@@ -307,9 +319,10 @@ namespace MysticsItems.Items
                                 if (itemCount > 0)
                                 {
                                     var component = inventory.GetComponent<MysticsItemsMysticSwordBehaviour>();
-                                    if (component)
+                                    var damageBonusCap = maxDamage / 100f + maxDamagePerStack / 100f * (float)(itemCount - 1);
+                                    if (component && component.damageBonus < damageBonusCap)
                                     {
-                                        component.damageBonus += damage / 100f + damagePerStack / 100f * (float)(itemCount - 1);
+                                        component.damageBonus += Mathf.Clamp(damage / 100f + damagePerStack / 100f * (float)(itemCount - 1), 0f, damageBonusCap - component.damageBonus);
                                         onKillOrbTargets.Add(teamMemberBody.gameObject);
                                         //RoR2.Audio.EntitySoundManager.EmitSoundServer(onKillSFX.index, teamMember.body.gameObject);
                                     }
