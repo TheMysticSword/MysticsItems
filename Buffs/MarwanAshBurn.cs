@@ -12,13 +12,22 @@ namespace MysticsItems.Buffs
         public static DamageColorIndex ashDoTDamageColor = DamageColorAPI.RegisterDamageColor(new Color32(1, 167, 172, 255));
         public static DotController.DotDef ashDotDef;
         public static DotController.DotIndex ashDotIndex;
+        public static BurnEffectController.EffectParams ashBurnEffectParams;
 
         public override void OnLoad() {
             buffDef.name = "MysticsItems_MarwanAshBurn";
             buffDef.buffColor = new Color32(96, 245, 250, 255);
             buffDef.canStack = false;
             buffDef.isDebuff = true;
-            buffDef.iconSprite = LegacyResourcesAPI.Load<Sprite>("Textures/BuffIcons/texBuffOnFireIcon");
+            buffDef.iconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Buffs/MarwanAshBurn.png");
+
+            ashBurnEffectParams = new BurnEffectController.EffectParams
+            {
+                startSound = "Play_item_proc_igniteOnKill_Loop",
+                stopSound = "Stop_item_proc_igniteOnKill_Loop",
+                overlayMaterial = Main.AssetBundle.LoadAsset<Material>("Assets/Items/Marwan's Ash/matMarwanAshBurnOverlay.mat"),
+                fireEffectPrefab = Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Marwan's Ash/AshBurnVFX.prefab")
+            };
 
             ashDotDef = new DotController.DotDef
             {
@@ -37,40 +46,51 @@ namespace MysticsItems.Buffs
 
                 var itemCount = 1;
                 var attackerLevel = 1f;
+                var damageMultiplier = 1f;
                 if (dotStack.attackerObject)
                 {
                     var ashHelper = dotStack.attackerObject.GetComponent<Items.MarwanAsh1.MysticsItemsMarwanAshHelper>();
                     if (ashHelper) itemCount = ashHelper.itemCount;
 
                     var attackerBody = dotStack.attackerObject.GetComponent<CharacterBody>();
-                    if (attackerBody) attackerLevel = attackerBody.level;
-                }
-                dotStack.damage = Mathf.Max(self.victimHealthComponent ? self.victimHealthComponent.fullCombinedHealth * (Items.MarwanAsh1.dotPercent / 100f + Items.MarwanAsh1.dotPercentPerLevel / 100f * (attackerLevel - (float)Items.MarwanAsh1.upgradeLevel12) * itemCount) : 0, dotStack.damage) * ashDotDef.interval;
-            }, (self) =>
-            {
-                Items.MarwanAsh1.MysticsItemsMarwanAshHelper ashHelper = self.victimBody ? self.victimBody.GetComponent<Items.MarwanAsh1.MysticsItemsMarwanAshHelper>() : null;
-                if (ashHelper)
-                {
-                    if (self.HasDotActive(ashDotIndex))
+                    if (attackerBody)
                     {
-                        if (!ashHelper.burnEffectController)
+                        attackerLevel = attackerBody.level;
+                        if (attackerBody.damage != 0f)
+                            damageMultiplier = dotStack.damage / attackerBody.damage / ashDotDef.damageCoefficient;
+                    }
+                }
+                dotStack.damage = Mathf.Max(self.victimHealthComponent ? self.victimHealthComponent.fullCombinedHealth * (Items.MarwanAsh1.dotPercent / 100f + Items.MarwanAsh1.dotPercentPerLevel / 100f * (attackerLevel - (float)Items.MarwanAsh1.upgradeLevel12) * itemCount) * damageMultiplier : 0, dotStack.damage) * ashDotDef.interval;
+            });
+
+            On.RoR2.DotController.UpdateDotVisuals += DotController_UpdateDotVisuals;
+        }
+
+        private void DotController_UpdateDotVisuals(On.RoR2.DotController.orig_UpdateDotVisuals orig, DotController self)
+        {
+            orig(self);
+            Items.MarwanAsh1.MysticsItemsMarwanAshHelper ashHelper = self.victimBody ? self.victimBody.GetComponent<Items.MarwanAsh1.MysticsItemsMarwanAshHelper>() : null;
+            if (ashHelper)
+            {
+                if (self.HasDotActive(ashDotIndex))
+                {
+                    if (!ashHelper.burnEffectController)
+                    {
+                        ModelLocator modelLocator = self.victimBody.modelLocator;
+                        if (modelLocator && modelLocator.modelTransform)
                         {
-                            ModelLocator modelLocator = self.victimBody.modelLocator;
-                            if (modelLocator && modelLocator.modelTransform)
-                            {
-                                ashHelper.burnEffectController = self.victimBody.gameObject.AddComponent<BurnEffectController>();
-                                ashHelper.burnEffectController.effectType = BurnEffectController.helfireEffect;
-                                ashHelper.burnEffectController.target = modelLocator.modelTransform.gameObject;
-                            }
+                            ashHelper.burnEffectController = self.victimBody.gameObject.AddComponent<BurnEffectController>();
+                            ashHelper.burnEffectController.effectType = ashBurnEffectParams;
+                            ashHelper.burnEffectController.target = modelLocator.modelTransform.gameObject;
                         }
                     }
-                    else if (ashHelper.burnEffectController)
-                    {
-                        Object.Destroy(ashHelper.burnEffectController);
-                        ashHelper.burnEffectController = null;
-                    }
                 }
-            });
+                else if (ashHelper.burnEffectController)
+                {
+                    Object.Destroy(ashHelper.burnEffectController);
+                    ashHelper.burnEffectController = null;
+                }
+            }
         }
     }
 }
