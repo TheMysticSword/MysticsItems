@@ -82,7 +82,7 @@ namespace MysticsItems.Items
         public static float ApplyPercentBonus(int itemCount, float percentChance)
         {
             if (!alternateBonus) percentChance += chanceBonus + chanceBonusPerStack * (itemCount - 1);
-            else percentChance *= 1f + chanceBonus + chanceBonusPerStack * (itemCount - 1);
+            else percentChance *= 1f + chanceBonus / 100f + chanceBonusPerStack / 100f * (itemCount - 1);
             return percentChance;
         }
 
