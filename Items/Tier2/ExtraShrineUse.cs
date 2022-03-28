@@ -24,7 +24,8 @@ namespace MysticsItems.Items
             {
                 ItemTag.Utility,
                 ItemTag.AIBlacklist,
-                ItemTag.CannotCopy
+                ItemTag.CannotCopy,
+                ItemTag.InteractableRelated
             };
             itemDef.pickupModelPrefab = PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Hexahedral Monolith/Model.prefab"));
             itemDef.pickupIconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Items/Hexahedral Monolith/Icon2.png");
