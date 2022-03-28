@@ -103,6 +103,8 @@ namespace MysticsItems.Items
             {
                 ignoredBuffDefs.Add(RoR2Content.Buffs.MedkitHeal);
                 ignoredBuffDefs.Add(RoR2Content.Buffs.HiddenInvincibility);
+                ignoredBuffDefs.Add(RoR2Content.Buffs.VoidFogMild);
+                ignoredBuffDefs.Add(RoR2Content.Buffs.VoidFogStrong);
             };
         }
 
@@ -112,14 +114,14 @@ namespace MysticsItems.Items
             var _dotStack = (dotStack as DotController.DotStack);
             if (self.victimBody && _dotStack.dotDef.associatedBuff && !ignoredBuffDefs.Contains(_dotStack.dotDef.associatedBuff))
             {
-                _dotStack.timer = GetModifiedDuration(self.victimBody, _dotStack.dotDef.associatedBuff.isDebuff, _dotStack.timer);
+                _dotStack.timer = GetModifiedDuration(self.victimBody, _dotStack.dotDef.associatedBuff.isDebuff || _dotStack.dotDef.associatedBuff.isCooldown, _dotStack.timer);
             }
         }
 
         private void CharacterBody_AddTimedBuff_BuffDef_float(On.RoR2.CharacterBody.orig_AddTimedBuff_BuffDef_float orig, CharacterBody self, BuffDef buffDef, float duration)
         {
             if (!ignoredBuffDefs.Contains(buffDef))
-                duration = GetModifiedDuration(self, buffDef.isDebuff, duration);
+                duration = GetModifiedDuration(self, buffDef.isDebuff || buffDef.isCooldown, duration);
             orig(self, buffDef, duration);
         }
 
@@ -128,7 +130,7 @@ namespace MysticsItems.Items
             orig(self, buffDef, duration, maxStacks);
             if (!ignoredBuffDefs.Contains(buffDef))
             {
-                var modifiedDuration = GetModifiedDuration(self, buffDef.isDebuff, duration);
+                var modifiedDuration = GetModifiedDuration(self, buffDef.isDebuff || buffDef.isCooldown, duration);
                 foreach (var timedBuff in self.timedBuffs.Where(x => x.buffIndex == buffDef.buffIndex && x.timer == duration))
                 {
                     timedBuff.timer = modifiedDuration;
