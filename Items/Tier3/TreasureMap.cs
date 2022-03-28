@@ -154,8 +154,8 @@ namespace MysticsItems.Items
             HG.ArrayUtils.ArrayAppend(ref captureZone.toggleObjects, decal.gameObject);
             ChestBehavior chestBehavior = zonePrefab.AddComponent<ChestBehavior>();
             chestBehavior.dropTransform = zonePrefab.transform.Find("DropPivot");
-            chestBehavior.dropTable = Addressables.LoadAssetAsync<PickupDropTable>("RoR2/Base/Interactables/GoldChest/dtGoldChest.asset").WaitForCompletion();
-
+            chestBehavior.dropTable = Addressables.LoadAssetAsync<PickupDropTable>("RoR2/Base/GoldChest/dtGoldChest.asset").WaitForCompletion();
+            
             On.RoR2.HoldoutZoneController.ChargeHoldoutZoneObjectiveTracker.ShouldBeFlashing += (orig, self) =>
             {
                 if (self.sourceDescriptor.master)
