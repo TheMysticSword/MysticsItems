@@ -31,7 +31,7 @@ namespace MysticsItems.SoftDependencies
                 func = (statBody) =>
                 {
                     var crit = statBody.crit;
-                    if (statBody.inventory)
+                    if (crit >= 1f && statBody.inventory)
                     {
                         var itemCount = statBody.inventory.GetItemCount(MysticsItemsContent.Items.MysticsItems_ScratchTicket);
                         if (itemCount > 0) crit = Items.ScratchTicket.ApplyPercentBonus(itemCount, crit);
