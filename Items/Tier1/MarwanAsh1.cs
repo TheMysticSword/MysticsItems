@@ -248,14 +248,16 @@ namespace MysticsItems.Items
                             damageMultiplier = 1f,
                             totalDamage = null
                         };
-                        /*
+                        
                         var strengthenBurnCount = attackerInfo.inventory.GetItemCount(DLC1Content.Items.StrengthenBurn);
                         if (strengthenBurnCount > 0)
                         {
+                            dotInfo.dotIndex = Buffs.MarwanAshBurnStrong.ashDotIndex;
                             var multiplier = 1f + 3f * (float)strengthenBurnCount;
+                            dotInfo.damageMultiplier *= multiplier;
                             dotInfo.duration *= multiplier;
                         }
-                        */
+                        
                         DotController.InflictDot(ref dotInfo);
                     }
                 }
@@ -289,6 +291,7 @@ namespace MysticsItems.Items
             public int itemLevel = 1;
             public int itemCount = 0;
             public BurnEffectController burnEffectController;
+            public BurnEffectController burnEffectControllerStrong;
 
             public void Awake()
             {
