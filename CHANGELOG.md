@@ -1,3 +1,29 @@
+#### 2.0.5:
+* Mystic Sword:
+    * Damage: ~~3% (+3% per stack)~~ ⇒ 2% (+2% per stack)
+    * Damage Bonus Limit: ~~None~~ ⇒ 100% (+100% per stack)
+    * Reverted the hidden limit on non-Teleporter bosses from the previous patch
+* Vintage Microphone:
+    * No longer randomly triggered by Bottled Chaos
+* Warning System:
+    * Base Radius: ~~50m~~ ⇒ 75m
+    * Charge Time: ~~30s~~ ⇒ 45s
+    * Cooldown: ~~75s~~ ⇒ 90s
+    * Siren Pole now passively charges itself instead of requiring players to stand inside the radius
+* Marwan's Ash:
+    * Burn effect can now be upgraded with the Ignition Tank item from the Survivors of the Void DLC
+* Metronome:
+    * Now plays 5 ticks in total instead of 4 to fit the soundtrack's 5/4 signature
+* Fixed sounds not working
+* Fixed Nuclear Accelerator becoming weaker when sprinting and stronger when unsprinting instead of the opposite
+* Fixed Treasure Map radius containing a large glowing sphere
+* Fixed Treasure Map and Rift Lens not dropping items
+* Fixed content toggle config not disabling items
+* Fixed Choc Chip extending item cooldown buffs and the visual debuff of the Void fog
+* Removed Hiker's Backpack special skill fix option "BackpackEnableSkillFixes" from the general config
+    * No longer necessary - all special skills work properly when stacked as of the 1st March 2022 update
+* Fixed Scratch Ticket's "AlternateBonus" config option incorrectly multiplying chances by 100
+* Fixed Rift Lens having infinite countdown
 #### 2.0.4:
 * **Updated for the 1st March 2022 version of the game**
     * Note: the mod wasn't fully tested on the new version. Bug reports are appreciated!
