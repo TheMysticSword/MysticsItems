@@ -109,7 +109,8 @@ namespace MysticsItems.Items
             {
                 ItemTag.Utility,
                 ItemTag.AIBlacklist,
-                ItemTag.CannotCopy
+                ItemTag.CannotCopy,
+                ItemTag.OnStageBeginEffect
             };
             MysticsItemsContent.Resources.unlockableDefs.Add(GetUnlockableDef());
             itemDef.pickupModelPrefab = PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Rift Lens/Model.prefab"));
