@@ -71,12 +71,27 @@ Sounds from the [Disc Room Game Jam audiopack](https://discroom.com/game-jam-tut
 Multiple sounds made with [sfxia](https://rxi.itch.io/sfxia) by [rxi](https://rxi.itch.io/)  
 Contains assets from [FreePBR.com](https://freepbr.com/)  
 Contains assets from [ambientCG.com](https://ambientcg.com/), licensed under CC0 1.0 Universal.
-  
-# Update 2.0
-Please check out our post about the new update!  
-https://themysticsword.itch.io/ror2-mystics-items/devlog/344340/update-20-and-itchio-release
 
 # Changelog
+#### 2.0.6:
+* Failed Experiment:
+    * Radius: ~~12 (+2.4m per stack)~~ ⇒ 15m (+3m per stack)
+* Faulty Spotter:
+    * Debuff Duration: ~~10s~~ ⇒ 7s
+* Nuclear Accelerator:
+    * Damage Per 1% Speed: ~~1% (+0.5% per stack)~~ ⇒ 0.5% (+0.25% per stack)
+* Moonglasses:
+    * Now halve all non-crit damage for characters with 'backstabs deal guaranteed crits' and 'convert crit chance into crit damage' passives
+        * This change should fix the item being strictly positive for Bandit and Railgunner
+* Puzzle of Chronos:
+    * Base Ally Regen: ~~+3 HP/s (+3 HP/s per stack)~~ ⇒ +6 HP/s (+6 HP/s per stack)
+* Treasure Map:
+    * Time: ~~120s (-50% per stack)~~ ⇒ 60s (-25% per stack)
+    * Radius: ~~15m~~ ⇒ 10m
+        * These changes should make the digging event feel more dynamic (managing between standing in a small area and leaving it when enemies close in) and make it feel less like another Teleporter event
+* Fixed Nuclear Accelerator not working
+* Fixed Scratch Tickets adding crit chance to BetterUI when playing as Railgunner
+* Fixed Manuscript and Mystic Sword bonuses resetting when loading a game with ProperSave
 #### 2.0.5:
 * Mystic Sword:
     * Damage: ~~3% (+3% per stack)~~ ⇒ 2% (+2% per stack)
