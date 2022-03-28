@@ -230,7 +230,7 @@ namespace MysticsItems.Items
                         if (thisItemCount > 0)
                         {
                             characterMaster.inventory.RemoveItem(MysticsItemsContent.Items.MysticsItems_RiftLensDebuff, characterMaster.inventory.GetItemCount(MysticsItemsContent.Items.MysticsItems_RiftLensDebuff));
-                            characterMaster.inventory.GiveItem(MysticsItemsContent.Items.MysticsItems_RiftLensDebuff, thisItemCount * riftsPerStack);
+                            characterMaster.inventory.GiveItem(MysticsItemsContent.Items.MysticsItems_RiftLensDebuff, baseRifts + riftsPerStack * (thisItemCount - 1));
                             riftsToSpawn += baseRifts.Value + riftsPerStack.Value * (thisItemCount - 1);
                         }
                     }
@@ -345,7 +345,7 @@ namespace MysticsItems.Items
                             riftEnd = rift2;
                         }
                     }
-
+                    
                     if (riftEnd)
                     {
                         var endPos = riftEnd.transform.position;
