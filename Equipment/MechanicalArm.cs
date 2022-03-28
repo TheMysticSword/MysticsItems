@@ -253,7 +253,7 @@ namespace MysticsItems.Equipment
             {
                 attackerInfo.body.AddTimedBuff(
                     MysticsItemsContent.Buffs.MysticsItems_MechanicalArmCharge,
-                    (attackerInfo.body.equipmentSlot.stock <= 0 ? attackerInfo.body.equipmentSlot.cooldownTimer : 0f) + (10f + UnityEngine.Random.value) * damageInfo.procCoefficient
+                    (attackerInfo.body.equipmentSlot.stock <= 0 ? attackerInfo.body.equipmentSlot.cooldownTimer : 0f) + (20f + UnityEngine.Random.value) * damageInfo.procCoefficient
                 );
             }
         }
