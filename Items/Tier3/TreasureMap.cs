@@ -32,7 +32,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> unearthTime = new ConfigurableValue<float>(
             "Item: Treasure Map",
             "UnearthTime",
-            120f,
+            60f,
             "How long to stay in the treasure zone to unearth the legendary item (in seconds)",
             new System.Collections.Generic.List<string>()
             {
@@ -42,7 +42,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> reductionPerStack = new ConfigurableValue<float>(
             "Item: Treasure Map",
             "ReductionPerStack",
-            50f,
+            25f,
             "Unearth time reduction for each additional stack of this item (in %, hyperbolic)",
             new System.Collections.Generic.List<string>()
             {
@@ -52,7 +52,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> radius = new ConfigurableValue<float>(
             "Item: Treasure Map",
             "Radius",
-            15f,
+            10f,
             "Treasure zone radius (in meters)",
             new System.Collections.Generic.List<string>()
             {
