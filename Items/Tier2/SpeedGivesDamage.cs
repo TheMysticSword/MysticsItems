@@ -30,7 +30,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> damage = new ConfigurableValue<float>(
             "Item: Nuclear Accelerator",
             "Damage",
-            1f,
+            0.5f,
             "Damage increase for every 1% of speed increase (in %)",
             new System.Collections.Generic.List<string>()
             {
@@ -40,7 +40,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> damagePerStack = new ConfigurableValue<float>(
             "Item: Nuclear Accelerator",
             "DamagePerStack",
-            0.5f,
+            0.25f,
             "Damage increase for every 1% of speed increase for every additional stack of this item (in %)",
             new System.Collections.Generic.List<string>()
             {
