@@ -59,6 +59,12 @@ namespace MysticsItems.Items
                 "ITEM_MYSTICSITEMS_TREASUREMAP_DESC"
             }
         );
+        public static ConfigurableValue<bool> dropItemForEachPlayer = new ConfigurableValue<bool>(
+            "Item: Treasure Map",
+            "DropItemForEachPlayer",
+            true,
+            "Should the treasure spot drop an item for each player in multiplayer? If false, only one item is dropped regardless of the player count."
+        );
 
         public override void OnPluginAwake()
         {
@@ -252,7 +258,8 @@ namespace MysticsItems.Items
                 EffectManager.SimpleEffect(effectPrefab, transform.position, Quaternion.identity, true);
                 PointSoundManager.EmitSoundServer(soundEventDef.index, transform.position);
 
-                chestBehavior.dropCount = Mathf.Max(Run.instance.participatingPlayerCount, 1);
+                if (dropItemForEachPlayer) chestBehavior.dropCount = Mathf.Max(Run.instance.participatingPlayerCount, 1);
+                else chestBehavior.dropCount = 1;
                 var dropTable = chestBehavior.dropTable;
                 chestBehavior.dropTable = null; // this dropTable = null temporary wrap is needed so ItemDrop doesn't roll a separate item for each player
                 chestBehavior.ItemDrop();
