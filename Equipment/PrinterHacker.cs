@@ -31,7 +31,7 @@ namespace MysticsItems.Equipment
         public override void OnLoad()
         {
             equipmentDef.name = "MysticsItems_PrinterHacker";
-            equipmentDef.cooldown = new ConfigurableCooldown("Equipment: Wirehack Wrench", 45f).Value;
+            equipmentDef.cooldown = new ConfigurableCooldown("Equipment: Wirehack Wrench", 90f).Value;
             equipmentDef.canDrop = true;
             equipmentDef.enigmaCompatible = new ConfigurableEnigmaCompatibleBool("Equipment: Wirehack Wrench", false).Value;
             equipmentDef.canBeRandomlyTriggered = new ConfigurableCanBeRandomlyTriggeredBool("Equipment: Wirehack Wrench", false).Value;
