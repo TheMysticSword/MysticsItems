@@ -60,7 +60,7 @@ namespace MysticsItems.Buffs
                             damageMultiplier = dotStack.damage / attackerBody.damage / ashDotDef.damageCoefficient;
                     }
                 }
-                dotStack.damage = Mathf.Max(self.victimHealthComponent ? self.victimHealthComponent.fullCombinedHealth * (Items.MarwanAsh1.dotPercent / 100f + Items.MarwanAsh1.dotPercentPerLevel / 100f * (attackerLevel - (float)Items.MarwanAsh1.upgradeLevel12) * itemCount) * damageMultiplier : 0, dotStack.damage) * ashDotDef.interval;
+                dotStack.damage = (self.victimHealthComponent ? self.victimHealthComponent.fullCombinedHealth * (Items.MarwanAsh1.dotPercent / 100f + Items.MarwanAsh1.dotPercentPerLevel / 100f * (attackerLevel - (float)Items.MarwanAsh1.upgradeLevel12) * itemCount) * damageMultiplier : 0) * ashDotDef.interval;
             });
 
             On.RoR2.DotController.UpdateDotVisuals += DotController_UpdateDotVisuals;
