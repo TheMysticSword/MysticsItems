@@ -12,6 +12,12 @@ namespace MysticsItems.SoftDependencies
             RoR2Application.onLoad += RegisterItemStatDefs;
         }
 
+        private static string GetItemStatsFormattedString(string token, params object[] args)
+        {
+            HG.ArrayUtils.ArrayInsert(ref args, 0, Language.GetString(token));
+            return Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_FORMAT", args);
+        }
+
         private static void RegisterItemStatDefs()
         {
             // Lunar
@@ -22,11 +28,11 @@ namespace MysticsItems.SoftDependencies
                 {
                     new ItemStats.Stat.ItemStat(
                         (itemCount, ctx) => Items.Moonglasses.critDamageIncrease.Value + Items.Moonglasses.critDamageIncreasePerStack.Value * (itemCount - 1),
-                        (value, ctx) => Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_CRITDAMAGE", ItemStats.ValueFormatters.Extensions.FormatPercentage(value: value, scale: 1f, signed: true))
+                        (value, ctx) => GetItemStatsFormattedString("ITEMSTATS_MYSTICSITEMS_CRITDAMAGE", ItemStats.ValueFormatters.Extensions.FormatPercentage(value: value, scale: 1f, signed: true))
                     ),
                     new ItemStats.Stat.ItemStat(
                         (itemCount, ctx) => -(1f - 1f / Mathf.Pow(2f, itemCount)),
-                        (value, ctx) => Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_CRIT", ItemStats.ValueFormatters.Extensions.FormatPercentage(value: value, signed: true, color: "\"red\""))
+                        (value, ctx) => GetItemStatsFormattedString("ITEMSTATS_MYSTICSITEMS_CRIT", ItemStats.ValueFormatters.Extensions.FormatPercentage(value: value, signed: true, color: "\"red\""))
                     )
                 }
             });
@@ -37,11 +43,11 @@ namespace MysticsItems.SoftDependencies
                 {
                     new ItemStats.Stat.ItemStat(
                         (itemCount, ctx) => Items.RegenAndDifficultySpeed.baseRegenIncrease + Items.RegenAndDifficultySpeed.baseRegenIncreasePerStack * (itemCount - 1),
-                        (value, ctx) => Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_REGEN", ItemStats.ValueFormatters.Extensions.FormatInt(value: value, postfix: Language.GetString("ITEMSTATS_MYSTICSITEMS_POSTFIX_HEALTHPERSECOND"), signed: true))
+                        (value, ctx) => GetItemStatsFormattedString("ITEMSTATS_MYSTICSITEMS_REGEN", ItemStats.ValueFormatters.Extensions.FormatInt(value: value, postfix: Language.GetString("ITEMSTATS_MYSTICSITEMS_POSTFIX_HEALTHPERSECOND"), signed: true))
                     ),
                     new ItemStats.Stat.ItemStat(
                         (itemCount, ctx) => Items.RegenAndDifficultySpeed.timerSpeedIncrease + Items.RegenAndDifficultySpeed.timerSpeedIncreasePerStack * (itemCount - 1),
-                        (value, ctx) => Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_DIFFICULTYSPEED", ItemStats.ValueFormatters.Extensions.FormatPercentage(value: value, scale: 1f, signed: true, color: "\"red\""))
+                        (value, ctx) => GetItemStatsFormattedString("ITEMSTATS_MYSTICSITEMS_DIFFICULTYSPEED", ItemStats.ValueFormatters.Extensions.FormatPercentage(value: value, scale: 1f, signed: true, color: "\"red\""))
                     )
                 }
             });
@@ -52,7 +58,7 @@ namespace MysticsItems.SoftDependencies
                 {
                     new ItemStats.Stat.ItemStat(
                         (itemCount, ctx) => Items.RiftLens.baseRifts + Items.RiftLens.riftsPerStack * (itemCount - 1),
-                        (value, ctx) => Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_UNSTABLERIFTS", ItemStats.ValueFormatters.Extensions.FormatInt(value: value))
+                        (value, ctx) => GetItemStatsFormattedString("ITEMSTATS_MYSTICSITEMS_UNSTABLERIFTS", ItemStats.ValueFormatters.Extensions.FormatInt(value: value))
                     )
                 }
             });
@@ -65,7 +71,7 @@ namespace MysticsItems.SoftDependencies
                 {
                     new ItemStats.Stat.ItemStat(
                         (itemCount, ctx) => Items.BackArmor.armorAdd + Items.BackArmor.armorAddPerStack * (itemCount - 1),
-                        (value, ctx) => Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_ARMOR", ItemStats.ValueFormatters.Extensions.FormatInt(value: value, signed: true))
+                        (value, ctx) => GetItemStatsFormattedString("ITEMSTATS_MYSTICSITEMS_ARMOR", ItemStats.ValueFormatters.Extensions.FormatInt(value: value, signed: true))
                     )
                 }
             });
@@ -76,7 +82,7 @@ namespace MysticsItems.SoftDependencies
                 {
                     new ItemStats.Stat.ItemStat(
                         (itemCount, ctx) => Items.HealOrbOnBarrel.fractionalHealing + Items.HealOrbOnBarrel.fractionalHealingPerStack * (itemCount - 1),
-                        (value, ctx) => Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_HEALING", ItemStats.ValueFormatters.Extensions.FormatPercentage(value: value, scale: 1f))
+                        (value, ctx) => GetItemStatsFormattedString("ITEMSTATS_MYSTICSITEMS_HEALING", ItemStats.ValueFormatters.Extensions.FormatPercentage(value: value, scale: 1f))
                     )
                 }
             });
@@ -95,7 +101,7 @@ namespace MysticsItems.SoftDependencies
                             }
                             return 0;
                         },
-                        (value, ctx) => Language.GetStringFormatted(
+                        (value, ctx) => GetItemStatsFormattedString(
                             "ITEMSTATS_MYSTICSITEMS_" + buffType.ToString().ToUpperInvariant(),
                             ItemStats.ValueFormatters.Extensions.FormatPercentage(value: value, signed: true, scale: 1f)
                         )
@@ -113,7 +119,7 @@ namespace MysticsItems.SoftDependencies
                 {
                     new ItemStats.Stat.ItemStat(
                         (itemCount, ctx) => Items.ScratchTicket.chanceBonus + Items.ScratchTicket.chanceBonusPerStack * (itemCount - 1),
-                        (value, ctx) => Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_CHANCE", ItemStats.ValueFormatters.Extensions.FormatPercentage(value: value, signed: true, scale: 1f))
+                        (value, ctx) => GetItemStatsFormattedString("ITEMSTATS_MYSTICSITEMS_CHANCE", ItemStats.ValueFormatters.Extensions.FormatPercentage(value: value, signed: true, scale: 1f))
                     )
                 }
             });
@@ -124,7 +130,7 @@ namespace MysticsItems.SoftDependencies
                 {
                     new ItemStats.Stat.ItemStat(
                         (itemCount, ctx) => ctx.Master && ctx.Master.GetComponent<Items.LimitedArmor.MysticsItemsLimitedArmorBehavior>() ? ctx.Master.GetComponent<Items.LimitedArmor.MysticsItemsLimitedArmorBehavior>().GetTotalStock() : 0,
-                        (value, ctx) => Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_REMAINING", ItemStats.ValueFormatters.Extensions.FormatInt(value: value))
+                        (value, ctx) => GetItemStatsFormattedString("ITEMSTATS_MYSTICSITEMS_REMAINING", ItemStats.ValueFormatters.Extensions.FormatInt(value: value))
                     )
                 }
             });
@@ -134,7 +140,7 @@ namespace MysticsItems.SoftDependencies
                 {
                     new ItemStats.Stat.ItemStat(
                         (itemCount, ctx) => Items.LimitedArmorBroken.brokenArmor * itemCount,
-                        (value, ctx) => Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_ARMOR", ItemStats.ValueFormatters.Extensions.FormatInt(value: value, signed: true))
+                        (value, ctx) => GetItemStatsFormattedString("ITEMSTATS_MYSTICSITEMS_ARMOR", ItemStats.ValueFormatters.Extensions.FormatInt(value: value, signed: true))
                     )
                 }
             });
@@ -145,11 +151,11 @@ namespace MysticsItems.SoftDependencies
                 {
                     new ItemStats.Stat.ItemStat(
                         (itemCount, ctx) => Items.Cookie.buffDuration + Items.Cookie.buffDurationPerStack * (itemCount - 1),
-                        (value, ctx) => Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_DURATION", ItemStats.ValueFormatters.Extensions.FormatInt(value: value, postfix: Language.GetString("ITEMSTATS_MYSTICSITEMS_POSTFIX_SECONDS"), signed: true))
+                        (value, ctx) => GetItemStatsFormattedString("ITEMSTATS_MYSTICSITEMS_DURATION", ItemStats.ValueFormatters.Extensions.FormatInt(value: value, postfix: Language.GetString("ITEMSTATS_MYSTICSITEMS_POSTFIX_SECONDS"), signed: true))
                     ),
                     new ItemStats.Stat.ItemStat(
                         (itemCount, ctx) => -Items.Cookie.debuffDuration - Items.Cookie.debuffDurationPerStack * (itemCount - 1),
-                        (value, ctx) => Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_DURATION", ItemStats.ValueFormatters.Extensions.FormatInt(value: value, postfix: Language.GetString("ITEMSTATS_MYSTICSITEMS_POSTFIX_SECONDS"), signed: true))
+                        (value, ctx) => GetItemStatsFormattedString("ITEMSTATS_MYSTICSITEMS_DURATION", ItemStats.ValueFormatters.Extensions.FormatInt(value: value, postfix: Language.GetString("ITEMSTATS_MYSTICSITEMS_POSTFIX_SECONDS"), signed: true))
                     )
                 }
             });
@@ -157,15 +163,15 @@ namespace MysticsItems.SoftDependencies
             {
                 var damageStat = new ItemStats.Stat.ItemStat(
                     (itemCount, ctx) => Items.MarwanAsh1.damage + Items.MarwanAsh1.damagePerLevel * (ctx.Master && ctx.Master.hasBody ? ctx.Master.GetBody().level : 0f) * itemCount,
-                    (value, ctx) => Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_DAMAGE", ItemStats.ValueFormatters.Extensions.FormatInt(value: value))
+                    (value, ctx) => GetItemStatsFormattedString("ITEMSTATS_MYSTICSITEMS_DAMAGE", ItemStats.ValueFormatters.Extensions.FormatInt(value: value))
                 );
                 var dotStat = new ItemStats.Stat.ItemStat(
                     (itemCount, ctx) => Items.MarwanAsh1.dotPercent + Items.MarwanAsh1.dotPercentPerLevel * (ctx.Master && ctx.Master.hasBody ? ctx.Master.GetBody().level - Items.MarwanAsh1.upgradeLevel12 : 0f) * itemCount,
-                    (value, ctx) => Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_MAXHEALTH", ItemStats.ValueFormatters.Extensions.FormatPercentage(value: value, scale: 1f))
+                    (value, ctx) => GetItemStatsFormattedString("ITEMSTATS_MYSTICSITEMS_MAXHEALTH", ItemStats.ValueFormatters.Extensions.FormatPercentage(value: value, scale: 1f))
                 );
                 var radiusStat = new ItemStats.Stat.ItemStat(
                     (itemCount, ctx) => Items.MarwanAsh1.radius + Items.MarwanAsh1.radiusPerLevel * (ctx.Master && ctx.Master.hasBody ? ctx.Master.GetBody().level - Items.MarwanAsh1.upgradeLevel23 : 0f) * itemCount,
-                    (value, ctx) => Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_RADIUS", ItemStats.ValueFormatters.Extensions.FormatInt(value: value, postfix: Language.GetString("ITEMSTATS_MYSTICSITEMS_POSTFIX_METERS")))
+                    (value, ctx) => GetItemStatsFormattedString("ITEMSTATS_MYSTICSITEMS_RADIUS", ItemStats.ValueFormatters.Extensions.FormatInt(value: value, postfix: Language.GetString("ITEMSTATS_MYSTICSITEMS_POSTFIX_METERS")))
                 );
                 ItemStats.ItemStatsMod.AddCustomItemStatDef(MysticsItemsContent.Items.MysticsItems_MarwanAsh1.itemIndex, new ItemStats.ItemStatDef
                 {
@@ -201,7 +207,7 @@ namespace MysticsItems.SoftDependencies
                 {
                     new ItemStats.Stat.ItemStat(
                         (itemCount, ctx) => Items.AllyDeathRevenge.duration + Items.AllyDeathRevenge.durationPerStack * (itemCount - 1),
-                        (value, ctx) => Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_DURATION", ItemStats.ValueFormatters.Extensions.FormatInt(value: value, postfix: Language.GetString("ITEMSTATS_MYSTICSITEMS_POSTFIX_SECONDS")))
+                        (value, ctx) => GetItemStatsFormattedString("ITEMSTATS_MYSTICSITEMS_DURATION", ItemStats.ValueFormatters.Extensions.FormatInt(value: value, postfix: Language.GetString("ITEMSTATS_MYSTICSITEMS_POSTFIX_SECONDS")))
                     )
                 }
             });
@@ -212,15 +218,15 @@ namespace MysticsItems.SoftDependencies
                 {
                     new ItemStats.Stat.ItemStat(
                         (itemCount, ctx) => Items.CoffeeBoostOnItemPickup.maxBuffs + Items.CoffeeBoostOnItemPickup.maxBuffsPerStack * (itemCount - 1),
-                        (value, ctx) => Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_MAXBUFFSTACKS", ItemStats.ValueFormatters.Extensions.FormatInt(value: value))
+                        (value, ctx) => GetItemStatsFormattedString("ITEMSTATS_MYSTICSITEMS_MAXBUFFSTACKS", ItemStats.ValueFormatters.Extensions.FormatInt(value: value))
                     ),
                     new ItemStats.Stat.ItemStat(
                         (itemCount, ctx) => Buffs.CoffeeBoost.boostPower * (Items.CoffeeBoostOnItemPickup.maxBuffs + Items.CoffeeBoostOnItemPickup.maxBuffsPerStack * (itemCount - 1)),
-                        (value, ctx) => Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_MAXATTACKSPEEDBONUS", ItemStats.ValueFormatters.Extensions.FormatPercentage(value: value, scale: 1f))
+                        (value, ctx) => GetItemStatsFormattedString("ITEMSTATS_MYSTICSITEMS_MAXATTACKSPEEDBONUS", ItemStats.ValueFormatters.Extensions.FormatPercentage(value: value, scale: 1f))
                     ),
                     new ItemStats.Stat.ItemStat(
                         (itemCount, ctx) => Buffs.CoffeeBoost.boostPower * (Items.CoffeeBoostOnItemPickup.maxBuffs + Items.CoffeeBoostOnItemPickup.maxBuffsPerStack * (itemCount - 1)),
-                        (value, ctx) => Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_MAXMOVESPEEDBONUS", ItemStats.ValueFormatters.Extensions.FormatPercentage(value: value, scale: 1f))
+                        (value, ctx) => GetItemStatsFormattedString("ITEMSTATS_MYSTICSITEMS_MAXMOVESPEEDBONUS", ItemStats.ValueFormatters.Extensions.FormatPercentage(value: value, scale: 1f))
                     )
                 }
             });
@@ -231,11 +237,11 @@ namespace MysticsItems.SoftDependencies
                 {
                     new ItemStats.Stat.ItemStat(
                         (itemCount, ctx) => Items.ExplosivePickups.damage + Items.ExplosivePickups.damagePerStack * (itemCount - 1),
-                        (value, ctx) => Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_DAMAGE", ItemStats.ValueFormatters.Extensions.FormatPercentage(value: value, scale: 1f))
+                        (value, ctx) => GetItemStatsFormattedString("ITEMSTATS_MYSTICSITEMS_DAMAGE", ItemStats.ValueFormatters.Extensions.FormatPercentage(value: value, scale: 1f))
                     ),
                     new ItemStats.Stat.ItemStat(
                         (itemCount, ctx) => Items.ExplosivePickups.radius + Items.ExplosivePickups.radiusPerStack * (itemCount - 1),
-                        (value, ctx) => Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_RADIUS", ItemStats.ValueFormatters.Extensions.FormatInt(value: value, postfix: Language.GetString("ITEMSTATS_MYSTICSITEMS_POSTFIX_METERS")))
+                        (value, ctx) => GetItemStatsFormattedString("ITEMSTATS_MYSTICSITEMS_RADIUS", ItemStats.ValueFormatters.Extensions.FormatInt(value: value, postfix: Language.GetString("ITEMSTATS_MYSTICSITEMS_POSTFIX_METERS")))
                     )
                 }
             });
@@ -250,11 +256,15 @@ namespace MysticsItems.SoftDependencies
                 {
                     new ItemStats.Stat.ItemStat(
                         (itemCount, ctx) => ctx.Inventory && ctx.Inventory.GetComponent<Items.MysticSword.MysticsItemsMysticSwordBehaviour>() ? ctx.Inventory.GetComponent<Items.MysticSword.MysticsItemsMysticSwordBehaviour>().damageBonus : 0f,
-                        (value, ctx) => Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_DAMAGE", ItemStats.ValueFormatters.Extensions.FormatPercentage(value: value, signed: true))
+                        (value, ctx) => GetItemStatsFormattedString("ITEMSTATS_MYSTICSITEMS_DAMAGE", ItemStats.ValueFormatters.Extensions.FormatPercentage(value: value, signed: true))
+                    ),
+                    new ItemStats.Stat.ItemStat(
+                        (itemCount, ctx) => Items.MysticSword.maxDamage + Items.MysticSword.maxDamagePerStack * (itemCount - 1),
+                        (value, ctx) => GetItemStatsFormattedString("ITEMSTATS_MYSTICSITEMS_UPTO", ItemStats.ValueFormatters.Extensions.FormatPercentage(value: value, scale: 1f, signed: true))
                     ),
                     new ItemStats.Stat.ItemStat(
                         (itemCount, ctx) => Items.MysticSword.damage + Items.MysticSword.damagePerStack * (itemCount - 1),
-                        (value, ctx) => Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_BONUSPERKILL", ItemStats.ValueFormatters.Extensions.FormatPercentage(value: value, scale: 1f, signed: true))
+                        (value, ctx) => GetItemStatsFormattedString("ITEMSTATS_MYSTICSITEMS_BONUSPERKILL", ItemStats.ValueFormatters.Extensions.FormatPercentage(value: value, scale: 1f, signed: true))
                     )
                 }
             });
@@ -265,7 +275,7 @@ namespace MysticsItems.SoftDependencies
                 {
                     new ItemStats.Stat.ItemStat(
                         (itemCount, ctx) => Buffs.RhythmCombo.comboCrit + Buffs.RhythmCombo.comboCritPerStack * (itemCount - 1),
-                        (value, ctx) => Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_CRITPERBUFFSTACK", ItemStats.ValueFormatters.Extensions.FormatPercentage(value: value, scale: 1f, signed: true))
+                        (value, ctx) => GetItemStatsFormattedString("ITEMSTATS_MYSTICSITEMS_CRITPERBUFFSTACK", ItemStats.ValueFormatters.Extensions.FormatPercentage(value: value, scale: 1f, signed: true))
                     )
                 }
             });
@@ -276,11 +286,11 @@ namespace MysticsItems.SoftDependencies
                 {
                     new ItemStats.Stat.ItemStat(
                         (itemCount, ctx) => Items.SpeedGivesDamage.damage + Items.SpeedGivesDamage.damagePerStack * (itemCount - 1),
-                        (value, ctx) => Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_DAMAGEPERSPEEDINCREASE", ItemStats.ValueFormatters.Extensions.FormatPercentage(value: value, scale: 1f, signed: true))
+                        (value, ctx) => GetItemStatsFormattedString("ITEMSTATS_MYSTICSITEMS_DAMAGEPERSPEEDINCREASE", ItemStats.ValueFormatters.Extensions.FormatPercentage(value: value, scale: 1f, signed: true))
                     ),
                     new ItemStats.Stat.ItemStat(
                         (itemCount, ctx) => ctx.Master && ctx.Master.hasBody ? Items.SpeedGivesDamage.CalculateDamageBonus(ctx.Master.GetBody(), (int)itemCount) : 0f,
-                        (value, ctx) => Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_DAMAGE", ItemStats.ValueFormatters.Extensions.FormatPercentage(value: value, signed: true))
+                        (value, ctx) => GetItemStatsFormattedString("ITEMSTATS_MYSTICSITEMS_DAMAGE", ItemStats.ValueFormatters.Extensions.FormatPercentage(value: value, signed: true))
                     )
                 }
             });
@@ -293,11 +303,11 @@ namespace MysticsItems.SoftDependencies
                 {
                     new ItemStats.Stat.ItemStat(
                         (itemCount, ctx) => Items.ElitePotion.radius + Items.ElitePotion.radiusPerStack * (itemCount - 1),
-                        (value, ctx) => Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_RADIUS", ItemStats.ValueFormatters.Extensions.FormatInt(value: value, postfix: Language.GetString("ITEMSTATS_MYSTICSITEMS_POSTFIX_METERS")))
+                        (value, ctx) => GetItemStatsFormattedString("ITEMSTATS_MYSTICSITEMS_RADIUS", ItemStats.ValueFormatters.Extensions.FormatInt(value: value, postfix: Language.GetString("ITEMSTATS_MYSTICSITEMS_POSTFIX_METERS")))
                     ),
                     new ItemStats.Stat.ItemStat(
                         (itemCount, ctx) => Items.ElitePotion.duration + Items.ElitePotion.durationPerStack * (itemCount - 1),
-                        (value, ctx) => Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_DURATION", ItemStats.ValueFormatters.Extensions.FormatInt(value: value, postfix: Language.GetString("ITEMSTATS_MYSTICSITEMS_POSTFIX_SECONDS")))
+                        (value, ctx) => GetItemStatsFormattedString("ITEMSTATS_MYSTICSITEMS_DURATION", ItemStats.ValueFormatters.Extensions.FormatInt(value: value, postfix: Language.GetString("ITEMSTATS_MYSTICSITEMS_POSTFIX_SECONDS")))
                     )
                 }
             });
@@ -308,7 +318,7 @@ namespace MysticsItems.SoftDependencies
                 {
                     new ItemStats.Stat.ItemStat(
                         (itemCount, ctx) => Items.DroneWires.damage + Items.DroneWires.damagePerStack * (itemCount - 1),
-                        (value, ctx) => Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_DAMAGE", ItemStats.ValueFormatters.Extensions.FormatPercentage(value: value, scale: 1f))
+                        (value, ctx) => GetItemStatsFormattedString("ITEMSTATS_MYSTICSITEMS_DAMAGE", ItemStats.ValueFormatters.Extensions.FormatPercentage(value: value, scale: 1f))
                     )
                 }
             });
@@ -319,22 +329,7 @@ namespace MysticsItems.SoftDependencies
                 {
                     new ItemStats.Stat.ItemStat(
                         (itemCount, ctx) => Util.ConvertAmplificationPercentageIntoReductionPercentage(Items.DeathCeremony.damage + Items.DeathCeremony.damagePerStack * (itemCount - 1)),
-                        (value, ctx) => Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_DAMAGE", ItemStats.ValueFormatters.Extensions.FormatPercentage(value: value, scale: 1f))
-                    )
-                }
-            });
-            // Devil's Cry
-            ItemStats.ItemStatsMod.AddCustomItemStatDef(MysticsItemsContent.Items.MysticsItems_JudgementCut.itemIndex, new ItemStats.ItemStatDef
-            {
-                Stats = new List<ItemStats.Stat.ItemStat>()
-                {
-                    new ItemStats.Stat.ItemStat(
-                        (itemCount, ctx) => Items.JudgementCut.damagePerSlash * (Items.JudgementCut.slashCount + Items.JudgementCut.slashCountPerStack * (itemCount - 1)),
-                        (value, ctx) => Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_DAMAGE", ItemStats.ValueFormatters.Extensions.FormatPercentage(value: value, scale: 1f))
-                    ),
-                    new ItemStats.Stat.ItemStat(
-                        (itemCount, ctx) => Items.JudgementCut.radius + Items.JudgementCut.radiusPerStack * (itemCount - 1),
-                        (value, ctx) => Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_RADIUS", ItemStats.ValueFormatters.Extensions.FormatInt(value: value, postfix: Language.GetString("ITEMSTATS_MYSTICSITEMS_POSTFIX_METERS")))
+                        (value, ctx) => GetItemStatsFormattedString("ITEMSTATS_MYSTICSITEMS_DAMAGE", ItemStats.ValueFormatters.Extensions.FormatPercentage(value: value, scale: 1f))
                     )
                 }
             });
@@ -347,7 +342,7 @@ namespace MysticsItems.SoftDependencies
                 {
                     new ItemStats.Stat.ItemStat(
                         (itemCount, ctx) => Items.CrystalWorld.pulses + Items.CrystalWorld.pulsesPerStack * (itemCount - 1),
-                        (value, ctx) => Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_PULSES", ItemStats.ValueFormatters.Extensions.FormatInt(value: value))
+                        (value, ctx) => GetItemStatsFormattedString("ITEMSTATS_MYSTICSITEMS_PULSES", ItemStats.ValueFormatters.Extensions.FormatInt(value: value))
                     )
                 }
             });
@@ -358,7 +353,7 @@ namespace MysticsItems.SoftDependencies
                 {
                     new ItemStats.Stat.ItemStat(
                         (itemCount, ctx) => Items.DasherDisc.CalculateCooldown((int)itemCount),
-                        (value, ctx) => Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_COOLDOWN", ItemStats.ValueFormatters.Extensions.FormatInt(value: value, postfix: Language.GetString("ITEMSTATS_MYSTICSITEMS_POSTFIX_SECONDS")))
+                        (value, ctx) => GetItemStatsFormattedString("ITEMSTATS_MYSTICSITEMS_COOLDOWN", ItemStats.ValueFormatters.Extensions.FormatInt(value: value, postfix: Language.GetString("ITEMSTATS_MYSTICSITEMS_POSTFIX_SECONDS")))
                     )
                 }
             });
@@ -369,7 +364,7 @@ namespace MysticsItems.SoftDependencies
                 {
                     new ItemStats.Stat.ItemStat(
                         (itemCount, ctx) => (int)(400f / itemCount * Stage.instance.entryDifficultyCoefficient),
-                        (value, ctx) => Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_GOLDFORMAXBUFF", ItemStats.ValueFormatters.Extensions.FormatInt(value: value))
+                        (value, ctx) => GetItemStatsFormattedString("ITEMSTATS_MYSTICSITEMS_GOLDFORMAXBUFF", ItemStats.ValueFormatters.Extensions.FormatInt(value: value))
                     )
                 }
             });
@@ -379,12 +374,8 @@ namespace MysticsItems.SoftDependencies
                 Stats = new List<ItemStats.Stat.ItemStat>()
                 {
                     new ItemStats.Stat.ItemStat(
-                        (itemCount, ctx) => Items.ThoughtProcessor.attackSpeed + Items.ThoughtProcessor.attackSpeedPerStack * (itemCount - 1),
-                        (value, ctx) => Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_ATTACKSPEED", ItemStats.ValueFormatters.Extensions.FormatPercentage(value: value, scale: 1f, signed: true))
-                    ),
-                    new ItemStats.Stat.ItemStat(
                         (itemCount, ctx) => (Items.ThoughtProcessor.attackSpeed + Items.ThoughtProcessor.attackSpeedPerStack * (itemCount - 1)) * 100f,
-                        (value, ctx) => Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_UPTO", ItemStats.ValueFormatters.Extensions.FormatPercentage(value: value, scale: 1f, signed: true))
+                        (value, ctx) => GetItemStatsFormattedString("ITEMSTATS_MYSTICSITEMS_UPTO", ItemStats.ValueFormatters.Extensions.FormatPercentage(value: value, scale: 1f, signed: true))
                     )
                 }
             });
@@ -395,7 +386,7 @@ namespace MysticsItems.SoftDependencies
                 {
                     new ItemStats.Stat.ItemStat(
                         (itemCount, ctx) => Items.TreasureMap.CalculateChargeTime((int)itemCount),
-                        (value, ctx) => Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_TIME", ItemStats.ValueFormatters.Extensions.FormatInt(value: value, postfix: Language.GetString("ITEMSTATS_MYSTICSITEMS_POSTFIX_SECONDS")))
+                        (value, ctx) => GetItemStatsFormattedString("ITEMSTATS_MYSTICSITEMS_TIME", ItemStats.ValueFormatters.Extensions.FormatInt(value: value, postfix: Language.GetString("ITEMSTATS_MYSTICSITEMS_POSTFIX_SECONDS")))
                     )
                 }
             });
@@ -406,7 +397,7 @@ namespace MysticsItems.SoftDependencies
                 {
                     new ItemStats.Stat.ItemStat(
                         (itemCount, ctx) => Items.Voltmeter.damage + Items.Voltmeter.damagePerStack * (itemCount - 1),
-                        (value, ctx) => Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_DAMAGE", ItemStats.ValueFormatters.Extensions.FormatPercentage(value: value, scale: 1f))
+                        (value, ctx) => GetItemStatsFormattedString("ITEMSTATS_MYSTICSITEMS_DAMAGE", ItemStats.ValueFormatters.Extensions.FormatPercentage(value: value, scale: 1f))
                     )
                 }
             });
@@ -417,7 +408,22 @@ namespace MysticsItems.SoftDependencies
                 {
                     new ItemStats.Stat.ItemStat(
                         (itemCount, ctx) => Items.Backpack.charges + Items.Backpack.chargesPerStack * (itemCount - 1),
-                        (value, ctx) => Language.GetStringFormatted("ITEMSTATS_MYSTICSITEMS_CHARGES", ItemStats.ValueFormatters.Extensions.FormatInt(value: value, signed: true))
+                        (value, ctx) => GetItemStatsFormattedString("ITEMSTATS_MYSTICSITEMS_CHARGES", ItemStats.ValueFormatters.Extensions.FormatInt(value: value, signed: true))
+                    )
+                }
+            });
+            // Devil's Cry
+            ItemStats.ItemStatsMod.AddCustomItemStatDef(MysticsItemsContent.Items.MysticsItems_JudgementCut.itemIndex, new ItemStats.ItemStatDef
+            {
+                Stats = new List<ItemStats.Stat.ItemStat>()
+                {
+                    new ItemStats.Stat.ItemStat(
+                        (itemCount, ctx) => Items.JudgementCut.damagePerSlash * (Items.JudgementCut.slashCount + Items.JudgementCut.slashCountPerStack * (itemCount - 1)),
+                        (value, ctx) => GetItemStatsFormattedString("ITEMSTATS_MYSTICSITEMS_DAMAGE", ItemStats.ValueFormatters.Extensions.FormatPercentage(value: value, scale: 1f))
+                    ),
+                    new ItemStats.Stat.ItemStat(
+                        (itemCount, ctx) => Items.JudgementCut.radius + Items.JudgementCut.radiusPerStack * (itemCount - 1),
+                        (value, ctx) => GetItemStatsFormattedString("ITEMSTATS_MYSTICSITEMS_RADIUS", ItemStats.ValueFormatters.Extensions.FormatInt(value: value, postfix: Language.GetString("ITEMSTATS_MYSTICSITEMS_POSTFIX_METERS")))
                     )
                 }
             });
