@@ -15,7 +15,7 @@ namespace MysticsItems.Buffs
         public static BurnEffectController.EffectParams ashBurnEffectParams;
 
         public override void OnLoad() {
-            buffDef.name = "MysticsItems_MarwanAshBurn";
+            buffDef.name = "MysticsItems_MarwanAshBurnStrong";
             buffDef.buffColor = new Color32(96, 245, 250, 255);
             buffDef.canStack = false;
             buffDef.isDebuff = true;
