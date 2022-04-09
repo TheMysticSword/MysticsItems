@@ -12,6 +12,13 @@ namespace MysticsItems.Items
 {
     public class VyraelCommandments : BaseItem
     {
+        public static ConfigurableValue<int> hits = new ConfigurableValue<int>(
+            "Item: Ten Commandments of Vyrael",
+            "Hits",
+            10,
+            "Hits required for triggering this item's effect. (Note: the number of hits won't be changed in the item's description.)"
+        );
+
         public static GameObject procVFX;
 
         public override void OnLoad()
@@ -88,9 +95,9 @@ namespace MysticsItems.Items
                     if (component.bonusActive <= 0)
                     {
                         component.hitCount += damageInfo.procCoefficient;
-                        if (component.hitCount >= 10f)
+                        if (component.hitCount >= (float)hits)
                         {
-                            component.hitCount -= 10f;
+                            component.hitCount -= (float)hits;
                             component.bonusActive++;
                             for (var i = 0; i < itemCount; i++)
                                 GlobalEventManager.instance.OnHitEnemy(damageInfo, victimInfo.gameObject);
