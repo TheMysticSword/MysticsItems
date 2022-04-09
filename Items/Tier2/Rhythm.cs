@@ -814,7 +814,7 @@ namespace MysticsItems.Items
 
             public bool beatNotPressedYet = true;
 
-            public float prepareTicks = 3;
+            public float prepareTicks = Rhythm.prepareTicks;
             public int preparePhase = 9999;
             
             public void Start()
