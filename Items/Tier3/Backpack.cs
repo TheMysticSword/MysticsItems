@@ -45,7 +45,13 @@ namespace MysticsItems.Items
                 "ITEM_MYSTICSITEMS_BACKPACK_DESC"
             }
         );
-        
+        public static ConfigurableValue<bool> increaseEngiTurretLimit = new ConfigurableValue<bool>(
+            "Item: Hiker s Backpack",
+            "IncreaseEngiTurretLimit",
+            true,
+            "Should the item increase the limit on Engineer turrets that you can place?"
+        );
+
         public override void OnLoad()
         {
             base.OnLoad();
@@ -86,11 +92,23 @@ namespace MysticsItems.Items
 
             RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
             On.RoR2.CharacterBody.RecalculateStats += CharacterBody_RecalculateStats;
+            On.RoR2.CharacterMaster.GetDeployableSameSlotLimit += CharacterMaster_GetDeployableSameSlotLimit;
 
             /*
             On.RoR2.Skills.SkillCatalog.SetSkillDefs += SkillCatalog_SetSkillDefs;
             On.EntityStates.GenericCharacterMain.PerformInputs += GenericCharacterMain_PerformInputs;
             */
+        }
+
+        private int CharacterMaster_GetDeployableSameSlotLimit(On.RoR2.CharacterMaster.orig_GetDeployableSameSlotLimit orig, CharacterMaster self, DeployableSlot slot)
+        {
+            var result = orig(self, slot);
+            if (slot == DeployableSlot.EngiTurret && increaseEngiTurretLimit)
+            {
+                var itemCount = self.inventory.GetItemCount(itemDef);
+                if (itemCount > 0) result += charges + chargesPerStack * (itemCount - 1);
+            }
+            return result;
         }
 
         /*
