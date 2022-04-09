@@ -18,7 +18,7 @@ namespace MysticsItems
             enabled = MysticsItemsPlugin.configContentToggle.Bind(
                 "! Enable Content Toggle Config",
                 "EnableContentToggleConfig",
-                false,
+                true,
                 "If enabled, mod content of your choice will not appear in a run.\r\nOtherwise, all mod content will be available."
             );
 
