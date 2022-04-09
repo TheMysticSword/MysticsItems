@@ -208,8 +208,8 @@ namespace MysticsItems.Items
             shakeEmitter.shakeOnStart = true;
             shakeEmitter.wave = new Wave
             {
-                amplitude = 9f,
-                frequency = 4f
+                amplitude = 5f,
+                frequency = 2f
             };
             MysticsItemsContent.Resources.effectPrefabs.Add(explosionPrefab);
 
