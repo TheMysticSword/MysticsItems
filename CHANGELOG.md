@@ -1,3 +1,33 @@
+#### 2.0.9:
+* Added Simplified Chinese translation - thank you, ACroptf8!
+* Fixed Spanish translation not working
+* Added DropItemForEachPlayer balance config option for Treasure Map
+* Added Hits balance config option for Ten Commandments of Vyrael
+* From Omar With Love now has a 0.5s hidden cooldown to prevent wasting all charges with the Gesture of the Drowned
+* Logbook entries for Marwan's Light, Marwan's Weapon and Frayed Bow are now properly unlocked on item transformations
+* Updated localization files
+#### 2.0.8:
+* Fixed ItemStats compatibility causing issues with inventory icons
+* Improved the Bazaar item choice even more
+#### 2.0.7:
+* Marwan's Ash:
+	* Burn damage is now always set to enemy health percentage, instead of choosing to deal the player's base damage if it's higher
+	* No longer banned from enemies and the final boss
+* Hiker's Backpack:
+	* Now increases Engineer's turret limit
+		* Can be reverted in the balance config
+* Wirehack Wrench:
+	* Cooldown: ~~45s~~ ⇒ 90s
+* Vendetta:
+	* Now banned from enemies
+* Added BetterUI ItemStats integration
+* Reduced Contraband Gunpowder explosion screenshake
+* Fixed Metronome's PrepareTicks config value not applying in-game, defaulting to 3 ticks
+* Fixed Puzzle of Chronos regeneration bonus being multiplied by the regen bonus of the first stack
+* Fixed Nuclear Accelerator not working when the MoreItems mod is enabled
+* Fixed Cutesy Bow's remaining hit count going back to 100 when continuing a game with ProperSave
+* Improved the item choice in the Bazaar Between Time
+	* Can be reverted in the Content Toggle config
 #### 2.0.6:
 * Failed Experiment:
     * Radius: ~~12 (+2.4m per stack)~~ ⇒ 15m (+3m per stack)
