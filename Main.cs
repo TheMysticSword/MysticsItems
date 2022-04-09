@@ -79,6 +79,7 @@ namespace MysticsItems
             CustomChatMessages.Init();
             GenericCostTypes.Init();
             ImageGeneration.Init();
+            NetworkPickupDiscovery.Init();
             SoftDependencies.SoftDependenciesCore.Init();
 
             MysticsRisky2Utils.ContentManagement.ContentLoadHelper.PluginAwakeLoad<MysticsRisky2Utils.BaseAssetTypes.BaseItem>(executingAssembly);
@@ -101,6 +102,7 @@ namespace MysticsItems
             };
 
             UpdateFirstLaunchManager.Init();
+            FunEvents.Init();
 
             /* WhatAmILookingAt mod came out so this is useless now
             if (configGeneral.Bind<bool>("Misc", "PrefixModContent", false, "If true, content from this mod will have [Mystic's Items] written at the start of its name").Value)
