@@ -38,6 +38,9 @@ namespace MysticsItems.SoftDependencies
 
                 [DataMember(Name = "msb")]
                 public float MysticSwordBonus { get; set; }
+
+                [DataMember(Name = "lah")]
+                public int LimitedArmorHits { get; set; }
             }
 
             internal MysticsItemsSaveData()
@@ -51,9 +54,10 @@ namespace MysticsItems.SoftDependencies
                     playerData.NetworkIdStrValue = pcmc.networkUser.Network_id.strValue;
                     playerData.NetworkIdSubId = pcmc.networkUser.Network_id.subId;
 
-                    if (pcmc.master && pcmc.master.inventory)
+                    var master = pcmc.master;
+                    if (master && master.inventory)
                     {
-                        var inventory = pcmc.master.inventory;
+                        var inventory = master.inventory;
 
                         var manuscriptComponent = inventory.GetComponent<Items.Manuscript.MysticsItemsManuscript>();
                         if (manuscriptComponent)
@@ -67,6 +71,12 @@ namespace MysticsItems.SoftDependencies
                         {
                             playerData.MysticSwordBonus = mysticSwordComponent.damageBonus;
                         }
+
+                        var limitedArmorComponent = master.GetComponent<Items.LimitedArmor.MysticsItemsLimitedArmorBehavior>();
+                        if (limitedArmorComponent)
+                        {
+                            playerData.LimitedArmorHits = limitedArmorComponent.GetTotalStock();
+                        }
                     }
                 }
             }
@@ -78,9 +88,10 @@ namespace MysticsItems.SoftDependencies
                     var playerInfo = players.FirstOrDefault(x => x.NetworkIdValue == user.Network_id.value && x.NetworkIdStrValue == user.Network_id.strValue && x.NetworkIdSubId == user.Network_id.subId);
                     if (playerInfo.Equals(default)) continue;
 
-                    if (user.master && user.master.inventory)
+                    var master = user.master;
+                    if (master && master.inventory)
                     {
-                        var inventory = user.master.inventory;
+                        var inventory = master.inventory;
 
                         var manuscriptComponent = inventory.GetComponent<Items.Manuscript.MysticsItemsManuscript>();
                         if (!manuscriptComponent) manuscriptComponent = inventory.gameObject.AddComponent<Items.Manuscript.MysticsItemsManuscript>();
@@ -93,6 +104,14 @@ namespace MysticsItems.SoftDependencies
                         var mysticSwordComponent = inventory.GetComponent<Items.MysticSword.MysticsItemsMysticSwordBehaviour>();
                         if (!mysticSwordComponent) mysticSwordComponent = inventory.gameObject.AddComponent<Items.MysticSword.MysticsItemsMysticSwordBehaviour>();
                         mysticSwordComponent.damageBonus = playerInfo.MysticSwordBonus;
+
+                        var limitedArmorComponent = master.GetComponent<Items.LimitedArmor.MysticsItemsLimitedArmorBehavior>();
+                        if (!limitedArmorComponent) limitedArmorComponent = master.gameObject.AddComponent<Items.LimitedArmor.MysticsItemsLimitedArmorBehavior>();
+                        var fullBows = UnityEngine.Mathf.FloorToInt(playerInfo.LimitedArmorHits / Items.LimitedArmor.hits);
+                        limitedArmorComponent.stockHolders.Clear();
+                        limitedArmorComponent.oldItemCount = fullBows;
+                        for (var i = 0; i < fullBows; i++) limitedArmorComponent.AddStock();
+                        limitedArmorComponent.stockHolders.Add(playerInfo.LimitedArmorHits - fullBows * Items.LimitedArmor.hits);
                     }
                 }
             }
