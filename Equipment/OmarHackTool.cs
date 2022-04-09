@@ -377,6 +377,7 @@ namespace MysticsItems.Equipment
 
                     targetInfo.Invalidate();
 
+                    equipmentSlot.subcooldownTimer = 0.5f;
                     return true;
                 }
             }
