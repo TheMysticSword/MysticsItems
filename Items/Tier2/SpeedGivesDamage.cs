@@ -107,7 +107,8 @@ namespace MysticsItems.Items
             int locBaseDamageIndex = -1;
             int locDamageMultIndex = -1;
             bool ILFound = c.TryGotoNext(
-                x => x.MatchLdfld<CharacterBody>(nameof(CharacterBody.baseDamage)),
+                x => x.MatchLdfld<CharacterBody>(nameof(CharacterBody.baseDamage))
+            ) && c.TryGotoNext(
                 x => x.MatchLdarg(0),
                 x => x.MatchLdfld<CharacterBody>(nameof(CharacterBody.levelDamage))
             ) && c.TryGotoNext(
