@@ -1,8 +1,8 @@
 # Mystic's Items
 Adds 40 new items!  
 
-![](https://i.imgur.com/8OOURv4.gif)  
-![](https://i.imgur.com/MwmTSfN.png)  
+![GIF preview of some of the item models](https://i.imgur.com/8OOURv4.gif)  
+![Table with the info about all the items in the mod](https://i.imgur.com/MwmTSfN.png)  
 
 ### Important notes
 #### Manual installation
@@ -30,7 +30,7 @@ This mod supports ItemStats and BetterUI buff tooltips.
 If you want to add Mystic's Items support for your own mod, read [this document](https://github.com/TheMysticSword/MysticsItems/blob/main/FORMODDERS.md).
 
 ### Languages
-The mod is available in English, Russian, French and Spanish.  
+The mod is available in English, Russian, French, Spanish and Simplified Chinese.  
 Turkish translation will be brought back in the future.
 
 ### Donations
@@ -44,8 +44,9 @@ Please note a few things before making a donation:
 TheMysticSword ([donations](https://themysticsword.itch.io/ror2-mystics-items)) - Coding, Russian translation  
 Marwan60 ([donations](https://ko-fi.com/marwan6097266)) - Modelling  
 Omar Faruk - Turkish translation (for version 1.1.13)  
-Vyrael ([donations](https://ko-fi.com/vyrael_)) - French translation
-RCaled - Spanish translation
+Vyrael ([donations](https://ko-fi.com/vyrael_)) - French translation  
+RCaled - Spanish translation  
+Acroptf8 - Simplified Chinese translation
 #### External assets
 Contains sounds from [freesound.org](https://freesound.org/):  
 ["tim ring tone sharp.wav"](https://freesound.org/people/martian/sounds/19308/) by [Martin Chappell (martian)](https://freesound.org/people/martian/)  
@@ -73,52 +74,14 @@ Contains assets from [FreePBR.com](https://freepbr.com/)
 Contains assets from [ambientCG.com](https://ambientcg.com/), licensed under CC0 1.0 Universal.
 
 # Changelog
-#### 2.0.6:
-* Failed Experiment:
-    * Radius: ~~12 (+2.4m per stack)~~ ⇒ 15m (+3m per stack)
-* Faulty Spotter:
-    * Debuff Duration: ~~10s~~ ⇒ 7s
-* Nuclear Accelerator:
-    * Damage Per 1% Speed: ~~1% (+0.5% per stack)~~ ⇒ 0.5% (+0.25% per stack)
-* Moonglasses:
-    * Now halve all non-crit damage for characters with 'backstabs deal guaranteed crits' and 'convert crit chance into crit damage' passives
-        * This change should fix the item being strictly positive for Bandit and Railgunner
-* Puzzle of Chronos:
-    * Base Ally Regen: ~~+3 HP/s (+3 HP/s per stack)~~ ⇒ +6 HP/s (+6 HP/s per stack)
-* Treasure Map:
-    * Time: ~~120s (-50% per stack)~~ ⇒ 60s (-25% per stack)
-    * Radius: ~~15m~~ ⇒ 10m
-        * These changes should make the digging event feel more dynamic (managing between standing in a small area and leaving it when enemies close in) and make it feel less like another Teleporter event
-* Fixed Nuclear Accelerator not working
-* Fixed Scratch Tickets adding crit chance to BetterUI when playing as Railgunner
-* Fixed Manuscript and Mystic Sword bonuses resetting when loading a game with ProperSave
-#### 2.0.5:
-* Mystic Sword:
-    * Damage: ~~3% (+3% per stack)~~ ⇒ 2% (+2% per stack)
-    * Damage Bonus Limit: ~~None~~ ⇒ 100% (+100% per stack)
-    * Reverted the hidden limit on non-Teleporter bosses from the previous patch
-* Vintage Microphone:
-    * No longer randomly triggered by Bottled Chaos
-* Warning System:
-    * Base Radius: ~~50m~~ ⇒ 75m
-    * Charge Time: ~~30s~~ ⇒ 45s
-    * Cooldown: ~~75s~~ ⇒ 90s
-    * Siren Pole now passively charges itself instead of requiring players to stand inside the radius
-* Marwan's Ash:
-    * Burn effect can now be upgraded with the Ignition Tank item from the Survivors of the Void DLC
-* Metronome:
-    * Now plays 5 ticks in total instead of 4 to fit the soundtrack's 5/4 signature
-* Fixed sounds not working
-* Fixed Nuclear Accelerator becoming weaker when sprinting and stronger when unsprinting instead of the opposite
-* Fixed Treasure Map radius containing a large glowing sphere
-* Fixed Treasure Map and Rift Lens not dropping items
-* Fixed content toggle config not disabling items
-* Fixed Choc Chip extending item cooldown buffs and the visual debuff of the Void fog
-* Removed Hiker's Backpack special skill fix option "BackpackEnableSkillFixes" from the general config
-    * No longer necessary - all special skills work properly when stacked as of the 1st March 2022 update
-* Fixed Scratch Ticket's "AlternateBonus" config option incorrectly multiplying chances by 100
-* Fixed Rift Lens having infinite countdown
-* Fixed Rift Lens giving only 1 Rift Vision
+#### 2.0.9:
+* Added Simplified Chinese translation - thank you, ACroptf8!
+* Fixed Spanish translation not working
+* Added DropItemForEachPlayer balance config option for Treasure Map
+* Added Hits balance config option for Ten Commandments of Vyrael
+* From Omar With Love now has a 0.5s hidden cooldown to prevent wasting all charges with the Gesture of the Drowned
+* Logbook entries for Marwan's Light, Marwan's Weapon and Frayed Bow are now properly unlocked on item transformations
+* Updated localization files
   
 (Previous changelogs can be found [here](https://github.com/TheMysticSword/MysticsItems/blob/main/CHANGELOG.md))
 
