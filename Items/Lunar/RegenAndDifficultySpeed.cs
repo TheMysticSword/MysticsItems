@@ -208,7 +208,7 @@ namespace MysticsItems.Items
         {
             var itemCount = Util.GetItemCountForTeam(sender.teamComponent.teamIndex, itemDef.itemIndex, true);
             if (itemCount > 0) {
-                args.baseRegenAdd += baseRegenIncrease.Value * (baseRegenIncrease.Value + baseRegenIncreasePerStack.Value * (float)(itemCount - 1));
+                args.baseRegenAdd += baseRegenIncrease.Value + baseRegenIncreasePerStack.Value * (float)(itemCount - 1);
             }
         }
     }
