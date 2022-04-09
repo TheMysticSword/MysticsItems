@@ -29,7 +29,7 @@ namespace MysticsItems.Items
 
         public override void OnPluginAwake()
         {
-            NetworkingAPI.RegisterMessageType<MysticsItemsKeepShopTerminalOpenBehaviour.SyncSetTerminalState>();
+            //NetworkingAPI.RegisterMessageType<MysticsItemsKeepShopTerminalOpenBehaviour.SyncSetTerminalState>();
         }
 
         public override void OnLoad()
@@ -70,11 +70,13 @@ namespace MysticsItems.Items
                 if (SoftDependencies.SoftDependenciesCore.itemDisplaysSniper) AddDisplayRule("SniperClassicBody", "Chest", new Vector3(0.10082F, 0.38579F, -0.25451F), new Vector3(0F, 90F, 270F), new Vector3(0.05257F, 0.05257F, 0.05257F));
             };
 
+            /*
             On.RoR2.MultiShopController.Start += (orig, self) =>
             {
                 orig(self);
                 self.gameObject.AddComponent<MysticsItemsKeepShopTerminalOpenBehaviour>();
             };
+            */
 
             On.RoR2.Stage.BeginServer += (orig, self) =>
             {
@@ -94,9 +96,28 @@ namespace MysticsItems.Items
             sfx = ScriptableObject.CreateInstance<NetworkSoundEventDef>();
             sfx.eventName = "MysticsItems_Play_item_proc_creditcard";
             MysticsItemsContent.Resources.networkSoundEventDefs.Add(sfx);
+
+            On.RoR2.Items.MultiShopCardUtils.OnPurchase += MultiShopCardUtils_OnPurchase;
+        }
+
+        private void MultiShopCardUtils_OnPurchase(On.RoR2.Items.MultiShopCardUtils.orig_OnPurchase orig, CostTypeDef.PayCostContext context, int moneyCost)
+        {
+            orig(context, moneyCost);
+            CharacterMaster activatorMaster = context.activatorMaster;
+            if (activatorMaster && activatorMaster.hasBody && activatorMaster.inventory && activatorMaster.inventory.GetItemCount(MysticsItemsContent.Items.MysticsItems_KeepShopTerminalOpen) > 0 && context.purchasedObject)
+            {
+                ShopTerminalBehavior shopTerminalBehavior = context.purchasedObject.GetComponent<ShopTerminalBehavior>();
+                if (shopTerminalBehavior && shopTerminalBehavior.serverMultiShopController)
+                {
+                    shopTerminalBehavior.serverMultiShopController.SetCloseOnTerminalPurchase(context.purchasedObject.GetComponent<PurchaseInteraction>(), false);
+                    activatorMaster.inventory.RemoveItem(MysticsItemsContent.Items.MysticsItems_KeepShopTerminalOpen);
+                    activatorMaster.inventory.GiveItem(MysticsItemsContent.Items.MysticsItems_KeepShopTerminalOpenConsumed);
+                }
+            }
         }
     }
 
+    /*
     public class MysticsItemsKeepShopTerminalOpenBehaviour : MonoBehaviour
     {
         public List<PickupIndex> terminalPickups;
@@ -166,6 +187,7 @@ namespace MysticsItems.Items
                         GameObject gameObject = multiShopController.terminalGameObjects[i];
                         if (terminalPickups[i] != PickupIndex.none)
                         {
+                            //multiShopController.doCloseOnTerminalPurchase[i] = false;
                             gameObject.GetComponent<PurchaseInteraction>().Networkavailable = true;
                             gameObject.GetComponent<PurchaseInteraction>().Networkcost = (int)(gameObject.GetComponent<PurchaseInteraction>().cost * 0.9f);
                             gameObject.GetComponent<ShopTerminalBehavior>().SetPickupIndex(terminalPickups[i], terminalPickupsHideMode[i]);
@@ -239,4 +261,5 @@ namespace MysticsItems.Items
             }
         }
     }
+    */
 }
