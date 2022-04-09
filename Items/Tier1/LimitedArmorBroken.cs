@@ -22,6 +22,8 @@ namespace MysticsItems.Items
             }
         );
 
+        internal static PickupIndex pickupIndex;
+
         public override void OnLoad()
         {
             base.OnLoad();
@@ -60,6 +62,11 @@ namespace MysticsItems.Items
             };
 
             RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
+
+            RoR2Application.onLoad += () =>
+            {
+                pickupIndex = PickupCatalog.FindPickupIndex(itemDef.itemIndex);
+            };
         }
 
         private void RecalculateStatsAPI_GetStatCoefficients(CharacterBody sender, RecalculateStatsAPI.StatHookEventArgs args)

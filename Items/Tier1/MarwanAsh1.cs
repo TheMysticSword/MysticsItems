@@ -175,6 +175,12 @@ namespace MysticsItems.Items
             ashHitVFX.AddComponent<DestroyOnTimer>().duration = 2f;
             ashHitVFX.transform.localScale *= 2f;
             MysticsItemsContent.Resources.effectPrefabs.Add(ashHitVFX);
+
+            RoR2Application.onLoad += () =>
+            {
+                MysticsItemsMarwanAshHelper.level2PickupIndex = PickupCatalog.FindPickupIndex(MysticsItemsContent.Items.MysticsItems_MarwanAsh2.itemIndex);
+                MysticsItemsMarwanAshHelper.level3PickupIndex = PickupCatalog.FindPickupIndex(MysticsItemsContent.Items.MysticsItems_MarwanAsh3.itemIndex);
+            };
         }
 
         private void GenericGameEvents_OnHitEnemy(DamageInfo damageInfo, MysticsRisky2UtilsPlugin.GenericCharacterInfo attackerInfo, MysticsRisky2UtilsPlugin.GenericCharacterInfo victimInfo)
@@ -298,6 +304,9 @@ namespace MysticsItems.Items
                 body = GetComponent<CharacterBody>();
             }
 
+            internal static PickupIndex level2PickupIndex;
+            internal static PickupIndex level3PickupIndex;
+
             public void FixedUpdate()
             {
                 if (dirty && body.inventory)
@@ -318,12 +327,15 @@ namespace MysticsItems.Items
                         body.inventory.GiveItem(MysticsItemsContent.Items.MysticsItems_MarwanAsh2, itemCount1);
 
                         if (itemCount1 > 0)
+                        {
                             CharacterMasterNotificationQueue.PushItemTransformNotification(
                                 body.master,
                                 MysticsItemsContent.Items.MysticsItems_MarwanAsh1.itemIndex,
                                 MysticsItemsContent.Items.MysticsItems_MarwanAsh2.itemIndex,
                                 CharacterMasterNotificationQueue.TransformationType.Default
                             );
+                            NetworkPickupDiscovery.DiscoverPickup(body.master, level2PickupIndex);
+                        }
 
                         itemCount2 += itemCount1;
                         itemCount1 = 0;
@@ -335,19 +347,25 @@ namespace MysticsItems.Items
                         body.inventory.GiveItem(MysticsItemsContent.Items.MysticsItems_MarwanAsh3, itemCount1 + itemCount2);
 
                         if (itemCount1 > 0)
+                        {
                             CharacterMasterNotificationQueue.PushItemTransformNotification(
                                 body.master,
                                 MysticsItemsContent.Items.MysticsItems_MarwanAsh1.itemIndex,
                                 MysticsItemsContent.Items.MysticsItems_MarwanAsh3.itemIndex,
                                 CharacterMasterNotificationQueue.TransformationType.Default
                             );
+                            NetworkPickupDiscovery.DiscoverPickup(body.master, level2PickupIndex);
+                        }
                         if (itemCount2 > 0)
+                        {
                             CharacterMasterNotificationQueue.PushItemTransformNotification(
                                 body.master,
                                 MysticsItemsContent.Items.MysticsItems_MarwanAsh2.itemIndex,
                                 MysticsItemsContent.Items.MysticsItems_MarwanAsh3.itemIndex,
                                 CharacterMasterNotificationQueue.TransformationType.Default
                             );
+                            NetworkPickupDiscovery.DiscoverPickup(body.master, level3PickupIndex);
+                        }
 
                         itemCount3 += itemCount1 + itemCount2;
                         itemCount1 = 0;

@@ -125,6 +125,7 @@ namespace MysticsItems.Items
                                             MysticsItemsContent.Items.MysticsItems_LimitedArmorBroken.itemIndex,
                                             CharacterMasterNotificationQueue.TransformationType.Default
                                         );
+                                        NetworkPickupDiscovery.DiscoverPickup(damageReport.victimMaster, LimitedArmorBroken.pickupIndex);
                                     }
                                 }
                             }
