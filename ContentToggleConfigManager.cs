@@ -10,6 +10,7 @@ namespace MysticsItems
     {
         internal static ConfigEntry<bool> enabled;
         internal static ConfigEntry<bool> secrets;
+        internal static ConfigEntry<bool> funEvents;
         internal static List<ItemIndex> disabledItems = new List<ItemIndex>();
         internal static List<EquipmentIndex> disabledEquipment = new List<EquipmentIndex>();
 
@@ -27,6 +28,13 @@ namespace MysticsItems
                 "Secrets",
                 true,
                 "Enable secret content"
+            );
+
+            funEvents = MysticsItemsPlugin.configContentToggle.Bind(
+                "Misc",
+                "FunEvents",
+                true,
+                "Enable fun events that happen on specific dates"
             );
 
             Run.onRunSetRuleBookGlobal += (run, rulebook) =>
