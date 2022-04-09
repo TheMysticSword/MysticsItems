@@ -96,13 +96,26 @@ namespace MysticsItems.Equipment
             holdoutZoneController.radiusSmoothTime = 0.3f;
             holdoutZoneController.radiusIndicator = inWorldPrefab.transform.Find("RadiusIndicator").gameObject.GetComponent<Renderer>();
             holdoutZoneController.inBoundsObjectiveToken = "OBJECTIVE_MYSTICSITEMS_CHARGE_SIRENPOLE";
-            holdoutZoneController.outOfBoundsObjectiveToken = "OBJECTIVE_MYSTICSITEMS_CHARGE_SIRENPOLE_OOB";
+            holdoutZoneController.outOfBoundsObjectiveToken = "OBJECTIVE_MYSTICSITEMS_CHARGE_SIRENPOLE";
             holdoutZoneController.applyHealingNova = true;
             holdoutZoneController.applyFocusConvergence = true;
             holdoutZoneController.playerCountScaling = 0f;
             holdoutZoneController.dischargeRate = 0f;
             holdoutZoneController.enabled = false;
             sirenPoleController.holdoutZoneController = holdoutZoneController;
+
+            On.RoR2.HoldoutZoneController.ChargeHoldoutZoneObjectiveTracker.ShouldBeFlashing += (orig, self) =>
+            {
+                if (self.sourceDescriptor.master)
+                {
+                    HoldoutZoneController holdoutZoneController2 = (HoldoutZoneController)self.sourceDescriptor.source;
+                    if (holdoutZoneController2 && holdoutZoneController.gameObject.GetComponent<MysticsItemsSirenPoleController>())
+                    {
+                        return false;
+                    }
+                }
+                return orig(self);
+            };
 
             CombatDirector phaseCombatDirector = inWorldPrefab.AddComponent<CombatDirector>();
             phaseCombatDirector.customName = "WeakMonsters";
