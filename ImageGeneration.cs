@@ -7,6 +7,7 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using R2API;
+using UnityEngine.AddressableAssets;
 
 namespace MysticsItems
 {
@@ -20,9 +21,9 @@ namespace MysticsItems
         {
             if (!Directory.Exists(path)) Directory.CreateDirectory(path);
 
-            var notifPanel = PrefabAPI.InstantiateClone(LegacyResourcesAPI.Load<GameObject>("Prefabs/NotificationPanel2"), "MysticsRisky2Utils_NotificationPanel", false);
-            //notifTitleTmp = notifPanel.transform.Find("TextArea/Title").GetComponent<HGTextMeshProUGUI>();
-            //notifDescriptionTmp = notifPanel.transform.Find("TextArea/Description").GetComponent<HGTextMeshProUGUI>();
+            var notifPanel = PrefabAPI.InstantiateClone(Addressables.LoadAssetAsync<GameObject>("RoR2/Base/UI/NotificationPanel2.prefab").WaitForCompletion(), "MysticsRisky2Utils_NotificationPanel", false);
+            notifTitleTmp = notifPanel.transform.Find("CanvasGroup/TextArea/Title").GetComponent<HGTextMeshProUGUI>();
+            notifDescriptionTmp = notifPanel.transform.Find("CanvasGroup/TextArea/Description").GetComponent<HGTextMeshProUGUI>();
         }
 
         public static void GenerateItemTable(float padding, float columnWidth, float rowHeight, int columns, Language language, List<ItemTableSection> sections)
