@@ -6,31 +6,34 @@ using MysticsRisky2Utils;
 using MysticsRisky2Utils.BaseAssetTypes;
 using R2API;
 using static MysticsItems.BalanceConfigManager;
+using UnityEngine.Networking;
 
 namespace MysticsItems.Items
 {
     public class ThoughtProcessor : BaseItem
     {
-        public static ConfigurableValue<float> attackSpeed = new ConfigurableValue<float>(
+        public static ConfigurableValue<float> cdr = new ConfigurableValue<float>(
             "Item: Thought Processor",
-            "AttackSpeed",
-            1f,
-            "Attack speed increase per 1% missing health (in %)",
+            "CDR",
+            50f,
+            "Using a skill with cooldown reduces all other skill cooldowns by this percentage of the used skill's cooldown (in %)",
             new System.Collections.Generic.List<string>()
             {
                 "ITEM_MYSTICSITEMS_THOUGHTPROCESSOR_DESC"
             }
         );
-        public static ConfigurableValue<float> attackSpeedPerStack = new ConfigurableValue<float>(
+        public static ConfigurableValue<float> cdrPerStack = new ConfigurableValue<float>(
             "Item: Thought Processor",
-            "AttackSpeedPerStack",
-            0.5f,
-            "Attack speed increase per 1% missing health for each additional stack of this item (in %)",
+            "CDRPerStack",
+            50f,
+            "Using a skill with cooldown reduces all other skill cooldowns by this percentage of the used skill's cooldown for each additional stack of this item (in %)",
             new System.Collections.Generic.List<string>()
             {
                 "ITEM_MYSTICSITEMS_THOUGHTPROCESSOR_DESC"
             }
         );
+
+        public static NetworkSoundEventDef sfx;
 
         public override void OnLoad()
         {
@@ -39,7 +42,7 @@ namespace MysticsItems.Items
             itemDef.tier = ItemTier.Tier3;
             itemDef.tags = new ItemTag[]
             {
-                ItemTag.Damage
+                ItemTag.Utility
             };
             itemDef.pickupModelPrefab = PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Thought Processor/Model.prefab"));
             itemDef.pickupIconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Items/Thought Processor/Icon.png");
@@ -69,62 +72,75 @@ namespace MysticsItems.Items
                 if (SoftDependencies.SoftDependenciesCore.itemDisplaysSniper) AddDisplayRule("SniperClassicBody", "Head", new Vector3(-0.00267F, 0.1063F, -0.295F), new Vector3(1.93567F, 269.8339F, 255.3638F), new Vector3(0.18268F, 0.12134F, 0.18268F));
             };
 
-            RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
-            On.RoR2.Language.GetLocalizedStringByToken += Language_GetLocalizedStringByToken;
+            On.RoR2.CharacterBody.OnSkillActivated += CharacterBody_OnSkillActivated;
 
-            On.RoR2.CharacterBody.OnInventoryChanged += CharacterBody_OnInventoryChanged;
+            sfx = ScriptableObject.CreateInstance<NetworkSoundEventDef>();
+            sfx.eventName = "MysticsItems_Play_item_proc_blender";
+            MysticsItemsContent.Resources.networkSoundEventDefs.Add(sfx);
         }
 
-        private void CharacterBody_OnInventoryChanged(On.RoR2.CharacterBody.orig_OnInventoryChanged orig, CharacterBody self)
+        private void CharacterBody_OnSkillActivated(On.RoR2.CharacterBody.orig_OnSkillActivated orig, CharacterBody self, GenericSkill skill)
         {
-            orig(self);
-            self.AddItemBehavior<MysticsItemsThoughtProcessorBehaviour>(self.inventory.GetItemCount(itemDef));
-        }
-
-        public class MysticsItemsThoughtProcessorBehaviour : CharacterBody.ItemBehavior
-        {
-            public HealthComponent healthComponent;
-            public float healthFractionDivisor = 0.25f;
-            public int healthFractionPhase = -1;
-
-            public void Start()
+            orig(self, skill);
+            Inventory inventory = self.inventory;
+            if (inventory)
             {
-                healthComponent = GetComponent<HealthComponent>();
-            }
-
-            public void FixedUpdate()
-            {
-                if (healthComponent) {
-                    var newHealthFractionPhase = Mathf.FloorToInt(healthComponent.combinedHealthFraction / healthFractionDivisor);
-                    if (newHealthFractionPhase != healthFractionPhase)
+                var itemCount = inventory.GetItemCount(itemDef);
+                if (itemCount > 0)
+                {
+                    if (skill.finalRechargeInterval > 0f && skill.skillDef.stockToConsume > 0)
                     {
-                        healthFractionPhase = newHealthFractionPhase;
-                        body.statsDirty = true;
+                        var coeff = Util.ConvertAmplificationPercentageIntoReductionPercentage(cdr + cdrPerStack * (float)(itemCount - 1)) / 100f;
+                        var cooldownsReducedBy = skill.finalRechargeInterval * coeff;
+                        foreach (SkillSlot skillSlot in Enum.GetValues(typeof(SkillSlot)))
+                        {
+                            GenericSkill otherSkill = self.skillLocator.GetSkill(skillSlot);
+                            if (skill != otherSkill && otherSkill != null && otherSkill.stock < otherSkill.maxStock)
+                            {
+                                otherSkill.rechargeStopwatch += cooldownsReducedBy;
+                            }
+                        }
+                        var fxHelper = self.GetComponent<MysticsItemsThoughtProcessorFXHelper>();
+                        if (!fxHelper) fxHelper = self.gameObject.AddComponent<MysticsItemsThoughtProcessorFXHelper>();
+                        fxHelper.OnTrigger(cooldownsReducedBy);
                     }
                 }
             }
         }
 
-        private string Language_GetLocalizedStringByToken(On.RoR2.Language.orig_GetLocalizedStringByToken orig, Language self, string token)
+        public class MysticsItemsThoughtProcessorFXHelper : MonoBehaviour
         {
-            var result = orig(self, token);
-            if (token == "ITEM_MYSTICSITEMS_THOUGHTPROCESSOR_DESC")
-                result = Utils.FormatStringByDict(result, new System.Collections.Generic.Dictionary<string, string>()
-                {
-                    { "AttackSpeedMax", (attackSpeed * 100f).ToString(System.Globalization.CultureInfo.InvariantCulture) },
-                    { "AttackSpeedMaxPerStack", (attackSpeedPerStack * 100f).ToString(System.Globalization.CultureInfo.InvariantCulture) }
-                });
-            return result;
-        }
+            public float timeBetweenSkills = 0f;
+            public float maxTimeBetweenSkills = 1.2f;
+            public int skillsUsed = 0;
+            public int skillsRequiredForSound = 3;
+            public float cooldownsReducedBy = 0f;
+            public float minCooldownsReducedByForEffect = 3f;
 
-        private void RecalculateStatsAPI_GetStatCoefficients(CharacterBody sender, RecalculateStatsAPI.StatHookEventArgs args)
-        {
-            if (sender.inventory && sender.healthComponent)
+            public void OnTrigger(float cooldownsReducedBy)
             {
-                int itemCount = sender.inventory.GetItemCount(itemDef);
-                if (itemCount > 0)
+                timeBetweenSkills = 0f;
+                skillsUsed++;
+                this.cooldownsReducedBy += cooldownsReducedBy;
+                if (skillsUsed >= skillsRequiredForSound && this.cooldownsReducedBy >= minCooldownsReducedByForEffect)
                 {
-                    args.attackSpeedMultAdd += (attackSpeed + attackSpeedPerStack * (float)(itemCount - 1)) * Mathf.Max(1f - sender.healthComponent.combinedHealthFraction, 0f);
+                    if (NetworkServer.active)
+                    {
+                        RoR2.Audio.EntitySoundManager.EmitSoundServer(sfx.index, gameObject);
+                    }
+                }
+            }
+
+            public void FixedUpdate()
+            {
+                if (timeBetweenSkills < maxTimeBetweenSkills)
+                {
+                    timeBetweenSkills += Time.fixedDeltaTime;
+                    if (timeBetweenSkills >= maxTimeBetweenSkills)
+                    {
+                        skillsUsed = 0;
+                        cooldownsReducedBy = 0;
+                    }
                 }
             }
         }
