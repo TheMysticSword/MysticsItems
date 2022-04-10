@@ -10,12 +10,15 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.Networking;
 using static MysticsItems.BalanceConfigManager;
+using UnityEngine.UI;
 
 namespace MysticsItems.Items
 {
     public class Idol : BaseItem
     {
         public static GameObject idolHUDIndicator;
+        public static Sprite idolHUDGlowingIcon;
+        public static Material idolHUDGlowingIconMaterial;
 
         public static ConfigurableValue<float> goldCap = new ConfigurableValue<float>(
             "Item: Super Idol",
@@ -139,6 +142,105 @@ namespace MysticsItems.Items
                     MysticsItemsIdolIndicator.RefreshAll();
                 }
             };
+
+            idolHUDGlowingIcon = Main.AssetBundle.LoadAsset<Sprite>("Assets/Items/Idol/IconGlowing.png");
+            idolHUDGlowingIconMaterial = Main.AssetBundle.LoadAsset<Material>("Assets/Items/Idol/matIdoHUDGlowingIcon.mat");
+            On.RoR2.UI.ItemIcon.SetItemIndex += ItemIcon_SetItemIndex;
+        }
+
+        private void ItemIcon_SetItemIndex(On.RoR2.UI.ItemIcon.orig_SetItemIndex orig, ItemIcon self, ItemIndex newItemIndex, int newItemCount)
+        {
+            orig(self, newItemIndex, newItemCount);
+            var shouldDisplay = newItemIndex == itemDef.itemIndex && newItemCount > 0;
+            var fillIcon = self.GetComponent<MysticsItemsSuperIdolHUDIcon>();
+            if (shouldDisplay != fillIcon)
+            {
+                if (shouldDisplay)
+                {
+                    var itemInventoryDisplay = self.GetComponentInParent<ItemInventoryDisplay>();
+                    if (itemInventoryDisplay && itemInventoryDisplay.inventory)
+                    {
+                        var master = itemInventoryDisplay.inventory.GetComponent<CharacterMaster>();
+                        if (master)
+                        {
+                            fillIcon = self.gameObject.AddComponent<MysticsItemsSuperIdolHUDIcon>();
+                            fillIcon.master = master;
+                            fillIcon.fillAmount = CalculateIdolBonus(master, newItemCount);
+                        }
+                    }
+                }
+                else
+                {
+                    UnityEngine.Object.Destroy(fillIcon);
+                    fillIcon = null;
+                }
+            }
+            if (shouldDisplay && fillIcon)
+            {
+                fillIcon.itemCount = newItemCount;
+                fillIcon.UpdateTransform();
+            }
+        }
+
+        public class MysticsItemsSuperIdolHUDIcon : MonoBehaviour
+        {
+            public GameObject iconInstance;
+            public RawImage image;
+            public Material material;
+            public CharacterMaster master;
+            public int itemCount;
+            public float fillAmount;
+            private float fillAmountVelocity;
+            public RectTransform rectTransform;
+            public RectTransform parentRect;
+
+            public void Awake()
+            {
+                iconInstance = new GameObject("MysticsItemsSuperIdolHUDIcon");
+                iconInstance.transform.SetParent(transform);
+
+                image = iconInstance.AddComponent<RawImage>();
+                image.texture = idolHUDGlowingIcon.texture;
+                image.raycastTarget = true;
+                image.maskable = true;
+                image.material = material = Instantiate(idolHUDGlowingIconMaterial);
+
+                parentRect = transform as RectTransform;
+
+                rectTransform = image.rectTransform;
+                UpdateTransform();
+            }
+
+            public void UpdateTransform()
+            {
+                rectTransform.localPosition = Vector2.zero;
+                rectTransform.localRotation = Quaternion.identity;
+                rectTransform.localScale = Vector2.one;
+                rectTransform.anchorMin = new Vector2(0.5f, 0.5f);
+                rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
+                rectTransform.pivot = new Vector2(0f, 1f);
+                rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, parentRect.rect.width);
+                rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, parentRect.rect.height);
+                rectTransform.offsetMin = -Vector2.one * parentRect.rect.width / 2f;
+                rectTransform.offsetMax = Vector2.one * parentRect.rect.height / 2f;
+            }
+
+            public void Update()
+            {
+                if (master)
+                {
+                    var idolBonus = CalculateIdolBonus(master, itemCount);
+                    fillAmount = Mathf.SmoothDamp(fillAmount, idolBonus, ref fillAmountVelocity, 1f);
+
+                    if (material) material.SetVector("_RenderPortion", new Vector4(0f, 1f, 0f, fillAmount));
+                }
+            }
+
+            public void OnDestroy()
+            {
+                Destroy(iconInstance);
+                Destroy(material);
+            }
         }
 
         private void CharacterMaster_GiveMoney(On.RoR2.CharacterMaster.orig_GiveMoney orig, CharacterMaster self, uint amount)
