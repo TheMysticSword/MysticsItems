@@ -112,9 +112,9 @@ namespace MysticsItems.Items
         {
             orig(self, dotStack);
             var _dotStack = (dotStack as DotController.DotStack);
-            if (self.victimBody && _dotStack.dotDef.associatedBuff && !ignoredBuffDefs.Contains(_dotStack.dotDef.associatedBuff))
+            if (self.victimBody)
             {
-                _dotStack.timer = GetModifiedDuration(self.victimBody, _dotStack.dotDef.associatedBuff.isDebuff || _dotStack.dotDef.associatedBuff.isCooldown, _dotStack.timer);
+                _dotStack.timer = GetModifiedDuration(self.victimBody, true, _dotStack.timer);
             }
         }
 
