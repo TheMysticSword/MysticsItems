@@ -123,6 +123,8 @@ namespace MysticsItems.Items
             holdoutZone.enabled = false;
             MysticsItemsTreasureMapZone captureZone = zonePrefab.AddComponent<MysticsItemsTreasureMapZone>();
             captureZone.itemDef = itemDef;
+            captureZone.dropTable = Addressables.LoadAssetAsync<PickupDropTable>("RoR2/Base/GoldChest/dtGoldChest.asset").WaitForCompletion();
+            captureZone.dropTransform = zonePrefab.transform.Find("DropPivot");
             HologramProjector hologramProjector = zonePrefab.AddComponent<HologramProjector>();
             hologramProjector.displayDistance = holdoutZone.baseRadius;
             hologramProjector.hologramPivot = zonePrefab.transform.Find("HologramPivot");
@@ -158,10 +160,7 @@ namespace MysticsItems.Items
             }
             decal.gameObject.transform.localScale = Vector3.one * 10f;
             HG.ArrayUtils.ArrayAppend(ref captureZone.toggleObjects, decal.gameObject);
-            ChestBehavior chestBehavior = zonePrefab.AddComponent<ChestBehavior>();
-            chestBehavior.dropTransform = zonePrefab.transform.Find("DropPivot");
-            chestBehavior.dropTable = Addressables.LoadAssetAsync<PickupDropTable>("RoR2/Base/GoldChest/dtGoldChest.asset").WaitForCompletion();
-            
+
             On.RoR2.HoldoutZoneController.ChargeHoldoutZoneObjectiveTracker.ShouldBeFlashing += (orig, self) =>
             {
                 if (self.sourceDescriptor.master)
@@ -233,16 +232,25 @@ namespace MysticsItems.Items
             public HologramProjector hologramProjector;
             public HoldoutZoneController holdoutZoneController;
             public GameObject[] toggleObjects = new GameObject[] { };
-            public ChestBehavior chestBehavior;
+
+            public Xoroshiro128Plus rng;
+            public PickupDropTable dropTable;
+            public PickupIndex dropPickup = PickupIndex.none;
+            public Transform dropTransform;
+            public float dropUpVelocityStrength = 20f;
+            public float dropForwardVelocityStrength = 2f;
+
+            public static MysticsItemsTreasureMapZone instance;
 
             public void Start()
             {
                 holdoutZoneController = GetComponent<HoldoutZoneController>();
-                chestBehavior = GetComponent<ChestBehavior>();
 
                 if (NetworkServer.active)
                 {
                     ShouldBeActive = false;
+                    rng = new Xoroshiro128Plus(Run.instance.treasureRng.nextUlong);
+                    if (dropTable) dropPickup = dropTable.GenerateDrop(rng);
                 }
                 else
                 {
@@ -251,19 +259,28 @@ namespace MysticsItems.Items
 
                 holdoutZoneController.onCharged = new HoldoutZoneController.HoldoutZoneControllerChargedUnityEvent();
                 holdoutZoneController.onCharged.AddListener(zone => Unearth());
+
+                instance = this;
             }
 
             public void Unearth()
             {
-                EffectManager.SimpleEffect(effectPrefab, transform.position, Quaternion.identity, true);
-                PointSoundManager.EmitSoundServer(soundEventDef.index, transform.position);
+                if (NetworkServer.active)
+                {
+                    EffectManager.SimpleEffect(effectPrefab, transform.position, Quaternion.identity, true);
+                    PointSoundManager.EmitSoundServer(soundEventDef.index, transform.position);
 
-                if (dropItemForEachPlayer) chestBehavior.dropCount = Mathf.Max(Run.instance.participatingPlayerCount, 1);
-                else chestBehavior.dropCount = 1;
-                var dropTable = chestBehavior.dropTable;
-                chestBehavior.dropTable = null; // this dropTable = null temporary wrap is needed so ItemDrop doesn't roll a separate item for each player
-                chestBehavior.ItemDrop();
-                chestBehavior.dropTable = dropTable;
+                    var dropCount = 1;
+                    if (dropItemForEachPlayer) dropCount = Mathf.Max(Run.instance.participatingPlayerCount, 1);
+                    float angle = 360f / (float)dropCount;
+                    Vector3 vector = Vector3.up * dropUpVelocityStrength + dropTransform.forward * dropForwardVelocityStrength;
+                    Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.up);
+                    for (int i = 0; i < dropCount; i++)
+                    {
+                        PickupDropletController.CreatePickupDroplet(dropPickup, dropTransform.position + Vector3.up * 1.5f, vector);
+                        vector = rotation * vector;
+                    }
+                }
 
                 if (holdoutZoneController && holdoutZoneController.radiusIndicator) holdoutZoneController.radiusIndicator.transform.localScale = Vector3.zero;
 
