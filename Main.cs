@@ -21,6 +21,7 @@ namespace MysticsItems
     [BepInDependency(MysticsRisky2UtilsPlugin.PluginGUID)]
     [BepInDependency("dev.ontrigger.itemstats", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("com.xoxfaby.BetterUI", BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency("aaaa.bubbet.whatamilookingat", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInPlugin(PluginGUID, PluginName, PluginVersion)]
     [R2APISubmoduleDependency(nameof(DamageAPI), nameof(DotAPI), nameof(NetworkingAPI), nameof(PrefabAPI), nameof(SoundAPI))]
     public class MysticsItemsPlugin : BaseUnityPlugin

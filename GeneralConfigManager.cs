@@ -13,6 +13,7 @@ namespace MysticsItems
         public static ConfigEntry<bool> betterUICompatEnableItemStats;
         public static ConfigEntry<bool> itemStatsCompatEnabledByConfig;
         public static ConfigEntry<bool> properSaveCompatEnabledByConfig;
+        public static ConfigEntry<bool> whatAmILookingAtCompatEnabledByConfig;
         public static ConfigEntry<bool> itemDisplaysSniper;
         
         // UI
@@ -35,6 +36,7 @@ namespace MysticsItems
             betterUICompatEnableItemStats = MysticsItemsPlugin.configGeneral.Bind("Mod Compatibility", "BetterUICompatEnableItemStats", true, "Enable BetterUI's ItemStats integration.");
             itemStatsCompatEnabledByConfig = MysticsItemsPlugin.configGeneral.Bind("Mod Compatibility", "ItemStatsCompatEnable", true, "Enable ItemStats integration");
             properSaveCompatEnabledByConfig = MysticsItemsPlugin.configGeneral.Bind("Mod Compatibility", "ProperSaveCompatEnable", true, "Enable ProperSave integration");
+            whatAmILookingAtCompatEnabledByConfig = MysticsItemsPlugin.configGeneral.Bind("Mod Compatibility", "WhatAmILookingAtCompatEnable", true, "Enable WhatAmILookingAt integration");
             itemDisplaysSniper = MysticsItemsPlugin.configGeneral.Bind("Mod Compatibility", "ItemDisplaysSniper", true, "Make this mod's items show up on the Sniper added by SniperClassic mod");
 
             rhythmHudUnderCrosshair = MysticsItemsPlugin.configGeneral.Bind("UI", "RhythmItemHUDUnderCrosshair", true, "Enable Metronome's HUD indicator under the crosshair.");

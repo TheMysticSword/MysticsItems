@@ -39,6 +39,14 @@ namespace MysticsItems.SoftDependencies
                 }
                 catch { }
             }
+            if (pluginInfos.ContainsKey("aaaa.bubbet.whatamilookingat") && GeneralConfigManager.whatAmILookingAtCompatEnabledByConfig.Value)
+            {
+                try
+                {
+                    WhatAmILookingAtCompat.Init();
+                }
+                catch { }
+            }
             itemDisplaysSniper = BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("com.Moffein.SniperClassic") && GeneralConfigManager.itemDisplaysSniper.Value;
         }
     }
