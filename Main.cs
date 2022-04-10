@@ -34,7 +34,7 @@ namespace MysticsItems
         internal static BepInEx.Configuration.ConfigFile configGeneral;
         internal static BepInEx.Configuration.ConfigFile configBalance;
         internal static BepInEx.Configuration.ConfigFile configContentToggle;
-
+        
         public void Awake()
         {
             logger = Logger;
@@ -79,7 +79,6 @@ namespace MysticsItems
 
             CustomChatMessages.Init();
             GenericCostTypes.Init();
-            ImageGeneration.Init();
             NetworkPickupDiscovery.Init();
             SoftDependencies.SoftDependenciesCore.Init();
 
@@ -127,6 +126,7 @@ namespace MysticsItems
             // Generate item preview table image
             RoR2Application.onLoad += () =>
             {
+                ImageGeneration.Init();
                 var itemDefs = typeof(MysticsItemsContent.Items).GetFields().Select(x => x.GetValue(null) as ItemDef)
                 .Where(x => !x.hidden && x.inDroppableTier && x.DoesNotContainTag(ItemTag.WorldUnique)).ToList();
                 var equipmentDefs = typeof(MysticsItemsContent.Equipment).GetFields().Select(x => x.GetValue(null) as EquipmentDef)
