@@ -168,9 +168,9 @@ namespace MysticsItems.SoftDependencies
                 BetterUI.ItemStats.RegisterModifier(
                     BetterUI.ItemStats.ItemTag.Luck,
                     MysticsItemsContent.Items.MysticsItems_ScratchTicket,
-                    FlatBonusProper,
-                    Items.ScratchTicket.chanceBonus / 100f,
-                    stackModifier: Items.ScratchTicket.chanceBonusPerStack / 100f
+                    Items.ScratchTicket.alternateBonus ? BetterUI.ItemStats.ItemModifier.PercentBonus : FlatBonusProper,
+                    Items.ScratchTicket.chanceBonus / (Items.ScratchTicket.alternateBonus ? 1f : 100f),
+                    stackModifier: Items.ScratchTicket.chanceBonusPerStack / (Items.ScratchTicket.alternateBonus ? 1f : 100f)
                 );
                 // Cutesy Bow
                 BetterUI.ItemStats.RegisterStat(
@@ -575,7 +575,7 @@ namespace MysticsItems.SoftDependencies
             // item modification formulas
             public static float FlatBonusProper(float value, float modifier, float stackModifier, float stacks)
             {
-                return value + modifier + stackModifier * (stacks - 1);
+                return modifier + stackModifier * (stacks - 1);
             }
 
             // item modification counters
