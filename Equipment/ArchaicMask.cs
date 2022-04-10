@@ -197,14 +197,15 @@ namespace MysticsItems.Equipment
 
         public override bool OnUse(EquipmentSlot equipmentSlot)
         {
-            MysticsRisky2UtilsEquipmentTarget targetInfo = equipmentSlot.GetComponent<MysticsRisky2UtilsEquipmentTarget>();
-            if (targetInfo && targetInfo.obj)
+            CharacterMaster master = equipmentSlot.characterBody.master;
+            if (master)
             {
-                CharacterMaster master = equipmentSlot.characterBody.master;
-                if (master)
+                ArchaicMaskSummonLimit summonLimit = master.GetComponent<ArchaicMaskSummonLimit>();
+                if (!summonLimit) summonLimit = master.gameObject.AddComponent<ArchaicMaskSummonLimit>();
+
+                MysticsRisky2UtilsEquipmentTarget targetInfo = equipmentSlot.GetComponent<MysticsRisky2UtilsEquipmentTarget>();
+                if (targetInfo && targetInfo.obj)
                 {
-                    ArchaicMaskSummonLimit summonLimit = master.GetComponent<ArchaicMaskSummonLimit>();
-                    if (!summonLimit) summonLimit = master.gameObject.AddComponent<ArchaicMaskSummonLimit>();
                     HurtBox targetHB = targetInfo.obj.GetComponent<CharacterBody>().mainHurtBox;
                     if (targetHB)
                     {
@@ -230,10 +231,34 @@ namespace MysticsItems.Equipment
                             summonLimit.Add(wispMasterObject);
                         };
                         DirectorCore.instance.TrySpawnObject(directorSpawnRequest);
-                        
+
                         targetInfo.Invalidate();
                         return true;
                     }
+                }
+
+                {
+                    DirectorSpawnRequest directorSpawnRequest = new DirectorSpawnRequest((SpawnCard)LegacyResourcesAPI.Load<CharacterSpawnCard>("SpawnCards/CharacterSpawnCards/cscArchWisp"), new DirectorPlacementRule
+                    {
+                        placementMode = DirectorPlacementRule.PlacementMode.NearestNode,
+                        position = equipmentSlot.GetAimRay().origin
+                    }, RoR2Application.rng)
+                    {
+                        summonerBodyObject = equipmentSlot.characterBody.gameObject
+                    };
+                    directorSpawnRequest.onSpawnedServer += (spawnResult) =>
+                    {
+                        GameObject wispMasterObject = spawnResult.spawnedInstance;
+                        CharacterMaster wispMaster = wispMasterObject.GetComponent<CharacterMaster>();
+                        wispMaster.inventory.GiveItem(RoR2Content.Items.HealthDecay, (int)duration.Value);
+                        wispMaster.inventory.GiveItem(RoR2Content.Items.BoostDamage, (int)(wispDamage.Value - 100f) / 10);
+                        wispMaster.inventory.GiveItem(RoR2Content.Items.BoostHp, (int)(wispHealth.Value - 100f) / 10);
+                        wispMaster.inventory.GiveItem(RoR2Content.Items.AlienHead, (int)(wispCDR.Value - 100f) / 10);
+                        wispMaster.inventory.GiveItem(RoR2Content.Items.BoostAttackSpeed, (int)(wispAttackSpeed.Value - 100f) / 10);
+                        summonLimit.Add(wispMasterObject);
+                    };
+                    DirectorCore.instance.TrySpawnObject(directorSpawnRequest);
+                    return true;
                 }
             }
             return false;
