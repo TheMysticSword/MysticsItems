@@ -57,6 +57,7 @@ namespace MysticsItems.Items
         );
 
         public static List<BuffDef> ignoredBuffDefs = new List<BuffDef>();
+        public static List<BuffDef> debuffsTreatedAsBuffs = new List<BuffDef>();
 
         public override void OnLoad()
         {
@@ -105,6 +106,12 @@ namespace MysticsItems.Items
                 ignoredBuffDefs.Add(RoR2Content.Buffs.HiddenInvincibility);
                 ignoredBuffDefs.Add(RoR2Content.Buffs.VoidFogMild);
                 ignoredBuffDefs.Add(RoR2Content.Buffs.VoidFogStrong);
+                ignoredBuffDefs.Add(DLC1Content.Buffs.VoidRaidCrabWardWipeFog);
+
+                foreach (var dotDebuff in DotController.dotDefs.Where(x => x.associatedBuff != null).Select(x => x.associatedBuff).Distinct())
+                    debuffsTreatedAsBuffs.Add(dotDebuff);
+                foreach (var dotDebuff in DotController.dotDefs.Where(x => x.terminalTimedBuff != null).Select(x => x.terminalTimedBuff).Distinct())
+                    debuffsTreatedAsBuffs.Add(dotDebuff);
             };
         }
 
@@ -121,7 +128,7 @@ namespace MysticsItems.Items
         private void CharacterBody_AddTimedBuff_BuffDef_float(On.RoR2.CharacterBody.orig_AddTimedBuff_BuffDef_float orig, CharacterBody self, BuffDef buffDef, float duration)
         {
             if (!ignoredBuffDefs.Contains(buffDef))
-                duration = GetModifiedDuration(self, buffDef.isDebuff || buffDef.isCooldown, duration);
+                duration = GetModifiedDuration(self, buffDef.isDebuff || buffDef.isCooldown || debuffsTreatedAsBuffs.Contains(buffDef), duration);
             orig(self, buffDef, duration);
         }
 
@@ -130,7 +137,7 @@ namespace MysticsItems.Items
             orig(self, buffDef, duration, maxStacks);
             if (!ignoredBuffDefs.Contains(buffDef))
             {
-                var modifiedDuration = GetModifiedDuration(self, buffDef.isDebuff || buffDef.isCooldown, duration);
+                var modifiedDuration = GetModifiedDuration(self, buffDef.isDebuff || buffDef.isCooldown || debuffsTreatedAsBuffs.Contains(buffDef), duration);
                 foreach (var timedBuff in self.timedBuffs.Where(x => x.buffIndex == buffDef.buffIndex && x.timer == duration))
                 {
                     timedBuff.timer = modifiedDuration;
