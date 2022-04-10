@@ -36,6 +36,13 @@ namespace MysticsItems.Equipment
                 "EQUIPMENT_MYSTICSITEMS_GATECHALICE_DESC"
             }
         );
+
+        public static Dictionary<string, List<string>> destinationOverrides = new Dictionary<string, List<string>>()
+        {
+            { "limbo", new List<string>() { "moon2" } },
+            { "arena", new List<string>() { "voidstage" } },
+            { "voidstage", new List<string>() { "voidraid" } }
+        };
         
         public override void OnPluginAwake()
         {
@@ -303,6 +310,20 @@ namespace MysticsItems.Equipment
             public void Start()
             {
                 controller = GetComponent<SceneExitController>();
+
+                // special next scene overrides based on the current scene
+                var mostRecentSceneDef = SceneCatalog.mostRecentSceneDef;
+                if (mostRecentSceneDef)
+                {
+                    if (destinationOverrides.ContainsKey(mostRecentSceneDef.baseSceneName))
+                    {
+                        var possibleOverrides = RoR2Application.rng.NextElementUniform(destinationOverrides[mostRecentSceneDef.baseSceneName]);
+                        var sceneOverride = SceneCatalog.FindSceneDef(possibleOverrides);
+                        if (sceneOverride) controller.destinationScene = sceneOverride;
+                    }
+                }
+
+                // if a teleporter has a next scene override, use it
                 if (TeleporterInteraction.instance)
                 {
                     var sceneExitController = TeleporterInteraction.instance.sceneExitController;
@@ -312,6 +333,7 @@ namespace MysticsItems.Equipment
                         controller.destinationScene = sceneExitController.destinationScene;
                     }
                 }
+
                 controller.Begin();
             }
 
@@ -328,7 +350,7 @@ namespace MysticsItems.Equipment
 
         public override bool OnUse(EquipmentSlot equipmentSlot)
         {
-            if (!SceneExitController.isRunning && (!SceneCatalog.currentSceneDef || !SceneCatalog.currentSceneDef.isFinalStage))
+            if (!SceneExitController.isRunning && (!SceneCatalog.mostRecentSceneDef || !SceneCatalog.mostRecentSceneDef.isFinalStage))
             {
                 CharacterBody characterBody = equipmentSlot.characterBody;
                 if (characterBody.healthComponent && !characterBody.healthComponent.alive) return false;
