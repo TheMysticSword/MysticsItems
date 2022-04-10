@@ -112,6 +112,8 @@ namespace MysticsItems.Items
                     shopTerminalBehavior.serverMultiShopController.SetCloseOnTerminalPurchase(context.purchasedObject.GetComponent<PurchaseInteraction>(), false);
                     activatorMaster.inventory.RemoveItem(MysticsItemsContent.Items.MysticsItems_KeepShopTerminalOpen);
                     activatorMaster.inventory.GiveItem(MysticsItemsContent.Items.MysticsItems_KeepShopTerminalOpenConsumed);
+
+                    RoR2.Audio.PointSoundManager.EmitSoundServer(KeepShopTerminalOpen.sfx.index, shopTerminalBehavior.transform.position);
                 }
             }
         }
