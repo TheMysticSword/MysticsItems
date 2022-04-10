@@ -18,7 +18,7 @@ namespace MysticsItems.Buffs
             buffDef.name = "MysticsItems_MarwanAshBurnStrong";
             buffDef.buffColor = new Color32(96, 245, 250, 255);
             buffDef.canStack = false;
-            buffDef.isDebuff = true;
+            buffDef.isDebuff = false;
             buffDef.iconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Buffs/MarwanAshBurnSuper.png");
 
             ashBurnEffectParams = new BurnEffectController.EffectParams
