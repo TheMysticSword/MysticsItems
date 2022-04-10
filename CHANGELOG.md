@@ -1,3 +1,29 @@
+#### 2.0.10:
+* Marwan's Ash:
+	* Now has caps for extra damage, burn damage and spread radius for non-ally characters
+		* This should make the item more fair when used by enemies and the final boss
+* Platinum Card:
+	* Discount: ~~10%~~ ⇒ 50%
+* Gate Chalice:
+	* Now has special teleportation destinations when used on certain stages
+* Thought Processor:
+	* Effect changed: using skills with cooldowns now reduces all other skill cooldowns
+* Legendary Mask:
+	* Can now be activated without an enemy target to spawn an Archaic Wisp nearby
+* Added a reminder message about a remaining Treasure Map spot when the teleporter is charged
+* Added a filling up indicator for Super Idol over the inventory icon that shows the current percentage of the gold buff
+* Updated Spare Wiring VFX and SFX
+* Adjusted Mechanical Arm logbook model to be more arm-like
+* Fixed Treasure Map not dropping any items when the 1nsiderItems mod is enabled
+* Fixed Treasure Map calling certain server-only functions on clients
+* Fixed Marwan's Light burn DoT counting as 2 debuffs for the Death Mark
+* Fixed Choc Chip extending Fire terminal 1 second debuff
+* Fixed Choc Chip not reducing the duration of damage-over-time effects
+* Fixed the WhatAmILookingAt mod not detecting the mod
+* Fixed Manuscript & Mystic Sword overriding extended item descriptions from BetterUI
+* Fixed wrong BetterUI item stat modifier values from Scratch Ticket
+* Fixed Platinum Card not playing a sound
+* Updated localization files
 #### 2.0.9:
 * Added Simplified Chinese translation - thank you, ACroptf8!
 * Fixed Spanish translation not working

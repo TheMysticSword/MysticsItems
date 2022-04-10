@@ -2,7 +2,7 @@
 Adds 40 new items!  
 
 ![GIF preview of some of the item models](https://i.imgur.com/8OOURv4.gif)  
-![Table with the info about all the items in the mod](https://i.imgur.com/MwmTSfN.png)  
+![Table with the info about all the items in the mod](https://i.imgur.com/syz6fnY.png)  
 
 ### Important notes
 #### Manual installation
@@ -67,6 +67,11 @@ Contains sounds from [freesound.org](https://freesound.org/):
 ["Anime_teleport_sounds"](https://freesound.org/people/Euphrosyyn/sounds/592787/) by [Corentin Jouet (Euphrosyyn)](https://freesound.org/people/Euphrosyyn/)  
 ["Suzuki1250BanditStart.wav"](https://freesound.org/people/Sclolex/sounds/211667/) by [Sclolex](https://freesound.org/people/Sclolex/)  
 ["Chair Thrown, Crash, bolt fell out after crash.wav"](https://freesound.org/people/issalcake/sounds/115918/) by [issalcake](https://freesound.org/people/issalcake/)  
+["Food Processor Speed 1"](https://freesound.org/people/robertsvard/sounds/353528/) by [robertsvard](https://freesound.org/people/robertsvard/)  
+["Button 02.wav"](https://freesound.org/people/JarredGibb/sounds/219479/), ["Button 03.wav"](https://freesound.org/people/JarredGibb/sounds/219478/) & ["Button 04.wav"](https://freesound.org/people/JarredGibb/sounds/219477/) by [JarredGibb](https://freesound.org/people/JarredGibb/)  
+["44_Espada_Clavandose.wav (Sword Clash)"](https://freesound.org/people/Atrius1/sounds/470175/) by [Atrius1](https://freesound.org/people/Atrius1/)  
+["High Voltage Sparks 3x"](https://freesound.org/people/Kinoton/sounds/499690/) by [Kinoton](https://freesound.org/people/Kinoton/)  
+["Zap.ogg"](https://freesound.org/people/egomassive/sounds/536741/) by [egomassive](https://freesound.org/people/egomassive/)  
   
 Sounds from the [Disc Room Game Jam audiopack](https://discroom.com/game-jam-tutorial-audio.zip) by [doseone](https://doseone.bandcamp.com/)  
 Multiple sounds made with [sfxia](https://rxi.itch.io/sfxia) by [rxi](https://rxi.itch.io/)  
@@ -74,13 +79,31 @@ Contains assets from [FreePBR.com](https://freepbr.com/)
 Contains assets from [ambientCG.com](https://ambientcg.com/), licensed under CC0 1.0 Universal.
 
 # Changelog
-#### 2.0.9:
-* Added Simplified Chinese translation - thank you, ACroptf8!
-* Fixed Spanish translation not working
-* Added DropItemForEachPlayer balance config option for Treasure Map
-* Added Hits balance config option for Ten Commandments of Vyrael
-* From Omar With Love now has a 0.5s hidden cooldown to prevent wasting all charges with the Gesture of the Drowned
-* Logbook entries for Marwan's Light, Marwan's Weapon and Frayed Bow are now properly unlocked on item transformations
+#### 2.0.10:
+* Marwan's Ash:
+	* Now has caps for extra damage, burn damage and spread radius for non-ally characters
+		* This should make the item more fair when used by enemies and the final boss
+* Platinum Card:
+	* Discount: ~~10%~~ ⇒ 50%
+* Gate Chalice:
+	* Now has special teleportation destinations when used on certain stages
+* Thought Processor:
+	* Effect changed: using skills with cooldowns now reduces all other skill cooldowns
+* Legendary Mask:
+	* Can now be activated without an enemy target to spawn an Archaic Wisp nearby
+* Added a reminder message about a remaining Treasure Map spot when the teleporter is charged
+* Added a filling up indicator for Super Idol over the inventory icon that shows the current percentage of the gold buff
+* Updated Spare Wiring VFX and SFX
+* Adjusted Mechanical Arm logbook model to be more arm-like
+* Fixed Treasure Map not dropping any items when the 1nsiderItems mod is enabled
+* Fixed Treasure Map calling certain server-only functions on clients
+* Fixed Marwan's Light burn DoT counting as 2 debuffs for the Death Mark
+* Fixed Choc Chip extending Fire terminal 1 second debuff
+* Fixed Choc Chip not reducing the duration of damage-over-time effects
+* Fixed the WhatAmILookingAt mod not detecting the mod
+* Fixed Manuscript & Mystic Sword overriding extended item descriptions from BetterUI
+* Fixed wrong BetterUI item stat modifier values from Scratch Ticket
+* Fixed Platinum Card not playing a sound
 * Updated localization files
   
 (Previous changelogs can be found [here](https://github.com/TheMysticSword/MysticsItems/blob/main/CHANGELOG.md))
