@@ -168,6 +168,8 @@ namespace MysticsItems.Items
                     HoldoutZoneController holdoutZoneController = (HoldoutZoneController)self.sourceDescriptor.source;
                     if (holdoutZoneController && holdoutZoneController.gameObject.GetComponent<MysticsItemsTreasureMapZone>())
                     {
+                        var teleporterInteraction = TeleporterInteraction.instance;
+                        if (teleporterInteraction && teleporterInteraction.isCharged) return true;
                         return false;
                     }
                 }
@@ -218,6 +220,19 @@ namespace MysticsItems.Items
             };
             shakeEmitter.amplitudeTimeDecay = true;
             MysticsItemsContent.Resources.effectPrefabs.Add(effectPrefab);
+
+            TeleporterInteraction.onTeleporterChargedGlobal += TeleporterInteraction_onTeleporterChargedGlobal;
+        }
+
+        private void TeleporterInteraction_onTeleporterChargedGlobal(TeleporterInteraction teleporterInteraction)
+        {
+            if (MysticsItemsTreasureMapZone.instance && NetworkServer.active)
+            {
+                Chat.SendBroadcastChat(new Chat.SimpleChatMessage
+                {
+                    baseToken = "MYSTICSITEMS_TREASUREMAP_WARNING"
+                });
+            }
         }
 
         public static float CalculateChargeTime(int itemCount)
