@@ -203,7 +203,7 @@ namespace MysticsItems.Items
             GlobalEventManager.onCharacterDeathGlobal += GlobalEventManager_onCharacterDeathGlobal;
             RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
 
-            if (!SoftDependencies.SoftDependenciesCore.itemStatsCompatEnabled) On.RoR2.UI.ItemIcon.SetItemIndex += ItemIcon_SetItemIndex;
+            if (!SoftDependencies.SoftDependenciesCore.itemStatsCompatEnabled && !SoftDependencies.SoftDependenciesCore.betterUIItemStatsEnabled) On.RoR2.UI.ItemIcon.SetItemIndex += ItemIcon_SetItemIndex;
 
             GenericGameEvents.BeforeTakeDamage += GenericGameEvents_BeforeTakeDamage;
         }

@@ -71,7 +71,7 @@ namespace MysticsItems.Items
 
             RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
 
-            if (!SoftDependencies.SoftDependenciesCore.itemStatsCompatEnabled) On.RoR2.UI.ItemIcon.SetItemIndex += ItemIcon_SetItemIndex;
+            if (!SoftDependencies.SoftDependenciesCore.itemStatsCompatEnabled && !SoftDependencies.SoftDependenciesCore.betterUIItemStatsEnabled) On.RoR2.UI.ItemIcon.SetItemIndex += ItemIcon_SetItemIndex;
 
             MysticsItemsManuscript.Init();
         }

@@ -5,21 +5,24 @@ namespace MysticsItems.SoftDependencies
     internal static class SoftDependenciesCore
     {
         internal static bool betterUICompatEnabled = false;
+        internal static bool betterUIItemStatsEnabled = false;
         internal static bool itemStatsCompatEnabled = false;
         internal static bool itemDisplaysSniper = false;
 
         internal static void Init()
         {
-            if (BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("com.xoxfaby.BetterUI"))
+            var pluginInfos = BepInEx.Bootstrap.Chainloader.PluginInfos;
+            if (pluginInfos.ContainsKey("com.xoxfaby.BetterUI"))
             {
                 try
                 {
                     BetterUICompat.Init();
                     betterUICompatEnabled = true;
+                    betterUIItemStatsEnabled = GeneralConfigManager.betterUICompatEnableItemStats.Value;
                 }
                 catch { }
             }
-            if (BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("dev.ontrigger.itemstats") && GeneralConfigManager.itemStatsCompatEnabledByConfig.Value)
+            if (pluginInfos.ContainsKey("dev.ontrigger.itemstats") && GeneralConfigManager.itemStatsCompatEnabledByConfig.Value)
             {
                 try
                 {
@@ -28,7 +31,7 @@ namespace MysticsItems.SoftDependencies
                 }
                 catch { }
             }
-            if (BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("com.KingEnderBrine.ProperSave") && GeneralConfigManager.properSaveCompatEnabledByConfig.Value)
+            if (pluginInfos.ContainsKey("com.KingEnderBrine.ProperSave") && GeneralConfigManager.properSaveCompatEnabledByConfig.Value)
             {
                 try
                 {
