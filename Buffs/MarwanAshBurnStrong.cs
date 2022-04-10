@@ -47,6 +47,7 @@ namespace MysticsItems.Buffs
                 var itemCount = 1;
                 var attackerLevel = 1f;
                 var damageMultiplier = 1f;
+                var isPlayerTeam = false;
                 if (dotStack.attackerObject)
                 {
                     var ashHelper = dotStack.attackerObject.GetComponent<Items.MarwanAsh1.MysticsItemsMarwanAshHelper>();
@@ -58,9 +59,12 @@ namespace MysticsItems.Buffs
                         attackerLevel = attackerBody.level;
                         if (attackerBody.damage != 0f)
                             damageMultiplier = dotStack.damage / attackerBody.damage / ashDotDef.damageCoefficient;
+                        isPlayerTeam = attackerBody.teamComponent.teamIndex == TeamIndex.Player;
                     }
                 }
-                dotStack.damage = (self.victimHealthComponent ? self.victimHealthComponent.fullCombinedHealth * (Items.MarwanAsh1.dotPercent / 100f + Items.MarwanAsh1.dotPercentPerLevel / 100f * (attackerLevel - (float)Items.MarwanAsh1.upgradeLevel12) * itemCount) * damageMultiplier : 0) * ashDotDef.interval;
+                var hpFractionDamage = (Items.MarwanAsh1.dotPercent / 100f + Items.MarwanAsh1.dotPercentPerLevel / 100f * (attackerLevel - (float)Items.MarwanAsh1.upgradeLevel12) * itemCount) * damageMultiplier;
+                if (!isPlayerTeam) hpFractionDamage = Mathf.Min(hpFractionDamage, Items.MarwanAsh1.enemyBurnDamageCap);
+                dotStack.damage = (self.victimHealthComponent ? self.victimHealthComponent.fullCombinedHealth * hpFractionDamage : 0) * ashDotDef.interval;
             });
 
             On.RoR2.DotController.UpdateDotVisuals += DotController_UpdateDotVisuals;

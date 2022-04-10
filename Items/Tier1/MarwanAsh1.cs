@@ -124,6 +124,10 @@ namespace MysticsItems.Items
         
         public static GameObject ashHitVFX;
 
+        public static float enemyExtraDamageCap;
+        public static float enemyBurnDamageCap;
+        public static float enemySpreadRadiusCap;
+
         public override void OnLoad()
         {
             base.OnLoad();
@@ -179,6 +183,10 @@ namespace MysticsItems.Items
                 MysticsItemsMarwanAshHelper.level2PickupIndex = PickupCatalog.FindPickupIndex(MysticsItemsContent.Items.MysticsItems_MarwanAsh2.itemIndex);
                 MysticsItemsMarwanAshHelper.level3PickupIndex = PickupCatalog.FindPickupIndex(MysticsItemsContent.Items.MysticsItems_MarwanAsh3.itemIndex);
             };
+
+            enemyExtraDamageCap = damage + damagePerLevel * 98f;
+            enemyBurnDamageCap = dotPercent / 100f + dotPercentPerLevel / 100f * (99f - (float)upgradeLevel12);
+            enemySpreadRadiusCap = radius + radiusPerLevel * (99f - (float)upgradeLevel23);
         }
 
         private void GenericGameEvents_OnHitEnemy(DamageInfo damageInfo, MysticsRisky2UtilsPlugin.GenericCharacterInfo attackerInfo, MysticsRisky2UtilsPlugin.GenericCharacterInfo victimInfo)
@@ -201,6 +209,7 @@ namespace MysticsItems.Items
                     if (itemCount > 0)
                     {
                         var _damage = damage + damagePerLevel * (attackerInfo.body.level - 1f) * itemCount;
+                        if (attackerInfo.teamIndex != TeamIndex.Player) _damage = Mathf.Min(_damage, enemyExtraDamageCap);
                         var _crit = attackerInfo.body.RollCrit();
                         if (itemLevel < 3)
                         {
@@ -219,9 +228,11 @@ namespace MysticsItems.Items
                         }
                         else
                         {
+                            var _radius = radius + radiusPerLevel * (attackerInfo.body.level - (float)upgradeLevel23) * itemCount;
+                            if (attackerInfo.teamIndex != TeamIndex.Player) _radius = Mathf.Min(_radius, enemySpreadRadiusCap);
                             var blastAttack = new BlastAttack
                             {
-                                radius = radius + radiusPerLevel * (attackerInfo.body.level - (float)upgradeLevel23) * itemCount,
+                                radius = _radius,
                                 baseDamage = _damage,
                                 procCoefficient = procCoefficient,
                                 crit = _crit,
