@@ -431,9 +431,10 @@ namespace MysticsItems.SoftDependencies
                 // Thought Processor
                 BetterUI.ItemStats.RegisterStat(
                     MysticsItemsContent.Items.MysticsItems_ThoughtProcessor,
-                    "ITEMSTATS_MYSTICSITEMS_UPTO",
-                    Items.ThoughtProcessor.attackSpeed,
-                    Items.ThoughtProcessor.attackSpeedPerStack,
+                    "ITEMSTATS_MYSTICSITEMS_COOLDOWN",
+                    Items.ThoughtProcessor.cdr / 100f,
+                    Items.ThoughtProcessor.cdrPerStack / 100f,
+                    stackingFormula: BetterUI.ItemStats.HyperbolicStacking,
                     statFormatter: BetterUI.ItemStats.StatFormatter.Percent
                 );
                 // Treasure Map

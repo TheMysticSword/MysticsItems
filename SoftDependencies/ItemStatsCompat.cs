@@ -374,8 +374,8 @@ namespace MysticsItems.SoftDependencies
                 Stats = new List<ItemStats.Stat.ItemStat>()
                 {
                     new ItemStats.Stat.ItemStat(
-                        (itemCount, ctx) => (Items.ThoughtProcessor.attackSpeed + Items.ThoughtProcessor.attackSpeedPerStack * (itemCount - 1)) * 100f,
-                        (value, ctx) => GetItemStatsFormattedString("ITEMSTATS_MYSTICSITEMS_UPTO", ItemStats.ValueFormatters.Extensions.FormatPercentage(value: value, scale: 1f, signed: true))
+                        (itemCount, ctx) => Util.ConvertAmplificationPercentageIntoReductionPercentage(Items.ThoughtProcessor.cdr + Items.ThoughtProcessor.cdrPerStack * (itemCount - 1)),
+                        (value, ctx) => GetItemStatsFormattedString("ITEMSTATS_MYSTICSITEMS_COOLDOWN", ItemStats.ValueFormatters.Extensions.FormatPercentage(value: value, scale: 1f, signed: true))
                     )
                 }
             });
