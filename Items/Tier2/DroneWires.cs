@@ -70,6 +70,7 @@ namespace MysticsItems.Items
         );
 
         public static GameObject sparkProjectilePrefab;
+        public static GameObject hitVFX;
 
         public override void OnPluginAwake()
         {
@@ -145,6 +146,21 @@ namespace MysticsItems.Items
             sparkProjectilePrefab.layer = LayerIndex.projectile.intVal;
             
             MysticsItemsContent.Resources.projectilePrefabs.Add(sparkProjectilePrefab);
+
+            {
+                hitVFX = Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Wires/SparkHitVFX.prefab");
+                var effectComponent = hitVFX.AddComponent<EffectComponent>();
+                effectComponent.soundName = "MysticsItems_Play_item_proc_droneWires";
+                effectComponent.applyScale = true;
+                var vfxAttributes = hitVFX.AddComponent<VFXAttributes>();
+                vfxAttributes.vfxIntensity = VFXAttributes.VFXIntensity.Low;
+                vfxAttributes.vfxPriority = VFXAttributes.VFXPriority.Always;
+                hitVFX.AddComponent<DestroyOnTimer>().duration = 1f;
+
+                MysticsItemsContent.Resources.effectPrefabs.Add(hitVFX);
+
+                projectileOverlapAttack.impactEffect = hitVFX;
+            }
         }
 
         private void CharacterBody_OnInventoryChanged(On.RoR2.CharacterBody.orig_OnInventoryChanged orig, CharacterBody self)
