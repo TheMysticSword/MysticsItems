@@ -121,6 +121,7 @@ namespace MysticsItems.Items
             HopooShaderToMaterial.Standard.Emission(itemDef.pickupModelPrefab.GetComponentInChildren<Renderer>().sharedMaterial, 1f);
             itemDef.pickupIconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Items/Katana/IconRed.png");
             itemDisplayPrefab = PrepareItemDisplayModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Katana/DisplayModel.prefab"));
+            itemDisplayPrefab.AddComponent<MysticsItemsJudgementCutItemDisplayHelper>();
             onSetupIDRS += () =>
             {
                 AddDisplayRule("CommandoBody", "Stomach", new Vector3(0.17571F, 0.11963F, -0.01449F), new Vector3(356.4138F, 97.41946F, 44.80042F), new Vector3(1.00693F, 1.00693F, 1.00693F));
@@ -178,6 +179,8 @@ namespace MysticsItems.Items
 
             RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
             GenericGameEvents.OnHitEnemy += GenericGameEvents_OnHitEnemy;
+
+            MysticsItemsJudgementCutItemDisplayHelper.material = Main.AssetBundle.LoadAsset<Material>("Assets/Items/Katana/matKatanaFlash.mat");
         }
 
         private void RecalculateStatsAPI_GetStatCoefficients(CharacterBody sender, RecalculateStatsAPI.StatHookEventArgs args)
@@ -220,6 +223,8 @@ namespace MysticsItems.Items
                         hitter.procChainMask.AddProc(ProcType.Behemoth);
                         hitter.ammo = slashCount + slashCountPerStack * (itemCount - 1);
                         hitterObject.GetComponent<TeamFilter>().teamIndex = TeamComponent.GetObjectTeam(hitter.attacker);
+
+                        MysticsItemsJudgementCutItemDisplayHelper.TriggerFlashForBody(attackerInfo.body);
                     }
                 }
             }
@@ -307,6 +312,84 @@ namespace MysticsItems.Items
             private float timer;
             private bool initialVFXSpawned;
             private TeamFilter teamFilter;
+        }
+
+        public class MysticsItemsJudgementCutItemDisplayHelper : MonoBehaviour
+        {
+            public CharacterBody body;
+            public Renderer renderer;
+            public float flashTimer = 0f;
+            public float flashDuration = 0.6f;
+            public static Material material;
+            public Material materialInstance;
+
+            public void Start()
+            {
+                var model = GetComponentInParent<CharacterModel>();
+                body = model ? model.body : null;
+                renderer = GetComponentInChildren<Renderer>();
+            }
+
+            public void TriggerFlash()
+            {
+                if (flashTimer <= 0f)
+                {
+                    TemporaryOverlay temporaryOverlay = gameObject.AddComponent<TemporaryOverlay>();
+                    temporaryOverlay.duration = flashDuration;
+                    flashTimer = flashDuration;
+                    temporaryOverlay.destroyObjectOnEnd = false;
+                    temporaryOverlay.destroyComponentOnEnd = true;
+                    temporaryOverlay.originalMaterial = material;
+                    temporaryOverlay.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
+                    temporaryOverlay.animateShaderAlpha = true;
+                    temporaryOverlay.SetupMaterial();
+
+                    if (renderer)
+                    {
+                        var materials = renderer.materials;
+                        HG.ArrayUtils.ArrayAppend(ref materials, temporaryOverlay.materialInstance);
+                        renderer.materials = materials;
+                        materialInstance = renderer.materials.Last();
+                    }
+                }
+            }
+
+            public void Update()
+            {
+                if (flashTimer > 0f)
+                {
+                    flashTimer -= Time.deltaTime;
+                    if (flashTimer <= 0f)
+                    {
+                        if (renderer && materialInstance)
+                        {
+                            var materials = renderer.materials;
+                            var index = System.Array.IndexOf(materials, materialInstance);
+                            if (index != -1)
+                            {
+                                HG.ArrayUtils.ArrayRemoveAtAndResize(ref materials, index);
+                            }
+                            renderer.materials = materials;
+                        }
+                    }
+                }
+            }
+
+            public void OnEnable()
+            {
+                InstanceTracker.Add(this);
+            }
+
+            public void OnDisable()
+            {
+                InstanceTracker.Remove(this);
+            }
+
+            public static void TriggerFlashForBody(CharacterBody body)
+            {
+                foreach (var itemDisplayHelper in InstanceTracker.GetInstancesList<MysticsItemsJudgementCutItemDisplayHelper>().Where(x => x.body == body))
+                    itemDisplayHelper.TriggerFlash();
+            }
         }
     }
 }
