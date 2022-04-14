@@ -43,6 +43,8 @@ namespace MysticsItems.Equipment
             modelPanelParameters.maxDistance = 15f;
 
             itemDisplayPrefab = PrepareItemDisplayModel(PrefabAPI.InstantiateClone(equipmentDef.pickupModelPrefab, equipmentDef.pickupModelPrefab.name + "Display", false));
+            var itemDisplayHelper = itemDisplayPrefab.AddComponent<MysticsItemsOmarHackToolItemDisplayHelper>();
+            itemDisplayHelper.hologramObject = itemDisplayPrefab.transform.Find("HologramPivot").gameObject;
             onSetupIDRS += () =>
             {
                 AddDisplayRule("CommandoBody", "Stomach", new Vector3(0.07132F, 0.06612F, 0.16335F), new Vector3(356.4405F, 183.4027F, 175.2333F), new Vector3(0.05273F, 0.05273F, 0.05273F));
@@ -189,6 +191,50 @@ namespace MysticsItems.Equipment
             MysticsItemsContent.Resources.effectPrefabs.Add(hackOverlayPrefab);
         }
 
+        public class MysticsItemsOmarHackToolItemDisplayHelper : MonoBehaviour
+        {
+            public EquipmentSlot equipmentSlot;
+            public GameObject hologramObject;
+
+            public void Start()
+            {
+                var model = GetComponentInParent<CharacterModel>();
+                if (model && model.body)
+                {
+                    equipmentSlot = model.body.equipmentSlot;
+                }
+                UpdateItemDisplay();
+            }
+
+            public void UpdateItemDisplay()
+            {
+                if (equipmentSlot && hologramObject)
+                {
+                    var component = equipmentSlot.GetComponent<MysticsItemsOmarHackToolBehaviour>();
+                    if (component)
+                    {
+                        hologramObject.SetActive(component.usesLeft > 0);
+                    }
+                }
+            }
+
+            public void OnEnable()
+            {
+                InstanceTracker.Add(this);
+            }
+
+            public void OnDisable()
+            {
+                InstanceTracker.Remove(this);
+            }
+
+            public static void UpdateAllItemDisplays()
+            {
+                foreach (var itemDisplayHelper in InstanceTracker.GetInstancesList<MysticsItemsOmarHackToolItemDisplayHelper>())
+                    itemDisplayHelper.UpdateItemDisplay();
+            }
+        }
+
         private void ChestBehavior_ItemDrop(On.RoR2.ChestBehavior.orig_ItemDrop orig, ChestBehavior self)
         {
             if (NetworkServer.active && self.dropPickup != PickupIndex.none)
@@ -205,12 +251,14 @@ namespace MysticsItems.Equipment
         private void HUD_onHudTargetChangedGlobal(HUD hud)
         {
             MysticsItemsOmarHackToolHUD.RefreshAll();
+            MysticsItemsOmarHackToolItemDisplayHelper.UpdateAllItemDisplays();
         }
 
         private void CharacterBody_OnInventoryChanged(On.RoR2.CharacterBody.orig_OnInventoryChanged orig, CharacterBody self)
         {
             orig(self);
             MysticsItemsOmarHackToolHUD.RefreshAll();
+            MysticsItemsOmarHackToolItemDisplayHelper.UpdateAllItemDisplays();
         }
 
         private void EquipmentSlot_UpdateInventory(On.RoR2.EquipmentSlot.orig_UpdateInventory orig, EquipmentSlot self)
@@ -224,6 +272,7 @@ namespace MysticsItems.Equipment
                 {
                     component.maxUses = maxStock;
                     MysticsItemsOmarHackToolHUD.RefreshAll();
+                    MysticsItemsOmarHackToolItemDisplayHelper.UpdateAllItemDisplays();
                 }
             }
         }
@@ -280,6 +329,7 @@ namespace MysticsItems.Equipment
                     {
                         _usesLeft = value;
                         MysticsItemsOmarHackToolHUD.RefreshAll();
+                        MysticsItemsOmarHackToolItemDisplayHelper.UpdateAllItemDisplays();
                         if (NetworkServer.active)
                             new SyncUsesLeft(gameObject.GetComponent<NetworkIdentity>().netId, value).Send(NetworkDestination.Clients);
                     }
