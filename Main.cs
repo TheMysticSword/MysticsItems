@@ -24,6 +24,7 @@ namespace MysticsItems
     [BepInDependency("aaaa.bubbet.whatamilookingat", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInPlugin(PluginGUID, PluginName, PluginVersion)]
     [R2APISubmoduleDependency(nameof(DamageAPI), nameof(DotAPI), nameof(NetworkingAPI), nameof(PrefabAPI), nameof(SoundAPI))]
+    [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
     public class MysticsItemsPlugin : BaseUnityPlugin
     {
         public const string PluginGUID = "com.themysticsword.mysticsitems";
