@@ -70,6 +70,8 @@ namespace MysticsItems.Items
                 AddDisplayRule("BrotherBody", "Head", BrotherInfection.red, new Vector3(0.011F, 0.129F, 0.071F), new Vector3(28.594F, 22.166F, 285.147F), new Vector3(0.125F, 0.125F, 0.125F));
                 AddDisplayRule("ScavBody", "MuzzleEnergyCannon", new Vector3(0F, 0.001F, -22.578F), new Vector3(0F, 270F, 90F), new Vector3(1.733F, 1.733F, 1.733F));
                 if (SoftDependencies.SoftDependenciesCore.itemDisplaysSniper) AddDisplayRule("SniperClassicBody", "Head", new Vector3(-0.00267F, 0.1063F, -0.295F), new Vector3(1.93567F, 269.8339F, 255.3638F), new Vector3(0.18268F, 0.12134F, 0.18268F));
+                AddDisplayRule("RailgunnerBody", "Head", new Vector3(0F, 0.28127F, 0.00146F), new Vector3(0F, 270F, 172.1766F), new Vector3(0.18744F, 0.15509F, 0.16573F));
+                AddDisplayRule("VoidSurvivorBody", "Neck", new Vector3(0.00001F, 0.01907F, -0.00523F), new Vector3(0F, 270F, 0F), new Vector3(0.22184F, 0.15033F, 0.2149F));
             };
 
             On.RoR2.CharacterBody.OnSkillActivated += CharacterBody_OnSkillActivated;

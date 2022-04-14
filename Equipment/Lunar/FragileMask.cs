@@ -76,6 +76,8 @@ namespace MysticsItems.Equipment
                 AddDisplayRule("ScavBody", "Chest", new Vector3(-1.90286F, 4.41959F, -7.60945F), new Vector3(319.543F, 180F, 18.09413F), new Vector3(2.08147F, 2.08147F, 2.08147F));
                 AddDisplayRule("EquipmentDroneBody", "HeadCenter", new Vector3(-0.06693F, -1.12064F, -0.77318F), new Vector3(90F, 0F, 0F), new Vector3(0.5795F, 0.5795F, 0.5795F));
                 if (SoftDependencies.SoftDependenciesCore.itemDisplaysSniper) AddDisplayRule("SniperClassicBody", "Head", new Vector3(-0.01493F, 0.22875F, -0.04979F), new Vector3(270F, 0F, 0F), new Vector3(0.12327F, 0.11932F, 0.11932F));
+                AddDisplayRule("RailgunnerBody", "Head", new Vector3(0F, -0.00018F, 0.13138F), new Vector3(8.64072F, 0F, 0F), new Vector3(0.11091F, 0.11091F, 0.11091F));
+                AddDisplayRule("VoidSurvivorBody", "Head", new Vector3(0.00002F, 0.0516F, 0.20447F), new Vector3(337.5584F, 0F, 0F), new Vector3(0.17494F, 0.13959F, 0.13131F));
             };
 
             On.RoR2.CharacterBody.OnInventoryChanged += CharacterBody_OnInventoryChanged;

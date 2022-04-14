@@ -103,6 +103,8 @@ namespace MysticsItems.Items
                 AddDisplayRule("BrotherBody", "CalfL", BrotherInfection.green, new Vector3(0.00384F, 0.00536F, -0.03235F), new Vector3(14.82572F, 260.7474F, 350.3363F), new Vector3(0.04861F, 0.10534F, 0.10724F));
                 AddDisplayRule("ScavBody", "CalfL", new Vector3(0.33272F, -0.17368F, -1.09799F), new Vector3(277.8127F, 180F, 165.8016F), new Vector3(1.08614F, 1.08614F, 1.08614F));
                 if (SoftDependencies.SoftDependenciesCore.itemDisplaysSniper) AddDisplayRule("SniperClassicBody", "CalfL", new Vector3(-0.04687F, 0.03461F, 0.08856F), new Vector3(80.03226F, 0F, 32.95736F), new Vector3(0.07694F, 0.07694F, 0.07694F));
+                AddDisplayRule("RailgunnerBody", "CalfL", new Vector3(0.07292F, 0.00507F, 0.09758F), new Vector3(65.51882F, 247.9167F, 209.6704F), new Vector3(0.10736F, 0.10736F, 0.10736F));
+                AddDisplayRule("VoidSurvivorBody", "ThighL", new Vector3(0.08283F, 0.31418F, 0.06681F), new Vector3(11.83692F, 314.669F, 281.4625F), new Vector3(0.09226F, 0.09226F, 0.09226F));
             };
 
             GameObject debuffedVFX = Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Death Ceremony/MarkedVFX.prefab");

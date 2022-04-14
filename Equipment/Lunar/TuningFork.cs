@@ -64,6 +64,8 @@ namespace MysticsItems.Equipment
                 AddDisplayRule("ScavBody", "MuzzleEnergyCannon", new Vector3(-3.396F, 3.443F, -0.001F), new Vector3(36.034F, 90F, 90F), new Vector3(1.363F, 1.363F, 1.363F));
                 AddDisplayRule("EquipmentDroneBody", "GunBarrelBase", new Vector3(0F, 0F, 1.069F), new Vector3(52.789F, 0F, 0F), new Vector3(0.267F, 0.267F, 0.267F));
                 if (SoftDependencies.SoftDependenciesCore.itemDisplaysSniper) AddDisplayRule("SniperClassicBody", "Muzzle", new Vector3(-1.3198F, 0.0289F, -0.04268F), new Vector3(0F, 180F, 91.41144F), new Vector3(0.20742F, 0.20742F, 0.20742F));
+                AddDisplayRule("RailgunnerBody", "GunBarrel", new Vector3(0F, 0.44626F, -0.00003F), new Vector3(0F, 0F, 0F), new Vector3(0.09836F, 0.09836F, 0.09836F));
+                AddDisplayRule("VoidSurvivorBody", "Chest", new Vector3(-0.23241F, 0.28735F, -0.12019F), new Vector3(340.9082F, 290.4134F, 53.57893F), new Vector3(0.06483F, 0.06483F, 0.06483F));
             };
             visualEffect = PrefabAPI.InstantiateClone(new GameObject(), "MysticsItems_TuningForkEffect", false);
             float time = 1.2f;

@@ -94,6 +94,8 @@ namespace MysticsItems.Items
                 AddDisplayRule("BrotherBody", "ThighL", BrotherInfection.green, new Vector3(0.07086F, 0.01162F, -0.06094F), new Vector3(77.0517F, 128.9086F, 259.4779F), new Vector3(0.04861F, 0.10534F, 0.10724F));
                 AddDisplayRule("ScavBody", "MuzzleEnergyCannon", new Vector3(0F, -6.83055F, -0.00024F), new Vector3(0F, 269.055F, 0F), new Vector3(1.98217F, 1.98217F, 1.98217F));
                 if (SoftDependencies.SoftDependenciesCore.itemDisplaysSniper) AddDisplayRule("SniperClassicBody", "Pelvis", new Vector3(0.14543F, 0.1369F, 0.16315F), new Vector3(351.5441F, 290.9794F, 354.1722F), new Vector3(0.05981F, 0.05981F, 0.05981F));
+                AddDisplayRule("RailgunnerBody", "Backpack", new Vector3(-0.17351F, 0.52546F, -0.02372F), new Vector3(0F, 270F, 180F), new Vector3(0.07191F, 0.07191F, 0.07191F));
+                AddDisplayRule("VoidSurvivorBody", "UpperArmL", new Vector3(0.23027F, 0.00771F, 0.00606F), new Vector3(318.8092F, 10.17685F, 74.75285F), new Vector3(0.09032F, 0.09032F, 0.09032F));
             };
             
             GlobalEventManager.onCharacterDeathGlobal += GlobalEventManager_onCharacterDeathGlobal;

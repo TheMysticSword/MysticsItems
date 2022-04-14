@@ -74,6 +74,8 @@ namespace MysticsItems.Items
                 AddDisplayRule("BrotherBody", "HandL", BrotherInfection.green, new Vector3(0.019F, -0.013F, 0.017F), new Vector3(348.105F, 324.594F, 242.165F), new Vector3(0.061F, 0.019F, 0.061F));
                 AddDisplayRule("ScavBody", "HandL", new Vector3(-3.491F, 2.547F, -2.4F), new Vector3(354.216F, 329.486F, 87.688F), new Vector3(7.501F, 7.7F, 7.501F));
                 if (SoftDependencies.SoftDependenciesCore.itemDisplaysSniper) AddDisplayRule("SniperClassicBody", "LowerArmR", new Vector3(-0.00116F, 0.35526F, -0.02252F), new Vector3(12.00797F, 359.9336F, 355.1882F), new Vector3(0.2754F, 0.2754F, 0.2754F));
+                AddDisplayRule("RailgunnerBody", "Pelvis", new Vector3(0.1939F, 0.23069F, 0.00249F), new Vector3(5.45999F, 119.7464F, 17.75949F), new Vector3(0.33522F, 0.33522F, 0.33522F));
+                AddDisplayRule("VoidSurvivorBody", "Head", new Vector3(-0.06693F, -1.12064F, -0.77318F), new Vector3(90F, 0F, 0F), new Vector3(0.5795F, 0.5795F, 0.5795F));
             };
             itemDef.pickupModelPrefab.transform.Find("mdlAllyDeathRevenge").Rotate(new Vector3(0f, 0f, 160f), Space.Self);
             itemDef.pickupModelPrefab.transform.Find("mdlAllyDeathRevenge").localScale *= 0.8f;

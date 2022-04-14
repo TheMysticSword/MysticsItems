@@ -74,6 +74,8 @@ namespace MysticsItems.Items
                 AddDisplayRule("BrotherBody", "UpperArmL", BrotherInfection.white, new Vector3(-0.018F, 0.215F, -0.064F), new Vector3(0F, 0F, 131.256F), new Vector3(0.115F, 0.063F, 0.063F));
                 AddDisplayRule("ScavBody", "MuzzleEnergyCannon", new Vector3(-3.88535F, -0.90743F, -18.53646F), new Vector3(16.92252F, 288.3049F, 72.11835F), new Vector3(2.62999F, 2.70243F, 2.62999F));
                 if (SoftDependencies.SoftDependenciesCore.itemDisplaysSniper) AddDisplayRule("SniperClassicBody", "Chest", new Vector3(0.00102F, -0.02749F, -0.23014F), new Vector3(7.74695F, 179.5125F, 359.482F), new Vector3(0.09241F, 0.09241F, 0.09241F));
+                AddDisplayRule("RailgunnerBody", "BottomRail", new Vector3(0.00312F, 0.36536F, -0.04365F), new Vector3(357.5628F, 151.3911F, 256.462F), new Vector3(0.15615F, 0.15615F, 0.15615F));
+                AddDisplayRule("VoidSurvivorBody", "Neck", new Vector3(0.10783F, 0.10931F, -0.151F), new Vector3(65.45281F, 129.4731F, 339.067F), new Vector3(0.1282F, 0.1282F, 0.1282F));
             };
 
             On.RoR2.Util.CheckRoll_float_CharacterMaster += Util_CheckRoll_float_CharacterMaster;

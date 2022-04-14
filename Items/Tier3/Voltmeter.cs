@@ -98,6 +98,8 @@ namespace MysticsItems.Items
                 AddDisplayRule("CaptainBody", "HandL", new Vector3(0.009F, 0.167F, 0.045F), new Vector3(270F, 270F, 0F), new Vector3(0.035F, 0.035F, 0.035F));
                 AddDisplayRule("BrotherBody", "UpperArmL", BrotherInfection.red, new Vector3(0.124F, 0.177F, -0.056F), new Vector3(80.946F, 113.634F, 258.867F), new Vector3(0.061F, 0.063F, 0.063F));
                 if (SoftDependencies.SoftDependenciesCore.itemDisplaysSniper) AddDisplayRule("SniperClassicBody", "Chest", new Vector3(0.00102F, 0.07635F, -0.2573F), new Vector3(0F, 90F, 342.5916F), new Vector3(0.04182F, 0.04182F, 0.04182F));
+                AddDisplayRule("RailgunnerBody", "Backpack", new Vector3(0F, 0.4146F, 0.05697F), new Vector3(0F, 90F, 0F), new Vector3(0.02963F, 0.02963F, 0.02963F));
+                AddDisplayRule("VoidSurvivorBody", "Chest", new Vector3(0.09556F, 0.08424F, 0.189F), new Vector3(18.8347F, 291.3285F, 8.91174F), new Vector3(0.0247F, 0.0247F, 0.0247F));
             };
 
             On.RoR2.CharacterBody.Awake += (orig, self) =>

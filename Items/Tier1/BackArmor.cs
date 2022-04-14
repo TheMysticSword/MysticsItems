@@ -100,6 +100,11 @@ namespace MysticsItems.Items
                     AddDisplayRule("SniperClassicBody", "Chest", new Vector3(0.00195F, 0.13704F, -0.27314F), new Vector3(334.2708F, 359.8518F, 0.21636F), new Vector3(0.06109F, 0.06109F, 0.06109F));
                     AddDisplayRule("SniperClassicBody", "Chest", new Vector3(-0.00074F, 0.02772F, -0.25266F), new Vector3(351.8274F, 0.31362F, 359.074F), new Vector3(0.04578F, 0.04578F, 0.04578F));
                 }
+                AddDisplayRule("RailgunnerBody", "Chest", new Vector3(0.14927F, -0.02711F, -0.03746F), new Vector3(350.0041F, 286.6287F, 24.46263F), new Vector3(0.04727F, 0.04727F, 0.04727F));
+                AddDisplayRule("RailgunnerBody", "Chest", new Vector3(0.06252F, -0.16893F, 0.00153F), new Vector3(337.6357F, 295.3051F, 9.23716F), new Vector3(0.07072F, 0.07072F, 0.07072F));
+                AddDisplayRule("VoidSurvivorBody", "Chest", new Vector3(0.00001F, 0.13311F, -0.21931F), new Vector3(8.98278F, 0F, 0F), new Vector3(0.0644F, 0.0644F, 0.0644F));
+                AddDisplayRule("VoidSurvivorBody", "Chest", new Vector3(0F, -0.00936F, -0.1937F), new Vector3(343.3924F, 0F, 0F), new Vector3(0.06248F, 0.06248F, 0.06248F));
+                AddDisplayRule("VoidSurvivorBody", "Chest", new Vector3(0.00002F, -0.13933F, -0.12991F), new Vector3(331.1053F, 0F, 0F), new Vector3(0.05542F, 0.05542F, 0.05542F));
             };
             
             visualEffect = PrefabAPI.InstantiateClone(new GameObject(), "MysticsItems_BackArmorVFX", false);

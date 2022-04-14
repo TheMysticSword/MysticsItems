@@ -139,6 +139,8 @@ namespace MysticsItems.Items
                 AddDisplayRule("BrotherBody", "Pelvis", BrotherInfection.green, new Vector3(0.13375F, -0.08002F, 0.04397F), new Vector3(71.65609F, 9.03364F, 115.2129F), new Vector3(0.29492F, 0.05455F, 0.10724F));
                 AddDisplayRule("ScavBody", "Pelvis", new Vector3(-7.56403F, 5.21971F, 0.75358F), new Vector3(3.20935F, 93.25385F, 270.1964F), new Vector3(16.2268F, 16.2268F, 16.2268F));
                 if (SoftDependencies.SoftDependenciesCore.itemDisplaysSniper) AddDisplayRule("SniperClassicBody", "Pelvis", new Vector3(-0.19592F, 0.19768F, -0.01174F), new Vector3(7.61227F, 93.92657F, 55.36945F), new Vector3(1F, 1F, 1F));
+                AddDisplayRule("RailgunnerBody", "Pelvis", new Vector3(0.21832F, 0.16382F, 0.00079F), new Vector3(13.90256F, 81.48372F, 254.3583F), new Vector3(0.9885F, 0.9885F, 0.9885F));
+                AddDisplayRule("VoidSurvivorBody", "Stomach", new Vector3(0.1899F, 0.09197F, 0.03544F), new Vector3(355.8571F, 95.73234F, 37.79008F), new Vector3(0.9983F, 0.9983F, 0.9983F));
             };
 
             {

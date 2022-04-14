@@ -61,6 +61,8 @@ namespace MysticsItems.Items
                 AddDisplayRule("BrotherBody", "HandR", BrotherInfection.red, new Vector3(-0.01763F, 0.08509F, 0.0165F), new Vector3(28.59401F, 22.166F, 205.7942F), new Vector3(0.06467F, 0.06467F, 0.06467F));
                 AddDisplayRule("ScavBody", "HandL", new Vector3(-2.04041F, 3.10486F, -2.06395F), new Vector3(349.0269F, 326.6412F, 73.87372F), new Vector3(1.733F, 1.733F, 1.733F));
                 if (SoftDependencies.SoftDependenciesCore.itemDisplaysSniper) AddDisplayRule("SniperClassicBody", "Muzzle", new Vector3(-2.02132F, 0.0648F, 0.16052F), new Vector3(10.03741F, 180F, 90F), new Vector3(0.30723F, 0.30723F, 0.30723F));
+                AddDisplayRule("RailgunnerBody", "TopRail", new Vector3(0.00006F, 0.68001F, 0.05789F), new Vector3(0F, 0F, 0F), new Vector3(0.06583F, 0.06583F, 0.06583F));
+                AddDisplayRule("VoidSurvivorBody", "ForeArmL", new Vector3(0.05651F, 0.30521F, 0.01208F), new Vector3(354.2681F, 80.14155F, 0F), new Vector3(0.08341F, 0.08341F, 0.08341F));
             };
 
             procVFX = Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Ten Commandments of Vyrael/ProcVFX.prefab");
