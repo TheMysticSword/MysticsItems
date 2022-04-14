@@ -137,6 +137,7 @@ namespace MysticsItems.Equipment
                 "HitboxGroup",
                 false
             ).transform.SetParent(mechanicalArmControllerPrefab.transform);
+            Object.Destroy(itemDisplayPrefab.transform.Find("HitboxGroup").gameObject);
             HitBoxGroup hitBoxGroup = mechanicalArmControllerPrefab.transform.Find("HitboxGroup").gameObject.AddComponent<HitBoxGroup>();
             hitBoxGroup.groupName = "MysticsItems_MechanicalArmSwing";
             hitBoxGroup.hitBoxes = new HitBox[]
