@@ -14,6 +14,7 @@ using System.Linq;
 using System.Collections.Generic;
 using MysticsRisky2Utils.BaseAssetTypes;
 using static MysticsItems.BalanceConfigManager;
+using RoR2.Navigation;
 
 namespace MysticsItems.Equipment
 {
@@ -42,6 +43,27 @@ namespace MysticsItems.Equipment
             { "limbo", new List<string>() { "moon2" } },
             { "arena", new List<string>() { "voidstage" } },
             { "voidstage", new List<string>() { "voidraid" } }
+        };
+
+        public static List<string> cannotSkipStages = new List<string>()
+        {
+            "moon2", "voidraid", "bazaar"
+        };
+
+        public static Dictionary<string, List<Vector3>> specialStageTeleportation = new Dictionary<string, List<Vector3>>()
+        {
+            { "moon2", new List<Vector3>()
+                {
+                    new Vector3(-179.5247f, 497.6573f, -223.9494f),
+                    new Vector3(7.340976f, 497.6573f, -225.1836f),
+                    new Vector3(138.1888f, 497.6573f, -93.66596f),
+                    new Vector3(137.9696f, 497.6573f, 95.98901f),
+                    new Vector3(1.488069f, 497.6573f, 227.6736f),
+                    new Vector3(-181.7953f, 497.6573f, 224.1614f),
+                    new Vector3(-312.913f, 497.6573f, 93.92822f),
+                    new Vector3(-312.8959f, 497.6573f, -97.17789f)
+                }
+            }
         };
         
         public override void OnPluginAwake()
@@ -352,7 +374,7 @@ namespace MysticsItems.Equipment
 
         public override bool OnUse(EquipmentSlot equipmentSlot)
         {
-            if (!SceneExitController.isRunning && (!SceneCatalog.mostRecentSceneDef || !SceneCatalog.mostRecentSceneDef.isFinalStage))
+            if (!SceneExitController.isRunning && (!SceneCatalog.mostRecentSceneDef || (!SceneCatalog.mostRecentSceneDef.isFinalStage && !cannotSkipStages.Contains(SceneCatalog.mostRecentSceneDef.baseSceneName))))
             {
                 CharacterBody characterBody = equipmentSlot.characterBody;
                 if (characterBody.healthComponent && !characterBody.healthComponent.alive) return false;
@@ -390,8 +412,39 @@ namespace MysticsItems.Equipment
                         }
                     }
                 }
+                return true;
             }
-            return true;
+            if (SceneCatalog.mostRecentSceneDef) {
+                var specialTeleportation = specialStageTeleportation.FirstOrDefault(x => x.Key == SceneCatalog.mostRecentSceneDef.baseSceneName);
+                if (specialStageTeleportation != null)
+                {
+                    var body = equipmentSlot.characterBody;
+                    if (body)
+                    {
+                        var randomPoints = new List<Vector3>();
+                        foreach (var ally in TeamComponent.GetTeamMembers(TeamComponent.GetObjectTeam(body.gameObject)))
+                        {
+                            if (ally.body && ally.body.isPlayerControlled)
+                            {
+                                if (randomPoints.Count <= 0) randomPoints.AddRange(specialTeleportation.Value);
+                                
+                                var randomPoint = RoR2Application.rng.NextElementUniform(randomPoints);
+
+                                TeleportHelper.TeleportBody(ally.body, randomPoint);
+                                GameObject teleportEffectPrefab = Run.instance.GetTeleportEffectPrefab(ally.body.gameObject);
+                                if (teleportEffectPrefab)
+                                {
+                                    EffectManager.SimpleEffect(teleportEffectPrefab, randomPoint, Quaternion.identity, true);
+                                }
+
+                                randomPoints.Remove(randomPoint);
+                            }
+                        }
+                    }
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }
