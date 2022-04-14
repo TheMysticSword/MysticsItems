@@ -79,6 +79,8 @@ Contains assets from [FreePBR.com](https://freepbr.com/)
 Contains assets from [ambientCG.com](https://ambientcg.com/), licensed under CC0 1.0 Universal.
 
 # Changelog
+#### 2.0.11:
+* Fixed Treasure Map beeping even when nobody has the item
 #### 2.0.10:
 * Marwan's Ash:
 	* Now has caps for extra damage, burn damage and spread radius for non-ally characters

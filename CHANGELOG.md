@@ -1,3 +1,5 @@
+#### 2.0.11:
+* Fixed Treasure Map beeping even when nobody has the item
 #### 2.0.10:
 * Marwan's Ash:
 	* Now has caps for extra damage, burn damage and spread radius for non-ally characters

@@ -228,7 +228,7 @@ namespace MysticsItems.Items
 
         private void TeleporterInteraction_onTeleporterChargedGlobal(TeleporterInteraction teleporterInteraction)
         {
-            if (MysticsItemsTreasureMapZone.instance && NetworkServer.active)
+            if (MysticsItemsTreasureMapZone.instance && MysticsItemsTreasureMapZone.instance.ShouldBeActive && NetworkServer.active)
             {
                 Chat.SendBroadcastChat(new Chat.SimpleChatMessage
                 {

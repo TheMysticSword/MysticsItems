@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <None Remove="assets" />
+    <None Remove="Items\Tier3\TreasureMap.cs~RFab78ba8f.TMP" />
     <None Remove="MysticsItems.language~RF1498457a.TMP" />
     <None Remove="mysticsitemsunityassetbundle" />
     <None Remove="MysticsItemsWwiseSoundbank.bnk" />
