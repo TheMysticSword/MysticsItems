@@ -8,6 +8,11 @@ namespace MysticsItems
         // Gameplay
         //public static ConfigEntry<bool> backpackEnableSkillFixes;
 
+        // Effects
+        public static ConfigEntry<bool> gunpowderReduceVFX;
+        public static ConfigEntry<float> gunpowderScreenshakeScale;
+        public static ConfigEntry<bool> gunpowderDisableSound;
+
         // Mod Compatibility
         public static ConfigEntry<bool> betterUICompatEnableOverrides;
         public static ConfigEntry<bool> betterUICompatEnableItemStats;
@@ -31,6 +36,10 @@ namespace MysticsItems
                 "Make certain skills require pressing a key instead of holding it down while carrying the Hikers Backpack item to fix these skills consuming all charges at once."
             );
             */
+
+            gunpowderReduceVFX = MysticsItemsPlugin.configGeneral.Bind("Effects", "GunpowderReduceVFX", false, "Reduce the visual effects of Contraband Gunpowder explosions");
+            gunpowderScreenshakeScale = MysticsItemsPlugin.configGeneral.Bind("Effects", "GunpowderScreenshakeScale", 1f, "Adjust the intensity of Contraband Gunpowder explosion screenshake");
+            gunpowderDisableSound = MysticsItemsPlugin.configGeneral.Bind("Effects", "GunpowderDisableSound", false, "Disable the sound effects of Contraband Gunpowder explosions");
 
             betterUICompatEnableOverrides = MysticsItemsPlugin.configGeneral.Bind("Mod Compatibility", "BetterUICompatEnableOverrides", true, "Allow this mod to override certain BetterUI calculations (for example, adding Scratch Ticket chance bonus to the Crit Chance stat display).");
             betterUICompatEnableItemStats = MysticsItemsPlugin.configGeneral.Bind("Mod Compatibility", "BetterUICompatEnableItemStats", true, "Enable BetterUI's ItemStats integration.");

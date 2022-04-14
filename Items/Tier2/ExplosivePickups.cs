@@ -195,12 +195,18 @@ namespace MysticsItems.Items
             */
 
             explosionPrefab = PrefabAPI.InstantiateClone(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Contraband Gunpowder/Explosion.prefab"), "MysticsItems_OmniExplosionVFXExplosivePickups", false);
+            if (GeneralConfigManager.gunpowderReduceVFX.Value)
+            {
+                Object.Destroy(explosionPrefab.transform.Find("Light Flash").gameObject);
+                Object.Destroy(explosionPrefab.transform.Find("Sparks").gameObject);
+                Object.Destroy(explosionPrefab.transform.Find("Swirls").gameObject);
+            }
             VFXAttributes vfxAttributes = explosionPrefab.AddComponent<VFXAttributes>();
             vfxAttributes.vfxIntensity = VFXAttributes.VFXIntensity.High;
             vfxAttributes.vfxPriority = VFXAttributes.VFXPriority.Always;
             EffectComponent effectComponent = explosionPrefab.AddComponent<EffectComponent>();
             effectComponent.applyScale = true;
-            effectComponent.soundName = "MysticsItems_Play_item_proc_gunpowder";
+            effectComponent.soundName = GeneralConfigManager.gunpowderDisableSound.Value ? "" : "MysticsItems_Play_item_proc_gunpowder";
             explosionPrefab.AddComponent<DestroyOnTimer>().duration = 2f;
             ShakeEmitter shakeEmitter = explosionPrefab.AddComponent<ShakeEmitter>();
             shakeEmitter.duration = 0.1f;
@@ -210,8 +216,8 @@ namespace MysticsItems.Items
             shakeEmitter.shakeOnStart = true;
             shakeEmitter.wave = new Wave
             {
-                amplitude = 5f,
-                frequency = 2f
+                amplitude = 9f * GeneralConfigManager.gunpowderScreenshakeScale.Value,
+                frequency = 4f * GeneralConfigManager.gunpowderScreenshakeScale.Value
             };
             MysticsItemsContent.Resources.effectPrefabs.Add(explosionPrefab);
 
