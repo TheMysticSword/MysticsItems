@@ -321,7 +321,7 @@ namespace MysticsItems.Items
 
             public void Update()
             {
-                if (!body || !body.GetFieldValue<Transform>("transform"))
+                if (!body || !body.transform)
                 {
                     return;
                 }
