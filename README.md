@@ -2,7 +2,7 @@
 Adds 40 new items!  
 
 ![GIF preview of some of the item models](https://i.imgur.com/8OOURv4.gif)  
-![Table with the info about all the items in the mod](https://i.imgur.com/syz6fnY.png)  
+![Table with the info about all the items in the mod](https://i.imgur.com/P2yqkmq.png)  
 
 ### Important notes
 #### Manual installation
