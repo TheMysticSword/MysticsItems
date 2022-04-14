@@ -42,7 +42,7 @@ Please note a few things before making a donation:
 # Credits
 #### Main team
 TheMysticSword ([donations](https://themysticsword.itch.io/ror2-mystics-items)) - Coding, Russian translation  
-Marwan60 ([donations](https://ko-fi.com/marwan6097266)) - Modelling  
+Marwan60 - Modelling  
 Omar Faruk - Turkish translation (for version 1.1.13)  
 Vyrael ([donations](https://ko-fi.com/vyrael_)) - French translation  
 RCaled - Spanish translation  
