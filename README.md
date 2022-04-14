@@ -6,7 +6,7 @@ Adds 40 new items!
 
 ### Important notes
 #### Manual installation
-Put **all** files from the downloaded archive in the plugins folder.  
+Put `MysticsItemsPlugin.dll` and `MysticsItems.language` from the downloaded archive in the plugins folder.  
 #### Multiplayer
 Make sure that your config matches with the configs of other players in the lobby.  
 
