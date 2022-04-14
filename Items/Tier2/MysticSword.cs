@@ -6,8 +6,11 @@ using R2API.Networking.Interfaces;
 using RoR2;
 using RoR2.Orbs;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.Networking;
+using UnityEngine.Rendering;
 using static MysticsItems.BalanceConfigManager;
 
 namespace MysticsItems.Items
@@ -121,7 +124,7 @@ namespace MysticsItems.Items
             objectTransformCurve.rotationCurveY.postWrapMode = WrapMode.Loop;
             objectTransformCurve.rotationCurveZ = AnimationCurve.Constant(0f, 1f, 0f);
             objectTransformCurve.useRotationCurves = true;
-            objectTransformCurve.gameObject.AddComponent<MysticSwordAnimationReset>();
+            objectTransformCurve.gameObject.AddComponent<MysticsRisky2Utils.MonoBehaviours.MysticsRisky2UtilsObjectTransformCurveLoop>();
 
             itemDisplayPrefab = PrefabAPI.InstantiateClone(new GameObject("MysticsItems_MysticSwordFollower"), "MysticsItems_MysticSwordFollower", false);
             itemDisplayPrefab.AddComponent<ItemDisplay>();
@@ -130,6 +133,8 @@ namespace MysticsItems.Items
             itemFollower.distanceDampTime = 0.1f;
             itemFollower.distanceMaxSpeed = 20f;
             itemFollower.targetObject = itemDisplayPrefab;
+            var itemDisplayHelper = itemDisplayPrefab.AddComponent<MysticsItemsMysticSwordItemDisplayHelper>();
+            itemDisplayHelper.itemFollower = itemFollower;
 
             onSetupIDRS += () =>
             {
@@ -208,24 +213,9 @@ namespace MysticsItems.Items
             if (!SoftDependencies.SoftDependenciesCore.itemStatsCompatEnabled && !SoftDependencies.SoftDependenciesCore.betterUIItemStatsEnabled) On.RoR2.UI.ItemIcon.SetItemIndex += ItemIcon_SetItemIndex;
 
             GenericGameEvents.BeforeTakeDamage += GenericGameEvents_BeforeTakeDamage;
-        }
 
-        private class MysticSwordAnimationReset : MonoBehaviour
-        {
-            public ObjectTransformCurve objectTransformCurve;
-
-            public void Awake()
-            {
-                objectTransformCurve = GetComponent<ObjectTransformCurve>();
-            }
-
-            public void LateUpdate()
-            {
-                if (objectTransformCurve.time >= objectTransformCurve.timeMax)
-                {
-                    objectTransformCurve.time -= objectTransformCurve.timeMax;
-                }
-            }
+            MysticsItemsMysticSwordItemDisplayHelper.materialFlash = LegacyResourcesAPI.Load<Material>("Materials/matHuntressFlashBright");
+            MysticsItemsMysticSwordItemDisplayHelper.blinkEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Huntress/HuntressBlinkEffect.prefab").WaitForCompletion();
         }
 
         private void CharacterMaster_onStartGlobal(CharacterMaster obj)
@@ -326,6 +316,8 @@ namespace MysticsItems.Items
                                     {
                                         component.damageBonus += Mathf.Clamp(damage / 100f + damagePerStack / 100f * (float)(itemCount - 1), 0f, damageBonusCap - component.damageBonus);
                                         onKillOrbTargets.Add(teamMemberBody.gameObject);
+
+                                        MysticsItemsMysticSwordItemDisplayHelper.TriggerBlinkForBody(teamMemberBody);
                                         //RoR2.Audio.EntitySoundManager.EmitSoundServer(onKillSFX.index, teamMember.body.gameObject);
                                     }
                                 }
@@ -409,6 +401,116 @@ namespace MysticsItems.Items
                     writer.Write(objID);
                     writer.Write(damageBonus);
                 }
+            }
+        }
+
+        public class MysticsItemsMysticSwordItemDisplayHelper : MonoBehaviour
+        {
+            public CharacterBody body;
+            public ItemFollower itemFollower;
+            public Renderer renderer;
+            public float blinkTimer = 0f;
+            public float blinkDuration = 1f;
+            public float flashTimer = 0f;
+            public float flashDuration = 0.3f;
+            public static Material materialFlash;
+            public static GameObject blinkEffect;
+            public Material materialInstance;
+
+            public void Start()
+            {
+                var model = GetComponentInParent<CharacterModel>();
+                body = model ? model.body : null;
+            }
+
+            public void TriggerBlink()
+            {
+                if (blinkTimer <= 0f && flashTimer <= 0f)
+                {
+                    blinkTimer = blinkDuration;
+                    if (renderer)
+                    {
+                        renderer.shadowCastingMode = ShadowCastingMode.Off;
+                        renderer.enabled = false;
+                    }
+                }
+            }
+
+            public void Update()
+            {
+                if (!renderer)
+                {
+                    if (itemFollower && itemFollower.followerInstance)
+                    {
+                        renderer = itemFollower.followerInstance.GetComponentInChildren<Renderer>();
+                    }
+                }
+
+                if (blinkTimer > 0f)
+                {
+                    blinkTimer -= Time.deltaTime;
+                    if (blinkTimer <= 0f)
+                    {
+                        if (renderer)
+                        {
+                            renderer.shadowCastingMode = ShadowCastingMode.On;
+                            renderer.enabled = true;
+
+                            EffectManager.SpawnEffect(blinkEffect, new EffectData
+                            {
+                                origin = renderer.transform.position
+                            }, false);
+
+                            TemporaryOverlay temporaryOverlay = renderer.gameObject.AddComponent<TemporaryOverlay>();
+                            temporaryOverlay.duration = flashTimer = flashDuration;
+                            temporaryOverlay.destroyObjectOnEnd = false;
+                            temporaryOverlay.destroyComponentOnEnd = true;
+                            temporaryOverlay.originalMaterial = materialFlash;
+                            temporaryOverlay.alphaCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
+                            temporaryOverlay.animateShaderAlpha = true;
+                            temporaryOverlay.SetupMaterial();
+
+                            var materials = renderer.materials;
+                            HG.ArrayUtils.ArrayAppend(ref materials, temporaryOverlay.materialInstance);
+                            renderer.materials = materials;
+                            materialInstance = renderer.materials.Last();
+                        }
+                    }
+                }
+
+                if (flashTimer > 0f)
+                {
+                    flashTimer -= Time.deltaTime;
+                    if (flashTimer <= 0f)
+                    {
+                        if (renderer && materialInstance)
+                        {
+                            var materials = renderer.materials;
+                            var index = System.Array.IndexOf(materials, materialInstance);
+                            if (index != -1)
+                            {
+                                HG.ArrayUtils.ArrayRemoveAtAndResize(ref materials, index);
+                            }
+                            renderer.materials = materials;
+                        }
+                    }
+                }
+            }
+
+            public void OnEnable()
+            {
+                InstanceTracker.Add(this);
+            }
+
+            public void OnDisable()
+            {
+                InstanceTracker.Remove(this);
+            }
+
+            public static void TriggerBlinkForBody(CharacterBody body)
+            {
+                foreach (var itemDisplayHelper in InstanceTracker.GetInstancesList<MysticsItemsMysticSwordItemDisplayHelper>().Where(x => x.body == body))
+                    itemDisplayHelper.TriggerBlink();
             }
         }
     }
