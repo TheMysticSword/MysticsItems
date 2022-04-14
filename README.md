@@ -86,15 +86,19 @@ Contains assets from [ambientCG.com](https://ambientcg.com/), licensed under CC0
 * Platinum Card:
 	* Discount: ~~10%~~ ⇒ 50%
 * Gate Chalice:
-	* Now has special teleportation destinations when used on certain stages
+	* Now has special interactions on certain stages
+	* Can no longer be used in the Bazaar Between Time
 * Thought Processor:
 	* Effect changed: using skills with cooldowns now reduces all other skill cooldowns
 * Legendary Mask:
 	* Can now be activated without an enemy target to spawn an Archaic Wisp nearby
+* Added item displays for DLC1 survivors
 * Added a reminder message about a remaining Treasure Map spot when the teleporter is charged
 * Added a filling up indicator for Super Idol over the inventory icon that shows the current percentage of the gold buff
+* Added General config options to toggle Contraband Gunpowder effects
 * Updated Spare Wiring VFX and SFX
 * Adjusted Mechanical Arm logbook model to be more arm-like
+* Updated Puzzle of Chronos item display and icon
 * Fixed Treasure Map not dropping any items when the 1nsiderItems mod is enabled
 * Fixed Treasure Map calling certain server-only functions on clients
 * Fixed Marwan's Light burn DoT counting as 2 debuffs for the Death Mark
@@ -104,6 +108,9 @@ Contains assets from [ambientCG.com](https://ambientcg.com/), licensed under CC0
 * Fixed Manuscript & Mystic Sword overriding extended item descriptions from BetterUI
 * Fixed wrong BetterUI item stat modifier values from Scratch Ticket
 * Fixed Platinum Card not playing a sound
+* Fixed Puzzle of Chronos obscuring Railgunner's scope vision
+* Fixed Mechanical Arm making the player ping themselves
+* Fixed the "Sincere Apologies." challenge unlocking when anything dies from a Sawmerang instead of the player specifically
 * Updated localization files
   
 (Previous changelogs can be found [here](https://github.com/TheMysticSword/MysticsItems/blob/main/CHANGELOG.md))
