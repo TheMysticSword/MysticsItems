@@ -145,8 +145,8 @@
     "ITEM_MYSTICSITEMS_VOLTMETER_LORE": "WV-1 PROTOTYPE USAGE MANUAL\n\nDo not disassemble the WV under any circumstances, or your warranty will be void. In case of a problem, contact the manufacturer (refer to p. 9).\nDo not expose to liquids.\nDo not expose to another active WV.\nDo not hold near electronic devices for more than 7200 hours.\nMaintain a distance of 30+ metres when throwing the WV against a solid object to avoid getting caught in the discharge blast.\n\nPAGE 4 - SAFETY MEASURES",
 
     "ITEM_MYSTICSITEMS_THOUGHTPROCESSOR_NAME": "Thought Processor", // [Wordplay on "food processor" and "thought process"]
-    "ITEM_MYSTICSITEMS_THOUGHTPROCESSOR_PICKUP": "The less health you have, the faster you attack.",
-    "ITEM_MYSTICSITEMS_THOUGHTPROCESSOR_DESC": "Increase attack speed by <style=cIsDamage>{AttackSpeed}% <style=cStack>(+{AttackSpeedPerStack}% per stack)</style></style> for every <style=cIsHealth>1% health missing</style>, up to <style=cIsDamage>+{AttackSpeedMax}% <style=cStack>(+{AttackSpeedMaxPerStack}% per stack)</style></style>.",
+    "ITEM_MYSTICSITEMS_THOUGHTPROCESSOR_PICKUP": "Using a skill with cooldown reduces all other skill cooldowns.",
+    "ITEM_MYSTICSITEMS_THOUGHTPROCESSOR_DESC": "Using a skill with cooldown reduces all other skill <style=cIsUtility>cooldowns</style> by <style=cIsUtility>{CDR}% <style=cStack>(+{CDR}% per stack)</style></style> of the used skill's cooldown.",
     "ITEM_MYSTICSITEMS_THOUGHTPROCESSOR_LORE": "<style=cMono>Excerpt from an audio recording at Vivifica Hospital.</style>\r\n\r\n\"...so you are trying to say... that the patient snuck in a bottle of alcohol... got drunk... went into the kitchen... tried to share some with the staff... and when the staff called the department, he snatched the blender and put it on his head?\"\r\n\r\n\"Yes. He said, and I quote, 'oh, you think you're so smart? Calling 'em on me? Well [REDACTED] you, because I'm smarter! This good ol' think tank is 'boutta get amped up!'\"\r\n\r\n\"...\"\r\n\r\n\"...\"\r\n\r\n\"...then he turned it on... took the knife...\"\r\n\r\n\"...and murdered two of the kitchen staff... while screaming in pain... as the blender minced his head.\"",
 
     "ITEM_MYSTICSITEMS_CRYSTALWORLD_NAME": "Crystallized World",
@@ -330,6 +330,9 @@
     "BUFF_MYSTICSITEMS_MARWANASHBURN_NAME": "Marwan's Light",
     "BUFF_MYSTICSITEMS_MARWANASHBURN_DESC": "Lose a fraction of your health every second",
 
+    "BUFF_MYSTICSITEMS_MARWANASHBURNSTRONG_NAME": "Marwan's Light",
+    "BUFF_MYSTICSITEMS_MARWANASHBURNSTRONG_DESC": "Lose a fraction of your health every second",
+
     "BUFF_MYSTICSITEMS_MECHANICALARMCHARGE_NAME": "Mechanical Arm Charge",
     "BUFF_MYSTICSITEMS_MECHANICALARMCHARGE_DESC": "Increases damage for the next Mechanical Arm swing",
 
@@ -384,6 +387,8 @@
     "MYSTICSITEMS_STATCHANGE_LIST_ATTACKSPEED": "* {0}% attack speed",
     "MYSTICSITEMS_STATCHANGE_LIST_CRIT": "* {0}% Critical Strike chance",
     "MYSTICSITEMS_STATCHANGE_LIST_ARMOR": "* {0} armor",
+
+    "MYSTICSITEMS_TREASUREMAP_WARNING": "<style=cWorldEvent>Your Treasure Map is beeping. You realize that you forgot to do something.</style>", // [If the player has a Treasure Map, this reminder message will be played after a teleporter is charged if they forget to dig up the legendary item]
 
     "MYSTICSITEMS_PLAYER_CONVERT": "<style=cEvent>{0}'s {1}{2} became {3}{4}</color>", // [For item upgrades or downgrades. Example: 'TheMysticSword's Marwan's Ash(3) became Marwan's Light(3)']
     "MYSTICSITEMS_PLAYER_CONVERT_2P": "<style=cEvent>Your {1}{2} became {3}{4}</color>"
@@ -691,13 +696,16 @@
     "BUFF_MYSTICSITEMS_MARWANASHBURN_NAME": "Свет Марвана",
     "BUFF_MYSTICSITEMS_MARWANASHBURN_DESC": "Вы теряете часть своего здоровья каждую секунду",
 
+    "BUFF_MYSTICSITEMS_MARWANASHBURNSTRONG_NAME": "Свет Марвана",
+    "BUFF_MYSTICSITEMS_MARWANASHBURNSTRONG_DESC": "Вы теряете часть своего здоровья каждую секунду",
+
     "BUFF_MYSTICSITEMS_MECHANICALARMCHARGE_NAME": "Заряд Механической руки",
     "BUFF_MYSTICSITEMS_MECHANICALARMCHARGE_DESC": "Увеличивает урон следующего взмаха Механической руки",
 
     "BUFF_MYSTICSITEMS_RHYTHMCOMBO_NAME": "Сосредоточение",
     "BUFF_MYSTICSITEMS_RHYTHMCOMBO_DESC": "Вероятность критического попадания увеличена",
 
-    "BUFF_MYSTICSITEMS_SPOTTERMARKED_NAME": "Вы обнаружены!",
+    "BUFF_MYSTICSITEMS_SPOTTERMARKED_NAME": "Вас обнаружили!",
     "BUFF_MYSTICSITEMS_SPOTTERMARKED_DESC": "Весь урон по вам становится критическим",
 
     //[ITEMSTATS]
@@ -745,6 +753,8 @@
     "MYSTICSITEMS_STATCHANGE_LIST_ATTACKSPEED": "* {0}% скорости атаки",
     "MYSTICSITEMS_STATCHANGE_LIST_CRIT": "* {0}% шанса критического удара",
     "MYSTICSITEMS_STATCHANGE_LIST_ARMOR": "* {0} брони",
+
+    "MYSTICSITEMS_TREASUREMAP_WARNING": "<style=cWorldEvent>Карта сокровищ внезапно запищала. Вы понимаете, что забыли кое-что сделать.</style>", // [If the player has a Treasure Map, this reminder message will be played after a teleporter is charged if they forget to dig up the legendary item]
 
     "MYSTICSITEMS_PLAYER_CONVERT": "<style=cEvent>{0} теряет {1}{2} и получает: {3}{4}</color>", // [For item upgrades or downgrades. Example: 'TheMysticSword's Marwan's Ash(3) became Marwan's Light(3)']
     "MYSTICSITEMS_PLAYER_CONVERT_2P": "<style=cEvent>Вы теряете {1}{2} и получаете: {3}{4}</color>"
@@ -1052,6 +1062,9 @@
     "BUFF_MYSTICSITEMS_MARWANASHBURN_NAME": "Torche de Marwan",
     "BUFF_MYSTICSITEMS_MARWANASHBURN_DESC": "Perdez une portion de votre santé toutes les secondes",
 
+    "BUFF_MYSTICSITEMS_MARWANASHBURNSTRONG_NAME": "Torche de Marwan",
+    "BUFF_MYSTICSITEMS_MARWANASHBURNSTRONG_DESC": "Perdez une portion de votre santé toutes les secondes",
+
     "BUFF_MYSTICSITEMS_MECHANICALARMCHARGE_NAME": "Charge du bras mécanique",
     "BUFF_MYSTICSITEMS_MECHANICALARMCHARGE_DESC": "Augmente les dégats pour la prochaine frappe du bras mécanique",
 
@@ -1228,8 +1241,8 @@
     "ITEM_MYSTICSITEMS_VOLTMETER_LORE": "MANUAL DE USO DEL PROTOTIPO VI-1\n\nNo desensamblar el VI bajo ninguna circunstancia, o tu garantía será anulada. En caso de algún problema, contacte al fabricante (consulte la p. 9).\nNo lo exponga a líquidos.\nNo lo exponga a otro VI activo.\nNo lo mantenga cerca de dispositivos electrónicos por más de 7200 horas.\nMantener una distancia de más de 30 metros cuando lance el VI contra un objeto sólido para evitar ser atrapado en la explosión de descarga.\n\nPÁGINA 4 - MEDIDAS DE SEGURIDAD",
 
     "ITEM_MYSTICSITEMS_THOUGHTPROCESSOR_NAME": "Procesador de Pensamiento", // [Wordplay on "food processor" and "thought process"]
-    "ITEM_MYSTICSITEMS_THOUGHTPROCESSOR_PICKUP": "Mientras menos salud tengas, mas rápido dispararas.",
-    "ITEM_MYSTICSITEMS_THOUGHTPROCESSOR_DESC": "Incrementa la velocidad de ataque en un <style=cIsDamage>{AttackSpeed}% <style=cStack>(+{AttackSpeedPerStack}% por acumulación)</style></style> por cada <style=cIsHealth>1% de salud faltante</style>, hasta un máximo del <style=cIsDamage>+{AttackSpeedMax}% <style=cStack>(+{AttackSpeedMaxPerStack}% por acumulación)</style></style>.",
+    "ITEM_MYSTICSITEMS_THOUGHTPROCESSOR_PICKUP": "Usar una habilidad con tiempo de recarga reduce los tiempos de recarga de todas las demás habilidades.",
+    "ITEM_MYSTICSITEMS_THOUGHTPROCESSOR_DESC": "Usar una habilidad con tiempo de recarga reduce los <style=cIsUtility>tiempos de recarga</style> de todas las demás habilidades en un <style=cIsUtility>{CDR}% <style=cStack>(+{CDR}% por acumulación)</style></style> del tiempo de recarga de la habilidad usada.",
     "ITEM_MYSTICSITEMS_THOUGHTPROCESSOR_LORE": "<style=cMono>Extracto de una grabación de audio del hospital Vivifica.</style>\r\n\r\n\"...¿Así que lo que intentas decir... es que el paciente se coló con una botella de alcohol... se emborracho... fue a la cocina... intento compartir con el personal... y cuando el personal llamo al departamento, el arranco la licuadora y se la puso en la cabeza?\"\r\n\r\n\"Sí. El dijo, y cito, 'oh, ¿Piensas que eres muy listo? ¿Llamándolos hacia mí? ¡Bueno [ELIMINADO], porque yo soy mas listo! ¡Este viejo veterano está apunto de emocionarse!'\"\r\n\r\n\"...\"\r\n\r\n\"...\"\r\n\r\n\"...entonces la encendió... tomo el cuchillo...\"\r\n\r\n\"...y asesino a dos personas del personal de cocina... mientras gritaba de dolor... al momento que la licuadora le molía la cabeza.\"",
 
     "ITEM_MYSTICSITEMS_CRYSTALWORLD_NAME": "Mundo Cristalizado",
@@ -1413,6 +1426,9 @@
     "BUFF_MYSTICSITEMS_MARWANASHBURN_NAME": "Luz de Marwan",
     "BUFF_MYSTICSITEMS_MARWANASHBURN_DESC": "Pierde una porción de tu salud cada segundo",
 
+    "BUFF_MYSTICSITEMS_MARWANASHBURNSTRONG_NAME": "Luz de Marwan",
+    "BUFF_MYSTICSITEMS_MARWANASHBURNSTRONG_DESC": "Pierde una porción de tu salud cada segundo",
+
     "BUFF_MYSTICSITEMS_MECHANICALARMCHARGE_NAME": "Carga del Brazo Mecánico",
     "BUFF_MYSTICSITEMS_MECHANICALARMCHARGE_DESC": "Incrementa el daño para el siguiente uso del Brazo Mecánico",
 
@@ -1468,6 +1484,8 @@
     "MYSTICSITEMS_STATCHANGE_LIST_CRIT": "* {0}% de probabilidad de crítico",
     "MYSTICSITEMS_STATCHANGE_LIST_ARMOR": "* {0} de armadura",
 
+    "MYSTICSITEMS_TREASUREMAP_WARNING": "<style=cWorldEvent>Tu Mapa del Tesoro está emitiendo pitidos. Te das cuenta de que olvidaste hacer algo.</style>", // [If the player has a Treasure Map, this reminder message will be played after a teleporter is charged if they forget to dig up the legendary item]
+
     "MYSTICSITEMS_PLAYER_CONVERT": "<style=cEvent>{1}{2} de {0} se convirtió en {3}{4}</color>", // [For item upgrades or downgrades. Example: 'TheMysticSword's Marwan's Ash(3) became Marwan's Light(3)']
     "MYSTICSITEMS_PLAYER_CONVERT_2P": "<style=cEvent>Tu {1}{2} se convirtió en {3}{4}</color>"
   },
@@ -1496,7 +1514,7 @@
 
     "ITEM_MYSTICSITEMS_BACKARMOR_NAME": "脊柱植入物",
     "ITEM_MYSTICSITEMS_BACKARMOR_PICKUP": "减少来自后方攻击的伤害。",
-    "ITEM_MYSTICSITEMS_BACKARMOR_DESC": "增加<style=cIsUtility>{ArmorAdd}护甲<style=cStack>(每层+{ArmorAddPerStack})</style></style>用来抵御来自后方的伤害。",
+    "ITEM_MYSTICSITEMS_BACKARMOR_DESC": "增加<style=cIsUtility>{ArmorAdd}护甲<style=cStack>(每层+{ArmorAddPerStack})</style></style>以抵御来自后方的伤害。",
     "ITEM_MYSTICSITEMS_BACKARMOR_LORE": "<style=cMono>\n//--摘自电视简报--//</style>\n\n突发新闻:不到一分钟前，中央大楼发生了一场大火。现在我们就在大楼附近。火焰现在有- 有人从窗户跳了出来！喂！你在干什么？！把相机关掉！\n\n我的天啊。\n等等...他还...活着？跑在他后面的那个人是谁？\n好吧，我们需要调查一下。\n\n记者：先生，你还好吗？\n\n男人1：是的，一切都好。\n\n男人2：你[数据删除]什么意思，什么叫 \"一切都好\"？你从90层掉下来，你[数据删除]在电视面前，只是说了句\"一切都好\"！你是怎么想的？ \n\n男人1：噢，这火肯定烧不死我。窗户是开的，我需要测试一下我的脊柱植入物，想到这些，我就跳下来了。\n\n男人2：我快担心死了，你是[数据删除]吧！ 别再这样做了！",
 
     "ITEM_MYSTICSITEMS_MANUSCRIPT_NAME": "潦草的手稿",
@@ -1562,13 +1580,13 @@
     "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPEN_LORE": "<style=cMono>\n//-- 新消息 (1) --//\n\n来自： UES</style>\n\n感谢您订阅白金会员卡服务！今日起生效，每个行星的UES分部都将为您提供优惠服务。\n\n每月需要缴费。\n\n<style=cMono>您无需回复此对话</style>",
 
     "ITEM_MYSTICSITEMS_MYSTICSWORD_NAME": "神秘剑", // [TheMysticSword's developer item]
-    "ITEM_MYSTICSITEMS_MYSTICSWORD_PICKUP": "以猛烈的攻击击败敌人会永久提升伤害。",
-    "ITEM_MYSTICSITEMS_MYSTICSWORD_DESC": "每次以超过敌人<style=cIsHealth>{HealthThreshold}点基础生命值<style=cIsUtility>(忽略精英敌人的生命值加成)</style></style> 的伤害击败敌人时，永久增加<style=cIsDamage>{Damage}% <style=cStack>(每层+{DamagePerStack}%)</style></style>伤害，最多增加<style=cIsDamage>{MaxDamage}% <style=cStack>(每层+{MaxDamagePerStack}%)</style></style>.",
+    "ITEM_MYSTICSITEMS_MYSTICSWORD_PICKUP": "击败强大的敌人会永久提升伤害。",
+    "ITEM_MYSTICSITEMS_MYSTICSWORD_DESC": "每次击败超过<style=cIsHealth>{HealthThreshold}点基础生命值<style=cIsUtility>(忽略精英敌人的生命值加成，图鉴中可查看)</style></style>的敌人时，永久增加<style=cIsDamage>{Damage}% <style=cStack>(每层+{DamagePerStack}%)</style></style>伤害，最多增加<style=cIsDamage>{MaxDamage}% <style=cStack>(每层+{MaxDamagePerStack}%)</style></style>。",
     "ITEM_MYSTICSITEMS_MYSTICSWORD_LORE": "\"Ornate pommel - for style.\r\n\r\nFluted grip - for control.\r\n\r\nThick angular guard - for power.\r\n\r\nSingle-edged blades - for concentration.\r\n\r\nTwo blades - for, uhh...\"\r\n\r\n\"Okay, okay, I get it, you *really* like your new prop sword.\"",
 
     "ITEM_MYSTICSITEMS_RHYTHM_NAME": "节拍器",
     "ITEM_MYSTICSITEMS_RHYTHM_PICKUP": "每{Interval}秒，使用你的非主要技能以跟上节拍，获得暴击率提升。错过节拍会使增益清零。",
-    "ITEM_MYSTICSITEMS_RHYTHM_DESC": "每<style=cIsUtility>{Interval}秒</style>产生一个节拍， 使用次要技能，实用技能或者特殊技能以跟上节拍，获得<style=cIsUtility>combo</style>，错过一个节拍会<style=cIsHealth>使combo清零</style>。 每层<style=cIsUtility>combo</style>提升<style=cIsDamage>+{ComboCrit}% <style=cStack>(每层+{ComboCritPerStack}%)</style></style>的暴击率。",
+    "ITEM_MYSTICSITEMS_RHYTHM_DESC": "每<style=cIsUtility>{Interval}秒</style>产生一个节拍， 使用次要技能，实用技能或者特殊技能以跟上节拍，获得<style=cIsUtility>连击</style>，错过一个节拍会<style=cIsHealth>使连击清零</style>。 每层<style=cIsUtility>连击</style>提升<style=cIsDamage>+{ComboCrit}% <style=cStack>(每层+{ComboCritPerStack}%)</style></style>的暴击率。",
 
     "ITEM_MYSTICSITEMS_ELITEPOTION_NAME": "失败实验",
     "ITEM_MYSTICSITEMS_ELITEPOTION_PICKUP": "击败精英敌人会将其元素效果传播给附近敌人。",
@@ -1589,8 +1607,8 @@
     "ITEM_MYSTICSITEMS_VOLTMETER_LORE": "WV-1原型使用手册\n\n在任何情况下都不要拆卸WV，否则您的保修将无效。如果出现问题，请联系制造商（参见第9页）。\n不要暴露在液体中。\n不要暴露在另一个活跃的WV下。\n请勿在电子设备附近停留超过7200小时。\n将WV投掷到固体物体上时，保持30米以上的距离，以免被飞出的爆炸物击中。\n\n第4页-安全措施",
 
     "ITEM_MYSTICSITEMS_THOUGHTPROCESSOR_NAME": "思维搅拌机", // [Wordplay on "food processor" and "thought process"]
-    "ITEM_MYSTICSITEMS_THOUGHTPROCESSOR_PICKUP": "生命值越低，攻击速度越快。",
-    "ITEM_MYSTICSITEMS_THOUGHTPROCESSOR_DESC": "<style=cIsHealth>每损失1%生命值</style>，增加<style=cIsDamage>{AttackSpeed}%<style=cStack>(每层+{AttackSpeedPerStack}%)</style></style>攻击速度，最多增加<style=cIsDamage>+{AttackSpeedMax}% <style=cStack>(每层+{AttackSpeedMaxPerStack}%)</style></style>。",
+    "ITEM_MYSTICSITEMS_THOUGHTPROCESSOR_PICKUP": "使用一个技能会减少你其他技能的冷却时间。",
+    "ITEM_MYSTICSITEMS_THOUGHTPROCESSOR_DESC": "使用一个技能会减少你其他技能<style=cIsUtility>{CDR}% <style=cStack>(每层+{CDR}%)</style></style>的<style=cIsUtility>冷却时间</style>。",
     "ITEM_MYSTICSITEMS_THOUGHTPROCESSOR_LORE": "<style=cMono>录音摘自Vivifica医院</style>\r\n\r\n\"...所以你想说...病人偷了一瓶酒...喝醉了...走进厨房...试图与员工分享一些。。。当工作人员给部门打电话时，他抓起搅拌机，把它放在头上？\"\r\n\r\n\"是的。 然后他说 '噢，你认为你很聪明？ 打，嗝，电话给我？好吧，[数据删除]你，我更聪明！！我才是&*@#最聪明的！'\"\r\n\r\n\"...\"\r\n\r\n\"...\"\r\n\r\n\"...然后他打开了开关...拿起了刀...\"\r\n\r\n\"...然后谋杀了两个厨房员工...伴随着痛苦和尖叫...然后搅拌机切碎了他的头。\"",
 
     "ITEM_MYSTICSITEMS_CRYSTALWORLD_NAME": "水晶球世界",
@@ -1774,6 +1792,9 @@
     "BUFF_MYSTICSITEMS_MARWANASHBURN_NAME": "马尔万的火炬",
     "BUFF_MYSTICSITEMS_MARWANASHBURN_DESC": "每秒损失生命值",
 
+    "BUFF_MYSTICSITEMS_MARWANASHBURNSTRONG_NAME": "马尔万的火炬",
+    "BUFF_MYSTICSITEMS_MARWANASHBURNSTRONG_DESC": "每秒损失生命值",
+
     "BUFF_MYSTICSITEMS_MECHANICALARMCHARGE_NAME": "机械臂充能",
     "BUFF_MYSTICSITEMS_MECHANICALARMCHARGE_DESC": "增加下次机械臂挥动的伤害",
 
@@ -1789,33 +1810,35 @@
     "ITEMSTATS_MYSTICSITEMS_POSTFIX_METERS": "m",
     "ITEMSTATS_MYSTICSITEMS_POSTFIX_SECONDS": "s",
 
-    "ITEMSTATS_MYSTICSITEMS_ARMOR": "护甲: {0}",
-    "ITEMSTATS_MYSTICSITEMS_ATTACKSPEED": "攻速: {0}",
-    "ITEMSTATS_MYSTICSITEMS_BONUSPERKILL": "击杀奖励: {0}",
-    "ITEMSTATS_MYSTICSITEMS_CHARGES": "充能: {0}",
-    "ITEMSTATS_MYSTICSITEMS_CRIT": "暴击率: {0}",
-    "ITEMSTATS_MYSTICSITEMS_CRITDAMAGE": "暴击伤害: {0}",
-    "ITEMSTATS_MYSTICSITEMS_CRITPERBUFFSTACK": "Crit Per Buff Stack: {0}",
-    "ITEMSTATS_MYSTICSITEMS_CHANCE": "Chance: {0}",
-    "ITEMSTATS_MYSTICSITEMS_COOLDOWN": "冷却: {0}",
-    "ITEMSTATS_MYSTICSITEMS_DAMAGE": "伤害: {0}",
-    "ITEMSTATS_MYSTICSITEMS_DAMAGEPERSPEEDINCREASE": "Damage Per 1% Speed Increase: {0}",
-    "ITEMSTATS_MYSTICSITEMS_DIFFICULTYSPEED": "游戏难度速度: {0}",
-    "ITEMSTATS_MYSTICSITEMS_DURATION": "持续: {0}",
-    "ITEMSTATS_MYSTICSITEMS_GOLDFORMAXBUFF": "Gold For Maximum Buff: {0}",
-    "ITEMSTATS_MYSTICSITEMS_HEALING": "Healing: {0}",
-    "ITEMSTATS_MYSTICSITEMS_MAXATTACKSPEEDBONUS": "Maximum Attack Speed Bonus: {0}",
-    "ITEMSTATS_MYSTICSITEMS_MAXBUFFSTACKS": "Maximum Buff Stacks: {0}",
-    "ITEMSTATS_MYSTICSITEMS_MAXHEALTH": "最大生命值: {0}",
-    "ITEMSTATS_MYSTICSITEMS_MAXMOVESPEEDBONUS": "Maximum Movement Speed Bonus: {0}",
-    "ITEMSTATS_MYSTICSITEMS_MOVESPEED": "Movement Speed: {0}",
-    "ITEMSTATS_MYSTICSITEMS_PULSES": "Pulses: {0}", // [Crystallized World's pulses]
-    "ITEMSTATS_MYSTICSITEMS_RADIUS": "半径: {0}",
-    "ITEMSTATS_MYSTICSITEMS_REGEN": "生命恢复: {0}",
-    "ITEMSTATS_MYSTICSITEMS_REMAINING": "Remaining: {0}", // [For bonuses that have limited uses]
-    "ITEMSTATS_MYSTICSITEMS_TIME": "Time: {0}",
-    "ITEMSTATS_MYSTICSITEMS_UNSTABLERIFTS": "Unstable Rifts Each Level: {0}",
-    "ITEMSTATS_MYSTICSITEMS_UPTO": "Up to: {0}", // [For bonuses that increase something up to a certain value]
+    "ITEMSTATS_MYSTICSITEMS_ARMOR": "护甲",
+    "ITEMSTATS_MYSTICSITEMS_ATTACKSPEED": "攻速",
+    "ITEMSTATS_MYSTICSITEMS_BONUSPERKILL": "击杀奖励",
+    "ITEMSTATS_MYSTICSITEMS_CHARGES": "充能",
+    "ITEMSTATS_MYSTICSITEMS_CRIT": "暴击率",
+    "ITEMSTATS_MYSTICSITEMS_CRITDAMAGE": "暴击伤害",
+    "ITEMSTATS_MYSTICSITEMS_CRITPERBUFFSTACK": "Crit Per Buff Stack",
+    "ITEMSTATS_MYSTICSITEMS_CHANCE": "Chance",
+    "ITEMSTATS_MYSTICSITEMS_COOLDOWN": "冷却",
+    "ITEMSTATS_MYSTICSITEMS_DAMAGE": "伤害",
+    "ITEMSTATS_MYSTICSITEMS_DAMAGEPERSPEEDINCREASE": "Damage Per 1% Speed Increase",
+    "ITEMSTATS_MYSTICSITEMS_DIFFICULTYSPEED": "游戏难度速度",
+    "ITEMSTATS_MYSTICSITEMS_DURATION": "持续",
+    "ITEMSTATS_MYSTICSITEMS_GOLDFORMAXBUFF": "Gold For Maximum Buff",
+    "ITEMSTATS_MYSTICSITEMS_HEALING": "Healing",
+    "ITEMSTATS_MYSTICSITEMS_MAXATTACKSPEEDBONUS": "Maximum Attack Speed Bonus",
+    "ITEMSTATS_MYSTICSITEMS_MAXBUFFSTACKS": "Maximum Buff Stacks",
+    "ITEMSTATS_MYSTICSITEMS_MAXHEALTH": "最大生命值",
+    "ITEMSTATS_MYSTICSITEMS_MAXMOVESPEEDBONUS": "Maximum Movement Speed Bonus",
+    "ITEMSTATS_MYSTICSITEMS_MOVESPEED": "Movement Speed",
+    "ITEMSTATS_MYSTICSITEMS_PULSES": "Pulses", // [Crystallized World's pulses]
+    "ITEMSTATS_MYSTICSITEMS_RADIUS": "半径",
+    "ITEMSTATS_MYSTICSITEMS_REGEN": "生命恢复",
+    "ITEMSTATS_MYSTICSITEMS_REMAINING": "Remaining", // [For bonuses that have limited uses]
+    "ITEMSTATS_MYSTICSITEMS_TIME": "Time",
+    "ITEMSTATS_MYSTICSITEMS_UNSTABLERIFTS": "Unstable Rifts Each Level",
+    "ITEMSTATS_MYSTICSITEMS_UPTO": "Up to", // [For bonuses that increase something up to a certain value]
+
+    "ITEMSTATS_MYSTICSITEMS_FORMAT": "{0}: {1}", // [{0} is the stat name, {1} is the stat value. For example, it would show 'Armor: +15' for Spine Implant]
 
     //[MISC]
     "MYSTICSITEMS_STATCHANGE_LIST_HEADER": "当前状态变化:",
@@ -1826,6 +1849,8 @@
     "MYSTICSITEMS_STATCHANGE_LIST_ATTACKSPEED": "* {0}% 攻速",
     "MYSTICSITEMS_STATCHANGE_LIST_CRIT": "* {0}% 暴击率",
     "MYSTICSITEMS_STATCHANGE_LIST_ARMOR": "* {0} 护甲",
+
+    "MYSTICSITEMS_TREASUREMAP_WARNING": "<style=cWorldEvent>藏宝图正嗡嗡作响。你意识到你好像忘了什么事情。</style>", // [If the player has a Treasure Map, this reminder message will be played after a teleporter is charged if they forget to dig up the legendary item]
 
     "MYSTICSITEMS_PLAYER_CONVERT": "<style=cEvent>{0} {1}{2} 变为 {3}{4}</color>", // [For item upgrades or downgrades. Example: 'TheMysticSword's Marwan's Ash(3) became Marwan's Light(3)']
     "MYSTICSITEMS_PLAYER_CONVERT_2P": "<style=cEvent>你的 {1}{2} 变为 {3}{4}</color>"
