@@ -19,21 +19,23 @@ namespace MysticsItems
                 {
                     void ResetAchievements(params string[] achievementsToReset)
                     {
-                        foreach (var achievementToReset in achievementsToReset)
+                        AchievementManager.availability.CallWhenAvailable(() =>
                         {
-                            if (MysticsRisky2Utils.BaseAssetTypes.BaseAchievement.loadedDictionary.TryGetValue(achievementToReset, out var ach))
+                            foreach (var achievementToReset in achievementsToReset)
                             {
-                                var achievementDef = ach.achievementDef;
-                                if (achievementDef != null)
+                                if (AchievementManager.achievementNamesToDefs.TryGetValue(achievementToReset, out var achievementDef))
                                 {
-                                    if (user.userProfile.HasAchievement(achievementDef.identifier))
-                                        user.userProfile.RevokeAchievement(achievementDef.identifier);
-                                    var unlockable = UnlockableCatalog.GetUnlockableDef(achievementDef.unlockableRewardIdentifier);
-                                    if (unlockable && user.userProfile.HasUnlockable(unlockable))
-                                        user.userProfile.RevokeUnlockable(unlockable);
+                                    if (achievementDef != null)
+                                    {
+                                        if (user.userProfile.HasAchievement(achievementDef.identifier))
+                                            user.userProfile.RevokeAchievement(achievementDef.identifier);
+                                        var unlockable = UnlockableCatalog.GetUnlockableDef(achievementDef.unlockableRewardIdentifier);
+                                        if (unlockable && user.userProfile.HasUnlockable(unlockable))
+                                            user.userProfile.RevokeUnlockable(unlockable);
+                                    }
                                 }
                             }
-                        }
+                        });
                     }
 
                     if (lastModVersionNum < 200)
