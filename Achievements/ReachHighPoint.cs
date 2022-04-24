@@ -1,22 +1,14 @@
-using MysticsRisky2Utils.BaseAssetTypes;
 using RoR2;
+using RoR2.Achievements;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 namespace MysticsItems.Achievements
 {
-    public class ReachHighPoint : BaseAchievement
+    public class ReachHighPoint
     {
-        public override void OnLoad()
-        {
-            name = "MysticsItems_ReachHighPoint";
-            unlockableName = "Items.MysticsItems_Backpack";
-			iconSprite = MysticsRisky2Utils.Utils.AddItemIconBackgroundToSprite(Main.AssetBundle.LoadAsset<Sprite>("Assets/Items/Backpack/Icon.png"), MysticsRisky2Utils.Utils.ItemIconBackgroundType.Tier3);
-			trackerType = typeof(Tracker);
-        }
-
-        public class Tracker : RoR2.Achievements.BaseAchievement
+        [RegisterAchievement("MysticsItems_ReachHighPoint", "Items.MysticsItems_Backpack", null, null)]
+        public class Tracker : BaseAchievement
 		{
             public Dictionary<string, float> stageInfo = new Dictionary<string, float>()
             {

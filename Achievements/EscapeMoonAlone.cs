@@ -1,21 +1,12 @@
-using MysticsRisky2Utils.BaseAssetTypes;
 using RoR2;
-using UnityEngine;
+using RoR2.Achievements;
 
 namespace MysticsItems.Achievements
 {
-    public class EscapeMoonAlone : BaseAchievement
+    public class EscapeMoonAlone
     {
-        public override void OnLoad()
-        {
-            name = "MysticsItems_EscapeMoonAlone";
-            unlockableName = "Items.MysticsItems_AllyDeathRevenge";
-			iconSprite = MysticsRisky2Utils.Utils.AddItemIconBackgroundToSprite(Main.AssetBundle.LoadAsset<Sprite>("Assets/Items/Ally Death Revenge/Icon.png"), MysticsRisky2Utils.Utils.ItemIconBackgroundType.Tier2);
-			trackerType = typeof(Tracker);
-			serverTrackerType = typeof(Tracker.Server);
-        }
-
-		public class Tracker : RoR2.Achievements.BaseAchievement
+		[RegisterAchievement("MysticsItems_EscapeMoonAlone", "Items.MysticsItems_AllyDeathRevenge", null, typeof(Server))]
+		public class Tracker : BaseAchievement
 		{
 			public override void OnInstall()
 			{
@@ -29,7 +20,7 @@ namespace MysticsItems.Achievements
 				base.OnUninstall();
 			}
 
-			public class Server : RoR2.Achievements.BaseServerAchievement
+			public class Server : BaseServerAchievement
 			{
 				public BodyIndex requiredBodyIndex;
 

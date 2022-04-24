@@ -1,21 +1,12 @@
-using MysticsRisky2Utils.BaseAssetTypes;
 using RoR2;
-using UnityEngine;
+using RoR2.Achievements;
 
 namespace MysticsItems.Achievements
 {
-    public class FindArchaicMask : BaseAchievement
+    public class FindArchaicMask
     {
-        public override void OnLoad()
-        {
-            name = "MysticsItems_FindArchaicMask";
-            unlockableName = "Equipment.MysticsItems_ArchaicMask";
-			iconSprite = MysticsRisky2Utils.Utils.AddItemIconBackgroundToSprite(Main.AssetBundle.LoadAsset<Sprite>("Assets/Equipment/Archaic Mask/Icon.png"), MysticsRisky2Utils.Utils.ItemIconBackgroundType.Equipment);
-			trackerType = typeof(Tracker);
-			serverTrackerType = typeof(Tracker.Server);
-        }
-
-        public class Tracker : RoR2.Achievements.BaseAchievement
+		[RegisterAchievement("MysticsItems_FindArchaicMask", "Equipment.MysticsItems_ArchaicMask", null, typeof(Server))]
+		public class Tracker : BaseAchievement
 		{
 			public override void OnInstall()
 			{
@@ -29,7 +20,7 @@ namespace MysticsItems.Achievements
 				base.OnUninstall();
 			}
 
-			public class Server : RoR2.Achievements.BaseServerAchievement
+			public class Server : BaseServerAchievement
 			{
 				public override void OnInstall()
 				{

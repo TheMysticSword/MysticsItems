@@ -1,22 +1,13 @@
-using MysticsRisky2Utils.BaseAssetTypes;
 using RoR2;
-using RoR2.Projectile;
+using RoR2.Achievements;
 using UnityEngine;
 
 namespace MysticsItems.Achievements
 {
-    public class MultishopTerminalsOnly : BaseAchievement
+    public class MultishopTerminalsOnly
     {
-        public override void OnLoad()
-        {
-            name = "MysticsItems_MultishopTerminalsOnly";
-            unlockableName = "Items.MysticsItems_KeepShopTerminalOpen";
-			iconSprite = MysticsRisky2Utils.Utils.AddItemIconBackgroundToSprite(Main.AssetBundle.LoadAsset<Sprite>("Assets/Items/Platinum Card/Icon.png"), MysticsRisky2Utils.Utils.ItemIconBackgroundType.Tier2);
-			trackerType = typeof(Tracker);
-			serverTrackerType = typeof(Tracker.Server);
-        }
-
-        public class Tracker : RoR2.Achievements.BaseAchievement
+		[RegisterAchievement("MysticsItems_MultishopTerminalsOnly", "Items.MysticsItems_KeepShopTerminalOpen", null, typeof(Server))]
+		public class Tracker : BaseAchievement
 		{
 			public override void OnInstall()
 			{
@@ -30,7 +21,7 @@ namespace MysticsItems.Achievements
 				base.OnUninstall();
 			}
 
-			public class Server : RoR2.Achievements.BaseServerAchievement
+			public class Server : BaseServerAchievement
 			{
 				public bool eligible = true;
 				public int stageRequirement = 6;

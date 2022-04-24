@@ -1,22 +1,13 @@
 using MysticsRisky2Utils;
-using MysticsRisky2Utils.BaseAssetTypes;
 using RoR2;
+using RoR2.Achievements;
 using RoR2.Projectile;
 using UnityEngine;
 
 namespace MysticsItems.Achievements
 {
-    public class DiscDeath : BaseAchievement
+    public class DiscDeath
     {
-        public override void OnLoad()
-        {
-            name = "MysticsItems_DiscDeath";
-            unlockableName = "Items.MysticsItems_DasherDisc";
-            iconSprite = MysticsRisky2Utils.Utils.AddItemIconBackgroundToSprite(Main.AssetBundle.LoadAsset<Sprite>("Assets/Items/Dasher Disc/Icon.png"), MysticsRisky2Utils.Utils.ItemIconBackgroundType.Tier3);
-            trackerType = typeof(Tracker);
-            serverTrackerType = typeof(Tracker.Server);
-        }
-
         public class MysticsItemsDiscDeath : MonoBehaviour
         {
             public float eligibleTime = 0f;
@@ -34,7 +25,8 @@ namespace MysticsItems.Achievements
             }
         }
 
-        public class Tracker : RoR2.Achievements.BaseAchievement
+        [RegisterAchievement("MysticsItems_DiscDeath", "Items.MysticsItems_DasherDisc", null, typeof(Server))]
+        public class Tracker : BaseAchievement
         {
             public override void OnInstall()
             {
