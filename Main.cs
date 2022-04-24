@@ -96,12 +96,6 @@ namespace MysticsItems
                 addContentPackProvider(new MysticsItemsContent());
             };
 
-            On.RoR2.ItemCatalog.Init += (orig) =>
-            {
-                orig();
-                BrotherInfection.Init();
-            };
-
             UpdateFirstLaunchManager.Init();
             FunEvents.Init();
 
@@ -371,22 +365,6 @@ namespace MysticsItems
             public static AchievementDef MysticsItems_MultishopTerminalsOnly;
             public static AchievementDef MysticsItems_ReachHighPoint;
             public static AchievementDef MysticsItems_RepairBrokenSpotter;
-        }
-    }
-
-    public static class BrotherInfection
-    {
-        public static GameObject white;
-        public static GameObject green;
-        public static GameObject red;
-        public static GameObject blue;
-
-        public static void Init()
-        {
-            white = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/BrotherBody").GetComponentInChildren<CharacterModel>().itemDisplayRuleSet.FindDisplayRuleGroup(RoR2Content.Items.Hoof).rules[0].followerPrefab;
-            green = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/BrotherBody").GetComponentInChildren<CharacterModel>().itemDisplayRuleSet.FindDisplayRuleGroup(RoR2Content.Items.Feather).rules[0].followerPrefab;
-            red = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/BrotherBody").GetComponentInChildren<CharacterModel>().itemDisplayRuleSet.FindDisplayRuleGroup(RoR2Content.Items.ShockNearby).rules[0].followerPrefab;
-            blue = LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/BrotherBody").GetComponentInChildren<CharacterModel>().itemDisplayRuleSet.FindDisplayRuleGroup(RoR2Content.Items.LunarDagger).rules[0].followerPrefab;
         }
     }
 }
