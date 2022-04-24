@@ -197,10 +197,6 @@ namespace MysticsItems
                 },
                 () =>
                 {
-                    contentLoadHelper.DispatchLoad<AchievementDef>(Main.executingAssembly, typeof(MysticsRisky2Utils.BaseAssetTypes.BaseAchievement), null);
-                },
-                () =>
-                {
                     contentLoadHelper.DispatchLoad<GameObject>(Main.executingAssembly, typeof(MysticsRisky2Utils.BaseAssetTypes.BaseInteractable), null);
                 }
             };
@@ -254,7 +250,6 @@ namespace MysticsItems
             MysticsRisky2Utils.ContentManagement.ContentLoadHelper.InvokeAfterContentPackLoaded<MysticsRisky2Utils.BaseAssetTypes.BaseItem>(Main.executingAssembly);
             MysticsRisky2Utils.ContentManagement.ContentLoadHelper.InvokeAfterContentPackLoaded<MysticsRisky2Utils.BaseAssetTypes.BaseEquipment>(Main.executingAssembly);
             MysticsRisky2Utils.ContentManagement.ContentLoadHelper.InvokeAfterContentPackLoaded<MysticsRisky2Utils.BaseAssetTypes.BaseBuff>(Main.executingAssembly);
-            MysticsRisky2Utils.ContentManagement.ContentLoadHelper.InvokeAfterContentPackLoaded<MysticsRisky2Utils.BaseAssetTypes.BaseAchievement>(Main.executingAssembly);
             MysticsRisky2Utils.ContentManagement.ContentLoadHelper.InvokeAfterContentPackLoaded<MysticsRisky2Utils.BaseAssetTypes.BaseInteractable>(Main.executingAssembly);
             loadDispatchers = null;
             yield break;
