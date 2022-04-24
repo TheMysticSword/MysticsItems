@@ -64,7 +64,7 @@ namespace MysticsItems.Items
         {
             base.OnLoad();
             itemDef.name = "MysticsItems_RegenAndDifficultySpeed";
-            itemDef.tier = ItemTier.Lunar;
+            SetItemTierWhenAvailable(ItemTier.Lunar);
             itemDef.tags = new ItemTag[]
             {
                 ItemTag.Healing,

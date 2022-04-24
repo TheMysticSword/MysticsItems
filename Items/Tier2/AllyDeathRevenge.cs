@@ -42,7 +42,7 @@ namespace MysticsItems.Items
         {
             base.OnLoad();
             itemDef.name = "MysticsItems_AllyDeathRevenge";
-            itemDef.tier = ItemTier.Tier2;
+            SetItemTierWhenAvailable(ItemTier.Tier2);
             itemDef.tags = new ItemTag[]
             {
                 ItemTag.Damage,

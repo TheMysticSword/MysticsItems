@@ -28,7 +28,7 @@ namespace MysticsItems.Items
         {
             base.OnLoad();
             itemDef.name = "MysticsItems_LimitedArmorBroken";
-            itemDef.tier = ItemTier.Tier1;
+            SetItemTierWhenAvailable(ItemTier.Tier1);
             itemDef.tags = new ItemTag[]
             {
                 ItemTag.Utility,

@@ -10,7 +10,7 @@ namespace MysticsItems.Items
         {
             base.OnLoad();
             itemDef.name = "MysticsItems_KeepShopTerminalOpenConsumed";
-            itemDef.tier = ItemTier.NoTier;
+            SetItemTierWhenAvailable(ItemTier.NoTier);
             itemDef.canRemove = false;
             itemDef.tags = new ItemTag[]
             {

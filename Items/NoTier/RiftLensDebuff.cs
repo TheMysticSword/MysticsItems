@@ -12,7 +12,7 @@ namespace MysticsItems.Items
         {
             base.OnLoad();
             itemDef.name = "MysticsItems_RiftLensDebuff";
-            itemDef.tier = ItemTier.NoTier;
+            SetItemTierWhenAvailable(ItemTier.NoTier);
             itemDef.canRemove = false;
             itemDef.pickupIconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Items/Rift Lens Debuff/Icon.png");
 

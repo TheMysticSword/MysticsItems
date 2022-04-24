@@ -56,7 +56,7 @@ namespace MysticsItems.Items
         {
             base.OnLoad();
             itemDef.name = "MysticsItems_Backpack";
-            itemDef.tier = ItemTier.Tier3;
+            SetItemTierWhenAvailable(ItemTier.Tier3);
             itemDef.tags = new ItemTag[]
             {
                 ItemTag.Utility
