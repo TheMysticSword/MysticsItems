@@ -509,6 +509,8 @@ namespace MysticsItems.Items
             public bool countdown10Played = false;
             public uint countdown10ID;
 
+            public bool voidCampLockedBonusAdded = false;
+
             public void Start()
             {
                 body.onInventoryChanged += Body_onInventoryChanged;
@@ -710,10 +712,13 @@ namespace MysticsItems.Items
         {
             public PostProcessDuration ppDuration;
             public PositionIndicator positionIndicator;
-
-            public void Start()
+            public PurchaseInteraction purchaseInteraction;
+            public float lockUpdateTimer = 0;
+            public float lockUpdateInterval = 2f;
+            
+            public void Awake()
             {
-                PurchaseInteraction purchaseInteraction = GetComponent<PurchaseInteraction>();
+                purchaseInteraction = GetComponent<PurchaseInteraction>();
                 purchaseInteraction.onPurchase = new PurchaseEvent();
                 purchaseInteraction.onPurchase.AddListener((interactor) =>
                 {
@@ -724,6 +729,39 @@ namespace MysticsItems.Items
 
                 positionIndicator = Object.Instantiate<GameObject>(riftPositionIndicator, transform.position, Quaternion.identity).GetComponent<PositionIndicator>();
                 positionIndicator.targetTransform = transform;
+
+                UpdateLock();
+            }
+
+            public void FixedUpdate()
+            {
+                lockUpdateTimer += Time.fixedDeltaTime;
+                if (lockUpdateTimer >= lockUpdateInterval)
+                {
+                    lockUpdateTimer = 0;
+                    UpdateLock();
+                }
+            }
+
+            public void UpdateLock()
+            {
+                if (purchaseInteraction && purchaseInteraction.lockGameObject)
+                {
+                    var name = MysticsRisky2Utils.Utils.TrimCloneFromString(purchaseInteraction.lockGameObject.name);
+                    switch (name)
+                    {
+                        case "PurchaseLockVoid":
+                            foreach (var component in InstanceTracker.GetInstancesList<MysticsItemsRiftLensBehaviour>().Where(x => !x.voidCampLockedBonusAdded))
+                            {
+                                component.voidCampLockedBonusAdded = true;
+                                component.countdownTimer += 100f;
+                                component.maxCountdown += 100f;
+                            }
+                            return;
+                    }
+
+                    purchaseInteraction.lockGameObject = null;
+                }
             }
 
             public void DestroyThingsOnOpen()
