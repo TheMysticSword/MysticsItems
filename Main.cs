@@ -187,26 +187,16 @@ namespace MysticsItems
         {
             contentPack.identifier = identifier;
             MysticsRisky2Utils.ContentManagement.ContentLoadHelper contentLoadHelper = new MysticsRisky2Utils.ContentManagement.ContentLoadHelper();
+            
+            // Add content loading dispatchers to the content load helper
             System.Action[] loadDispatchers = new System.Action[]
             {
-                () =>
-                {
-                    contentLoadHelper.DispatchLoad<ItemDef>(Main.executingAssembly, typeof(MysticsRisky2Utils.BaseAssetTypes.BaseItem), x => contentPack.itemDefs.Add(x));
-                },
-                () =>
-                {
-                    contentLoadHelper.DispatchLoad<EquipmentDef>(Main.executingAssembly, typeof(MysticsRisky2Utils.BaseAssetTypes.BaseEquipment), x => contentPack.equipmentDefs.Add(x));
-                },
-                () =>
-                {
-                    contentLoadHelper.DispatchLoad<BuffDef>(Main.executingAssembly, typeof(MysticsRisky2Utils.BaseAssetTypes.BaseBuff), x => contentPack.buffDefs.Add(x));
-                },
-                () =>
-                {
-                    contentLoadHelper.DispatchLoad<GameObject>(Main.executingAssembly, typeof(MysticsRisky2Utils.BaseAssetTypes.BaseInteractable), null);
-                }
+                () => contentLoadHelper.DispatchLoad<ItemDef>(Main.executingAssembly, typeof(MysticsRisky2Utils.BaseAssetTypes.BaseItem), x => contentPack.itemDefs.Add(x)),
+                () => contentLoadHelper.DispatchLoad<EquipmentDef>(Main.executingAssembly, typeof(MysticsRisky2Utils.BaseAssetTypes.BaseEquipment), x => contentPack.equipmentDefs.Add(x)),
+                () => contentLoadHelper.DispatchLoad<BuffDef>(Main.executingAssembly, typeof(MysticsRisky2Utils.BaseAssetTypes.BaseBuff), x => contentPack.buffDefs.Add(x)),
+                () => contentLoadHelper.DispatchLoad<GameObject>(Main.executingAssembly, typeof(MysticsRisky2Utils.BaseAssetTypes.BaseInteractable), null)
             };
-            int num;
+            int num = 0;
             for (int i = 0; i < loadDispatchers.Length; i = num)
             {
                 loadDispatchers[i]();
@@ -214,37 +204,45 @@ namespace MysticsItems
                 yield return null;
                 num = i + 1;
             }
+
+            // Start loading content. Longest part of the loading process, so we will dedicate most of the progress bar to it
             while (contentLoadHelper.coroutine.MoveNext())
             {
-                args.ReportProgress(Util.Remap(contentLoadHelper.progress.value, 0f, 1f, 0.05f, 0.95f));
+                args.ReportProgress(Util.Remap(contentLoadHelper.progress.value, 0f, 1f, 0.05f, 0.9f));
                 yield return contentLoadHelper.coroutine.Current;
             }
+
+            // Populate static content pack fields and add various prefabs and scriptable objects generated during the content loading part to the content pack
             loadDispatchers = new System.Action[]
             {
-                () =>
-                {
-                    ContentLoadHelper.PopulateTypeFields<ItemDef>(typeof(Items), contentPack.itemDefs);
-                },
-                () =>
-                {
-                    ContentLoadHelper.PopulateTypeFields<EquipmentDef>(typeof(Equipment), contentPack.equipmentDefs);
-                },
-                () =>
-                {
-                    ContentLoadHelper.PopulateTypeFields<BuffDef>(typeof(Buffs), contentPack.buffDefs);
-                },
-                () =>
-                {
-                    contentPack.bodyPrefabs.Add(Resources.bodyPrefabs.ToArray());
-                    contentPack.masterPrefabs.Add(Resources.masterPrefabs.ToArray());
-                    contentPack.projectilePrefabs.Add(Resources.projectilePrefabs.ToArray());
-                    contentPack.effectDefs.Add(Resources.effectPrefabs.ConvertAll(x => new EffectDef(x)).ToArray());
-                    contentPack.networkSoundEventDefs.Add(Resources.networkSoundEventDefs.ToArray());
-                    contentPack.unlockableDefs.Add(Resources.unlockableDefs.ToArray());
-                    contentPack.entityStateTypes.Add(Resources.entityStateTypes.ToArray());
-                    contentPack.skillDefs.Add(Resources.skillDefs.ToArray());
-                    contentPack.skillFamilies.Add(Resources.skillFamilies.ToArray());
-                }
+                () => ContentLoadHelper.PopulateTypeFields<ItemDef>(typeof(Items), contentPack.itemDefs),
+                () => ContentLoadHelper.PopulateTypeFields<EquipmentDef>(typeof(Equipment), contentPack.equipmentDefs),
+                () => ContentLoadHelper.PopulateTypeFields<BuffDef>(typeof(Buffs), contentPack.buffDefs),
+                () => contentPack.bodyPrefabs.Add(Resources.bodyPrefabs.ToArray()),
+                () => contentPack.masterPrefabs.Add(Resources.masterPrefabs.ToArray()),
+                () => contentPack.projectilePrefabs.Add(Resources.projectilePrefabs.ToArray()),
+                () => contentPack.effectDefs.Add(Resources.effectPrefabs.ConvertAll(x => new EffectDef(x)).ToArray()),
+                () => contentPack.networkSoundEventDefs.Add(Resources.networkSoundEventDefs.ToArray()),
+                () => contentPack.unlockableDefs.Add(Resources.unlockableDefs.ToArray()),
+                () => contentPack.entityStateTypes.Add(Resources.entityStateTypes.ToArray()),
+                () => contentPack.skillDefs.Add(Resources.skillDefs.ToArray()),
+                () => contentPack.skillFamilies.Add(Resources.skillFamilies.ToArray())
+            };
+            for (int i = 0; i < loadDispatchers.Length; i = num)
+            {
+                loadDispatchers[i]();
+                args.ReportProgress(Util.Remap((float)(i + 1), 0f, (float)loadDispatchers.Length, 0.9f, 0.95f));
+                yield return null;
+                num = i + 1;
+            }
+
+            // Call "AfterContentPackLoaded" methods
+            loadDispatchers = new System.Action[]
+            {
+                () => MysticsRisky2Utils.ContentManagement.ContentLoadHelper.InvokeAfterContentPackLoaded<MysticsRisky2Utils.BaseAssetTypes.BaseItem>(Main.executingAssembly),
+                () => MysticsRisky2Utils.ContentManagement.ContentLoadHelper.InvokeAfterContentPackLoaded<MysticsRisky2Utils.BaseAssetTypes.BaseEquipment>(Main.executingAssembly),
+                () => MysticsRisky2Utils.ContentManagement.ContentLoadHelper.InvokeAfterContentPackLoaded<MysticsRisky2Utils.BaseAssetTypes.BaseBuff>(Main.executingAssembly),
+                () => MysticsRisky2Utils.ContentManagement.ContentLoadHelper.InvokeAfterContentPackLoaded<MysticsRisky2Utils.BaseAssetTypes.BaseInteractable>(Main.executingAssembly)
             };
             for (int i = 0; i < loadDispatchers.Length; i = num)
             {
@@ -253,10 +251,7 @@ namespace MysticsItems
                 yield return null;
                 num = i + 1;
             }
-            MysticsRisky2Utils.ContentManagement.ContentLoadHelper.InvokeAfterContentPackLoaded<MysticsRisky2Utils.BaseAssetTypes.BaseItem>(Main.executingAssembly);
-            MysticsRisky2Utils.ContentManagement.ContentLoadHelper.InvokeAfterContentPackLoaded<MysticsRisky2Utils.BaseAssetTypes.BaseEquipment>(Main.executingAssembly);
-            MysticsRisky2Utils.ContentManagement.ContentLoadHelper.InvokeAfterContentPackLoaded<MysticsRisky2Utils.BaseAssetTypes.BaseBuff>(Main.executingAssembly);
-            MysticsRisky2Utils.ContentManagement.ContentLoadHelper.InvokeAfterContentPackLoaded<MysticsRisky2Utils.BaseAssetTypes.BaseInteractable>(Main.executingAssembly);
+
             loadDispatchers = null;
             yield break;
         }
