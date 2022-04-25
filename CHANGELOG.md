@@ -1,3 +1,8 @@
+#### 2.0.12:
+* Fixed for the 1.2.3 version of the game
+* Rift Lens countdown now gets extra time when at least one rift is inside a Void Seed
+* Failed Experiment now works with Mending and Voidtouched elites
+* Fixed Platinum Card not reducing prices of multishops
 #### 2.0.11:
 * Fixed Treasure Map beeping even when nobody has the item
 #### 2.0.10:

@@ -6,7 +6,7 @@ Adds 40 new items!
 
 ### Important notes
 #### Manual installation
-Put `MysticsItemsPlugin.dll` and `MysticsItems.language` from the downloaded archive in the plugins folder.  
+Extract all files from the downloaded archive into a new folder called "TheMysticSword-MysticsItems" in the plugins folder.  
 #### Multiplayer
 Make sure that your config matches with the configs of other players in the lobby.  
 
@@ -79,41 +79,11 @@ Contains assets from [FreePBR.com](https://freepbr.com/)
 Contains assets from [ambientCG.com](https://ambientcg.com/), licensed under CC0 1.0 Universal.
 
 # Changelog
-#### 2.0.11:
-* Fixed Treasure Map beeping even when nobody has the item
-#### 2.0.10:
-* Marwan's Ash:
-	* Now has caps for extra damage, burn damage and spread radius for non-ally characters
-		* This should make the item more fair when used by enemies and the final boss
-* Platinum Card:
-	* Discount: ~~10%~~ ⇒ 50%
-* Gate Chalice:
-	* Now has special interactions on certain stages
-	* Can no longer be used in the Bazaar Between Time
-* Thought Processor:
-	* Effect changed: using skills with cooldowns now reduces all other skill cooldowns
-* Legendary Mask:
-	* Can now be activated without an enemy target to spawn an Archaic Wisp nearby
-* Added item displays for DLC1 survivors
-* Added a reminder message about a remaining Treasure Map spot when the teleporter is charged
-* Added a filling up indicator for Super Idol over the inventory icon that shows the current percentage of the gold buff
-* Added General config options to toggle Contraband Gunpowder effects
-* Updated Spare Wiring VFX and SFX
-* Adjusted Mechanical Arm logbook model to be more arm-like
-* Updated Puzzle of Chronos item display and icon
-* Fixed Treasure Map not dropping any items when the 1nsiderItems mod is enabled
-* Fixed Treasure Map calling certain server-only functions on clients
-* Fixed Marwan's Light burn DoT counting as 2 debuffs for the Death Mark
-* Fixed Choc Chip extending Fire terminal 1 second debuff
-* Fixed Choc Chip not reducing the duration of damage-over-time effects
-* Fixed the WhatAmILookingAt mod not detecting the mod
-* Fixed Manuscript & Mystic Sword overriding extended item descriptions from BetterUI
-* Fixed wrong BetterUI item stat modifier values from Scratch Ticket
-* Fixed Platinum Card not playing a sound
-* Fixed Puzzle of Chronos obscuring Railgunner's scope vision
-* Fixed Mechanical Arm making the player ping themselves
-* Fixed the "Sincere Apologies." challenge unlocking when anything dies from a Sawmerang instead of the player specifically
-* Updated localization files
+#### 2.0.12:
+* Fixed for the 1.2.3 version of the game
+* Rift Lens countdown now gets extra time when at least one rift is inside a Void Seed
+* Failed Experiment now works with Mending and Voidtouched elites
+* Fixed Platinum Card not reducing prices of multishops
   
 (Previous changelogs can be found [here](https://github.com/TheMysticSword/MysticsItems/blob/main/CHANGELOG.md))
 
