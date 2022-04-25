@@ -12,6 +12,7 @@ using MysticsRisky2Utils.BaseAssetTypes;
 using R2API.Networking.Interfaces;
 using R2API.Networking;
 using static MysticsItems.BalanceConfigManager;
+using UnityEngine.AddressableAssets;
 
 namespace MysticsItems.Items
 {
@@ -148,6 +149,19 @@ namespace MysticsItems.Items
                     eliteBuffDef = RoR2Content.Buffs.AffixLunar,
                     vfx = LegacyResourcesAPI.Load<GameObject>("Prefabs/Effects/LunarGolemTwinShotExplosion"),
                     debuff = RoR2Content.Buffs.Cripple
+                });
+                spreadEffectInfos.Add(new SpreadEffectInfo
+                {
+                    eliteBuffDef = DLC1Content.Buffs.EliteEarth,
+                    vfx = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Beetle/BeetleAcidImpact.prefab").WaitForCompletion(),
+                    damageType = DamageType.WeakOnHit,
+                    procCoefficient = 1f
+                });
+                spreadEffectInfos.Add(new SpreadEffectInfo
+                {
+                    eliteBuffDef = DLC1Content.Buffs.EliteVoid,
+                    vfx = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Nullifier/NullifierExplosion.prefab").WaitForCompletion(),
+                    dot = DotController.DotIndex.Fracture
                 });
             };
         }
