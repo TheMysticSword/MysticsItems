@@ -26,11 +26,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="mysticsitemsunityassetbundle" />
-    <EmbeddedResource Include="MysticsItemsWwiseSoundbank.bnk" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
   </ItemGroup>
 

@@ -32,6 +32,7 @@ namespace MysticsItems
         public const string PluginVersion = "2.0.12";
 
         internal static BepInEx.Logging.ManualLogSource logger;
+        internal static PluginInfo pluginInfo;
         internal static BepInEx.Configuration.ConfigFile configGeneral;
         internal static BepInEx.Configuration.ConfigFile configBalance;
         internal static BepInEx.Configuration.ConfigFile configContentToggle;
@@ -39,6 +40,7 @@ namespace MysticsItems
         public void Awake()
         {
             logger = Logger;
+            pluginInfo = Info;
             configGeneral = new BepInEx.Configuration.ConfigFile(Paths.ConfigPath + "\\MysticsItems_General.cfg", true);
             configBalance = new BepInEx.Configuration.ConfigFile(Paths.ConfigPath + "\\MysticsItems_Balance.cfg", true);
             configContentToggle = new BepInEx.Configuration.ConfigFile(Paths.ConfigPath + "\\MysticsItems_ContentToggle.cfg", true);
@@ -48,7 +50,16 @@ namespace MysticsItems
 
     public static partial class Main
     {
-        public static AssetBundle AssetBundle = AssetBundle.LoadFromStream(Assembly.GetExecutingAssembly().GetManifestResourceStream("MysticsItems.mysticsitemsunityassetbundle"));
+        private static AssetBundle _assetBundle;
+        public static AssetBundle AssetBundle
+        {
+            get
+            {
+                if (_assetBundle == null)
+                    _assetBundle = AssetBundle.LoadFromFile(System.IO.Path.Combine(System.IO.Path.GetDirectoryName(MysticsItemsPlugin.pluginInfo.Location), "mysticsitemsunityassetbundle"));
+                return _assetBundle;
+            }
+        }
 
         internal const BindingFlags bindingFlagAll = (BindingFlags)(-1);
         internal static BepInEx.Logging.ManualLogSource logger;
@@ -66,12 +77,7 @@ namespace MysticsItems
             BalanceConfigManager.Init();
             ContentToggleConfigManager.Init();
 
-            using (var soundBankStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("MysticsItems.MysticsItemsWwiseSoundbank.bnk"))
-            {
-                var bytes = new byte[soundBankStream.Length];
-                soundBankStream.Read(bytes, 0, bytes.Length);
-                SoundAPI.SoundBanks.Add(bytes);
-            }
+            SoundAPI.SoundBanks.Add(System.IO.File.ReadAllBytes(System.IO.Path.Combine(System.IO.Path.GetDirectoryName(MysticsItemsPlugin.pluginInfo.Location), "MysticsItemsWwiseSoundbank.bnk")));
 
             executingAssembly = Assembly.GetExecutingAssembly();
             declaringType = MethodBase.GetCurrentMethod().DeclaringType;
