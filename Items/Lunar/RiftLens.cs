@@ -96,7 +96,7 @@ namespace MysticsItems.Items
             });
 
             NetworkingAPI.RegisterMessageType<MysticsItemsRiftChest.SyncDestroyThingsOnOpen>();
-            NetworkingAPI.RegisterMessageType<MysticsItemsRiftLensBehaviour.SyncMaxCountdown>();
+            NetworkingAPI.RegisterMessageType<MysticsItemsRiftLensBehaviour.SyncCountdown>();
         }
 
         public static System.Action<CostTypeIndex> OnRiftLensCostTypeRegister;
@@ -246,7 +246,7 @@ namespace MysticsItems.Items
                         }, rng));
                     }
                 }
-                MysticsItemsRiftLensBehaviour.RecalculateMaxCountdown();
+                MysticsItemsRiftLensBehaviour.CalculateCountdownForAll();
             };
 
             On.RoR2.CharacterBody.OnInventoryChanged += (orig, self) =>
@@ -322,6 +322,9 @@ namespace MysticsItems.Items
 
         public static float GetMaxCountdownForCurrentStage()
         {
+            var averageWalkSpeed = 7f * 1.45f * (1f + 0.25f * Run.instance.loopClearCount);
+            var timeBonusFlat = 10f;
+
             // smart time calculation using node path lengths
             if (SceneInfo.instance && SceneInfo.instance.groundNodes)
             {
@@ -431,8 +434,6 @@ namespace MysticsItems.Items
                 var distanceToNearestRift = distanceToNearestRiftForEachPlayer.Count > 0 ? distanceToNearestRiftForEachPlayer.Max() : 1f;
 
                 var totalDistance = distanceToNearestRift + distanceBetweenAllRifts;
-                var averageWalkSpeed = 7f * 1.45f * (1f + 0.25f * Run.instance.loopClearCount);
-                var timeBonusFlat = 10f;
                 var calculatedCountdownTime = (totalDistance / averageWalkSpeed) + timeBonusFlat;
                 return calculatedCountdownTime;
             }
@@ -485,10 +486,8 @@ namespace MysticsItems.Items
                 var distanceToNearestRift = distanceToNearestRiftForEachPlayer.Count > 0 ? distanceToNearestRiftForEachPlayer.Max() : 1f;
 
                 var totalDistance = distanceToNearestRift + distanceBetweenAllRifts;
-                var averageWalkSpeed = 7f * 1.45f * (1f + 0.25f * Run.instance.loopClearCount);
                 // players can't always go through the shortest path due to terrain and gravity, so we'll add bonus time
                 var timeBonusMultiplier = 3f;
-                var timeBonusFlat = 20f;
                 var calculatedCountdownTime = (totalDistance / averageWalkSpeed) * timeBonusMultiplier + timeBonusFlat;
                 return calculatedCountdownTime;
             }
@@ -514,57 +513,70 @@ namespace MysticsItems.Items
             {
                 body.onInventoryChanged += Body_onInventoryChanged;
                 UpdateItemBasedInfo();
-                countdownTimer = maxCountdown;
+                CalculateCountdown();
                 diedFromTimer = false;
                 nearNodes = true;
             }
 
-            public static float maxCountdown = 150f;
+            public float maxCountdown = 150f;
 
-            public static void RecalculateMaxCountdown()
+            public void CalculateCountdown()
             {
                 if (!NetworkServer.active) return;
 
                 var newCountdownTime = GetMaxCountdownForCurrentStage();
-
                 maxCountdown = newCountdownTime;
-                new SyncMaxCountdown(newCountdownTime).Send(NetworkDestination.Clients);
-                foreach (var instance in InstanceTracker.GetInstancesList<MysticsItemsRiftLensBehaviour>())
-                {
-                    instance.countdownTimer = maxCountdown;
-                }
+                countdownTimer = maxCountdown;
+
+                new SyncCountdown(gameObject.GetComponent<NetworkIdentity>().netId, newCountdownTime).Send(NetworkDestination.Clients);
             }
 
-            public class SyncMaxCountdown : INetMessage
+            public static void CalculateCountdownForAll()
             {
+                if (!NetworkServer.active) return;
+                foreach (var component in InstanceTracker.GetInstancesList<MysticsItemsRiftLensBehaviour>())
+                    component.CalculateCountdown();
+            }
+
+            public class SyncCountdown : INetMessage
+            {
+                NetworkInstanceId objID;
                 float maxCountdown;
 
-                public SyncMaxCountdown()
+                public SyncCountdown()
                 {
                 }
 
-                public SyncMaxCountdown(float maxCountdown)
+                public SyncCountdown(NetworkInstanceId objID, float maxCountdown)
                 {
+                    this.objID = objID;
                     this.maxCountdown = maxCountdown;
                 }
 
                 public void Deserialize(NetworkReader reader)
                 {
+                    objID = reader.ReadNetworkId();
                     maxCountdown = reader.ReadSingle();
                 }
 
                 public void OnReceived()
                 {
-                    var difference = maxCountdown - MysticsItemsRiftLensBehaviour.maxCountdown;
-                    MysticsItemsRiftLensBehaviour.maxCountdown = maxCountdown;
-                    foreach (var instance in InstanceTracker.GetInstancesList<MysticsItemsRiftLensBehaviour>())
+                    if (NetworkServer.active) return;
+                    GameObject obj = Util.FindNetworkObject(objID);
+                    if (obj)
                     {
-                        instance.countdownTimer += difference;
+                        MysticsItemsRiftLensBehaviour component = obj.GetComponent<MysticsItemsRiftLensBehaviour>();
+                        if (component)
+                        {
+                            component.countdownTimer += maxCountdown - component.maxCountdown;
+                            component.maxCountdown = maxCountdown;
+                        }
                     }
                 }
 
                 public void Serialize(NetworkWriter writer)
                 {
+                    writer.Write(objID);
                     writer.Write(maxCountdown);
                 }
             }
