@@ -116,6 +116,17 @@ namespace MysticsItems.Items
                     activatorMaster.inventory.GiveItem(MysticsItemsContent.Items.MysticsItems_KeepShopTerminalOpenConsumed);
 
                     RoR2.Audio.PointSoundManager.EmitSoundServer(KeepShopTerminalOpen.sfx.index, shopTerminalBehavior.transform.position);
+
+                    shopTerminalBehavior.serverMultiShopController.Networkcost = (int)(shopTerminalBehavior.serverMultiShopController.Networkcost * (1f - discount / 100f));
+                    foreach (var terminal in shopTerminalBehavior.serverMultiShopController.terminalGameObjects)
+                    {
+                        if (terminal)
+                        {
+                            var purchaseInteraction = terminal.GetComponent<PurchaseInteraction>();
+                            if (purchaseInteraction)
+                                purchaseInteraction.Networkcost = (int)(purchaseInteraction.Networkcost * (1f - discount / 100f));
+                        }
+                    }
                 }
             }
         }
