@@ -1,0 +1,24 @@
+Some parts of the language files have comments indicated by double slashes (//). Do not translate them - they do not show up anywhere in the game, they are there to assist you.
+
+Do not translate the phrase "Mystic's Items" if it shows up anywhere in this file - it's the official name of the mod
+
+Using a JSON text editor is recommended. That kind of software will tell you if there are any formatting errors in your file (for example, a missing quotation mark). If it marks comments as errors, ignore that.
+
+If you want to add a quotation mark inside of your string, prefix it with a backslash (\). Example:
+"ITEM_MYSTICSITEMS_TEXTEXAMPLE": "Very \"cool\" text"
+
+Line breaks are indicated by \r\n (or just \n if I forgot to add the \r somewhere)
+
+Do not translate formatting tags that look like this: {ChanceBonus}, {0}, {1}, {ArmorAdd}. They get auto-replaced with numbers by the game.
+
+Do not translate style tag parameters, but translate things inside the tags.
+For example, if you see "<style=cIsHealing>increases health</style>", translate only the "increases health", don't translate "<style=cIsHealing>" and "</style>"
+
+"for {Time}s" usually means "for {Time} seconds"
+Same with "{Radius}m" meaning "{Radius} meters"
+
+If you want to check what your translation looks like in-game, use the CheatUnlocks mod to unlock logbook entries for all items
+
+Remember: you have all the freedom in your translation!
+You don't have to translate wordplays accurately word-to-word if they don't work in your language - you can substitute them with similar puns that would fit better.
+No need to translate item names accurately if they're too long in your language.

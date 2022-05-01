@@ -1,0 +1,368 @@
+{
+  "RU": {
+    //[ITEMS]
+
+    //[NOTIER]
+    "ITEM_MYSTICSITEMS_RIFTLENSDEBUFF_NAME": "Видение разломов",
+    "ITEM_MYSTICSITEMS_RIFTLENSDEBUFF_PICKUP": "Вы видите Нестабильные разломы... <color=#FF7F7F>НО вы умрёте, если не закроете их вовремя!</color>",
+    "ITEM_MYSTICSITEMS_RIFTLENSDEBUFF_DESC": "Вы видите Нестабильные разломы... <color=#FF7F7F>НО вы умрёте, если не закроете их вовремя!</color>",
+
+    "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPENCONSUMED_NAME": "Платиновая карта (использовано)",
+    "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPENCONSUMED_PICKUP": "Восстановится на следующем этапе.",
+    "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPENCONSUMED_DESC": "Восстановится на следующем этапе.",
+
+    //[TIER1]
+    "ITEM_MYSTICSITEMS_HEALORBONBARREL_NAME": "Пончик", // ["Food for thought" in the lore entry is a wordplay on donuts as a kind of food and "food for thought" as a metaphorical phrase]
+    "ITEM_MYSTICSITEMS_HEALORBONBARREL_PICKUP": "Активация объекта создаёт исцеляющую сферу.",
+    "ITEM_MYSTICSITEMS_HEALORBONBARREL_DESC": "Активация объекта создаёт <style=cIsHealing>исцеляющую сферу</style>, восстанавливающую <style=cIsHealing>{FlatHealing}</style> ОЗ и дополнительно <style=cIsHealing>{FractionalHealing}% <style=cStack>(+{FractionalHealingPerStack}% за шт.)</style></style> от <style=cIsHealing>максимального здоровья</style>.",
+    "ITEM_MYSTICSITEMS_HEALORBONBARREL_LORE": "- Знаешь, почему у пончиков посередине дырка?\n\n- Потому что, э-э-э... не знаю.\n\n- Это пища для размышлений.\n\n- ... Я тебя ненавижу.",
+
+    "ITEM_MYSTICSITEMS_SCRATCHTICKET_NAME": "Лотерейный билет",
+    "ITEM_MYSTICSITEMS_SCRATCHTICKET_PICKUP": "Слегка увеличивает шанс срабатывания эффектов, основанных на случайном шансе.",
+    "ITEM_MYSTICSITEMS_SCRATCHTICKET_DESC": "Вероятность срабатывания эффектов, основанных на случайном шансе, увеличена на <style=cIsUtility>+{ChanceBonus}% <style=cStack>(+{ChanceBonusPerStack}% за шт.)</style></style>. Не влияет на эффекты с шансом срабатывания ниже 1%.",
+    "ITEM_MYSTICSITEMS_SCRATCHTICKET_LORE": "<style=cMono>\n//--ПОВТОР ТЕЛЕФОННОГО ЗВОНКА #731 --//</style>\n\n- Доброе утро. Могу ли я узнать, кто звонит?\n\n- Доброе утро! Это Карл Шейд из Star Seven. Я позвонил вам, чтобы поздравить вас с победой в лотерее на $100.000!\n\n- Ого, вот это сюрприз!\n\n- Вы когда-нибудь прежде побеждали в лотерее?\n\n- Э-э-э, ну... нет.\n\n- Что ж, всё бывает впервые! Вот, как это работает: чтобы вы получили ваш приз, нам нужны данные вашей банковской карты, включая три цифры на обратной стороне.\n\n- [ДАННЫЙ ОТРЫВОК ЗВОНКА БЫЛ УДАЛЁН ДЛЯ КОНФИДЕНЦИАЛЬНОСТИ]\n\n- Отлично!\n\n- ...\n\n- ...\n\n- Хмм, мне до сих пор ничего не пришло. Все номера ведь правильные?\n\n<style=cMono>\n//--КОНЕЦ РАЗГОВОРА --//</style>",
+
+    "ITEM_MYSTICSITEMS_BACKARMOR_NAME": "Позвоночный имплант",
+    "ITEM_MYSTICSITEMS_BACKARMOR_PICKUP": "Меньше урона от атак по спине.",
+    "ITEM_MYSTICSITEMS_BACKARMOR_DESC": "Броня увеличена на <style=cIsUtility>{ArmorAdd} <style=cStack>(+{ArmorAddPerStack} за шт.)</style></style> от атак по спине.",
+    "ITEM_MYSTICSITEMS_BACKARMOR_LORE": "<style=cMono>\n//--ОТРЫВОК ИЗ ТЕЛЕПЕРЕДАЧИ --//</style>\n\nСРОЧНЫЕ НОВОСТИ: меньше минуты назад в Центральном здании начался сильный пожар. Мы сейчас находимся рядом со зданием. Пожарн- КТО-ТО ВЫПРЫГНУЛ ИЗ ОКНА! ЭЙ, ЧТО ТЫ ДЕЛАЕШЬ?! ОТВЕРНИ КАМЕРУ!\n\nБоже мой.\nПогодите... он... жив? И кто это к нему бежит?\nТак, нам НАДО узнать поподробнее.\n\nРепортёр: Сэр, вы в порядке?\n\nЧеловек 1: Да, всё в норме.\n\nЧеловек 2: Что ты, [УДАЛЕНО], имеешь в виду под \"всё в норме\"? Ты упал с высоты 90 этажей, ты на [УДАЛЕНО] телевидении и спокойно говоришь \"всё в норме\"! Что происходит?!\n\nЧеловек 1: Ну, сгорать заживо я не собирался. Окно было открыто. И мне нужно было проверить свои новые позвоночные импланты. Я учёл всё это и сделал то, что сделал.\n\nЧеловек 2: Ты меня обеспокоил, ты [УДАЛЕНО]! Никогда не делай так больше!",
+
+    "ITEM_MYSTICSITEMS_MANUSCRIPT_NAME": "Манускрипт",
+    "ITEM_MYSTICSITEMS_MANUSCRIPT_PICKUP": "Увеличивает случайные характеристики на {StatBonus}%.",
+    "ITEM_MYSTICSITEMS_MANUSCRIPT_DESC": "Увеличивает <style=cIsUtility>1 <style=cStack>(+1 за шт.)</style></style> случайный показатель характеристики (максимальное здоровье/регенерация здоровья/урон/скорость передвижения/скорость атаки/шанс критического попадания/броня) на <style=cIsUtility>{StatBonus}%</style>.",
+    "ITEM_MYSTICSITEMS_MANUSCRIPT_LORE": "<style=cMono>Расшифровка аудиозаписи со шлема войска класса Z-3 оф**ера *********** завершена.</style>\r\n\r\nZ-3 Ra-2: Бред, это просто бесполезная макулатура [сильные помехи] задание №[неразборчивое бормотание]\r\n\r\nZ-3 LE0-5: [сильные помехи] планета [сильные помехи] начеку [сильные помехи]\r\n\r\nZ-3 Ra-2: Да, опасные звери, [сильные помехи], [сильные помехи], б[сильные помехи], дезертиры, <mark=#ff0000ff>БЕСЫ</mark>, эта планета слишком опасна для такой малой оплаты, и с \"[неразборчивое бормотание]\" нет связи [сильный помехи]\r\n\r\nZ-3 LE0-5: Ра[сильные помехи]\r\n\r\nZ-3 Ra-2: [сильные помехи]\r\n\r\nZ-3 LE0-5: [сильные помехи]\r\n\r\nZ-3 Ra-2: [неразборчивое бормотание]\r\n\r\nZ-3 LE0-5: [сильные помехи]\r\n\r\n[звуки неизвестного происхождения]\r\n\r\n<style=cMono>--Конец записи--</style>\r\n\r\nШлем был найден с фатальными повреждениями без окуляров и геолокатора.",
+
+    "ITEM_MYSTICSITEMS_LIMITEDARMOR_NAME": "Миленький бантик", // [Hair bow]
+    "ITEM_MYSTICSITEMS_LIMITEDARMOR_PICKUP": "Снижает урон от {Hits} ударов.",
+    "ITEM_MYSTICSITEMS_LIMITEDARMOR_DESC": "Увеличивает броню на <style=cIsUtility>{Armor}</style> от <style=cIsUtility>{Hits} ударов <style=cStack>(+{Hits} ударов за шт.)</style></style>. При израсходовании превращается в <style=cIsUtility>Потрёпанный бантик (всегда увеличивает броню на {BrokenArmor} <style=cStack>(+{BrokenArmor} за шт.)</style>)</style>.",
+
+    "ITEM_MYSTICSITEMS_LIMITEDARMORBROKEN_NAME": "Потрёпанный бантик",
+    "ITEM_MYSTICSITEMS_LIMITEDARMORBROKEN_PICKUP": "Слегка увеличивает броню.",
+    "ITEM_MYSTICSITEMS_LIMITEDARMORBROKEN_DESC": "Увеличивает броню на <style=cIsUtility>{BrokenArmor} <style=cStack>(+{BrokenArmor} за шт.)</style></style>.",
+
+    "ITEM_MYSTICSITEMS_COOKIE_NAME": "Печенье с шоколадом", // [It's a chocolate chip cookie]
+    "ITEM_MYSTICSITEMS_COOKIE_PICKUP": "Усиления длятся дольше, ослабления длятся меньше.",
+    "ITEM_MYSTICSITEMS_COOKIE_DESC": "Увеличивает длительность положительных эффектов статуса на <style=cIsUtility>{BuffDuration} сек. <style=cStack>(+{BuffDurationPerStack} сек. за шт.)</style></style>. Сокращает длительность негативных эффектов статуса на <style=cIsUtility>{DebuffDuration} сек. <style=cStack>(+{DebuffDuration} сек. за шт.)</style></style>, не сокращает до менее 1 секунды.",
+
+    "ITEM_MYSTICSITEMS_MARWANASH1_NAME": "Пепел Марвана", // [Marwan's developer item]
+    "ITEM_MYSTICSITEMS_MARWANASH1_PICKUP": "При попадании наносит дополнительный урон. Улучшается на уровне {UpgradeLevel12}.",
+    "ITEM_MYSTICSITEMS_MARWANASH1_DESC": "Попадания по врагам заставляют их получить дополнительный удар на <style=cIsDamage>{Damage} <style=cStack>(+{DamagePerLevel} за уровень, умножается на количество предмета)</style></style> урона. <style=cIsUtility>Улучшается на уровне {UpgradeLevel12}</style>.",
+
+    "ITEM_MYSTICSITEMS_MARWANASH2_NAME": "Свет Марвана",
+    "ITEM_MYSTICSITEMS_MARWANASH2_PICKUP": "При попадании наносит дополнительный урон и накладывает периодический урон. Улучшается на уровне {UpgradeLevel23}.",
+    "ITEM_MYSTICSITEMS_MARWANASH2_DESC": "Попадания по врагам заставляют их получить дополнительный удар на <style=cIsDamage>{Damage} <style=cStack>(+{DamagePerLevel} за уровень, умножается на количество предмета)</style></style> урона и терять <style=cIsHealth>{DoTPercent}% <style=cStack>(+{DoTPercentPerLevel}% за каждый уровень после {UpgradeLevel12}, умножается на количество предмета)</style></style> от их максимального здоровья каждую секунду. <style=cIsUtility>Улучшается на уровне {UpgradeLevel23}</style>.",
+
+    "ITEM_MYSTICSITEMS_MARWANASH3_NAME": "Орудие Марвана",
+    "ITEM_MYSTICSITEMS_MARWANASH3_PICKUP": "Наносит урон и накладывает периодический урон всем окружающим врагам при попадании.",
+    "ITEM_MYSTICSITEMS_MARWANASH3_DESC": "Попадания по врагам заставляют <style=cIsUtility>всех врагов в радиусе {Radius}м <style=cStack>(+{RadiusPerLevel}м за каждый уровень после {UpgradeLevel23}, умножается на количество предмета)</style></style> получить <style=cIsDamage>{Damage} <style=cStack>(+{DamagePerLevel} за уровень, умножается на количество предмета)</style></style> урона и терять <style=cIsHealth>{DoTPercent}% <style=cStack>(+{DoTPercentPerLevel}% за каждый уровень после {UpgradeLevel12}, умножается на количество предмета)</style></style> от их максимального здоровья каждую секунду.",
+
+    //[TIER2]
+    "ITEM_MYSTICSITEMS_COFFEEBOOSTONITEMPICKUP_NAME": "Кружка экспрессо", // [Yes, it is specifically "expresso" in this item, because it makes you fast and inflicts an Express Boost buff. It's not a misspelling.]
+    "ITEM_MYSTICSITEMS_COFFEEBOOSTONITEMPICKUP_PICKUP": "Получите экспресс-ускорение до следующего этапа при подборе предмета. Складывается {MaxBuffs} раза.",
+    "ITEM_MYSTICSITEMS_COFFEEBOOSTONITEMPICKUP_DESC": "Каждый подобранный предмет даёт <style=cIsUtility>экспресс-ускорение</style>, увеличивающее <style=cIsDamage>скорость атаки</style> и <style=cIsUtility>скорость передвижения</style> на <style=cIsUtility>{BoostPower}%</style> до следующего этапа. Предел ускорения - <style=cIsUtility>{BoostPowerMax}% <style=cStack>(+{BoostPowerMaxPerStack}% за шт.)</style></style>. <style=cIsUtility>Предметы более высокой редкости дают больше экспресс-ускорения за раз.</style>",
+    "ITEM_MYSTICSITEMS_COFFEEBOOSTONITEMPICKUP_LORE": "- Давай, давай, давай! Ну же, мы на супер секретной миссии! Надо найти все эти ящики как можно быстрее! Вернуть всё своим владельцам! Всех осчастливить! Ю-ху!\r\n\r\n- Да, мы на СЕКРЕТНОЙ миссии, о которой абсолютно НИКТО не знает, так что торопиться НЕЗАЧЕМ. У нас КУЧА времени. А ты чего вообще на таком позитиве? Что было в том кофе?\r\n\r\n- Короче, помнишь тот энергетик?\r\n\r\n- Ага. Стоп, я ведь сказал тебе выброс-\r\n\r\n- И те шприцы с какой-то жёлтой жижей?\r\n\r\n- Э-э, да, помню? А что?\r\n\r\n- И ту светящуюсю синюю бутылку?\r\n\r\n- Т-ты шутишь...",
+
+    "ITEM_MYSTICSITEMS_EXPLOSIVEPICKUPS_NAME": "Контрабандный порох",
+    "ITEM_MYSTICSITEMS_EXPLOSIVEPICKUPS_PICKUP": "Создаёт взрывы при подборе собираемых объектов.",
+    "ITEM_MYSTICSITEMS_EXPLOSIVEPICKUPS_DESC": "<style=cIsUtility>{FlaskDropChance}%</style> шанс выбить мешочек с порохом при убийстве. Сбор подбираемых объектов (исцеляющих сфер, сокровища, боеприпасов, мешочков с порохом, etc.) создаёт взрыв радиусом <style=cIsDamage>{Radius}м <style=cStack>(+{RadiusPerStack}м за шт.)</style></style>, наносящий <style=cIsDamage>{Damage}% <style=cStack>(+{DamagePerStack}% за шт.)</style></style> базового урона.",
+    "ITEM_MYSTICSITEMS_EXPLOSIVEPICKUPS_LORE": "<style=cMono>\n//--АВТОМАТИЧЕСКАЯ ЗАПИСЬ ИЗ ХРАНИЛИЩА 4 В UES СВЕТ КОНТАКТА --//</style>\n\nВы только посмотрите, кто явился. Что заняло так много времени?\n\nИзвини, уронил ключ-карту по пути сюда, пришлось вернуться и-\n\nЧто? Мы на спецмиссии и ты позволяешь себе терять вещи?!\n\n...\n\nНу, надеюсь, ты не потерял снаряжение.\n\nНе волнуйся, я всё принёс. Механические пауки, парашюты, патроны, порох...\n\nИдеально. Видишь все эти ящики?\n\nВсё здесь станет нашим, не так ли?\n\nИменно. Всё станет нашим. Не забывай про план: мы прячем мехов по хранилищу, затем мы \"арендуем\" комнату 1407A и ведём себя, как пассажиры корабля, до тех пор, пока не останется пять минут до прибытия, после этого мы активируем паучков и сбегаем с добычей.\n\nПонял. Да начнётся операция \"Дождь из ящиков\"!",
+
+    "ITEM_MYSTICSITEMS_ALLYDEATHREVENGE_NAME": "Вендетта",
+    "ITEM_MYSTICSITEMS_ALLYDEATHREVENGE_PICKUP": "Временно увеличивает скорость атаки и урон, после того как враги убивают одного из ваших союзников.",
+    "ITEM_MYSTICSITEMS_ALLYDEATHREVENGE_DESC": "Увеличивает <style=cIsDamage>скорость атаки</style> на <style=cIsDamage>{AttackSpeed}%</style> и <style=cIsDamage>урон</style> на <style=cIsDamage>{Damage}%</style> на <style=cIsUtility>{Duration} сек. <style=cStack>(+{DurationPerStack} сек. за шт.)</style></style>, когда враги <style=cDeath>убивают</style> одного из ваших союзников.",
+
+    "ITEM_MYSTICSITEMS_SPOTTER_NAME": "Неисправный корректировщик", // [A reference to Sniper's Spotter ability from Risk of Rain 1]
+    "ITEM_MYSTICSITEMS_SPOTTER_PICKUP": "Увеличивает шанс критического удара по случайному врагу на 100%.",
+    "ITEM_MYSTICSITEMS_SPOTTER_DESC": "Каждые <style=cIsUtility>{Interval} сек.</style> анализирует 1 <style=cStack>(+1 за шт.)</style> случайного врага, увеличивая <style=cIsDamage>вероятность критического попадания</style> по нему <style=cIsDamage>на 100%</style> в течение <style=cIsUtility>{Duration} сек.</style>",
+
+    "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_NAME": "Ядерный ускоритель", // [Like a particle accelerator, but "nuclear" to make it sound cool and unique]
+    "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_PICKUP": "Чем быстрее вы передвигаетесь, тем больше урона вы наносите.",
+    "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_DESC": "Увеличивает скорость передвижения на <style=cIsUtility>{PassiveSpeed}%</style>. Урон <style=cIsDamage>увеличен на {Damage}% <style=cStack>(+{DamagePerStack}% за шт.)</style></style> за каждые <style=cIsUtility>1% увеличения к скорости передвижения (от предметов, эффектов статуса и т.д.)</style>.",
+
+    "ITEM_MYSTICSITEMS_EXTRASHRINEUSE_NAME": "Чёрный монолит", // [A reference to Monoliths from Space Odyssey]
+    "ITEM_MYSTICSITEMS_EXTRASHRINEUSE_PICKUP": "Все святилища можно использовать ещё раз.",
+    "ITEM_MYSTICSITEMS_EXTRASHRINEUSE_DESC": "Все святилища можно использовать <style=cIsUtility>+1 <style=cStack>(+1 за шт.)</style></style> раз.",
+    "ITEM_MYSTICSITEMS_EXTRASHRINEUSE_LORE": "\"Последние несколько дней люди со всего мира сообщают о появлении таинственных монолитов на небольшой отрезок времени. Достоверность этих сообщений довольно спорна, так как нет никаких фото- или видеодоказательств существования монолитов (причиной тому является то, что \"они слишком быстро исчезают\"), однако, стоит заметить, что каждое сообщение о монолите произошло в отдельный день. Учёные спорят: монолит - это разумное существо? Может ли это быть доказательством существования параллельных вселенных? Или это всего лишь розыгрыш?\"\n- Новостной репортаж",
+
+    "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPEN_NAME": "Платиновая карта",
+    "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPEN_PICKUP": "Вы можете купить ещё один предмет во Многомагазинном терминале по скидке (один раз за этап).",
+    "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPEN_DESC": "Покупка в Многомагазинном терминале оставляет другие Многомагазинные терминалы открытыми <style=cIsUtility>1 <style=cStack>(+1 за шт.)</style></style> раз на каждом этапе и снижает их цену на 10%.",
+    "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPEN_LORE": "<style=cMono>\n//-- Новые сообщения (1) --//\n\nОт: UES</style>\n\nБлагодарим вас за оформление подписки на программу Платиновой карты! Начиная с этого дня вам доступны ежедневные предложения и скидки во всех филиалах UES на всех планетах.\n\nНе забывайте оплачивать ежемесячный взнос. Иначе...\n\n<style=cMono>Вы не можете отвечать в этой беседе.</style>",
+
+    "ITEM_MYSTICSITEMS_MYSTICSWORD_NAME": "Мистический меч", // [TheMysticSword's developer item]
+    "ITEM_MYSTICSITEMS_MYSTICSWORD_PICKUP": "Убийство сильных врагов навсегда увеличивает урон.",
+    "ITEM_MYSTICSITEMS_MYSTICSWORD_DESC": "Увеличивает урон на <style=cIsDamage>{Damage}% <style=cStack>(+{DamagePerStack}% за шт.)</style></style> за каждое убийство врага, у которого более <style=cIsHealth>{HealthThreshold} базового здоровья <style=cIsUtility>(вместе с множителями здоровья элитных врагов или без)</style></style> вплоть до <style=cIsDamage>{MaxDamage}% <style=cStack>(+{MaxDamagePerStack}% за шт.)</style></style>.",
+    "ITEM_MYSTICSITEMS_MYSTICSWORD_LORE": "\"Украшеннное навершие - для стиля.\r\n\r\nРифлёная рукоять - для контроля.\r\n\r\nПлотная угловатая гарда - для силы.\r\n\r\nОдносторонне заточенные лезвия - для концентрации.\r\n\r\nДва лезвия - для, э-э...\"\r\n\r\n\"Ладно, ладно, перестань, все уже поняли, тебе *очень* нравится твой новый реквизитный меч.\"",
+
+    "ITEM_MYSTICSITEMS_RHYTHM_NAME": "Метроном",
+    "ITEM_MYSTICSITEMS_RHYTHM_PICKUP": "Используйте любой не основной навык каждые {Interval} сек. для накопления вероятности критического удара. Бонус сбросится, если пропустить такт.",
+    "ITEM_MYSTICSITEMS_RHYTHM_DESC": "Каждые <style=cIsUtility>{Interval} сек.</style> проигрывается такт. Использование второстепенного, дополнительного или особого навыка в такт накапливает <style=cIsUtility>комбо</style>, пропуск такта <style=cIsHealth>сбрасывает комбо</style>. Вероятность критического попадания увеличена на <style=cIsDamage>+{ComboCrit}% <style=cStack>(+{ComboCritPerStack}% за шт.)</style></style>, умноженных на текущее комбо.",
+
+    "ITEM_MYSTICSITEMS_ELITEPOTION_NAME": "Провальный эксперимент",
+    "ITEM_MYSTICSITEMS_ELITEPOTION_PICKUP": "Убийство элитного врага распространяет его эффект стихии на врагов поблизости.",
+    "ITEM_MYSTICSITEMS_ELITEPOTION_DESC": "Убийство элитного врага распространяет его эффект стихии на врагов в радиусе <style=cIsUtility>{Radius}м <style=cStack>(+{RadiusPerStack}м за шт.)</style></style> на <style=cIsUtility>{Duration} сек. <style=cStack>(+{DurationPerStack} сек. за шт.)</style></style>.",
+
+    "ITEM_MYSTICSITEMS_DRONEWIRES_NAME": "Запасная проводка",
+    "ITEM_MYSTICSITEMS_DRONEWIRES_PICKUP": "Вы и ваши дроны испускаете в бою искры, наносящие урон.",
+    "ITEM_MYSTICSITEMS_DRONEWIRES_DESC": "Вы и ваши дроны периодически испускаете <style=cIsDamage>электрические искры</style> в бою. Искры наносят <style=cIsDamage>{Damage}% <style=cStack>(+{DamagePerStack}% за шт.)</style></style> базового урона при контакте с врагом.",
+
+    "ITEM_MYSTICSITEMS_DEATHCEREMONY_NAME": "Церемония погибели",
+    "ITEM_MYSTICSITEMS_DEATHCEREMONY_PICKUP": "Критические попадания помечают врагов. Помеченные враги разделяют урон.",
+    "ITEM_MYSTICSITEMS_DEATHCEREMONY_DESC": "Увеличивает вероятность критического попадания на <style=cIsDamage>{BaseCrit}%</style>. Критические попадания помечают врагов. Когда помеченный враг получает урон, все остальные помеченные враги получают <style=cIsDamage>{Damage}% <style=cStack>(+{DamagePerStack}% за шт.)</style></style> от нанесённого урона. <style=cIsUtility>Метка действует {Duration} сек.</style>",
+
+    //[TIER3]
+    "ITEM_MYSTICSITEMS_VOLTMETER_NAME": "Беспроводной вольтметр", // [WV in the lore entry stands for "wireless voltmeter"]
+    "ITEM_MYSTICSITEMS_VOLTMETER_PICKUP": "Отражает полученный урон врагам поблизости, пока щит активен.",
+    "ITEM_MYSTICSITEMS_VOLTMETER_DESC": "Создаёт <style=cIsHealing>щит</style> на <style=cIsHealing>{PassiveShield}%</style> от максимального запаса здоровья. При получении урона, когда <style=cIsUtility>щит</style> активен, близжайших врагов в радиусе <style=cIsDamage>{Radius}м</style> поражает ток, нанося им <style=cIsDamage>{Damage}% <style=cStack>(+{DamagePerStack}% за шт.)</style></style> от полученного урона.",
+    "ITEM_MYSTICSITEMS_VOLTMETER_LORE": "ИНСТРУКЦИЯ ПО ИСПОЛЬЗОВАНИЮ ПРОТОТИПА БВ-1\n\nНе разбирайте БВ ни при каких обстоятельствах, или ваша гарантия аннулируется. В случае возникновения проблемы, обратитесь к производителю (см. стр. 9).\nНе подвергайте воздействию жидкостей.\nНе подвергайте воздействию другого активного БВ.\nНе держите около электронных приборов в течение более 7200 часов.\nСоблюдайте дистанцию 30+ метров во время броска БВ о твёрдый объект, чтобы избежать воздействия взрыва электрического разряда.\n\nСТРАНИЦА 4 - МЕРЫ ПРЕДОСТОРОЖНОСТИ",
+
+    "ITEM_MYSTICSITEMS_THOUGHTPROCESSOR_NAME": "Стимулятор мыслей", // [Wordplay on "food processor" and "thought process"]
+    "ITEM_MYSTICSITEMS_THOUGHTPROCESSOR_PICKUP": "Чем меньше у вас здоровья, тем быстрее вы атакуете.",
+    "ITEM_MYSTICSITEMS_THOUGHTPROCESSOR_DESC": "Увеличивает скорость атаки на <style=cIsDamage>{AttackSpeed}% <style=cStack>(+{AttackSpeedPerStack}% за шт.)</style></style> за каждый <style=cIsHealth>1% недостающего здоровья</style> вплоть до <style=cIsDamage>+{AttackSpeedMax}% <style=cStack>(+{AttackSpeedMaxPerStack}% за шт.)</style></style>.",
+    "ITEM_MYSTICSITEMS_THOUGHTPROCESSOR_LORE": "<style=cMono>Отрывок из аудиозаписи в больнице Вивифика.</style>\r\n\r\n\"...вы хотите сказать... что пациент пронёс алкоголь... напился... вошёл на кухню... попытался поделиться алкогольным напитком с рабочим персоналом... и когда персонал вызвал наш отдел, он выхватил блендер и надел его на голову?\"\r\n\r\n\"Да. Он сказал, цитирую, 'о, самые умные что ль? Вызываете ИХ, а? Да пошли вы [REDACTED], я вас в разы умнее! Сейчас этот котелок будет варить по полной!'\"\r\n\r\n\"...\"\r\n\r\n\"...\"\r\n\r\n\"...после этого он включил блендер... взял нож...\"\r\n\r\n\"...и убил двух членов персонала... крича от боли... пока блендер фаршировал его голову.\"",
+
+    "ITEM_MYSTICSITEMS_CRYSTALWORLD_NAME": "Кристаллизованный мир",
+    "ITEM_MYSTICSITEMS_CRYSTALWORLD_PICKUP": "Во время события с телепортом периодически замораживает всех врагов.",
+    "ITEM_MYSTICSITEMS_CRYSTALWORLD_DESC": "<style=cIsUtility>Замораживает</style> всех врагов поблизости на <style=cIsUtility>{FreezeTime} сек.</style> во время события с телепортом. Враги, невосприимчивые к заморозке, вместо этого подвергаются эффекту <style=cIsUtility>кристаллизации, отключающему их навыки и сковывающему их на месте</style>. Срабатывает <style=cIsUtility>{Pulses} <style=cStack>(+{PulsesPerStack} за шт.)</style></style> раза.",
+    "ITEM_MYSTICSITEMS_CRYSTALWORLD_LORE": "Посылка: Модель хрустального шара\r\nНомер для отслеживания: 242*****\r\nПримерный срок доставки: 15.06.2056\r\nСпособ доставки: высокий приоритет/хрупк.\r\nАдрес доставки: [УДАЛЕНО], Вена, Австрия, Земля\r\nДетали доставки:\r\n\r\nНадеюсь, у вас всё в порядке. Я большой фанат ваших работ. Ваша музыка... она фантастична, уникальна, превосходна. Меня охватывает волнение каждый раз, как ваши треки начинают играть в моём плейлисте. Благодарю вас за то, что делаете мою жизнь намного лучше. В знак признательности я присылаю вам это - трёхмерная модель обложки вашего трека [УДАЛЕНО].\r\n",
+
+    "ITEM_MYSTICSITEMS_DASHERDISC_NAME": "Своевременная экзекуция",
+    "ITEM_MYSTICSITEMS_DASHERDISC_PICKUP": "Получите неуязвимость на короткое время при низком уровне здоровья. Перезаряжается со временем.",
+    "ITEM_MYSTICSITEMS_DASHERDISC_DESC": "Если уровень вашего здоровья опускается ниже <style=cIsHealth>25%</style>, вы получаете неуязвимость на <style=cIsUtility>{Duration} секунд</style>. Перезаряжается каждые <style=cIsUtility>{Cooldown} сек. <style=cStack>(-{CooldownReductionPerStack}% за шт.)</style></style>.",
+    "ITEM_MYSTICSITEMS_DASHERDISC_LORE": "Посылка: Диск-спринтер\r\nНомер для отслеживания: 20******\r\nПримерный срок доставки: 22.10.2089\r\nСпособ доставки: высокий приоритет/биологическ.\r\nАдрес доставки: Гигантский диск, Юпитер\r\nДетали доставки:\r\n\r\nНашла его бродящим по нашей лаборатории. НЕ ДЕЛАЙТЕ РЕЗКИХ ДВИЖЕНИЙ В ЕГО ПРИСУТСТВИИ\r\n",
+
+    "ITEM_MYSTICSITEMS_TREASUREMAP_NAME": "Карта сокровищ", // [RA & DEC in the lore entry are "right ascension" and "declination". That section describes the space coordinates to the hidden treasure cache.]
+    "ITEM_MYSTICSITEMS_TREASUREMAP_PICKUP": "На каждом этапе спрятано сокровище с закопанным Легендарным предметом, которое занимает некоторое время для раскопки.",
+    "ITEM_MYSTICSITEMS_TREASUREMAP_DESC": "На каждом этапе появляется <style=cIsUtility>спрятанное сокровище</style> с зоной радиусом {Radius}м с закопанным <style=cIsHealth>Легендарным предметом</style>. Для раскопки предмета нужно находиться в этой зоне <style=cIsUtility>{UnearthTime} сек. <style=cStack>(-{ReductionPerStack}% за шт.)</style></style>.",
+    "ITEM_MYSTICSITEMS_TREASUREMAP_LORE": "<style=cMono>> ОС ЗАГРУЖЕНА\n> АВТО-ЗАПУСК \"СОВЕРШЕННОСЕКРЕТНО\"\n> [||||||||||] 100%\n> ДОСТУП ЗАПРЕЩЁН\n> ВВЕДИТЕ ПАРОЛЬ\n> ******12\n> ДОСТУП РАЗРЕШЁН\n> ТАЙНИК С СОКРОВИЩЕМ В ЗВЁЗДНОЙ СИСТЕМЕ БОР\n> ПРЯМ. ВОСХ. 21Ч 32М 29С | СКЛ -15° 14' 5\"\n> ПЕРЕСЧИТАТЬ ОТНОСИТЕЛЬНЫЕ КООРДИНАТЫ? Y/N\n> _</style>",
+
+    "ITEM_MYSTICSITEMS_IDOL_NAME": "Супер-идол", // [The lore entry is a reference to the Golden Idol from Slay the Spire]
+    "ITEM_MYSTICSITEMS_IDOL_PICKUP": "Увеличивает здоровье и броню в зависимости от текущего золота.",
+    "ITEM_MYSTICSITEMS_IDOL_DESC": "Увеличивает здоровье вплоть до <style=cIsHealth>{HealthBonus}%</style> и броню вплоть до <style=cIsUtility>{ArmorBonus}</style> в зависимости от текущего золота <style=cIsUtility>(вплоть до {GoldCap}$ <style=cStack>(-50% за шт.)</style>, увеличивается со временем)</style>.",
+    "ITEM_MYSTICSITEMS_IDOL_LORE": "'Отлит из чистого золота. Даже просто держа его в руках, вы чувствуете себя богаче.'",
+
+    "ITEM_MYSTICSITEMS_BACKPACK_NAME": "Походный рюкзак",
+    "ITEM_MYSTICSITEMS_BACKPACK_PICKUP": "+{Charges} заряд ко всем навыкам.",
+    "ITEM_MYSTICSITEMS_BACKPACK_DESC": "Добавляет <style=cIsUtility>+{Charges} максимальный заряд <style=cStack>(+{ChargesPerStack} за шт.)</style></style> ко всем навыкам. Сокращает время перезарядки навыков на <style=cIsUtility>{CDR}%</style>.",
+
+    "ITEM_MYSTICSITEMS_VYRAELCOMMANDMENTS_NAME": "Десять заповедей Вираэля", // [Vyrael's developer item]
+    "ITEM_MYSTICSITEMS_VYRAELCOMMANDMENTS_PICKUP": "Каждый 10 удар гарантированно активирует эффекты, срабатывающие при попадании.",
+    "ITEM_MYSTICSITEMS_VYRAELCOMMANDMENTS_DESC": "Каждый <style=cIsUtility>10 удар</style> гарантированно активирует эффекты, срабатывающие <style=cIsDamage>при попадании</style>. <style=cIsUtility>Каждая дополнительная копия предмета активирует эти эффекты ещё раз.</style>",
+
+    "ITEM_MYSTICSITEMS_JUDGEMENTCUT_NAME": "Слёзы дьявола",
+    "ITEM_MYSTICSITEMS_JUDGEMENTCUT_PICKUP": "Каждый раз, как вы наносите {CritInterval} критических ударов, на врагов обрушивается шквал рубящих ударов.",
+    "ITEM_MYSTICSITEMS_JUDGEMENTCUT_DESC": "Увеличивает вероятность критического попадания на <style=cIsDamage>{BaseCrit}%</style>. Каждый раз, как вы делаете <style=cIsDamage>{CritInterval}</style> критических попаданий, на врагов <style=cIsDamage>обрушивается шквал рубящих ударов</style>, наносящих <style=cIsDamage>{DamagePerSlash}x{SlashCount}% <style=cStack>(+{DamagePerSlash}x{SlashCountPerStack}% за шт.)</style></style> урона в радиусе <style=cIsUtility>{Radius}м <style=cStack>(+{RadiusPerStack}м за шт.)</style></style>.",
+
+    //[LUNAR ITEMS]
+    "ITEM_MYSTICSITEMS_RIFTLENS_NAME": "Линза разлома",
+    "ITEM_MYSTICSITEMS_RIFTLENS_PICKUP": "Каждый этап содержит разломы с бесплатными предметами... <color=#FF7F7F>НО вы умрёте, если не закроете разломы вовремя.</color>\n",
+    "ITEM_MYSTICSITEMS_RIFTLENS_DESC": "Каждый этап содержит <style=cIsDamage>{BaseRifts} <style=cStack>(+{RiftsPerStack} за шт.)</style></style> разлома с бесплатными предметами. Вы <style=cDeath>погибните</style>, если не закроете все разломы вовремя.",
+
+    "ITEM_MYSTICSITEMS_MOONGLASSES_NAME": "Лунные очки", // [Wordplay on "sunglasses"]
+    "ITEM_MYSTICSITEMS_MOONGLASSES_PICKUP": "Урон критического удара увеличен... <color=#FF7F7F>НО вероятность критического удара вдвое уменьшена.</color>\n",
+    "ITEM_MYSTICSITEMS_MOONGLASSES_DESC": "Урон от критического попадания увеличен на <style=cIsDamage>{CritDamageIncrease}% <style=cStack>(+{CritDamageIncreasePerStack}% за шт.)</style></style>. <style=cIsUtility>Вероятность критического попадания уменьшена вдвое за каждую штуку.</style>",
+
+    "ITEM_MYSTICSITEMS_REGENANDDIFFICULTYSPEED_NAME": "Головоломка Хроноса",
+    "ITEM_MYSTICSITEMS_REGENANDDIFFICULTYSPEED_PICKUP": "Ускоряет регенерацию здоровья союзников... <color=#FF7F7F>НО ускоряет увеличение сложности.</color>\n",
+    "ITEM_MYSTICSITEMS_REGENANDDIFFICULTYSPEED_DESC": "Увеличивает <style=cIsHealing>базовую регенарацию здоровья на {BaseRegenIncrease} ОЗ/сек. <style=cStack>(+{BaseRegenIncreasePerStack} ОЗ/сек. за шт.)</style></style> всем союзникам, растёт с уровнем персонажа. Сложность повышается со временем на <style=cIsUtility>{TimerSpeedIncrease}% <style=cStack>(+{TimerSpeedIncreasePerStack}% за шт.)</style></style> быстрее.",
+
+    //[EQUIPMENT]
+    "EQUIPMENT_MYSTICSITEMS_ARCHAICMASK_NAME": "Легендарная маска",
+    "EQUIPMENT_MYSTICSITEMS_ARCHAICMASK_PICKUP": "Нанимает Архаический сгусток. Действует {Duration} секунд.",
+    "EQUIPMENT_MYSTICSITEMS_ARCHAICMASK_DESC": "Нанимает <style=cIsDamage>Архаический сгусток</style> с <style=cIsDamage>{WispDamage}% урона</style>, <style=cIsHealing>{WispHealth}% здоровья</style>, <style=cIsUtility>{WispCDR}% снижения времени восстановления навыков</style> и <style=cIsDamage>{WispAttackSpeed}% скорости атаки</style>. Действует {Duration} секунд.",
+    "EQUIPMENT_MYSTICSITEMS_ARCHAICMASK_LORE": "<style=cMono>\r\nАудиотранскрипция с переносного магнитофона завершена.</style>\r\n\r\nМаска всё ещё горячая, хоть остальная часть тела уже остыла. Неужели он всё ещё борется за свою жизнь?\r\n\r\nМогу ли я... 'возродить' сгусток, поджёгши маску? Это может стать смертельной ошибкой, но это мой единственный шанс обрести союзника.\r\n\r\nНет времени задавать вопросы. Пора действовать...\r\n\r\n[Вспышка огня]\r\n\r\n<style=cMono>Конец расшифровки.</style>\r\n",
+
+    "EQUIPMENT_MYSTICSITEMS_PRINTERHACKER_NAME": "Ключ взломщика",
+    "EQUIPMENT_MYSTICSITEMS_PRINTERHACKER_PICKUP": "Бесплатно получить {Amount} копии предмета из 3D-принтера, и затем уничтожить принтер.",
+    "EQUIPMENT_MYSTICSITEMS_PRINTERHACKER_DESC": "<style=cIsUtility>Бесплатно</style> получите <style=cIsUtility>{Amount}</style> копии предмета из 3D-принтера, и затем <style=cIsDamage>уничтожьте</style> принтер, безвозвратно делая его неиспользуемым.",
+    "EQUIPMENT_MYSTICSITEMS_PRINTERHACKER_LORE": "\"...безупречная репликация обеспечивается снабжением считывающего модуля одной или более заранее напечатанных копий первоначального предмета. Чем больше, тем лучше.\"\r\n\r\n- Из презентационной речи 3D-принтера от MassDuplix",
+
+    "EQUIPMENT_MYSTICSITEMS_MICROPHONE_NAME": "Винтажный микрофон",
+    "EQUIPMENT_MYSTICSITEMS_MICROPHONE_PICKUP": "Оглушает врагов спереди, значительно снижая их характеристики. Используйте в воздухе, чтобы отбросить себя в обратном направлении.",
+    "EQUIPMENT_MYSTICSITEMS_MICROPHONE_DESC": "<style=cIsDamage>Оглушает</style> врагов спереди на <style=cIsUtility>{Duration} сек.</style>, снижая скорость их передвижения на <style=cIsUtility>{MoveSpeedReduction}%</style>, броню на <style=cIsUtility>{ArmorReduction}</style>, скорость атаки на <style=cIsDamage>{AttackSpeedReduction}%</style> и урон на <style=cIsDamage>{DamageReduction}%</style>. <style=cIsUtility>Отбрасывает</style> вас назад, если использовать в воздухе.",
+
+    "EQUIPMENT_MYSTICSITEMS_SIRENPOLE_NAME": "Система оповещения",
+    "EQUIPMENT_MYSTICSITEMS_SIRENPOLE_PICKUP": "Устанавливает столб сирены, имитирующий событие с телепортом.",
+    "EQUIPMENT_MYSTICSITEMS_SIRENPOLE_DESC": "Устанавливает столб сирены, <style=cIsUtility>действующий в качестве телепорта, активируюя ваши эффекты, срабатывающие во время события с телепортом</style>, и призывает слабых врагов за каждые {WaveSpawnInterval}% зарядки. Зарядка занимает <style=cIsUtility>{ChargeTime} сек.</style>\r\n\r\nНельзя применить, если уже установлен незаряженный столб сирены, или если событие с телепортом уже началось.",
+
+    "EQUIPMENT_MYSTICSITEMS_MECHANICALARM_NAME": "Механическая рука",
+    "EQUIPMENT_MYSTICSITEMS_MECHANICALARM_PICKUP": "Делает взмах вперёд, нанося больше урона за каждый критический удар, нанесённый до использования.",
+    "EQUIPMENT_MYSTICSITEMS_MECHANICALARM_DESC": "Вероятность критического попадания увеличена на <style=cIsDamage>{BaseCrit}%</style>, пока вы держите это снаряжение.\r\n\r\nДелает взмах вперёд на <style=cIsDamage>{Damage}% урона + {DamageBonusPerCharge}% урона за каждое критическое попадание, сделанное до использования</style>.",
+    "EQUIPMENT_MYSTICSITEMS_MECHANICALARM_LORE": "Заявка UES о возврате средств #793045\r\n\r\nВозврат: 701***** Робот Косплей Костюм Телешоу Кубик - 4,000 Кредитов\r\nСумма: 3,600 Кредитов будет возвращено на ваш кошелёк\r\n\r\nПричина: Моя посылка не была доставлена\r\nЗаметки:\r\nВ комплекте не было рук. Мне бы также хотелось узнать, почему вы не ответили на предыдущие две заявки о возврате этой посылки, которые были вам отправлены 3 и 6 лет назад соответственно.",
+
+    "EQUIPMENT_MYSTICSITEMS_OMARHACKTOOL_NAME": "От Омара с любовью", // [Omar Faruk's developer item]
+    "EQUIPMENT_MYSTICSITEMS_OMARHACKTOOL_PICKUP": "Взламывает сундук или святилище, делая его бесплатным. Один раз за этап.",
+    "EQUIPMENT_MYSTICSITEMS_OMARHACKTOOL_DESC": "Взламывает сундук или святилище, снижая его цену до <style=cIsUtility>$0</style>. Можно использовать только <style=cIsUtility>1</style> раз за этап, <style=cIsUtility>предел использований увеличивается с каждым дополнительным зарядом снаряжения</style>.",
+
+    //[LUNAR EQUIPMENT]
+    "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_NAME": "Уравнитель пропорций",
+    "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_PICKUP": "Приравнивает процент текущего здоровья <color=#FF7F7F>ВСЕХ персонажей поблизости</color> к вашему.",
+    "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_DESC": "Приравнивает процент текущего здоровья всех персонажей в радиусе {Radius}м к вашему.",
+
+    "EQUIPMENT_MYSTICSITEMS_GATECHALICE_NAME": "Чаша врат", // [The word "gate" here refers to the teleporters that Mithrix and Providence created. They call them "gates" in the vanilla logbook entries (specifically, A Moment, Fractured (MAP_MYSTERYSPACE_LORE), A Moment, Whole (MAP_LIMBO_LORE), Commencement (MAP_MOON_LORE))]
+    "EQUIPMENT_MYSTICSITEMS_GATECHALICE_PICKUP": "Моментально телепортирует на следующий этап... <color=#FF7F7F>НО уничтожает {ItemsToDestroy} предмета.</color>",
+    "EQUIPMENT_MYSTICSITEMS_GATECHALICE_DESC": "Телепортирует на следующий этап и <style=cIsUtility>уничтожает {ItemsToDestroy} случайных предмета</style>.",
+
+    "EQUIPMENT_MYSTICSITEMS_FRAGILEMASK_NAME": "Хрупкая маска",
+    "EQUIPMENT_MYSTICSITEMS_FRAGILEMASK_PICKUP": "Используйте, чтобы включить или выключить. Пока эффект активен, урон увеличен в {DamageMultiplier}x раз, <color=#FF7F7F>НО вы умираете от любого урона</color>.",
+    "EQUIPMENT_MYSTICSITEMS_FRAGILEMASK_DESC": "Используйте, чтобы включить или выключить. Пока эффект активен, <style=cIsDamage>базовый урон увеличен на {BaseDamageBonus}%</style> и <style=cDeath>любой урон убивает вас</style>.",
+    "EQUIPMENT_MYSTICSITEMS_FRAGILEMASK_LORE": "\"Каменная маска, которую, как считается, древние чародеи Титана наполнили рунической силой тысячелетия назад, найденная в зоне археологических раскопок деревни Римм. Эти маски часто упоминались в рассказах прошлого: легенды гласят, что они служили воинам в битвах, и одна из таких масок является ключевым предметом в рассказе о Прокторе Смелом, пытавшегося обрести великую мощь ради защиты своего народа, но совершившего роковую ошибку, забрав проклятую маску из запретной гробницы.\"\r\n\r\n- Экспонат в музее истории и культуры Титана",
+
+    //[ACHIEVEMENTS]
+    "ACHIEVEMENT_MYSTICSITEMS_ESCAPEMOONALONE_NAME": "Последние из нас", // [Reference to "The Last of Us"]
+    "ACHIEVEMENT_MYSTICSITEMS_ESCAPEMOONALONE_DESCRIPTION": "Нанесите последний удар финальному боссу в качестве единственного выжившего союзника.",
+
+    "ACHIEVEMENT_MYSTICSITEMS_REPAIRBROKENSPOTTER_NAME": "Противник обнаружен", // [Reference to the "Enemy Spotted" voice command from Counter Strike]
+    "ACHIEVEMENT_MYSTICSITEMS_REPAIRBROKENSPOTTER_DESCRIPTION": "Принесите топливный элемент спасательной капуслы в сырую корнистую пещеру и почините Повреждённый дрон-корректировщик.",
+
+    "ACHIEVEMENT_MYSTICSITEMS_DISCDEATH_NAME": "Искренние извинения.", // [Reference to the "Sincere Apologies." achievement from Nuclear Throne]
+    "ACHIEVEMENT_MYSTICSITEMS_DISCDEATH_DESCRIPTION": "Дайте Пилоранг инженерному дрону, предварительно включив Артефакт хаоса, и...?",
+
+    "ACHIEVEMENT_MYSTICSITEMS_FINDARCHAICMASK_NAME": "Сожжённые убивать", // [Wordplay on "born to kill" and "burn"]
+    "ACHIEVEMENT_MYSTICSITEMS_FINDARCHAICMASK_DESCRIPTION": "Возьмите Легендарную маску на Выжженных акрах за 10 минут до того, как она остынет.",
+
+    "ACHIEVEMENT_MYSTICSITEMS_MULTISHOPTERMINALSONLY_NAME": "Умный покупатель",
+    "ACHIEVEMENT_MYSTICSITEMS_MULTISHOPTERMINALSONLY_DESCRIPTION": "До 6 этапа не тратьте золото нигде, кроме Многомагазинных терминалов.",
+
+    "ACHIEVEMENT_MYSTICSITEMS_HELLSPEEDRUN_NAME": "Одолеть жару", // [Reference to the "Beat the Heat" level in A Hat in Time]
+    "ACHIEVEMENT_MYSTICSITEMS_HELLSPEEDRUN_DESCRIPTION": "Пройдите Бездонные глубины менее чем за 3 минуты.",
+
+    "ACHIEVEMENT_MYSTICSITEMS_REACHHIGHPOINT_NAME": "Вершина",
+    "ACHIEVEMENT_MYSTICSITEMS_REACHHIGHPOINT_DESCRIPTION": "Достигните высшей точки места сбора \"Дельта\".",
+
+    //[BODIES]
+    "ARCHWISP_BODY_NAME": "Архаический сгусток",
+
+    //[INTERACTABLES]
+    "MYSTICSITEMS_RIFTCHEST_NAME": "Нестабильный разлом",
+    "MYSTICSITEMS_RIFTCHEST_CONTEXT": "Закрыть нестабильный разлом",
+
+    "MYSTICSITEMS_BROKENSPOTTER_NAME": "Повреждённый дрон-корректировщик",
+    "MYSTICSITEMS_BROKENSPOTTER_CONTEXT": "Починить",
+
+    "MYSTICSITEMS_ARCHAICMASK_CONTEXT": "Взять Легендарную маску",
+
+    "MYSTICSITEMS_SIRENPOLE_NAME": "Столб сирены",
+
+    "MYSTICSITEMS_SHRINE_LEGENDARY_NAME": "Святилище Легенды [Mystic's Items]",
+    "MYSTICSITEMS_SHRINE_LEGENDARY_CONTEXT": "Возложить на Святилище Легенды",
+    "MYSTICSITEMS_SHRINE_LEGENDARY_USE_MESSAGE_2P": "<style=cShrine>Вы стали воплощением легенды.</color>",
+    "MYSTICSITEMS_SHRINE_LEGENDARY_USE_MESSAGE": "<style=cShrine>{0} становится воплощением легенды.</color>",
+
+    //[COSTTYPES]
+    "COST_MYSTICSITEMS_RIFTLENSDEBUFF_FORMAT": "Видение разломов: {0}",
+
+    //[OBJECTIVES]
+    "OBJECTIVE_MYSTICSITEMS_CHARGE_TREASUREMAPZONE": "Выкопайте <color=#F8EB27>Легендарный предмет</color> ({0}%)",
+    "OBJECTIVE_MYSTICSITEMS_CHARGE_TREASUREMAPZONE_OOB": "Найдите и выкопайте <color=#F8EB27>Легендарный предмет</color> ({0}%)",
+
+    "OBJECTIVE_MYSTICSITEMS_CHARGE_SIRENPOLE": "Зарядите <color=#EA5821>столб сирены</color> ({0}%)",
+    "OBJECTIVE_MYSTICSITEMS_CHARGE_SIRENPOLE_OOB": "Войдите в <color=#EA5821>зону зарядки столба сирены!</color> ({0}%)",
+
+    "OBJECTIVE_MYSTICSITEMS_RIFTLENS_FLAVOUR": "Обнаружены нестабильные разломы!",
+    "OBJECTIVE_MYSTICSITEMS_RIFTLENS_CLOSE_RIFTS": "Закройте все <color=#66ADFF>нестабильные разломы</color>! ({0}/{1})",
+
+    //[SKILLS]
+    "SKILL_MYSTICSITEMS_CRYSTALLIZED_NAME": "Кристаллизация",
+    "SKILL_MYSTICSITEMS_CRYSTALLIZED_DESCRIPTION": "<color=#FF7F7F>Нельзя применить навыки.</color>",
+
+    //[DEATH QUOTES]
+    "PLAYER_DEATH_QUOTE_MYSTICSITEMS_RIFTLENS_0_2P": "Время вышло!",
+    "PLAYER_DEATH_QUOTE_MYSTICSITEMS_RIFTLENS_0": "Увы, {0}, время вышло!",
+    "PLAYER_DEATH_QUOTE_MYSTICSITEMS_RIFTLENS_1_2P": "Вы не справились с напряжением.",
+    "PLAYER_DEATH_QUOTE_MYSTICSITEMS_RIFTLENS_1": "{0} не умеет справляться с напряжением.",
+    "PLAYER_DEATH_QUOTE_MYSTICSITEMS_RIFTLENS_2_2P": "Ваше тело жестоко деформировалось под воздействием разлома.",
+    "PLAYER_DEATH_QUOTE_MYSTICSITEMS_RIFTLENS_2": "Тело {0} жестоко деформировалось под воздействием разлома.",
+    "PLAYER_DEATH_QUOTE_MYSTICSITEMS_RIFTLENS_3_2P": "Потусторонние силы сокрушают вас.",
+    "PLAYER_DEATH_QUOTE_MYSTICSITEMS_RIFTLENS_3": "Потусторонние силы сокрушают {0}.",
+    "PLAYER_DEATH_QUOTE_MYSTICSITEMS_RIFTLENS_4_2P": "Ваша жадность погубила вас.",
+    "PLAYER_DEATH_QUOTE_MYSTICSITEMS_RIFTLENS_4": "Жадность погубила {0}.",
+    "PLAYER_DEATH_QUOTE_MYSTICSITEMS_RIFTLENS_5_2P": "Разлом коллапсирует.",
+    "PLAYER_DEATH_QUOTE_MYSTICSITEMS_RIFTLENS_5": "Разлом коллапсирует, что приводит к гибели {0}.",
+
+    //[BUFFS]
+    "BUFF_MYSTICSITEMS_ALLYDEATHREVENGE_NAME": "Вендетта",
+    "BUFF_MYSTICSITEMS_ALLYDEATHREVENGE_DESC": "Скорость атаки и урон повышены",
+
+    "BUFF_MYSTICSITEMS_COFFEEBOOST_NAME": "Экспресс-ускорение",
+    "BUFF_MYSTICSITEMS_COFFEEBOOST_DESC": "Атакуйте и передвигайтесь быстрее",
+
+    "BUFF_MYSTICSITEMS_CRYSTALLIZED_NAME": "Кристаллизация",
+    "BUFF_MYSTICSITEMS_CRYSTALLIZED_DESC": "<color=#FF7F7F>Нельзя применить навыки.</color>",
+
+    "BUFF_MYSTICSITEMS_DASHERDISCACTIVE_NAME": "Бестелесность",
+    "BUFF_MYSTICSITEMS_DASHERDISCACTIVE_DESC": "Нельзя получить урон",
+
+    "BUFF_MYSTICSITEMS_DASHERDISCCOOLDOWN_NAME": "Перезарядка Своевременной экзекуции",
+    "BUFF_MYSTICSITEMS_DASHERDISCCOOLDOWN_DESC": "Своевременную экзекуцию нельзя активировать",
+
+    "BUFF_MYSTICSITEMS_DEAFENED_NAME": "Оглушение",
+    "BUFF_MYSTICSITEMS_DEAFENED_DESC": "Скорость атаки, скорость передвижения, броня и урон уменьшены",
+
+    "BUFF_MYSTICSITEMS_MARWANASHBURN_NAME": "Свет Марвана",
+    "BUFF_MYSTICSITEMS_MARWANASHBURN_DESC": "Вы теряете часть своего здоровья каждую секунду",
+
+    "BUFF_MYSTICSITEMS_MARWANASHBURNSTRONG_NAME": "Свет Марвана",
+    "BUFF_MYSTICSITEMS_MARWANASHBURNSTRONG_DESC": "Вы теряете часть своего здоровья каждую секунду",
+
+    "BUFF_MYSTICSITEMS_MECHANICALARMCHARGE_NAME": "Заряд Механической руки",
+    "BUFF_MYSTICSITEMS_MECHANICALARMCHARGE_DESC": "Увеличивает урон следующего взмаха Механической руки",
+
+    "BUFF_MYSTICSITEMS_RHYTHMCOMBO_NAME": "Сосредоточение",
+    "BUFF_MYSTICSITEMS_RHYTHMCOMBO_DESC": "Вероятность критического попадания увеличена",
+
+    "BUFF_MYSTICSITEMS_SPOTTERMARKED_NAME": "Вас обнаружили!",
+    "BUFF_MYSTICSITEMS_SPOTTERMARKED_DESC": "Весь урон по вам становится критическим",
+
+    //[ITEMSTATS]
+    "ITEMSTATS_MYSTICSITEMS_POSTFIX_HEALTH": "ОЗ",
+    "ITEMSTATS_MYSTICSITEMS_POSTFIX_HEALTHPERSECOND": "ОЗ/сек.",
+    "ITEMSTATS_MYSTICSITEMS_POSTFIX_METERS": "м",
+    "ITEMSTATS_MYSTICSITEMS_POSTFIX_SECONDS": "сек.",
+
+    "ITEMSTATS_MYSTICSITEMS_ARMOR": "Броня",
+    "ITEMSTATS_MYSTICSITEMS_ATTACKSPEED": "Скорость атаки",
+    "ITEMSTATS_MYSTICSITEMS_BONUSPERKILL": "Бонус за убийство",
+    "ITEMSTATS_MYSTICSITEMS_CHARGES": "Заряды",
+    "ITEMSTATS_MYSTICSITEMS_CRIT": "Вероятность критического попадания",
+    "ITEMSTATS_MYSTICSITEMS_CRITDAMAGE": "Урон критического попадания",
+    "ITEMSTATS_MYSTICSITEMS_CRITPERBUFFSTACK": "Крит. за каждый эффект",
+    "ITEMSTATS_MYSTICSITEMS_CHANCE": "Шанс",
+    "ITEMSTATS_MYSTICSITEMS_COOLDOWN": "Время перезарядки",
+    "ITEMSTATS_MYSTICSITEMS_DAMAGE": "Урон",
+    "ITEMSTATS_MYSTICSITEMS_DAMAGEPERSPEEDINCREASE": "Урон за 1% ускорения",
+    "ITEMSTATS_MYSTICSITEMS_DIFFICULTYSPEED": "Скорость увеличения сложности",
+    "ITEMSTATS_MYSTICSITEMS_DURATION": "Длительность",
+    "ITEMSTATS_MYSTICSITEMS_GOLDFORMAXBUFF": "Золото для максимального эффекта",
+    "ITEMSTATS_MYSTICSITEMS_HEALING": "Исцеление",
+    "ITEMSTATS_MYSTICSITEMS_MAXATTACKSPEEDBONUS": "Макс. бонус к скорости атаки",
+    "ITEMSTATS_MYSTICSITEMS_MAXBUFFSTACKS": "Макс. кол-во усилений",
+    "ITEMSTATS_MYSTICSITEMS_MAXHEALTH": "Макс. здоровье",
+    "ITEMSTATS_MYSTICSITEMS_MAXMOVESPEEDBONUS": "Макс. ускорение",
+    "ITEMSTATS_MYSTICSITEMS_MOVESPEED": "Скорость передвижения",
+    "ITEMSTATS_MYSTICSITEMS_PULSES": "Волны", // [Crystallized World's pulses]
+    "ITEMSTATS_MYSTICSITEMS_RADIUS": "Радиус",
+    "ITEMSTATS_MYSTICSITEMS_REGEN": "Регенерация здоровья",
+    "ITEMSTATS_MYSTICSITEMS_REMAINING": "Осталось", // [For bonuses that have limited uses]
+    "ITEMSTATS_MYSTICSITEMS_TIME": "Время",
+    "ITEMSTATS_MYSTICSITEMS_UNSTABLERIFTS": "Нестабильных разломов на каждом этапе",
+    "ITEMSTATS_MYSTICSITEMS_UPTO": "Вплоть до", // [For bonuses that increase something up to a certain value]
+
+    "ITEMSTATS_MYSTICSITEMS_FORMAT": "{0}: {1}", // [{0} is the stat name, {1} is the stat value. For example, it would show 'Armor: +15' for Spine Implant]
+
+    //[MISC]
+    "MYSTICSITEMS_STATCHANGE_LIST_HEADER": "Текущие изменения характеристик:",
+    "MYSTICSITEMS_STATCHANGE_LIST_MAXHEALTH": "* {0}% макс. здоровья",
+    "MYSTICSITEMS_STATCHANGE_LIST_REGEN": "* {0}% регенерации здоровья",
+    "MYSTICSITEMS_STATCHANGE_LIST_DAMAGE": "* {0}% урона",
+    "MYSTICSITEMS_STATCHANGE_LIST_MOVESPEED": "* {0}% скорости передвижения",
+    "MYSTICSITEMS_STATCHANGE_LIST_ATTACKSPEED": "* {0}% скорости атаки",
+    "MYSTICSITEMS_STATCHANGE_LIST_CRIT": "* {0}% шанса критического удара",
+    "MYSTICSITEMS_STATCHANGE_LIST_ARMOR": "* {0} брони",
+
+    "MYSTICSITEMS_TREASUREMAP_WARNING": "<style=cWorldEvent>Карта сокровищ внезапно запищала. Вы понимаете, что забыли кое-что сделать.</style>", // [If the player has a Treasure Map, this reminder message will be played after a teleporter is charged if they forget to dig up the legendary item]
+
+    "MYSTICSITEMS_PLAYER_CONVERT": "<style=cEvent>{0} теряет {1}{2} и получает: {3}{4}</color>", // [For item upgrades or downgrades. Example: 'TheMysticSword's Marwan's Ash(3) became Marwan's Light(3)']
+    "MYSTICSITEMS_PLAYER_CONVERT_2P": "<style=cEvent>Вы теряете {1}{2} и получаете: {3}{4}</color>"
+  }
+}
