@@ -163,6 +163,7 @@ namespace MysticsItems
                                         wasWorldUnique = itemDef.ContainsTag(ItemTag.WorldUnique)
                                     });
                                     itemDef.tier = ItemTier.NoTier;
+                                    itemDef.deprecatedTier = ItemTier.NoTier;
                                     HG.ArrayUtils.ArrayAppend(ref itemDef.tags, ItemTag.WorldUnique);
                                 }
                                 else
@@ -171,6 +172,7 @@ namespace MysticsItems
                                     {
                                         var disabledItem = disabledItems[itemDef.itemIndex];
                                         itemDef.tier = disabledItem.previousTier;
+                                        itemDef.deprecatedTier = disabledItem.previousTier;
                                         if (!disabledItem.wasWorldUnique)
                                         {
                                             HG.ArrayUtils.ArrayRemoveAtAndResize(ref itemDef.tags, Array.IndexOf(itemDef.tags, ItemTag.WorldUnique));
