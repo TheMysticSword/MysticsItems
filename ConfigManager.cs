@@ -177,6 +177,7 @@ namespace MysticsItems
                                         {
                                             HG.ArrayUtils.ArrayRemoveAtAndResize(ref itemDef.tags, Array.IndexOf(itemDef.tags, ItemTag.WorldUnique));
                                         }
+                                        disabledItems.Remove(itemDef.itemIndex);
                                     }
                                 }
                             }
@@ -215,6 +216,7 @@ namespace MysticsItems
                                         equipmentDef.canDrop = true;
                                         equipmentDef.appearsInSinglePlayer = _disabledEquipment.appearedInSinglePlayer;
                                         equipmentDef.appearsInMultiPlayer = _disabledEquipment.appearedInMultiPlayer;
+                                        disabledEquipment.Remove(equipmentDef.equipmentIndex);
                                     }
                                 }
                             }
