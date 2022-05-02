@@ -50,18 +50,31 @@ namespace MysticsItems.Equipment
             "moon2", "voidraid", "bazaar"
         };
 
-        public static Dictionary<string, List<Vector3>> specialStageTeleportation = new Dictionary<string, List<Vector3>>()
+        public struct SpecialStageTeleportationInfo
         {
-            { "moon2", new List<Vector3>()
+            public Bounds bounds;
+            public List<Vector3> destinations;
+        }
+        public static Dictionary<string, SpecialStageTeleportationInfo> specialStageTeleportation = new Dictionary<string, SpecialStageTeleportationInfo>()
+        {
+            { "moon2", new SpecialStageTeleportationInfo
                 {
-                    new Vector3(-179.5247f, 497.6573f, -223.9494f),
-                    new Vector3(7.340976f, 497.6573f, -225.1836f),
-                    new Vector3(138.1888f, 497.6573f, -93.66596f),
-                    new Vector3(137.9696f, 497.6573f, 95.98901f),
-                    new Vector3(1.488069f, 497.6573f, 227.6736f),
-                    new Vector3(-181.7953f, 497.6573f, 224.1614f),
-                    new Vector3(-312.913f, 497.6573f, 93.92822f),
-                    new Vector3(-312.8959f, 497.6573f, -97.17789f)
+                    bounds = new Bounds
+                    {
+                        center = new Vector3(-87.11757f, 566.5618f, 5.444388f),
+                        size = new Vector3(500f, 250f, 500f)
+                    },
+                    destinations = new List<Vector3>()
+                    {
+                        new Vector3(-179.5247f, 497.6573f, -223.9494f),
+                        new Vector3(7.340976f, 497.6573f, -225.1836f),
+                        new Vector3(138.1888f, 497.6573f, -93.66596f),
+                        new Vector3(137.9696f, 497.6573f, 95.98901f),
+                        new Vector3(1.488069f, 497.6573f, 227.6736f),
+                        new Vector3(-181.7953f, 497.6573f, 224.1614f),
+                        new Vector3(-312.913f, 497.6573f, 93.92822f),
+                        new Vector3(-312.8959f, 497.6573f, -97.17789f)
+                    }
                 }
             }
         };
@@ -415,18 +428,19 @@ namespace MysticsItems.Equipment
                 return true;
             }
             if (SceneCatalog.mostRecentSceneDef) {
-                var specialTeleportation = specialStageTeleportation.FirstOrDefault(x => x.Key == SceneCatalog.mostRecentSceneDef.baseSceneName);
-                if (specialStageTeleportation != null)
+                var kvp = specialStageTeleportation.FirstOrDefault(x => x.Key == SceneCatalog.mostRecentSceneDef.baseSceneName);
+                if (!kvp.Equals(default))
                 {
+                    var specialStageTeleportationInfo = kvp.Value;
                     var body = equipmentSlot.characterBody;
                     if (body)
                     {
                         var randomPoints = new List<Vector3>();
                         foreach (var ally in TeamComponent.GetTeamMembers(TeamComponent.GetObjectTeam(body.gameObject)))
                         {
-                            if (ally.body && ally.body.isPlayerControlled)
+                            if (ally.body && ally.body.isPlayerControlled && !specialStageTeleportationInfo.bounds.Contains(ally.body.corePosition))
                             {
-                                if (randomPoints.Count <= 0) randomPoints.AddRange(specialTeleportation.Value);
+                                if (randomPoints.Count <= 0) randomPoints.AddRange(specialStageTeleportationInfo.destinations);
                                 
                                 var randomPoint = RoR2Application.rng.NextElementUniform(randomPoints);
 
