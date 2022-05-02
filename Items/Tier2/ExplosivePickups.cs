@@ -195,12 +195,22 @@ namespace MysticsItems.Items
             */
 
             explosionPrefab = PrefabAPI.InstantiateClone(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Contraband Gunpowder/Explosion.prefab"), "MysticsItems_OmniExplosionVFXExplosivePickups", false);
-            if (GeneralConfigManager.gunpowderReduceVFX.Value)
-            {
-                Object.Destroy(explosionPrefab.transform.Find("Light Flash").gameObject);
-                Object.Destroy(explosionPrefab.transform.Find("Sparks").gameObject);
-                Object.Destroy(explosionPrefab.transform.Find("Swirls").gameObject);
-            }
+            ConfigOptions.ConfigurableValue<bool> gunpowderReduceVFX = null;
+            gunpowderReduceVFX = ConfigOptions.ConfigurableValue.CreateBool(
+                ConfigManager.General.categoryGUID,
+                ConfigManager.General.categoryName,
+                ConfigManager.General.config,
+                "Effects",
+                "Reduce Contraband Gunpowder VFX",
+                false,
+                "Reduce the visual effects of Contraband Gunpowder explosions",
+                onChanged: (x, y) =>
+                {
+                    explosionPrefab.transform.Find("Light Flash").gameObject.SetActive(!gunpowderReduceVFX);
+                    explosionPrefab.transform.Find("Sparks").gameObject.SetActive(!gunpowderReduceVFX);
+                    explosionPrefab.transform.Find("Swirls").gameObject.SetActive(!gunpowderReduceVFX);
+                }
+            );
             VFXAttributes vfxAttributes = explosionPrefab.AddComponent<VFXAttributes>();
             vfxAttributes.vfxIntensity = VFXAttributes.VFXIntensity.High;
             vfxAttributes.vfxPriority = VFXAttributes.VFXPriority.Always;

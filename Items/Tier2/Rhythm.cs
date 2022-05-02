@@ -73,6 +73,34 @@ namespace MysticsItems.Items
             "How late can you press to score a hit (in seconds)"
         );
 
+        public static ConfigOptions.ConfigurableValue<bool> rhythmUIUnderCrosshair = ConfigOptions.ConfigurableValue.CreateBool(
+            ConfigManager.General.categoryGUID,
+            ConfigManager.General.categoryName,
+            ConfigManager.General.config,
+            "UI",
+            "Metronome UI (Under Crosshair)",
+            true,
+            "Enable Metronome's UI indicator under the crosshair"
+        );
+        public static ConfigOptions.ConfigurableValue<bool> rhythmUIOverSkills = ConfigOptions.ConfigurableValue.CreateBool(
+            ConfigManager.General.categoryGUID,
+            ConfigManager.General.categoryName,
+            ConfigManager.General.config,
+            "UI",
+            "Metronome UI (Over Skills)",
+            true,
+            "Enable Metronome's UI indicator over skill cooldown icons"
+        );
+        public static ConfigOptions.ConfigurableValue<bool> rhythmUIComboText = ConfigOptions.ConfigurableValue.CreateBool(
+            ConfigManager.General.categoryGUID,
+            ConfigManager.General.categoryName,
+            ConfigManager.General.config,
+            "UI",
+            "Metronome UI Combo Text",
+            true,
+            "Enable the combo counter near Metronome's UI indicators"
+        );
+
         public override void OnPluginAwake()
         {
             base.OnPluginAwake();
@@ -280,7 +308,7 @@ namespace MysticsItems.Items
                 CharacterBody targetBody = targetMaster ? targetMaster.GetBody() : null;
                 MysticsItemsRhythmBehaviour rhythmBehaviour = targetBody ? targetBody.GetComponent<MysticsItemsRhythmBehaviour>() : null;
 
-                bool shouldDisplay = GeneralConfigManager.rhythmHudUnderCrosshair.Value && rhythmBehaviour;
+                bool shouldDisplay = rhythmUIUnderCrosshair.Value && rhythmBehaviour;
                 
                 MysticsItemsRhythmHUDUnderCrosshair targetIndicatorInstance = instancesList.Where(x => x is MysticsItemsRhythmHUDUnderCrosshair).Select(x => x as MysticsItemsRhythmHUDUnderCrosshair).FirstOrDefault(x => x.hud == hudInstance);
 
@@ -400,7 +428,7 @@ namespace MysticsItems.Items
             {
                 if (comboText)
                 {
-                    comboText.enabled = GeneralConfigManager.rhythmHudComboText.Value;
+                    comboText.enabled = rhythmUIComboText.Value;
                     if (comboText.enabled && rhythmBehaviour)
                         comboText.text = "x" + rhythmBehaviour.combo;
                 }
@@ -509,7 +537,7 @@ namespace MysticsItems.Items
                 CharacterBody targetBody = targetMaster ? targetMaster.GetBody() : null;
                 MysticsItemsRhythmBehaviour rhythmBehaviour = targetBody ? targetBody.GetComponent<MysticsItemsRhythmBehaviour>() : null;
 
-                bool shouldDisplay = GeneralConfigManager.rhythmHudOverSkills.Value && rhythmBehaviour;
+                bool shouldDisplay = rhythmUIOverSkills.Value && rhythmBehaviour;
 
                 MysticsItemsRhythmHUDOverSkills targetIndicatorInstance = instancesList.Where(x => x is MysticsItemsRhythmHUDOverSkills).Select(x => x as MysticsItemsRhythmHUDOverSkills).FirstOrDefault(x => x.hud == hudInstance);
 
@@ -640,7 +668,7 @@ namespace MysticsItems.Items
             {
                 if (comboText)
                 {
-                    comboText.enabled = GeneralConfigManager.rhythmHudComboText.Value;
+                    comboText.enabled = rhythmUIComboText.Value;
                     if (comboText.enabled && rhythmBehaviour)
                         comboText.text = "x" + rhythmBehaviour.combo;
                 }
