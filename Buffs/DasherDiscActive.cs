@@ -14,7 +14,11 @@ namespace MysticsItems.Buffs
             "Item: Timely Execution",
             "MoveSpeedBuff",
             30f,
-            "Movement speed increase when buffed (in %)"
+            "Movement speed increase when buffed (in %)",
+            new System.Collections.Generic.List<string>()
+            {
+                "ITEM_MYSTICSITEMS_DASHERDISC_DESC"
+            }
         );
 
         public override void OnLoad() {
