@@ -58,13 +58,13 @@ namespace MysticsItems.Items
         );
         public static ConfigurableValue<float> playerFireInterval = new ConfigurableValue<float>(
             "Item: Spare Wiring",
-            "DroneFireInterval",
+            "PlayerFireInterval",
             3f,
             "How much time should pass between each time a player drops sparks (in seconds)"
         );
         public static ConfigurableValue<int> playerFireCount = new ConfigurableValue<int>(
             "Item: Spare Wiring",
-            "DroneFireCount",
+            "PlayerFireCount",
             5,
             "How many sparks should a player drop in each fire cycle"
         );
