@@ -195,8 +195,7 @@ namespace MysticsItems.Items
             */
 
             explosionPrefab = PrefabAPI.InstantiateClone(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Contraband Gunpowder/Explosion.prefab"), "MysticsItems_OmniExplosionVFXExplosivePickups", false);
-            ConfigOptions.ConfigurableValue<bool> gunpowderReduceVFX = null;
-            gunpowderReduceVFX = ConfigOptions.ConfigurableValue.CreateBool(
+            ConfigOptions.ConfigurableValue.CreateBool(
                 ConfigManager.General.categoryGUID,
                 ConfigManager.General.categoryName,
                 ConfigManager.General.config,
@@ -204,11 +203,11 @@ namespace MysticsItems.Items
                 "Reduce Contraband Gunpowder VFX",
                 false,
                 "Reduce the visual effects of Contraband Gunpowder explosions",
-                onChanged: (x, y) =>
+                onChanged: (newValue) =>
                 {
-                    explosionPrefab.transform.Find("Light Flash").gameObject.SetActive(!gunpowderReduceVFX);
-                    explosionPrefab.transform.Find("Sparks").gameObject.SetActive(!gunpowderReduceVFX);
-                    explosionPrefab.transform.Find("Swirls").gameObject.SetActive(!gunpowderReduceVFX);
+                    explosionPrefab.transform.Find("Light Flash").gameObject.SetActive(!newValue);
+                    explosionPrefab.transform.Find("Sparks").gameObject.SetActive(!newValue);
+                    explosionPrefab.transform.Find("Swirls").gameObject.SetActive(!newValue);
                 }
             );
             VFXAttributes vfxAttributes = explosionPrefab.AddComponent<VFXAttributes>();
@@ -216,8 +215,7 @@ namespace MysticsItems.Items
             vfxAttributes.vfxPriority = VFXAttributes.VFXPriority.Always;
             EffectComponent effectComponent = explosionPrefab.AddComponent<EffectComponent>();
             effectComponent.applyScale = true;
-            ConfigOptions.ConfigurableValue<bool> gunpowderDisableSound = null;
-            gunpowderDisableSound = ConfigOptions.ConfigurableValue.CreateBool(
+            ConfigOptions.ConfigurableValue.CreateBool(
                 ConfigManager.General.categoryGUID,
                 ConfigManager.General.categoryName,
                 ConfigManager.General.config,
@@ -225,9 +223,9 @@ namespace MysticsItems.Items
                 "Disable Contraband Gunpowder SFX",
                 false,
                 "Disable the sound effects of Contraband Gunpowder explosions",
-                onChanged: (x, y) =>
+                onChanged: (newValue) =>
                 {
-                    effectComponent.soundName = gunpowderDisableSound.Value ? "" : "MysticsItems_Play_item_proc_gunpowder";
+                    effectComponent.soundName = newValue ? "" : "MysticsItems_Play_item_proc_gunpowder";
                 }
             );
             explosionPrefab.AddComponent<DestroyOnTimer>().duration = 2f;
@@ -237,8 +235,7 @@ namespace MysticsItems.Items
             shakeEmitter.amplitudeTimeDecay = true;
             shakeEmitter.radius = 1.5f;
             shakeEmitter.shakeOnStart = true;
-            ConfigOptions.ConfigurableValue<float> gunpowderScreenshakeScale = null;
-            gunpowderScreenshakeScale = ConfigOptions.ConfigurableValue.CreateFloat(
+            ConfigOptions.ConfigurableValue.CreateFloat(
                 ConfigManager.General.categoryGUID,
                 ConfigManager.General.categoryName,
                 ConfigManager.General.config,
@@ -248,12 +245,12 @@ namespace MysticsItems.Items
                 0f,
                 1f,
                 "Adjust the intensity of Contraband Gunpowder explosion screenshake",
-                onChanged: (x, y) =>
+                onChanged: (newValue) =>
                 {
                     shakeEmitter.wave = new Wave
                     {
-                        amplitude = 9f * gunpowderScreenshakeScale.Value,
-                        frequency = 4f * gunpowderScreenshakeScale.Value
+                        amplitude = 9f * newValue,
+                        frequency = 4f * newValue
                     };
                 }
             );
