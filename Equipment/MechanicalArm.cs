@@ -252,12 +252,9 @@ namespace MysticsItems.Equipment
 
         private void GenericGameEvents_OnHitEnemy(DamageInfo damageInfo, MysticsRisky2UtilsPlugin.GenericCharacterInfo attackerInfo, MysticsRisky2UtilsPlugin.GenericCharacterInfo victimInfo)
         {
-            if (!damageInfo.rejected && damageInfo.procCoefficient > 0f && damageInfo.crit && attackerInfo.body && attackerInfo.body.equipmentSlot && attackerInfo.body.equipmentSlot.equipmentIndex == equipmentDef.equipmentIndex)
+            if (!damageInfo.rejected && damageInfo.procCoefficient > 0f && damageInfo.crit && attackerInfo.body && attackerInfo.body.equipmentSlot && attackerInfo.body.equipmentSlot.equipmentIndex == equipmentDef.equipmentIndex && attackerInfo.body.equipmentSlot.cooldownTimer > 0f)
             {
-                attackerInfo.body.AddTimedBuff(
-                    MysticsItemsContent.Buffs.MysticsItems_MechanicalArmCharge,
-                    (attackerInfo.body.equipmentSlot.stock <= 0 ? attackerInfo.body.equipmentSlot.cooldownTimer : 0f) + (20f + UnityEngine.Random.value) * damageInfo.procCoefficient
-                );
+                attackerInfo.body.AddBuff(MysticsItemsContent.Buffs.MysticsItems_MechanicalArmCharge);
             }
         }
 
@@ -416,7 +413,11 @@ namespace MysticsItems.Equipment
                             if (NetworkServer.active)
                             {
                                 if (body)
-                                    body.ClearTimedBuffs(MysticsItemsContent.Buffs.MysticsItems_MechanicalArmCharge);
+                                {
+                                    var whiletries = 1000;
+                                    while (body.HasBuff(MysticsItemsContent.Buffs.MysticsItems_MechanicalArmCharge) && whiletries-- > 0)
+                                        body.RemoveBuff(MysticsItemsContent.Buffs.MysticsItems_MechanicalArmCharge);
+                                }
                                 /*
                                 while (body && body.HasBuff(MysticsItemsContent.Buffs.MysticsItems_MechanicalArmCharge))
                                     body.RemoveBuff(MysticsItemsContent.Buffs.MysticsItems_MechanicalArmCharge);
