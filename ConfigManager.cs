@@ -246,14 +246,14 @@ namespace MysticsItems
             public static string categoryName = "Mystic's Items (Balance)";
             public static string categoryGUID = MysticsItemsPlugin.PluginGUID + "_balance";
 
-            public static ConfigOptions.ConfigurableValue<bool> enabled = ConfigOptions.ConfigurableValue.CreateBool(
+            public static ConfigOptions.ConfigurableValue<bool> ignore = ConfigOptions.ConfigurableValue.CreateBool(
                 categoryGUID,
                 categoryName,
                 config,
-                "! Enabled !",
-                "Enable Balance Config",
-                false,
-                "If enabled, items from this mod will use values of your choice. Otherwise, the mod will use default recommended values."
+                "! Important !",
+                "Ignore Balance Config",
+                true,
+                "If enabled, items from this mod will use default recommended values. Otherwise, the mod will use values of your choice."
             );
 
             public static void CreateEquipmentCooldownOption(EquipmentDef equipmentDef, string section, float defaultValue)

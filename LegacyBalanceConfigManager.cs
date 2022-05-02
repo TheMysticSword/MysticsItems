@@ -9,19 +9,19 @@ namespace MysticsItems
     {
         public class ConfigurableValue<T> : ConfigOptions.ConfigurableValue<T>
         {
-            public ConfigurableValue(string section, string key, float defaultValue, string description = "", List<string> stringsToAffect = null) : base(ConfigManager.Balance.config, section, key, (T)Convert.ChangeType(defaultValue, typeof(T)), description, stringsToAffect, ConfigManager.Balance.enabled.bepinexConfigEntry)
+            public ConfigurableValue(string section, string key, float defaultValue, string description = "", List<string> stringsToAffect = null) : base(ConfigManager.Balance.config, section, key, (T)Convert.ChangeType(defaultValue, typeof(T)), description, stringsToAffect, ConfigManager.Balance.ignore.bepinexConfigEntry)
             {
-                ConfigOptions.ConfigurableValue.CreateFloat(ConfigManager.Balance.categoryGUID, ConfigManager.Balance.categoryName, ConfigManager.Balance.config, section, key, defaultValue, min: 0f, max: 1000000f, description: description, stringsToAffect: stringsToAffect, useDefaultValueConfigEntry: ConfigManager.Balance.enabled.bepinexConfigEntry);
+                ConfigOptions.ConfigurableValue.CreateFloat(ConfigManager.Balance.categoryGUID, ConfigManager.Balance.categoryName, ConfigManager.Balance.config, section, key, defaultValue, min: 0f, max: 1000000f, description: description, stringsToAffect: stringsToAffect, useDefaultValueConfigEntry: ConfigManager.Balance.ignore.bepinexConfigEntry);
             }
 
-            public ConfigurableValue(string section, string key, int defaultValue, string description = "", List<string> stringsToAffect = null) : base(ConfigManager.Balance.config, section, key, (T)Convert.ChangeType(defaultValue, typeof(T)), description, stringsToAffect, ConfigManager.Balance.enabled.bepinexConfigEntry)
+            public ConfigurableValue(string section, string key, int defaultValue, string description = "", List<string> stringsToAffect = null) : base(ConfigManager.Balance.config, section, key, (T)Convert.ChangeType(defaultValue, typeof(T)), description, stringsToAffect, ConfigManager.Balance.ignore.bepinexConfigEntry)
             {
-                ConfigOptions.ConfigurableValue.CreateInt(ConfigManager.Balance.categoryGUID, ConfigManager.Balance.categoryName, ConfigManager.Balance.config, section, key, defaultValue, min: 0, max: 1000000, description: description, stringsToAffect: stringsToAffect, useDefaultValueConfigEntry: ConfigManager.Balance.enabled.bepinexConfigEntry);
+                ConfigOptions.ConfigurableValue.CreateInt(ConfigManager.Balance.categoryGUID, ConfigManager.Balance.categoryName, ConfigManager.Balance.config, section, key, defaultValue, min: 0, max: 1000000, description: description, stringsToAffect: stringsToAffect, useDefaultValueConfigEntry: ConfigManager.Balance.ignore.bepinexConfigEntry);
             }
 
-            public ConfigurableValue(string section, string key, bool defaultValue, string description = "", List<string> stringsToAffect = null) : base(ConfigManager.Balance.config, section, key, (T)Convert.ChangeType(defaultValue, typeof(T)), description, stringsToAffect, ConfigManager.Balance.enabled.bepinexConfigEntry)
+            public ConfigurableValue(string section, string key, bool defaultValue, string description = "", List<string> stringsToAffect = null) : base(ConfigManager.Balance.config, section, key, (T)Convert.ChangeType(defaultValue, typeof(T)), description, stringsToAffect, ConfigManager.Balance.ignore.bepinexConfigEntry)
             {
-                ConfigOptions.ConfigurableValue.CreateBool(ConfigManager.Balance.categoryGUID, ConfigManager.Balance.categoryName, ConfigManager.Balance.config, section, key, defaultValue, description: description, stringsToAffect: stringsToAffect, useDefaultValueConfigEntry: ConfigManager.Balance.enabled.bepinexConfigEntry);
+                ConfigOptions.ConfigurableValue.CreateBool(ConfigManager.Balance.categoryGUID, ConfigManager.Balance.categoryName, ConfigManager.Balance.config, section, key, defaultValue, description: description, stringsToAffect: stringsToAffect, useDefaultValueConfigEntry: ConfigManager.Balance.ignore.bepinexConfigEntry);
             }
         }
     }
