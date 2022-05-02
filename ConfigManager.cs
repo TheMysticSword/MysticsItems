@@ -38,9 +38,9 @@ namespace MysticsItems
                 "Secrets",
                 true,
                 "Enable secret optional content",
-                onChanged: (x, y) =>
+                onChanged: (newValue) =>
                 {
-                    if (onSecretsToggled != null) onSecretsToggled(secrets);
+                    if (onSecretsToggled != null) onSecretsToggled(newValue);
                 }
             );
             public static Action<bool> onSecretsToggled;
@@ -145,8 +145,7 @@ namespace MysticsItems
 
                     foreach (var itemDef in itemDefs)
                     {
-                        ConfigOptions.ConfigurableValue<bool> enabledByConfig = null;
-                        enabledByConfig = ConfigOptions.ConfigurableValue.CreateBool(
+                        ConfigOptions.ConfigurableValue.CreateBool(
                             categoryGUID,
                             categoryName,
                             config,
@@ -154,9 +153,9 @@ namespace MysticsItems
                             GetSanitizedStringFromToken(itemDef.nameToken),
                             true,
                             "Should this item be enabled? Changes to this value take effect only at the start of a run. Item description: " + GetSanitizedStringFromToken(itemDef.pickupToken),
-                            onChanged: (x, y) =>
+                            onChanged: (newValue) =>
                             {
-                                if (!enabledByConfig)
+                                if (!newValue)
                                 {
                                     disabledItems.Add(itemDef.itemIndex, new DisabledItem
                                     {
@@ -184,8 +183,7 @@ namespace MysticsItems
 
                     foreach (var equipmentDef in equipmentDefs)
                     {
-                        ConfigOptions.ConfigurableValue<bool> enabledByConfig = null;
-                        enabledByConfig = ConfigOptions.ConfigurableValue.CreateBool(
+                        ConfigOptions.ConfigurableValue.CreateBool(
                             categoryGUID,
                             categoryName,
                             config,
@@ -193,9 +191,9 @@ namespace MysticsItems
                             GetSanitizedStringFromToken(equipmentDef.nameToken),
                             true,
                             "Should this equipment be enabled? Changes to this value take effect only at the start of a run. Equipment description: " + GetSanitizedStringFromToken(equipmentDef.pickupToken),
-                            onChanged: (x, y) =>
+                            onChanged: (newValue) =>
                             {
-                                if (!enabledByConfig)
+                                if (!newValue)
                                 {
                                     disabledEquipment.Add(equipmentDef.equipmentIndex, new DisabledEquipment
                                     {
@@ -266,17 +264,16 @@ namespace MysticsItems
                     defaultValue,
                     0f,
                     1000f,
-                    onChanged: (x, y) =>
+                    onChanged: (newValue) =>
                     {
-                        if (equipmentDef) equipmentDef.cooldown = configurableValue;
+                        if (equipmentDef) equipmentDef.cooldown = newValue;
                     }
                 );
             }
 
             public static void CreateEquipmentEnigmaCompatibleOption(EquipmentDef equipmentDef, string section, bool defaultValue)
             {
-                ConfigOptions.ConfigurableValue<bool> configurableValue = null;
-                configurableValue = ConfigOptions.ConfigurableValue.CreateBool(
+                ConfigOptions.ConfigurableValue.CreateBool(
                     categoryGUID,
                     categoryName,
                     config,
@@ -284,16 +281,16 @@ namespace MysticsItems
                     "Enigma Compatible",
                     defaultValue,
                     "Can be rolled by the Artifact of Enigma",
-                    onChanged: (x, y) =>
+                    onChanged: (newValue) =>
                     {
                         if (equipmentDef)
                         {
-                            equipmentDef.enigmaCompatible = configurableValue;
+                            equipmentDef.enigmaCompatible = newValue;
                             var list = EquipmentCatalog.enigmaEquipmentList;
                             if (list != null)
                             {
                                 var contains = list.Contains(equipmentDef.equipmentIndex);
-                                if (configurableValue != contains)
+                                if (newValue != contains)
                                 {
                                     if (contains) list.Remove(equipmentDef.equipmentIndex);
                                     else list.Add(equipmentDef.equipmentIndex);
@@ -306,8 +303,7 @@ namespace MysticsItems
 
             public static void CreateEquipmentCanBeRandomlyTriggeredOption(EquipmentDef equipmentDef, string section, bool defaultValue)
             {
-                ConfigOptions.ConfigurableValue<bool> configurableValue = null;
-                configurableValue = ConfigOptions.ConfigurableValue.CreateBool(
+                ConfigOptions.ConfigurableValue.CreateBool(
                     categoryGUID,
                     categoryName,
                     config,
@@ -315,16 +311,16 @@ namespace MysticsItems
                     "Can Be Randomly Triggered",
                     defaultValue,
                     "Can be rolled by the Bottled Chaos item from the Survivors of the Void DLC",
-                    onChanged: (x, y) =>
+                    onChanged: (newValue) =>
                     {
                         if (equipmentDef)
                         {
-                            equipmentDef.canBeRandomlyTriggered = configurableValue;
+                            equipmentDef.canBeRandomlyTriggered = newValue;
                             var list = EquipmentCatalog.randomTriggerEquipmentList;
                             if (list != null)
                             {
                                 var contains = list.Contains(equipmentDef.equipmentIndex);
-                                if (configurableValue != contains)
+                                if (newValue != contains)
                                 {
                                     if (contains) list.Remove(equipmentDef.equipmentIndex);
                                     else list.Add(equipmentDef.equipmentIndex);
