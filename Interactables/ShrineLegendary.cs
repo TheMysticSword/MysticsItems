@@ -15,6 +15,8 @@ namespace MysticsItems.Interactables
 {
     public class ShrineLegendary : BaseInteractable
     {
+        public static DirectorCard directorCard;
+
         public override void OnPluginAwake()
         {
             base.OnPluginAwake();
@@ -81,19 +83,19 @@ namespace MysticsItems.Interactables
             spawnCard.slightlyRandomizeOrientation = false;
             spawnCard.skipSpawnWhenSacrificeArtifactEnabled = false;
 
-            if (ContentToggleConfigManager.enabled.Value && ContentToggleConfigManager.secrets.Value)
+            directorCard = new DirectorCard
             {
-                AddDirectorCardTo("wispgraveyard", "Shrines", new DirectorCard
-                {
-                    spawnCard = spawnCard,
-                    selectionWeight = 1,
-                    spawnDistance = 0f,
-                    preventOverhead = false,
-                    minimumStageCompletions = 1,
-                    requiredUnlockableDef = null,
-                    forbiddenUnlockableDef = null
-                });
-            }
+                spawnCard = spawnCard,
+                selectionWeight = 1,
+                spawnDistance = 0f,
+                preventOverhead = false,
+                minimumStageCompletions = 1,
+                requiredUnlockableDef = null,
+                forbiddenUnlockableDef = null
+            };
+
+            ConfigManager.General.onSecretsToggled += (setEnabled) => enabled = setEnabled;
+            enabled = ConfigManager.General.secrets;
 
             // Custom purchase cost type to take a fraction of the player's items
             /*
@@ -105,6 +107,29 @@ namespace MysticsItems.Interactables
             */
         }
 
+        private static bool _enabled;
+        public static bool enabled
+        {
+            get
+            {
+                return _enabled;
+            }
+            set
+            {
+                if (_enabled != value && directorCard != null)
+                {
+                    _enabled = value;
+                    if (_enabled)
+                    {
+                        AddDirectorCardTo("wispgraveyard", "Shrines", directorCard);
+                    }
+                    else
+                    {
+                        RemoveDirectorCardFrom("wispgraveyard", "Shrines", directorCard);
+                    }
+                }
+            }
+        }
 
         public class ShrineLegendaryBehaviour : NetworkBehaviour
         {

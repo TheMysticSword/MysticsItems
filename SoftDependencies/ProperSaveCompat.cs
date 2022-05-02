@@ -10,11 +10,8 @@ namespace MysticsItems.SoftDependencies
     {
         internal static void Init()
         {
-            if (GeneralConfigManager.properSaveCompatEnabledByConfig.Value)
-            {
-                ProperSave.SaveFile.OnGatgherSaveData += SaveFile_OnGatgherSaveData;
-                ProperSave.Loading.OnLoadingEnded += Loading_OnLoadingEnded;
-            }
+            ProperSave.SaveFile.OnGatgherSaveData += SaveFile_OnGatgherSaveData;
+            ProperSave.Loading.OnLoadingEnded += Loading_OnLoadingEnded;
         }
 
         public class MysticsItemsSaveData

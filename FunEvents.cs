@@ -1,3 +1,4 @@
+using MysticsRisky2Utils;
 using RoR2;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -6,26 +7,27 @@ namespace MysticsItems
 {
     internal static class FunEvents
     {
-        private const string checkString = "mysticsitems_funevent";
-
         public static void Init()
         {
-            if (ContentToggleConfigManager.funEvents.Value)
+            ConfigOptions.ConfigurableValue<bool> enabledByConfig = ConfigOptions.ConfigurableValue.CreateBool(
+                ConfigManager.General.categoryGUID,
+                ConfigManager.General.categoryName,
+                ConfigManager.General.config,
+                "Misc",
+                "Fun Events",
+                true,
+                "Enable fun events that happen on specific dates",
+                restartRequired: true
+            );
+
+            if (enabledByConfig)
             {
                 var today = System.DateTime.Now;
                 if (today.Month == 4 && today.Day == 1)
                 {
                     BazaarPrank.Init();
                 }
-
-                On.RoR2.NetworkPlayerName.GetResolvedName += NetworkPlayerName_GetResolvedName;
             }
-        }
-
-        private static string NetworkPlayerName_GetResolvedName(On.RoR2.NetworkPlayerName.orig_GetResolvedName orig, ref NetworkPlayerName self)
-        {
-            if (self.nameOverride == checkString) return "???";
-            return orig(ref self);
         }
 
         public static class BazaarPrank
@@ -72,13 +74,8 @@ namespace MysticsItems
                     {
                         if (NetworkServer.active)
                         {
-                            Chat.SendBroadcastChat(new Chat.PlayerChatMessage
+                            Chat.SendBroadcastChat(new Chat.SimpleChatMessage
                             {
-                                networkPlayerName = new NetworkPlayerName
-                                {
-                                    nameOverride = checkString,
-                                    steamId = default(CSteamID)
-                                },
                                 baseToken = "Happy April Fools' day!"
                             });
                         }

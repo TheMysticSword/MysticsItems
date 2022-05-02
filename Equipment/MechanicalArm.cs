@@ -66,10 +66,10 @@ namespace MysticsItems.Equipment
         public override void OnLoad()
         {
             equipmentDef.name = "MysticsItems_MechanicalArm";
-            equipmentDef.cooldown = new ConfigurableCooldown("Equipment: Mechanical Arm", 20f).Value;
+            ConfigManager.Balance.CreateEquipmentCooldownOption(equipmentDef, "Equipment: Mechanical Arm", 20f);
             equipmentDef.canDrop = true;
-            equipmentDef.enigmaCompatible = new ConfigurableEnigmaCompatibleBool("Equipment: Mechanical Arm", true).Value;
-            equipmentDef.canBeRandomlyTriggered = new ConfigurableCanBeRandomlyTriggeredBool("Equipment: Mechanical Arm", false).Value;
+            ConfigManager.Balance.CreateEquipmentEnigmaCompatibleOption(equipmentDef, "Equipment: Mechanical Arm", true);
+            ConfigManager.Balance.CreateEquipmentCanBeRandomlyTriggeredOption(equipmentDef, "Equipment: Mechanical Arm", false);
             equipmentDef.pickupModelPrefab = PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Equipment/Mechanical Arm/Model.prefab"));
             equipmentDef.pickupIconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Equipment/Mechanical Arm/Icon.png");
 

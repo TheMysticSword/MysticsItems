@@ -51,10 +51,10 @@ namespace MysticsItems.Equipment
         public override void OnLoad()
         {
             equipmentDef.name = "MysticsItems_Microphone";
-            equipmentDef.cooldown = new ConfigurableCooldown("Equipment: Vintage Microphone", 60f).Value;
+            ConfigManager.Balance.CreateEquipmentCooldownOption(equipmentDef, "Equipment: Vintage Microphone", 60f);
             equipmentDef.canDrop = true;
-            equipmentDef.enigmaCompatible = new ConfigurableEnigmaCompatibleBool("Equipment: Vintage Microphone", true).Value;
-            equipmentDef.canBeRandomlyTriggered = new ConfigurableCanBeRandomlyTriggeredBool("Equipment: Vintage Microphone", false).Value;
+            ConfigManager.Balance.CreateEquipmentEnigmaCompatibleOption(equipmentDef, "Equipment: Vintage Microphone", true);
+            ConfigManager.Balance.CreateEquipmentCanBeRandomlyTriggeredOption(equipmentDef, "Equipment: Vintage Microphone", false);
             equipmentDef.pickupModelPrefab = PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Equipment/Microphone/Model.prefab"));
             equipmentDef.pickupIconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Equipment/Microphone/Icon.png");
 

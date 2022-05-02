@@ -1,12 +1,12 @@
 using BepInEx.Configuration;
+using MysticsRisky2Utils;
+using System;
 
 namespace MysticsItems.SoftDependencies
 {
     internal static class SoftDependenciesCore
     {
-        internal static bool betterUICompatEnabled = false;
-        internal static bool betterUIItemStatsEnabled = false;
-        internal static bool itemStatsCompatEnabled = false;
+        internal static bool itemStatsEnabled = false;
         internal static bool itemDisplaysSniper = false;
 
         internal static void Init()
@@ -17,37 +17,46 @@ namespace MysticsItems.SoftDependencies
                 try
                 {
                     BetterUICompat.Init();
-                    betterUICompatEnabled = true;
-                    betterUIItemStatsEnabled = GeneralConfigManager.betterUICompatEnableItemStats.Value;
+                    itemStatsEnabled = true;
                 }
-                catch { }
+                catch (Exception e) { Main.logger.LogError(e); }
             }
-            if (pluginInfos.ContainsKey("dev.ontrigger.itemstats") && GeneralConfigManager.itemStatsCompatEnabledByConfig.Value)
+            if (pluginInfos.ContainsKey("dev.ontrigger.itemstats"))
             {
                 try
                 {
                     ItemStatsCompat.Init();
-                    itemStatsCompatEnabled = true;
+                    itemStatsEnabled = true;
                 }
-                catch { }
+                catch (Exception e) { Main.logger.LogError(e); }
             }
-            if (pluginInfos.ContainsKey("com.KingEnderBrine.ProperSave") && GeneralConfigManager.properSaveCompatEnabledByConfig.Value)
+            if (pluginInfos.ContainsKey("com.KingEnderBrine.ProperSave"))
             {
                 try
                 {
                     ProperSaveCompat.Init();
                 }
-                catch { }
+                catch (Exception e) { Main.logger.LogError(e); }
             }
-            if (pluginInfos.ContainsKey("aaaa.bubbet.whatamilookingat") && GeneralConfigManager.whatAmILookingAtCompatEnabledByConfig.Value)
+            if (pluginInfos.ContainsKey("aaaa.bubbet.whatamilookingat"))
             {
                 try
                 {
                     WhatAmILookingAtCompat.Init();
                 }
-                catch { }
+                catch (Exception e) { Main.logger.LogError(e); }
             }
-            itemDisplaysSniper = BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("com.Moffein.SniperClassic") && GeneralConfigManager.itemDisplaysSniper.Value;
+
+            itemDisplaysSniper = ConfigOptions.ConfigurableValue.CreateBool(
+                ConfigManager.General.categoryGUID,
+                ConfigManager.General.categoryName,
+                ConfigManager.General.config,
+                "Mod Compatibility",
+                "Sniper Item Displays",
+                true,
+                "Make this mod's items show up on the Sniper added by the SniperClassic mod",
+                restartRequired: true
+            ) && BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("com.Moffein.SniperClassic");
         }
     }
 }

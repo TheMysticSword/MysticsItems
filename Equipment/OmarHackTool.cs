@@ -31,10 +31,10 @@ namespace MysticsItems.Equipment
         public override void OnLoad()
         {
             equipmentDef.name = "MysticsItems_OmarHackTool";
-            equipmentDef.cooldown = new ConfigurableCooldown("Equipment: From Omar With Love", 60f).Value;
+            ConfigManager.Balance.CreateEquipmentCooldownOption(equipmentDef, "Equipment: From Omar With Love", 60f);
             equipmentDef.canDrop = true;
-            equipmentDef.enigmaCompatible = new ConfigurableEnigmaCompatibleBool("Equipment: From Omar With Love", false).Value;
-            equipmentDef.canBeRandomlyTriggered = new ConfigurableCanBeRandomlyTriggeredBool("Equipment: From Omar With Love", false).Value;
+            ConfigManager.Balance.CreateEquipmentEnigmaCompatibleOption(equipmentDef, "Equipment: From Omar With Love", false);
+            ConfigManager.Balance.CreateEquipmentCanBeRandomlyTriggeredOption(equipmentDef, "Equipment: From Omar With Love", false);
             equipmentDef.pickupModelPrefab = PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Equipment/From Omar With Love/Model.prefab"));
             equipmentDef.pickupIconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Equipment/From Omar With Love/Icon.png");
 

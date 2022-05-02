@@ -31,10 +31,10 @@ namespace MysticsItems.Equipment
         public override void OnLoad()
         {
             equipmentDef.name = "MysticsItems_PrinterHacker";
-            equipmentDef.cooldown = new ConfigurableCooldown("Equipment: Wirehack Wrench", 90f).Value;
+            ConfigManager.Balance.CreateEquipmentCooldownOption(equipmentDef, "Equipment: Wirehack Wrench", 90f);
             equipmentDef.canDrop = true;
-            equipmentDef.enigmaCompatible = new ConfigurableEnigmaCompatibleBool("Equipment: Wirehack Wrench", false).Value;
-            equipmentDef.canBeRandomlyTriggered = new ConfigurableCanBeRandomlyTriggeredBool("Equipment: Wirehack Wrench", false).Value;
+            ConfigManager.Balance.CreateEquipmentEnigmaCompatibleOption(equipmentDef, "Equipment: Wirehack Wrench", false);
+            ConfigManager.Balance.CreateEquipmentCanBeRandomlyTriggeredOption(equipmentDef, "Equipment: Wirehack Wrench", false);
             equipmentDef.pickupModelPrefab = PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Equipment/Wirehack Wrench/Model.prefab"));
             equipmentDef.pickupIconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Equipment/Wirehack Wrench/Icon.png");
 

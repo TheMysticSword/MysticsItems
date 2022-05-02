@@ -33,17 +33,11 @@ namespace MysticsItems
 
         internal static BepInEx.Logging.ManualLogSource logger;
         internal static PluginInfo pluginInfo;
-        internal static BepInEx.Configuration.ConfigFile configGeneral;
-        internal static BepInEx.Configuration.ConfigFile configBalance;
-        internal static BepInEx.Configuration.ConfigFile configContentToggle;
         
         public void Awake()
         {
             logger = Logger;
             pluginInfo = Info;
-            configGeneral = new BepInEx.Configuration.ConfigFile(Paths.ConfigPath + "\\MysticsItems_General.cfg", true);
-            configBalance = new BepInEx.Configuration.ConfigFile(Paths.ConfigPath + "\\MysticsItems_Balance.cfg", true);
-            configContentToggle = new BepInEx.Configuration.ConfigFile(Paths.ConfigPath + "\\MysticsItems_ContentToggle.cfg", true);
             Main.Init();
         }
     }
@@ -72,10 +66,8 @@ namespace MysticsItems
         public static void Init()
         {
             logger = MysticsItemsPlugin.logger;
-            
-            GeneralConfigManager.Init();
-            BalanceConfigManager.Init();
-            ContentToggleConfigManager.Init();
+
+            ConfigManager.Init();
 
             SoundAPI.SoundBanks.Add(System.IO.File.ReadAllBytes(System.IO.Path.Combine(System.IO.Path.GetDirectoryName(MysticsItemsPlugin.pluginInfo.Location), "MysticsItemsWwiseSoundbank.bnk")));
 

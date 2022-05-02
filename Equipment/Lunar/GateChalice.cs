@@ -88,10 +88,10 @@ namespace MysticsItems.Equipment
         {
             base.OnLoad();
             equipmentDef.name = "MysticsItems_GateChalice";
-            equipmentDef.cooldown = new ConfigurableCooldown("Equipment: Gate Chalice", 60f).Value;
+            ConfigManager.Balance.CreateEquipmentCooldownOption(equipmentDef, "Equipment: Gate Chalice", 60f);
             equipmentDef.canDrop = true;
-            equipmentDef.enigmaCompatible = new ConfigurableEnigmaCompatibleBool("Equipment: Gate Chalice", false).Value;
-            equipmentDef.canBeRandomlyTriggered = new ConfigurableCanBeRandomlyTriggeredBool("Equipment: Gate Chalice", false).Value;
+            ConfigManager.Balance.CreateEquipmentEnigmaCompatibleOption(equipmentDef, "Equipment: Gate Chalice", false);
+            ConfigManager.Balance.CreateEquipmentCanBeRandomlyTriggeredOption(equipmentDef, "Equipment: Gate Chalice", false);
             equipmentDef.isLunar = true;
             equipmentDef.colorIndex = ColorCatalog.ColorIndex.LunarItem;
             equipmentDef.pickupModelPrefab = PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Equipment/Gate Chalice/Model.prefab"));
