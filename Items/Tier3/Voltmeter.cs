@@ -8,7 +8,7 @@ using Mono.Cecil.Cil;
 using MonoMod.Cil;
 using MysticsRisky2Utils;
 using MysticsRisky2Utils.BaseAssetTypes;
-using static MysticsItems.BalanceConfigManager;
+using static MysticsItems.LegacyBalanceConfigManager;
 
 namespace MysticsItems.Items
 {

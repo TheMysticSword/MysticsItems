@@ -3,7 +3,7 @@ using MysticsRisky2Utils.BaseAssetTypes;
 using R2API;
 using RoR2;
 using UnityEngine;
-using static MysticsItems.BalanceConfigManager;
+using static MysticsItems.LegacyBalanceConfigManager;
 
 namespace MysticsItems.Items
 {

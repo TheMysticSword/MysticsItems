@@ -6,7 +6,7 @@ using MonoMod.Cil;
 using Rewired.ComponentControls.Effects;
 using MysticsRisky2Utils;
 using MysticsRisky2Utils.BaseAssetTypes;
-using static MysticsItems.BalanceConfigManager;
+using static MysticsItems.LegacyBalanceConfigManager;
 using System.Collections.Generic;
 
 namespace MysticsItems.Buffs

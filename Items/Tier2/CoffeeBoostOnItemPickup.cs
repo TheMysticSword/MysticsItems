@@ -6,7 +6,7 @@ using System.Linq;
 using MysticsRisky2Utils;
 using MysticsRisky2Utils.BaseAssetTypes;
 using RoR2.Audio;
-using static MysticsItems.BalanceConfigManager;
+using static MysticsItems.LegacyBalanceConfigManager;
 
 namespace MysticsItems.Items
 {

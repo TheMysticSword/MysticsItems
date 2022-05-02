@@ -5,7 +5,7 @@ using R2API.Utils;
 using UnityEngine;
 using MysticsRisky2Utils;
 using MysticsRisky2Utils.BaseAssetTypes;
-using static MysticsItems.BalanceConfigManager;
+using static MysticsItems.LegacyBalanceConfigManager;
 
 namespace MysticsItems.Items
 {

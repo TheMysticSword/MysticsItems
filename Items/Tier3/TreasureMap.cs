@@ -16,7 +16,7 @@ using System.Collections.Generic;
 using ThreeEyedGames;
 using MysticsRisky2Utils;
 using MysticsRisky2Utils.BaseAssetTypes;
-using static MysticsItems.BalanceConfigManager;
+using static MysticsItems.LegacyBalanceConfigManager;
 using UnityEngine.AddressableAssets;
 
 namespace MysticsItems.Items

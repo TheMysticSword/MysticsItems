@@ -10,7 +10,7 @@ using R2API.Networking.Interfaces;
 using R2API.Networking;
 using MysticsRisky2Utils;
 using MysticsRisky2Utils.BaseAssetTypes;
-using static MysticsItems.BalanceConfigManager;
+using static MysticsItems.LegacyBalanceConfigManager;
 
 namespace MysticsItems.Items
 {

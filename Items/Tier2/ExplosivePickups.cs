@@ -7,7 +7,7 @@ using Mono.Cecil.Cil;
 using MonoMod.Cil;
 using MysticsRisky2Utils;
 using MysticsRisky2Utils.BaseAssetTypes;
-using static MysticsItems.BalanceConfigManager;
+using static MysticsItems.LegacyBalanceConfigManager;
 
 namespace MysticsItems.Items
 {
@@ -206,7 +206,20 @@ namespace MysticsItems.Items
             vfxAttributes.vfxPriority = VFXAttributes.VFXPriority.Always;
             EffectComponent effectComponent = explosionPrefab.AddComponent<EffectComponent>();
             effectComponent.applyScale = true;
-            effectComponent.soundName = GeneralConfigManager.gunpowderDisableSound.Value ? "" : "MysticsItems_Play_item_proc_gunpowder";
+            ConfigOptions.ConfigurableValue<bool> gunpowderDisableSound = null;
+            gunpowderDisableSound = ConfigOptions.ConfigurableValue.CreateBool(
+                ConfigManager.General.categoryGUID,
+                ConfigManager.General.categoryName,
+                ConfigManager.General.config,
+                "Effects",
+                "Disable Contraband Gunpowder SFX",
+                false,
+                "Disable the sound effects of Contraband Gunpowder explosions",
+                onChanged: (x, y) =>
+                {
+                    effectComponent.soundName = gunpowderDisableSound.Value ? "" : "MysticsItems_Play_item_proc_gunpowder";
+                }
+            );
             explosionPrefab.AddComponent<DestroyOnTimer>().duration = 2f;
             ShakeEmitter shakeEmitter = explosionPrefab.AddComponent<ShakeEmitter>();
             shakeEmitter.duration = 0.1f;
@@ -214,11 +227,26 @@ namespace MysticsItems.Items
             shakeEmitter.amplitudeTimeDecay = true;
             shakeEmitter.radius = 1.5f;
             shakeEmitter.shakeOnStart = true;
-            shakeEmitter.wave = new Wave
-            {
-                amplitude = 9f * GeneralConfigManager.gunpowderScreenshakeScale.Value,
-                frequency = 4f * GeneralConfigManager.gunpowderScreenshakeScale.Value
-            };
+            ConfigOptions.ConfigurableValue<float> gunpowderScreenshakeScale = null;
+            gunpowderScreenshakeScale = ConfigOptions.ConfigurableValue.CreateFloat(
+                ConfigManager.General.categoryGUID,
+                ConfigManager.General.categoryName,
+                ConfigManager.General.config,
+                "Effects",
+                "Contraband Gunpowder Screenshake",
+                1f,
+                0f,
+                1f,
+                "Adjust the intensity of Contraband Gunpowder explosion screenshake",
+                onChanged: (x, y) =>
+                {
+                    shakeEmitter.wave = new Wave
+                    {
+                        amplitude = 9f * gunpowderScreenshakeScale.Value,
+                        frequency = 4f * gunpowderScreenshakeScale.Value
+                    };
+                }
+            );
             MysticsItemsContent.Resources.effectPrefabs.Add(explosionPrefab);
 
             /*

@@ -9,7 +9,7 @@ using MonoMod.Cil;
 using System.Reflection;
 using MysticsRisky2Utils;
 using MysticsRisky2Utils.BaseAssetTypes;
-using static MysticsItems.BalanceConfigManager;
+using static MysticsItems.LegacyBalanceConfigManager;
 using System.Collections.Generic;
 
 namespace MysticsItems.Equipment

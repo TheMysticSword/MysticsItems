@@ -9,7 +9,7 @@ using RoR2.Orbs;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
-using static MysticsItems.BalanceConfigManager;
+using static MysticsItems.LegacyBalanceConfigManager;
 
 namespace MysticsItems.Items
 {

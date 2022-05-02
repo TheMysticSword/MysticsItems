@@ -13,7 +13,7 @@ using MysticsRisky2Utils;
 using System.Linq;
 using System.Collections.Generic;
 using MysticsRisky2Utils.BaseAssetTypes;
-using static MysticsItems.BalanceConfigManager;
+using static MysticsItems.LegacyBalanceConfigManager;
 using RoR2.Navigation;
 
 namespace MysticsItems.Equipment

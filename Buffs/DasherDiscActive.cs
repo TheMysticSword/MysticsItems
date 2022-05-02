@@ -4,7 +4,7 @@ using MysticsRisky2Utils.BaseAssetTypes;
 using RoR2;
 using UnityEngine;
 using MysticsRisky2Utils;
-using static MysticsItems.BalanceConfigManager;
+using static MysticsItems.LegacyBalanceConfigManager;
 
 namespace MysticsItems.Buffs
 {

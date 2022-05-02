@@ -16,7 +16,7 @@ using UnityEngine.Rendering.PostProcessing;
 using MysticsRisky2Utils;
 using MysticsRisky2Utils.BaseAssetTypes;
 using UnityEngine.UI;
-using static MysticsItems.BalanceConfigManager;
+using static MysticsItems.LegacyBalanceConfigManager;
 using UnityEngine.AddressableAssets;
 
 namespace MysticsItems.Items

@@ -4,7 +4,7 @@ using Mono.Cecil.Cil;
 using MonoMod.Cil;
 using MysticsRisky2Utils.BaseAssetTypes;
 using R2API;
-using static MysticsItems.BalanceConfigManager;
+using static MysticsItems.LegacyBalanceConfigManager;
 
 namespace MysticsItems.Buffs
 {

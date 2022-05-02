@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using RoR2.Audio;
 using MysticsRisky2Utils;
 using MysticsRisky2Utils.BaseAssetTypes;
-using static MysticsItems.BalanceConfigManager;
+using static MysticsItems.LegacyBalanceConfigManager;
 
 namespace MysticsItems.Equipment
 {

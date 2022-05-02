@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using MysticsRisky2Utils.BaseAssetTypes;
 using R2API;
 using System.Linq;
-using static MysticsItems.BalanceConfigManager;
+using static MysticsItems.LegacyBalanceConfigManager;
 using R2API.Networking.Interfaces;
 using R2API.Networking;
 
@@ -73,7 +73,7 @@ namespace MysticsItems.Items
 
             RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
 
-            if (!SoftDependencies.SoftDependenciesCore.itemStatsCompatEnabled && !SoftDependencies.SoftDependenciesCore.betterUIItemStatsEnabled) On.RoR2.UI.ItemIcon.SetItemIndex += ItemIcon_SetItemIndex;
+            if (!SoftDependencies.SoftDependenciesCore.itemStatsEnabled) On.RoR2.UI.ItemIcon.SetItemIndex += ItemIcon_SetItemIndex;
 
             MysticsItemsManuscript.Init();
         }

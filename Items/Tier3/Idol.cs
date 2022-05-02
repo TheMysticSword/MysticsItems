@@ -9,7 +9,7 @@ using R2API;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.Networking;
-using static MysticsItems.BalanceConfigManager;
+using static MysticsItems.LegacyBalanceConfigManager;
 using UnityEngine.UI;
 
 namespace MysticsItems.Items

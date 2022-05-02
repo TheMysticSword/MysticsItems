@@ -11,7 +11,7 @@ using MysticsRisky2Utils;
 using MysticsRisky2Utils.BaseAssetTypes;
 using R2API.Networking.Interfaces;
 using R2API.Networking;
-using static MysticsItems.BalanceConfigManager;
+using static MysticsItems.LegacyBalanceConfigManager;
 using UnityEngine.AddressableAssets;
 
 namespace MysticsItems.Items

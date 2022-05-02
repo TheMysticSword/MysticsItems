@@ -9,7 +9,7 @@ using RoR2.Audio;
 using MysticsRisky2Utils;
 using MysticsRisky2Utils.BaseAssetTypes;
 using R2API;
-using static MysticsItems.BalanceConfigManager;
+using static MysticsItems.LegacyBalanceConfigManager;
 
 namespace MysticsItems.Items
 {

@@ -10,7 +10,7 @@ using RoR2.Audio;
 using MysticsRisky2Utils;
 using MysticsRisky2Utils.BaseAssetTypes;
 using MonoMod.Cil;
-using static MysticsItems.BalanceConfigManager;
+using static MysticsItems.LegacyBalanceConfigManager;
 using Mono.Cecil.Cil;
 
 namespace MysticsItems.Items

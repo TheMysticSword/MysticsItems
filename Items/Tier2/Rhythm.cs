@@ -14,7 +14,7 @@ using R2API.Networking;
 using RoR2.UI;
 using TMPro;
 using UnityEngine.UI;
-using static MysticsItems.BalanceConfigManager;
+using static MysticsItems.LegacyBalanceConfigManager;
 
 namespace MysticsItems.Items
 {
