@@ -124,9 +124,9 @@ namespace MysticsItems.Items
         
         public static GameObject ashHitVFX;
 
-        public static float enemyExtraDamageCap;
-        public static float enemyBurnDamageCap;
-        public static float enemySpreadRadiusCap;
+        public static float enemyExtraDamageCap = 4f;
+        public static float enemyBurnDamageCap = 1.6f;
+        public static float enemySpreadRadiusCap = 10f;
 
         public override void OnLoad()
         {
@@ -185,10 +185,6 @@ namespace MysticsItems.Items
                 MysticsItemsMarwanAshHelper.level2PickupIndex = PickupCatalog.FindPickupIndex(MysticsItemsContent.Items.MysticsItems_MarwanAsh2.itemIndex);
                 MysticsItemsMarwanAshHelper.level3PickupIndex = PickupCatalog.FindPickupIndex(MysticsItemsContent.Items.MysticsItems_MarwanAsh3.itemIndex);
             };
-
-            enemyExtraDamageCap = damage + damagePerLevel * 98f;
-            enemyBurnDamageCap = dotPercent / 100f + dotPercentPerLevel / 100f * (99f - (float)upgradeLevel12);
-            enemySpreadRadiusCap = radius + radiusPerLevel * (99f - (float)upgradeLevel23);
         }
 
         private void GenericGameEvents_OnHitEnemy(DamageInfo damageInfo, MysticsRisky2UtilsPlugin.GenericCharacterInfo attackerInfo, MysticsRisky2UtilsPlugin.GenericCharacterInfo victimInfo)
