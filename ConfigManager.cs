@@ -287,7 +287,7 @@ namespace MysticsItems
                         {
                             equipmentDef.enigmaCompatible = newValue;
                             var list = EquipmentCatalog.enigmaEquipmentList;
-                            if (list != null)
+                            if (list != null && equipmentDef.equipmentIndex != EquipmentIndex.None)
                             {
                                 var contains = list.Contains(equipmentDef.equipmentIndex);
                                 if (newValue != contains)
@@ -317,7 +317,7 @@ namespace MysticsItems
                         {
                             equipmentDef.canBeRandomlyTriggered = newValue;
                             var list = EquipmentCatalog.randomTriggerEquipmentList;
-                            if (list != null)
+                            if (list != null && equipmentDef.equipmentIndex != EquipmentIndex.None)
                             {
                                 var contains = list.Contains(equipmentDef.equipmentIndex);
                                 if (newValue != contains)
