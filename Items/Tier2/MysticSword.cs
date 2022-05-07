@@ -50,7 +50,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> maxDamage = new ConfigurableValue<float>(
             "Item: Mystic Sword",
             "MaxDamage",
-            100f,
+            40f,
             "Maximum damage bonus from the first stack of this item (in %)",
             new System.Collections.Generic.List<string>()
             {
@@ -60,7 +60,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> maxDamagePerStack = new ConfigurableValue<float>(
             "Item: Mystic Sword",
             "MaxDamagePerStack",
-            100f,
+            40f,
             "Maximum damage bonus for each additional stack of this item (in %)",
             new System.Collections.Generic.List<string>()
             {
