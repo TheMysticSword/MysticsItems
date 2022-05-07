@@ -46,6 +46,14 @@ namespace MysticsItems.SoftDependencies
                 }
                 catch (Exception e) { Main.logger.LogError(e); }
             }
+            if (pluginInfos.ContainsKey("com.ThinkInvisible.TILER2"))
+            {
+                try
+                {
+                    TILER2Compat.Init();
+                }
+                catch (Exception e) { Main.logger.LogError(e); }
+            }
 
             itemDisplaysSniper = ConfigOptions.ConfigurableValue.CreateBool(
                 ConfigManager.General.categoryGUID,
