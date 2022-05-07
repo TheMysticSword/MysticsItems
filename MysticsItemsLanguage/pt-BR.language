@@ -1,0 +1,377 @@
+{
+  "pt-BR": {
+    //[NOTIER]
+    "ITEM_MYSTICSITEMS_RIFTLENSDEBUFF_NAME": "Visão da fenda",
+    "ITEM_MYSTICSITEMS_RIFTLENSDEBUFF_PICKUP": "Consegues ver fendas instavéis... <color=#FF7F7F>MAS morres se não fechares todos eles a tempo!</color>",
+    "ITEM_MYSTICSITEMS_RIFTLENSDEBUFF_DESC": "Consegues ver fendas instavéis... <color=#FF7F7F>MAS morres se não fechares todos eles a tempo!</color>",
+
+    "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPENCONSUMED_NAME": "Cartão Platinum (Consumido)",
+    "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPENCONSUMED_PICKUP": "Recarrega na próxima fase.",
+    "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPENCONSUMED_DESC": "Recarrega na próxima fase.",
+
+    //[TIER1]
+    "ITEM_MYSTICSITEMS_HEALORBONBARREL_NAME": "Donut", // ["Food for thought" in the lore entry is a wordplay on donuts as a kind of food and "food for thought" as a metaphorical phrase]
+    "ITEM_MYSTICSITEMS_HEALORBONBARREL_PICKUP": "Ativar um item interativo gera um orbe de cura.",
+    "ITEM_MYSTICSITEMS_HEALORBONBARREL_DESC": "Ativar um item interativo gera um <style=cIsHealing>orbe de cura</style> que cura <style=cIsHealing>{FlatHealing}</style> mais <style=cIsHealing>{FractionalHealing}% <style=cStack>(+{FractionalHealingPerStack}% por acúmulo)</style></style> da <style=cIsHealing>saúde máxima</style>.",
+    "ITEM_MYSTICSITEMS_HEALORBONBARREL_LORE": "- Você sabe por que os donuts têm um buraco no meio?\n\n- Porque, uh... não faço idea.\n\n- Isso é alimento para o pensamento.\n\n- ... Eu te odeio.",
+
+    "ITEM_MYSTICSITEMS_SCRATCHTICKET_NAME": "Raspadinha",
+    "ITEM_MYSTICSITEMS_SCRATCHTICKET_PICKUP": "Aumenta ligeiramente as probabilidades de efeitos baseados em chance.",
+    "ITEM_MYSTICSITEMS_SCRATCHTICKET_DESC": "Efeitos baseados em chance têm <style=cIsUtility>+{ChanceBonus}% <style=cStack>(+{ChanceBonusPerStack}% por acúmulo)</style></style> de chance de ativar. Não funciona em efeitos com menos de 1% de chance de ativar.",
+    "ITEM_MYSTICSITEMS_SCRATCHTICKET_LORE": "<style=cMono>\n//-- REPLAY DA CHAMADA TELEFÔNICA #731 --//</style>\n\n- Bom Dia. Posso perguntar quem está chamando?\n\n- Bom dia! Este é Carl Shade da Star Seven. Estou ligando para você para felicitar-lo por ganhar a loteria de $100.000!\n\n- Uau, eu- realmente?\n\n- Você já ganhou na loteria antes?\n\n- Ah... não.\n\n- Bem, há uma primeira vez para tudo! Funciona assim: para receber seu prêmio, precisamos dos dados do seu cartão de crédito, incluindo os três números na parte detrás.\n\n- [ESTA PARTE DA CHAMADA FOI REDIGIDA POR PRIVACIDADE]\n\n- Entendi!\n\n- ...\n\n- ...\n\n- Hum, ainda não recebi nada. Os números estão corretos?\n\n<style=cMono>\n//-- FIM DA CHAMADA --//</style>",
+
+    "ITEM_MYSTICSITEMS_BACKARMOR_NAME": "Implante de Coluna",
+    "ITEM_MYSTICSITEMS_BACKARMOR_PICKUP": "Menos dano recebido de ataques por detrás.",
+    "ITEM_MYSTICSITEMS_BACKARMOR_DESC": "Aumenta a armadura por <style=cIsUtility>{ArmorAdd} <style=cStack>(+{ArmorAddPerStack} por acúmulo)</style></style> contra ataques por detrás.",
+    "ITEM_MYSTICSITEMS_BACKARMOR_LORE": "<style=cMono>\n//--EXTRATO DE UMA TRANSMISSÃO DE TV --//</style>\n\nÚLTIMAS NOTÍCIAS: um grande incêndio ocorreu no Edifício Central há menos de um minuto. Estamos perto do prédio no momento. O bombei- ALGUÉM SALTOU DA JANELA! EI, O QUE VOCÊ ESTÁ FAZENDO?! DESLIGUE A CÂMERA!\n\nMeu Deus.\nEspera... eles estão... vivos? E quem é essa pessoa correndo em direção a eles?\nTudo bem, nós PRECISAMOS de investigar.\n\nRepórter: Senhor, você está bem?\n\nPessoa 1: Sim, tudo bem.\n\nPessoa 2: O que [REMOVIDO] você quer dizer com \"tudo bem\"? Caíste do nonagésimo andar, estás na [REMOVIDO] da TV e apenas respondes casualmente com \"tudo bem\"! O que está acontecendo?!\n\nPessoa 1: Bem, eu certamente não estou morrendo em um incêndio. A janela estava aberta. E eu precisava testar meus novos implantes de coluna. Então liguei os pontos e fiz o que fiz.\n\nPessoa 2: Você me deixou preocupado, seu [REMOVIDO]! Nunca mais faças isso!",
+
+    "ITEM_MYSTICSITEMS_MANUSCRIPT_NAME": "Manuscrito",
+    "ITEM_MYSTICSITEMS_MANUSCRIPT_PICKUP": "Aumenta uma estatística aleatória em {StatBonus}%.",
+    "ITEM_MYSTICSITEMS_MANUSCRIPT_DESC": "Aumenta <style=cIsUtility>1 <style=cStack>(+1 por acúmulo)</style></style> estatística aleatória (saúde máxima/regeneração de saúde passiva/dano/velocidade de movimento/velocidade de ataque/chance de acerto crítico/armadura) em <style=cIsUtility>{StatBonus}%</style>.",
+    "ITEM_MYSTICSITEMS_MANUSCRIPT_LORE": "<style=cMono>Transcrição de áudio do co******te *********** Classe Z-3 Capacete do Exército completo</style>\r\n\r\nZ-3 Ra-2: Ridículo, isso é apenas um pedaço de papel lixo [ruído estático] missão #[murmúrio ininteligível]\r\n\r\nZ-3 LE0-5: [forte interferência] o planeta [forte interferência] em guarda [forte interferência]\r\n\r\nZ-3 Ra-2: Sim, bestas perigosas, [forte interferência], [forte interferência], [forte interferência], desertores, <mark=#ff0000ff>IMPS</mark>, este planeta é demasiado perigoso para um salário tão pequeno, além não haver contato com \"[murmúrios ininteligíveis]\"\r\n\r\nZ-3 LE0-5: Ra[forte interferência]\r\n\r\nZ-3 Ra-2: [forte interferência]\r\n\r\nZ-3 LE0-5: [forte interferência]\r\n\r\nZ-3 Ra-2: [murmúrio ininteligível]\r\n\r\nZ-3 LE0-5: [forte interferência]\r\n\r\n[sons de origem desconhecida]\r\n\r\n<style=cMono>--Fim da gravação--</style>\r\n\r\nO capacete foi encontrado com danos fatais, sem oculares e um geolocalizador.",
+
+    "ITEM_MYSTICSITEMS_LIMITEDARMOR_NAME": "Laço Bonitinho", // [Hair bow]
+    "ITEM_MYSTICSITEMS_LIMITEDARMOR_PICKUP": "Reduza o dano contra {Hits} danos recebidos.",
+    "ITEM_MYSTICSITEMS_LIMITEDARMOR_DESC": "Aumenta a armadura por <style=cIsUtility>{Armor}</style> contra <style=cIsUtility>{Hits} danos recebidos <style=cStack>(+{Hits} por acúmulo)</style></style>. Ao se esgotar, transforma-se em <style=cIsUtility>Laço Desfiado (aumenta a armadura em {BrokenArmor} <style=cStack>(+{BrokenArmor} por acúmulo)</style>)</style>.",
+    "ITEM_MYSTICSITEMS_LIMITEDARMOR_LORE": "- O que June está fazendo agora?\r\n\r\n- Ah, você não vai acreditar nisso! Ela foi convidada para uma missão de resgate nos Territórios Inexplorados pelo próprio [REMOVIDO]! Não contes a ninguém - é um segredo, hee-hee-hee.\r\n\r\n- O que?! De jeito nenhum!\r\n\r\n- Eu sei, certo? Ela sempre sonhou em trabalhar na UES. É basicamente o sonho dela se tornando realidade!\r\n\r\n- Estou tão feliz por ela!\r\n\r\n- A UES também forneceu a ela algumas coisas de tecnologia avançada, então não tivemos que comprar nada. Dei-lhe algumas caixas de chocolate para a viagem. Ela adora-os. Veja! Tirei algumas fotos dela com o equipamento novo.\r\n\r\n- Eles deram tudo isso de graça?! A UES se preocupa muito com seus funcionários, né?\r\n",
+
+    "ITEM_MYSTICSITEMS_LIMITEDARMORBROKEN_NAME": "Laço Desfiado",
+    "ITEM_MYSTICSITEMS_LIMITEDARMORBROKEN_PICKUP": "Leve aumento da armadura.",
+    "ITEM_MYSTICSITEMS_LIMITEDARMORBROKEN_DESC": "Aumenta a armadura em <style=cIsUtility>{BrokenArmor} <style=cStack>(+{BrokenArmor} por acúmulo)</style></style>.",
+    "ITEM_MYSTICSITEMS_LIMITEDARMORBROKEN_LORE": "- Capitão. Isto é urgente. Acabamos de perder contato com o soldado June Marsh. O radar perdeu abruptamente o rastro de seu radiolocalizador.\r\n\r\n- Oficial, isso não é urgente.\r\n\r\n- C-Capitão?\r\n\r\n- ...\r\n\r\n- Capitão, por que isso não é urgente?\r\n\r\n- Ela esqueceu de carregar o traje. Assim que ela se lembrar, seu localizador voltará a ficar online.\r\n\r\n-Capitão, os localizadores funcionam até 360 dias. Estamos aqui há apenas 21 dias. A menos que demos a ela um severamente descarregado-\r\n\r\n- Silêncio, oficial. Ela vai dar um jeito.\r\n\r\n- Capitão, nós devemos-\r\n\r\n- Silêncio! Oficial, volte para as Comunicações. Agora.\r\n",
+
+    "ITEM_MYSTICSITEMS_COOKIE_NAME": "Bolacha com Pepitas de Chocolate", // [It's a chocolate chip cookie]
+    "ITEM_MYSTICSITEMS_COOKIE_PICKUP": "Buffs duram mais, debuffs duram menos.",
+    "ITEM_MYSTICSITEMS_COOKIE_DESC": "Aumenta a duração dos efeitos de status positivos por <style=cIsUtility>{BuffDuration}s <style=cStack>(+{BuffDurationPerStack}s por acúmulo)</style></style>. Reduz a duração dos efeitos de status negativos por <style=cIsUtility>{DebuffDuration}s <style=cStack>(+{DebuffDuration}s por acúmulo)</style></style>, não pode ser reduzido abaixo de 1 segundo.",
+    "ITEM_MYSTICSITEMS_COOKIE_LORE": "<style=cMono>\r\nMensagem de rádio recebida...</style>\r\n\r\n\"...ugh, por que eu fiz isso? Por que eu os comi? Por que? Claro que estão estragados! Eles estão neste maldito planeta há anos! Mas eles pareciam tão gostosos e eu estava com tanta fome! ...huh? Quem está falando... Ah! Eu sinto muito! Eu- eu- uh, eu não queria- eu apertei o botão por acidente!\"",
+
+    "ITEM_MYSTICSITEMS_MARWANASH1_NAME": "Cinza de Marwan", // [Marwan's developer item]
+    "ITEM_MYSTICSITEMS_MARWANASH1_PICKUP": "Cause uma instância extra de dano ao acertar. Melhora no nível {UpgradeLevel12}.",
+    "ITEM_MYSTICSITEMS_MARWANASH1_DESC": "Atingir inimigos faz com que eles recebam um golpe adicional de <style=cIsDamage>{Damage} <style=cStack>(+{DamagePerLevel} por nível, multiplicado pelo dano do acúmulo de itens)</style></style> de dano.<style=cIsUtility> Melhora no nível {UpgradeLevel12}</style>.",
+
+    "ITEM_MYSTICSITEMS_MARWANASH2_NAME": "Luz de Marwan",
+    "ITEM_MYSTICSITEMS_MARWANASH2_PICKUP": "Cause uma instância extra de dano e inflinge dano ao longo do tempo ao acertar. Melhora no nível {UpgradeLevel23}.",
+    "ITEM_MYSTICSITEMS_MARWANASH2_DESC": "Atingir inimigos faz com que eles recebam um golpe adicional de <style=cIsDamage>{Damage} <style=cStack>(+{DamagePerLevel} por nível, multiplicado pelo dano do acúmulo de itens)</style></style> de dano e percam <style=cIsHealth>{DoTPercent}% <style=cStack>(+{DoTPercentPerLevel}% por nível além de {UpgradeLevel12}, multiplicado pelo acúmulo de itens)</style></style> da sua saúde máxima a cada segundo. <style=cIsUtility>Melhora no nível {UpgradeLevel23}</style>.",
+
+    "ITEM_MYSTICSITEMS_MARWANASH3_NAME": "Arma de Marwan",
+    "ITEM_MYSTICSITEMS_MARWANASH3_PICKUP": "Cause dano e inflinja dano ao longo do tempo a todos os inimigos no redor ao acertar.",
+    "ITEM_MYSTICSITEMS_MARWANASH3_DESC": "Atingir inimigos faz com que <style=cIsUtility>todos os inimigos em um raio de {Radius}m <style=cStack>(+{RadiusPerLevel}m por nível além de {UpgradeLevel23}, multiplicado pelo acúmulo de itens)</style></style> recebam <style=cIsDamage>{Damage} <style=cStack>(+{DamagePerLevel} por nível, multiplicado pelo acúmulo de itens)</style></style> de dano e percam <style=cIsHealth>{DoTPercent}% <style=cStack>(+{DoTPercentPerLevel}% por nível além de {UpgradeLevel12}, multiplicado pelo acúmulo de itens)</style></style> da sua saúde máxima a cada segundo.",
+
+    //[TIER2]
+    "ITEM_MYSTICSITEMS_COFFEEBOOSTONITEMPICKUP_NAME": "Xícara de Expresso", // [Yes, it is specifically "expresso" in this item, because it makes you fast and inflicts an Express Boost buff. It's not a misspelling.]
+    "ITEM_MYSTICSITEMS_COFFEEBOOSTONITEMPICKUP_PICKUP": "Receba um Impulso Expresso até a próxima fase ao coletar itens. Acumula {MaxBuffs} vezes.",
+    "ITEM_MYSTICSITEMS_COFFEEBOOSTONITEMPICKUP_DESC": "Cada item coletado dá um <style=cIsUtility>Impulso Expresso</style> que aumenta a <style=cIsDamage>velocidade de ataque</style> e <style=cIsUtility>velocidade de movimento</style> em <style=cIsUtility>{BoostPower}%</style> até a próxima fase. Limite máximo de <style=cIsUtility>{BoostPowerMax}% <style=cStack>(+{BoostPowerMaxPerStack}% por acúmulo)</style></style> de impulso. <style=cIsUtility>Itens de maior raridade dão mais acúmulos de Impulso Expresso de uma só vez.</style>",
+    "ITEM_MYSTICSITEMS_COFFEEBOOSTONITEMPICKUP_LORE": "- Vamos, vamos, vamos! Vamos lá, estamos em uma missão super secreta! Temos que encontrar todas essas caixas o mais rápido possível! Devolva todas as coisas aos seus donos! Faça as pessoas felizes! Uau!\r\n\r\n- Sim, estamos em uma missão super secreta que NINGUÉM sabe, então não há necessidade de pressa. Temos MUITO tempo. Por que você está tão animado de qualquer maneira? O que tinha naquele café?\r\n\r\n- Ok, então, lembraste daquela bebida energética?\r\n\r\n- Sim. Espera, eu não te disse para jogar isso fo-\r\n\r\n- E aquelas agulhas com coisas amarelas estranhas nelas?\r\n\r\n- Sim? o que tem eles?\r\n\r\n- E aquela garrafa azul brilhante?\r\n\r\n- T-Tu não podes estar a falar a sério...",
+
+    "ITEM_MYSTICSITEMS_EXPLOSIVEPICKUPS_NAME": "Contrabando de Pólvora",
+    "ITEM_MYSTICSITEMS_EXPLOSIVEPICKUPS_PICKUP": "Cria explosões ao coletar itens.",
+    "ITEM_MYSTICSITEMS_EXPLOSIVEPICKUPS_DESC": "<style=cIsUtility>{FlaskDropChance}%</style> de chance de largar um frasco de pólvora ao abater um inimigo. Coleta de itens como (orbes de cura, tesouros, pacotes de munição, frascos de pólvora, etc.) cria uma explosão de <style=cIsDamage>{Radius}m <style=cStack>(+{RadiusPerStack}m por acúmulo)</style></style> causando <style=cIsDamage>{Damage}% <style=cStack>(+{DamagePerStack}% por acúmulo)</style></style> de dano.",
+    "ITEM_MYSTICSITEMS_EXPLOSIVEPICKUPS_LORE": "<style=cMono>\n//--AUTO-TRANSCRIÇÃO DA SALA DE ARMAZENAMENTO 4 DA LUZ DE CONTATO UES --//</style>\n\nOlha quem finalmente está aqui. Por que demorou tanto?\n\nDesculpe, deixei cair o cartão de acesso no meu caminho até aqui, tive que voltar e-\n\nQue? Estamos em uma operação especial e você se permite perder as coisas?!\n\n...\n\nBem, espero que não tenhas perdido nosso equipamento.\n\nSim, não se preocupe, eu tenho tudo. Aranhas mecânicas, pára-quedas, munição, pólvora...\n\nPerfeito. Vês todas essas caixas?\n\nTudo aqui será nosso, certo?\n\nCada. Coisa. Não se esqueça do nosso plano: escondemos os mechs ao redor do depósito, depois \"pegamos emprestado\" o quarto 1407A e agimos como passageiros regulares até cinco minutos antes da chegada, então ligamos as aranhas e escapamos com o saque.\n\nEntendi. Que começe a Operação Chuva de Caixotes!",
+
+    "ITEM_MYSTICSITEMS_ALLYDEATHREVENGE_NAME": "Vendetta",
+    "ITEM_MYSTICSITEMS_ALLYDEATHREVENGE_PICKUP": "Aumenta temporariamente a velocidade de ataque e dano quando um aliado é derrotado por um inimigo.",
+    "ITEM_MYSTICSITEMS_ALLYDEATHREVENGE_DESC": "Aumenta <style=cIsDamage>velocidade de ataque</style> em <style=cIsDamage>{AttackSpeed}%</style> e <style=cIsDamage>dano</style> em <style=cIsDamage>{Damage}%</style> durante <style=cIsUtility>{Duration}s <style=cStack>(+{DurationPerStack}s por acúmulo)</style></style> quando um aliado é <style=cDeath>morto</style> por um inimigo.",
+
+    "ITEM_MYSTICSITEMS_SPOTTER_NAME": "Detector Defeituoso", // [A reference to Sniper's Spotter ability from Risk of Rain 1]
+    "ITEM_MYSTICSITEMS_SPOTTER_PICKUP": "Aumenta a chance de acerto crítico contra um inimigo aleatório em 100%.",
+    "ITEM_MYSTICSITEMS_SPOTTER_DESC": "A cada <style=cIsUtility>{Interval} segundos</style>, analisa 1 <style=cStack>(+1 por acúmulo)</style> inimigo aleatório, aumentando a <style=cIsDamage>chance de acerto crítico</style> contra ele <style=cIsDamage>em 100%</style> durante <style=cIsUtility>{Duration} segundos</style>.",
+
+    "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_NAME": "Acelerador Nuclear", // [Like a particle accelerator, but "nuclear" to make it sound cool and unique]
+    "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_PICKUP": "Quanto mais rápido te moves, mais dano causas.",
+    "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_DESC": "Aumenta a velocidade de movimento em <style=cIsUtility>{PassiveSpeed}%</style>. Dano é <style=cIsDamage>aumentado em {Damage}% <style=cStack>(+{DamagePerStack}% por acúmulo)</style></style> para cada <style=cIsUtility>1% de aumento da velocidade de movimento (de itens, buffs, etc.)</style>.",
+    "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_LORE": "Pedido: Acelerador de Partículas de Bolso\r\nNúmero de Rastreio: 18******\r\nEntrega Estimada: 05\/01\/2089\r\nMétodo de Envio: Prioridade\r\nEndereço para Envio: [REMOVIDO], Deserto da Cicatriz, Marte\r\nDetalhes de Envio:\r\n\r\nTamanho compacto, fácil de usar e precisa ser recarregado apenas uma vez por mês - um ajuste perfeito para o seu trabalho.\r\n\r\nMais eficiente quando preso à sua panturrilha. Sim, é só colocá-los. Vai doer, é claro, mas o que é um pouco de perda de sangue em comparação com a vitória gloriosa sobre os rios de sangue dos inimigos mortos, estou certo?\r\n",
+
+    "ITEM_MYSTICSITEMS_EXTRASHRINEUSE_NAME": "Monólito Negro", // [A reference to Monoliths from Space Odyssey]
+    "ITEM_MYSTICSITEMS_EXTRASHRINEUSE_PICKUP": "Todos os Santuários podem ser usados mais uma vez.",
+    "ITEM_MYSTICSITEMS_EXTRASHRINEUSE_DESC": "Todos os Santuários podem ser usados <style=cIsUtility>+1 <style=cStack>(+1 por acúmulo)</style></style> vez.",
+    "ITEM_MYSTICSITEMS_EXTRASHRINEUSE_LORE": "\"Nos últimos dias, pessoas de todo o mundo relataram avistamentos de misteriosos monólitos aparecendo por um breve período de tempo. A credibilidade desses relatos é discutível, pois não há evidências de foto ou vídeo dos monólitos (a razão sendo \"eles desaparecem muito rápido\"), contudo, é importante notar que cada denúncia aconteceu em um dia individual. Os cientistas estão se debatendo: o monólito é uma entidade senciente? Seria esta a confirmação da existência de universos paralelos? Ou é apenas uma farsa?\"\n- Relatório de notícias",
+
+    "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPEN_NAME": "Cartão Platinum",
+    "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPEN_PICKUP": "Podes comprar um item adicional em um Terminal Multiloja com desconto (uma vez por fase).",
+    "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPEN_DESC": "Fazer uma compra em um Terminal Multiloja mantém outros Terminais Multiloja disponíveis <style=cIsUtility>1 <style=cStack>(+1 por acúmulo)</style></style> vez em cada fase e diminui seu preço em {Discount}%.",
+    "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPEN_LORE": "<style=cMono>\n//-- Novas mensagens (1) --//\n\nDe: UES</style>\n\nObrigado por se inscrever no programa Platinum Card! A partir deste dia, ofertas e descontos diários estão disponíveis para si em todas as filiais da UES em todos os planetas.\n\nNão se esqueça de pagar a mensalidade. Se não.\n\n<style=cMono>Você não pode responder a esta conversa.</style>",
+
+    "ITEM_MYSTICSITEMS_MYSTICSWORD_NAME": "Espada Mística", // [TheMysticSword's developer item]
+    "ITEM_MYSTICSITEMS_MYSTICSWORD_PICKUP": "Matar inimigos fortes aumenta permanentemente o dano.",
+    "ITEM_MYSTICSITEMS_MYSTICSWORD_DESC": "Aumente o dano em <style=cIsDamage>{Damage}% <style=cStack>(+{DamagePerStack}% por acúmulo)</style></style> para cada abate de um inimigo com mais de <style=cIsHealth>{HealthThreshold} de saúde máxima <style=cIsUtility>(com ou sem multiplicadores de saúde de elite)</style></style> até <style=cIsDamage>{MaxDamage}% <style=cStack>(+{MaxDamagePerStack}% por acúmulo)</style></style>.",
+    "ITEM_MYSTICSITEMS_MYSTICSWORD_LORE": "\"Pomo ornamentado - para o estilo.\r\n\r\nAperto canelado - para controle.\r\n\r\nGuarda angular grossa - para poder.\r\n\r\nLâminas de um único gume - para concentração.\r\n\r\nDuas lâminas - para, uhh...\"\r\n\r\n\"Ok, ok, entendi, tu *realmente* gostas da tua nova espada de ensaio.\"",
+
+    "ITEM_MYSTICSITEMS_RHYTHM_NAME": "Metrônomo",
+    "ITEM_MYSTICSITEMS_RHYTHM_PICKUP": "Use uma habilidade não-Primária a cada {Interval}s para acúmular chance de acerto crítico. Perder uma batida reseta o bônus.",
+    "ITEM_MYSTICSITEMS_RHYTHM_DESC": "Uma batida toca a cada <style=cIsUtility>{Interval}s</style>. Usar uma habilidade Secundária, Utilitária ou Especial no tempo com a batida acúmula um <style=cIsUtility>combo</style>, errar uma batida <style=cIsHealth>reseta o combo</style>. A chance de Acerto Crítico é aumentada em <style=cIsDamage>+{ComboCrit}% <style=cStack>(+{ComboCritPerStack}% por acúmulo, multiplicado pelo acúmulo de combos)</style></style>.",
+
+    "ITEM_MYSTICSITEMS_ELITEPOTION_NAME": "Experimento Fracassado",
+    "ITEM_MYSTICSITEMS_ELITEPOTION_PICKUP": "Matar um inimigo elite espalha seu efeito elemental em inimigos próximos.",
+    "ITEM_MYSTICSITEMS_ELITEPOTION_DESC": "Matar um inimigo elite inflige seu efeito elemental em todos os inimigos em um raio de <style=cIsUtility>{Radius}m <style=cStack>(+{RadiusPerStack}m por acúmulo)</style></style> durante <style=cIsUtility>{Duration}s <style=cStack>(+{DurationPerStack}s por acúmulo)</style></style>.",
+    "ITEM_MYSTICSITEMS_ELITEPOTION_LORE": "<style=cMono>Restauração do diário digital concluída. Ler agora? S/N\r\n\r\n> Y</style>\r\n\r\n<style=cMono>00134></style> A tripulação finalmente conseguiu matar um dos lemurianos da "elite", e acabou de trazer seu corpo para o laboratório. Lemurianos naturalmente não crescem chifres, mas este tem um par. Sua pele é vermelha, ao contrário da pele roxa normal dos lemurianos, e é excepcionalmente quente. Muito interessante.\r\n\r\n<style=cMono>00135></style> A tripulação trouxe outro. Enquanto a pele do outro lemuriano estava quente, este está bastante fria ao toque. Pontas de gelo cresceram da sua cabeça e formaram uma \"coroa\" de forma perfeita, como se tivesse sido feita intencionalmente por alguém ou algo. Vou precisar de pesquisar mais sobre isto.\r\n\r\n<style=cMono>00192></style> Inacreditável. Amplos estudos da literatura lemuriana me levam à conclusão de que existem várias "divindades" que eles adoram, que os auxiliam em retaliação contra as nossas tropas. Talvez eu possa extrair esse poder. Felizmente, ainda tenho os corpos dos lemurianos de elite em criostase.\r\n\r\n<style=cMono>00204></style> O sangue. O \"icor\". É óbvio! Por que não pensei nisso antes? Eu posso extrair os "poderes divinos" de lá, ou uma fração deles, pelo menos.\r\n\r\n<style=cMono>00205></style> O que acontecerá se eu misturar as amostras?\r\n\r\n<style=cMono>> Não foram encontradas mais entradas. Terminar o programa? S/N\r\n\r\n> _</style>\r\n\r\n",
+
+    "ITEM_MYSTICSITEMS_DRONEWIRES_NAME": "Fiação Sobressalente",
+    "ITEM_MYSTICSITEMS_DRONEWIRES_PICKUP": "Você e seus drones emitem faíscas prejudiciais em combate.",
+    "ITEM_MYSTICSITEMS_DRONEWIRES_DESC": "Você e seus drones ocasionalmente emitem <style=cIsDamage>faíscas elétricas</style> enquanto em combate. As faíscas causam <style=cIsDamage>{Damage}% <style=cStack>(+{DamagePerStack}% por acúmulo)</style></style> de dano em contato com um inimigo.",
+    "ITEM_MYSTICSITEMS_DRONEWIRES_LORE": "\"Sempre pegue mais fio do que você precisa!\" - isso é o que ela sempre costumava dizer.\r\n\r\nE veja onde isso a trouxe. Agora ela é a engenheira líder de uma equipe da UES, consertando bots militares caros, acumulando um exército mecânico que não tem medo de matar ninguém em seu caminhoseja um lemuriano, uma construção de rocha sem vida ou um camarada tolo o suficiente para tentar parar este naufrágio psicopático de um humano.\r\n\r\n... nã, não um humano. Não há nada de humano nela. Apenas circuito, fio e uma mente brilhante e doente.",
+
+    "ITEM_MYSTICSITEMS_DEATHCEREMONY_NAME": "Cerimônia de Perdição",
+    "ITEM_MYSTICSITEMS_DEATHCEREMONY_PICKUP": "Acertos Críticos marcam os inimigos. Inimigos marcados compartilham dano.",
+    "ITEM_MYSTICSITEMS_DEATHCEREMONY_DESC": "Aumenta a chance de Acerto Crítico em <style=cIsDamage>{BaseCrit}%</style>. Acertos Críticos marcam os inimigos. Quando um inimigo marcado recebe dano, todos os outros inimigos marcados recebem <style=cIsDamage>{Damage}% <style=cStack>(+{DamagePerStack}% por acúmulo)</style></style> de dano. <style=cIsUtility>A marca dura {Duration} segundos.</style>",
+
+    //[TIER3]
+    "ITEM_MYSTICSITEMS_VOLTMETER_NAME": "Voltímetro Sem Fio", // [WV in the lore entry stands for "wireless voltmeter"]
+    "ITEM_MYSTICSITEMS_VOLTMETER_PICKUP": "Reflete o dano recebido a inimigos próximos enquanto o escudo estiver ativo.",
+    "ITEM_MYSTICSITEMS_VOLTMETER_DESC": "Ganhe um <style=cIsHealing>escudo</style> igual a <style=cIsHealing>{PassiveShield}%</style> de sua saúde máxima. Ser atingido enquanto seu <style=cIsUtility>escudo</style> está ativo faz com que você acerte os inimigos próximos em um raio de <style=cIsDamage>{Radius}m</style>, causando <style=cIsDamage>{Damage}% <style=cStack>(+{DamagePerStack}% por acúmulo)</style></style> do dano recebido.",
+    "ITEM_MYSTICSITEMS_VOLTMETER_LORE": "MANUAL DE USO DO PROTÓTIPO WV-1\n\nNão desmonte o WV sob nenhuma circunstância, ou sua garantia será anulada. Em caso de problema, contate o fabricante (consulte a pág. 9).\nNão exponha a líquidos.\nNão exponha a outro VSF ativo.\nNão segure perto de dispositivos eletrônicos por mais de 7200 horas.\nMantenha uma distância de mais de 30 metros ao lançar o vsf contra um objeto sólido para evitar ser pego pela explosão de descarga.\n\nPÁGINA 4 - MEDIDAS DE SEGURANÇA",
+
+    "ITEM_MYSTICSITEMS_THOUGHTPROCESSOR_NAME": "Processador de Pensamento", // [Wordplay on "food processor" and "thought process"]
+    "ITEM_MYSTICSITEMS_THOUGHTPROCESSOR_PICKUP": "Usar uma habilidade com reduz o tempo de recarga, reduz o tempo de recarga das outras habilidades.",
+    "ITEM_MYSTICSITEMS_THOUGHTPROCESSOR_DESC": "Usar uma habilidade com tempo de recarga, reduz o <style=cIsUtility>tempo de recarga</style> das outras habilidades em <style=cIsUtility>{CDR}% <style=cStack>(+{CDR}% por acúmulo)</style></style> do tempo de recarga da habilidade usada.",
+    "ITEM_MYSTICSITEMS_THOUGHTPROCESSOR_LORE": "<style=cMono>Trecho de uma gravação de áudio no Hospital Vivifica.</style>\r\n\r\n\"...então você está tentando dizer... que o paciente enfiou sorrateiramente uma garrafa de álcool... ficou bêbado... foi para a cozinha... tentou dividir com o pessoal... e quando o pessoal ligou para o departamento, ele pegou no liquidificador e colocou na cabeça?\"\r\n\r\n\"Sim. Ele disse, e eu cito, 'oh, você se acha tão inteligente? Chamando-os em mim? Bem vai te [REMOVIDO], porque eu sou mais inteligente! Este bom e velho banco de idéias está prestes a se empolgar!'\"\r\n\r\n\"...\"\r\n\r\n\"...\"\r\n\r\n\"...então ele o ligou... pegou na faca...\"\r\n\r\n\"...e assassinou dois funcionários da cozinha... enquanto gritava de dor... e o liquidificador picava a sua cabeça.\"",
+
+    "ITEM_MYSTICSITEMS_CRYSTALWORLD_NAME": "Mundo Cristalizado",
+    "ITEM_MYSTICSITEMS_CRYSTALWORLD_PICKUP": "Periodicamente congela todos os inimigos durante o evento Teletransportador.",
+    "ITEM_MYSTICSITEMS_CRYSTALWORLD_DESC": "<style=cIsUtility>Congela</style> todos os inimigos próximos por <style=cIsUtility>{FreezeTime}s</style> durante o evento Teletransportador. Inimigos que são imunes a congelar, em vez disso são <style=cIsUtility>cristalizados, bloqueando todas as suas habilidades e enraizando-os</style>. Ocorre <style=cIsUtility>{Pulses} <style=cStack>(+{PulsesPerStack} por acúmulo)</style></style> vezes.",
+    "ITEM_MYSTICSITEMS_CRYSTALWORLD_LORE": "Pedido: Modelo da Bola de Cristal\r\nNúmero de rastreio: 242*****\r\nEntrega estimada: 06\/15\/2056\r\nMétodo de Envio: Alta Prioridade/Frágil\r\nEndereço de entrega: [REMOVIDO], Viena, Áustria, Terra\r\nDetalhes de Envio:\r\n\r\nEu espero que você esteja bem. Sou um grande fã do seu trabalho. Sua música... é fantástica, única, excepcional. Sinto emoção toda vez que uma de suas faixas começa a tocar na minha playlist. Obrigado por tornar minha vida muito melhor. Aqui está meu agradecimento - uma réplica tridimensional da capa da faixa [REDIGIDA].\r\n",
+
+    "ITEM_MYSTICSITEMS_DASHERDISC_NAME": "Execução Oportuna", // [A reference to the Dasher Disc from DISC ROOM.]
+    "ITEM_MYSTICSITEMS_DASHERDISC_PICKUP": "Ganhe invencibilidade por um curto período de tempo ao atingir pouca saúde. Recarrega ao longo do tempo.",
+    "ITEM_MYSTICSITEMS_DASHERDISC_DESC": "Ir abaixo de <style=cIsHealth>25% de vida</style> faz com que você se torne incorpóreo, ganhando invencibilidade por <style=cIsUtility>{Duration} segundos</style> ae aumentando a velocidade de movimento em <style=cIsUtility>{MoveSpeedBuff}%</style>. Recarrega a cada <style=cIsUtility>{Cooldown}s <style=cStack>(-{CooldownReductionPerStack}% per stack)</style></style>.",
+    "ITEM_MYSTICSITEMS_DASHERDISC_LORE": "Pedido: Disco Dasher\r\nNúmero de rastreio: 20******\r\nEntrega estimada: 10\/22\/2089\r\nMétodo de Envio: Alta Prioridade/Biológico\r\nEndereço de entrega: Disco gigante, Júpiter\r\nDetalhes de Envio:\r\n\r\nEncontrei este vagando pelo nosso laboratório. NÃO FAÇA MOVIMENTOS RÁPIDOS EM SUA PRESENÇA\r\n",
+
+    "ITEM_MYSTICSITEMS_TREASUREMAP_NAME": "Mapa do Tesouro", // [RA & DEC in the lore entry are "right ascension" and "declination". That section describes the space coordinates to the hidden treasure cache.]
+    "ITEM_MYSTICSITEMS_TREASUREMAP_PICKUP": "Cada fase contém um local de tesouro com um item lendário enterrado que leva algum tempo para desenterrar.",
+    "ITEM_MYSTICSITEMS_TREASUREMAP_DESC": "Cada fase contém um <style=cIsUtility>local do tesouro </style>de {Radius}m com um <style=cIsHealth>item Lendário</style> enterrado. Ficar dentro do local do tesouro por <style=cIsUtility>{UnearthTime}s <style=cStack>(-{ReductionPerStack}% por acúmulo)</style></style> desenterra o item.",
+    "ITEM_MYSTICSITEMS_TREASUREMAP_LORE": "<style=cMono>> SISTEMA OPERATIVO CARREGADO\n> AUTO-EXECUÇÃO \"ULTRASECRETO\"\n> [||||||||||] 100%\n> ACESSO NEGADO\n> DIGITE A SENHA\n> ******12\n> ACESSO CONCEDIDO\n> CACHE DO TESOURO NO SISTEMA SOLAR BORON\n> RA 21H 32M 29S | DEC -15° 14' 5\"\n> RECALCULAR COORDENADAS RELATIVAS? S/N\n> _</style>",
+
+    "ITEM_MYSTICSITEMS_IDOL_NAME": "Super-Ídolo", // [The lore entry is a reference to the Golden Idol from Slay the Spire]
+    "ITEM_MYSTICSITEMS_IDOL_PICKUP": "Aumenta a saúde e a armadura dependendo do ouro atual.",
+    "ITEM_MYSTICSITEMS_IDOL_DESC": "Aumenta a saúde até <style=cIsHealth>{HealthBonus}%</style> e a armadura até <style=cIsUtility>{ArmorBonus}%</style> dependendo do ouro atual <style=cIsUtility>(até {GoldCap}$ <style=cStack>(-50% por acúmulo)</style>, escalando com o tempo)</style>.",
+    "ITEM_MYSTICSITEMS_IDOL_LORE": "'Feito de ouro maciço, você se sente mais rico apenas segurando-o.'",
+
+    "ITEM_MYSTICSITEMS_BACKPACK_NAME": "Mochila do Andarilho",
+    "ITEM_MYSTICSITEMS_BACKPACK_PICKUP": "+{Charges} carga em todas as habilidades.",
+    "ITEM_MYSTICSITEMS_BACKPACK_DESC": "Adiciona <style=cIsUtility>+{Charges} à carga máxima <style=cStack>(+{ChargesPerStack} por acúmulo)</style></style> de todas as habilidades. Reduz o tempo de recarga das habilidades em <style=cIsUtility>{CDR}%</style>.",
+    "ITEM_MYSTICSITEMS_BACKPACK_LORE": "- ...mas agora, é quase como se minha voz interior estivesse me dizendo... \"Não podes fazer isso.\"\r\n\r\n- Oh, é um sinal de mudança, minha querida.\r\n\r\n- O que queres dizer com isso?\r\n\r\n- É assim que nós reagimos ao progresso. Muitas vezes, não estamos acostumados a mudar, e tentamos voltar. Isso é normal, e você não precisa se preocupar com isso. Não deixe esse sentimento tomar conta de você, mas também não o ignore.\r\n\r\n- É só continuar então?\r\n\r\n- Faça o que achar melhor para você, querida.\r\n\r\n- ... Obrigado, mãe.",
+
+    "ITEM_MYSTICSITEMS_VYRAELCOMMANDMENTS_NAME": "Dez Mandamentos de Vyrael", // [Vyrael's developer item]
+    "ITEM_MYSTICSITEMS_VYRAELCOMMANDMENTS_PICKUP": "Aciona todos os efeitos 'On-Hit' a cada 10 acertos.",
+    "ITEM_MYSTICSITEMS_VYRAELCOMMANDMENTS_DESC": "Ative todos os seus efeitos <style=cIsDamage>On-Hit</style> a cada <style=cIsUtility>10 acertos</style>. <style=cIsUtility>Cada acúmulo adicional ativa esses efeitos novamente.</style>",
+
+    "ITEM_MYSTICSITEMS_JUDGEMENTCUT_NAME": "Grito do Diabo",
+    "ITEM_MYSTICSITEMS_JUDGEMENTCUT_PICKUP": "Libere uma enxurrada de cortes a cada {CritInterval} Acertos Críticos.",
+    "ITEM_MYSTICSITEMS_JUDGEMENTCUT_DESC": "Aumenta a chance de acerto crítico em <style=cIsDamage>{BaseCrit}%</style>. A cada <style=cIsDamage>{CritInterval}</style> Acertos Críticos, <style=cIsDamage>desencadeia uma enxurrada de cortes</style>, causando <style=cIsDamage>{DamagePerSlash}x{SlashCount}% <style=cStack>(+{DamagePerSlash}x{SlashCountPerStack}% por acúmulo)</style></style> de dano aos inimigos em um raio de <style=cIsUtility>{Radius}m <style=cStack>(+{RadiusPerStack}m por acúmulo)</style></style>.",
+
+    //[LUNAR ITEMS]
+    "ITEM_MYSTICSITEMS_RIFTLENS_NAME": "Lentes da Fenda",
+    "ITEM_MYSTICSITEMS_RIFTLENS_PICKUP": "Cada fase contém fendas com itens gratuitos... <color=#FF7F7F>MAS morres se não fechar as fendas a tempo.</color>\n",
+    "ITEM_MYSTICSITEMS_RIFTLENS_DESC": "Cada fase contém <style=cIsDamage>{BaseRifts} <style=cStack>(+{RiftsPerStack} por acúmulo)</style></style> fendas com itens gratuitos. Falhar em fechar todos eles à tempo vai resultar na <style=cDeath>morte</style>.",
+
+    "ITEM_MYSTICSITEMS_MOONGLASSES_NAME": "Óculos da Lua", // [Wordplay on "sunglasses"]
+    "ITEM_MYSTICSITEMS_MOONGLASSES_PICKUP": "Aumenta o dano do Acerto Crítico <color=#FF7F7F>MAS reduz pela metade a chance de acertar um Acerto Crítico</color>\n",
+    "ITEM_MYSTICSITEMS_MOONGLASSES_DESC": "Aumenta o dano do Acerto Crítico em <style=cIsDamage>{CritDamageIncrease}% <style=cStack>(+{CritDamageIncreasePerStack}% por acúmulo)</style></style>. <style=cIsUtility>Reduz pela metade a chance de acertar um Acerto Crítico por cada acúmulo.</style>",
+    "ITEM_MYSTICSITEMS_MOONGLASSES_LORE": "<style=cMono>\r\n========================================\r\n====   Tradutor automático MyBabel   ====\r\n====     [Version 12.45.1.009 ]   ======\r\n========================================\r\nTreinamento� <100000000 cycles>\r\nTreinamento� <1453461 ciclos>\r\nCompleto!\nExibir resultado? S/N\r\nS\r\n================================</style>\r\nEu dou a [Yora] os óculos. Yora vê o futuro.\r\n\r\n<Ele> dará elogios a [Yora]. [Yora] guarda os óculos. [Yora] sente emoção e trabalha o dobro.\r\n\r\nAmplifico a força das lentes. [Yora] olha ainda mais para o futuro.\r\n\r\n[Yora] rapidamente guarda os óculos. A empolgação de [Yora] diminui.\r\n\r\n<Ele> entra na aposento. [Yora] sente medo.\r\n\r\nEu olho longe no futuro.. Eu rapidamente guardei os óculos. <Ele> está presente. Eu sinto medo.\r\n<style=cMono>\r\n================================\r\n",
+
+    "ITEM_MYSTICSITEMS_REGENANDDIFFICULTYSPEED_NAME": "Quebra-cabeça de Chronos",
+    "ITEM_MYSTICSITEMS_REGENANDDIFFICULTYSPEED_PICKUP": "Acelera a regeneração de saúde para todos os aliados... <color=#FF7F7F>MAS acelera a escala de dificuldade.</color>\n",
+    "ITEM_MYSTICSITEMS_REGENANDDIFFICULTYSPEED_DESC": "Aumenta a <style=cIsHealing> regeneração de saúde passiva em {BaseRegenIncrease} HP/s <style=cStack>(+{BaseRegenIncreasePerStack} HP/s por acúmulo)</style></style> para todos os aliados, escalando com o nível. O aumento da dificuldade ao longo do tempo é de <style=cIsUtility>{TimerSpeedIncrease}% <style=cStack>(+{TimerSpeedIncreasePerStack}% por acúmulo)</style></style> mais rápido.",
+
+    //[EQUIPMENT]
+    "EQUIPMENT_MYSTICSITEMS_ARCHAICMASK_NAME": "Máscara Lendária",
+    "EQUIPMENT_MYSTICSITEMS_ARCHAICMASK_PICKUP": "Recruta um Espírito Arcaico. Dura {Duration} segundos.",
+    "EQUIPMENT_MYSTICSITEMS_ARCHAICMASK_DESC": "Recruta um <style=cIsDamage>Espírito Arcaico</style> com <style=cIsDamage>{WispDamage}% de dano</style>, <style=cIsHealing>{WispHealth}% de vida</style>, <style=cIsUtility>{WispCDR}% de redução do tempo de recarga</style> e <style=cIsDamage>{WispAttackSpeed}% de velocidade de ataque</style>. Dura {Duration} segundos.",
+    "EQUIPMENT_MYSTICSITEMS_ARCHAICMASK_LORE": "<style=cMono>\r\nTranscrição de áudio completa de um gravador portátil.</style>\r\n\r\nA máscara ainda está quente, mas o resto do corpo já esfriou. Está lutando pela sua vida?\r\n\r\nPosso... 'ressuscitar' o espírito aplicando fogo a esta máscara? Isto pode ser um erro grave, mas é minha única chance de conseguir um aliado.\r\n\r\nNão há tempo para fazer perguntas. Hora de descobrir...\r\n\r\n[Rajadas de Fogo]\r\n\r\n<style=cMono>Fim da transcrição solicitada.</style>\r\n",
+
+    "EQUIPMENT_MYSTICSITEMS_PRINTERHACKER_NAME": "Chave Multi-ferramentas",
+    "EQUIPMENT_MYSTICSITEMS_PRINTERHACKER_PICKUP": "Obtenha {Amount} cópias de um item da impressora 3D gratuitamente e destrua a impressora.",
+    "EQUIPMENT_MYSTICSITEMS_PRINTERHACKER_DESC": "Obtenha <style=cIsUtility>{Amount}</style> cópias de um item da impressora 3D <style=cIsUtility>gratuitamente</style>, e <style=cIsDamage>destrua</style> a impressora, tornando-o permanentemente inutilizável.",
+    "EQUIPMENT_MYSTICSITEMS_PRINTERHACKER_LORE": "\"...A replicação perfeita é mantida pela inclusão de uma ou mais cópias pré-impressas do item original dentro do módulo do leitor. Quanto mais, melhor.\"\r\n\r\n- Do discurso de apresentação da MassDuplix 3D Printer",
+
+    "EQUIPMENT_MYSTICSITEMS_MICROPHONE_NAME": "Microfone Antigo",
+    "EQUIPMENT_MYSTICSITEMS_MICROPHONE_PICKUP": "Ensurdeça os inimigos na frente, reduzindo fortemente suas estatísticas. Use no ar para impulsionar-se para trás.",
+    "EQUIPMENT_MYSTICSITEMS_MICROPHONE_DESC": "<style=cIsDamage>Ensurdeça</style> os inimigos na tua frente pr <style=cIsUtility>{Duration} segundos</style>, reduzindo sua velocidade de movimento em <style=cIsUtility>{MoveSpeedReduction}%</style>, armadura por <style=cIsUtility>{ArmorReduction}</style>, velocidade de ataque em <style=cIsDamage>{AttackSpeedReduction}%</style> e dano em <style=cIsDamage>{DamageReduction}%</style>. <style=cIsUtility>Impulsione-se</style> na direção oposta se for usado no ar.",
+    "EQUIPMENT_MYSTICSITEMS_MICROPHONE_LORE": "- Por que ainda fazes isso?\r\n\r\n- Fazer o que?\r\n\r\n- Sabes, essa coisa de... concertos... ao vivo...\r\n\r\n- Oh, não gostas de concertos ao vivo, Jimmy? Por que não me contaste antes?\r\n\r\n- Não, não, eu os AMO! Eu realmente gosto. Eu só não entendo porque não fazes eles virtualmente. As tuas músicas são tão boas. Certamente que serias muito popular no palco virtual!\r\n\r\n- Oh-ho-ho-ho! Suas palavras são lisonjeiras, meu jovem amigo! Ma-a-s, não, eu não estou fazendo isto pela fama. Eu faço isto porque é o que tenho feito a maior parte da minha vida. E passar para os shows de realidade virtual é uma mudança muito grande para um saco velho como eu. Heh heh. \"Preso no passado,\" pode-se dizer.\r\n\r\n- ...Entendo. Mas... REALMENTE não queres tentar algo novo para variar? Fazer um show de realidade virtual, apenas deixar a tua teimosia? Para mostrar àquela velhinha que você é capaz de mudar? Para mostrar a ela quem é o chefe? Apenas diga sim\"! Eu te ajudo a organizar tudo!\r\n\r\n- Hmm... Sabes... Talvez estejas certo. Sim! Vamos fazer isso! Vamos arrasar!\r\n\r\n- Sério?!\r\n\r\n- Ha-ha-ha, CLARO que não! Eu estava apenas brincando!\r\n",
+
+    "EQUIPMENT_MYSTICSITEMS_SIRENPOLE_NAME": "Sistema de Alerta",
+    "EQUIPMENT_MYSTICSITEMS_SIRENPOLE_PICKUP": "Implante um Poste da Sirene que simula um evento de Teletransportador.",
+    "EQUIPMENT_MYSTICSITEMS_SIRENPOLE_DESC": "Implante um Poste da Sirene que <style=cIsUtility>atua como um Teletransportador, desencadeando qualquer efeito presente nos eventos de Teletransportador</style>, e invoca inimigos fracos a cada {WaveSpawnInterval}% de carga. Leva <style=cIsUtility>{ChargeTime}s</style> para carregar.\r\n\r\nNão pode ser usado se já houver um Poste de Alarmes implantado ou se um evento de Teletransportador estiver em andamento.",
+    "EQUIPMENT_MYSTICSITEMS_SIRENPOLE_LORE": ""Capitão!" - gritou o soldado do topo de seus pulmões.\r\n\r\nO capitão, sem desviar o olhar perplexo da sirene que estranhamente não fazia nenhum ruído audível apesar de estar ligada, respondeu calmamente: \"Sim?\"\r\n\r\n"Olha!" - gritou o soldado ainda mais alto e apontou o dedo para uma figura que se avultava ao longe.\r\n\r\nO capitão se virou, viu o que parecia ser uma montanha literal ganhar vida e soltou um forte \"AH [REMOVIDO]!\"",
+
+    "EQUIPMENT_MYSTICSITEMS_MECHANICALARM_NAME": "Braço Mecânico",
+    "EQUIPMENT_MYSTICSITEMS_MECHANICALARM_PICKUP": "Ataca na frente, causando mais dano com cada Acerto Crítico causado durante o tempo de recarga do equipamento.",
+    "EQUIPMENT_MYSTICSITEMS_MECHANICALARM_DESC": "A chance de Acerto Crítico é aumentada em <style=cIsDamage>{BaseCrit}%</style> enquanto carrega este equipamento.\r\n\r\nAtaque na frente para causar <style=cIsDamage>{Damage}% de dano + {DamageBonusPerCharge}% de dano para cada Acerto Crítico causado enquanto o equipamento está em recarga</style>.",
+    "EQUIPMENT_MYSTICSITEMS_MECHANICALARM_LORE": "UES Solicitação de Reembolso #793045\r\n\r\nReembolso: 701***** Cosplay de Robô Traje Show Jogo de Dados - 4,000 Créditos\r\nTotal: 3,600 Créditos serão devolvidos à sua carteira\r\n\r\nRazão: Meu pacote não foi entregue\r\nNotas:\r\nOs braços estão em falta. Também gostaria de saber por que você não respondeu às duas solicitações de reembolso anteriores desta entrega que foram escritas há 3 e 6 anos, respetivamente.",
+
+    "EQUIPMENT_MYSTICSITEMS_OMARHACKTOOL_NAME": "De Omar Com Amor", // [Omar Faruk's developer item]
+    "EQUIPMENT_MYSTICSITEMS_OMARHACKTOOL_PICKUP": "Hackeie um baú ou um santuário para libertá-lo. Uma vez por fase.",
+    "EQUIPMENT_MYSTICSITEMS_OMARHACKTOOL_DESC": "Hackeie um baú ou um santuário para reduzir seu custo para <style=cIsUtility>$0</style>. Limitado a <style=cIsUtility>1</style> uso por fase, <style=cIsUtility>o limite é aumentado com cargas de equipamento adicionais</style>.",
+
+    //[LUNAR EQUIPMENT]
+    "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_NAME": "Equalizador de Proporções",
+    "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_PICKUP": "Faça com que a porcentagem de saúde atual de <color=#FF7F7F>TODOS os personagens próximos</color> seja igual à sua.",
+    "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_DESC": "Faça com que a porcentagem de saúde atual de TODOS os personagens em um raio de {Radius}m seja igual à sua.",
+    "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_LORE": "Irmão, sua visão criativa é realmente revigorante, mas não posso permitir que você crie algo a sem minha supervisão.\r\n\r\nSua curiosidade o inspirou a criar um novo composto. A qualidade e as propriedades dele são determinadas pelas proporções dos compostos que o compõem. Quanto mais as proporções se desviam, mais volátil é o composto resultante, menos ele mantém a forma.\r\n\r\nEu posso ver que sua criação consiste em... Uma abundância de cada componente básico. Ele não tem forma e não pode ser usado para criar algo. Seu único propósito é a guerra.\r\n\r\n... \"Caos?\"",
+
+    "EQUIPMENT_MYSTICSITEMS_GATECHALICE_NAME": "Portão de Cálice", // [The word "gate" here refers to the teleporters that Mithrix and Providence created. They call them "gates" in the vanilla logbook entries (specifically, A Moment, Fractured (MAP_MYSTERYSPACE_LORE), A Moment, Whole (MAP_LIMBO_LORE), Commencement (MAP_MOON_LORE))]
+    "EQUIPMENT_MYSTICSITEMS_GATECHALICE_PICKUP": "Teletransporta-o instantaneamente para a próxima fase. Vais economizar algum tempo, <color=#FF7F7F>MAS perdes os itens dos baús fechados...</color>",
+    "EQUIPMENT_MYSTICSITEMS_GATECHALICE_DESC": "Teletransporta-o para a próxima fase.. Pode ser usado para economizar tempo, <style=cIsUtility>mas corres o risco de ficar fraco ao pular fases contendo baús fechados</style>.",
+
+    "EQUIPMENT_MYSTICSITEMS_FRAGILEMASK_NAME": "Máscara Frágil",
+    "EQUIPMENT_MYSTICSITEMS_FRAGILEMASK_PICKUP": "Use para ativar. Enquanto ativo, o dano é {DamageMultiplier}x maior, <color=#FF7F7F>MAS morres de qualquer dano</color>.",
+    "EQUIPMENT_MYSTICSITEMS_FRAGILEMASK_DESC": "Use para ativar. Enquanto ativo, <style=cIsDamage>o dano base é aumentado em {BaseDamageBonus}%</style> e <style=cDeath>qualquer dano te mata</style>.",
+    "EQUIPMENT_MYSTICSITEMS_FRAGILEMASK_LORE": "\"Uma máscara de pedra que se acredita ter sido infundida com poder rúnico pelos antigos feiticeiros de Titã muitos milênios atrás, encontrada no sítio de escavação arqueológica da vila de Rimm. Tais máscaras foram retratadas em várias histórias do passado: as lendas dizem que ajudavam os guerreiros em combate, e é um objeto-chave na história de Proctor, o Ousado, que na busca de grande poder para proteger seu povo, cometeu um grave erro ao tomar a máscara amaldiçoada da tumba proibida.\"\r\n\r\n- Exposição no Museu Titã de História e Cultura",
+
+    //[ACHIEVEMENTS]
+    "ACHIEVEMENT_MYSTICSITEMS_ESCAPEMOONALONE_NAME": "Último de Nós", // [Reference to "The Last of Us"]
+    "ACHIEVEMENT_MYSTICSITEMS_ESCAPEMOONALONE_DESCRIPTION": "Dê o golpe final no chefe final como o único aliado sobrevivente do seu grupo.",
+
+    "ACHIEVEMENT_MYSTICSITEMS_REPAIRBROKENSPOTTER_NAME": "Inimígo avistado", // [Reference to the "Enemy Spotted" voice command from Counter Strike]
+    "ACHIEVEMENT_MYSTICSITEMS_REPAIRBROKENSPOTTER_DESCRIPTION": "Leve a Matriz de Combustível da Cápsula de Fuga para uma selva úmida e repare o Drone Observador Quebrado.",
+
+    "ACHIEVEMENT_MYSTICSITEMS_DISCDEATH_NAME": "Minhas Sinceras Desculpas.", // [Reference to the "Sincere Apologies." achievement from Nuclear Throne]
+    "ACHIEVEMENT_MYSTICSITEMS_DISCDEATH_DESCRIPTION": "Dê um Serramerangue a um Drone de Equipamento com o Artefato do Caos ativado e...?",
+
+    "ACHIEVEMENT_MYSTICSITEMS_FINDARCHAICMASK_NAME": "Queime para Matar", // [Wordplay on "born to kill" and "burn"]
+    "ACHIEVEMENT_MYSTICSITEMS_FINDARCHAICMASK_DESCRIPTION": "Pegue a Mascára Lendária em Acres Queimados em menos de 10 minutos antes de esfriar.",
+
+    "ACHIEVEMENT_MYSTICSITEMS_MULTISHOPTERMINALSONLY_NAME": "Comprador Inteligente",
+    "ACHIEVEMENT_MYSTICSITEMS_MULTISHOPTERMINALSONLY_DESCRIPTION": "Não gaste ouro em lugar nenhum, exceto nos Terminais Multiloja até a fase 6. Não pode ser concluído enquanto o Artefato do Sacrifício estiver ativo.",
+
+    "ACHIEVEMENT_MYSTICSITEMS_HELLSPEEDRUN_NAME": "Bata o Calor", // [Reference to the "Beat the Heat" level in A Hat in Time]
+    "ACHIEVEMENT_MYSTICSITEMS_HELLSPEEDRUN_DESCRIPTION": "Complete Profundezas Abissais em menos de 3 minutos.",
+
+    "ACHIEVEMENT_MYSTICSITEMS_REACHHIGHPOINT_NAME": "O Topo",
+    "ACHIEVEMENT_MYSTICSITEMS_REACHHIGHPOINT_DESCRIPTION": "Alcance o ponto mais alto do Rallypoint Delta.",
+
+    //[BODIES]
+    "ARCHWISP_BODY_NAME": "Espírito Arcaico",
+
+    //[INTERACTABLES]
+    "MYSTICSITEMS_RIFTCHEST_NAME": "Fenda Instável",
+    "MYSTICSITEMS_RIFTCHEST_CONTEXT": "Fechar Fenda Instável",
+
+    "MYSTICSITEMS_BROKENSPOTTER_NAME": "Drone Observador Quebrado",
+    "MYSTICSITEMS_BROKENSPOTTER_CONTEXT": "Reparar",
+
+    "MYSTICSITEMS_ARCHAICMASK_CONTEXT": "Pegue a Máscara Lendária",
+
+    "MYSTICSITEMS_SIRENPOLE_NAME": "Poste da Sirene",
+
+    "MYSTICSITEMS_SHRINE_LEGENDARY_NAME": "Santuário da Lenda [Mystic's Items]",
+    "MYSTICSITEMS_SHRINE_LEGENDARY_CONTEXT": "Ofereça ao Santuário da Lenda",
+    "MYSTICSITEMS_SHRINE_LEGENDARY_USE_MESSAGE_2P": "<style=cShrine>Você se tornou a personificação da lenda.</color>",
+    "MYSTICSITEMS_SHRINE_LEGENDARY_USE_MESSAGE": "<style=cShrine>{0} tornou-se a personificação da lenda.</color>",
+
+    //[COSTTYPES]
+    "COST_MYSTICSITEMS_RIFTLENSDEBUFF_FORMAT": "{0} Visão da Fenda",
+
+    //[OBJECTIVES]
+    "OBJECTIVE_MYSTICSITEMS_CHARGE_TREASUREMAPZONE": "Desenterre o <color=#F8EB27>Item Lendário enterrado</color> ({0}%)",
+    "OBJECTIVE_MYSTICSITEMS_CHARGE_TREASUREMAPZONE_OOB": "Encontre e desenterre o <color=#F8EB27>o Item Lendário enterrado</color> ({0}%)",
+
+    "OBJECTIVE_MYSTICSITEMS_CHARGE_SIRENPOLE": "Carregue o <color=#EA5821>Poste da Sirene</color> ({0}%)",
+    "OBJECTIVE_MYSTICSITEMS_CHARGE_SIRENPOLE_OOB": "Entre na <color=#EA5821>zona de carregamento do Poste da Sirene!</color> ({0}%)",
+
+    "OBJECTIVE_MYSTICSITEMS_RIFTLENS_FLAVOUR": "Fendas Instáveis Detectadas!",
+    "OBJECTIVE_MYSTICSITEMS_RIFTLENS_CLOSE_RIFTS": "Feche todas as <color=#66ADFF>Fendas Instáveis</color>! ({0}/{1})",
+
+    //[SKILLS]
+    "SKILL_MYSTICSITEMS_CRYSTALLIZED_NAME": "Cristalizado",
+    "SKILL_MYSTICSITEMS_CRYSTALLIZED_DESCRIPTION": "<color=#FF7F7F>Não podes usar habilidades.</color>",
+
+    //[DEATH QUOTES]
+    "PLAYER_DEATH_QUOTE_MYSTICSITEMS_RIFTLENS_0_2P": "Acabou o tempo!",
+    "PLAYER_DEATH_QUOTE_MYSTICSITEMS_RIFTLENS_0": "{0} ficou sem tempo!",
+    "PLAYER_DEATH_QUOTE_MYSTICSITEMS_RIFTLENS_1_2P": "Você não conseguiu lidar com a pressão.",
+    "PLAYER_DEATH_QUOTE_MYSTICSITEMS_RIFTLENS_1": "{0} não aguentou a pressão.",
+    "PLAYER_DEATH_QUOTE_MYSTICSITEMS_RIFTLENS_2_2P": "Seu corpo foi violentamente deformado pela fenda.",
+    "PLAYER_DEATH_QUOTE_MYSTICSITEMS_RIFTLENS_2": "O corpo de {0} foi violentamente deformado pela fenda",
+    "PLAYER_DEATH_QUOTE_MYSTICSITEMS_RIFTLENS_3_2P": "Os poderes sobrenaturais te dominam.",
+    "PLAYER_DEATH_QUOTE_MYSTICSITEMS_RIFTLENS_3": "Os poderes sobrenaturais dominam {0}.",
+    "PLAYER_DEATH_QUOTE_MYSTICSITEMS_RIFTLENS_4_2P": "Sua ganância se tornou sua queda.",
+    "PLAYER_DEATH_QUOTE_MYSTICSITEMS_RIFTLENS_4": " A ganância de {0} se tornou sua ruína.",
+    "PLAYER_DEATH_QUOTE_MYSTICSITEMS_RIFTLENS_5_2P": "A fenda desmorona.",
+    "PLAYER_DEATH_QUOTE_MYSTICSITEMS_RIFTLENS_5": "A fenda desmorona, resultando na morte de {0}.",
+
+    //[BUFFS]
+    "BUFF_MYSTICSITEMS_ALLYDEATHREVENGE_NAME": "Vendetta",
+    "BUFF_MYSTICSITEMS_ALLYDEATHREVENGE_DESC": "Velocidade de ataque e dano aumentados",
+
+    "BUFF_MYSTICSITEMS_COFFEEBOOST_NAME": "Impulso Expresso",
+    "BUFF_MYSTICSITEMS_COFFEEBOOST_DESC": "Ataque e movimente-se mais rápido",
+
+    "BUFF_MYSTICSITEMS_CRYSTALLIZED_NAME": "Cristalizado",
+    "BUFF_MYSTICSITEMS_CRYSTALLIZED_DESC": "<color=#FF7F7F>Não podes usar habilidades.</color>",
+
+    "BUFF_MYSTICSITEMS_DASHERDISCACTIVE_NAME": "Incorpóreo",
+    "BUFF_MYSTICSITEMS_DASHERDISCACTIVE_DESC": "Não podes receber dano",
+
+    "BUFF_MYSTICSITEMS_DASHERDISCCOOLDOWN_NAME": "Tempo de recarga da Execução Oportuna",
+    "BUFF_MYSTICSITEMS_DASHERDISCCOOLDOWN_DESC": "A Execução Oportuna não pode ser acionada",
+
+    "BUFF_MYSTICSITEMS_DEAFENED_NAME": "Ensurdecido",
+    "BUFF_MYSTICSITEMS_DEAFENED_DESC": "Velocidade de ataque, velocidade de movimento, armadura e dano reduzidos",
+
+    "BUFF_MYSTICSITEMS_MARWANASHBURN_NAME": "Luz de Marwan",
+    "BUFF_MYSTICSITEMS_MARWANASHBURN_DESC": "Perca uma fração da sua vida a cada segundo",
+
+    "BUFF_MYSTICSITEMS_MARWANASHBURNSTRONG_NAME": "Luz de Marwan",
+    "BUFF_MYSTICSITEMS_MARWANASHBURNSTRONG_DESC": "Consuma uma fração da sua saúde máxima a cada segundo",
+
+    "BUFF_MYSTICSITEMS_MECHANICALARMCHARGE_NAME": "Carga do Braço Mecânico",
+    "BUFF_MYSTICSITEMS_MECHANICALARMCHARGE_DESC": "Aumenta o dano do próximo ataque do Braço Mecânico",
+
+    "BUFF_MYSTICSITEMS_RHYTHMCOMBO_NAME": "Focado",
+    "BUFF_MYSTICSITEMS_RHYTHMCOMBO_DESC": "Chance de Acerto Crítico aumentada",
+
+    "BUFF_MYSTICSITEMS_SPOTTERMARKED_NAME": "Detetado",
+    "BUFF_MYSTICSITEMS_SPOTTERMARKED_DESC": "Todo dano que recebes se torna Crítico",
+
+    //[ITEMSTATS]
+    "ITEMSTATS_MYSTICSITEMS_POSTFIX_HEALTH": "PV",
+    "ITEMSTATS_MYSTICSITEMS_POSTFIX_HEALTHPERSECOND": "PV/s",
+    "ITEMSTATS_MYSTICSITEMS_POSTFIX_METERS": "m",
+    "ITEMSTATS_MYSTICSITEMS_POSTFIX_SECONDS": "s",
+
+    "ITEMSTATS_MYSTICSITEMS_ARMOR": "Armadura",
+    "ITEMSTATS_MYSTICSITEMS_ATTACKSPEED": "Velocidade De Ataque",
+    "ITEMSTATS_MYSTICSITEMS_BONUSPERKILL": "Bônus Por Abate",
+    "ITEMSTATS_MYSTICSITEMS_CHARGES": "Cargas",
+    "ITEMSTATS_MYSTICSITEMS_CRIT": "Chance De Acerto Crítico",
+    "ITEMSTATS_MYSTICSITEMS_CRITDAMAGE": "Dano Do Acerto Crítico",
+    "ITEMSTATS_MYSTICSITEMS_CRITPERBUFFSTACK": "Crítico Por Acúmulo De Buff",
+    "ITEMSTATS_MYSTICSITEMS_CHANCE": "Chance",
+    "ITEMSTATS_MYSTICSITEMS_COOLDOWN": "Tempo De Recarga",
+    "ITEMSTATS_MYSTICSITEMS_DAMAGE": "Dano",
+    "ITEMSTATS_MYSTICSITEMS_DAMAGEPERSPEEDINCREASE": "Dano Por 1% De Aumento De Velocidade",
+    "ITEMSTATS_MYSTICSITEMS_DIFFICULTYSPEED": "Velocidade Da Escala De Dificuldade",
+    "ITEMSTATS_MYSTICSITEMS_DURATION": "Duração",
+    "ITEMSTATS_MYSTICSITEMS_GOLDFORMAXBUFF": "Ouro para Buff Máximo",
+    "ITEMSTATS_MYSTICSITEMS_HEALING": "Cura",
+    "ITEMSTATS_MYSTICSITEMS_MAXATTACKSPEEDBONUS": "Bônus Da Velocidade Máxima De Ataque",
+    "ITEMSTATS_MYSTICSITEMS_MAXBUFFSTACKS": "Máximo Acúmulo De Buffs",
+    "ITEMSTATS_MYSTICSITEMS_MAXHEALTH": "Saúde Máxima",
+    "ITEMSTATS_MYSTICSITEMS_MAXMOVESPEEDBONUS": "Bônus De Velocidade Máxima De Movimento",
+    "ITEMSTATS_MYSTICSITEMS_MOVESPEED": "Velocidade De Movimento",
+    "ITEMSTATS_MYSTICSITEMS_PULSES": "Pulsos", // [Crystallized World's pulses]
+    "ITEMSTATS_MYSTICSITEMS_RADIUS": "Raio",
+    "ITEMSTATS_MYSTICSITEMS_REGEN": "Regeneração De Saúde Passiva",
+    "ITEMSTATS_MYSTICSITEMS_REMAINING": "Restantes", // [For bonuses that have limited uses]
+    "ITEMSTATS_MYSTICSITEMS_TIME": "Tempo",
+    "ITEMSTATS_MYSTICSITEMS_UNSTABLERIFTS": "Fendas Instáveis Em Cada Nível",
+    "ITEMSTATS_MYSTICSITEMS_UPTO": "Até", // [For bonuses that increase something up to a certain value]
+
+    "ITEMSTATS_MYSTICSITEMS_FORMAT": "{0}: {1}", // [{0} is the stat name, {1} is the stat value. For example, it would show 'Armor: +15' for Spine Implant]
+
+    //[MISC]
+    "MYSTICSITEMS_STATCHANGE_LIST_HEADER": "Mudanças de estatísticas atuais:",
+    "MYSTICSITEMS_STATCHANGE_LIST_MAXHEALTH": "* {0}% de saúde máxima",
+    "MYSTICSITEMS_STATCHANGE_LIST_REGEN": "* {0}% de regeneração de saúde passiva",
+    "MYSTICSITEMS_STATCHANGE_LIST_DAMAGE": "* {0}% de dano",
+    "MYSTICSITEMS_STATCHANGE_LIST_MOVESPEED": "* {0}% de velocidade de movimento",
+    "MYSTICSITEMS_STATCHANGE_LIST_ATTACKSPEED": "* {0}% de velocidade de ataque",
+    "MYSTICSITEMS_STATCHANGE_LIST_CRIT": "* {0}% de chance de realizar um acerto crítico",
+    "MYSTICSITEMS_STATCHANGE_LIST_ARMOR": "* {0} de armadura",
+
+    "MYSTICSITEMS_TREASUREMAP_WARNING": "<style=cWorldEvent>Seu Mapa do Tesouro está apitando. Você se percebe que se esqueceu de fazer alguma coisa.</style>", // [If the player has a Treasure Map, this reminder message will be played after a teleporter is charged if they forget to dig up the legendary item]
+
+    "MYSTICSITEMS_PLAYER_CONVERT": "<style=cEvent>{0} {1}{2} tornou-se {3}{4}</color>", // [For item upgrades or downgrades. Example: 'TheMysticSword's Marwan's Ash(3) became Marwan's Light(3)']
+    "MYSTICSITEMS_PLAYER_CONVERT_2P": "<style=cEvent>O teu {1}{2} tornou-se {3}{4}</color>"
+  }
+}

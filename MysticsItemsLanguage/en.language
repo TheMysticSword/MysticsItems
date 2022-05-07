@@ -35,14 +35,17 @@
     "ITEM_MYSTICSITEMS_LIMITEDARMOR_NAME": "Cutesy Bow", // [Hair bow]
     "ITEM_MYSTICSITEMS_LIMITEDARMOR_PICKUP": "Reduce damage against {Hits} hits.",
     "ITEM_MYSTICSITEMS_LIMITEDARMOR_DESC": "Increases armor by <style=cIsUtility>{Armor}</style> against <style=cIsUtility>{Hits} hits <style=cStack>(+{Hits} hits per stack)</style></style>. On exhaustion, turns into <style=cIsUtility>Frayed Bow (always increases armor by {BrokenArmor} <style=cStack>(+{BrokenArmor} per stack)</style>)</style>.",
+    "ITEM_MYSTICSITEMS_LIMITEDARMOR_LORE": "- What's June up to now?\r\n\r\n- Oh, you won't believe this! She got invited to a rescue mission to the Uncharted Territories by [REDACTED] himself! Don't tell anyone, though - it's a secret, hee-hee-hee.\r\n\r\n- Whaaat?! No way!\r\n\r\n- I know, right? She has always dreamed of working at the UES. This is basically her dream come true!\r\n\r\n- I'm so happy for her!\r\n\r\n- UES also supplied her with some really high-tech stuff, so we didn't have to buy anything. I did get her a few boxes of cocoa for the journey. She loves it. Oh, look! I took some pics of her in new gear.\r\n\r\n- They gave all of that for free?! UES really cares about their employees, huh?\r\n",
 
     "ITEM_MYSTICSITEMS_LIMITEDARMORBROKEN_NAME": "Frayed Bow",
     "ITEM_MYSTICSITEMS_LIMITEDARMORBROKEN_PICKUP": "Slight armor increase.",
     "ITEM_MYSTICSITEMS_LIMITEDARMORBROKEN_DESC": "Increases armor by <style=cIsUtility>{BrokenArmor} <style=cStack>(+{BrokenArmor} per stack)</style></style>.",
+    "ITEM_MYSTICSITEMS_LIMITEDARMORBROKEN_LORE": "- Captain. This is urgent. We just lost contact with Private June Marsh. The radar abruptly lost track of her radiolocator.\r\n\r\n- Officer, this isn't urgent.\r\n\r\n- C-Captain?\r\n\r\n- ...\r\n\r\n- Captain, why isn't this urgent?\r\n\r\n- She forgot to charge the suit. As soon as she remembers, her locator will go back online.\r\n\r\n- Captain, locators work for up to 360 days. We have been here for 21 days. Unless we gave her a severely undercharged-\r\n\r\n- Silence, Officer. She will figure it out.\r\n\r\n- Captain, we must-\r\n\r\n- Silence! Officer, go back to Comms. Now.\r\n",
 
     "ITEM_MYSTICSITEMS_COOKIE_NAME": "Choc Chip", // [It's a chocolate chip cookie]
     "ITEM_MYSTICSITEMS_COOKIE_PICKUP": "Buffs last longer, debuffs last shorter.",
     "ITEM_MYSTICSITEMS_COOKIE_DESC": "Increase the duration of positive status effects by <style=cIsUtility>{BuffDuration}s <style=cStack>(+{BuffDurationPerStack}s per stack)</style></style>. Reduce the duration of negative status effects by <style=cIsUtility>{DebuffDuration}s <style=cStack>(+{DebuffDuration}s per stack)</style></style>, cannot reduce below 1 second.",
+    "ITEM_MYSTICSITEMS_COOKIE_LORE": "<style=cMono>\r\nIncoming radio message...</style>\r\n\r\n\"...ugh, why did I do this? Why did I eat them? Just why? Of course they're spoiled! They've been on this damn planet for years! But they looked so yummy and I was so hungry! ...huh? Who's talking... Oh! I'm so sorry! I- I- uh, I didn't mean to- I hit the button by accident! Over!\"",
 
     "ITEM_MYSTICSITEMS_MARWANASH1_NAME": "Marwan's Ash", // [Marwan's developer item]
     "ITEM_MYSTICSITEMS_MARWANASH1_PICKUP": "Deal an extra instance of damage on hit. Upgrades at level {UpgradeLevel12}.",
@@ -78,6 +81,7 @@
     "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_NAME": "Nuclear Accelerator", // [Like a particle accelerator, but "nuclear" to make it sound cool and unique]
     "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_PICKUP": "The faster you move, the more damage you deal.",
     "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_DESC": "Increase movement speed by <style=cIsUtility>{PassiveSpeed}%</style>. Damage is <style=cIsDamage>increased by {Damage}% <style=cStack>(+{DamagePerStack}% per stack)</style></style> for every <style=cIsUtility>1% of movement speed increase (from items, buffs, etc.)</style>.",
+    "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_LORE": "Order: Pocket-Sized Particle Accelerator\r\nTracking Number: 18******\r\nEstimated Delivery: 05\/01\/2089\r\nShipping Method: Priority\r\nShipping Address: [REDACTED], Scar Desert, Mars\r\nShipping Details:\r\n\r\nCompact size, easy to use, and need to be recharged only once a month - a perfect fit for your job.\r\n\r\nMost efficient when stuck to your calf. Yeah, just stick 'em in. It'll hurt, of course, but what's a little bit of blood loss compared to glorious victory atop the rivers of blood of the dead enemies, am I right?\r\n",
 
     "ITEM_MYSTICSITEMS_EXTRASHRINEUSE_NAME": "Black Monolith", // [A reference to Monoliths from Space Odyssey]
     "ITEM_MYSTICSITEMS_EXTRASHRINEUSE_PICKUP": "All Shrines can be used one more time.",
@@ -101,10 +105,12 @@
     "ITEM_MYSTICSITEMS_ELITEPOTION_NAME": "Failed Experiment",
     "ITEM_MYSTICSITEMS_ELITEPOTION_PICKUP": "Killing an elite enemy spreads its elemental effect on nearby enemies.",
     "ITEM_MYSTICSITEMS_ELITEPOTION_DESC": "Killing an elite enemy inflicts its elemental effect on all enemies in a <style=cIsUtility>{Radius}m <style=cStack>(+{RadiusPerStack}m per stack)</style></style> radius for <style=cIsUtility>{Duration}s <style=cStack>(+{DurationPerStack}s per stack)</style></style>.",
+    "ITEM_MYSTICSITEMS_ELITEPOTION_LORE": "<style=cMono>Digital journal restoration complete. Read now? Y/N\r\n\r\n> Y</style>\r\n\r\n<style=cMono>00134></style> The crew finally managed to kill one of the \"elite\" lemurians, and have just brought its body to the lab. Lemurians naturally don't grow horns, but this one does have a pair. Its skin is red, unlike the normal purple skin of lemurians, and is exceptionally hot. Very interesting.\r\n\r\n<style=cMono>00135></style> The crew brought another one. While the other lemurian's skin was hot, this one is rather cold to touch. Ice spikes have grown out of its head and formed a \"crown\" of a perfect shape, as if it was made intentionally by someone, or something. I will need to look into this further.\r\n\r\n<style=cMono>00192></style> Unbelievable. Extensive studies of lemurian literature lead me to the conclusion that there are various \"deities\" that they worship, and who aid them in retaliation against our troops. Perhaps I can extract this power. Fortunately, I still have the elite lemurian bodies in cryostatis.\r\n\r\n<style=cMono>00204></style> The blood. The \"ichor\". Of course! Why did I not think about that earlier? I can extract the \"godly powers\" from there, or a fraction of them, at least.\r\n\r\n<style=cMono>00205></style> What will happen if I mix the samples?\r\n\r\n<style=cMono>> No more entries found. End program? Y/N\r\n\r\n> _</style>\r\n\r\n",
 
     "ITEM_MYSTICSITEMS_DRONEWIRES_NAME": "Spare Wiring",
     "ITEM_MYSTICSITEMS_DRONEWIRES_PICKUP": "You and your drones emit damaging sparks in combat.",
     "ITEM_MYSTICSITEMS_DRONEWIRES_DESC": "You and your drones occasionally drop <style=cIsDamage>electric sparks</style> while in combat. The sparks deal <style=cIsDamage>{Damage}% <style=cStack>(+{DamagePerStack}% per stack)</style></style> base damage on contact with an enemy.",
+    "ITEM_MYSTICSITEMS_DRONEWIRES_LORE": "\"Always grab more wire than you need!\" - that's what she always used to say.\r\n\r\nAnd look where that brought her. Now she's the lead engineer of a UES [REDACTED] crew, repairing expensive military bots, amassing a mechanical army not afraid to kill anyone in her way, be it a lemurian, a lifeless rock construct, or a comrade foolish enough to try to stop this psychopathic wreck of a human.\r\n\r\n...no, not a human. There's nothing human in her. Only circuit, wire and a brilliant, ill mind.",
 
     "ITEM_MYSTICSITEMS_DEATHCEREMONY_NAME": "Ceremony of Perdition",
     "ITEM_MYSTICSITEMS_DEATHCEREMONY_PICKUP": "Critical Strikes mark enemies. Marked enemies share damage.",
@@ -128,13 +134,13 @@
 
     "ITEM_MYSTICSITEMS_DASHERDISC_NAME": "Timely Execution", // [A reference to the Dasher Disc from DISC ROOM.]
     "ITEM_MYSTICSITEMS_DASHERDISC_PICKUP": "Gain invincibility for a short time upon reaching low health. Recharges over time.",
-    "ITEM_MYSTICSITEMS_DASHERDISC_DESC": "Falling below <style=cIsHealth>25% health</style> causes you to become incorporeal, gaining invincibility for <style=cIsUtility>{Duration} seconds</style>. Recharges every <style=cIsUtility>{Cooldown}s <style=cStack>(-{CooldownReductionPerStack}% per stack)</style></style>.",
+    "ITEM_MYSTICSITEMS_DASHERDISC_DESC": "Falling below <style=cIsHealth>25% health</style> causes you to become incorporeal, gaining invincibility for <style=cIsUtility>{Duration} seconds</style> and increasing movement speed by <style=cIsUtility>{MoveSpeedBuff}%</style>. Recharges every <style=cIsUtility>{Cooldown}s <style=cStack>(-{CooldownReductionPerStack}% per stack)</style></style>.",
     "ITEM_MYSTICSITEMS_DASHERDISC_LORE": "Order: Dasher Disc\r\nTracking Number: 20******\r\nEstimated Delivery: 10\/22\/2089\r\nShipping Method: High Priority/Biological\r\nShipping Address: Giant Disc, Jupiter\r\nShipping Details:\r\n\r\nFound this one wandering around our lab. DO NOT MAKE QUICK MOVEMENTS IN ITS PRESENCE\r\n",
 
     "ITEM_MYSTICSITEMS_TREASUREMAP_NAME": "Treasure Map", // [RA & DEC in the lore entry are "right ascension" and "declination". That section describes the space coordinates to the hidden treasure cache.]
     "ITEM_MYSTICSITEMS_TREASUREMAP_PICKUP": "Each stage contains a treasure spot with a buried Legendary item that takes some time to dig up.",
     "ITEM_MYSTICSITEMS_TREASUREMAP_DESC": "Each stage contains a {Radius}m <style=cIsUtility>treasure spot</style> with a buried <style=cIsHealth>Legendary item</style>. Standing inside the treasure spot for <style=cIsUtility>{UnearthTime}s <style=cStack>(-{ReductionPerStack}% per stack)</style></style> digs up the item.",
-    "ITEM_MYSTICSITEMS_TREASUREMAP_LORE": "<style=cMono>> OS LOADED\n> AUTO-EXECUTING \"TOPSECRET\"\n> [||||||||||] 100%\n> ACCESS DENIED\n> ENTER PASSWORD\n> ******12\n> ACCESS GRANTED\n> TREASURE CACHE AT BORON STAR SYSTEM\n> RA 21H 32M 29S | DEC -15° 14' 5\"\n> RECALCULATE RELATIVE COORDINATES? Y/N\n> _</style>",
+    "ITEM_MYSTICSITEMS_TREASUREMAP_LORE": "<style=cMono>> OS LOADED\n> AUTO-EXECUTING \"TOPSECRET\"\n> [||||||||||] 100%\n> ACCESS DENIED\n> ENTER PASSWORD\n> ******12\n> ACCESS GRANTED\n> TREASURE CACHE AT BORON STAR SYSTEM\n> RA 21H 32M 29S | DEC -15Â° 14' 5\"\n> RECALCULATE RELATIVE COORDINATES? Y/N\n> _</style>",
 
     "ITEM_MYSTICSITEMS_IDOL_NAME": "Super Idol", // [The lore entry is a reference to the Golden Idol from Slay the Spire]
     "ITEM_MYSTICSITEMS_IDOL_PICKUP": "Increase health and armor depending on current gold.",
@@ -144,6 +150,7 @@
     "ITEM_MYSTICSITEMS_BACKPACK_NAME": "Hiker's Backpack",
     "ITEM_MYSTICSITEMS_BACKPACK_PICKUP": "+{Charges} charge to all skills.",
     "ITEM_MYSTICSITEMS_BACKPACK_DESC": "Add <style=cIsUtility>+{Charges} maximum charge <style=cStack>(+{ChargesPerStack} per stack)</style></style> to all skills. Reduce skill cooldowns by <style=cIsUtility>{CDR}%</style>.",
+    "ITEM_MYSTICSITEMS_BACKPACK_LORE": "- ...but now, it's almost like my inner voice is telling me... \"You can't do this.\"\r\n\r\n- Oh, it's a sign of change, my dear.\r\n\r\n- What do you mean by that?\r\n\r\n- That's just how we react to progress. Often, we're not used to change, and we try to go back. That's normal, and you don't have to worry about it. Don't let this feeling take over you, but also don't ignore it.\r\n\r\n- So... Do I just keep going then?\r\n\r\n- Do what you think is the best for you, dear.\r\n\r\n- ... Thanks, Mom.",
 
     "ITEM_MYSTICSITEMS_VYRAELCOMMANDMENTS_NAME": "Ten Commandments of Vyrael", // [Vyrael's developer item]
     "ITEM_MYSTICSITEMS_VYRAELCOMMANDMENTS_PICKUP": "Trigger all 'On-Hit' effects every 10 hits.",
@@ -161,6 +168,7 @@
     "ITEM_MYSTICSITEMS_MOONGLASSES_NAME": "Moonglasses", // [Wordplay on "sunglasses"]
     "ITEM_MYSTICSITEMS_MOONGLASSES_PICKUP": "Increase Critical Strike damage... <color=#FF7F7F>BUT halve Critical Strike chance.</color>\n",
     "ITEM_MYSTICSITEMS_MOONGLASSES_DESC": "Increase Critical Strike damage by <style=cIsDamage>{CritDamageIncrease}% <style=cStack>(+{CritDamageIncreasePerStack}% per stack)</style></style>. <style=cIsUtility>Halve Critical Strike chance for each stack.</style>",
+    "ITEM_MYSTICSITEMS_MOONGLASSES_LORE": "<style=cMono>\r\n========================================\r\n====   MyBabel Machine Translator   ====\r\n====     [Version 12.45.1.009 ]   ======\r\n========================================\r\nTrainingï¿½ <100000000 cycles>\r\nTrainingï¿½ <1453461 cycles>\r\nComplete!\nDisplay result? Y/N\r\nY\r\n================================</style>\r\nI give [Yora] the eyeglasses. Yora sees into the future.\r\n\r\n<He> will give [Yora] praise. [Yora] puts the eyeglasses away. [Yora] feels excitement and works twice as hard.\r\n\r\nI amplify the strength of the lenses. [Yora] looks further into the future.\r\n\r\n[Yora] swiftly puts the eyeglasses away. [Yora]'s excitement dies down.\r\n\r\n<He> walks into the chamber. [Yora] feels fear.\r\n\r\nI look far into the future. I swiftly put the eyeglasses away. <He> is present. I feel fear.\r\n<style=cMono>\r\n================================\r\n",
 
     "ITEM_MYSTICSITEMS_REGENANDDIFFICULTYSPEED_NAME": "Puzzle of Chronos",
     "ITEM_MYSTICSITEMS_REGENANDDIFFICULTYSPEED_PICKUP": "Speed up health regeneration for all allies... <color=#FF7F7F>BUT speed up difficulty scaling.</color>\n",
@@ -180,14 +188,16 @@
     "EQUIPMENT_MYSTICSITEMS_MICROPHONE_NAME": "Vintage Microphone",
     "EQUIPMENT_MYSTICSITEMS_MICROPHONE_PICKUP": "Deafen enemies in front, heavily reducing their stats. Use mid-air to boost yourself backwards.",
     "EQUIPMENT_MYSTICSITEMS_MICROPHONE_DESC": "<style=cIsDamage>Deafen</style> enemies in front of you for <style=cIsUtility>{Duration} seconds</style>, reducing their movement speed by <style=cIsUtility>{MoveSpeedReduction}%</style>, armor by <style=cIsUtility>{ArmorReduction}</style>, attack speed by <style=cIsDamage>{AttackSpeedReduction}%</style> and damage by <style=cIsDamage>{DamageReduction}%</style>. <style=cIsUtility>Boost</style> yourself in the opposite direction if used mid-air.",
+    "EQUIPMENT_MYSTICSITEMS_MICROPHONE_LORE": "- Why do you still do this?\r\n\r\n- Do what?\r\n\r\n- Y'know, all this... live... concert... stuff.\r\n\r\n- Oh, do you not like live concerts, Jimmy? Why haven't you told me before?\r\n\r\n- No, no, I LOVE them! I really do. I just don't understand why you aren't doing them in virtual. Your songs are so good. I'm sure you'd be very popular on the virtual stage!\r\n\r\n- Oh-ho-ho-ho! Your words are flattering, my young friend! Bu-u-ut, no, I'm not doing this for fame. I do this because that's what I've been doing for the most of my life. And moving on to virtual reality concerts is too much of a change for an old sack like me. Heh-heh. \"Stuck in the past,\" one could say.\r\n\r\n- ...I get it. But... do you REALLY not want to try something new for a change? To do one VR concert, just to spite your stubborn self? To show that old lady that you ARE capable of change? To show her who's the boss? Just say \"yes\"! I'll help you set everything up!\r\n\r\n- Hmm... Y'know... Maybe you are right. Yeah! Let's do this! Let's rock!\r\n\r\n- Really?!\r\n\r\n- Ha-ha-ha, HELL no! I was just kidding!\r\n",
 
     "EQUIPMENT_MYSTICSITEMS_SIRENPOLE_NAME": "Warning System",
     "EQUIPMENT_MYSTICSITEMS_SIRENPOLE_PICKUP": "Deploy a Siren Pole that simulates a Teleporter event.",
     "EQUIPMENT_MYSTICSITEMS_SIRENPOLE_DESC": "Deploy a Siren Pole that <style=cIsUtility>acts as a Teleporter, triggering any On Teleporter Event effects</style>, and summons weak enemies at every {WaveSpawnInterval}% charged. Takes <style=cIsUtility>{ChargeTime}s</style> to charge.\r\n\r\nCannot be used if an uncharged Siren Pole already exists or if a Teleporter event is in progress.",
+    "EQUIPMENT_MYSTICSITEMS_SIRENPOLE_LORE": "\"Captain!\" - screamed the soldier at the top of his lungs.\r\n\r\nThe captain, not turning away his puzzled look from the siren that oddly didn't make any audible noise despite being turned on, calmly replied: \"Yeah?\"\r\n\r\n\"Look!\" - cried the soldier even louder and pointed his finger at a looming figure in the distance.\r\n\r\nThe captain turned around, saw what seemed to be a literal mountain come to life, and let out a strong \"OH [REDACTED]!\"",
 
     "EQUIPMENT_MYSTICSITEMS_MECHANICALARM_NAME": "Mechanical Arm",
-    "EQUIPMENT_MYSTICSITEMS_MECHANICALARM_PICKUP": "Swing in front, dealing more damage with each Critical Strike dealt prior to activation.",
-    "EQUIPMENT_MYSTICSITEMS_MECHANICALARM_DESC": "Critical Strike chance is increased by <style=cIsDamage>{BaseCrit}%</style> while carrying this equipment.\r\n\r\nSwing in front for <style=cIsDamage>{Damage}% damage + {DamageBonusPerCharge}% damage for each Critical Strike dealt prior to activation</style>.",
+    "EQUIPMENT_MYSTICSITEMS_MECHANICALARM_PICKUP": "Swing in front, dealing more damage with each Critical Strike dealt during equipment cooldown.",
+    "EQUIPMENT_MYSTICSITEMS_MECHANICALARM_DESC": "Critical Strike chance is increased by <style=cIsDamage>{BaseCrit}%</style> while carrying this equipment.\r\n\r\nSwing in front for <style=cIsDamage>{Damage}% damage + {DamageBonusPerCharge}% damage for each Critical Strike dealt while equipment is on cooldown</style>.",
     "EQUIPMENT_MYSTICSITEMS_MECHANICALARM_LORE": "UES Refund Request #793045\r\n\r\nRefund: 701***** Robot Cosplay Costume Gameshow Dice - 4,000 Credits\r\nTotal: 3,600 Credits will be refunded to your wallet\r\n\r\nReason: My package was not delivered\r\nNotes:\r\nThe arms are missing. I would also like to know why you have not replied to the previous two refund requests of this delivery that have been written 3 and 6 years ago respectively.",
 
     "EQUIPMENT_MYSTICSITEMS_OMARHACKTOOL_NAME": "From Omar With Love", // [Omar Faruk's developer item]
@@ -198,10 +208,11 @@
     "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_NAME": "Ratio Equalizer",
     "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_PICKUP": "Make the current health percentage of <color=#FF7F7F>ALL nearby characters</color> equal to yours.",
     "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_DESC": "Make the current health percentage of all characters in a {Radius}m radius equal to yours.",
+    "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_LORE": "Brother, your creative vision is admittedly invigorating, yet I cannot allow you to create without my supervision.\r\n\r\nYour curiousity has inspired you to create a new compound. The quality, and the properties of it are determined by the ratios of the compounds which comprise it. The more the ratios deviate, the more volatile the resulting compound is, the less it maintains form.\r\n\r\nI can see that your creation consist of... An abundance of every single basic component. It holds no form, and cannot be used to create. Its only purpose is war.\r\n\r\n... \"Chaos?\"",
 
     "EQUIPMENT_MYSTICSITEMS_GATECHALICE_NAME": "Gate Chalice", // [The word "gate" here refers to the teleporters that Mithrix and Providence created. They call them "gates" in the vanilla logbook entries (specifically, A Moment, Fractured (MAP_MYSTERYSPACE_LORE), A Moment, Whole (MAP_LIMBO_LORE), Commencement (MAP_MOON_LORE))]
-    "EQUIPMENT_MYSTICSITEMS_GATECHALICE_PICKUP": "Instantly teleport to the next stage... <color=#FF7F7F>BUT lose {ItemsToDestroy} items.</color>",
-    "EQUIPMENT_MYSTICSITEMS_GATECHALICE_DESC": "Teleports to the next stage and <style=cIsUtility>removes {ItemsToDestroy} random items</style>.",
+    "EQUIPMENT_MYSTICSITEMS_GATECHALICE_PICKUP": "Instantly teleport to the next stage. You will save some time, <color=#FF7F7F>BUT lose out on items from unopened chests...</color>",
+    "EQUIPMENT_MYSTICSITEMS_GATECHALICE_DESC": "Teleports to the next stage. Can be used to save time, <style=cIsUtility>but you risk becoming underpowered from skipping stages with unopened chests</style>.",
 
     "EQUIPMENT_MYSTICSITEMS_FRAGILEMASK_NAME": "Fragile Mask",
     "EQUIPMENT_MYSTICSITEMS_FRAGILEMASK_PICKUP": "Use to toggle. While active, damage is {DamageMultiplier}x higher, <color=#FF7F7F>BUT you die from any damage</color>.",
@@ -210,7 +221,7 @@
 
     //[ACHIEVEMENTS]
     "ACHIEVEMENT_MYSTICSITEMS_ESCAPEMOONALONE_NAME": "Last of Us", // [Reference to "The Last of Us"]
-    "ACHIEVEMENT_MYSTICSITEMS_ESCAPEMOONALONE_DESCRIPTION": "Deal the killing blow to the final boss as the sole surviving ally.",
+    "ACHIEVEMENT_MYSTICSITEMS_ESCAPEMOONALONE_DESCRIPTION": "Deal the killing blow to the final boss as the only surviving ally on your team.",
 
     "ACHIEVEMENT_MYSTICSITEMS_REPAIRBROKENSPOTTER_NAME": "Enemy Spotted", // [Reference to the "Enemy Spotted" voice command from Counter Strike]
     "ACHIEVEMENT_MYSTICSITEMS_REPAIRBROKENSPOTTER_DESCRIPTION": "Bring the Escape Pod's Fuel Array to a damp rooty jungle and repair the Broken Spotter Drone.",
@@ -222,7 +233,7 @@
     "ACHIEVEMENT_MYSTICSITEMS_FINDARCHAICMASK_DESCRIPTION": "Take the Legendary Mask on Scorched Acres in under 10 minutes before it cools off.",
 
     "ACHIEVEMENT_MYSTICSITEMS_MULTISHOPTERMINALSONLY_NAME": "Smart Shopper",
-    "ACHIEVEMENT_MYSTICSITEMS_MULTISHOPTERMINALSONLY_DESCRIPTION": "Don't spend gold anywhere except for Multishop Terminals until stage 6.",
+    "ACHIEVEMENT_MYSTICSITEMS_MULTISHOPTERMINALSONLY_DESCRIPTION": "Don't spend gold anywhere except for Multishop Terminals until stage 6. Cannot be completed while the Artifact of Sacrifice is active.",
 
     "ACHIEVEMENT_MYSTICSITEMS_HELLSPEEDRUN_NAME": "Beat the Heat", // [Reference to the "Beat the Heat" level in A Hat in Time]
     "ACHIEVEMENT_MYSTICSITEMS_HELLSPEEDRUN_DESCRIPTION": "Complete Abyssal Depths in under 3 minutes.",

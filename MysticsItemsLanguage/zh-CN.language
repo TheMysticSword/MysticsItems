@@ -35,14 +35,17 @@
     "ITEM_MYSTICSITEMS_LIMITEDARMOR_NAME": "粉色发夹", // [Hair bow]
     "ITEM_MYSTICSITEMS_LIMITEDARMOR_PICKUP": "减少之后{Hits}次受到的伤害。",
     "ITEM_MYSTICSITEMS_LIMITEDARMOR_DESC": "增加<style=cIsUtility>{Armor}护甲</style>来抵御之后<style=cIsUtility>{Hits}次受到的伤害<style=cStack>(每层+{Hits}次)</style></style>。耗尽之后，变为<style=cIsUtility>老旧发夹</style>。",
+    "ITEM_MYSTICSITEMS_LIMITEDARMOR_LORE": "- 琼现在怎么样了？\r\n\r\n- 噢，你肯定不敢信！ 她受邀参加了一个在未知星域的搜救任务，通过[数据删除]她自己！别告诉别人啊，这个 - 这是个秘密， 呵-呵-呵-。\r\n\r\n- 什——么——！？这不可能！\r\n\r\n- 不敢相信，是吧？她总是想着有一天能在UES工作。 现在她的梦想实现了！\r\n\r\n- 我真替她感到高兴！\r\n\r\n- UES还给她提供了一些高科技的设备，我们基本上什么都不用给她买。我给她买了几盒旅行用的可可。她非常喜欢。看啊！我拍了几张她穿着新装备的照片。\r\n\r\n- 全都是免费的？！UES有那么关心他们的员工吗，嗯哼？\r\n",
 
     "ITEM_MYSTICSITEMS_LIMITEDARMORBROKEN_NAME": "老旧发夹",
     "ITEM_MYSTICSITEMS_LIMITEDARMORBROKEN_PICKUP": "略微提升护甲。",
     "ITEM_MYSTICSITEMS_LIMITEDARMORBROKEN_DESC": "增加<style=cIsUtility>{BrokenArmor}护甲<style=cStack>(每层+{BrokenArmor})</style></style>。",
+    "ITEM_MYSTICSITEMS_LIMITEDARMORBROKEN_LORE": "- 船长，有紧急情况。我们与二等兵琼·玛什失去联系了。雷达突然失去了她的无线电定位。\r\n\r\n- 副官，这不是紧急情况。\r\n\r\n- 船，船长？\r\n\r\n- ...\r\n\r\n- 船长， 为什么这不是紧急情况？\r\n\r\n- 她只是忘了给她的防护服充电。只要她充了电，她的定位器就会重新上线。\r\n\r\n- 船长，定位器最多可工作360天，我们在这里只有21天。除非我们给了她一件电量严重不足的-\r\n\r\n- 行了，副官。她自己会解决这件事的。\r\n\r\n- 船长，我们必须-\r\n\r\n- 够了！ 副官，回到你的位置上去。立刻。\r\n",
 
     "ITEM_MYSTICSITEMS_COOKIE_NAME": "巧克力曲奇", // [It's a chocolate chip cookie]
     "ITEM_MYSTICSITEMS_COOKIE_PICKUP": "延长增益，缩短减益。",
     "ITEM_MYSTICSITEMS_COOKIE_DESC": "延长增益<style=cIsUtility>{BuffDuration}秒<style=cStack>(每层+{BuffDurationPerStack}秒)</style></style>持续时间。减少减益<style=cIsUtility>{DebuffDuration}秒<style=cStack>(每层+{DebuffDuration}秒)</style></style>持续时间，不能少于1秒。",
+    "ITEM_MYSTICSITEMS_COOKIE_LORE": "<style=cMono>\r\n收到无线电消息...</style>\r\n\r\n\"...呃，我为什么要这样做？我为什么要吃了它们？只是，为什么？很明显，它们已经腐烂了！ 它们在这个该死的星球上已经好几年了! 但是它们看起来很好吃而且我饿了！ ...嗯？谁在说话... 噢！抱歉！我- 我- 呃，我不是故意的- 我不小心按了按钮！完毕！\"",
 
     "ITEM_MYSTICSITEMS_MARWANASH1_NAME": "马尔万的灰烬", // [Marwan's developer item]
     "ITEM_MYSTICSITEMS_MARWANASH1_PICKUP": "命中时造成额外伤害。在等级{UpgradeLevel12}时升级。",
@@ -78,6 +81,7 @@
     "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_NAME": "核子加速器", // [Like a particle accelerator, but "nuclear" to make it sound cool and unique]
     "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_PICKUP": "移动越快，伤害越高。",
     "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_DESC": "增加<style=cIsUtility>{PassiveSpeed}%</style>移动速度。每增加<style=cIsUtility>1%移动速度(来自物品，增益，或者其他)</style>，伤害就增加<style=cIsDamage>{Damage}% <style=cStack>(每层+{DamagePerStack}%)</style></style> 。",
+    "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_LORE": "订单：袖珍型核子加速器\r\n订单号： 18******\r\n预计送达日期： 05\/01\/2089\r\n送货模式： 高优先\r\n送货地址： [数据删除]，荒石沙漠，火星\r\n订单详情：\r\n\r\n尺寸紧凑、易于使用，每月只需充电一次 - 非常适合您的工作。\r\n\r\n使用时紧贴小腿效果最佳。是的，把它嵌在小腿上。听起来会很疼，但是，与能让敌人血流成河的辉煌胜利相比，一点点疼痛又算什么呢？我说得对吗\r\n",
 
     "ITEM_MYSTICSITEMS_EXTRASHRINEUSE_NAME": "黑石", // [A reference to Monoliths from Space Odyssey]
     "ITEM_MYSTICSITEMS_EXTRASHRINEUSE_PICKUP": "所有的神龛可以多使用一次。",
@@ -92,7 +96,7 @@
     "ITEM_MYSTICSITEMS_MYSTICSWORD_NAME": "神秘剑", // [TheMysticSword's developer item]
     "ITEM_MYSTICSITEMS_MYSTICSWORD_PICKUP": "击败强大的敌人会永久提升伤害。",
     "ITEM_MYSTICSITEMS_MYSTICSWORD_DESC": "每次击败超过<style=cIsHealth>{HealthThreshold}点基础生命值<style=cIsUtility>(忽略精英敌人的生命值加成，图鉴中可查看)</style></style>的敌人时，永久增加<style=cIsDamage>{Damage}% <style=cStack>(每层+{DamagePerStack}%)</style></style>伤害，最多增加<style=cIsDamage>{MaxDamage}% <style=cStack>(每层+{MaxDamagePerStack}%)</style></style>。",
-    "ITEM_MYSTICSITEMS_MYSTICSWORD_LORE": "\"Ornate pommel - for style.\r\n\r\nFluted grip - for control.\r\n\r\nThick angular guard - for power.\r\n\r\nSingle-edged blades - for concentration.\r\n\r\nTwo blades - for, uhh...\"\r\n\r\n\"Okay, okay, I get it, you *really* like your new prop sword.\"",
+    "ITEM_MYSTICSITEMS_MYSTICSWORD_LORE": "\"华丽的剑柄 - 为了时尚。\r\n\r\n剑槽 - 更容易控制。\r\n\r\n厚重的护角 - 更有力量感。\r\n\r\n单片的刀刃 - 力量更集中。\r\n\r\n双刃刀尖 - 为了，呃...\"\r\n\r\n\"好吧好吧，我明白了，你 *真的* 很喜欢你的道具剑。\"",
 
     "ITEM_MYSTICSITEMS_RHYTHM_NAME": "节拍器",
     "ITEM_MYSTICSITEMS_RHYTHM_PICKUP": "每{Interval}秒，使用你的非主要技能以跟上节拍，获得暴击率提升。错过节拍会使增益清零。",
@@ -101,10 +105,12 @@
     "ITEM_MYSTICSITEMS_ELITEPOTION_NAME": "失败实验",
     "ITEM_MYSTICSITEMS_ELITEPOTION_PICKUP": "击败精英敌人会将其元素效果传播给附近敌人。",
     "ITEM_MYSTICSITEMS_ELITEPOTION_DESC": "击败一个精英敌人会将其元素效果应用给附近<style=cIsUtility>{Radius}米<style=cStack>(每层+{RadiusPerStack}米)</style></style>的敌人，持续<style=cIsUtility>{Duration}秒<style=cStack>(每层+{DurationPerStack}秒)</style></style>。",
+    "ITEM_MYSTICSITEMS_ELITEPOTION_LORE": "<style=cMono>电子日志恢复完成，现在阅读？ Y/N\r\n\r\n> Y</style>\r\n\r\n<style=cMono>00134></style>研究人员终于杀死了一只\"精英\"利莫里亚，然后将尸体带回了实验室。 自然状态下的利莫里亚不会长角，但是这只长了一对角。 它的皮肤是红色的，与其他紫色的利莫里亚并不相似，并且它出乎意料的有很高的温度。非常有意思。\r\n\r\n<style=cMono>00135></style>研究人员带回了另一只。尽管前一只利莫里亚是热的，这只摸起来却相当冷。 冰刺从它的头上长出来，形成了一个完美的\"皇冠\"形状，就像是被某人或者某物刻意制造的一样。我需要进一步调查。\r\n\r\n<style=cMono>00192></style>难以置信。对利莫里亚的文字广泛研究之后我得出结论， 它们崇拜各种\"神\"，这些神帮助利莫里亚来报复我们的军队。也许我能获得这种力量。幸运的是，在冷藏室其他的精英利莫里亚的尸体可以研究。\r\n\r\n<style=cMono>00204></style>它们的的血液。这是\"灵液\"。一定是这样！为什么我没有早点想到！我可以从这里提取\"神秘的力量\"，或者至少是其中一小部分。\r\n\r\n<style=cMono>00205></style>如果我把这些样品混合起来会怎么样？\r\n\r\n<style=cMono>> 找不到更多条目，结束程序？ Y/N\r\n\r\n> _</style>\r\n\r\n",
 
     "ITEM_MYSTICSITEMS_DRONEWIRES_NAME": "备用线缆",
     "ITEM_MYSTICSITEMS_DRONEWIRES_PICKUP": "你和你的无人机在战斗中迸射火花。",
     "ITEM_MYSTICSITEMS_DRONEWIRES_DESC": "处于战斗状态时，你和你的无人机不时地掉落<style=cIsDamage>电火花</style>。火花在接触到敌人时造成<style=cIsDamage>{Damage}% <style=cStack>(每层+{DamagePerStack}%)</style></style>的基础伤害。",
+    "ITEM_MYSTICSITEMS_DRONEWIRES_LORE": "\"永远要带着比预计更多的电线！\" - 她以前经常这么说。\r\n\r\n然后看看现在她变成什么样了，现在她是UES [数据删除]工程团队的首席领导，修理昂贵的军用机器人，集结一支机械部队，毫不手软的杀死挡在她路上的任何人，不论是利莫里亚，没有生命的岩石建筑，还是一个愚蠢到想阻止这个装着扭曲残暴灵魂的人类的曾经的同伴。\r\n\r\n...不, 不是人类，她身上已经没有人性了。只有电路，电线，和一个病态的头脑。",
 
     "ITEM_MYSTICSITEMS_DEATHCEREMONY_NAME": "毁灭仪式",
     "ITEM_MYSTICSITEMS_DEATHCEREMONY_PICKUP": "暴击会标记敌人，被标记的敌人共享受到的伤害。",
@@ -128,7 +134,7 @@
 
     "ITEM_MYSTICSITEMS_DASHERDISC_NAME": "及时动作", // [A reference to the Dasher Disc from DISC ROOM.]
     "ITEM_MYSTICSITEMS_DASHERDISC_PICKUP": "低生命值时获得短暂无敌，随时间充能。",
-    "ITEM_MYSTICSITEMS_DASHERDISC_DESC": "低于<style=cIsHealth>25%生命值</style>时隐去身形，获得<style=cIsUtility>{Duration}秒</style>的无敌效果。充能时间 <style=cIsUtility>{Cooldown}秒 <style=cStack>(每层-{CooldownReductionPerStack}%)</style></style>。",
+    "ITEM_MYSTICSITEMS_DASHERDISC_DESC": "低于<style=cIsHealth>25%生命值</style>时隐去身形，获得<style=cIsUtility>{Duration}秒</style>的无敌效果，增加<style=cIsUtility>{MoveSpeedBuff}%</style>移动速度。充能时间<style=cIsUtility>{Cooldown}秒<style=cStack>(每层-{CooldownReductionPerStack}%)</style></style>.",
     "ITEM_MYSTICSITEMS_DASHERDISC_LORE": "订单：锯盘\r\n订单号： 20******\r\n预计送达日期： 10\/22\/2089\r\n送货模式：高优先级/生化用品\r\n送货地址：木星， Giant Disc\r\n订单备注：\r\n\r\n发现这只圆盘在我们实验室四周游荡，不要在它面前快速移动。\r\n",
 
     "ITEM_MYSTICSITEMS_TREASUREMAP_NAME": "藏宝图", // [RA & DEC in the lore entry are "right ascension" and "declination". That section describes the space coordinates to the hidden treasure cache.]
@@ -144,6 +150,7 @@
     "ITEM_MYSTICSITEMS_BACKPACK_NAME": "旅者背包",
     "ITEM_MYSTICSITEMS_BACKPACK_PICKUP": "所有的技能增加{Charges}次充能。",
     "ITEM_MYSTICSITEMS_BACKPACK_DESC": "所有技能增加<style=cIsUtility>{Charges}次充能<style=cStack>(每层+{ChargesPerStack})</style></style>。减少所有技能<style=cIsUtility>{CDR}%</style>的冷却时间。",
+    "ITEM_MYSTICSITEMS_BACKPACK_LORE": "- ...但现在，我内心的声音似乎在告诉我... \"你不能这么做。\"\r\n\r\n- 哦，这是变化的迹象，亲爱的。\r\n\r\n- 这是什么意思？\r\n\r\n- 这就是我们对改变的反应。通常，我们不习惯改变，我们试图回到过去。这很正常，你不用担心。不要让这种感觉占据了你，但也不要忽视它。\r\n\r\n- 所以...我要继续前进吗？\r\n\r\n- 做你认为正确的事，亲爱的。\r\n\r\n- ... 谢谢你，妈妈。",
 
     "ITEM_MYSTICSITEMS_VYRAELCOMMANDMENTS_NAME": "维雷尔的十条戒律", // [Vyrael's developer item]
     "ITEM_MYSTICSITEMS_VYRAELCOMMANDMENTS_PICKUP": "每10次攻击，触发所有“击中时触发”效果",
@@ -161,6 +168,7 @@
     "ITEM_MYSTICSITEMS_MOONGLASSES_NAME": "月亮眼镜", // [Wordplay on "sunglasses"]
     "ITEM_MYSTICSITEMS_MOONGLASSES_PICKUP": "增加暴击伤害... <color=#FF7F7F>但是会减少暴击率</color>\n。",
     "ITEM_MYSTICSITEMS_MOONGLASSES_DESC": "增加<style=cIsDamage>{CritDamageIncrease}% <style=cStack>(每层+{CritDamageIncreasePerStack}%)</style></style>暴击伤害， <style=cIsUtility>减半你的暴击率</style>。",
+    "ITEM_MYSTICSITEMS_MOONGLASSES_LORE": "<style=cMono>\r\n========================================\r\n====   MyBabel翻译机器   ====\r\n====     [Version 12.45.1.009 ]   ======\r\n========================================\r\n训练中� <100000000 次循环>\r\n训练中� <1453461 次循环>\r\n完成！\n显示结果？ Y/N\r\nY\r\n================================</style>\r\n我给 [尤拉]眼镜。 尤拉展望未来。\r\n\r\n<他>会给 [尤拉] 奖励。 [尤拉] 把眼镜拿走。 [尤拉] 感到兴奋，工作更努力。\r\n\r\n我放大了镜片的倍数。[尤拉] 展望更远的未来。\r\n\r\n[尤拉] 快速把眼镜拿走。 [尤拉] 不再兴奋。\r\n\r\n<他>走进房间。 [尤拉] 感到恐惧。\r\n\r\n我展望更远的未来。我快速把眼镜拿走。 <他> 在场。我感到恐惧。\r\n<style=cMono>\r\n================================\r\n",
 
     "ITEM_MYSTICSITEMS_REGENANDDIFFICULTYSPEED_NAME": "时空谜题",
     "ITEM_MYSTICSITEMS_REGENANDDIFFICULTYSPEED_PICKUP": "增加所有友方的自然生命恢复速度... <color=#FF7F7F>但是游戏难度增加的更快</color>。\n",
@@ -180,14 +188,16 @@
     "EQUIPMENT_MYSTICSITEMS_MICROPHONE_NAME": "老式麦克风",
     "EQUIPMENT_MYSTICSITEMS_MICROPHONE_PICKUP": "使前方的敌人震耳欲聋，减少大量属性值。在空中使用时会把你向后推去。",
     "EQUIPMENT_MYSTICSITEMS_MICROPHONE_DESC": "使用后使你前方的敌人<style=cIsDamage>震耳欲聋</style><style=cIsUtility>{Duration}秒</style>，减少他们<style=cIsUtility>{MoveSpeedReduction}%</style>的移动速度， <style=cIsUtility>{ArmorReduction}</style>护甲，<style=cIsDamage>{AttackSpeedReduction}%</style>攻击速度和<style=cIsDamage>{DamageReduction}%</style>伤害。 使用时若处于空中，则会把你<style=cIsUtility>向后推去</style>。",
+    "EQUIPMENT_MYSTICSITEMS_MICROPHONE_LORE": "- 为什么你还这么做？\r\n\r\n- 做什么？\r\n\r\n-你知道的，所有的这些... 现场演出...演唱会... 这些东西。\r\n\r\n- 噢，你不喜欢现场演出的演唱会吗，吉米？之前怎么不告诉我？\r\n\r\n- 不，不是，我非常喜欢！真的。 我只是不明白你为什么不开一个线上虚拟演唱会。你的歌很棒，我相信你在虚拟演唱会上一定会很受欢迎的！\r\n\r\n- 哦吼吼吼！这话过奖了，年轻人！ 但是！我这样并不是为了出名，我这么做是因为我这辈子大部分时间都在这么做。对于像我这样的老家伙来说，转向虚拟演唱会实在是跨度太大了。呵呵。 \"被困在过去,\" 可能有人会这么说。\r\n\r\n- ...我明白了，但是...你真的不想尝试一下新事物吗？举行一场虚拟演唱会，尝试改变一下你的固执？ 向那位老太太证明你有能力改变？让她知道谁才是老板？只要你说\"好啊！\"，我会帮你安排好一切的！\r\n\r\n- 嗯...你看... 也许你是对的。好啊！让我们嗨起来吧！\r\n\r\n- 真的吗？！\r\n\r\n- 哈哈哈，当然不！我只是在开玩笑！\r\n",
 
     "EQUIPMENT_MYSTICSITEMS_SIRENPOLE_NAME": "预警系统",
     "EQUIPMENT_MYSTICSITEMS_SIRENPOLE_PICKUP": "部署一个模拟传送事件的警报器。",
     "EQUIPMENT_MYSTICSITEMS_SIRENPOLE_DESC": "部署一个警报器，<style=cIsUtility>模拟传送事件，触发所有传送事件效果</style>，每{WaveSpawnInterval}%充能时召唤一些弱小的敌人。需要<style=cIsUtility>{ChargeTime}秒</style>完全充能。\r\n\r\n在警报器存在时或进行传送事件时无法使用。",
+    "EQUIPMENT_MYSTICSITEMS_SIRENPOLE_LORE": "\"船长！\" - 士兵尖声大叫 。\r\n\r\n船长没有把困惑的目光从警报上移开，警笛虽然打开了，但却奇怪地没有发出任何声音，他平静地回复道： \"什么事？\"\r\n\r\n\"看那边！\" - 士兵更大声地喊道，用手指着远处一个隐约可见的影子。\r\n\r\n船长转过身，看到一座的山，如字面意义上的动起来了，然后发出了一声强有力的\"卧[数据删除]！\"",
 
     "EQUIPMENT_MYSTICSITEMS_MECHANICALARM_NAME": "机械臂",
-    "EQUIPMENT_MYSTICSITEMS_MECHANICALARM_PICKUP": "向前方挥动机械臂，激活前的每一次暴击都会增加伤害。",
-    "EQUIPMENT_MYSTICSITEMS_MECHANICALARM_DESC": "持有该装备时增加<style=cIsDamage>{BaseCrit}%</style>暴击。\r\n\r\n向前方挥动机械臂，造成<style=cIsDamage>{Damage}%伤害 + {DamageBonusPerCharge}%伤害(取决于激活前的暴击次数)</style>。",
+    "EQUIPMENT_MYSTICSITEMS_MECHANICALARM_PICKUP": "向前方挥动机械臂，装备处于冷却时的每一次暴击都会增加下一次的伤害。",
+    "EQUIPMENT_MYSTICSITEMS_MECHANICALARM_DESC": "持有该装备时增加<style=cIsDamage>{BaseCrit}%</style>暴击。\r\n\r\n向前方挥动机械臂，造成<style=cIsDamage>{Damage}%伤害 + {DamageBonusPerCharge}%伤害(取决于装备处于冷却时的暴击次数)</style>.",
     "EQUIPMENT_MYSTICSITEMS_MECHANICALARM_LORE": "UES退款申请 #793045\r\n\r\n退款： 701***** 机器人角色扮演服装 - 4,000 信用点\r\n总计： 3,600 信用点 将会退回您的钱包\r\n\r\n理由：我的包裹没有送到\r\n详情：\r\n手臂不见了。我还想知道为什么你没有回复前两次分别在3年前和6年前提出的退款请求。",
 
     "EQUIPMENT_MYSTICSITEMS_OMARHACKTOOL_NAME": "奥马尔的爱", // [Omar Faruk's developer item]
@@ -198,10 +208,12 @@
     "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_NAME": "比率均衡音叉",
     "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_PICKUP": "使<color=#FF7F7F>周围所有角色</color>的生命值百分比与你相等。",
     "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_DESC": "使周围{Radius}米内所有角色的生命值百分比等同于你的当前生命值百分比。",
+    "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_LORE": "兄弟，你的创意性的确令人振奋，但我不能允许你在没有我监督的情况下进行创作。\r\n\r\n你的好奇心启发你创造了一种新化合物。它的质量和性质由组成它的化合物的比例决定。比例偏差越大，生成的化合物越容易挥发，其保持形态的能力就越弱。\r\n\r\n我可以看到你的作品包括...很多组成部分。它不具有任何形式，不能用于创造。它的唯一目的是战争...\r\n\r\n... \"混沌？\"",
 
     "EQUIPMENT_MYSTICSITEMS_GATECHALICE_NAME": "传送圣杯", // [The word "gate" here refers to the teleporters that Mithrix and Providence created. They call them "gates" in the vanilla logbook entries (specifically, A Moment, Fractured (MAP_MYSTERYSPACE_LORE), A Moment, Whole (MAP_LIMBO_LORE), Commencement (MAP_MOON_LORE))]
-    "EQUIPMENT_MYSTICSITEMS_GATECHALICE_PICKUP": "立刻将你传送至下一关卡... <color=#FF7F7F>但是丢失{ItemsToDestroy}件物品。</color>",
-    "EQUIPMENT_MYSTICSITEMS_GATECHALICE_DESC": "传送至下个关卡，<style=cIsUtility>随机移除{ItemsToDestroy}个物品</style>。",
+    "EQUIPMENT_MYSTICSITEMS_GATECHALICE_PICKUP": "立刻将你传送至下一关卡。可以节省时间，<color=#FF7F7F>但是会失去潜在的尚未打开的箱子...</color>",
+    "EQUIPMENT_MYSTICSITEMS_GATECHALICE_DESC_OLD": "传送至下个关卡，<style=cIsUtility>随机移除{ItemsToDestroy}个物品</style>。",
+    "EQUIPMENT_MYSTICSITEMS_GATECHALICE_DESC": "传送至下个关卡，可以节省时间，<style=cIsUtility>但是失去潜在的尚未打开的箱子可能会使你自身的强度不足</style>。",
 
     "EQUIPMENT_MYSTICSITEMS_FRAGILEMASK_NAME": "易碎面具",
     "EQUIPMENT_MYSTICSITEMS_FRAGILEMASK_PICKUP": "使用以切换。激活时，伤害增加{DamageMultiplier}倍， <color=#FF7F7F>但是受到伤害会立即死亡</color>。",
@@ -210,7 +222,7 @@
 
     //[ACHIEVEMENTS]
     "ACHIEVEMENT_MYSTICSITEMS_ESCAPEMOONALONE_NAME": "最后生还", // [Reference to "The Last of Us"]
-    "ACHIEVEMENT_MYSTICSITEMS_ESCAPEMOONALONE_DESCRIPTION": "作为唯一幸存的友方，给予一个boss最后一击。",
+    "ACHIEVEMENT_MYSTICSITEMS_ESCAPEMOONALONE_DESCRIPTION": "作为唯一幸存的友方，给予最终boss最后一击。",
 
     "ACHIEVEMENT_MYSTICSITEMS_REPAIRBROKENSPOTTER_NAME": "发现敌情", // [Reference to the "Enemy Spotted" voice command from Counter Strike]
     "ACHIEVEMENT_MYSTICSITEMS_REPAIRBROKENSPOTTER_DESCRIPTION": "把逃生舱的燃料电池带到破碎林地，修理坏掉的侦察机。",
@@ -222,7 +234,7 @@
     "ACHIEVEMENT_MYSTICSITEMS_FINDARCHAICMASK_DESCRIPTION": "10分钟内在枯萎之地找到传奇面具。",
 
     "ACHIEVEMENT_MYSTICSITEMS_MULTISHOPTERMINALSONLY_NAME": "聪明的顾客",
-    "ACHIEVEMENT_MYSTICSITEMS_MULTISHOPTERMINALSONLY_DESCRIPTION": "除了多重商店终端，不把黄金花在其他任何地方直到关卡6。",
+    "ACHIEVEMENT_MYSTICSITEMS_MULTISHOPTERMINALSONLY_DESCRIPTION": "除了多重商店终端，不把黄金花在其他任何地方直到关卡6。牺牲神器激活时无法完成。",
 
     "ACHIEVEMENT_MYSTICSITEMS_HELLSPEEDRUN_NAME": "炽热节拍", // [Reference to the "Beat the Heat" level in A Hat in Time]
     "ACHIEVEMENT_MYSTICSITEMS_HELLSPEEDRUN_DESCRIPTION": "在三分钟内完成深渊关卡。",
