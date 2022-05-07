@@ -19,6 +19,8 @@ namespace MysticsItems.Items
             "Hits required for triggering this item's effect. (Note: the number of hits won't be changed in the item's description.)"
         );
 
+        public static float chanceIncreaseOnProc = 5000f;
+
         public static GameObject procVFX;
 
         public override void OnLoad()
@@ -101,8 +103,14 @@ namespace MysticsItems.Items
                         {
                             component.hitCount -= (float)hits;
                             component.bonusActive++;
+
+                            attackerInfo.body.crit /= chanceIncreaseOnProc;
+
                             for (var i = 0; i < itemCount; i++)
                                 GlobalEventManager.instance.OnHitEnemy(damageInfo, victimInfo.gameObject);
+
+                            attackerInfo.body.crit *= chanceIncreaseOnProc;
+
                             component.bonusActive--;
                             component.playEffect = true;
                         }
@@ -117,11 +125,11 @@ namespace MysticsItems.Items
             {
                 var body = master.GetBody();
                 var component = body.GetComponent<MysticsItemsVyraelCommandmentsHelper>();
-                if (component && component.bonusActive > 0) percentChance *= 100f;
+                if (component && component.bonusActive > 0) percentChance *= chanceIncreaseOnProc;
             }
             return orig(percentChance, master);
         }
-
+        
         public class MysticsItemsVyraelCommandmentsHelper : MonoBehaviour
         {
             public float hitCount = 0;
