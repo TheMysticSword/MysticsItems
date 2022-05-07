@@ -20,7 +20,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> baseCrit = new ConfigurableValue<float>(
             "Item: Devil s Cry",
             "BaseCrit",
-            5f,
+            10f,
             "Critical strike chance from the first stack of this item",
             new System.Collections.Generic.List<string>()
             {
@@ -30,7 +30,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<int> critInterval = new ConfigurableValue<int>(
             "Item: Devil s Cry",
             "CritInterval",
-            5,
+            9,
             "Every X crits, this item will trigger",
             new System.Collections.Generic.List<string>()
             {
