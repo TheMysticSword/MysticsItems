@@ -26,18 +26,6 @@ namespace MysticsItems.Equipment
 
         public static GameObject itemDestroyEffectPrefab;
 
-        public static ConfigurableValue<int> itemsToDestroy = new ConfigurableValue<int>(
-            "Equipment: Gate Chalice",
-            "ItemsToDestroy",
-            3,
-            "Amount of random items to remove on use",
-            new List<string>()
-            {
-                "EQUIPMENT_MYSTICSITEMS_GATECHALICE_PICKUP",
-                "EQUIPMENT_MYSTICSITEMS_GATECHALICE_DESC"
-            }
-        );
-
         public static Dictionary<string, List<string>> destinationOverrides = new Dictionary<string, List<string>>()
         {
             { "limbo", new List<string>() { "moon2" } },
@@ -401,6 +389,7 @@ namespace MysticsItems.Equipment
                 GameObject sceneExit = Object.Instantiate(sceneExitControllerObject, characterBody.corePosition, Quaternion.identity);
                 sceneExit.GetComponent<MysticsItemsGateChaliceSceneExit>().attach = characterBody.gameObject.transform;
 
+                /*
                 if (equipmentSlot.inventory)
                 {
                     List<ItemIndex> list = equipmentSlot.inventory.itemAcquisitionOrder;
@@ -425,6 +414,7 @@ namespace MysticsItems.Equipment
                         }
                     }
                 }
+                */
                 return true;
             }
             if (SceneCatalog.mostRecentSceneDef) {
