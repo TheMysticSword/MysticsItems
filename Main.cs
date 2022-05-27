@@ -29,7 +29,7 @@ namespace MysticsItems
     {
         public const string PluginGUID = "com.themysticsword.mysticsitems";
         public const string PluginName = "MysticsItems";
-        public const string PluginVersion = "2.0.13";
+        public const string PluginVersion = "2.0.14";
 
         internal static BepInEx.Logging.ManualLogSource logger;
         internal static PluginInfo pluginInfo;
