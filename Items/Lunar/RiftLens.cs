@@ -96,7 +96,6 @@ namespace MysticsItems.Items
             });
 
             NetworkingAPI.RegisterMessageType<MysticsItemsRiftChest.SyncDestroyThingsOnOpen>();
-            NetworkingAPI.RegisterMessageType<MysticsItemsRiftLensBehaviour.SyncCountdown>();
         }
 
         public static System.Action<CostTypeIndex> OnRiftLensCostTypeRegister;
@@ -113,9 +112,9 @@ namespace MysticsItems.Items
                 ItemTag.CannotCopy,
                 ItemTag.OnStageBeginEffect
             };
-            MysticsItemsContent.Resources.unlockableDefs.Add(GetUnlockableDef());
             itemDef.pickupModelPrefab = PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Rift Lens/Model.prefab"));
             itemDef.pickupIconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Items/Rift Lens/Icon.png");
+            MysticsItemsContent.Resources.unlockableDefs.Add(GetUnlockableDef());
             ModelPanelParameters modelPanelParams = itemDef.pickupModelPrefab.GetComponentInChildren<ModelPanelParameters>();
             modelPanelParams.minDistance = 2;
             modelPanelParams.maxDistance = 6;
@@ -196,16 +195,7 @@ namespace MysticsItems.Items
             pp.sharedProfile = ppProfile;
             PostProcessDuration ppDuration = pp.gameObject.AddComponent<PostProcessDuration>();
             ppDuration.ppVolume = pp;
-            ppDuration.ppWeightCurve = new AnimationCurve
-            {
-                keys = new Keyframe[]
-                {
-                    new Keyframe(0f, 1f, 0f, Mathf.Tan(-45f * Mathf.Deg2Rad)),
-                    new Keyframe(1f, 0f, Mathf.Tan(135f * Mathf.Deg2Rad), 0f)
-                },
-                preWrapMode = WrapMode.Clamp,
-                postWrapMode = WrapMode.Clamp
-            };
+            ppDuration.ppWeightCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
             ppDuration.maxDuration = 1;
             ppDuration.destroyOnEnd = true;
             ppDuration.enabled = false;
@@ -222,6 +212,17 @@ namespace MysticsItems.Items
             riftChestSpawnCard.sendOverNetwork = true;
             riftChestSpawnCard.prefab = riftChest;
 
+            SceneDirector.onPrePopulateSceneServer += (sceneDirector) =>
+            {
+                foreach (CharacterMaster characterMaster in CharacterMaster.readOnlyInstancesList)
+                    if (characterMaster.teamIndex == TeamIndex.Player)
+                    {
+                        var debuffs = characterMaster.inventory.GetItemCount(MysticsItemsContent.Items.MysticsItems_RiftLensDebuff);
+                        if (debuffs > 0)
+                            characterMaster.inventory.RemoveItem(MysticsItemsContent.Items.MysticsItems_RiftLensDebuff, debuffs);
+                    }
+            };
+
             GenericGameEvents.OnPopulateScene += (rng) =>
             {
                 int riftsToSpawn = 0;
@@ -231,7 +232,6 @@ namespace MysticsItems.Items
                         int thisItemCount = characterMaster.inventory.GetItemCount(itemDef);
                         if (thisItemCount > 0)
                         {
-                            characterMaster.inventory.RemoveItem(MysticsItemsContent.Items.MysticsItems_RiftLensDebuff, characterMaster.inventory.GetItemCount(MysticsItemsContent.Items.MysticsItems_RiftLensDebuff));
                             characterMaster.inventory.GiveItem(MysticsItemsContent.Items.MysticsItems_RiftLensDebuff, baseRifts + riftsPerStack * (thisItemCount - 1));
                             riftsToSpawn += baseRifts.Value + riftsPerStack.Value * (thisItemCount - 1);
                         }
@@ -246,7 +246,6 @@ namespace MysticsItems.Items
                         }, rng));
                     }
                 }
-                MysticsItemsRiftLensBehaviour.CalculateCountdownForAll();
             };
 
             On.RoR2.CharacterBody.OnInventoryChanged += (orig, self) =>
@@ -320,9 +319,9 @@ namespace MysticsItems.Items
             public int riftsLeft = -1;
         }
 
-        public static float GetMaxCountdownForCurrentStage()
+        public static float GetMaxCountdown(CharacterBody body)
         {
-            var averageWalkSpeed = 7f * 1.45f * (1f + 0.25f * Run.instance.loopClearCount);
+            var averageWalkSpeed = body.baseMoveSpeed * body.sprintingSpeedMultiplier * (1f + 0.05f * Run.instance.stageClearCount);
             var timeBonusFlat = 10f;
 
             // smart time calculation using node path lengths
@@ -380,11 +379,10 @@ namespace MysticsItems.Items
                     }
                 }
 
-                // calculate the shortest distance to the nearest rift for each player...
-                var distanceToNearestRiftForEachPlayer = new List<float>();
-                foreach (var instance in InstanceTracker.GetInstancesList<MysticsItemsRiftLensBehaviour>())
+                // calculate the shortest distance to the nearest rift for the current player
+                var distanceToNearestRift = 1000f;
                 {
-                    var startPos = instance.body ? instance.body.corePosition : instance.transform.position;
+                    var startPos = body.corePosition;
                     var dist = Mathf.Infinity;
                     MysticsItemsRiftChest riftEnd = null;
 
@@ -427,11 +425,8 @@ namespace MysticsItems.Items
                         }
                     }
 
-                    distanceToNearestRiftForEachPlayer.Add(dist);
+                    distanceToNearestRift = dist;
                 }
-
-                // and pick the longest one out of them to compensate for the unluckiest player
-                var distanceToNearestRift = distanceToNearestRiftForEachPlayer.Count > 0 ? distanceToNearestRiftForEachPlayer.Max() : 1f;
 
                 var totalDistance = distanceToNearestRift + distanceBetweenAllRifts;
                 var calculatedCountdownTime = (totalDistance / averageWalkSpeed) + timeBonusFlat;
@@ -463,8 +458,8 @@ namespace MysticsItems.Items
                     distanceBetweenAllRifts += dist;
                 }
 
-                // calculate the shortest distance to the nearest rift for each player...
-                var distanceToNearestRiftForEachPlayer = new List<float>();
+                // calculate the shortest distance to the nearest rift for the current player
+                var distanceToNearestRift = 1000f;
                 foreach (var instance in InstanceTracker.GetInstancesList<MysticsItemsRiftLensBehaviour>())
                 {
                     var pos = instance.body ? instance.body.corePosition : instance.transform.position;
@@ -479,11 +474,8 @@ namespace MysticsItems.Items
                         }
                     }
 
-                    distanceToNearestRiftForEachPlayer.Add(dist);
+                    distanceToNearestRift = dist;
                 }
-
-                // and pick the longest one out of them to compensate for the unluckiest player
-                var distanceToNearestRift = distanceToNearestRiftForEachPlayer.Count > 0 ? distanceToNearestRiftForEachPlayer.Max() : 1f;
 
                 var totalDistance = distanceToNearestRift + distanceBetweenAllRifts;
                 // players can't always go through the shortest path due to terrain and gravity, so we'll add bonus time
@@ -497,10 +489,11 @@ namespace MysticsItems.Items
         {
             public int riftsLeft = 0;
             public int riftsTotal = 0;
-            public float countdownTimer = 0;
+            public float maxCountdown = 150f;
+            public float countdownTimer = 150f;
             public bool diedFromTimer = false;
 
-            public bool nearNodes = false;
+            public bool nearNodes = true;
             public float nearNodeCheckTimer = 0;
             public float nearNodeCheckDuration = 1f;
 
@@ -517,70 +510,13 @@ namespace MysticsItems.Items
                 UpdateItemBasedInfo();
                 CalculateCountdown();
                 diedFromTimer = false;
-                nearNodes = true;
             }
-
-            public float maxCountdown = 150f;
 
             public void CalculateCountdown()
             {
-                if (!NetworkServer.active) return;
-
-                var newCountdownTime = GetMaxCountdownForCurrentStage();
+                var newCountdownTime = GetMaxCountdown(body);
+                countdownTimer += maxCountdown - newCountdownTime;
                 maxCountdown = newCountdownTime;
-                countdownTimer = maxCountdown;
-
-                new SyncCountdown(gameObject.GetComponent<NetworkIdentity>().netId, newCountdownTime).Send(NetworkDestination.Clients);
-            }
-
-            public static void CalculateCountdownForAll()
-            {
-                if (!NetworkServer.active) return;
-                foreach (var component in InstanceTracker.GetInstancesList<MysticsItemsRiftLensBehaviour>())
-                    component.CalculateCountdown();
-            }
-
-            public class SyncCountdown : INetMessage
-            {
-                NetworkInstanceId objID;
-                float maxCountdown;
-
-                public SyncCountdown()
-                {
-                }
-
-                public SyncCountdown(NetworkInstanceId objID, float maxCountdown)
-                {
-                    this.objID = objID;
-                    this.maxCountdown = maxCountdown;
-                }
-
-                public void Deserialize(NetworkReader reader)
-                {
-                    objID = reader.ReadNetworkId();
-                    maxCountdown = reader.ReadSingle();
-                }
-
-                public void OnReceived()
-                {
-                    if (NetworkServer.active) return;
-                    GameObject obj = Util.FindNetworkObject(objID);
-                    if (obj)
-                    {
-                        MysticsItemsRiftLensBehaviour component = obj.GetComponent<MysticsItemsRiftLensBehaviour>();
-                        if (component)
-                        {
-                            component.countdownTimer += maxCountdown - component.maxCountdown;
-                            component.maxCountdown = maxCountdown;
-                        }
-                    }
-                }
-
-                public void Serialize(NetworkWriter writer)
-                {
-                    writer.Write(objID);
-                    writer.Write(maxCountdown);
-                }
             }
 
             public void Update()
@@ -597,7 +533,8 @@ namespace MysticsItems.Items
                         }
                     }
                 }
-                else {
+                else
+                {
                     if (riftsLeft > 0)
                     {
                         countdownTimer -= Time.deltaTime;
