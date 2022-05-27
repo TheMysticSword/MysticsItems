@@ -10,6 +10,8 @@ namespace MysticsItems.SoftDependencies
         private static void AddItemsToFakeInventoryBlacklist()
         {
             TILER2.FakeInventory.blacklist.Add(MysticsItemsContent.Items.MysticsItems_MarwanAsh1);
+            TILER2.FakeInventory.blacklist.Add(MysticsItemsContent.Items.MysticsItems_MarwanAsh2);
+            TILER2.FakeInventory.blacklist.Add(MysticsItemsContent.Items.MysticsItems_MarwanAsh3);
         }
     }
 }
