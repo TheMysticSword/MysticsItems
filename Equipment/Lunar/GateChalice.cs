@@ -417,9 +417,10 @@ namespace MysticsItems.Equipment
                 */
                 return true;
             }
-            if (SceneCatalog.mostRecentSceneDef) {
+            if (SceneCatalog.mostRecentSceneDef)
+            {
                 var kvp = specialStageTeleportation.FirstOrDefault(x => x.Key == SceneCatalog.mostRecentSceneDef.baseSceneName);
-                if (!kvp.Equals(default))
+                if (!kvp.Equals(default(KeyValuePair<string, SpecialStageTeleportationInfo>)))
                 {
                     var specialStageTeleportationInfo = kvp.Value;
                     var body = equipmentSlot.characterBody;
@@ -431,7 +432,7 @@ namespace MysticsItems.Equipment
                             if (ally.body && ally.body.isPlayerControlled && !specialStageTeleportationInfo.bounds.Contains(ally.body.corePosition))
                             {
                                 if (randomPoints.Count <= 0) randomPoints.AddRange(specialStageTeleportationInfo.destinations);
-                                
+
                                 var randomPoint = RoR2Application.rng.NextElementUniform(randomPoints);
 
                                 TeleportHelper.TeleportBody(ally.body, randomPoint);
