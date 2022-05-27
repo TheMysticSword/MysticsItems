@@ -56,8 +56,8 @@ namespace MysticsItems.Equipment
             equipmentDef.name = "MysticsItems_SirenPole";
             ConfigManager.Balance.CreateEquipmentCooldownOption(equipmentDef, "Equipment: Warning System", 90f);
             equipmentDef.canDrop = true;
-            ConfigManager.Balance.CreateEquipmentEnigmaCompatibleOption(equipmentDef, "Equipment: Warning System", false);
-            ConfigManager.Balance.CreateEquipmentCanBeRandomlyTriggeredOption(equipmentDef, "Equipment: Warning System", false);
+            ConfigManager.Balance.CreateEquipmentEnigmaCompatibleOption(equipmentDef, "Equipment: Warning System", true);
+            ConfigManager.Balance.CreateEquipmentCanBeRandomlyTriggeredOption(equipmentDef, "Equipment: Warning System", true);
             equipmentDef.pickupModelPrefab = PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Equipment/Siren Pole/Model.prefab"));
             equipmentDef.pickupIconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Equipment/Siren Pole/Icon.png");
 
