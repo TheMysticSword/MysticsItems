@@ -9,7 +9,8 @@ namespace MysticsItems.Buffs
             buffDef.name = "MysticsItems_DasherDiscCooldown";
             buffDef.buffColor = UnityEngine.Color.white;
             buffDef.canStack = true;
-            buffDef.isDebuff = true;
+            buffDef.isDebuff = false;
+            buffDef.isCooldown = true;
             buffDef.iconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Buffs/DasherDiscCooldown.png");
         }
     }
