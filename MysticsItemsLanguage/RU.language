@@ -35,14 +35,17 @@
     "ITEM_MYSTICSITEMS_LIMITEDARMOR_NAME": "Миленький бантик", // [Hair bow]
     "ITEM_MYSTICSITEMS_LIMITEDARMOR_PICKUP": "Снижает урон от {Hits} ударов.",
     "ITEM_MYSTICSITEMS_LIMITEDARMOR_DESC": "Увеличивает броню на <style=cIsUtility>{Armor}</style> от <style=cIsUtility>{Hits} ударов <style=cStack>(+{Hits} ударов за шт.)</style></style>. При израсходовании превращается в <style=cIsUtility>Потрёпанный бантик (всегда увеличивает броню на {BrokenArmor} <style=cStack>(+{BrokenArmor} за шт.)</style>)</style>.",
+    "ITEM_MYSTICSITEMS_LIMITEDARMOR_LORE": "- А чем Джун теперь занимается?\r\n\r\n- Ой, ты не поверишь! Сам [УДАЛЕНО] пригласил её на спасательную миссию на Неизведанных территориях! Только никому не говори - секрет, хи-хи-хи.\r\n\r\n- Чего-о-о?! Да не может такого быть!\r\n\r\n- И я о том же! Она всегда мечтала работать в UES. И мечта сбылась!\r\n\r\n- Я так за неё рада!\r\n\r\n- А ещё UES снабдили её всякими высокотехнологичными штуковинами, так что нам ничего покупать не пришлось. Но я всё равно купила ей несколько коробок какао на дорогу. Она его любит. О, вот, смотри! Я пофоткала её в новой экипировке.\r\n\r\n- И всё это вам дали бесплатно?! UES и вправду заботятся о своих работниках, а?\r\n",
 
     "ITEM_MYSTICSITEMS_LIMITEDARMORBROKEN_NAME": "Потрёпанный бантик",
     "ITEM_MYSTICSITEMS_LIMITEDARMORBROKEN_PICKUP": "Слегка увеличивает броню.",
     "ITEM_MYSTICSITEMS_LIMITEDARMORBROKEN_DESC": "Увеличивает броню на <style=cIsUtility>{BrokenArmor} <style=cStack>(+{BrokenArmor} за шт.)</style></style>.",
+    "ITEM_MYSTICSITEMS_LIMITEDARMORBROKEN_LORE": "- Капитан. Экстренная ситуация. Мы потеряли связь с рядовой Джун Марш. Радар резко отключился от её радиолокатора.\r\n\r\n- Офицер, это не экстренно.\r\n\r\n- К-капитан?\r\n\r\n- ...\r\n\r\n- Капитан, почему это не экстренно?\r\n\r\n- Она забыла зарядить костюм. Её локатор снова заработает, как только она вспомнит об этом.\r\n\r\n- Капитан, локаторы работают 360 дней. А мы были здесь всего 21 день. Поэтому, если только мы не дали ей крайне низко заряженный-\r\n\r\n- Молчать, офицер. Она сама во всём разберётся.\r\n\r\n- Капитан, нам нужно срочно-\r\n\r\n- Молчать! Офицер, возвращайтесь в коммуникационную. Сейчас же.\r\n",
 
     "ITEM_MYSTICSITEMS_COOKIE_NAME": "Печенье с шоколадом", // [It's a chocolate chip cookie]
     "ITEM_MYSTICSITEMS_COOKIE_PICKUP": "Усиления длятся дольше, ослабления длятся меньше.",
     "ITEM_MYSTICSITEMS_COOKIE_DESC": "Увеличивает длительность положительных эффектов статуса на <style=cIsUtility>{BuffDuration} сек. <style=cStack>(+{BuffDurationPerStack} сек. за шт.)</style></style>. Сокращает длительность негативных эффектов статуса на <style=cIsUtility>{DebuffDuration} сек. <style=cStack>(+{DebuffDuration} сек. за шт.)</style></style>, не сокращает до менее 1 секунды.",
+    "ITEM_MYSTICSITEMS_COOKIE_LORE": "<style=cMono>\r\nПоступило радиосообщение...</style>\r\n\r\n\"...уф, ну вот зачем я это сделал? Зачем я их съел? Зачем?! Конечно они испорченные! Они лежали на этой поганой планете целые годы! Но они выглядели так аппетитно, а я был так голоден! ...а? Кто это сказал... Ой! Извините! Я- я- э-э, я не хотел- я нечаянно нажал на кнопку! Конец связи!\"",
 
     "ITEM_MYSTICSITEMS_MARWANASH1_NAME": "Пепел Марвана", // [Marwan's developer item]
     "ITEM_MYSTICSITEMS_MARWANASH1_PICKUP": "При попадании наносит дополнительный урон. Улучшается на уровне {UpgradeLevel12}.",
@@ -78,6 +81,7 @@
     "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_NAME": "Ядерный ускоритель", // [Like a particle accelerator, but "nuclear" to make it sound cool and unique]
     "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_PICKUP": "Чем быстрее вы передвигаетесь, тем больше урона вы наносите.",
     "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_DESC": "Увеличивает скорость передвижения на <style=cIsUtility>{PassiveSpeed}%</style>. Урон <style=cIsDamage>увеличен на {Damage}% <style=cStack>(+{DamagePerStack}% за шт.)</style></style> за каждые <style=cIsUtility>1% увеличения к скорости передвижения (от предметов, эффектов статуса и т.д.)</style>.",
+    "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_LORE": "Посылка: карманный ускоритель частиц\r\nНомер для отслеживания: 18******\r\nПримерный срок доставки: 01.05.2089\r\nСпособ доставки: приоритет\r\nАдрес доставки: [УДАЛЕНО], пустыня Шрам, Марс\r\nДетали доставки:\r\n\r\nКомпактный размер, легки в использовании, перезаряжать нужно всего раз в месяц - идеально подойдут для вашей работы.\r\n\r\nБольше всего эффективны, когда вставлены в икру ноги. Да, просто вставьте, и всё. Конечно, будет больно, но что есть небольшая потеря крови по сравнению со славной победой над реками крови мёртвых врагов, а?\r\n",
 
     "ITEM_MYSTICSITEMS_EXTRASHRINEUSE_NAME": "Чёрный монолит", // [A reference to Monoliths from Space Odyssey]
     "ITEM_MYSTICSITEMS_EXTRASHRINEUSE_PICKUP": "Все святилища можно использовать ещё раз.",
@@ -101,10 +105,12 @@
     "ITEM_MYSTICSITEMS_ELITEPOTION_NAME": "Провальный эксперимент",
     "ITEM_MYSTICSITEMS_ELITEPOTION_PICKUP": "Убийство элитного врага распространяет его эффект стихии на врагов поблизости.",
     "ITEM_MYSTICSITEMS_ELITEPOTION_DESC": "Убийство элитного врага распространяет его эффект стихии на врагов в радиусе <style=cIsUtility>{Radius}м <style=cStack>(+{RadiusPerStack}м за шт.)</style></style> на <style=cIsUtility>{Duration} сек. <style=cStack>(+{DurationPerStack} сек. за шт.)</style></style>.",
+    "ITEM_MYSTICSITEMS_ELITEPOTION_LORE": "<style=cMono>Восстановление цифрового журнала завершено. Прочесть? Y/N\r\n\r\n> Y</style>\r\n\r\n<style=cMono>00134></style> Бригаде наконец удалось убить одного из \"элитных\" лемурианцев, и они только что принесли его тело в лабораторию. У лемурианцев рога не растут естественным образом, однако у этой особи есть пара. Её кожа красная, в отличие от привычной фиолетовой кожи лемурианцев, а также исключительно горячая. Весьма интересно.\r\n\r\n<style=cMono>00135></style> Бригада принесла ещё одно тело. В то время как кожа другого лемурианца была горячей, это тело довольно холодное на ощупь. Ледяные шипы произросли из его головы и образовали \"корону\" идеальной формы, словно она была специально создана кем-то, или чем-то. Мне нужно изучить это поподробнее.\r\n\r\n<style=cMono>00192></style> Невероятно. Обширные исследования лемурианской литературы приводит меня к выводу о том, что существуют различные \"божества\", которым они поклоняются, и которые помогают им в ответной атаке против наших солдат. Может быть, мне удастся извлечь эту силу. К счастью, тела элитных лемурианцев до сих пор у меня в криостазисе.\r\n\r\n<style=cMono>00204></style> Их кровь. Их \"ихор\". Ну разумеется! Почему я раньше об этом не подумал? Я могу извлечь \"божественные силы\" оттуда, или, по крайней мере, её часть.\r\n\r\n<style=cMono>00205></style> А что будет, если я смешаю образцы?\r\n\r\n<style=cMono>> Других записей не обнаружено. Завершить работу программы? Y/N\r\n\r\n> _</style>\r\n\r\n",
 
     "ITEM_MYSTICSITEMS_DRONEWIRES_NAME": "Запасная проводка",
     "ITEM_MYSTICSITEMS_DRONEWIRES_PICKUP": "Вы и ваши дроны испускаете в бою искры, наносящие урон.",
     "ITEM_MYSTICSITEMS_DRONEWIRES_DESC": "Вы и ваши дроны периодически испускаете <style=cIsDamage>электрические искры</style> в бою. Искры наносят <style=cIsDamage>{Damage}% <style=cStack>(+{DamagePerStack}% за шт.)</style></style> базового урона при контакте с врагом.",
+    "ITEM_MYSTICSITEMS_DRONEWIRES_LORE": "\"Всегда бери больше проводки, чем нужно!\" - вот, что она всегда говорила.\r\n\r\nИ посмотрите, чем это для неё обернулось. Теперь она ведущий инженер одной из бригад UES [УДАЛЕНО], занимается починкой дорогостоящих военных ботов, накапливает массивную механическую армию, которая не побоится убить никого, кто встанет на её пути, будь то лемурианец, безжизненная каменная конструкция или соратник, у которого хватило глупости попытаться остановить это психически неуравновешенное подобие человека.\r\n\r\n...нет, не человека. В ней нет ничего человечного. Только лишь схемы, провода и гениальный дурной ум.",
 
     "ITEM_MYSTICSITEMS_DEATHCEREMONY_NAME": "Церемония погибели",
     "ITEM_MYSTICSITEMS_DEATHCEREMONY_PICKUP": "Критические попадания помечают врагов. Помеченные враги разделяют урон.",
@@ -128,7 +134,7 @@
 
     "ITEM_MYSTICSITEMS_DASHERDISC_NAME": "Своевременная экзекуция",
     "ITEM_MYSTICSITEMS_DASHERDISC_PICKUP": "Получите неуязвимость на короткое время при низком уровне здоровья. Перезаряжается со временем.",
-    "ITEM_MYSTICSITEMS_DASHERDISC_DESC": "Если уровень вашего здоровья опускается ниже <style=cIsHealth>25%</style>, вы получаете неуязвимость на <style=cIsUtility>{Duration} секунд</style>. Перезаряжается каждые <style=cIsUtility>{Cooldown} сек. <style=cStack>(-{CooldownReductionPerStack}% за шт.)</style></style>.",
+    "ITEM_MYSTICSITEMS_DASHERDISC_DESC": "Если уровень вашего здоровья опускается ниже <style=cIsHealth>25%</style>, вы получаете неуязвимость на <style=cIsUtility>{Duration} секунд</style> и передвигаетесь быстрее на <style=cIsUtility>{MoveSpeedBuff}%</style>. Перезаряжается каждые <style=cIsUtility>{Cooldown} сек. <style=cStack>(-{CooldownReductionPerStack}% за шт.)</style></style>.",
     "ITEM_MYSTICSITEMS_DASHERDISC_LORE": "Посылка: Диск-спринтер\r\nНомер для отслеживания: 20******\r\nПримерный срок доставки: 22.10.2089\r\nСпособ доставки: высокий приоритет/биологическ.\r\nАдрес доставки: Гигантский диск, Юпитер\r\nДетали доставки:\r\n\r\nНашла его бродящим по нашей лаборатории. НЕ ДЕЛАЙТЕ РЕЗКИХ ДВИЖЕНИЙ В ЕГО ПРИСУТСТВИИ\r\n",
 
     "ITEM_MYSTICSITEMS_TREASUREMAP_NAME": "Карта сокровищ", // [RA & DEC in the lore entry are "right ascension" and "declination". That section describes the space coordinates to the hidden treasure cache.]
@@ -144,6 +150,7 @@
     "ITEM_MYSTICSITEMS_BACKPACK_NAME": "Походный рюкзак",
     "ITEM_MYSTICSITEMS_BACKPACK_PICKUP": "+{Charges} заряд ко всем навыкам.",
     "ITEM_MYSTICSITEMS_BACKPACK_DESC": "Добавляет <style=cIsUtility>+{Charges} максимальный заряд <style=cStack>(+{ChargesPerStack} за шт.)</style></style> ко всем навыкам. Сокращает время перезарядки навыков на <style=cIsUtility>{CDR}%</style>.",
+    "ITEM_MYSTICSITEMS_BACKPACK_LORE": "- ...но теперь, будто мой внутренний голос говорит мне... \"У тебя ничего не получится.\"\r\n\r\n- Это признак изменений, дорогая моя.\r\n\r\n- Что ты этим имеешь в виду?\r\n\r\n- Так мы реагируем на прогресс. Порой нам трудно привыкнуть к изменениям, и мы пытаемся вернуть всё, как было. Это нормально, и тебе не следует волноваться об этом. Не давай этому чувству взять над тобой верх, но и не игнорируй его.\r\n\r\n- Значит... Мне просто надо идти вперёд?\r\n\r\n- Делай то, что считаешь верным, дорогая.\r\n\r\n- ... Спасибо, мама.",
 
     "ITEM_MYSTICSITEMS_VYRAELCOMMANDMENTS_NAME": "Десять заповедей Вираэля", // [Vyrael's developer item]
     "ITEM_MYSTICSITEMS_VYRAELCOMMANDMENTS_PICKUP": "Каждый 10 удар гарантированно активирует эффекты, срабатывающие при попадании.",
@@ -161,6 +168,7 @@
     "ITEM_MYSTICSITEMS_MOONGLASSES_NAME": "Лунные очки", // [Wordplay on "sunglasses"]
     "ITEM_MYSTICSITEMS_MOONGLASSES_PICKUP": "Урон критического удара увеличен... <color=#FF7F7F>НО вероятность критического удара вдвое уменьшена.</color>\n",
     "ITEM_MYSTICSITEMS_MOONGLASSES_DESC": "Урон от критического попадания увеличен на <style=cIsDamage>{CritDamageIncrease}% <style=cStack>(+{CritDamageIncreasePerStack}% за шт.)</style></style>. <style=cIsUtility>Вероятность критического попадания уменьшена вдвое за каждую штуку.</style>",
+    "ITEM_MYSTICSITEMS_MOONGLASSES_LORE": "<style=cMono>\r\n========================================\r\n==== Машинный переводчик МойВавилон ====\r\n=====    [Версия 12.45.1.009 ]    ======\r\n========================================\r\nТренируем� <100000000 циклов>\r\nТренируем� <1453461 циклов>\r\nЗавершено!\nВывести результат? Y/N\r\nY\r\n================================</style>\r\nЯ даю [Йоре] очки. Йора смотрит в будущее.\r\n\r\n<Он> воздаст [Йоре] хвалу. [Йора] снимает очки. [Йора] чувствует радостное волнение и работает в два раза усерднее.\r\n\r\nЯ приумножаю силу линз. [Йора] смотрит ещё дальше в будущее.\r\n\r\n[Йора] быстро снимает очки. Радость [Йоры] угасает.\r\n\r\n<Он> входит в камеру. [Йора] чувствует страх.\r\n\r\nЯ смотрю далеко в будущее. Я быстро снимаю очки. <Он> присутствует с нами в камере. Я чувствую страх.\r\n<style=cMono>\r\n================================\r\n",
 
     "ITEM_MYSTICSITEMS_REGENANDDIFFICULTYSPEED_NAME": "Головоломка Хроноса",
     "ITEM_MYSTICSITEMS_REGENANDDIFFICULTYSPEED_PICKUP": "Ускоряет регенерацию здоровья союзников... <color=#FF7F7F>НО ускоряет увеличение сложности.</color>\n",
@@ -180,14 +188,16 @@
     "EQUIPMENT_MYSTICSITEMS_MICROPHONE_NAME": "Винтажный микрофон",
     "EQUIPMENT_MYSTICSITEMS_MICROPHONE_PICKUP": "Оглушает врагов спереди, значительно снижая их характеристики. Используйте в воздухе, чтобы отбросить себя в обратном направлении.",
     "EQUIPMENT_MYSTICSITEMS_MICROPHONE_DESC": "<style=cIsDamage>Оглушает</style> врагов спереди на <style=cIsUtility>{Duration} сек.</style>, снижая скорость их передвижения на <style=cIsUtility>{MoveSpeedReduction}%</style>, броню на <style=cIsUtility>{ArmorReduction}</style>, скорость атаки на <style=cIsDamage>{AttackSpeedReduction}%</style> и урон на <style=cIsDamage>{DamageReduction}%</style>. <style=cIsUtility>Отбрасывает</style> вас назад, если использовать в воздухе.",
+    "EQUIPMENT_MYSTICSITEMS_MICROPHONE_LORE": "- Почему ты всё ещё этим занимаешься?\r\n\r\n- Чем?\r\n\r\n- Ну, знаешь, этими... всякими... живыми... концертами.\r\n\r\n- Ох, так тебе не нравятся концерты вживую, Джимми? Чего ж ты мне сразу не сказал?\r\n\r\n- Нет, нет, совсем нет, я их ОБОЖАЮ! Честно. Я просто не понимаю, почему ты не проводишь их в виртуалке. У тебя такие классные песни. Готов поспорить, ты бы стала звездой на виртуальной сцене!\r\n\r\n- Ох-хо-хо-хо! Я польщена, мой юный друг! Но-о-о, нет, я это делаю не ради славы. Я занимаюсь этим, потому что я занималась этим большую часть своей жизни. А переход на концерты в виртуальной реальности - это слишком большая перемена для старухи вроде меня. Хе-хе. \"Застряла в прошлом,\" так сказать.\r\n\r\n- ...Понимаю. Но... ты ТОЧНО уверена, что не хочешь попробовать кое-что новое для разнообразия? Провести хотя бы один виртуальный концерт, просто назло себе-упрямой? Показать этой старушке, что ты ГОТОВА к переменам? Показать ей, кто здесь босс? Просто скажи \"да\"! Я помогу тебе всё настроить!\r\n\r\n- Хм-м-м... А знаешь... Может, ты и прав. Да! Давай сделаем это! Зажжём по полной!\r\n\r\n- Серьёзно?!\r\n\r\n- Ха-ха-ха, ещё чего! Я просто пошутила!\r\n",
 
     "EQUIPMENT_MYSTICSITEMS_SIRENPOLE_NAME": "Система оповещения",
     "EQUIPMENT_MYSTICSITEMS_SIRENPOLE_PICKUP": "Устанавливает столб сирены, имитирующий событие с телепортом.",
     "EQUIPMENT_MYSTICSITEMS_SIRENPOLE_DESC": "Устанавливает столб сирены, <style=cIsUtility>действующий в качестве телепорта, активируюя ваши эффекты, срабатывающие во время события с телепортом</style>, и призывает слабых врагов за каждые {WaveSpawnInterval}% зарядки. Зарядка занимает <style=cIsUtility>{ChargeTime} сек.</style>\r\n\r\nНельзя применить, если уже установлен незаряженный столб сирены.",
+    "EQUIPMENT_MYSTICSITEMS_SIRENPOLE_LORE": "\"Капитан!\" - вскрикнул солдат во весь голос.\r\n\r\nКапитан, не отводя озадаченный взгляд от сирены, на удивление не издававшей никакого слышимого шума несмотря на то, что она была включена, тихо ответил: \"Да?\"\r\n\r\n\"Смотрите!\" - заорал солдат ещё громче и указал пальцем на угрожающую фигуру, возвышающуюся вдали.\r\n\r\nКапитан обернулся, увидел нечто, похожее на самую настоящую ожившую гору, и издал громкое \"ОХ [УДАЛЕНО]ТЬ!\"",
 
     "EQUIPMENT_MYSTICSITEMS_MECHANICALARM_NAME": "Механическая рука",
-    "EQUIPMENT_MYSTICSITEMS_MECHANICALARM_PICKUP": "Делает взмах вперёд, нанося больше урона за каждый критический удар, нанесённый до использования.",
-    "EQUIPMENT_MYSTICSITEMS_MECHANICALARM_DESC": "Вероятность критического попадания увеличена на <style=cIsDamage>{BaseCrit}%</style>, пока вы держите это снаряжение.\r\n\r\nДелает взмах вперёд на <style=cIsDamage>{Damage}% урона + {DamageBonusPerCharge}% урона за каждое критическое попадание, сделанное до использования</style>.",
+    "EQUIPMENT_MYSTICSITEMS_MECHANICALARM_PICKUP": "Делает взмах вперёд, нанося больше урона за каждый критический удар, нанесённый во время перезарядки.",
+    "EQUIPMENT_MYSTICSITEMS_MECHANICALARM_DESC": "Вероятность критического попадания увеличена на <style=cIsDamage>{BaseCrit}%</style>, пока вы держите это снаряжение.\r\n\r\nДелает взмах вперёд на <style=cIsDamage>{Damage}% урона + {DamageBonusPerCharge}% урона за каждое критическое попадание, сделанное во время перезарядки снаряжения</style>.",
     "EQUIPMENT_MYSTICSITEMS_MECHANICALARM_LORE": "Заявка UES о возврате средств #793045\r\n\r\nВозврат: 701***** Робот Косплей Костюм Телешоу Кубик - 4,000 Кредитов\r\nСумма: 3,600 Кредитов будет возвращено на ваш кошелёк\r\n\r\nПричина: Моя посылка не была доставлена\r\nЗаметки:\r\nВ комплекте не было рук. Мне бы также хотелось узнать, почему вы не ответили на предыдущие две заявки о возврате этой посылки, которые были вам отправлены 3 и 6 лет назад соответственно.",
 
     "EQUIPMENT_MYSTICSITEMS_OMARHACKTOOL_NAME": "От Омара с любовью", // [Omar Faruk's developer item]
@@ -198,10 +208,11 @@
     "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_NAME": "Уравнитель пропорций",
     "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_PICKUP": "Приравнивает процент текущего здоровья <color=#FF7F7F>ВСЕХ персонажей поблизости</color> к вашему.",
     "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_DESC": "Приравнивает процент текущего здоровья всех персонажей в радиусе {Radius}м к вашему.",
+    "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_LORE": "Брат, твоё изобретательное видение, безусловно, воодушевляет, однако я не могу позволить тебе создавать без моего наблюдения.\r\n\r\nЛюбопытство сподвигло тебя на создание нового соединения. Качество и свойства его определяются пропорциями соединений, составляющих его. Чем более пропорции отклоняются, тем менее устойчивое получается в итоге соединение, тем слабее оно сохраняет форму.\r\n\r\nВижу, твоё создание состоит из... Изобилующего количества каждого простого соединения. Оно вовсе не держит форму, и вовсе не пригодно к творению. Его единственное применение - война.\r\n\r\n... \"Хаос?\"",
 
     "EQUIPMENT_MYSTICSITEMS_GATECHALICE_NAME": "Чаша врат", // [The word "gate" here refers to the teleporters that Mithrix and Providence created. They call them "gates" in the vanilla logbook entries (specifically, A Moment, Fractured (MAP_MYSTERYSPACE_LORE), A Moment, Whole (MAP_LIMBO_LORE), Commencement (MAP_MOON_LORE))]
-    "EQUIPMENT_MYSTICSITEMS_GATECHALICE_PICKUP": "Моментально телепортирует на следующий этап... <color=#FF7F7F>НО уничтожает {ItemsToDestroy} предмета.</color>",
-    "EQUIPMENT_MYSTICSITEMS_GATECHALICE_DESC": "Телепортирует на следующий этап и <style=cIsUtility>уничтожает {ItemsToDestroy} случайных предмета</style>.",
+    "EQUIPMENT_MYSTICSITEMS_GATECHALICE_PICKUP": "Моментально телепортирует на следующий этап. Вы сэкономите время, <color=#FF7F7F>но также пропустите предметы в неоткрытых сундуках...</color>",
+    "EQUIPMENT_MYSTICSITEMS_GATECHALICE_DESC": "Телепортирует на следующий этап. Можно использовать для экономии времени, <style=cIsUtility>но при этом вы рискуете стать слабее, пропуская этапы и не открывая сундуки</style>.",
 
     "EQUIPMENT_MYSTICSITEMS_FRAGILEMASK_NAME": "Хрупкая маска",
     "EQUIPMENT_MYSTICSITEMS_FRAGILEMASK_PICKUP": "Используйте, чтобы включить или выключить. Пока эффект активен, урон увеличен в {DamageMultiplier}x раз, <color=#FF7F7F>НО вы умираете от любого урона</color>.",
@@ -210,7 +221,7 @@
 
     //[ACHIEVEMENTS]
     "ACHIEVEMENT_MYSTICSITEMS_ESCAPEMOONALONE_NAME": "Последние из нас", // [Reference to "The Last of Us"]
-    "ACHIEVEMENT_MYSTICSITEMS_ESCAPEMOONALONE_DESCRIPTION": "Нанесите последний удар финальному боссу в качестве единственного выжившего союзника.",
+    "ACHIEVEMENT_MYSTICSITEMS_ESCAPEMOONALONE_DESCRIPTION": "Нанесите последний удар финальному боссу в качестве единственного выжившего союзника в своей команде.",
 
     "ACHIEVEMENT_MYSTICSITEMS_REPAIRBROKENSPOTTER_NAME": "Противник обнаружен", // [Reference to the "Enemy Spotted" voice command from Counter Strike]
     "ACHIEVEMENT_MYSTICSITEMS_REPAIRBROKENSPOTTER_DESCRIPTION": "Принесите топливный элемент спасательной капуслы в сырую корнистую пещеру и почините Повреждённый дрон-корректировщик.",
@@ -222,7 +233,7 @@
     "ACHIEVEMENT_MYSTICSITEMS_FINDARCHAICMASK_DESCRIPTION": "Возьмите Легендарную маску на Выжженных акрах за 10 минут до того, как она остынет.",
 
     "ACHIEVEMENT_MYSTICSITEMS_MULTISHOPTERMINALSONLY_NAME": "Умный покупатель",
-    "ACHIEVEMENT_MYSTICSITEMS_MULTISHOPTERMINALSONLY_DESCRIPTION": "До 6 этапа не тратьте золото нигде, кроме Многомагазинных терминалов.",
+    "ACHIEVEMENT_MYSTICSITEMS_MULTISHOPTERMINALSONLY_DESCRIPTION": "До 6 этапа не тратьте золото нигде, кроме Многомагазинных терминалов. Нельзя выполнить, если активен Артефакт жертвы.",
 
     "ACHIEVEMENT_MYSTICSITEMS_HELLSPEEDRUN_NAME": "Одолеть жару", // [Reference to the "Beat the Heat" level in A Hat in Time]
     "ACHIEVEMENT_MYSTICSITEMS_HELLSPEEDRUN_DESCRIPTION": "Пройдите Бездонные глубины менее чем за 3 минуты.",
