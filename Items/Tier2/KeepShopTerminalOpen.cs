@@ -43,9 +43,9 @@ namespace MysticsItems.Items
                 ItemTag.AIBlacklist,
                 ItemTag.CannotCopy
             };
-            MysticsItemsContent.Resources.unlockableDefs.Add(GetUnlockableDef());
             itemDef.pickupModelPrefab = PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Platinum Card/Model.prefab"));
             itemDef.pickupIconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Items/Platinum Card/Icon.png");
+            MysticsItemsContent.Resources.unlockableDefs.Add(GetUnlockableDef());
             HopooShaderToMaterial.Standard.Apply(itemDef.pickupModelPrefab.GetComponentInChildren<Renderer>().sharedMaterial);
             HopooShaderToMaterial.Standard.DisableEverything(itemDef.pickupModelPrefab.GetComponentInChildren<Renderer>().sharedMaterial);
             HopooShaderToMaterial.Standard.Gloss(itemDef.pickupModelPrefab.GetComponentInChildren<Renderer>().sharedMaterial, 0.1f, 3f);

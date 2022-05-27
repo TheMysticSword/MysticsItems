@@ -74,9 +74,9 @@ namespace MysticsItems.Items
             {
                 ItemTag.Damage
             };
-            MysticsItemsContent.Resources.unlockableDefs.Add(GetUnlockableDef());
             itemDef.pickupModelPrefab = PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Spotter/Model.prefab"));
             itemDef.pickupIconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Items/Spotter/Icon.png");
+            MysticsItemsContent.Resources.unlockableDefs.Add(GetUnlockableDef());
             Material mat = itemDef.pickupModelPrefab.transform.Find("mdlSpotterBroken").gameObject.GetComponent<MeshRenderer>().sharedMaterial;
             HopooShaderToMaterial.Standard.Apply(mat);
             HopooShaderToMaterial.Standard.Gloss(mat, 0.2f, 1f);

@@ -68,9 +68,9 @@ namespace MysticsItems.Items
             {
                 ItemTag.Utility
             };
-            MysticsItemsContent.Resources.unlockableDefs.Add(GetUnlockableDef());
             itemDef.pickupModelPrefab = PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Dasher Disc/Model.prefab"));
             itemDef.pickupIconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Items/Dasher Disc/Icon.png");
+            MysticsItemsContent.Resources.unlockableDefs.Add(GetUnlockableDef());
             Material mat = itemDef.pickupModelPrefab.transform.Find("mdlDasherDisc").GetComponent<MeshRenderer>().sharedMaterial;
             HopooShaderToMaterial.Standard.Apply(mat);
             HopooShaderToMaterial.Standard.Emission(mat, 4f);

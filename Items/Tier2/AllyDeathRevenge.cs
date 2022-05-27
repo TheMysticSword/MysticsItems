@@ -49,9 +49,9 @@ namespace MysticsItems.Items
                 ItemTag.Utility,
                 ItemTag.AIBlacklist
             };
-            MysticsItemsContent.Resources.unlockableDefs.Add(GetUnlockableDef());
             itemDef.pickupModelPrefab = PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Ally Death Revenge/Model.prefab"));
             itemDef.pickupIconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Items/Ally Death Revenge/Icon.png");
+            MysticsItemsContent.Resources.unlockableDefs.Add(GetUnlockableDef());
             ModelPanelParameters modelPanelParams = itemDef.pickupModelPrefab.GetComponentInChildren<ModelPanelParameters>();
             modelPanelParams.minDistance = 0.75f;
             modelPanelParams.maxDistance = 1.5f;

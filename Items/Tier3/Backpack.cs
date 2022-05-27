@@ -61,9 +61,9 @@ namespace MysticsItems.Items
             {
                 ItemTag.Utility
             };
-            MysticsItemsContent.Resources.unlockableDefs.Add(GetUnlockableDef());
             itemDef.pickupModelPrefab = PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Backpack/Model.prefab"));
             itemDef.pickupIconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Items/Backpack/Icon.png");
+            MysticsItemsContent.Resources.unlockableDefs.Add(GetUnlockableDef());
 
             var mat = itemDef.pickupModelPrefab.GetComponentInChildren<Renderer>().sharedMaterial;
             HopooShaderToMaterial.Standard.Apply(mat);
