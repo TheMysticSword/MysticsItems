@@ -25,8 +25,7 @@ The mod creates several config files on the first launch:
 * MysticsItems_Balance.cfg - item and equipment value tweaking
 
 ### Mod compatibility
-This mod supports ItemStats, BetterUI item stats, BetterUI buff tooltips and Risk of Options.  
-You can use the $mysticsitemscrit modifier in your BetterUI's StatsDisplay config to display crit chance affected by luck and Scratch Tickets.  
+This mod supports ItemStats, Risk of Options and adds item displays for SniperClassic.  
 If you want to add Mystic's Items support for your own mod, read [this document](https://github.com/TheMysticSword/MysticsItems/blob/main/FORMODDERS.md).
 
 ### Languages
@@ -80,54 +79,25 @@ Contains assets from [FreePBR.com](https://freepbr.com/)
 Contains assets from [ambientCG.com](https://ambientcg.com/), licensed under CC0 1.0 Universal.
 
 # Changelog
-#### 2.0.13:
-* **Added 11 New Lore Entries**
-    * New Lore Entry: Spare Wiring
-	* New Lore Entry: Nuclear Accelerator
-	* New Lore Entry: Hiker's Backpack
-	* New Lore Entry: Failed Experiment
-	* New Lore Entry: Warning System
-	* New Lore Entry: Moonglasses
-	* New Lore Entry: Cutesy Bow
-	* New Lore Entry: Frayed Bow
-	* New Lore Entry: Choc Chip
-	* New Lore Entry: Vintage Microphone
-	* New Lore Entry: Ratio Equalizer
-* **Gameplay Changes**
-	* Marwan's Ash:
-		* Extra Damage Limit (when used by enemies): ~~21.6~~ ⇒ 4
-		* Burn Damage Limit (when used by enemies): ~~18.4% of your maximum health per second~~ ⇒ 1.6% of your maximum health per second
-		* Spread Radius Limit (when used by enemies): ~~113.4m~~ ⇒ 10m
-	* Gate Chalice:
-		* Removed the downside of removing items
-			* The downside of losing out on unopened chests from skipping stages was enough already. The second downside was unnecessary.
-	* Mechanical Arm:
-		* Bonus Damage Per Charge: ~~100%~~ ⇒ 200%
-		* Charges no longer disappear after 20 seconds
-		* Now gains charges when you deal crits only while equipment is on cooldown
-	* Mystic Sword:
-		* Max Damage: ~~100% (+100% per stack)~~ ⇒ 40% (+40% per stack)
-	* Devil's Cry:
-		* Critical Strike Chance: ~~+5%~~ ⇒ +10%
-		* Now triggers on every 9th Critical Strike instead of every 5th
-* **Misc Changes**
-	* Added Portuguese translation - thank you, Olek!
-	* Added [Risk of Options](https://thunderstore.io/package/Rune580/Risk_Of_Options/) support
-	* Removed the Content Toggle config and moved all of its options to the General config
-	* Updated the description of the "Smart Shopper" challenge to clarify that the challenge cannot be completed with the Artifact of Sacrifice
-	* "Sincere Apologies." challenge is now completed from getting hit with an Equipment Drone's Sawmerang instead of getting killed with it
-	* Scratch Tickets no longer increase the visual crit chance on BetterUI's stat tracker
-		* Instead, add a $mysticsitemscrit modifier to your BetterUI's StatsDisplay config to show crit chance affected by luck and Scratch Tickets
-	* Removed config options for disabling mod compatibility with BetterUI, WhatAmILookingAt and ProperSave
-	* Renamed all config options from the General config to be more human-readable
-		* Note: this will reset your General config options
-	* Added Legendary Mask to the Bottled Chaos pool (Survivors of the Void DLC)
-* **Bug Fixes**
-	* Fixed Gate Chalice being usable multiple times on Commencement
-	* Fixed occasional version mismatch between hosts and clients when updating the mod
-	* Fixed Spare Wiring's player firing count and interval not being configurable
-	* Fixed ThinkInvisible's Admiral skill "Beacon: Special Order" giving an infinite amount of Marwan's Ash
-	* Fixed damage effects caused by Ten Commandments of Vyrael being guaranteed to crit
+#### 2.0.14:
+* Marwan's Ash:
+	* Damage: ~~2 (+0.2 per level)~~ ⇒ 6 (+1.2 per level)
+		* The damage was initially nerfed to 2 after testing the item with high fire rate characters such as Commando, but the item turned out too weak on other characters in the end, so we're buffing the damage back. The item also mistakenly increased its damage by 10% per level instead of 20%, which was inconsistent with how survivor damage increases by 20% with level.
+* Warning System:
+	* Can now be used during Teleporter events
+	* Now available in Enigma and Bottled Chaos (DLC1) pools by default
+* Vintage Microphone:
+	* No longer pushes back the owner if it's a flying body
+		* This should prevent Equipment Drones from hitting walls and taking high damage when using this equipment
+* Rift Lens:
+	* Timers are now individual for each player instead of being shared
+		* This should fix countdown timer networking issues
+* Fixed Timely Execution cooldown being blocked by Ben's Raincoat
+* Fixed Item Drones from Tinker's Satchel accepting upgraded versions of Marwan's Ash and causing error spam
+* Fixed Gate Chalice causing errors when used in the Bazaar Between Time
+* Fixed Puzzle of Chronos regeneration not scaling with level
+* Fixed Rift Vision not being reset when teleporting to a Hidden Realm before closing all Unstable Rifts, causing the user to die instantly
+* Fixed all challenges having Preon Accumulator as the icon
   
 (Previous changelogs can be found [here](https://github.com/TheMysticSword/MysticsItems/blob/main/CHANGELOG.md))
 
