@@ -183,7 +183,7 @@
 
     "EQUIPMENT_MYSTICSITEMS_SIRENPOLE_NAME": "Système d'Alerte",
     "EQUIPMENT_MYSTICSITEMS_SIRENPOLE_PICKUP": "Déployer une sirène qui déclenche vos effets de téléporteur et invoque de faibles ennemis.",
-    "EQUIPMENT_MYSTICSITEMS_SIRENPOLE_DESC": "Déployer une sirène qui <style=cIsUtility>agit comme un téléporteur, déclenchant tout les effets lié au téléporteur</style>, et invoque des ennemis faibles à chaque {WaveSpawnInterval}% de charge. Prend <style=cIsUtility>{ChargeTime}s</style> pour charger.\r\n\r\nNe peut pas être utilisé si une sirène non activé existe déjà ou si un événement de téléporteur est en cours.",
+    "EQUIPMENT_MYSTICSITEMS_SIRENPOLE_DESC": "Déployer une sirène qui <style=cIsUtility>agit comme un téléporteur, déclenchant tout les effets lié au téléporteur</style>, et invoque des ennemis faibles à chaque {WaveSpawnInterval}% de charge. Prend <style=cIsUtility>{ChargeTime}s</style> pour charger.\r\n\r\nNe peut pas être utilisé si une sirène non activé existe déjà.",
 
     "EQUIPMENT_MYSTICSITEMS_MECHANICALARM_NAME": "Bras Mécanique",
     "EQUIPMENT_MYSTICSITEMS_MECHANICALARM_PICKUP": "Frappe devant, inflige plus de dégâts en fonction des coups critique effectué avant l’activation.",

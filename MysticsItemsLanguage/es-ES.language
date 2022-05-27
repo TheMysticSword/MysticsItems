@@ -192,7 +192,7 @@
 
     "EQUIPMENT_MYSTICSITEMS_SIRENPOLE_NAME": "Sistema de Alarma",
     "EQUIPMENT_MYSTICSITEMS_SIRENPOLE_PICKUP": "Despliega un Poste de Sirena que simula el evento del Teletransportador.",
-    "EQUIPMENT_MYSTICSITEMS_SIRENPOLE_DESC": "Despliega un Poste de Sirena que <style=cIsUtility>actúa como un Teletransportador, activando cualquier efecto que se active durante el evento del Teletransportador</style>, e invoca enemigos débiles por cada {WaveSpawnInterval}% que sea cargado. Toma <style=cIsUtility>{ChargeTime}s</style> para ser cargado.\r\n\r\nNo puede ser usado si existe un Poste de Sirena sin cargar o si el evento del Teletransportador está en progreso.",
+    "EQUIPMENT_MYSTICSITEMS_SIRENPOLE_DESC": "Despliega un Poste de Sirena que <style=cIsUtility>actúa como un Teletransportador, activando cualquier efecto que se active durante el evento del Teletransportador</style>, e invoca enemigos débiles por cada {WaveSpawnInterval}% que sea cargado. Toma <style=cIsUtility>{ChargeTime}s</style> para ser cargado.\r\n\r\nNo puede ser usado si existe un Poste de Sirena sin cargar.",
     "EQUIPMENT_MYSTICSITEMS_SIRENPOLE_LORE": "\"¡Capitán!\" - grito el soldado a todo pulmón.\r\n\r\nEl capitán, sin voltear su mirada perpleja de la sirena que extrañamente no emitía ningún sonido audible a pesar de estar encendida, respondió de manera calmada: \"¿Si?\"\r\n\r\n\"¡Mire!\" - grito el soldado inclusive mas fuerte y apunto su dedo a una figura que se avecinaba en la distancia.\r\n\r\nEl capitán volteo, vio lo que parecía literalmente una montaña viviente, y soltó un fuerte \"OH [REDACTED]!\"",
 
     "EQUIPMENT_MYSTICSITEMS_MECHANICALARM_NAME": "Brazo Mecánico",

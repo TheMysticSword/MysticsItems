@@ -183,7 +183,7 @@
 
     "EQUIPMENT_MYSTICSITEMS_SIRENPOLE_NAME": "Система оповещения",
     "EQUIPMENT_MYSTICSITEMS_SIRENPOLE_PICKUP": "Устанавливает столб сирены, имитирующий событие с телепортом.",
-    "EQUIPMENT_MYSTICSITEMS_SIRENPOLE_DESC": "Устанавливает столб сирены, <style=cIsUtility>действующий в качестве телепорта, активируюя ваши эффекты, срабатывающие во время события с телепортом</style>, и призывает слабых врагов за каждые {WaveSpawnInterval}% зарядки. Зарядка занимает <style=cIsUtility>{ChargeTime} сек.</style>\r\n\r\nНельзя применить, если уже установлен незаряженный столб сирены, или если событие с телепортом уже началось.",
+    "EQUIPMENT_MYSTICSITEMS_SIRENPOLE_DESC": "Устанавливает столб сирены, <style=cIsUtility>действующий в качестве телепорта, активируюя ваши эффекты, срабатывающие во время события с телепортом</style>, и призывает слабых врагов за каждые {WaveSpawnInterval}% зарядки. Зарядка занимает <style=cIsUtility>{ChargeTime} сек.</style>\r\n\r\nНельзя применить, если уже установлен незаряженный столб сирены.",
 
     "EQUIPMENT_MYSTICSITEMS_MECHANICALARM_NAME": "Механическая рука",
     "EQUIPMENT_MYSTICSITEMS_MECHANICALARM_PICKUP": "Делает взмах вперёд, нанося больше урона за каждый критический удар, нанесённый до использования.",

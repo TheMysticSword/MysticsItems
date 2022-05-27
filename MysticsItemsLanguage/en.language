@@ -192,7 +192,7 @@
 
     "EQUIPMENT_MYSTICSITEMS_SIRENPOLE_NAME": "Warning System",
     "EQUIPMENT_MYSTICSITEMS_SIRENPOLE_PICKUP": "Deploy a Siren Pole that simulates a Teleporter event.",
-    "EQUIPMENT_MYSTICSITEMS_SIRENPOLE_DESC": "Deploy a Siren Pole that <style=cIsUtility>acts as a Teleporter, triggering any On Teleporter Event effects</style>, and summons weak enemies at every {WaveSpawnInterval}% charged. Takes <style=cIsUtility>{ChargeTime}s</style> to charge.\r\n\r\nCannot be used if an uncharged Siren Pole already exists or if a Teleporter event is in progress.",
+    "EQUIPMENT_MYSTICSITEMS_SIRENPOLE_DESC": "Deploy a Siren Pole that <style=cIsUtility>acts as a Teleporter, triggering any On Teleporter Event effects</style>, and summons weak enemies at every {WaveSpawnInterval}% charged. Takes <style=cIsUtility>{ChargeTime}s</style> to charge.\r\n\r\nCannot be used if an uncharged Siren Pole already exists.",
     "EQUIPMENT_MYSTICSITEMS_SIRENPOLE_LORE": "\"Captain!\" - screamed the soldier at the top of his lungs.\r\n\r\nThe captain, not turning away his puzzled look from the siren that oddly didn't make any audible noise despite being turned on, calmly replied: \"Yeah?\"\r\n\r\n\"Look!\" - cried the soldier even louder and pointed his finger at a looming figure in the distance.\r\n\r\nThe captain turned around, saw what seemed to be a literal mountain come to life, and let out a strong \"OH [REDACTED]!\"",
 
     "EQUIPMENT_MYSTICSITEMS_MECHANICALARM_NAME": "Mechanical Arm",
