@@ -216,7 +216,6 @@ namespace MysticsItems.Equipment
 
         public override bool OnUse(EquipmentSlot equipmentSlot)
         {
-            if (TeleporterInteraction.instance && (TeleporterInteraction.instance.currentState is TeleporterInteraction.IdleToChargingState || TeleporterInteraction.instance.currentState is TeleporterInteraction.ChargingState)) return false;
             if (MysticsItemsSirenPoleController.instance) return false;
             var inst = Object.Instantiate(inWorldPrefab, equipmentSlot.characterBody.corePosition, Quaternion.identity);
             NetworkServer.Spawn(inst);
@@ -242,12 +241,16 @@ namespace MysticsItems.Equipment
 
             public static MysticsItemsSirenPoleController instance;
 
+            public bool runTeleporterEvents = false;
+
             public void Awake()
             {
+                runTeleporterEvents = !(TeleporterInteraction.instance && (TeleporterInteraction.instance.currentState is TeleporterInteraction.IdleToChargingState || TeleporterInteraction.instance.currentState is TeleporterInteraction.ChargingState));
+
                 holdoutZoneController.onCharged = new HoldoutZoneController.HoldoutZoneControllerChargedUnityEvent();
                 holdoutZoneController.onCharged.AddListener((zone) =>
                 {
-                    RunOnTeleporterChargedGlobal(GetComponent<TeleporterInteraction>());
+                    if (runTeleporterEvents) RunOnTeleporterChargedGlobal(GetComponent<TeleporterInteraction>());
                     zone.enabled = false;
                     delay = delayMax;
                     Util.PlaySound("Play_loader_shift_release", gameObject);
@@ -335,7 +338,7 @@ namespace MysticsItems.Equipment
                         if (holdoutZoneController.charge < 1f)
                         {
                             holdoutZoneController.enabled = true;
-                            RunOnTeleporterBeginChargingGlobal(GetComponent<TeleporterInteraction>());
+                            if (runTeleporterEvents) RunOnTeleporterBeginChargingGlobal(GetComponent<TeleporterInteraction>());
                         }
                         else
                         {
