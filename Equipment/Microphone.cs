@@ -230,7 +230,7 @@ namespace MysticsItems.Equipment
                     var characterBody = equipmentSlot.characterBody;
                     if (characterBody)
                     {
-                        if (!characterBody.characterMotor || !characterBody.characterMotor.isGrounded)
+                        if (characterBody.characterMotor && !characterBody.characterMotor.isGrounded)
                         {
                             var height = boostDistance.Value;
                             var mass = characterBody.characterMotor ? characterBody.characterMotor.mass : (characterBody.rigidbody ? characterBody.rigidbody.mass : 1f);
