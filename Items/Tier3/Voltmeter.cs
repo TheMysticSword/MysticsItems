@@ -189,7 +189,7 @@ namespace MysticsItems.Items
         {
             if (sender.inventory && sender.inventory.GetItemCount(itemDef) > 0)
             {
-                args.baseShieldAdd += sender.maxHealth * passiveShield / 100f;
+                args.baseShieldAdd += sender.maxHealth * sender.cursePenalty * passiveShield / 100f;
             }
         }
 
