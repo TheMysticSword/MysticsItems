@@ -255,7 +255,7 @@ namespace MysticsItems.Equipment
                         wispMaster.inventory.GiveItem(RoR2Content.Items.HealthDecay, (int)duration.Value);
                         wispMaster.inventory.GiveItem(RoR2Content.Items.BoostDamage, (int)(wispDamage.Value - 100f) / 10);
                         wispMaster.inventory.GiveItem(RoR2Content.Items.BoostHp, (int)(wispHealth.Value - 100f) / 10);
-                        wispMaster.inventory.GiveItem(RoR2Content.Items.AlienHead, (int)(wispCDR.Value - 100f) / 10);
+                        wispMaster.inventory.GiveItem(RoR2Content.Items.AlienHead, (int)(wispCDR.Value) / 10);
                         wispMaster.inventory.GiveItem(RoR2Content.Items.BoostAttackSpeed, (int)(wispAttackSpeed.Value - 100f) / 10);
                         summonLimit.Add(wispMasterObject);
                     };
