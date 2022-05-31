@@ -70,6 +70,22 @@ namespace MysticsItems.Items
             {
                 pickupIndex = PickupCatalog.FindPickupIndex(itemDef.itemIndex);
             };
+
+            ConfigOptions.ConfigurableValue.CreateBool(
+                ConfigManager.Balance.categoryGUID,
+                ConfigManager.Balance.categoryName,
+                ConfigManager.Balance.config,
+                "Item: Cutesy Bow",
+                "Untiered Frayed Bow",
+                false,
+                "If enabled, Frayed Bow will be untiered instead of white tier, making it unscrappable.",
+                useDefaultValueConfigEntry: ConfigManager.Balance.ignore.bepinexConfigEntry,
+                onChanged: (newValue) =>
+                {
+                    SetItemTierWhenAvailable(newValue ? ItemTier.NoTier : ItemTier.Tier1);
+                    itemDef.pickupIconSprite = Main.AssetBundle.LoadAsset<Sprite>(newValue ? "Assets/Items/Bow/IconFrayedUntiered.png" : "Assets/Items/Bow/IconFrayed.png");
+                }
+            );
         }
 
         private void RecalculateStatsAPI_GetStatCoefficients(CharacterBody sender, RecalculateStatsAPI.StatHookEventArgs args)
