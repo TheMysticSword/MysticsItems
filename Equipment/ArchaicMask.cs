@@ -55,7 +55,7 @@ namespace MysticsItems.Equipment
         public static ConfigurableValue<float> wispCDR = new ConfigurableValue<float>(
             "Equipment: Legendary Mask",
             "WispCDR",
-            200f,
+            50f,
             "Skill cooldown reduction multiplier of the Wisp (in %)",
             new List<string>()
             {
@@ -65,7 +65,7 @@ namespace MysticsItems.Equipment
         public static ConfigurableValue<float> wispAttackSpeed = new ConfigurableValue<float>(
             "Equipment: Legendary Mask",
             "WispAttackSpeed",
-            200f,
+            150f,
             "Attack speed multiplier of the Wisp (in %)",
             new List<string>()
             {
