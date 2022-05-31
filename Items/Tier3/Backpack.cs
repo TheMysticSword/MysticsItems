@@ -38,7 +38,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> cdr = new ConfigurableValue<float>(
             "Item: Hiker s Backpack",
             "CDR",
-            8f,
+            15f,
             "Cooldown reduction to all skills for the first stack of this item",
             new System.Collections.Generic.List<string>()
             {
