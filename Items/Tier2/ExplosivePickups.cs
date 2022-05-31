@@ -250,7 +250,7 @@ namespace MysticsItems.Items
                     shakeEmitter.wave = new Wave
                     {
                         amplitude = 9f * newValue,
-                        frequency = 4f * newValue
+                        frequency = 4f * Mathf.Max(newValue, 0.01f)
                     };
                 }
             );
