@@ -49,15 +49,15 @@
 
     "ITEM_MYSTICSITEMS_MARWANASH1_NAME": "Marwan's Ash", // [Marwan's developer item]
     "ITEM_MYSTICSITEMS_MARWANASH1_PICKUP": "Deal an extra instance of damage on hit. Upgrades at level {UpgradeLevel12}.",
-    "ITEM_MYSTICSITEMS_MARWANASH1_DESC": "Hitting enemies causes them to take an additional hit for <style=cIsDamage>{Damage} <style=cStack>(+{DamagePerLevel} per level, multiplied by item stack)</style></style> damage. <style=cIsUtility>Upgrades at level {UpgradeLevel12}</style>.",
+    "ITEM_MYSTICSITEMS_MARWANASH1_DESC": "Hitting enemies causes them to take an additional hit for <style=cIsDamage>{Damage} <style=cStack>(+{DamagePerLevel} (+{StackLevelMultiplier}% per stack) per level)</style></style> damage. <style=cIsUtility>Upgrades at level {UpgradeLevel12}</style>.",
 
     "ITEM_MYSTICSITEMS_MARWANASH2_NAME": "Marwan's Light",
     "ITEM_MYSTICSITEMS_MARWANASH2_PICKUP": "Deal an extra instance of damage and inflict damage over time on hit. Upgrades at level {UpgradeLevel23}.",
-    "ITEM_MYSTICSITEMS_MARWANASH2_DESC": "Hitting enemies causes them to take an additional hit for <style=cIsDamage>{Damage} <style=cStack>(+{DamagePerLevel} per level, multiplied by item stack)</style></style> damage and lose <style=cIsHealth>{DoTPercent}% <style=cStack>(+{DoTPercentPerLevel}% per level beyond {UpgradeLevel12}, multiplied by item stack)</style></style> of their maximum health every second. <style=cIsUtility>Upgrades at level {UpgradeLevel23}</style>.",
+    "ITEM_MYSTICSITEMS_MARWANASH2_DESC": "Hitting enemies causes them to take an additional hit for <style=cIsDamage>{Damage} <style=cStack>(+{DamagePerLevel} (+{StackLevelMultiplier}% per stack) per level)</style></style> damage and lose <style=cIsHealth>{DoTPercent}% <style=cStack>(+{DoTPercentPerLevel}% (+{StackLevelMultiplier}% per stack) per level beyond {UpgradeLevel12})</style></style> of their maximum health every second. <style=cIsUtility>Upgrades at level {UpgradeLevel23}</style>.",
 
     "ITEM_MYSTICSITEMS_MARWANASH3_NAME": "Marwan's Weapon",
     "ITEM_MYSTICSITEMS_MARWANASH3_PICKUP": "Deal damage and inflict damage over time to all surrounding enemies on hit.",
-    "ITEM_MYSTICSITEMS_MARWANASH3_DESC": "Hitting enemies causes <style=cIsUtility>all enemies in a {Radius}m <style=cStack>(+{RadiusPerLevel}m per level beyond {UpgradeLevel23}, multiplied by item stack)</style> radius</style> to take <style=cIsDamage>{Damage} <style=cStack>(+{DamagePerLevel} per level, multiplied by item stack)</style></style> damage and lose <style=cIsHealth>{DoTPercent}% <style=cStack>(+{DoTPercentPerLevel}% per level beyond {UpgradeLevel12}, multiplied by item stack)</style></style> of their maximum health every second.",
+    "ITEM_MYSTICSITEMS_MARWANASH3_DESC": "Hitting enemies causes <style=cIsUtility>all enemies in a {Radius}m <style=cStack>(+{RadiusPerLevel}m (+{StackLevelMultiplier}% per stack) per level beyond {UpgradeLevel23})</style> radius</style> to take <style=cIsDamage>{Damage} <style=cStack>(+{DamagePerLevel} (+{StackLevelMultiplier}% per stack) per level)</style></style> damage and lose <style=cIsHealth>{DoTPercent}% <style=cStack>(+{DoTPercentPerLevel}% (+{StackLevelMultiplier}% per stack) per level beyond {UpgradeLevel12})</style></style> of their maximum health every second.",
 
     //[TIER2]
     "ITEM_MYSTICSITEMS_COFFEEBOOSTONITEMPICKUP_NAME": "Cup of Expresso", // [Yes, it is specifically "expresso" in this item, because it makes you fast and inflicts an Express Boost buff. It's not a misspelling.]

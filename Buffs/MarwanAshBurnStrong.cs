@@ -62,7 +62,7 @@ namespace MysticsItems.Buffs
                         isPlayerTeam = attackerBody.teamComponent.teamIndex == TeamIndex.Player;
                     }
                 }
-                var hpFractionDamage = (Items.MarwanAsh1.dotPercent / 100f + Items.MarwanAsh1.dotPercentPerLevel / 100f * (attackerLevel - (float)Items.MarwanAsh1.upgradeLevel12) * itemCount) * damageMultiplier;
+                var hpFractionDamage = (Items.MarwanAsh1.dotPercent / 100f + Items.MarwanAsh1.dotPercentPerLevel / 100f * (attackerLevel - (float)Items.MarwanAsh1.upgradeLevel12) * (1f + Items.MarwanAsh1.stackLevelMultiplier / 100f * (float)(itemCount - 1))) * damageMultiplier;
                 if (!isPlayerTeam) hpFractionDamage = Mathf.Min(hpFractionDamage, Items.MarwanAsh1.enemyBurnDamageCap);
                 dotStack.damage = (self.victimHealthComponent ? self.victimHealthComponent.fullCombinedHealth * hpFractionDamage : 0) * ashDotDef.interval;
             });

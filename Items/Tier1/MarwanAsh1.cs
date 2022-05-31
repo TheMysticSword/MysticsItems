@@ -70,7 +70,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> dotDuration = new ConfigurableValue<float>(
             "Item: Marwan s Ash/Light/Weapon",
             "DoTDuration",
-            2f,
+            5f,
             "How long should the damage over time effect last (in seconds)"
         );
         public static ConfigurableValue<float> radius = new ConfigurableValue<float>(
@@ -86,7 +86,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> radiusPerLevel = new ConfigurableValue<float>(
             "Item: Marwan s Ash/Light/Weapon",
             "RadiusPerLevel",
-            1.4f,
+            1f,
             "Radius of the AoE extra hit on item level 3 for each additional level of the owner (in m)",
             new System.Collections.Generic.List<string>()
             {
@@ -114,6 +114,18 @@ namespace MysticsItems.Items
             new System.Collections.Generic.List<string>()
             {
                 "ITEM_MYSTICSITEMS_MARWANASH2_PICKUP",
+                "ITEM_MYSTICSITEMS_MARWANASH2_DESC",
+                "ITEM_MYSTICSITEMS_MARWANASH3_DESC"
+            }
+        );
+        public static ConfigurableValue<float> stackLevelMultiplier = new ConfigurableValue<float>(
+            "Item: Marwan s Ash/Light/Weapon",
+            "StackLevelMultiplier",
+            10f,
+            "Stacking this item increases the per-level scaling of this item's effects by this amount (in %)",
+            new System.Collections.Generic.List<string>()
+            {
+                "ITEM_MYSTICSITEMS_MARWANASH1_DESC",
                 "ITEM_MYSTICSITEMS_MARWANASH2_DESC",
                 "ITEM_MYSTICSITEMS_MARWANASH3_DESC"
             }
@@ -206,7 +218,7 @@ namespace MysticsItems.Items
                 {
                     if (itemCount > 0)
                     {
-                        var _damage = damage + damagePerLevel * (attackerInfo.body.level - 1f) * itemCount;
+                        var _damage = damage + damagePerLevel * (attackerInfo.body.level - 1f) * (1f + stackLevelMultiplier / 100f * (float)(itemCount - 1));
                         if (attackerInfo.teamIndex != TeamIndex.Player) _damage = Mathf.Min(_damage, enemyExtraDamageCap);
                         var _crit = attackerInfo.body.RollCrit();
                         if (itemLevel < 3)
@@ -226,7 +238,7 @@ namespace MysticsItems.Items
                         }
                         else
                         {
-                            var _radius = radius + radiusPerLevel * (attackerInfo.body.level - (float)upgradeLevel23) * itemCount;
+                            var _radius = radius + radiusPerLevel * (attackerInfo.body.level - (float)upgradeLevel23) * (1f + stackLevelMultiplier / 100f * (float)(itemCount - 1));
                             if (attackerInfo.teamIndex != TeamIndex.Player) _radius = Mathf.Min(_radius, enemySpreadRadiusCap);
                             var blastAttack = new BlastAttack
                             {

@@ -49,15 +49,15 @@
 
     "ITEM_MYSTICSITEMS_MARWANASH1_NAME": "Пепел Марвана", // [Marwan's developer item]
     "ITEM_MYSTICSITEMS_MARWANASH1_PICKUP": "При попадании наносит дополнительный урон. Улучшается на уровне {UpgradeLevel12}.",
-    "ITEM_MYSTICSITEMS_MARWANASH1_DESC": "Попадания по врагам заставляют их получить дополнительный удар на <style=cIsDamage>{Damage} <style=cStack>(+{DamagePerLevel} за уровень, умножается на количество предмета)</style></style> урона. <style=cIsUtility>Улучшается на уровне {UpgradeLevel12}</style>.",
+    "ITEM_MYSTICSITEMS_MARWANASH1_DESC": "Попадания по врагам заставляют их получить дополнительный удар на <style=cIsDamage>{Damage} <style=cStack>(+{DamagePerLevel} (+{StackLevelMultiplier}% за шт.) за уровень)</style></style> урона. <style=cIsUtility>Улучшается на уровне {UpgradeLevel12}</style>.",
 
     "ITEM_MYSTICSITEMS_MARWANASH2_NAME": "Свет Марвана",
     "ITEM_MYSTICSITEMS_MARWANASH2_PICKUP": "При попадании наносит дополнительный урон и накладывает периодический урон. Улучшается на уровне {UpgradeLevel23}.",
-    "ITEM_MYSTICSITEMS_MARWANASH2_DESC": "Попадания по врагам заставляют их получить дополнительный удар на <style=cIsDamage>{Damage} <style=cStack>(+{DamagePerLevel} за уровень, умножается на количество предмета)</style></style> урона и терять <style=cIsHealth>{DoTPercent}% <style=cStack>(+{DoTPercentPerLevel}% за каждый уровень после {UpgradeLevel12}, умножается на количество предмета)</style></style> от их максимального здоровья каждую секунду. <style=cIsUtility>Улучшается на уровне {UpgradeLevel23}</style>.",
+    "ITEM_MYSTICSITEMS_MARWANASH2_DESC": "Попадания по врагам заставляют их получить дополнительный удар на <style=cIsDamage>{Damage} <style=cStack>(+{DamagePerLevel} (+{StackLevelMultiplier}% за шт.) за уровень)</style></style> урона и терять <style=cIsHealth>{DoTPercent}% <style=cStack>(+{DoTPercentPerLevel}% (+{StackLevelMultiplier}% за шт.) за каждый уровень после {UpgradeLevel12})</style></style> от их максимального здоровья каждую секунду. <style=cIsUtility>Улучшается на уровне {UpgradeLevel23}</style>.",
 
     "ITEM_MYSTICSITEMS_MARWANASH3_NAME": "Орудие Марвана",
     "ITEM_MYSTICSITEMS_MARWANASH3_PICKUP": "Наносит урон и накладывает периодический урон всем окружающим врагам при попадании.",
-    "ITEM_MYSTICSITEMS_MARWANASH3_DESC": "Попадания по врагам заставляют <style=cIsUtility>всех врагов в радиусе {Radius}м <style=cStack>(+{RadiusPerLevel}м за каждый уровень после {UpgradeLevel23}, умножается на количество предмета)</style></style> получить <style=cIsDamage>{Damage} <style=cStack>(+{DamagePerLevel} за уровень, умножается на количество предмета)</style></style> урона и терять <style=cIsHealth>{DoTPercent}% <style=cStack>(+{DoTPercentPerLevel}% за каждый уровень после {UpgradeLevel12}, умножается на количество предмета)</style></style> от их максимального здоровья каждую секунду.",
+    "ITEM_MYSTICSITEMS_MARWANASH3_DESC": "Попадания по врагам заставляют <style=cIsUtility>всех врагов в радиусе {Radius}м <style=cStack>(+{RadiusPerLevel}м (+{StackLevelMultiplier}% за шт.) за каждый уровень после {UpgradeLevel23})</style></style> получить <style=cIsDamage>{Damage} <style=cStack>(+{DamagePerLevel} (+{StackLevelMultiplier}% за шт.) за уровень)</style></style> урона и терять <style=cIsHealth>{DoTPercent}% <style=cStack>(+{DoTPercentPerLevel}% (+{StackLevelMultiplier}% за шт.) за каждый уровень после {UpgradeLevel12})</style></style> от их максимального здоровья каждую секунду.",
 
     //[TIER2]
     "ITEM_MYSTICSITEMS_COFFEEBOOSTONITEMPICKUP_NAME": "Кружка экспрессо", // [Yes, it is specifically "expresso" in this item, because it makes you fast and inflicts an Express Boost buff. It's not a misspelling.]

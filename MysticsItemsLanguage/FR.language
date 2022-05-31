@@ -46,15 +46,15 @@
 
     "ITEM_MYSTICSITEMS_MARWANASH1_NAME": "Cendre de Marwan", // [Marwan's developer item]
     "ITEM_MYSTICSITEMS_MARWANASH1_PICKUP": "Frapper des ennemis leur fait prendre un coup supplémentaire. S'améliore au niveau {UpgradeLevel12}.",
-    "ITEM_MYSTICSITEMS_MARWANASH1_DESC": "Frapper des ennemis leur fait prendre un coup supplémentaire de <style=cIsDamage>{Damage} <style=cStack>(+{DamagePerLevel} per level, multiplied by item stack)</style></style> dégat. <style=cIsUtility>S'améliore au niveau {UpgradeLevel12}</style>.",
+    "ITEM_MYSTICSITEMS_MARWANASH1_DESC": "Frapper des ennemis leur fait prendre un coup supplémentaire de <style=cIsDamage>{Damage} <style=cStack>(+{DamagePerLevel} (+{StackLevelMultiplier}% per stack) per level)</style></style> dégat. <style=cIsUtility>S'améliore au niveau {UpgradeLevel12}</style>.",
 
     "ITEM_MYSTICSITEMS_MARWANASH2_NAME": "Torche de Marwan",
     "ITEM_MYSTICSITEMS_MARWANASH2_PICKUP": "Frapper des ennemis leur fait prendre un coup supplémentaire et inflige des dommages au fil du temps. S'améliore au niveau {UpgradeLevel23}.",
-    "ITEM_MYSTICSITEMS_MARWANASH2_DESC": "Frapper des ennemis leur fait prendre un coup supplémentaire de <style=cIsDamage>{Damage} <style=cStack>(+{DamagePerLevel} per level, multiplied by item stack)</style></style> dégat et perdre <style=cIsHealth>{DoTPercent}% <style=cStack>(+{DoTPercentPerLevel}% per level beyond {UpgradeLevel12}, multiplied by item stack)</style></style> de leur santé maximum chaque seconde. <style=cIsUtility>S'améliore au niveau {UpgradeLevel23}</style>.",
+    "ITEM_MYSTICSITEMS_MARWANASH2_DESC": "Frapper des ennemis leur fait prendre un coup supplémentaire de <style=cIsDamage>{Damage} <style=cStack>(+{DamagePerLevel} (+{StackLevelMultiplier}% per stack) per level)</style></style> dégat et perdre <style=cIsHealth>{DoTPercent}% <style=cStack>(+{DoTPercentPerLevel}% (+{StackLevelMultiplier}% per stack) per level beyond {UpgradeLevel12})</style></style> de leur santé maximum chaque seconde. <style=cIsUtility>S'améliore au niveau {UpgradeLevel23}</style>.",
 
     "ITEM_MYSTICSITEMS_MARWANASH3_NAME": "Arme de Marwan",
     "ITEM_MYSTICSITEMS_MARWANASH3_PICKUP": "Inflige des dégâts et inflige des dégâts au fil du temps à tous les ennemis environnants en tapant.",
-    "ITEM_MYSTICSITEMS_MARWANASH3_DESC": "Frapper des ennemis provoque à <style=cIsUtility>tout les ennemis dans les {Radius}m <style=cStack>(+{RadiusPerLevel}m per level beyond {UpgradeLevel23}, multiplied by item stack)</style> autour</style> de prendre <style=cIsDamage>{Damage} <style=cStack>(+{DamagePerLevel} per level, multiplied by item stack)</style></style> de dégat et de perdre <style=cIsHealth>{DoTPercent}% <style=cStack>(+{DoTPercentPerLevel}% per level beyond {UpgradeLevel12}, multiplied by item stack)</style></style> de leur santé maximum chaque seconde.",
+    "ITEM_MYSTICSITEMS_MARWANASH3_DESC": "Frapper des ennemis provoque à <style=cIsUtility>tout les ennemis dans les {Radius}m <style=cStack>(+{RadiusPerLevel}m (+{StackLevelMultiplier}% per stack) per level beyond {UpgradeLevel23})</style> autour</style> de prendre <style=cIsDamage>{Damage} <style=cStack>(+{DamagePerLevel} (+{StackLevelMultiplier}% per stack) per level)</style></style> de dégat et de perdre <style=cIsHealth>{DoTPercent}% <style=cStack>(+{DoTPercentPerLevel}% (+{StackLevelMultiplier}% per stack) per level beyond {UpgradeLevel12})</style></style> de leur santé maximum chaque seconde.",
 
     //[TIER2]
     "ITEM_MYSTICSITEMS_COFFEEBOOSTONITEMPICKUP_NAME": "Tasse d'Expresso", // [Yes, it is specifically "expresso" in this item, because it makes you fast and inflicts an Express Boost buff. It's not a misspelling.]

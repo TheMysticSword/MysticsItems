@@ -49,15 +49,15 @@
 
     "ITEM_MYSTICSITEMS_MARWANASH1_NAME": "马尔万的灰烬", // [Marwan's developer item]
     "ITEM_MYSTICSITEMS_MARWANASH1_PICKUP": "命中时造成额外伤害。在等级{UpgradeLevel12}时升级。",
-    "ITEM_MYSTICSITEMS_MARWANASH1_DESC": "命中敌人时造成<style=cIsDamage>{Damage} <style=cStack>(每一等级+{DamagePerLevel}，堆叠时效果乘算)</style></style>点额外伤害。<style=cIsUtility>在等级{UpgradeLevel12}时升级</style>。",
+    "ITEM_MYSTICSITEMS_MARWANASH1_DESC": "命中敌人时造成<style=cIsDamage>{Damage} <style=cStack>(每一等级+{DamagePerLevel}(每层+{StackLevelMultiplier}%))</style></style>点额外伤害。<style=cIsUtility>在等级{UpgradeLevel12}时升级</style>。",
 
     "ITEM_MYSTICSITEMS_MARWANASH2_NAME": "马尔万的火炬",
     "ITEM_MYSTICSITEMS_MARWANASH2_PICKUP": "命中时造成额外伤害，并造成持续伤害。在等级{UpgradeLevel23}时升级。",
-    "ITEM_MYSTICSITEMS_MARWANASH2_DESC": "命中敌人时造成<style=cIsDamage>{Damage} <style=cStack>(每一等级+{DamagePerLevel}，堆叠时效果乘算)</style></style>点额外伤害，使其每秒损失<style=cIsHealth>{DoTPercent}% <style=cStack>(每高于{UpgradeLevel12}一等级+{DoTPercentPerLevel}% ，堆叠时效果乘算)</style></style>的最大生命值。 <style=cIsUtility>在等级{UpgradeLevel23}时升级</style>。",
+    "ITEM_MYSTICSITEMS_MARWANASH2_DESC": "命中敌人时造成<style=cIsDamage>{Damage} <style=cStack>(每一等级+{DamagePerLevel}(每层+{StackLevelMultiplier}%))</style></style>点额外伤害，使其每秒损失<style=cIsHealth>{DoTPercent}% <style=cStack>(每高于{UpgradeLevel12}一等级+{DoTPercentPerLevel}%(每层+{StackLevelMultiplier}%))</style></style>的最大生命值。 <style=cIsUtility>在等级{UpgradeLevel23}时升级</style>。",
 
     "ITEM_MYSTICSITEMS_MARWANASH3_NAME": "马尔万的长矛",
     "ITEM_MYSTICSITEMS_MARWANASH3_PICKUP": "命中时对周围所有敌人造成伤害。",
-    "ITEM_MYSTICSITEMS_MARWANASH3_DESC": "命中时对<style=cIsUtility>{Radius}米范围内的所有敌人<style=cStack>(每高于{UpgradeLevel23}一等级+{RadiusPerLevel}米，堆叠时效果乘算)</style></style>造成<style=cIsDamage>{Damage} <style=cStack>(每一等级+{DamagePerLevel}，堆叠时效果乘算)</style></style>点额外伤害并每秒损失<style=cIsHealth>{DoTPercent}% <style=cStack>(每高于{UpgradeLevel12}一等级+{DoTPercentPerLevel}%，堆叠时效果乘算)</style></style>的最大生命值。",
+    "ITEM_MYSTICSITEMS_MARWANASH3_DESC": "命中时对<style=cIsUtility>{Radius}米范围内的所有敌人<style=cStack>(每高于{UpgradeLevel23}一等级+{RadiusPerLevel}米(每层+{StackLevelMultiplier}%))</style></style>造成<style=cIsDamage>{Damage} <style=cStack>(每一等级+{DamagePerLevel}(每层+{StackLevelMultiplier}%))</style></style>点额外伤害并每秒损失<style=cIsHealth>{DoTPercent}% <style=cStack>(每高于{UpgradeLevel12}一等级+{DoTPercentPerLevel}%(每层+{StackLevelMultiplier}%))</style></style>的最大生命值。",
 
     //[TIER2]
     "ITEM_MYSTICSITEMS_COFFEEBOOSTONITEMPICKUP_NAME": "拿铁", // [Yes, it is specifically "expresso" in this item, because it makes you fast and inflicts an Express Boost buff. It's not a misspelling.]
