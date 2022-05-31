@@ -45,6 +45,8 @@ namespace MysticsItems.SoftDependencies
                 players = new List<MysticsItemsPlayerSaveData>();
                 foreach (var pcmc in PlayerCharacterMasterController.instances)
                 {
+                    if (!pcmc.networkUser) continue;
+
                     var playerData = new MysticsItemsPlayerSaveData();
                     players.Add(playerData);
                     playerData.NetworkIdValue = pcmc.networkUser.Network_id.value;
