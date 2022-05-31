@@ -79,25 +79,28 @@ Contains assets from [FreePBR.com](https://freepbr.com/)
 Contains assets from [ambientCG.com](https://ambientcg.com/), licensed under CC0 1.0 Universal.
 
 # Changelog
-#### 2.0.14:
+#### 2.0.15:
 * Marwan's Ash:
-	* Damage: ~~2 (+0.2 per level)~~ ⇒ 6 (+1.2 per level)
-		* The damage was initially nerfed to 2 after testing the item with high fire rate characters such as Commando, but the item turned out too weak on other characters in the end, so we're buffing the damage back. The item also mistakenly increased its damage by 10% per level instead of 20%, which was inconsistent with how survivor damage increases by 20% with level.
-* Warning System:
-	* Can now be used during Teleporter events
-	* Now available in Enigma and Bottled Chaos (DLC1) pools by default
-* Vintage Microphone:
-	* No longer pushes back the owner if it's a flying body
-		* This should prevent Equipment Drones from hitting walls and taking high damage when using this equipment
-* Rift Lens:
-	* Timers are now individual for each player instead of being shared
-		* This should fix countdown timer networking issues
-* Fixed Timely Execution cooldown being blocked by Ben's Raincoat
-* Fixed Item Drones from Tinker's Satchel accepting upgraded versions of Marwan's Ash and causing error spam
-* Fixed Gate Chalice causing errors when used in the Bazaar Between Time
-* Fixed Puzzle of Chronos regeneration not scaling with level
-* Fixed Rift Vision not being reset when teleporting to a Hidden Realm before closing all Unstable Rifts, causing the user to die instantly
-* Fixed all challenges having Preon Accumulator as the icon
+	* Damage: ~~6 (+1.2 per level, multiplied by item stack)~~ ⇒ 6 (+1.2 (+10% per stack) per level)
+* Marwan's Light:
+	* Burn Over Time: ~~0.2% (+0.02% per level, multiplied by item stack)~~ ⇒ 0.2% (+0.02% (+10% per stack) per level)
+	* Burn Duration: ~~2s~~ ⇒ 5s
+* Marwan's Weapon:
+	* Radius: ~~7m (+1.4m per level, multiplied by item stack)~~ ⇒ 7m (+1m (+10% per stack) per level)
+* Legendary Mask:
+	* Wisp Cooldown Reduction: ~~100%~~ ⇒ 50%
+	* Wisp Attack Speed: ~~200%~~ ⇒ 150%
+* Hiker's Backpack:
+	* Cooldown Reduction: ~~8%~~ ⇒ 15%
+* Added option to turn Frayed Bow into an untiered item
+* Fixed Treasure Map and From Omar With Love holograms rendering over everything
+* Fixed certain parts of the Metronome UI being invisible
+* Fixed Treasure Map beeping after a Siren Pole is charged
+* Fixed black screen with PlayerBots on stage transition
+* Fixed Contraband Gunpowder crashing the game if the screenshake intensity is set to 0
+* Fixed cooldown reduction on Archaic Wisps from Legendary Mask being 100% less than intended
+* Fixed Mechanical Arm gaining charges while off cooldown
+* Fixed Wireless Voltmeter giving less shield than intended with Shaped Glass, Artifact of Glass and other sources of curse
   
 (Previous changelogs can be found [here](https://github.com/TheMysticSword/MysticsItems/blob/main/CHANGELOG.md))
 
