@@ -79,28 +79,30 @@ Contains assets from [FreePBR.com](https://freepbr.com/)
 Contains assets from [ambientCG.com](https://ambientcg.com/), licensed under CC0 1.0 Universal.
 
 # Changelog
-#### 2.0.15:
-* Marwan's Ash:
-	* Damage: ~~6 (+1.2 per level, multiplied by item stack)~~ ⇒ 6 (+1.2 (+10% per stack) per level)
-* Marwan's Light:
-	* Burn Over Time: ~~0.2% (+0.02% per level, multiplied by item stack)~~ ⇒ 0.2% (+0.02% (+10% per stack) per level)
-	* Burn Duration: ~~2s~~ ⇒ 5s
-* Marwan's Weapon:
-	* Radius: ~~7m (+1.4m per level, multiplied by item stack)~~ ⇒ 7m (+1m (+10% per stack) per level)
-* Legendary Mask:
-	* Wisp Cooldown Reduction: ~~100%~~ ⇒ 50%
-	* Wisp Attack Speed: ~~200%~~ ⇒ 150%
-* Hiker's Backpack:
-	* Cooldown Reduction: ~~8%~~ ⇒ 15%
-* Added option to turn Frayed Bow into an untiered item
-* Fixed Treasure Map and From Omar With Love holograms rendering over everything
-* Fixed certain parts of the Metronome UI being invisible
-* Fixed Treasure Map beeping after a Siren Pole is charged
-* Fixed black screen with PlayerBots on stage transition
-* Fixed Contraband Gunpowder crashing the game if the screenshake intensity is set to 0
-* Fixed cooldown reduction on Archaic Wisps from Legendary Mask being 100% less than intended
-* Fixed Mechanical Arm gaining charges while off cooldown
-* Fixed Wireless Voltmeter giving less shield than intended with Shaped Glass, Artifact of Glass and other sources of curse
+#### 2.0.16:
+* Vintage Microphone:
+	* Boost Distance: ~~15m~~ ⇒ 20m
+* Contraband Gunpowder:
+	* Damage: ~~500% (+400% per stack)~~ ⇒ 300% (+240% per stack)
+* Warning System:
+	* Cooldown: ~~90s~~ ⇒ 75s
+* Metronome:
+	* Increased the beat window
+	* Preparation ticks now play at the speed of the current song
+* Crystallized World:
+	* Enemies no longer deal damage while under the effects of the Crystallized debuff
+* Super Idol:
+	* Gold for Max Buff: ~~$400 (-50% per stack)~~ ⇒ $1200 (-50% per stack)
+	* Max Bonus Health: ~~100%~~ ⇒ 150%
+* Moved the Moonglasses non-crit damage reduction for Bandit option to the General config, and set it to be disabled by default
+* Removed the Moonglasses non-crit damage reduction for Railgunner option. Instead, Railgunner gets less extra damage from crit chance.
+* Fixed Rift Lens instantly killing the owner under certain circumstances
+* Fixed Warning System making Shrines of the Mountain available after a Teleporter gets charged
+* Fixed Warning System sometimes not triggering Warbanner
+* Fixed Ten Commandments of Vyrael causing elite aspects to drop when they trigger Lost Seer's Lenses (DLC1)
+* Fixed From Omar With Love's pickup model being extremely large
+* Fixed Moonglasses' pickup model being too small
+* Fixed Platinum Card being consumed on purchasing the only remaining multishop choice
   
 (Previous changelogs can be found [here](https://github.com/TheMysticSword/MysticsItems/blob/main/CHANGELOG.md))
 
