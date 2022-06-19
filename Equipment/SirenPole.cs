@@ -355,8 +355,8 @@ namespace MysticsItems.Equipment
                         }
                         else
                         {
-                            Object.Destroy(gameObject);
-                            if (NetworkServer.active) NetworkServer.UnSpawn(gameObject);
+                            if (NetworkServer.active) NetworkServer.Destroy(gameObject);
+                            else Object.Destroy(gameObject);
                         }
                     }
                 }
