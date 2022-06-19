@@ -144,7 +144,7 @@
 
     "ITEM_MYSTICSITEMS_IDOL_NAME": "Super Idol", // [The lore entry is a reference to the Golden Idol from Slay the Spire]
     "ITEM_MYSTICSITEMS_IDOL_PICKUP": "Increase health and armor depending on current gold.",
-    "ITEM_MYSTICSITEMS_IDOL_DESC": "Increase health up to <style=cIsHealth>{HealthBonus}%</style> and armor up to <style=cIsUtility>{ArmorBonus}%</style> depending on current gold <style=cIsUtility>(up to {GoldCap}$ <style=cStack>(-50% per stack)</style>, scaling with time)</style>.",
+    "ITEM_MYSTICSITEMS_IDOL_DESC": "Increase health up to <style=cIsHealth>{HealthBonus}%</style> and armor up to <style=cIsUtility>{ArmorBonus}</style> depending on current gold <style=cIsUtility>(up to {GoldCap}$ <style=cStack>(-50% per stack)</style>, scaling with time)</style>.",
     "ITEM_MYSTICSITEMS_IDOL_LORE": "'Made of solid gold, you feel richer just holding it.'",
 
     "ITEM_MYSTICSITEMS_BACKPACK_NAME": "Hiker's Backpack",
@@ -211,7 +211,7 @@
     "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_LORE": "Brother, your creative vision is admittedly invigorating, yet I cannot allow you to create without my supervision.\r\n\r\nYour curiousity has inspired you to create a new compound. The quality, and the properties of it are determined by the ratios of the compounds which comprise it. The more the ratios deviate, the more volatile the resulting compound is, the less it maintains form.\r\n\r\nI can see that your creation consists of... An abundance of every single basic component. It holds no form, and cannot be used to create. Its only purpose is war.\r\n\r\n... \"Chaos?\"",
 
     "EQUIPMENT_MYSTICSITEMS_GATECHALICE_NAME": "Gate Chalice", // [The word "gate" here refers to the teleporters that Mithrix and Providence created. They call them "gates" in the vanilla logbook entries (specifically, A Moment, Fractured (MAP_MYSTERYSPACE_LORE), A Moment, Whole (MAP_LIMBO_LORE), Commencement (MAP_MOON_LORE))]
-    "EQUIPMENT_MYSTICSITEMS_GATECHALICE_PICKUP": "Instantly teleport to the next stage. You will save some time, <color=#FF7F7F>BUT lose out on items from unopened chests...</color>",
+    "EQUIPMENT_MYSTICSITEMS_GATECHALICE_PICKUP": "Instantly teleport to the next stage. You will save some time, <color=#FF7F7F>BUT lose out on items from unopened chests.</color>",
     "EQUIPMENT_MYSTICSITEMS_GATECHALICE_DESC": "Teleports to the next stage. Can be used to save time, <style=cIsUtility>but you risk becoming underpowered from skipping stages with unopened chests</style>.",
 
     "EQUIPMENT_MYSTICSITEMS_FRAGILEMASK_NAME": "Fragile Mask",

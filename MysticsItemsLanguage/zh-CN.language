@@ -144,7 +144,7 @@
 
     "ITEM_MYSTICSITEMS_IDOL_NAME": "超级神像", // [The lore entry is a reference to the Golden Idol from Slay the Spire]
     "ITEM_MYSTICSITEMS_IDOL_PICKUP": "基于你的金钱增加生命和护甲。",
-    "ITEM_MYSTICSITEMS_IDOL_DESC": "增加最多<style=cIsHealth>{HealthBonus}%</style>生命值和<style=cIsUtility>{ArmorBonus}%</style>护甲。基于你当前的金钱<style=cIsUtility>(最多{GoldCap}$ <style=cStack>(每层-50%)</style>，随难度增加)</style>。",
+    "ITEM_MYSTICSITEMS_IDOL_DESC": "增加最多<style=cIsHealth>{HealthBonus}%</style>生命值和<style=cIsUtility>{ArmorBonus}</style>护甲。基于你当前的金钱<style=cIsUtility>(最多{GoldCap}$ <style=cStack>(每层-50%)</style>，随难度增加)</style>。",
     "ITEM_MYSTICSITEMS_IDOL_LORE": "'纯金制造，拿着它让你感到富有。'",
 
     "ITEM_MYSTICSITEMS_BACKPACK_NAME": "旅者背包",
@@ -211,7 +211,7 @@
     "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_LORE": "兄弟，你的创意性的确令人振奋，但我不能允许你在没有我监督的情况下进行创作。\r\n\r\n你的好奇心启发你创造了一种新化合物。它的质量和性质由组成它的化合物的比例决定。比例偏差越大，生成的化合物越容易挥发，其保持形态的能力就越弱。\r\n\r\n我可以看到你的作品包括...很多组成部分。它不具有任何形式，不能用于创造。它的唯一目的是战争...\r\n\r\n... \"混沌？\"",
 
     "EQUIPMENT_MYSTICSITEMS_GATECHALICE_NAME": "传送圣杯", // [The word "gate" here refers to the teleporters that Mithrix and Providence created. They call them "gates" in the vanilla logbook entries (specifically, A Moment, Fractured (MAP_MYSTERYSPACE_LORE), A Moment, Whole (MAP_LIMBO_LORE), Commencement (MAP_MOON_LORE))]
-    "EQUIPMENT_MYSTICSITEMS_GATECHALICE_PICKUP": "立刻将你传送至下一关卡。可以节省时间，<color=#FF7F7F>但是会失去潜在的尚未打开的箱子...</color>",
+    "EQUIPMENT_MYSTICSITEMS_GATECHALICE_PICKUP": "立刻将你传送至下一关卡。可以节省时间，<color=#FF7F7F>但是会失去潜在的尚未打开的箱子。</color>",
     "EQUIPMENT_MYSTICSITEMS_GATECHALICE_DESC_OLD": "传送至下个关卡，<style=cIsUtility>随机移除{ItemsToDestroy}个物品</style>。",
     "EQUIPMENT_MYSTICSITEMS_GATECHALICE_DESC": "传送至下个关卡，可以节省时间，<style=cIsUtility>但是失去潜在的尚未打开的箱子可能会使你自身的强度不足</style>。",
 

@@ -142,7 +142,7 @@
 
     "ITEM_MYSTICSITEMS_IDOL_NAME": "Super-Ídolo", // [The lore entry is a reference to the Golden Idol from Slay the Spire]
     "ITEM_MYSTICSITEMS_IDOL_PICKUP": "Aumenta a saúde e a armadura dependendo do ouro atual.",
-    "ITEM_MYSTICSITEMS_IDOL_DESC": "Aumenta a saúde até <style=cIsHealth>{HealthBonus}%</style> e a armadura até <style=cIsUtility>{ArmorBonus}%</style> dependendo do ouro atual <style=cIsUtility>(até {GoldCap}$ <style=cStack>(-50% por acúmulo)</style>, escalando com o tempo)</style>.",
+    "ITEM_MYSTICSITEMS_IDOL_DESC": "Aumenta a saúde até <style=cIsHealth>{HealthBonus}%</style> e a armadura até <style=cIsUtility>{ArmorBonus}</style> dependendo do ouro atual <style=cIsUtility>(até {GoldCap}$ <style=cStack>(-50% por acúmulo)</style>, escalando com o tempo)</style>.",
     "ITEM_MYSTICSITEMS_IDOL_LORE": "'Feito de ouro maciço, você se sente mais rico apenas segurando-o.'",
 
     "ITEM_MYSTICSITEMS_BACKPACK_NAME": "Mochila do Andarilho",
@@ -209,7 +209,7 @@
     "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_LORE": "Irmão, sua visão criativa é realmente revigorante, mas não posso permitir que você crie algo a sem minha supervisão.\r\n\r\nSua curiosidade o inspirou a criar um novo composto. A qualidade e as propriedades dele são determinadas pelas proporções dos compostos que o compõem. Quanto mais as proporções se desviam, mais volátil é o composto resultante, menos ele mantém a forma.\r\n\r\nEu posso ver que sua criação consiste em... Uma abundância de cada componente básico. Ele não tem forma e não pode ser usado para criar algo. Seu único propósito é a guerra.\r\n\r\n... \"Caos?\"",
 
     "EQUIPMENT_MYSTICSITEMS_GATECHALICE_NAME": "Portão de Cálice", // [The word "gate" here refers to the teleporters that Mithrix and Providence created. They call them "gates" in the vanilla logbook entries (specifically, A Moment, Fractured (MAP_MYSTERYSPACE_LORE), A Moment, Whole (MAP_LIMBO_LORE), Commencement (MAP_MOON_LORE))]
-    "EQUIPMENT_MYSTICSITEMS_GATECHALICE_PICKUP": "Teletransporta-o instantaneamente para a próxima fase. Vais economizar algum tempo, <color=#FF7F7F>MAS perdes os itens dos baús fechados...</color>",
+    "EQUIPMENT_MYSTICSITEMS_GATECHALICE_PICKUP": "Teletransporta-o instantaneamente para a próxima fase. Vais economizar algum tempo, <color=#FF7F7F>MAS perdes os itens dos baús fechados.</color>",
     "EQUIPMENT_MYSTICSITEMS_GATECHALICE_DESC": "Teletransporta-o para a próxima fase.. Pode ser usado para economizar tempo, <style=cIsUtility>mas corres o risco de ficar fraco ao pular fases contendo baús fechados</style>.",
 
     "EQUIPMENT_MYSTICSITEMS_FRAGILEMASK_NAME": "Máscara Frágil",

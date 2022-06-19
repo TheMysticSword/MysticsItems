@@ -138,7 +138,7 @@
 
     "ITEM_MYSTICSITEMS_IDOL_NAME": "Super Idol", // [The lore entry is a reference to the Golden Idol from Slay the Spire]
     "ITEM_MYSTICSITEMS_IDOL_PICKUP": "Augmente la santé et l'armure en fonction de l’or actuel.",
-    "ITEM_MYSTICSITEMS_IDOL_DESC": "Augmente la santé de <style=cIsHealth>{HealthBonus}%</style> et l'armure de <style=cIsUtility>{ArmorBonus}%</style> en fonction de l'or actuel <style=cIsUtility>(jusqu'à {GoldCap}$ <style=cStack>(-50% per stack)</style>, scale avec le temps)</style>.",
+    "ITEM_MYSTICSITEMS_IDOL_DESC": "Augmente la santé de <style=cIsHealth>{HealthBonus}%</style> et l'armure de <style=cIsUtility>{ArmorBonus}</style> en fonction de l'or actuel <style=cIsUtility>(jusqu'à {GoldCap}$ <style=cStack>(-50% per stack)</style>, scale avec le temps)</style>.",
     "ITEM_MYSTICSITEMS_IDOL_LORE": "'Fait d’or massif, vous vous sentez plus riche juste en le tenant.'",
 
     "ITEM_MYSTICSITEMS_BACKPACK_NAME": "Sac à dos de randonneur",

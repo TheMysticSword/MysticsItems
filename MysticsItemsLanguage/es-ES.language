@@ -144,7 +144,7 @@
 
     "ITEM_MYSTICSITEMS_IDOL_NAME": "Súper Ídolo", // [The lore entry is a reference to the Golden Idol from Slay the Spire]
     "ITEM_MYSTICSITEMS_IDOL_PICKUP": "Incrementa la salud y la armadura mientras más oro se posea.",
-    "ITEM_MYSTICSITEMS_IDOL_DESC": "Incrementa la salud hasta en un <style=cIsHealth>{HealthBonus}%</style> y la armadura en un <style=cIsUtility>{ArmorBonus}%</style> dependiente del oro actual <style=cIsUtility>(hasta un maximo de {GoldCap}$ <style=cStack>(-50% por acumulación)</style>, escala con el tiempo)</style>.",
+    "ITEM_MYSTICSITEMS_IDOL_DESC": "Incrementa la salud hasta en un <style=cIsHealth>{HealthBonus}%</style> y la armadura en un <style=cIsUtility>{ArmorBonus}</style> dependiente del oro actual <style=cIsUtility>(hasta un maximo de {GoldCap}$ <style=cStack>(-50% por acumulación)</style>, escala con el tiempo)</style>.",
     "ITEM_MYSTICSITEMS_IDOL_LORE": "'Hecho de oro sólido, te sientes más rico con solo sostenerlo.'",
 
     "ITEM_MYSTICSITEMS_BACKPACK_NAME": "Mochila de excursionista",
@@ -211,7 +211,7 @@
     "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_LORE": "Hermano, tu visión creativa es sin duda estimulante, aunque no puedo permitirte que crees sin mi supervisión.\r\n\r\nTu curiosidad te ha inspirado a crear un nuevo compuesto. La calidad, y las propiedades de este son determinadas por las relaciones de los compuestos que lo conforman. Mientras más se desvíen la relación, mas volátil es el compuesto resultante, mas difícil le es mantener su forma.\r\n\r\nPuedo ver que tu creación consiste de... una abundancia de cada uno de todos los elementos básicos. No mantiene ninguna forma, y no puede ser usado para crear. Su único propósito es la guerra.\r\n\r\n... \"¿Caos?\"",
 
     "EQUIPMENT_MYSTICSITEMS_GATECHALICE_NAME": "Caliz del Portal", // [The word "gate" here refers to the teleporters that Mithrix and Providence created. They call them "gates" in the vanilla logbook entries (specifically, A Moment, Fractured (MAP_MYSTERYSPACE_LORE), A Moment, Whole (MAP_LIMBO_LORE), Commencement (MAP_MOON_LORE))]
-    "EQUIPMENT_MYSTICSITEMS_GATECHALICE_PICKUP": "Te transporta instantáneamente a la siguiente fase. Ahorraras algo de tiempo, <color=#FF7F7F>PERO perderás los objetos de los cofres sin abrir...</color>",
+    "EQUIPMENT_MYSTICSITEMS_GATECHALICE_PICKUP": "Te transporta instantáneamente a la siguiente fase. Ahorraras algo de tiempo, <color=#FF7F7F>PERO perderás los objetos de los cofres sin abrir.</color>",
     "EQUIPMENT_MYSTICSITEMS_GATECHALICE_DESC": "Te teletransporta a la siguiente fase. Puede ser usador para ahorrar tiempo, y <style=cIsUtility>pero te arriesgas a tener menos poder al saltarte las fases con cofres sin abrir</style>.",
 
     "EQUIPMENT_MYSTICSITEMS_FRAGILEMASK_NAME": "Mascara Fragil",

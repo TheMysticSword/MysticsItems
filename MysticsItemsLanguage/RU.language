@@ -211,7 +211,7 @@
     "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_LORE": "Брат, твоё изобретательное видение, безусловно, воодушевляет, однако я не могу позволить тебе создавать без моего наблюдения.\r\n\r\nЛюбопытство сподвигло тебя на создание нового соединения. Качество и свойства его определяются пропорциями соединений, составляющих его. Чем более пропорции отклоняются, тем менее устойчивое получается в итоге соединение, тем слабее оно сохраняет форму.\r\n\r\nВижу, твоё создание состоит из... Изобилующего количества каждого простого соединения. Оно вовсе не держит форму, и вовсе не пригодно к творению. Его единственное применение - война.\r\n\r\n... \"Хаос?\"",
 
     "EQUIPMENT_MYSTICSITEMS_GATECHALICE_NAME": "Чаша врат", // [The word "gate" here refers to the teleporters that Mithrix and Providence created. They call them "gates" in the vanilla logbook entries (specifically, A Moment, Fractured (MAP_MYSTERYSPACE_LORE), A Moment, Whole (MAP_LIMBO_LORE), Commencement (MAP_MOON_LORE))]
-    "EQUIPMENT_MYSTICSITEMS_GATECHALICE_PICKUP": "Моментально телепортирует на следующий этап. Вы сэкономите время, <color=#FF7F7F>но также пропустите предметы в неоткрытых сундуках...</color>",
+    "EQUIPMENT_MYSTICSITEMS_GATECHALICE_PICKUP": "Моментально телепортирует на следующий этап. Вы сэкономите время, <color=#FF7F7F>но также пропустите предметы в неоткрытых сундуках.</color>",
     "EQUIPMENT_MYSTICSITEMS_GATECHALICE_DESC": "Телепортирует на следующий этап. Можно использовать для экономии времени, <style=cIsUtility>но при этом вы рискуете стать слабее, пропуская этапы и не открывая сундуки</style>.",
 
     "EQUIPMENT_MYSTICSITEMS_FRAGILEMASK_NAME": "Хрупкая маска",
