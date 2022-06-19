@@ -321,12 +321,15 @@ namespace MysticsItems.Items
 
         public static float GetMaxCountdown(CharacterBody body)
         {
-            var averageWalkSpeed = body.baseMoveSpeed * body.sprintingSpeedMultiplier * (1f + 0.05f * Run.instance.stageClearCount);
+            var averageWalkSpeed = (body.baseMoveSpeed != 0f ? body.baseMoveSpeed : 7f) * (body.sprintingSpeedMultiplier != 0f ? body.sprintingSpeedMultiplier : 1.45f) * (1f + 0.05f * Run.instance.stageClearCount);
             var timeBonusFlat = 10f;
-
+            var maxTime = 360f;
+            
             // smart time calculation using node path lengths
             if (SceneInfo.instance && SceneInfo.instance.groundNodes)
             {
+                var finalTimeMultiplier = 0.83f;
+                
                 var nodeGraph = SceneInfo.instance.groundNodes;
 
                 var distanceBetweenAllRifts = 0f;
@@ -418,18 +421,17 @@ namespace MysticsItems.Items
                                 var pointDistance = Vector3.Distance(pointA, pointB);
                                 dist += pointDistance;
                             }
+                            distanceToNearestRift = dist;
                         }
                         else
                         {
-                            dist = Vector3.Distance(startPos, endPos) * 3.5f;
+                            distanceToNearestRift = Vector3.Distance(startPos, endPos) * 3.5f;
                         }
                     }
-
-                    distanceToNearestRift = dist;
                 }
 
                 var totalDistance = distanceToNearestRift + distanceBetweenAllRifts;
-                var calculatedCountdownTime = (totalDistance / averageWalkSpeed) + timeBonusFlat;
+                var calculatedCountdownTime = Mathf.Min((totalDistance / averageWalkSpeed) * finalTimeMultiplier + timeBonusFlat, maxTime);
                 return calculatedCountdownTime;
             }
 
@@ -471,16 +473,15 @@ namespace MysticsItems.Items
                         if (dist2 < dist)
                         {
                             dist = dist2;
+                            distanceToNearestRift = dist;
                         }
                     }
-
-                    distanceToNearestRift = dist;
                 }
 
                 var totalDistance = distanceToNearestRift + distanceBetweenAllRifts;
                 // players can't always go through the shortest path due to terrain and gravity, so we'll add bonus time
-                var timeBonusMultiplier = 3f;
-                var calculatedCountdownTime = (totalDistance / averageWalkSpeed) * timeBonusMultiplier + timeBonusFlat;
+                var timeBonusMultiplier = 2.7f;
+                var calculatedCountdownTime = Mathf.Min((totalDistance / averageWalkSpeed) * timeBonusMultiplier + timeBonusFlat, maxTime);
                 return calculatedCountdownTime;
             }
         }
@@ -492,6 +493,10 @@ namespace MysticsItems.Items
             public float maxCountdown = 150f;
             public float countdownTimer = 150f;
             public bool diedFromTimer = false;
+
+            public bool countdownCalculated = false;
+            public float countdownCalculationTimer = 0f;
+            public float countdownCalculationInterval = 4f;
 
             public bool nearNodes = true;
             public float nearNodeCheckTimer = 0;
@@ -507,20 +512,35 @@ namespace MysticsItems.Items
             public void Start()
             {
                 body.onInventoryChanged += Body_onInventoryChanged;
-                UpdateItemBasedInfo();
-                CalculateCountdown();
                 diedFromTimer = false;
             }
 
-            public void CalculateCountdown()
+            public bool CalculateCountdown()
             {
+                if (InstanceTracker.GetInstancesList<MysticsItemsRiftChest>().Count <= 0) return false;
+                
                 var newCountdownTime = GetMaxCountdown(body);
-                countdownTimer += maxCountdown - newCountdownTime;
+                countdownTimer += newCountdownTime - maxCountdown;
                 maxCountdown = newCountdownTime;
+                return true;
             }
 
             public void Update()
             {
+                if (!countdownCalculated)
+                {
+                    countdownCalculationTimer -= Time.deltaTime;
+                    if (countdownCalculationTimer <= 0)
+                    {
+                        countdownCalculated = CalculateCountdown();
+                        if (countdownCalculated)
+                        {
+                            UpdateItemBasedInfo();
+                            countdownCalculationTimer += countdownCalculationInterval;
+                        }
+                    }
+                }
+
                 if (!nearNodes)
                 {
                     nearNodeCheckTimer -= Time.deltaTime;
