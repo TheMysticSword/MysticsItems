@@ -169,7 +169,7 @@ namespace MysticsItems.Equipment
             inWorldPrefab.transform.Find("PoleTransform/InteractionCollider").gameObject.AddComponent<EntityLocator>().entity = inWorldPrefab;
 
             onTeleporterBeginChargingGlobalHook = new ILHook(
-                typeof(MysticsItemsSirenPoleController).GetMethod("RunOnTeleporterBeginChargingGlobal"),
+                typeof(MysticsItemsSirenPoleController).GetMethod("RunOnTeleporterBeginChargingGlobalHook"),
                 il =>
                 {
                     ILCursor c = new ILCursor(il);
@@ -179,7 +179,7 @@ namespace MysticsItems.Equipment
                 }
             );
             onTeleporterChargedGlobalHook = new ILHook(
-                typeof(MysticsItemsSirenPoleController).GetMethod("RunOnTeleporterChargedGlobal"),
+                typeof(MysticsItemsSirenPoleController).GetMethod("RunOnTeleporterChargedGlobalHook"),
                 il =>
                 {
                     ILCursor c = new ILCursor(il);
@@ -256,7 +256,7 @@ namespace MysticsItems.Equipment
                     Util.PlaySound("Play_loader_shift_release", gameObject);
                     ShakeEmitter.CreateSimpleShakeEmitter(transform.position, new Wave { amplitude = 7f, frequency = 2.4f }, 0.1f, zone.currentRadius, true);
 
-                    if (NetworkServer.active)
+                    if (NetworkServer.active && (!TeleporterInteraction.instance || !TeleporterInteraction.instance.isCharged))
                     {
                         foreach (var purchaseInteraction in InstanceTracker.GetInstancesList<PurchaseInteraction>().Where(x => x.setUnavailableOnTeleporterActivated))
                         {
@@ -298,6 +298,11 @@ namespace MysticsItems.Equipment
 
             public void RunOnTeleporterBeginChargingGlobal(TeleporterInteraction teleporterInteraction)
             {
+                try
+                {
+                    RunOnTeleporterBeginChargingGlobalHook(teleporterInteraction);
+                }
+                catch { }
                 if (NetworkServer.active)
                 {
                     foreach (var teamComponent in TeamComponent.GetTeamMembers(TeamIndex.Player))
@@ -322,10 +327,18 @@ namespace MysticsItems.Equipment
                 }
             }
 
+            public void RunOnTeleporterBeginChargingGlobalHook(TeleporterInteraction teleporterInteraction) { }
+
             public void RunOnTeleporterChargedGlobal(TeleporterInteraction teleporterInteraction)
             {
-
+                try
+                {
+                    RunOnTeleporterChargedGlobalHook(teleporterInteraction);
+                }
+                catch { }
             }
+
+            public void RunOnTeleporterChargedGlobalHook(TeleporterInteraction teleporterInteraction) { }
 
             public void FixedUpdate()
             {
