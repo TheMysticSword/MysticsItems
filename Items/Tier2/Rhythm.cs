@@ -34,12 +34,6 @@ namespace MysticsItems.Items
                 "ITEM_MYSTICSITEMS_RHYTHM_DESC"
             }
         );
-        public static ConfigurableValue<float> hudAppearTime = new ConfigurableValue<float>(
-            "Item: Metronome",
-            "HUDAppearTime",
-            5f,
-            "How long should the HUD indiactors be visible on-screen before a beat (in seconds)"
-        );
         public static float hudFadeInTime = 0.8f;
         public static float hudFadeOutTime = 0.3f;
         public static ConfigurableValue<float> readTime = new ConfigurableValue<float>(
@@ -54,22 +48,16 @@ namespace MysticsItems.Items
             4,
             "How many low-pitch preparation ticks should play before a beat (in seconds)"
         );
-        public static ConfigurableValue<float> prepareTickInterval = new ConfigurableValue<float>(
-            "Item: Metronome",
-            "PrepareTickInterval",
-            0.5f,
-            "How much time between each preparation tick (in seconds)"
-        );
         public static ConfigurableValue<float> beatWindowEarly = new ConfigurableValue<float>(
             "Item: Metronome",
             "BeatWindowEarly",
-            0.09f,
+            0.105f,
             "How early can you press to score a hit (in seconds)"
         );
         public static ConfigurableValue<float> beatWindowLate = new ConfigurableValue<float>(
             "Item: Metronome",
             "BeatWindowLate",
-            0.09f,
+            0.105f,
             "How late can you press to score a hit (in seconds)"
         );
 
@@ -158,6 +146,8 @@ namespace MysticsItems.Items
             indicatorComponent.noteTemplate = rhythmHUDUnderCrosshair.transform.Find("Bar/NoteLeft").gameObject;
             indicatorComponent.comboText = rhythmHUDUnderCrosshair.transform.Find("ComboText").GetComponent<TextMeshProUGUI>();
             indicatorComponent.barTransform = rhythmHUDUnderCrosshair.transform.Find("Bar");
+            indicatorComponent.comboTickAnimation = animationCurveHolder.startSize.curve;
+            indicatorComponent.comboTickAnimationMultiplier = 2f;
             indicatorComponent.comboHitAnimation = animationCurveHolder.startLifetime.curve;
             indicatorComponent.comboHitAnimationMultiplier = 2f;
             indicatorComponent.comboBreakAnimation = animationCurveHolder.startSpeed.curve;
@@ -177,6 +167,8 @@ namespace MysticsItems.Items
             indicatorComponent2.overSkillSingleTemplate = rhythmHUDOverSkills.transform.Find("OverSkillSingleTemplate").gameObject;
             indicatorComponent2.noteTemplate = rhythmHUDOverSkills.transform.Find("OverSkillSingleTemplate/Offset/NoteTemplate").gameObject;
             indicatorComponent2.comboText = rhythmHUDOverSkills.transform.Find("ComboText").GetComponent<TextMeshProUGUI>();
+            indicatorComponent2.comboTickAnimation = animationCurveHolder.startSize.curve;
+            indicatorComponent2.comboTickAnimationMultiplier = 2f;
             indicatorComponent2.comboHitAnimation = animationCurveHolder.startLifetime.curve;
             indicatorComponent2.comboHitAnimationMultiplier = 2f;
             indicatorComponent2.comboBreakAnimation = animationCurveHolder.startSpeed.curve;
@@ -188,6 +180,69 @@ namespace MysticsItems.Items
             rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, size);
             rectTransform = rectTransform.parent.Find("Judgement") as RectTransform;
             rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, size + 4f);
+
+            MusicBPMHelper.Init();
+        }
+
+        public static class MusicBPMHelper
+        {
+            public static void Init()
+            {
+                On.RoR2.MusicController.UpdateState += MusicController_UpdateState;
+            }
+
+            private static void MusicController_UpdateState(On.RoR2.MusicController.orig_UpdateState orig, MusicController self)
+            {
+                orig(self);
+                if (self.currentTrack && self.currentTrack != oldMusicTrackDef)
+                {
+                    oldMusicTrackDef = self.currentTrack;
+                    if (songBPM.TryGetValue(self.currentTrack.cachedName, out var newBPM)) currentBPM = newBPM;
+                    else currentBPM = 60;
+                }
+            }
+
+            public static MusicTrackDef oldMusicTrackDef;
+            public static float currentBPM = 60;
+
+            public static Dictionary<string, float> songBPM = new Dictionary<string, float>()
+            {
+                // Vanilla
+                { "muEscape", 100 }, // Escape track
+                { "muFULLSong02", 100 }, // Into the Doldrums
+                { "muFULLSong06", 60 }, // Nocturnal Emission
+                { "muFULLSong07", 60 }, // Evapotranspiration
+                { "muFULLSong18", 130 }, // Disdrometer
+                { "muFULLSong19", 60 }, // Terra Pluviam
+                { "muGameplayBase_09", 100 }, // They Might As Well Be Dead
+                { "muIntroCutscene", 120 }, // The comment for this MusicTrackDef says "No music". Let's use the default 120 BPM here then
+                { "muLogbook", 60 }, // The Dehydration of Risk of Rain 2
+                { "muMainEndingFull", 50 }, // Lacrimosum
+                { "muMainEndingOutroA", 50 }, // Also Lacrimosum I think?
+                { "muMainEndingOutroB", 50 }, // ^
+                { "muMenu", 60 }, // Risk of Rain 2
+                { "muNone", 120 }, // No music. Using the default 120 BPM then
+                { "muSong04", 60 }, // Parjanya
+                { "muSong05", 107 }, // Thermodynamic Equilibrium
+                { "muSong08", 76 }, // A Glacier Eventually Farts (And Don't You Listen to the Song of Life)
+                { "muSong13", 110 }, // The Raindrop that Fell to the Sky
+                { "muSong14", 130 }, // The Rain Formerly Known as Purple
+                { "muSong16", 150 }, // Hydrophobia
+                { "muSong21", 30 }, // Petrichor V. Doesn't have a "defined" rhythm I think, and it generally has a calm feel, so let's use 30 BPM
+                { "muSong22", 120 }, // Köppen As Fuck
+                { "muSong23", 160 }, // Antarctic Oscillation
+                { "muSong24", 50 }, // ...con lentitud poderosa
+                { "muSong25", 160 }, // You're Gonna Need a Bigger Ukulele
+                // DLC1
+                { "muBossfightDLC1_10", 162 }, // Having Fallen, It Was Blood
+                { "muBossfightDLC1_12", 134 }, // A Boat Made from a Sheet of Newspaper
+                { "muGameplayDLC1_01", 60 }, // Once in a Lullaby
+                { "muGameplayDLC1_03", 96 }, // Out of Whose Womb Came the Ice?
+                { "muGameplayDLC1_06", 48 }, // Who Can Fathom the Soundless Depths?
+                { "muGameplayDLC1_08", 76 }, // A Placid Island of Ignorance. I'm not sure about this one, the rhythm is hard for me to catch
+                { "muMenuDLC1", 48 }, // Prelude in D flat major. No idea about this one's BPM, let's use 48
+                { "muRaidfightDLC1_07", 114 } // The Face of the Deep
+            };
         }
 
         private void HUD_onHudTargetChangedGlobal(HUD obj)
@@ -249,6 +304,14 @@ namespace MysticsItems.Items
 
             public virtual void OnBeginRead() { }
 
+            public static void OnTickForInstance(MysticsItemsRhythmBehaviour rhythmBehaviour)
+            {
+                foreach (var instance in instancesList) if (instance.rhythmBehaviour == rhythmBehaviour)
+                        instance.OnTick();
+            }
+
+            public virtual void OnTick() { }
+
             public static List<MysticsItemsRhythmHUD> instancesList = new List<MysticsItemsRhythmHUD>();
 
             public static void RefreshAll()
@@ -280,9 +343,9 @@ namespace MysticsItems.Items
             {
                 if (rhythmBehaviour)
                 {
-                    if (rhythmBehaviour.currentTime >= (rhythmBehaviour.interval - Rhythm.hudAppearTime))
+                    if (rhythmBehaviour.currentTime >= (rhythmBehaviour.interval - rhythmBehaviour.timePerMeasure * 1.4f))
                     {
-                        return Mathf.Clamp01(1f - (rhythmBehaviour.interval - Rhythm.hudAppearTime + Rhythm.hudFadeInTime - rhythmBehaviour.currentTime) / Rhythm.hudFadeInTime);
+                        return Mathf.Clamp01(1f - (rhythmBehaviour.interval - rhythmBehaviour.timePerMeasure * 1.4f + Rhythm.hudFadeInTime - rhythmBehaviour.currentTime) / Rhythm.hudFadeInTime);
                     }
                     if (rhythmBehaviour.currentTime >= rhythmBehaviour.beatWindowLate)
                     {
@@ -354,6 +417,9 @@ namespace MysticsItems.Items
                         comboAnimationTime += Time.deltaTime;
                         switch (currentComboAnimationType)
                         {
+                            case ComboAnimationType.Tick:
+                                comboText.transform.localScale = Vector3.one * comboTickAnimation.Evaluate(t) * comboTickAnimationMultiplier;
+                                break;
                             case ComboAnimationType.Hit:
                                 comboText.transform.localScale = Vector3.one * comboHitAnimation.Evaluate(t) * comboHitAnimationMultiplier;
                                 break;
@@ -398,6 +464,15 @@ namespace MysticsItems.Items
                 notes.Add(noteComponent);
             }
 
+            public override void OnTick()
+            {
+                base.OnTick();
+                
+                currentComboAnimationType = ComboAnimationType.Tick;
+                comboAnimationTime = 0f;
+                comboAnimationDuration = 0.1f;
+            }
+
             public override void OnCombo()
             {
                 base.OnCombo();
@@ -439,6 +514,8 @@ namespace MysticsItems.Items
             public Transform barTransform;
             public float comboAnimationTime;
             public float comboAnimationDuration;
+            public AnimationCurve comboTickAnimation;
+            public float comboTickAnimationMultiplier = 1f;
             public AnimationCurve comboHitAnimation;
             public float comboHitAnimationMultiplier = 1f;
             public AnimationCurve comboBreakAnimation;
@@ -446,6 +523,7 @@ namespace MysticsItems.Items
             public enum ComboAnimationType
             {
                 None,
+                Tick,
                 Hit,
                 Break
             }
@@ -606,6 +684,9 @@ namespace MysticsItems.Items
                         comboAnimationTime += Time.deltaTime;
                         switch (currentComboAnimationType)
                         {
+                            case ComboAnimationType.Tick:
+                                comboText.transform.localScale = Vector3.one * comboTickAnimation.Evaluate(t) * comboTickAnimationMultiplier;
+                                break;
                             case ComboAnimationType.Hit:
                                 comboText.transform.localScale = Vector3.one * comboHitAnimation.Evaluate(t) * comboHitAnimationMultiplier;
                                 break;
@@ -636,6 +717,15 @@ namespace MysticsItems.Items
                     noteComponent.UpdateAlpha();
                     notes.Add(noteComponent);
                 }
+            }
+
+            public override void OnTick()
+            {
+                base.OnTick();
+
+                currentComboAnimationType = ComboAnimationType.Tick;
+                comboAnimationTime = 0f;
+                comboAnimationDuration = 0.1f;
             }
 
             public override void OnCombo()
@@ -681,6 +771,8 @@ namespace MysticsItems.Items
             public CanvasGroup[] disconnectedCanvasGroups = new CanvasGroup[] { };
             public float comboAnimationTime;
             public float comboAnimationDuration;
+            public AnimationCurve comboTickAnimation;
+            public float comboTickAnimationMultiplier = 1f;
             public AnimationCurve comboHitAnimation;
             public float comboHitAnimationMultiplier = 1f;
             public AnimationCurve comboBreakAnimation;
@@ -688,6 +780,7 @@ namespace MysticsItems.Items
             public enum ComboAnimationType
             {
                 None,
+                Tick,
                 Hit,
                 Break
             }
@@ -715,7 +808,7 @@ namespace MysticsItems.Items
                 public void Update()
                 {
                     var pos = transform.localPosition;
-                    pos.y = (remainingTime / maxTime) * yOffset;
+                    pos.y = (remainingTime / maxTime) * yOffset + rectTransform.rect.height;
                     transform.localPosition = pos;
 
                     remainingTime -= Time.deltaTime;
@@ -826,7 +919,28 @@ namespace MysticsItems.Items
                 }
             }
 
-            public float interval = Rhythm.interval;
+            public float timePerBeat
+            {
+                get
+                {
+                    return 1f / (MusicBPMHelper.currentBPM / 60f);
+                }
+            }
+            public float timePerMeasure
+            {
+                get
+                {
+                    return timePerBeat * (float)(Rhythm.prepareTicks + 1);
+                }
+            }
+            public float interval
+            {
+                get
+                {
+                    var calculatedMeasures = Mathf.Round(Rhythm.interval / timePerMeasure);
+                    return timePerMeasure * calculatedMeasures;
+                }
+            }
             private float _readTime = Rhythm.readTime;
             public float readTime
             {
@@ -850,7 +964,7 @@ namespace MysticsItems.Items
             public void Start()
             {
                 MysticsItemsRhythmHUD.RefreshAll();
-                currentTime = interval - 8f;
+                currentTime = interval - timePerMeasure * 2f;
             }
 
             public void Update()
@@ -890,13 +1004,14 @@ namespace MysticsItems.Items
                 {
                     if (beatNotPressedYet)
                     {
-                        var newPreparePhase = Mathf.FloorToInt((interval - currentTime) / prepareTickInterval);
+                        var newPreparePhase = Mathf.FloorToInt((interval - currentTime) / timePerBeat);
                         if (newPreparePhase < preparePhase)
                         {
                             preparePhase = newPreparePhase;
                             if (preparePhase <= (prepareTicks - 1))
                             {
                                 if (body.hasEffectiveAuthority) Util.PlayAttackSpeedSound(prepareSoundString, gameObject, 1f + 0.1f * (combo - 1f));
+                                MysticsItemsRhythmHUD.OnTickForInstance(this);
                             }
                         }
                     }
