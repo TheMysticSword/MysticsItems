@@ -19,7 +19,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> damage = new ConfigurableValue<float>(
             "Item: Contraband Gunpowder",
             "Damage",
-            500f,
+            300f,
             "Explosion damage (in %)",
             new System.Collections.Generic.List<string>()
             {
@@ -29,7 +29,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> damagePerStack = new ConfigurableValue<float>(
             "Item: Contraband Gunpowder",
             "DamagePerStack",
-            400f,
+            240f,
             "Explosion damage for each additional stack of this item (in %)",
             new System.Collections.Generic.List<string>()
             {
