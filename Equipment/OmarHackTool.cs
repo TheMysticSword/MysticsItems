@@ -42,7 +42,7 @@ namespace MysticsItems.Equipment
             modelPanelParameters.minDistance = 3f;
             modelPanelParameters.maxDistance = 15f;
 
-            itemDisplayPrefab = PrepareItemDisplayModel(PrefabAPI.InstantiateClone(equipmentDef.pickupModelPrefab, equipmentDef.pickupModelPrefab.name + "Display", false));
+            itemDisplayPrefab = PrepareItemDisplayModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Equipment/From Omar With Love/FollowerModel.prefab"));
             var itemDisplayHelper = itemDisplayPrefab.AddComponent<MysticsItemsOmarHackToolItemDisplayHelper>();
             itemDisplayHelper.hologramObject = itemDisplayPrefab.transform.Find("HologramPivot").gameObject;
             onSetupIDRS += () =>
