@@ -1,3 +1,5 @@
+using Mono.Cecil.Cil;
+using MonoMod.Cil;
 using MysticsRisky2Utils;
 using MysticsRisky2Utils.BaseAssetTypes;
 using R2API;
@@ -29,25 +31,14 @@ namespace MysticsItems.Items
                 "ITEM_MYSTICSITEMS_MOONGLASSES_DESC"
             }
         );
-        /*
-        public static ConfigurableValue<string> halveNonCritDamageForBodies = new ConfigurableValue<string>(
-            "Item: Moonglasses",
-            "HalveNonCritDamageForBodies",
-            "Bandit2Body,RailgunnerBody",
-            "All non-crit damage for these characters will be halved with this item to compensate for their ability to deal guaranteed crits. Comma-separated, using internal body names."
-        );
-        */
-        public static ConfigurableValue<bool> halveNonCritDamageForBackstabbers = new ConfigurableValue<bool>(
-            "Item: Moonglasses",
-            "HalveNonCritDamageForBackstabbers",
-            true,
-            "All non-crit damage for characters with a backstab passive (e.g. Bandit) will be halved with this item to compensate for their ability to deal guaranteed crits"
-        );
-        public static ConfigurableValue<bool> halveNonCritDamageForCritChanceConverters = new ConfigurableValue<bool>(
-            "Item: Moonglasses",
-            "HalveNonCritDamageForCritChanceConverters",
-            true,
-            "All non-crit damage for characters with a 'crit chance is converted into crit damage' passive (e.g. Railgunner) will be halved with this item to compensate for their ability to deal guaranteed crits"
+        public static ConfigOptions.ConfigurableValue<bool> halveNonCritDamageForBackstabbers = ConfigOptions.ConfigurableValue.CreateBool(
+            ConfigManager.General.categoryGUID,
+            ConfigManager.General.categoryName,
+            ConfigManager.General.config,
+            "Gameplay",
+            "Moonglasses Affect Backstabbers",
+            false,
+            "All non-crit damage for characters with a backstab passive (e.g. Bandit) will be halved when using the Moonglasses item to compensate for their ability to deal guaranteed crits"
         );
 
         public override void OnLoad()
@@ -95,24 +86,72 @@ namespace MysticsItems.Items
                 AddDisplayRule("VoidSurvivorBody", "Head", new Vector3(-0.01512F, 0.07926F, 0.08407F), new Vector3(30.07312F, 185.1942F, 0F), new Vector3(6.38275F, 6.38275F, 6.38275F));
             };
 
-            GenericGameEvents.OnApplyDamageIncreaseModifiers += GenericGameEvents_OnApplyDamageIncreaseModifiers;
-
+            IL.RoR2.CharacterBody.RecalculateStats += CharacterBody_RecalculateStats;
             RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
+            GenericGameEvents.OnApplyDamageIncreaseModifiers += GenericGameEvents_OnApplyDamageIncreaseModifiers;
+        }
 
-            // Apply the crit multiplier after all stats are calculated
-            On.RoR2.CharacterBody.RecalculateStats += (orig, self) =>
+        private void CharacterBody_RecalculateStats(ILContext il)
+        {
+            ILCursor c = new ILCursor(il);
+            int critPosition = -1;
+            if (c.TryGotoNext(
+                x => x.MatchLdfld<CharacterBody>("baseCrit")
+            ) && c.TryGotoNext(
+                MoveType.AfterLabel,
+                x => x.MatchLdfld<CharacterBody>("levelCrit")
+            ) && c.TryGotoNext(
+                MoveType.AfterLabel,
+                x => x.MatchStloc(out critPosition)
+            ))
             {
-                orig(self);
-                Inventory inventory = self.inventory;
-                if (inventory)
+                if (c.TryGotoNext(
+                    MoveType.After,
+                    x => x.MatchCallOrCallvirt<CharacterBody>("set_crit")
+                ))
                 {
-                    int itemCount = self.inventory.GetItemCount(itemDef);
-                    if (itemCount > 0)
+                    c.Emit(OpCodes.Ldarg, 0);
+                    c.EmitDelegate<System.Action<CharacterBody>>((body) =>
                     {
-                        self.crit /= Mathf.Pow(2, itemCount);
-                    }
+                        Inventory inventory = body.inventory;
+                        if (inventory)
+                        {
+                            int itemCount = body.inventory.GetItemCount(itemDef);
+                            if (itemCount > 0)
+                            {
+                                body.crit /= Mathf.Pow(2, itemCount);
+                            }
+                        }
+                    });
                 }
-            };
+
+                if (c.TryGotoNext(
+                    x => x.MatchCallOrCallvirt<CharacterBody>("get_critMultiplier")
+                ) && c.TryGotoNext(
+                    x => x.MatchLdloc(critPosition)
+                ) && c.TryGotoNext(
+                    x => x.MatchLdcR4(out _)
+                ) && c.TryGotoNext(
+                    MoveType.After,
+                    x => x.MatchMul()
+                ))
+                {
+                    c.Emit(OpCodes.Ldarg, 0);
+                    c.EmitDelegate<System.Func<float, CharacterBody, float>>((currentCritMultiplier, body) =>
+                    {
+                        Inventory inventory = body.inventory;
+                        if (inventory)
+                        {
+                            int itemCount = body.inventory.GetItemCount(itemDef);
+                            if (itemCount > 0)
+                            {
+                                currentCritMultiplier /= Mathf.Pow(2, itemCount);
+                            }
+                        }
+                        return currentCritMultiplier;
+                    });
+                }
+            }
         }
 
         private void RecalculateStatsAPI_GetStatCoefficients(CharacterBody sender, RecalculateStatsAPI.StatHookEventArgs args)
@@ -134,8 +173,7 @@ namespace MysticsItems.Items
                 var itemCount = attackerInfo.inventory.GetItemCount(itemDef);
                 if (attackerInfo.body && itemCount > 0)
                 {
-                    if (halveNonCritDamageForBackstabbers && attackerInfo.body.bodyFlags.HasFlag(CharacterBody.BodyFlags.HasBackstabPassive) ||
-                        halveNonCritDamageForCritChanceConverters && attackerInfo.inventory.GetItemCount(DLC1Content.Items.ConvertCritChanceToCritDamage) > 0)
+                    if (halveNonCritDamageForBackstabbers && attackerInfo.body.bodyFlags.HasFlag(CharacterBody.BodyFlags.HasBackstabPassive))
                         damage /= Mathf.Pow(2, itemCount);
                 }
             }
