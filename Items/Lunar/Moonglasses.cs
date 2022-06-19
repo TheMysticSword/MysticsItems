@@ -57,9 +57,9 @@ namespace MysticsItems.Items
             modelPanelParameters.minDistance = 0.1f;
             modelPanelParameters.maxDistance = 0.2f;
 
-            HopooShaderToMaterial.Standard.Apply(itemDef.pickupModelPrefab.GetComponentInChildren<MeshRenderer>().sharedMaterial);
+            HopooShaderToMaterial.Standard.Apply(itemDef.pickupModelPrefab.GetComponentInChildren<SkinnedMeshRenderer>().sharedMaterial);
             ColorUtility.TryParseHtmlString("#3D8AFF", out Color color);
-            HopooShaderToMaterial.Standard.Emission(itemDef.pickupModelPrefab.GetComponentInChildren<MeshRenderer>().sharedMaterial, 0.5f, color);
+            HopooShaderToMaterial.Standard.Emission(itemDef.pickupModelPrefab.GetComponentInChildren<SkinnedMeshRenderer>().sharedMaterial, 0.5f, color);
             itemDisplayPrefab = PrepareItemDisplayModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Moonglasses/FollowerModel.prefab"));
             HopooShaderToMaterial.Standard.Apply(itemDisplayPrefab.GetComponentInChildren<MeshRenderer>().sharedMaterial);
             HopooShaderToMaterial.Standard.Emission(itemDisplayPrefab.GetComponentInChildren<MeshRenderer>().sharedMaterial, 0.5f, color);
