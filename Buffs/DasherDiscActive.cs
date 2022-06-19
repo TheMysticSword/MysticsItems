@@ -26,28 +26,19 @@ namespace MysticsItems.Buffs
             buffDef.buffColor = UnityEngine.Color.white;
             buffDef.iconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Buffs/DasherDiscActive.png");
 
-            IL.RoR2.HealthComponent.TakeDamage += (il) =>
-            {
-                ILCursor c = new ILCursor(il);
-                if (c.TryGotoNext(
-                    MoveType.AfterLabel,
-                    x => x.MatchLdarg(1),
-                    x => x.MatchLdfld<DamageInfo>("rejected"),
-                    x => x.MatchBrfalse(out _)
-                ))
-                {
-                    c.Emit(OpCodes.Ldarg_0);
-                    c.Emit(OpCodes.Ldarg_1);
-                    c.EmitDelegate<System.Action<HealthComponent, DamageInfo>>((healthComponent, damageInfo) =>
-                    {
-                        if (healthComponent.body.HasBuff(buffDef)) damageInfo.rejected = true;
-                    });
-                }
-            };
+            GenericGameEvents.BeforeTakeDamage += GenericGameEvents_BeforeTakeDamage;
             On.RoR2.CharacterModel.UpdateMaterials += CharacterModel_UpdateMaterials;
             CharacterModelMaterialOverrides.AddOverride("DasherDiscActive", IncorporealMaterialOverride);
 
             R2API.RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
+        }
+
+        private void GenericGameEvents_BeforeTakeDamage(DamageInfo damageInfo, MysticsRisky2UtilsPlugin.GenericCharacterInfo attackerInfo, MysticsRisky2UtilsPlugin.GenericCharacterInfo victimInfo)
+        {
+            if (!damageInfo.rejected && victimInfo.body && victimInfo.body.HasBuff(buffDef))
+            {
+                damageInfo.rejected = true;
+            }
         }
 
         private void RecalculateStatsAPI_GetStatCoefficients(CharacterBody sender, R2API.RecalculateStatsAPI.StatHookEventArgs args)
