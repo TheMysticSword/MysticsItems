@@ -23,7 +23,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> goldCap = new ConfigurableValue<float>(
             "Item: Super Idol",
             "GoldCap",
-            400f,
+            1200f,
             "Gold required for full buff power (at starting difficulty level)\r\nFor comparison, a Small Chest costs $25, a Large Chest - $50, a Legendary Chest - $400.",
             new System.Collections.Generic.List<string>()
             {
@@ -33,7 +33,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> healthBonus = new ConfigurableValue<float>(
             "Item: Super Idol",
             "HealthBonus",
-            100f,
+            150f,
             "Extra maximum HP at full buff power (in %)",
             new System.Collections.Generic.List<string>()
             {
