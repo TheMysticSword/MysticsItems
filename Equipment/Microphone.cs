@@ -37,7 +37,7 @@ namespace MysticsItems.Equipment
         public static ConfigurableValue<float> boostDistance = new ConfigurableValue<float>(
             "Equipment: Vintage Microphone",
             "BoostDistance",
-            15f,
+            20f,
             "How far should it launch the owner when used mid-air (in meters)"
         );
         
