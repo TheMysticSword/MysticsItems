@@ -80,6 +80,7 @@ namespace MysticsItems.Items
             CharacterBody.onBodyStartGlobal += CharacterBody_onBodyStartGlobal;
             GenericGameEvents.OnHitEnemy += GenericGameEvents_OnHitEnemy;
             On.RoR2.Util.CheckRoll_float_CharacterMaster += Util_CheckRoll_float_CharacterMaster;
+            On.RoR2.GlobalEventManager.OnCharacterDeath += GlobalEventManager_OnCharacterDeath;
         }
 
         private void CharacterBody_onBodyStartGlobal(CharacterBody body)
@@ -125,16 +126,37 @@ namespace MysticsItems.Items
             {
                 var body = master.GetBody();
                 var component = body.GetComponent<MysticsItemsVyraelCommandmentsHelper>();
-                if (component && component.bonusActive > 0) percentChance *= chanceIncreaseOnProc;
+                if (component && component.bonusActive > 0 && !component.onKillSkip) percentChance *= chanceIncreaseOnProc;
             }
             return orig(percentChance, master);
         }
-        
+
+        private void GlobalEventManager_OnCharacterDeath(On.RoR2.GlobalEventManager.orig_OnCharacterDeath orig, GlobalEventManager self, DamageReport damageReport)
+        {
+            MysticsItemsVyraelCommandmentsHelper component = null;
+            bool skippingOnKills = false;
+            if (damageReport.attackerBody)
+            {
+                component = damageReport.attackerBody.GetComponent<MysticsItemsVyraelCommandmentsHelper>();
+                if (component && component.bonusActive > 0)
+                {
+                    component.onKillSkip = true;
+                    skippingOnKills = true;
+                }
+            }
+            orig(self, damageReport);
+            if (skippingOnKills)
+            {
+                component.onKillSkip = false;
+            }
+        }
+
         public class MysticsItemsVyraelCommandmentsHelper : MonoBehaviour
         {
             public float hitCount = 0;
             public int bonusActive = 0;
             public bool playEffect = false;
+            public bool onKillSkip = false;
         }
 
         public class MysticsItemsVyraelCommandmentsEffect : MonoBehaviour
