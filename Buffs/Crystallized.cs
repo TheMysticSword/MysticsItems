@@ -71,6 +71,11 @@ namespace MysticsItems.Buffs
             {
                 return model.body ? model.body.HasBuff(buffDef) : false;
             });
+
+            GenericGameEvents.BeforeTakeDamage += (damageInfo, attackerInfo, victimInfo) =>
+            {
+                if (!damageInfo.rejected && attackerInfo.body && attackerInfo.body.HasBuff(buffDef)) damageInfo.rejected = true;
+            };
         }
 
         private void RecalculateStatsAPI_GetStatCoefficients(CharacterBody sender, RecalculateStatsAPI.StatHookEventArgs args)
