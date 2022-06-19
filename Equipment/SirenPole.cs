@@ -54,7 +54,7 @@ namespace MysticsItems.Equipment
         public override void OnLoad()
         {
             equipmentDef.name = "MysticsItems_SirenPole";
-            ConfigManager.Balance.CreateEquipmentCooldownOption(equipmentDef, "Equipment: Warning System", 90f);
+            ConfigManager.Balance.CreateEquipmentCooldownOption(equipmentDef, "Equipment: Warning System", 75f);
             equipmentDef.canDrop = true;
             ConfigManager.Balance.CreateEquipmentEnigmaCompatibleOption(equipmentDef, "Equipment: Warning System", true);
             ConfigManager.Balance.CreateEquipmentCanBeRandomlyTriggeredOption(equipmentDef, "Equipment: Warning System", true);
