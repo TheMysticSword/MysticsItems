@@ -32,6 +32,12 @@ namespace MysticsItems.Equipment
                 "EQUIPMENT_MYSTICSITEMS_FRAGILEMASK_DESC"
             }
         );
+        public static ConfigurableValue<bool> lingeringEffect = new ConfigurableValue<bool>(
+            "Equipment: Fragile Mask",
+            "LingeringEffect",
+            false,
+            "If true, the item's effect will be active for an extra second after turning it off"
+        );
 
         public static Material overrideMaterial;
         public static NetworkSoundEventDef sfxEnable;
@@ -47,7 +53,7 @@ namespace MysticsItems.Equipment
         {
             base.OnLoad();
             equipmentDef.name = "MysticsItems_FragileMask";
-            ConfigManager.Balance.CreateEquipmentCooldownOption(equipmentDef, "Equipment: Fragile Mask", 0f);
+            ConfigManager.Balance.CreateEquipmentCooldownOption(equipmentDef, "Equipment: Fragile Mask", 3f);
             equipmentDef.canDrop = true;
             ConfigManager.Balance.CreateEquipmentEnigmaCompatibleOption(equipmentDef, "Equipment: Fragile Mask", false);
             ConfigManager.Balance.CreateEquipmentCanBeRandomlyTriggeredOption(equipmentDef, "Equipment: Fragile Mask", false);
@@ -274,7 +280,7 @@ namespace MysticsItems.Equipment
                 {
                     if (component.maskActive && component.maskDisableDelay <= 0f && !autoCast)
                     {
-                        component.maskDisableDelay = 1f;
+                        component.maskDisableDelay = lingeringEffect ? 1f : 0.01f;
                         RoR2.Audio.EntitySoundManager.EmitSoundServer(sfxDisable.index, equipmentSlot.characterBody.gameObject);
                         return true;
                     }
