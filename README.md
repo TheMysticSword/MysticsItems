@@ -2,7 +2,7 @@
 Adds 40 new items!  
 
 ![GIF preview of some of the item models](https://i.imgur.com/8OOURv4.gif)  
-![Table with the info about all the items in the mod](https://i.imgur.com/GzUlvjR.png)  
+![Table with the info about all the items in the mod](https://i.imgur.com/9KMUL8u.png)  
 
 ### Important notes
 #### Manual installation
@@ -79,30 +79,23 @@ Contains assets from [FreePBR.com](https://freepbr.com/)
 Contains assets from [ambientCG.com](https://ambientcg.com/), licensed under CC0 1.0 Universal.
 
 # Changelog
-#### 2.0.16:
-* Vintage Microphone:
-	* Boost Distance: ~~15m~~ ⇒ 20m
-* Contraband Gunpowder:
-	* Damage: ~~500% (+400% per stack)~~ ⇒ 300% (+240% per stack)
-* Warning System:
-	* Cooldown: ~~90s~~ ⇒ 75s
+#### 2.0.18:
+* Fixed language tokens missing
+#### 2.0.17:
+* Added logbook entry for From Omar With Love
 * Metronome:
-	* Increased the beat window
-	* Preparation ticks now play at the speed of the current song
-* Crystallized World:
-	* Enemies no longer deal damage while under the effects of the Crystallized debuff
-* Super Idol:
-	* Gold for Max Buff: ~~$400 (-50% per stack)~~ ⇒ $1200 (-50% per stack)
-	* Max Bonus Health: ~~100%~~ ⇒ 150%
-* Moved the Moonglasses non-crit damage reduction for Bandit option to the General config, and set it to be disabled by default
-* Removed the Moonglasses non-crit damage reduction for Railgunner option. Instead, Railgunner gets less extra damage from crit chance.
-* Fixed Rift Lens instantly killing the owner under certain circumstances
-* Fixed Warning System making Shrines of the Mountain available after a Teleporter gets charged
-* Fixed Warning System sometimes not triggering Warbanner
-* Fixed Ten Commandments of Vyrael causing elite aspects to drop when they trigger Lost Seer's Lenses (DLC1)
-* Fixed From Omar With Love's pickup model being extremely large
-* Fixed Moonglasses' pickup model being too small
-* Fixed Platinum Card being consumed on purchasing the only remaining multishop choice
+	* Effect reworked - now creates a rhythm indicator that adds +0.2% crit chance until the end of the stage if a non-Primary skill is used in time with rhythm
+	* Rhythm indicator is now faded to be less distracting
+* Fragile Mask:
+	* No longer has a 1 second lingering effect after disabling, allowing you to quickly turn it off in response to an incoming attack
+	* Can be reverted in the balance config
+	* Cooldown changed from 0s to 3s to make the initial activation more risky
+* Enemies marked by the Faulty Spotter now trigger the extra arrows from Huntress's Flurry as if the attack was a random crit
+* Contraband Gunpowder no longer hits the owner with the Artifact of Chaos
+* Potentially fixed Hiker's Backpack giving infinite skill charges with certain mods
+* Fixed Legendary Mask being misplaced and absurdly big on Void Fiend
+* Fixed Metronome playing sounds for NPC allies that have it
+* Removed the "orange" world display from Crystallized World
   
 (Previous changelogs can be found [here](https://github.com/TheMysticSword/MysticsItems/blob/main/CHANGELOG.md))
 

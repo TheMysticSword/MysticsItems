@@ -1,3 +1,20 @@
+#### 2.0.18:
+* Fixed language tokens missing
+#### 2.0.17:
+* Added logbook entry for From Omar With Love
+* Metronome:
+	* Effect reworked - now creates a rhythm indicator that adds +0.2% crit chance until the end of the stage if a non-Primary skill is used in time with rhythm
+	* Rhythm indicator is now faded to be less distracting
+* Fragile Mask:
+	* No longer has a 1 second lingering effect after disabling, allowing you to quickly turn it off in response to an incoming attack
+	* Can be reverted in the balance config
+	* Cooldown changed from 0s to 3s to make the initial activation more risky
+* Enemies marked by the Faulty Spotter now trigger the extra arrows from Huntress's Flurry as if the attack was a random crit
+* Contraband Gunpowder no longer hits the owner with the Artifact of Chaos
+* Potentially fixed Hiker's Backpack giving infinite skill charges with certain mods
+* Fixed Legendary Mask being misplaced and absurdly big on Void Fiend
+* Fixed Metronome playing sounds for NPC allies that have it
+* Removed the "orange" world display from Crystallized World
 #### 2.0.16:
 * Vintage Microphone:
 	* Boost Distance: ~~15m~~ ⇒ 20m
