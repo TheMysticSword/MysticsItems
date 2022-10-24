@@ -93,13 +93,38 @@ namespace MysticsItems.Items
             };
 
             RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
-            On.RoR2.CharacterBody.RecalculateStats += CharacterBody_RecalculateStats;
+            On.RoR2.GenericSkill.RecalculateMaxStock += GenericSkill_RecalculateMaxStock;
             On.RoR2.CharacterMaster.GetDeployableSameSlotLimit += CharacterMaster_GetDeployableSameSlotLimit;
 
             /*
             On.RoR2.Skills.SkillCatalog.SetSkillDefs += SkillCatalog_SetSkillDefs;
             On.EntityStates.GenericCharacterMain.PerformInputs += GenericCharacterMain_PerformInputs;
             */
+        }
+
+        private void GenericSkill_RecalculateMaxStock(On.RoR2.GenericSkill.orig_RecalculateMaxStock orig, GenericSkill self)
+        {
+            orig(self);
+            if (self.characterBody)
+            {
+                var skillLocator = self.characterBody.skillLocator;
+                var inventory = self.characterBody.inventory;
+                if (skillLocator && inventory)
+                {
+                    var itemCount = inventory.GetItemCount(itemDef);
+                    if (itemCount > 0)
+                    {
+                        if (skillLocator.primaryBonusStockSkill == self ||
+                            skillLocator.secondaryBonusStockSkill == self ||
+                            skillLocator.utilityBonusStockSkill == self ||
+                            skillLocator.specialBonusStockSkill == self)
+                        {
+                            var extraCharges = charges + chargesPerStack * (itemCount - 1);
+                            self.maxStock += extraCharges;
+                        }
+                    }
+                }
+            }
         }
 
         private int CharacterMaster_GetDeployableSameSlotLimit(On.RoR2.CharacterMaster.orig_GetDeployableSameSlotLimit orig, CharacterMaster self, DeployableSlot slot)
@@ -175,45 +200,21 @@ namespace MysticsItems.Items
                 if (itemCount > 0)
                 {
                     args.cooldownMultAdd -= cdr / 100f;
-                }
 
-                var skills = new GenericSkill[]
-                {
-                    sender.skillLocator.primary,
-                    sender.skillLocator.secondary,
-                    sender.skillLocator.utility,
-                    sender.skillLocator.special
-                };
-                foreach (var skill in skills)
-                {
-                    if (skill)
-                        skill.SetBonusStockFromBody(0);
-                }
-            }
-        }
-
-        private void CharacterBody_RecalculateStats(On.RoR2.CharacterBody.orig_RecalculateStats orig, CharacterBody self)
-        {
-            orig(self);
-            if (self.inventory)
-            {
-                int itemCount = self.inventory.GetItemCount(itemDef);
-                var extraCharges = itemCount > 0 ? charges + chargesPerStack * (itemCount - 1) : 0;
-
-                var skills = new GenericSkill[]
-                {
-                    self.skillLocator.primary,
-                    self.skillLocator.secondary,
-                    self.skillLocator.utility,
-                    self.skillLocator.special
-                };
-                foreach (var skill in skills)
-                {
-                    if (skill)
-                        skill.SetBonusStockFromBody(skill.bonusStockFromBody + extraCharges);
+                    var skills = new GenericSkill[]
+                    {
+                        sender.skillLocator.primaryBonusStockSkill,
+                        sender.skillLocator.secondaryBonusStockSkill,
+                        sender.skillLocator.utilityBonusStockSkill,
+                        sender.skillLocator.specialBonusStockSkill
+                    };
+                    foreach (var skill in skills)
+                    {
+                        if (skill)
+                            skill.RecalculateMaxStock();
+                    }
                 }
             }
         }
-
     }
 }
