@@ -95,8 +95,10 @@
     "ITEM_MYSTICSITEMS_MYSTICSWORD_LORE": "\"Pommeau orné - pour le style.\r\n\r\nPoignée antidérapante - pour le contrôle.\r\n\r\nGarde angulaire épaisse - pour la puissance.\r\n\r\nLames à un seul tranchant - pour la concentration.\r\n\r\nDeux lames - pour, euh...\"\r\n\r\n\"Okey, Okey, j’ai compris, vous aimez votre nouvelle épée à hélices...\"",
 
     "ITEM_MYSTICSITEMS_RHYTHM_NAME": "Métronome",
-    "ITEM_MYSTICSITEMS_RHYTHM_PICKUP": "Utiliser une compétence non primaire toutes les {Interval}s pour accumuler des chances de coup critique. Rater un temps réinitialise le bonus.",
-    "ITEM_MYSTICSITEMS_RHYTHM_DESC": "Un rythme joue chaque <style=cIsUtility>{Interval}s</style>. Utiliser une compétence secondaire, utilitaire ou spéciale dans le temps pour entrer en <style=cIsUtility>combo</style>, rater un temps <style=cIsHealth>réinitialise le combo</style>. Les chances de coup critique sont augmentés de <style=cIsDamage>+{ComboCrit}% <style=cStack>(+{ComboCritPerStack}% per stack)</style></style> par combo.",
+    "ITEM_MYSTICSITEMS_RHYTHM_PICKUP": "Use non-Primary skills in rhythm to get extra Critical Strike chance.",
+    "ITEM_MYSTICSITEMS_RHYTHM_DESC": "A <style=cIsUtility>rhythm indicator</style> appears over your skills. Using a Secondary, Utility or Special skill in time with rhythm grants <style=cIsDamage>+{CritBonus}% <style=cStack>(+{CritBonusPerStack}% per stack)</style> Critical Strike chance</style> <style=cIsUtility>until the end of the stage</style>.",
+    "ITEM_MYSTICSITEMS_RHYTHM_PICKUP_OLD": "Utiliser une compétence non primaire toutes les {Interval}s pour accumuler des chances de coup critique. Rater un temps réinitialise le bonus.",
+    "ITEM_MYSTICSITEMS_RHYTHM_DESC_OLD": "Un rythme joue chaque <style=cIsUtility>{Interval}s</style>. Utiliser une compétence secondaire, utilitaire ou spéciale dans le temps pour entrer en <style=cIsUtility>combo</style>, rater un temps <style=cIsHealth>réinitialise le combo</style>. Les chances de coup critique sont augmentés de <style=cIsDamage>+{ComboCrit}% <style=cStack>(+{ComboCritPerStack}% per stack)</style></style> par combo.",
 
     "ITEM_MYSTICSITEMS_ELITEPOTION_NAME": "Expérience Ratée",
     "ITEM_MYSTICSITEMS_ELITEPOTION_PICKUP": "Tuer un ennemi d’élite répand son effet élémentaire sur les ennemis proches.",

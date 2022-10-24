@@ -97,8 +97,10 @@
     "ITEM_MYSTICSITEMS_MYSTICSWORD_LORE": "\"Pomo ornamentado - para o estilo.\r\n\r\nAperto canelado - para controle.\r\n\r\nGuarda angular grossa - para poder.\r\n\r\nLâminas de um único gume - para concentração.\r\n\r\nDuas lâminas - para, uhh...\"\r\n\r\n\"Ok, ok, entendi, tu *realmente* gostas da tua nova espada de ensaio.\"",
 
     "ITEM_MYSTICSITEMS_RHYTHM_NAME": "Metrônomo",
-    "ITEM_MYSTICSITEMS_RHYTHM_PICKUP": "Use uma habilidade não-Primária a cada {Interval}s para acúmular chance de acerto crítico. Perder uma batida reseta o bônus.",
-    "ITEM_MYSTICSITEMS_RHYTHM_DESC": "Uma batida toca a cada <style=cIsUtility>{Interval}s</style>. Usar uma habilidade Secundária, Utilitária ou Especial no tempo com a batida acúmula um <style=cIsUtility>combo</style>, errar uma batida <style=cIsHealth>reseta o combo</style>. A chance de Acerto Crítico é aumentada em <style=cIsDamage>+{ComboCrit}% <style=cStack>(+{ComboCritPerStack}% por acúmulo, multiplicado pelo acúmulo de combos)</style></style>.",
+    "ITEM_MYSTICSITEMS_RHYTHM_PICKUP": "Use non-Primary skills in rhythm to get extra Critical Strike chance.",
+    "ITEM_MYSTICSITEMS_RHYTHM_DESC": "A <style=cIsUtility>rhythm indicator</style> appears over your skills. Using a Secondary, Utility or Special skill in time with rhythm grants <style=cIsDamage>+{CritBonus}% <style=cStack>(+{CritBonusPerStack}% per stack)</style> Critical Strike chance</style> <style=cIsUtility>until the end of the stage</style>.",
+    "ITEM_MYSTICSITEMS_RHYTHM_PICKUP_OLD": "Use uma habilidade não-Primária a cada {Interval}s para acúmular chance de acerto crítico. Perder uma batida reseta o bônus.",
+    "ITEM_MYSTICSITEMS_RHYTHM_DESC_OLD": "Uma batida toca a cada <style=cIsUtility>{Interval}s</style>. Usar uma habilidade Secundária, Utilitária ou Especial no tempo com a batida acúmula um <style=cIsUtility>combo</style>, errar uma batida <style=cIsHealth>reseta o combo</style>. A chance de Acerto Crítico é aumentada em <style=cIsDamage>+{ComboCrit}% <style=cStack>(+{ComboCritPerStack}% por acúmulo, multiplicado pelo acúmulo de combos)</style></style>.",
 
     "ITEM_MYSTICSITEMS_ELITEPOTION_NAME": "Experimento Fracassado",
     "ITEM_MYSTICSITEMS_ELITEPOTION_PICKUP": "Matar um inimigo elite espalha seu efeito elemental em inimigos próximos.",

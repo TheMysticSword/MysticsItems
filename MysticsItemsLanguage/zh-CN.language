@@ -99,8 +99,10 @@
     "ITEM_MYSTICSITEMS_MYSTICSWORD_LORE": "\"华丽的剑柄 - 为了时尚。\r\n\r\n剑槽 - 更容易控制。\r\n\r\n厚重的护角 - 更有力量感。\r\n\r\n单片的刀刃 - 力量更集中。\r\n\r\n双刃刀尖 - 为了，呃...\"\r\n\r\n\"好吧好吧，我明白了，你 *真的* 很喜欢你的道具剑。\"",
 
     "ITEM_MYSTICSITEMS_RHYTHM_NAME": "节拍器",
-    "ITEM_MYSTICSITEMS_RHYTHM_PICKUP": "每{Interval}秒，使用你的非主要技能以跟上节拍，获得暴击率提升。错过节拍会使增益清零。",
-    "ITEM_MYSTICSITEMS_RHYTHM_DESC": "每<style=cIsUtility>{Interval}秒</style>产生一个节拍， 使用次要技能，实用技能或者特殊技能以跟上节拍，获得<style=cIsUtility>连击</style>，错过一个节拍会<style=cIsHealth>使连击清零</style>。 每层<style=cIsUtility>连击</style>提升<style=cIsDamage>+{ComboCrit}% <style=cStack>(每层+{ComboCritPerStack}%)</style></style>的暴击率。",
+    "ITEM_MYSTICSITEMS_RHYTHM_PICKUP": "Use non-Primary skills in rhythm to get extra Critical Strike chance.",
+    "ITEM_MYSTICSITEMS_RHYTHM_DESC": "A <style=cIsUtility>rhythm indicator</style> appears over your skills. Using a Secondary, Utility or Special skill in time with rhythm grants <style=cIsDamage>+{CritBonus}% <style=cStack>(+{CritBonusPerStack}% per stack)</style> Critical Strike chance</style> <style=cIsUtility>until the end of the stage</style>.",
+    "ITEM_MYSTICSITEMS_RHYTHM_PICKUP_OLD": "每{Interval}秒，使用你的非主要技能以跟上节拍，获得暴击率提升。错过节拍会使增益清零。",
+    "ITEM_MYSTICSITEMS_RHYTHM_DESC_OLD": "每<style=cIsUtility>{Interval}秒</style>产生一个节拍， 使用次要技能，实用技能或者特殊技能以跟上节拍，获得<style=cIsUtility>连击</style>，错过一个节拍会<style=cIsHealth>使连击清零</style>。 每层<style=cIsUtility>连击</style>提升<style=cIsDamage>+{ComboCrit}% <style=cStack>(每层+{ComboCritPerStack}%)</style></style>的暴击率。",
 
     "ITEM_MYSTICSITEMS_ELITEPOTION_NAME": "失败实验",
     "ITEM_MYSTICSITEMS_ELITEPOTION_PICKUP": "击败精英敌人会将其元素效果传播给附近敌人。",

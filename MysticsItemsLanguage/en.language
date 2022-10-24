@@ -99,8 +99,10 @@
     "ITEM_MYSTICSITEMS_MYSTICSWORD_LORE": "\"Ornate pommel - for style.\r\n\r\nFluted grip - for control.\r\n\r\nThick angular guard - for power.\r\n\r\nSingle-edged blades - for concentration.\r\n\r\nTwo blades - for, uhh...\"\r\n\r\n\"Okay, okay, I get it, you *really* like your new prop sword.\"",
 
     "ITEM_MYSTICSITEMS_RHYTHM_NAME": "Metronome",
-    "ITEM_MYSTICSITEMS_RHYTHM_PICKUP": "Use a non-Primary skill every {Interval}s to rack up Critical Strike chance. Missing a beat resets the bonus.",
-    "ITEM_MYSTICSITEMS_RHYTHM_DESC": "A beat plays every <style=cIsUtility>{Interval}s</style>. Using a Secondary, Utility or Special skill in time with beat racks up a <style=cIsUtility>combo</style>, missing a beat <style=cIsHealth>resets the combo</style>. Critical Strike chance is increased by <style=cIsDamage>+{ComboCrit}% <style=cStack>(+{ComboCritPerStack}% per stack)</style></style> multiplied by combo.",
+    "ITEM_MYSTICSITEMS_RHYTHM_PICKUP": "Use non-Primary skills in rhythm to get extra Critical Strike chance.",
+    "ITEM_MYSTICSITEMS_RHYTHM_DESC": "A <style=cIsUtility>rhythm indicator</style> appears over your skills. Using a Secondary, Utility or Special skill in time with rhythm grants <style=cIsDamage>+{CritBonus}% <style=cStack>(+{CritBonusPerStack}% per stack)</style> Critical Strike chance</style> <style=cIsUtility>until the end of the stage</style>.",
+    "ITEM_MYSTICSITEMS_RHYTHM_PICKUP_OLD": "Use a non-Primary skill every {Interval}s to rack up Critical Strike chance. Missing a beat resets the bonus.",
+    "ITEM_MYSTICSITEMS_RHYTHM_DESC_OLD": "A beat plays every <style=cIsUtility>{Interval}s</style>. Using a Secondary, Utility or Special skill in time with beat racks up a <style=cIsUtility>combo</style>, missing a beat <style=cIsHealth>resets the combo</style>. Critical Strike chance is increased by <style=cIsDamage>+{ComboCrit}% <style=cStack>(+{ComboCritPerStack}% per stack)</style></style> multiplied by combo.",
 
     "ITEM_MYSTICSITEMS_ELITEPOTION_NAME": "Failed Experiment",
     "ITEM_MYSTICSITEMS_ELITEPOTION_PICKUP": "Killing an elite enemy spreads its elemental effect on nearby enemies.",
@@ -203,6 +205,7 @@
     "EQUIPMENT_MYSTICSITEMS_OMARHACKTOOL_NAME": "From Omar With Love", // [Omar Faruk's developer item]
     "EQUIPMENT_MYSTICSITEMS_OMARHACKTOOL_PICKUP": "Hack a chest or a shrine to make it free. Once per stage.",
     "EQUIPMENT_MYSTICSITEMS_OMARHACKTOOL_DESC": "Hack a chest or a shrine to reduce its cost to <style=cIsUtility>$0</style>. Limited to <style=cIsUtility>1</style> use per stage, <style=cIsUtility>limit is increased with additional equipment charges</style>.",
+    "EQUIPMENT_MYSTICSITEMS_OMARHACKTOOL_LORE": "<style=cMono>ENCRYPTING..\r\nSTART OF THE MESSAGE</style>\r\n\r\n\"Hey son.\r\n\r\nHow are you doing? Hope everything is fine. They deployed your dad on Titan, seems like I will be off quite a bit more. That's why I sent that package to your mom. There are very important things in it for entire family while I am away. Unfortunately, the news of you guys losing the key arrived here. Thing is, it doesn't simply have a password that I can mail and be done with it, it is... More complicated.. That's why your dad had to put together this tool I sent you. Remember! Always keep it private! I don't trust anyone else with this thing, not even to your mom. This tool is an encoder, it can unlock a cryptic lock. I had to sacrifice some space, so a single box will probably drain the whole battery. Anyway, you can use this to open the package I sent you.\r\n\r\nDaddy loves you all and I will come home soon. 36 more days.\r\nTell your mom I miss her.\"\r\n\r\n<style=cMono>END OF MESSAGE</style>",
 
     //[LUNAR EQUIPMENT]
     "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_NAME": "Ratio Equalizer",
