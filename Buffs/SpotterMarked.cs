@@ -26,6 +26,17 @@ namespace MysticsItems.Buffs
             {
                 return model.body.HasBuff(buffDef);
             });
+
+            On.EntityStates.Huntress.HuntressWeapon.FireSeekingArrow.OnEnter += FireSeekingArrow_OnEnter;
+        }
+
+        private void FireSeekingArrow_OnEnter(On.EntityStates.Huntress.HuntressWeapon.FireSeekingArrow.orig_OnEnter orig, EntityStates.Huntress.HuntressWeapon.FireSeekingArrow self)
+        {
+            orig(self);
+            if (self.initialOrbTarget?.healthComponent?.body?.HasBuff(buffDef) == true)
+            {
+                self.isCrit = true;
+            }
         }
     }
 }
