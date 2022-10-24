@@ -316,9 +316,9 @@ namespace MysticsItems.SoftDependencies
                 // Metronome
                 BetterUI.ItemStats.RegisterStat(
                     MysticsItemsContent.Items.MysticsItems_Rhythm,
-                    "ITEMSTATS_MYSTICSITEMS_CRITPERBUFFSTACK",
-                    Buffs.RhythmCombo.comboCrit / 100f,
-                    Buffs.RhythmCombo.comboCritPerStack / 100f,
+                    "ITEMSTATS_MYSTICSITEMS_CRIT",
+                    Items.Rhythm.critBonus / 100f,
+                    Items.Rhythm.critBonusPerStack / 100f,
                     statFormatter: BetterUI.ItemStats.StatFormatter.Percent
                 );
                 // Nuclear Accelerator

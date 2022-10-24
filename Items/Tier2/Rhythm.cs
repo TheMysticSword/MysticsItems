@@ -20,33 +20,27 @@ namespace MysticsItems.Items
 {
     public class Rhythm : BaseItem
     {
-        public static GameObject rhythmHUDUnderCrosshair;
-        public static GameObject rhythmHUDOverSkills;
-
-        public static ConfigurableValue<float> interval = new ConfigurableValue<float>(
+        public static GameObject rhythmHUD;
+        
+        public static ConfigurableValue<float> critBonus = new ConfigurableValue<float>(
             "Item: Metronome",
-            "Interval",
-            30f,
-            "How much time between each metronome beat & how long the buff lasts (in seconds)",
+            "CritBonus",
+            0.2f,
+            "How much crit to add for each successful rhythm beat (in %)",
             new System.Collections.Generic.List<string>()
             {
-                "ITEM_MYSTICSITEMS_RHYTHM_PICKUP",
                 "ITEM_MYSTICSITEMS_RHYTHM_DESC"
             }
         );
-        public static float hudFadeInTime = 0.8f;
-        public static float hudFadeOutTime = 0.3f;
-        public static ConfigurableValue<float> readTime = new ConfigurableValue<float>(
+        public static ConfigurableValue<float> critBonusPerStack = new ConfigurableValue<float>(
             "Item: Metronome",
-            "ReadTime",
-            2f,
-            "How long should a note be visible on-screen before a beat (in seconds)"
-        );
-        public static ConfigurableValue<int> prepareTicks = new ConfigurableValue<int>(
-            "Item: Metronome",
-            "PrepareTicks",
-            4,
-            "How many low-pitch preparation ticks should play before a beat (in seconds)"
+            "CritBonusPerStack",
+            0.2f,
+            "How much crit to add for each successful rhythm beat (in %)",
+            new System.Collections.Generic.List<string>()
+            {
+                "ITEM_MYSTICSITEMS_RHYTHM_DESC"
+            }
         );
         public static ConfigurableValue<float> beatWindowEarly = new ConfigurableValue<float>(
             "Item: Metronome",
@@ -61,38 +55,10 @@ namespace MysticsItems.Items
             "How late can you press to score a hit (in seconds)"
         );
 
-        public static ConfigOptions.ConfigurableValue<bool> rhythmUIUnderCrosshair = ConfigOptions.ConfigurableValue.CreateBool(
-            ConfigManager.General.categoryGUID,
-            ConfigManager.General.categoryName,
-            ConfigManager.General.config,
-            "UI",
-            "Metronome UI (Under Crosshair)",
-            true,
-            "Enable Metronome's UI indicator under the crosshair"
-        );
-        public static ConfigOptions.ConfigurableValue<bool> rhythmUIOverSkills = ConfigOptions.ConfigurableValue.CreateBool(
-            ConfigManager.General.categoryGUID,
-            ConfigManager.General.categoryName,
-            ConfigManager.General.config,
-            "UI",
-            "Metronome UI (Over Skills)",
-            true,
-            "Enable Metronome's UI indicator over skill cooldown icons"
-        );
-        public static ConfigOptions.ConfigurableValue<bool> rhythmUIComboText = ConfigOptions.ConfigurableValue.CreateBool(
-            ConfigManager.General.categoryGUID,
-            ConfigManager.General.categoryName,
-            ConfigManager.General.config,
-            "UI",
-            "Metronome UI Combo Text",
-            true,
-            "Enable the combo counter near Metronome's UI indicators"
-        );
-
         public override void OnPluginAwake()
         {
             base.OnPluginAwake();
-            NetworkingAPI.RegisterMessageType<MysticsItemsRhythmBehaviour.SyncCombo>();
+            NetworkingAPI.RegisterMessageType<MysticsItemsRhythmBehaviour.SyncRhythmBonus>();
         }
 
         public override void OnLoad()
@@ -139,49 +105,40 @@ namespace MysticsItems.Items
             var animationCurveHolderObj = Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Metronome/AnimationCurveHolder.prefab").GetComponent<ParticleSystem>();
             var animationCurveHolder = animationCurveHolderObj.main;
 
-            rhythmHUDUnderCrosshair = Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Metronome/RhythmHUDUnderCrosshair.prefab");
-            rhythmHUDUnderCrosshair.AddComponent<HudElement>();
-            MysticsItemsRhythmHUDUnderCrosshair indicatorComponent = rhythmHUDUnderCrosshair.AddComponent<MysticsItemsRhythmHUDUnderCrosshair>();
-            indicatorComponent.canvasGroup = rhythmHUDUnderCrosshair.GetComponent<CanvasGroup>();
-            indicatorComponent.noteTemplate = rhythmHUDUnderCrosshair.transform.Find("Bar/NoteLeft").gameObject;
-            indicatorComponent.comboText = rhythmHUDUnderCrosshair.transform.Find("ComboText").GetComponent<TextMeshProUGUI>();
-            indicatorComponent.barTransform = rhythmHUDUnderCrosshair.transform.Find("Bar");
+            rhythmHUD = Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Metronome/RhythmHUD.prefab");
+            rhythmHUD.AddComponent<HudElement>();
+            rhythmHUD.transform.localPosition += 20f * Vector3.right;
+            rhythmHUD.transform.localScale *= 1.4f;
+            MysticsItemsRhythmHUD indicatorComponent = rhythmHUD.AddComponent<MysticsItemsRhythmHUD>();
+            indicatorComponent.canvasGroup = rhythmHUD.GetComponent<CanvasGroup>();
+            indicatorComponent.slidingNote = rhythmHUD.transform.Find("Bar/Note").gameObject;
+            indicatorComponent.comboText = rhythmHUD.transform.Find("ComboText").GetComponent<TextMeshProUGUI>();
+            indicatorComponent.barTransform = rhythmHUD.transform.Find("Bar");
             indicatorComponent.comboTickAnimation = animationCurveHolder.startSize.curve;
             indicatorComponent.comboTickAnimationMultiplier = 2f;
             indicatorComponent.comboHitAnimation = animationCurveHolder.startLifetime.curve;
             indicatorComponent.comboHitAnimationMultiplier = 2f;
-            indicatorComponent.comboBreakAnimation = animationCurveHolder.startSpeed.curve;
-            indicatorComponent.comboBreakAnimationMultiplier = 2f;
-            indicatorComponent.noteFadeInAnimation = AnimationCurve.EaseInOut(0f, 0f, 0.3f, 1f);
-
-            RectTransform rectTransform = indicatorComponent.noteTemplate.GetComponent<RectTransform>();
+            
+            /*
+            RectTransform rectTransform = indicatorComponent.slidingNote.GetComponent<RectTransform>();
             var size = Mathf.Abs(rectTransform.localPosition.x) / readTime * beatWindowEarly * 2f;
             rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, size);
             rectTransform = indicatorComponent.barTransform.Find("Judgement") as RectTransform;
             rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, size + 4f);
-
-            rhythmHUDOverSkills = Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Metronome/RhythmHUDOverSkills.prefab");
-            rhythmHUDOverSkills.AddComponent<HudElement>();
-            MysticsItemsRhythmHUDOverSkills indicatorComponent2 = rhythmHUDOverSkills.AddComponent<MysticsItemsRhythmHUDOverSkills>();
-            indicatorComponent2.canvasGroup = rhythmHUDOverSkills.GetComponent<CanvasGroup>();
-            indicatorComponent2.overSkillSingleTemplate = rhythmHUDOverSkills.transform.Find("OverSkillSingleTemplate").gameObject;
-            indicatorComponent2.noteTemplate = rhythmHUDOverSkills.transform.Find("OverSkillSingleTemplate/Offset/NoteTemplate").gameObject;
-            indicatorComponent2.comboText = rhythmHUDOverSkills.transform.Find("ComboText").GetComponent<TextMeshProUGUI>();
-            indicatorComponent2.comboTickAnimation = animationCurveHolder.startSize.curve;
-            indicatorComponent2.comboTickAnimationMultiplier = 2f;
-            indicatorComponent2.comboHitAnimation = animationCurveHolder.startLifetime.curve;
-            indicatorComponent2.comboHitAnimationMultiplier = 2f;
-            indicatorComponent2.comboBreakAnimation = animationCurveHolder.startSpeed.curve;
-            indicatorComponent2.comboBreakAnimationMultiplier = 5f;
-            indicatorComponent2.noteFadeInAnimation = AnimationCurve.EaseInOut(0f, 0f, 0.3f, 1f);
-
-            rectTransform = indicatorComponent2.noteTemplate.GetComponent<RectTransform>();
-            size = Mathf.Abs((rectTransform.parent.Find("Bar") as RectTransform).rect.height) / readTime * beatWindowEarly;
-            rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, size);
-            rectTransform = rectTransform.parent.Find("Judgement") as RectTransform;
-            rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, size + 4f);
+            */
 
             MusicBPMHelper.Init();
+
+            R2API.RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
+        }
+
+        private void RecalculateStatsAPI_GetStatCoefficients(CharacterBody sender, RecalculateStatsAPI.StatHookEventArgs args)
+        {
+            var component = sender.GetComponent<MysticsItemsRhythmBehaviour>();
+            if (component)
+            {
+                args.critAdd += component.critBonus;
+            }
         }
 
         public static class MusicBPMHelper
@@ -199,6 +156,12 @@ namespace MysticsItems.Items
                     oldMusicTrackDef = self.currentTrack;
                     if (songBPM.TryGetValue(self.currentTrack.cachedName, out var newBPM)) currentBPM = newBPM;
                     else currentBPM = 60;
+
+                    foreach (var rhythmBehaviour in InstanceTracker.GetInstancesList<MysticsItemsRhythmBehaviour>())
+                    {
+                        rhythmBehaviour.totalTime = 0;
+                        rhythmBehaviour.currentTime = 0;
+                    }
                 }
             }
 
@@ -208,40 +171,40 @@ namespace MysticsItems.Items
             public static Dictionary<string, float> songBPM = new Dictionary<string, float>()
             {
                 // Vanilla
-                { "muEscape", 100 }, // Escape track
-                { "muFULLSong02", 100 }, // Into the Doldrums
+                { "muEscape", 50 }, // Escape track
+                { "muFULLSong02", 50 }, // Into the Doldrums
                 { "muFULLSong06", 60 }, // Nocturnal Emission
                 { "muFULLSong07", 60 }, // Evapotranspiration
-                { "muFULLSong18", 130 }, // Disdrometer
+                { "muFULLSong18", 65 }, // Disdrometer
                 { "muFULLSong19", 60 }, // Terra Pluviam
-                { "muGameplayBase_09", 100 }, // They Might As Well Be Dead
-                { "muIntroCutscene", 120 }, // The comment for this MusicTrackDef says "No music". Let's use the default 120 BPM here then
+                { "muGameplayBase_09", 50 }, // They Might As Well Be Dead
+                { "muIntroCutscene", 60 }, // The comment for this MusicTrackDef says "No music". Let's use the default 120 BPM here then
                 { "muLogbook", 60 }, // The Dehydration of Risk of Rain 2
                 { "muMainEndingFull", 50 }, // Lacrimosum
                 { "muMainEndingOutroA", 50 }, // Also Lacrimosum I think?
                 { "muMainEndingOutroB", 50 }, // ^
                 { "muMenu", 60 }, // Risk of Rain 2
-                { "muNone", 120 }, // No music. Using the default 120 BPM then
+                { "muNone", 60 }, // No music. Using the default 120 BPM then
                 { "muSong04", 60 }, // Parjanya
-                { "muSong05", 107 }, // Thermodynamic Equilibrium
+                { "muSong05", 53.5f }, // Thermodynamic Equilibrium
                 { "muSong08", 76 }, // A Glacier Eventually Farts (And Don't You Listen to the Song of Life)
-                { "muSong13", 110 }, // The Raindrop that Fell to the Sky
-                { "muSong14", 130 }, // The Rain Formerly Known as Purple
-                { "muSong16", 150 }, // Hydrophobia
+                { "muSong13", 55 }, // The Raindrop that Fell to the Sky
+                { "muSong14", 65 }, // The Rain Formerly Known as Purple
+                { "muSong16", 75 }, // Hydrophobia
                 { "muSong21", 30 }, // Petrichor V. Doesn't have a "defined" rhythm I think, and it generally has a calm feel, so let's use 30 BPM
-                { "muSong22", 120 }, // Köppen As Fuck
-                { "muSong23", 160 }, // Antarctic Oscillation
+                { "muSong22", 60 }, // Köppen As Fuck
+                { "muSong23", 80 }, // Antarctic Oscillation
                 { "muSong24", 50 }, // ...con lentitud poderosa
-                { "muSong25", 160 }, // You're Gonna Need a Bigger Ukulele
+                { "muSong25", 80 }, // You're Gonna Need a Bigger Ukulele
                 // DLC1
-                { "muBossfightDLC1_10", 162 }, // Having Fallen, It Was Blood
-                { "muBossfightDLC1_12", 134 }, // A Boat Made from a Sheet of Newspaper
+                { "muBossfightDLC1_10", 81 }, // Having Fallen, It Was Blood
+                { "muBossfightDLC1_12", 67 }, // A Boat Made from a Sheet of Newspaper
                 { "muGameplayDLC1_01", 60 }, // Once in a Lullaby
-                { "muGameplayDLC1_03", 96 }, // Out of Whose Womb Came the Ice?
+                { "muGameplayDLC1_03", 48 }, // Out of Whose Womb Came the Ice?
                 { "muGameplayDLC1_06", 48 }, // Who Can Fathom the Soundless Depths?
-                { "muGameplayDLC1_08", 76 }, // A Placid Island of Ignorance. I'm not sure about this one, the rhythm is hard for me to catch
+                { "muGameplayDLC1_08", 38 }, // A Placid Island of Ignorance. I'm not sure about this one, the rhythm is hard for me to catch
                 { "muMenuDLC1", 48 }, // Prelude in D flat major. No idea about this one's BPM, let's use 48
-                { "muRaidfightDLC1_07", 114 } // The Face of the Deep
+                { "muRaidfightDLC1_07", 57 } // The Face of the Deep
             };
         }
 
@@ -286,23 +249,19 @@ namespace MysticsItems.Items
                         instance.OnCombo();
             }
 
-            public virtual void OnCombo() { }
-
-            public static void OnComboBreakForInstance(MysticsItemsRhythmBehaviour rhythmBehaviour)
+            public void OnCombo()
             {
-                foreach (var instance in instancesList) if (instance.rhythmBehaviour == rhythmBehaviour)
-                        instance.OnComboBreak();
+                UpdateText();
+
+                if (rhythmBehaviour && hud?.cameraRigController?.viewer?.localUser != null)
+                {
+                    Util.PlayAttackSpeedSound(MysticsItemsRhythmBehaviour.hitSoundString, hud.cameraRigController.targetBody?.gameObject, 1f + rhythmBehaviour.critBonus / 20f);
+                }
+
+                currentComboAnimationType = ComboAnimationType.Hit;
+                comboAnimationTime = 0f;
+                comboAnimationDuration = 0.1f;
             }
-
-            public virtual void OnComboBreak() { }
-
-            public static void OnBeginReadForInstance(MysticsItemsRhythmBehaviour rhythmBehaviour)
-            {
-                foreach (var instance in instancesList) if (instance.rhythmBehaviour == rhythmBehaviour)
-                        instance.OnBeginRead();
-            }
-
-            public virtual void OnBeginRead() { }
 
             public static void OnTickForInstance(MysticsItemsRhythmBehaviour rhythmBehaviour)
             {
@@ -310,7 +269,19 @@ namespace MysticsItems.Items
                         instance.OnTick();
             }
 
-            public virtual void OnTick() { }
+            public void OnTick()
+            {
+                if (rhythmBehaviour && rhythmBehaviour.beatsSinceLastHit <= 5 && hud?.cameraRigController?.viewer?.localUser != null)
+                {
+                    Util.PlayAttackSpeedSound(MysticsItemsRhythmBehaviour.prepareSoundString, hud.cameraRigController.targetBody?.gameObject, 1f + rhythmBehaviour.critBonus / 20f);
+                }
+                if (currentComboAnimationType != ComboAnimationType.Hit)
+                {
+                    currentComboAnimationType = ComboAnimationType.Tick;
+                    comboAnimationTime = 0f;
+                    comboAnimationDuration = 0.1f;
+                }
+            }
 
             public static List<MysticsItemsRhythmHUD> instancesList = new List<MysticsItemsRhythmHUD>();
 
@@ -318,15 +289,45 @@ namespace MysticsItems.Items
             {
                 foreach (var hudInstance in HUD.readOnlyInstanceList)
                 {
-                    MysticsItemsRhythmHUDUnderCrosshair.RefreshForHUDInstance(hudInstance);
-                    MysticsItemsRhythmHUDOverSkills.RefreshForHUDInstance(hudInstance);
+                    RefreshForHUDInstance(hudInstance);
                 }
             }
 
             public static void RefreshForHUDInstance(HUD hudInstance)
             {
-                MysticsItemsRhythmHUDUnderCrosshair.RefreshForHUDInstance(hudInstance);
-                MysticsItemsRhythmHUDOverSkills.RefreshForHUDInstance(hudInstance);
+                CharacterMaster targetMaster = hudInstance.targetMaster;
+                CharacterBody targetBody = targetMaster ? targetMaster.GetBody() : null;
+                MysticsItemsRhythmBehaviour rhythmBehaviour = targetBody ? targetBody.GetComponent<MysticsItemsRhythmBehaviour>() : null;
+
+                bool shouldDisplay = rhythmBehaviour;
+
+                MysticsItemsRhythmHUD targetIndicatorInstance = instancesList.Where(x => x is MysticsItemsRhythmHUD).FirstOrDefault(x => x.hud == hudInstance);
+
+                if (targetIndicatorInstance != shouldDisplay)
+                {
+                    if (!targetIndicatorInstance)
+                    {
+                        if (hudInstance.mainUIPanel)
+                        {
+                            var transform = (RectTransform)hudInstance.mainUIPanel.transform.Find("SpringCanvas/BottomRightCluster/Scaler");
+                            if (transform)
+                            {
+                                targetIndicatorInstance = Instantiate(rhythmHUD, transform).GetComponent<MysticsItemsRhythmHUD>();
+                                targetIndicatorInstance.hud = hudInstance;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Destroy(targetIndicatorInstance.gameObject);
+                    }
+                }
+
+                if (shouldDisplay)
+                {
+                    targetIndicatorInstance.rhythmBehaviour = rhythmBehaviour;
+                    targetIndicatorInstance.UpdateText();
+                }
             }
 
             public void OnEnable()
@@ -339,174 +340,53 @@ namespace MysticsItems.Items
                 instancesList.Remove(this);
             }
 
-            public float CalculateFadeAlpha()
-            {
-                if (rhythmBehaviour)
-                {
-                    if (rhythmBehaviour.currentTime >= (rhythmBehaviour.interval - rhythmBehaviour.timePerMeasure * 1.4f))
-                    {
-                        return Mathf.Clamp01(1f - (rhythmBehaviour.interval - rhythmBehaviour.timePerMeasure * 1.4f + Rhythm.hudFadeInTime - rhythmBehaviour.currentTime) / Rhythm.hudFadeInTime);
-                    }
-                    if (rhythmBehaviour.currentTime >= rhythmBehaviour.beatWindowLate)
-                    {
-                        return Mathf.Clamp01(1f - (rhythmBehaviour.currentTime - rhythmBehaviour.beatWindowLate) / Rhythm.hudFadeOutTime);
-                    }
-                    else
-                    {
-                        return 1f;
-                    }
-                }
-                return 0f;
-            }
-
             public HUD hud;
             public MysticsItemsRhythmBehaviour rhythmBehaviour;
-        }
-
-        public class MysticsItemsRhythmHUDUnderCrosshair : MysticsItemsRhythmHUD
-        {
-            public static new void RefreshForHUDInstance(HUD hudInstance)
-            {
-                CharacterMaster targetMaster = hudInstance.targetMaster;
-                CharacterBody targetBody = targetMaster ? targetMaster.GetBody() : null;
-                MysticsItemsRhythmBehaviour rhythmBehaviour = targetBody ? targetBody.GetComponent<MysticsItemsRhythmBehaviour>() : null;
-
-                bool shouldDisplay = rhythmUIUnderCrosshair.Value && rhythmBehaviour;
-                
-                MysticsItemsRhythmHUDUnderCrosshair targetIndicatorInstance = instancesList.Where(x => x is MysticsItemsRhythmHUDUnderCrosshair).Select(x => x as MysticsItemsRhythmHUDUnderCrosshair).FirstOrDefault(x => x.hud == hudInstance);
-
-                if (targetIndicatorInstance != shouldDisplay)
-                {
-                    if (!targetIndicatorInstance)
-                    {
-                        if (hudInstance.mainUIPanel)
-                        {
-                            var transform = (RectTransform)hudInstance.mainUIPanel.transform.Find("SpringCanvas");
-                            if (transform)
-                            {
-                                targetIndicatorInstance = Instantiate(rhythmHUDUnderCrosshair, transform).GetComponent<MysticsItemsRhythmHUDUnderCrosshair>();
-                                targetIndicatorInstance.hud = hudInstance;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        Destroy(targetIndicatorInstance.gameObject);
-                    }
-                }
-
-                if (shouldDisplay)
-                {
-                    targetIndicatorInstance.rhythmBehaviour = rhythmBehaviour;
-                    targetIndicatorInstance.UpdateText();
-                }
-            }
+            public float selfDestructTimer = 5f;
 
             public void Update()
             {
-                if (canvasGroup)
+                if (rhythmBehaviour)
                 {
-                    canvasGroup.alpha = CalculateFadeAlpha();
-                }
-
-                if (comboText)
-                {
-                    if (currentComboAnimationType != ComboAnimationType.None)
+                    if (comboText)
                     {
-                        var t = Mathf.Clamp01(comboAnimationTime / comboAnimationDuration);
-                        comboAnimationTime += Time.deltaTime;
-                        switch (currentComboAnimationType)
+                        if (currentComboAnimationType != ComboAnimationType.None)
                         {
-                            case ComboAnimationType.Tick:
-                                comboText.transform.localScale = Vector3.one * comboTickAnimation.Evaluate(t) * comboTickAnimationMultiplier;
-                                break;
-                            case ComboAnimationType.Hit:
-                                comboText.transform.localScale = Vector3.one * comboHitAnimation.Evaluate(t) * comboHitAnimationMultiplier;
-                                break;
-                            case ComboAnimationType.Break:
-                                var pos = comboText.transform.localPosition;
-                                pos.x = comboBreakAnimation.Evaluate(t) * comboBreakAnimationMultiplier;
-                                comboText.transform.localPosition = pos;
-                                break;
+                            var t = Mathf.Clamp01(comboAnimationTime / comboAnimationDuration);
+                            comboAnimationTime += Time.deltaTime;
+                            switch (currentComboAnimationType)
+                            {
+                                case ComboAnimationType.Tick:
+                                    comboText.transform.localScale = Vector3.one * comboTickAnimation.Evaluate(t) * comboTickAnimationMultiplier;
+                                    break;
+                                case ComboAnimationType.Hit:
+                                    comboText.transform.localScale = Vector3.one * comboHitAnimation.Evaluate(t) * comboHitAnimationMultiplier;
+                                    break;
+                            }
+                            if (t >= 1f) currentComboAnimationType = ComboAnimationType.None;
                         }
-                        if (t >= 1f) currentComboAnimationType = ComboAnimationType.None;
+                    }
+                    if (slidingNote)
+                    {
+                        var pos = slidingNote.transform.localPosition;
+                        pos.x = -60f + 120f * (Mathf.Abs(((rhythmBehaviour.totalTime + rhythmBehaviour.timePerBeat * 0.5f) % (rhythmBehaviour.timePerBeat * 2f)) - rhythmBehaviour.timePerBeat) / (rhythmBehaviour.timePerBeat));
+                        slidingNote.transform.localPosition = pos;
                     }
                 }
-            }
-
-            public override void OnBeginRead()
-            {
-                base.OnBeginRead();
-                var note = Instantiate(noteTemplate, barTransform);
-                note.SetActive(true);
-                MysticsItemsRhythmHUDUnderCrosshairNote noteComponent = note.AddComponent<MysticsItemsRhythmHUDUnderCrosshairNote>();
-                noteComponent.maxTime = noteComponent.remainingTime = rhythmBehaviour.readTime;
-                noteComponent.right = false;
-                note.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);
-                noteComponent.xOffset = 60f;
-                noteComponent.noteFadeInAnimation = noteFadeInAnimation;
-                noteComponent.materialInstance = Material.Instantiate(note.GetComponent<Image>().material);
-                note.GetComponent<Image>().material = noteComponent.materialInstance;
-                noteComponent.UpdateAlpha();
-                notes.Add(noteComponent);
-
-                note = Instantiate(noteTemplate, barTransform);
-                note.SetActive(true);
-                noteComponent = note.AddComponent<MysticsItemsRhythmHUDUnderCrosshairNote>();
-                noteComponent.maxTime = noteComponent.remainingTime = rhythmBehaviour.readTime;
-                noteComponent.right = true;
-                note.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);
-                noteComponent.xOffset = 60f;
-                noteComponent.noteFadeInAnimation = noteFadeInAnimation;
-                noteComponent.materialInstance = Material.Instantiate(note.GetComponent<Image>().material);
-                note.GetComponent<Image>().material = noteComponent.materialInstance;
-                noteComponent.UpdateAlpha();
-                notes.Add(noteComponent);
-            }
-
-            public override void OnTick()
-            {
-                base.OnTick();
-                
-                currentComboAnimationType = ComboAnimationType.Tick;
-                comboAnimationTime = 0f;
-                comboAnimationDuration = 0.1f;
-            }
-
-            public override void OnCombo()
-            {
-                base.OnCombo();
-                UpdateText();
-                
-                currentComboAnimationType = ComboAnimationType.Hit;
-                comboAnimationTime = 0f;
-                comboAnimationDuration = 0.1f;
-
-                notes.RemoveAll(x => x == null);
-                foreach (var note in notes.Where(x => x.remainingTime <= rhythmBehaviour.beatWindowEarly))
+                else
                 {
-                    Destroy(note.gameObject);
+                    selfDestructTimer -= Time.deltaTime;
+                    if (selfDestructTimer <= 0)
+                    {
+                        Destroy(gameObject);
+                    }
                 }
-            }
-
-            public override void OnComboBreak()
-            {
-                base.OnComboBreak();
-                UpdateText();
-
-                currentComboAnimationType = ComboAnimationType.Break;
-                comboAnimationTime = 0f;
-                comboAnimationDuration = 0.2f;
             }
 
             public void UpdateText()
             {
-                if (comboText)
-                {
-                    comboText.enabled = rhythmUIComboText.Value;
-                    if (comboText.enabled && rhythmBehaviour)
-                        comboText.text = "x" + rhythmBehaviour.combo;
-                }
+                if (comboText && comboText.enabled && rhythmBehaviour)
+                    comboText.text = "+" + rhythmBehaviour.critBonus.ToString("0.##") + "%";
             }
 
             public CanvasGroup canvasGroup;
@@ -518,388 +398,52 @@ namespace MysticsItems.Items
             public float comboTickAnimationMultiplier = 1f;
             public AnimationCurve comboHitAnimation;
             public float comboHitAnimationMultiplier = 1f;
-            public AnimationCurve comboBreakAnimation;
-            public float comboBreakAnimationMultiplier = 1f;
             public enum ComboAnimationType
             {
                 None,
                 Tick,
-                Hit,
-                Break
+                Hit
             }
             public ComboAnimationType currentComboAnimationType = ComboAnimationType.None;
-            public GameObject noteTemplate;
-            public List<MysticsItemsRhythmHUDUnderCrosshairNote> notes;
-            public AnimationCurve noteFadeInAnimation;
-
-            public class MysticsItemsRhythmHUDUnderCrosshairNote : MonoBehaviour
-            {
-                public float maxTime;
-                public float remainingTime;
-                public float xOffset = 60f;
-                public bool right;
-                public RectTransform rectTransform;
-                public AnimationCurve noteFadeInAnimation;
-                public Material materialInstance;
-                public bool destroyMaterialInstanceOnDestroy = true;
-
-                public void Awake()
-                {
-                    rectTransform = transform as RectTransform;
-                    UpdateAlpha();
-                }
-
-                public void Update()
-                {
-                    var pos = transform.localPosition;
-                    pos.x = (remainingTime / maxTime) * xOffset * (right ? 1 : -1);
-                    transform.localPosition = pos;
-
-                    remainingTime -= Time.deltaTime;
-
-                    if (materialInstance)
-                    {
-                        UpdateAlpha();
-
-                        Vector4 renderPortion;
-                        if (right)
-                        {
-                            var a = Mathf.Clamp01(1f - (pos.x + rectTransform.rect.width * 0.5f) / rectTransform.rect.width);
-                            if (a >= 1f)
-                            {
-                                Destroy(gameObject);
-                                return;
-                            }
-                            renderPortion = new Vector4(a, 1f, 0f, 1f);
-                        }
-                        else
-                        {
-                            var a = Mathf.Clamp01(-(pos.x - rectTransform.rect.width * 0.5f) / rectTransform.rect.width);
-                            if (a <= 0f)
-                            {
-                                Destroy(gameObject);
-                                return;
-                            }
-                            renderPortion = new Vector4(0f, a, 0f, 1f);
-                        }
-                        materialInstance.SetVector("_RenderPortion", renderPortion);
-                    }
-                }
-
-                public void UpdateAlpha()
-                {
-                    if (materialInstance)
-                    {
-                        var col = materialInstance.GetColor("_Color");
-                        col.a = noteFadeInAnimation.Evaluate(1f - (remainingTime / maxTime));
-                        materialInstance.SetColor("_Color", col);
-                    }
-                }
-
-                public void OnDestroy()
-                {
-                    if (destroyMaterialInstanceOnDestroy)
-                    {
-                        Destroy(materialInstance);
-                    }
-                }
-            }
-        }
-
-
-        public class MysticsItemsRhythmHUDOverSkills : MysticsItemsRhythmHUD
-        {
-            public static new void RefreshForHUDInstance(HUD hudInstance)
-            {
-                CharacterMaster targetMaster = hudInstance.targetMaster;
-                CharacterBody targetBody = targetMaster ? targetMaster.GetBody() : null;
-                MysticsItemsRhythmBehaviour rhythmBehaviour = targetBody ? targetBody.GetComponent<MysticsItemsRhythmBehaviour>() : null;
-
-                bool shouldDisplay = rhythmUIOverSkills.Value && rhythmBehaviour;
-
-                MysticsItemsRhythmHUDOverSkills targetIndicatorInstance = instancesList.Where(x => x is MysticsItemsRhythmHUDOverSkills).Select(x => x as MysticsItemsRhythmHUDOverSkills).FirstOrDefault(x => x.hud == hudInstance);
-
-                if (targetIndicatorInstance != shouldDisplay)
-                {
-                    if (!targetIndicatorInstance)
-                    {
-                        if (hudInstance.mainUIPanel)
-                        {
-                            var transform = (RectTransform)hudInstance.mainUIPanel.transform.Find("SpringCanvas/BottomRightCluster/Scaler");
-                            if (transform)
-                            {
-                                targetIndicatorInstance = Instantiate(rhythmHUDOverSkills, transform).GetComponent<MysticsItemsRhythmHUDOverSkills>();
-                                targetIndicatorInstance.transform.localScale = Vector3.one;
-                                targetIndicatorInstance.hud = hudInstance;
-                                targetIndicatorInstance.overSkillSingleTransforms = new Transform[] { };
-                                HG.ArrayUtils.ArrayAppend(ref targetIndicatorInstance.disconnectedCanvasGroups, targetIndicatorInstance.comboText.GetComponent<CanvasGroup>());
-                                targetIndicatorInstance.comboText.transform.SetParent(hudInstance.mainUIPanel.transform.Find("SpringCanvas/BottomRightCluster/Scaler/Skill1Root"), false);
-                                var arr = new Transform[]
-                                {
-                                    hudInstance.mainUIPanel.transform.Find("SpringCanvas/BottomRightCluster/Scaler/Skill2Root"),
-                                    hudInstance.mainUIPanel.transform.Find("SpringCanvas/BottomRightCluster/Scaler/Skill3Root"),
-                                    hudInstance.mainUIPanel.transform.Find("SpringCanvas/BottomRightCluster/Scaler/Skill4Root")
-                                };
-                                foreach (var skillRoot in arr)
-                                {
-                                    var overSkillSingle = Instantiate(targetIndicatorInstance.overSkillSingleTemplate, skillRoot);
-                                    overSkillSingle.transform.localScale = Vector3.one;
-                                    overSkillSingle.SetActive(true);
-                                    HG.ArrayUtils.ArrayAppend(ref targetIndicatorInstance.overSkillSingleTransforms, overSkillSingle.transform.Find("Offset"));
-                                    HG.ArrayUtils.ArrayAppend(ref targetIndicatorInstance.disconnectedCanvasGroups, overSkillSingle.GetComponent<CanvasGroup>());
-                                }
-                            }
-                        }
-                    }
-                    else
-                    {
-                        Destroy(targetIndicatorInstance.gameObject);
-                    }
-                }
-
-                if (shouldDisplay)
-                {
-                    targetIndicatorInstance.rhythmBehaviour = rhythmBehaviour;
-                    targetIndicatorInstance.UpdateText();
-                }
-            }
-
-            public void Update()
-            {
-                if (canvasGroup)
-                {
-                    var a = CalculateFadeAlpha();
-                    canvasGroup.alpha = a;
-                    foreach (var disconnectedCanvasGroup in disconnectedCanvasGroups)
-                    {
-                        if (disconnectedCanvasGroup) disconnectedCanvasGroup.alpha = a;
-                    }
-                }
-
-                if (comboText)
-                {
-                    if (currentComboAnimationType != ComboAnimationType.None)
-                    {
-                        var t = Mathf.Clamp01(comboAnimationTime / comboAnimationDuration);
-                        comboAnimationTime += Time.deltaTime;
-                        switch (currentComboAnimationType)
-                        {
-                            case ComboAnimationType.Tick:
-                                comboText.transform.localScale = Vector3.one * comboTickAnimation.Evaluate(t) * comboTickAnimationMultiplier;
-                                break;
-                            case ComboAnimationType.Hit:
-                                comboText.transform.localScale = Vector3.one * comboHitAnimation.Evaluate(t) * comboHitAnimationMultiplier;
-                                break;
-                            case ComboAnimationType.Break:
-                                var pos = comboText.transform.localPosition;
-                                pos.x = comboBreakAnimation.Evaluate(t) * comboBreakAnimationMultiplier;
-                                comboText.transform.localPosition = pos;
-                                break;
-                        }
-                        if (t >= 1f) currentComboAnimationType = ComboAnimationType.None;
-                    }
-                }
-            }
-
-            public override void OnBeginRead()
-            {
-                base.OnBeginRead();
-                foreach (var overSkillTransform in overSkillSingleTransforms)
-                {
-                    var note = Instantiate(noteTemplate, overSkillTransform);
-                    note.SetActive(true);
-                    MysticsItemsRhythmHUDOverSkillsNote noteComponent = note.AddComponent<MysticsItemsRhythmHUDOverSkillsNote>();
-                    noteComponent.maxTime = noteComponent.remainingTime = rhythmBehaviour.readTime;
-                    noteComponent.yOffset = (overSkillTransform.Find("Bar") as RectTransform).rect.height;
-                    noteComponent.noteFadeInAnimation = noteFadeInAnimation;
-                    noteComponent.materialInstance = Material.Instantiate(note.GetComponent<Image>().material);
-                    note.GetComponent<Image>().material = noteComponent.materialInstance;
-                    noteComponent.UpdateAlpha();
-                    notes.Add(noteComponent);
-                }
-            }
-
-            public override void OnTick()
-            {
-                base.OnTick();
-
-                currentComboAnimationType = ComboAnimationType.Tick;
-                comboAnimationTime = 0f;
-                comboAnimationDuration = 0.1f;
-            }
-
-            public override void OnCombo()
-            {
-                base.OnCombo();
-                UpdateText();
-
-                currentComboAnimationType = ComboAnimationType.Hit;
-                comboAnimationTime = 0f;
-                comboAnimationDuration = 0.1f;
-
-                notes.RemoveAll(x => x == null);
-                foreach (var note in notes.Where(x => x.remainingTime <= rhythmBehaviour.beatWindowEarly))
-                {
-                    Destroy(note.gameObject);
-                }
-            }
-
-            public override void OnComboBreak()
-            {
-                base.OnComboBreak();
-                UpdateText();
-
-                currentComboAnimationType = ComboAnimationType.Break;
-                comboAnimationTime = 0f;
-                comboAnimationDuration = 0.2f;
-            }
-
-            public void UpdateText()
-            {
-                if (comboText)
-                {
-                    comboText.enabled = rhythmUIComboText.Value;
-                    if (comboText.enabled && rhythmBehaviour)
-                        comboText.text = "x" + rhythmBehaviour.combo;
-                }
-            }
-
-            public CanvasGroup canvasGroup;
-            public TextMeshProUGUI comboText;
-            public GameObject overSkillSingleTemplate;
-            public Transform[] overSkillSingleTransforms;
-            public CanvasGroup[] disconnectedCanvasGroups = new CanvasGroup[] { };
-            public float comboAnimationTime;
-            public float comboAnimationDuration;
-            public AnimationCurve comboTickAnimation;
-            public float comboTickAnimationMultiplier = 1f;
-            public AnimationCurve comboHitAnimation;
-            public float comboHitAnimationMultiplier = 1f;
-            public AnimationCurve comboBreakAnimation;
-            public float comboBreakAnimationMultiplier = 1f;
-            public enum ComboAnimationType
-            {
-                None,
-                Tick,
-                Hit,
-                Break
-            }
-            public ComboAnimationType currentComboAnimationType = ComboAnimationType.None;
-            public GameObject noteTemplate;
-            public List<MysticsItemsRhythmHUDOverSkillsNote> notes;
-            public AnimationCurve noteFadeInAnimation;
-
-            public class MysticsItemsRhythmHUDOverSkillsNote : MonoBehaviour
-            {
-                public float maxTime;
-                public float remainingTime;
-                public float yOffset = 60f;
-                public RectTransform rectTransform;
-                public AnimationCurve noteFadeInAnimation;
-                public Material materialInstance;
-                public bool destroyMaterialInstanceOnDestroy = true;
-
-                public void Awake()
-                {
-                    rectTransform = transform as RectTransform;
-                    UpdateAlpha();
-                }
-
-                public void Update()
-                {
-                    var pos = transform.localPosition;
-                    pos.y = (remainingTime / maxTime) * yOffset + rectTransform.rect.height;
-                    transform.localPosition = pos;
-
-                    remainingTime -= Time.deltaTime;
-
-                    if (materialInstance)
-                    {
-                        UpdateAlpha();
-
-                        Vector4 renderPortion;
-                        var a = Mathf.Clamp01(1f - (pos.y + rectTransform.rect.height * 0.5f) / rectTransform.rect.height);
-                        if (a >= 1f)
-                        {
-                            Destroy(gameObject);
-                            return;
-                        }
-                        renderPortion = new Vector4(0f, 1f, a, 1f);
-                        materialInstance.SetVector("_RenderPortion", renderPortion);
-                    }
-                }
-
-                public void UpdateAlpha()
-                {
-                    if (materialInstance)
-                    {
-                        var col = materialInstance.GetColor("_Color");
-                        col.a = noteFadeInAnimation.Evaluate(1f - (remainingTime / maxTime));
-                        materialInstance.SetColor("_Color", col);
-                    }
-                }
-
-                public void OnDestroy()
-                {
-                    if (destroyMaterialInstanceOnDestroy)
-                    {
-                        Destroy(materialInstance);
-                    }
-                }
-            }
+            public GameObject slidingNote;
         }
 
         public class MysticsItemsRhythmBehaviour : CharacterBody.ItemBehavior
         {
-            private int _combo;
-            public int combo
+            private float _critBonus;
+            public float critBonus
             {
-                get { return _combo; }
+                get { return _critBonus; }
                 set
                 {
                     value = Mathf.Max(value, 0);
-                    if (_combo != value)
+                    if (_critBonus != value)
                     {
-                        var difference = value - _combo;
-                        _combo = value;
-                        if (NetworkServer.active)
-                        {
-                            if (difference > 0)
-                            {
-                                for (var i = 0; i < difference; i++)
-                                    body.AddBuff(MysticsItemsContent.Buffs.MysticsItems_RhythmCombo);
-                            }
-                            else
-                            {
-                                for (var i = 0; i < Math.Abs(difference); i++)
-                                    if (body.HasBuff(MysticsItemsContent.Buffs.MysticsItems_RhythmCombo))
-                                        body.RemoveBuff(MysticsItemsContent.Buffs.MysticsItems_RhythmCombo);
-                            }
-                        }
-                        new SyncCombo(gameObject.GetComponent<NetworkIdentity>().netId, value).Send(NetworkServer.active ? NetworkDestination.Clients : NetworkDestination.Server);
+                        _critBonus = value;
+                        new SyncRhythmBonus(gameObject.GetComponent<NetworkIdentity>().netId, value).Send(NetworkServer.active ? NetworkDestination.Clients : NetworkDestination.Server);
                     }
                 }
             }
-            
-            public class SyncCombo : INetMessage
+
+            public class SyncRhythmBonus : INetMessage
             {
                 NetworkInstanceId objID;
-                int combo;
+                float critBonus;
 
-                public SyncCombo()
+                public SyncRhythmBonus()
                 {
                 }
 
-                public SyncCombo(NetworkInstanceId objID, int combo)
+                public SyncRhythmBonus(NetworkInstanceId objID, float critBonus)
                 {
                     this.objID = objID;
-                    this.combo = combo;
+                    this.critBonus = critBonus;
                 }
 
                 public void Deserialize(NetworkReader reader)
                 {
                     objID = reader.ReadNetworkId();
-                    combo = reader.ReadInt32();
+                    critBonus = reader.ReadInt32();
                 }
 
                 public void OnReceived()
@@ -908,14 +452,14 @@ namespace MysticsItems.Items
                     if (obj)
                     {
                         MysticsItemsRhythmBehaviour component = obj.GetComponent<MysticsItemsRhythmBehaviour>();
-                        if (component) component.combo = combo;
+                        if (component) component.critBonus = critBonus;
                     }
                 }
 
                 public void Serialize(NetworkWriter writer)
                 {
                     writer.Write(objID);
-                    writer.Write(combo);
+                    writer.Write(critBonus);
                 }
             }
 
@@ -926,45 +470,16 @@ namespace MysticsItems.Items
                     return 1f / (MusicBPMHelper.currentBPM / 60f);
                 }
             }
-            public float timePerMeasure
-            {
-                get
-                {
-                    return timePerBeat * (float)(Rhythm.prepareTicks + 1);
-                }
-            }
-            public float interval
-            {
-                get
-                {
-                    var calculatedMeasures = Mathf.Round(Rhythm.interval / timePerMeasure);
-                    return timePerMeasure * calculatedMeasures;
-                }
-            }
-            private float _readTime = Rhythm.readTime;
-            public float readTime
-            {
-                get { return _readTime; }
-                set
-                {
-                    _readTime = Mathf.Min(value, interval);
-                }
-            }
-            public float beatWindowEarly = Rhythm.beatWindowEarly;
-            public float beatWindowLate = Rhythm.beatWindowLate;
-
+            
             public float currentTime = 0f;
-            public bool readStarted = false;
+            public float totalTime = 0f;
 
             public bool beatNotPressedYet = true;
+            public int beatsSinceLastHit = 0;
 
-            public float prepareTicks = Rhythm.prepareTicks;
-            public int preparePhase = 9999;
-            
             public void Start()
             {
                 MysticsItemsRhythmHUD.RefreshAll();
-                currentTime = interval - timePerMeasure * 2f;
             }
 
             public void Update()
@@ -972,72 +487,47 @@ namespace MysticsItems.Items
                 var wasInBeatWindow = currentTime <= beatWindowLate;
 
                 currentTime += Time.deltaTime;
+                totalTime += Time.deltaTime;
+
+                if (currentTime >= timePerBeat)
+                {
+                    currentTime -= timePerBeat;
+                    beatsSinceLastHit++;
+                    MysticsItemsRhythmHUD.OnTickForInstance(this);
+                }
 
                 if (body.hasEffectiveAuthority && wasInBeatWindow && currentTime > beatWindowLate)
                 {
-                    if (beatNotPressedYet)
-                    {
-                        if (combo > 0)
-                        {
-                            combo = 0;
-                            body.statsDirty = true;
-                            MysticsItemsRhythmHUD.OnComboBreakForInstance(this);
-                        }
-                    }
                     beatNotPressedYet = true;
                 }
-
-                if (!readStarted && currentTime > (interval - readTime))
-                {
-                    readStarted = true;
-                    MysticsItemsRhythmHUD.OnBeginReadForInstance(this);
-                }
-
-                if (currentTime >= interval)
-                {
-                    currentTime -= interval;
-                    readStarted = false;
-                    preparePhase = Mathf.FloorToInt(interval);
-                    Beat();
-                }
-                else
-                {
-                    if (beatNotPressedYet)
-                    {
-                        var newPreparePhase = Mathf.FloorToInt((interval - currentTime) / timePerBeat);
-                        if (newPreparePhase < preparePhase)
-                        {
-                            preparePhase = newPreparePhase;
-                            if (preparePhase <= (prepareTicks - 1))
-                            {
-                                if (body.hasEffectiveAuthority) Util.PlayAttackSpeedSound(prepareSoundString, gameObject, 1f + 0.1f * (combo - 1f));
-                                MysticsItemsRhythmHUD.OnTickForInstance(this);
-                            }
-                        }
-                    }
-                }
-            }
-
-            public void Beat()
-            {
-                if (body.hasEffectiveAuthority) Util.PlayAttackSpeedSound(beatSoundString, gameObject, 1f + 0.1f * (combo - 1f));
             }
 
             public bool IsOnBeat()
             {
-                return currentTime >= (interval - beatWindowEarly) || currentTime <= (beatWindowLate);
+                return currentTime >= (timePerBeat - beatWindowEarly) || currentTime <= (beatWindowLate);
             }
 
             public void OnSkillActivatedAuthority()
             {
                 if (IsOnBeat() && beatNotPressedYet)
                 {
-                    combo++;
+                    critBonus += Rhythm.critBonus + Rhythm.critBonusPerStack * (float)(stack - 1);
+                    beatsSinceLastHit = 0;
                     body.statsDirty = true;
                     beatNotPressedYet = false;
-                    Util.PlayAttackSpeedSound(hitSoundString, gameObject, 1f + 0.1f * (combo - 1f));
+                    Util.PlayAttackSpeedSound(hitSoundString, gameObject, 1f + critBonus / 20f);
                     MysticsItemsRhythmHUD.OnComboForInstance(this);
                 }
+            }
+
+            public void OnEnable()
+            {
+                InstanceTracker.Add(this);
+            }
+
+            public void OnDisable()
+            {
+                InstanceTracker.Remove(this);
             }
 
             public static string beatSoundString = "MysticsItems_Play_item_proc_rhythm_beat";

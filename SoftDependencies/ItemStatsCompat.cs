@@ -274,8 +274,8 @@ namespace MysticsItems.SoftDependencies
                 Stats = new List<ItemStats.Stat.ItemStat>()
                 {
                     new ItemStats.Stat.ItemStat(
-                        (itemCount, ctx) => Buffs.RhythmCombo.comboCrit + Buffs.RhythmCombo.comboCritPerStack * (itemCount - 1),
-                        (value, ctx) => GetItemStatsFormattedString("ITEMSTATS_MYSTICSITEMS_CRITPERBUFFSTACK", ItemStats.ValueFormatters.Extensions.FormatPercentage(value: value, scale: 1f, signed: true))
+                        (itemCount, ctx) => Items.Rhythm.critBonus + Items.Rhythm.critBonusPerStack * (itemCount - 1),
+                        (value, ctx) => GetItemStatsFormattedString("ITEMSTATS_MYSTICSITEMS_CRIT", ItemStats.ValueFormatters.Extensions.FormatPercentage(value: value, scale: 1f, signed: true))
                     )
                 }
             });
