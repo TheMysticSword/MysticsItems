@@ -429,7 +429,8 @@ namespace MysticsItems.Items
                     procCoefficient = procCoefficient,
                     damageColorIndex = DamageColorIndex.Item,
                     falloffModel = BlastAttack.FalloffModel.None,
-                    damageType = DamageType.AOE
+                    damageType = DamageType.AOE,
+                    attackerFiltering = AttackerFiltering.NeverHitSelf
                 };
                 blastAttack.Fire();
             }
