@@ -112,8 +112,8 @@ namespace MysticsItems.Items
 
             // Register all worlds using the same code block
             string[] worldsToLoad = {
-                "Crystallize",
-                "In Circles"
+                "Crystallize"
+                // "In Circles"
             };
             foreach (string worldName in worldsToLoad)
             {
