@@ -124,7 +124,7 @@ namespace MysticsItems.Equipment
                 AddDisplayRule("EquipmentDroneBody", "HeadCenter", new Vector3(0F, -0.507F, -0.381F), new Vector3(0F, 270F, 270F), new Vector3(0.965F, 0.965F, 0.965F));
                 if (SoftDependencies.SoftDependenciesCore.itemDisplaysSniper) AddDisplayRule("SniperClassicBody", "Head", new Vector3(-0.0039F, 0.15803F, -0.07916F), new Vector3(356.8718F, 270F, 87.82172F), new Vector3(0.14049F, 0.14049F, 0.14049F));
                 AddDisplayRule("RailgunnerBody", "Head", new Vector3(0F, 0.04792F, 0.09549F), new Vector3(0F, 270F, 352.3218F), new Vector3(0.10505F, 0.10505F, 0.10505F));
-                AddDisplayRule("VoidSurvivorBody", "Head", new Vector3(-0.06693F, -1.12064F, -0.77318F), new Vector3(90F, 0F, 0F), new Vector3(0.5795F, 0.5795F, 0.5795F));
+                AddDisplayRule("VoidSurvivorBody", "Head", new Vector3(0.01936F, 0.09013F, 0.11825F), new Vector3(2.71926F, 280.5363F, 29.17954F), new Vector3(0.15526F, 0.15526F, 0.15526F));
             };
 
             crosshairPrefab = PrefabAPI.InstantiateClone(LegacyResourcesAPI.Load<GameObject>("Prefabs/WoodSpriteIndicator"), "MysticsItems_ArchaicMaskIndicator", false);
