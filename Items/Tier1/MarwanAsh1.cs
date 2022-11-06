@@ -186,7 +186,7 @@ namespace MysticsItems.Items
             ashHitVFX = Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Marwan's Ash/Level 1/AshHitVFX.prefab");
             ashHitVFX.AddComponent<EffectComponent>();
             VFXAttributes vfxAttributes = ashHitVFX.AddComponent<VFXAttributes>();
-            vfxAttributes.vfxIntensity = VFXAttributes.VFXIntensity.Low;
+            vfxAttributes.vfxIntensity = VFXAttributes.VFXIntensity.Medium;
             vfxAttributes.vfxPriority = VFXAttributes.VFXPriority.Low;
             ashHitVFX.AddComponent<DestroyOnTimer>().duration = 2f;
             ashHitVFX.transform.localScale *= 2f;
