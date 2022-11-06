@@ -79,23 +79,30 @@ Contains assets from [FreePBR.com](https://freepbr.com/)
 Contains assets from [ambientCG.com](https://ambientcg.com/), licensed under CC0 1.0 Universal.
 
 # Changelog
-#### 2.0.18:
-* Fixed language tokens missing
-#### 2.0.17:
-* Added logbook entry for From Omar With Love
-* Metronome:
-	* Effect reworked - now creates a rhythm indicator that adds +0.2% crit chance until the end of the stage if a non-Primary skill is used in time with rhythm
-	* Rhythm indicator is now faded to be less distracting
-* Fragile Mask:
-	* No longer has a 1 second lingering effect after disabling, allowing you to quickly turn it off in response to an incoming attack
-	* Can be reverted in the balance config
-	* Cooldown changed from 0s to 3s to make the initial activation more risky
-* Enemies marked by the Faulty Spotter now trigger the extra arrows from Huntress's Flurry as if the attack was a random crit
-* Contraband Gunpowder no longer hits the owner with the Artifact of Chaos
-* Potentially fixed Hiker's Backpack giving infinite skill charges with certain mods
-* Fixed Legendary Mask being misplaced and absurdly big on Void Fiend
-* Fixed Metronome playing sounds for NPC allies that have it
-* Removed the "orange" world display from Crystallized World
+#### 2.0.19:
+* Marwan's Ash:
+	* Extra Hit Damage: ~~6 (+1.2 per level)~~ ⇒ 4 (+0.8 per level)
+* Cutesy Bow:
+	* Armor: ~~60~~ ⇒ 40
+* Vendetta:
+	* Now available for enemies
+	* Now gives only 0.75s of the buff if triggered by enemies
+* Spare Wiring:
+	* Player sparks now deal 40% contact damage instead of 200%. Drone spark damage was not changed.
+	* Now banned from enemies
+* Platinum Card:
+	* Discount: ~~-50%~~ ⇒ -100%
+* Crystallized World:
+	* Now has a minimum pulse radius of 60m, preventing it from becoming weaker with smaller holdout zones (e.g. Commencement Pillars)
+		* Can be reverted in the config by setting MinPulseRadius to 0
+* Super Idol:
+	* Health: ~~+150%~~ ⇒ +100%
+	* Armor: ~~90~~ ⇒ 60
+* Wirehack Wrench:
+	* Cooldown: ~~90s~~ ⇒ 140s
+* Added an option to disable Metronome sounds (in General > Effects)
+* Potentially fixed the bug with Metronome bonus randomly reaching +1318927000%
+* Marwan's Ash particles now have a higher VFX cost, which should start removing them more often on deep loop runs
   
 (Previous changelogs can be found [here](https://github.com/TheMysticSword/MysticsItems/blob/main/CHANGELOG.md))
 

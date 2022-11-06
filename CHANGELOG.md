@@ -1,3 +1,27 @@
+#### 2.0.19:
+* Marwan's Ash:
+	* Extra Hit Damage: ~~6 (+1.2 per level)~~ ⇒ 4 (+0.8 per level)
+* Cutesy Bow:
+	* Armor: ~~60~~ ⇒ 40
+* Vendetta:
+	* Now available for enemies
+	* Now gives only 0.75s of the buff if triggered by enemies
+* Spare Wiring:
+	* Player sparks now deal 40% contact damage instead of 200%. Drone spark damage was not changed.
+	* Now banned from enemies
+* Platinum Card:
+	* Discount: ~~-50%~~ ⇒ -100%
+* Crystallized World:
+	* Now has a minimum pulse radius of 60m, preventing it from becoming weaker with smaller holdout zones (e.g. Commencement Pillars)
+		* Can be reverted in the config by setting MinPulseRadius to 0
+* Super Idol:
+	* Health: ~~+150%~~ ⇒ +100%
+	* Armor: ~~90~~ ⇒ 60
+* Wirehack Wrench:
+	* Cooldown: ~~90s~~ ⇒ 140s
+* Added an option to disable Metronome sounds (in General > Effects)
+* Potentially fixed the bug with Metronome bonus randomly reaching +1318927000%
+* Marwan's Ash particles now have a higher VFX cost, which should start removing them more often on deep loop runs
 #### 2.0.18:
 * Fixed language tokens missing
 #### 2.0.17:
