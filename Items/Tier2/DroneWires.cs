@@ -87,7 +87,9 @@ namespace MysticsItems.Items
             itemDef.tags = new ItemTag[]
             {
                 ItemTag.Damage,
-                ItemTag.CannotCopy
+                ItemTag.CannotCopy,
+                ItemTag.AIBlacklist,
+                ItemTag.BrotherBlacklist
             };
             
             itemDef.pickupModelPrefab = PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Wires/Model.prefab"));
