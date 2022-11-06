@@ -54,6 +54,13 @@ namespace MysticsItems.Items
             0.105f,
             "How late can you press to score a hit (in seconds)"
         );
+        public static ConfigOptions.ConfigurableValue<bool> soundsEnabled = new ConfigOptions.ConfigurableValue<bool>(
+            ConfigManager.General.config,
+            "Effects",
+            "Metronome SFX",
+            true,
+            "Should the Metronome item play sounds?"
+        );
 
         public override void OnPluginAwake()
         {
@@ -271,7 +278,7 @@ namespace MysticsItems.Items
 
             public void OnTick()
             {
-                if (rhythmBehaviour && rhythmBehaviour.beatsSinceLastHit <= 5 && hud?.cameraRigController?.viewer?.localUser != null)
+                if (soundsEnabled && rhythmBehaviour && rhythmBehaviour.beatsSinceLastHit <= 5 && hud?.cameraRigController?.viewer?.localUser != null)
                 {
                     Util.PlayAttackSpeedSound(MysticsItemsRhythmBehaviour.prepareSoundString, hud.cameraRigController.targetBody?.gameObject, 1f + rhythmBehaviour.critBonus / 20f);
                 }
@@ -515,7 +522,8 @@ namespace MysticsItems.Items
                     beatsSinceLastHit = 0;
                     body.statsDirty = true;
                     beatNotPressedYet = false;
-                    Util.PlayAttackSpeedSound(hitSoundString, gameObject, 1f + critBonus / 20f);
+                    if (soundsEnabled)
+                        Util.PlayAttackSpeedSound(hitSoundString, gameObject, 1f + critBonus / 20f);
                     MysticsItemsRhythmHUD.OnComboForInstance(this);
                 }
             }
