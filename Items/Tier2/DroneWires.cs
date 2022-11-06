@@ -56,6 +56,12 @@ namespace MysticsItems.Items
             1,
             "How many sparks should a drone drop in each fire cycle"
         );
+        public static ConfigurableValue<float> droneDamageMultiplier = new ConfigurableValue<float>(
+            "Item: Spare Wiring",
+            "DroneDamageMultiplier",
+            1f,
+            "Drones' spark damage is multiplied by this value"
+        );
         public static ConfigurableValue<float> playerFireInterval = new ConfigurableValue<float>(
             "Item: Spare Wiring",
             "PlayerFireInterval",
@@ -67,6 +73,12 @@ namespace MysticsItems.Items
             "PlayerFireCount",
             5,
             "How many sparks should a player drop in each fire cycle"
+        );
+        public static ConfigurableValue<float> playerDamageMultiplier = new ConfigurableValue<float>(
+            "Item: Spare Wiring",
+            "PlayerDamageMultiplier",
+            0.2f,
+            "Players' spark damage is multiplied by this value"
         );
 
         public static GameObject sparkProjectilePrefab;
@@ -188,6 +200,7 @@ namespace MysticsItems.Items
             public float minSpeed = 7f;
             public float maxSpeed = 25f;
             public float coneAngle = 45f;
+            public float damageMultiplier = droneDamageMultiplier;
             
             public void Start()
             {
@@ -197,6 +210,7 @@ namespace MysticsItems.Items
                 {
                     interval = playerFireInterval;
                     sparksToFire = playerFireCount;
+                    damageMultiplier = playerDamageMultiplier;
                 }
                 timer = UnityEngine.Random.value * interval;
                 UpdateDroneInventories();
@@ -296,7 +310,7 @@ namespace MysticsItems.Items
                                 fireOrigin,
                                 Util.QuaternionSafeLookRotation(direction),
                                 body.gameObject,
-                                body.damage * (damage / 100f + damagePerStack / 100f * (float)(stack - 1)),
+                                body.damage * (damage / 100f + damagePerStack / 100f * (float)(stack - 1)) * damageMultiplier,
                                 0f,
                                 crit,
                                 DamageColorIndex.Default,
