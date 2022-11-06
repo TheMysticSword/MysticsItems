@@ -18,7 +18,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> damage = new ConfigurableValue<float>(
             "Item: Marwan s Ash/Light/Weapon",
             "Damage",
-            6f,
+            4f,
             "Base damage",
             new System.Collections.Generic.List<string>()
             {
@@ -30,7 +30,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> damagePerLevel = new ConfigurableValue<float>(
             "Item: Marwan s Ash/Light/Weapon",
             "DamagePerLevel",
-            1.2f,
+            0.8f,
             "Base damage for each additional level of the owner",
             new System.Collections.Generic.List<string>()
             {
