@@ -60,6 +60,12 @@ namespace MysticsItems.Items
                 "ITEM_MYSTICSITEMS_CRYSTALWORLD_DESC"
             }
         );
+        public static ConfigurableValue<float> minPulseRadius = new ConfigurableValue<float>(
+            "Item: Crystallized World",
+            "MinPulseRadius",
+            60f,
+            "The minimum radius of the freezing pulse. If the holdout zone is smaller than this (for example, if it's a Commencement Pillar), the pulse will not become smaller, and will retain this value"
+        );
 
         public override void OnLoad()
         {
@@ -356,12 +362,13 @@ namespace MysticsItems.Items
                         prevPulse = nextPulse;
                         if (NetworkServer.active)
                         {
+                            var currentPulseRadius = Mathf.Max(holdoutZoneController.currentRadius, minPulseRadius);
                             EffectManager.SpawnEffect(pulsePrefab, new EffectData
                             {
                                 origin = transform.position,
-                                scale = holdoutZoneController.currentRadius * 2f
+                                scale = currentPulseRadius * 2f
                             }, true);
-                            sphereSearch.radius = holdoutZoneController.currentRadius;
+                            sphereSearch.radius = currentPulseRadius;
                             foreach (HurtBox hurtBox in sphereSearch.RefreshCandidates().FilterCandidatesByHurtBoxTeam(teamMask).FilterCandidatesByDistinctHurtBoxEntities().GetHurtBoxes())
                             {
                                 HealthComponent healthComponent = hurtBox.healthComponent;
