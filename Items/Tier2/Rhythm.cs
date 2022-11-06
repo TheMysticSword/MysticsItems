@@ -260,7 +260,7 @@ namespace MysticsItems.Items
             {
                 UpdateText();
 
-                if (rhythmBehaviour && hud?.cameraRigController?.viewer?.localUser != null)
+                if (soundsEnabled && rhythmBehaviour && hud?.cameraRigController?.viewer?.localUser != null)
                 {
                     Util.PlayAttackSpeedSound(MysticsItemsRhythmBehaviour.hitSoundString, hud.cameraRigController.targetBody?.gameObject, 1f + rhythmBehaviour.critBonus / 20f);
                 }
@@ -427,7 +427,7 @@ namespace MysticsItems.Items
                     if (_critBonus != value)
                     {
                         _critBonus = value;
-                        new SyncRhythmBonus(gameObject.GetComponent<NetworkIdentity>().netId, value).Send(NetworkServer.active ? NetworkDestination.Clients : NetworkDestination.Server);
+                        new SyncRhythmBonus(gameObject.GetComponent<NetworkIdentity>().netId, value, NetworkServer.active).Send(NetworkServer.active ? NetworkDestination.Clients : NetworkDestination.Server);
                     }
                 }
             }
@@ -436,25 +436,29 @@ namespace MysticsItems.Items
             {
                 NetworkInstanceId objID;
                 float critBonus;
+                bool isServer;
 
                 public SyncRhythmBonus()
                 {
                 }
 
-                public SyncRhythmBonus(NetworkInstanceId objID, float critBonus)
+                public SyncRhythmBonus(NetworkInstanceId objID, float critBonus, bool isServer)
                 {
                     this.objID = objID;
                     this.critBonus = critBonus;
+                    this.isServer = isServer;
                 }
 
                 public void Deserialize(NetworkReader reader)
                 {
                     objID = reader.ReadNetworkId();
                     critBonus = reader.ReadInt32();
+                    isServer = reader.ReadBoolean();
                 }
 
                 public void OnReceived()
                 {
+                    if (isServer == NetworkServer.active) return;
                     GameObject obj = Util.FindNetworkObject(objID);
                     if (obj)
                     {
@@ -467,6 +471,7 @@ namespace MysticsItems.Items
                 {
                     writer.Write(objID);
                     writer.Write(critBonus);
+                    writer.Write(isServer);
                 }
             }
 
