@@ -46,8 +46,7 @@ namespace MysticsItems.Items
             itemDef.tags = new ItemTag[]
             {
                 ItemTag.Damage,
-                ItemTag.Utility,
-                ItemTag.AIBlacklist
+                ItemTag.Utility
             };
             itemDef.pickupModelPrefab = PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Ally Death Revenge/Model.prefab"));
             itemDef.pickupIconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Items/Ally Death Revenge/Icon.png");
@@ -125,8 +124,16 @@ namespace MysticsItems.Items
                         int itemCount = teamMember.body.inventory.GetItemCount(itemDef);
                         if (itemCount > 0)
                         {
-                            EntitySoundManager.EmitSoundServer(sfx.index, teamMember.body.gameObject);
-                            teamMember.body.AddTimedBuff(MysticsItemsContent.Buffs.MysticsItems_AllyDeathRevenge, duration + durationPerStack * (itemCount - 1));
+                            var currentDuration = duration + durationPerStack * (itemCount - 1);
+                            if (damageReport.victimTeamIndex == TeamIndex.Player)
+                            {
+                                EntitySoundManager.EmitSoundServer(sfx.index, teamMember.body.gameObject);
+                            }
+                            else
+                            {
+                                currentDuration = 0.75f;
+                            }
+                            teamMember.body.AddTimedBuff(MysticsItemsContent.Buffs.MysticsItems_AllyDeathRevenge, currentDuration);
                         }
                     }
                 }
