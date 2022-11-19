@@ -52,7 +52,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> radius = new ConfigurableValue<float>(
             "Item: Treasure Map",
             "Radius",
-            10f,
+            7f,
             "Treasure zone radius (in meters)",
             new System.Collections.Generic.List<string>()
             {
