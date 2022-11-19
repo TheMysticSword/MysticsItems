@@ -529,7 +529,7 @@ namespace MysticsItems.Items
                     body.statsDirty = true;
                     beatNotPressedYet = false;
                     if (soundsEnabled)
-                        Util.PlayAttackSpeedSound(hitSoundString, gameObject, 1f + critBonus / 20f);
+                        Util.PlayAttackSpeedSound(hitSoundString, gameObject, 1f + critBonus / 60f);
                     MysticsItemsRhythmHUD.OnComboForInstance(this);
                 }
             }
