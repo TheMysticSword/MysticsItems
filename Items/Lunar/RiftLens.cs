@@ -321,7 +321,7 @@ namespace MysticsItems.Items
 
         public static float GetMaxCountdown(CharacterBody body)
         {
-            var averageWalkSpeed = (body.baseMoveSpeed != 0f ? body.baseMoveSpeed : 7f) * (body.sprintingSpeedMultiplier != 0f ? body.sprintingSpeedMultiplier : 1.45f) * (1f + 0.05f * Run.instance.stageClearCount);
+            var averageWalkSpeed = (body.baseMoveSpeed != 0f ? body.baseMoveSpeed : 7f) * (body.sprintingSpeedMultiplier != 0f ? body.sprintingSpeedMultiplier : 1.45f) * Mathf.Min(1f + 0.05f * Run.instance.stageClearCount, 1.5f);
             var timeBonusFlat = 10f;
             var maxTime = 360f;
             
