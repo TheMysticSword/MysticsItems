@@ -427,7 +427,8 @@ namespace MysticsItems.Items
                     if (_critBonus != value)
                     {
                         _critBonus = value;
-                        new SyncRhythmBonus(gameObject.GetComponent<NetworkIdentity>().netId, value, NetworkServer.active).Send(NetworkServer.active ? NetworkDestination.Clients : NetworkDestination.Server);
+                        if (body.hasEffectiveAuthority)
+                            new SyncRhythmBonus(gameObject.GetComponent<NetworkIdentity>().netId, value, NetworkServer.active).Send(NetworkServer.active ? NetworkDestination.Clients : NetworkDestination.Server);
                     }
                 }
             }
@@ -452,7 +453,7 @@ namespace MysticsItems.Items
                 public void Deserialize(NetworkReader reader)
                 {
                     objID = reader.ReadNetworkId();
-                    critBonus = reader.ReadInt32();
+                    critBonus = reader.ReadSingle();
                     isServer = reader.ReadBoolean();
                 }
 
