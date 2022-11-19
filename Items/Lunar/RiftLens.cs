@@ -153,7 +153,7 @@ namespace MysticsItems.Items
             purchaseInteraction.contextToken = "MYSTICSITEMS_RIFTCHEST_CONTEXT";
 
             ChestBehavior chestBehavior = riftChest.AddComponent<ChestBehavior>();
-            chestBehavior.dropTable = Addressables.LoadAssetAsync<PickupDropTable>("RoR2/Base/Chest1/dtChest1.asset").WaitForCompletion();
+            chestBehavior.dropTable = Addressables.LoadAssetAsync<PickupDropTable>("RoR2/Base/Common/dtTier1Item.asset").WaitForCompletion();
 
             riftChest.transform.Find("InteractionCollider").gameObject.AddComponent<EntityLocator>().entity = riftChest;
 
