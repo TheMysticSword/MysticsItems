@@ -28,6 +28,7 @@ namespace MysticsItems.Buffs
                 overlayMaterial = Main.AssetBundle.LoadAsset<Material>("Assets/Items/Marwan's Ash/matMarwanAshBurnOverlay.mat"),
                 fireEffectPrefab = Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Marwan's Ash/AshBurnVFX.prefab")
             };
+            ashBurnEffectParams.fireEffectPrefab.AddComponent<MysticsItemsBurnEffectOnModdedEnemiesFixer>();
 
             ashDotDef = new DotController.DotDef
             {
@@ -94,6 +95,44 @@ namespace MysticsItems.Buffs
                     Object.Destroy(ashHelper.burnEffectController);
                     ashHelper.burnEffectController = null;
                 }
+            }
+        }
+
+        public class MysticsItemsBurnEffectOnModdedEnemiesFixer : MonoBehaviour
+        {
+            public void Start()
+            {
+                var newScale = 0f;
+                newScale += transform.localScale.x / transform.lossyScale.x;
+                newScale += transform.localScale.y / transform.lossyScale.y;
+                newScale += transform.localScale.z / transform.lossyScale.z;
+                newScale /= 3f;
+
+                var ps = GetComponent<ParticleSystem>();
+
+                ParticleSystem.MinMaxCurve FixMinMaxCurve(ParticleSystem.MinMaxCurve minMaxCurve)
+                {
+                    minMaxCurve.constant *= newScale;
+                    minMaxCurve.constantMin *= newScale;
+                    minMaxCurve.constantMax *= newScale;
+                    minMaxCurve.curveMultiplier *= newScale;
+                    return minMaxCurve;
+                }
+
+                var psMain = ps.main;
+                psMain.startSize = FixMinMaxCurve(psMain.startSize);
+
+                var psVelocityOverLifetime = ps.velocityOverLifetime;
+                psVelocityOverLifetime.x = FixMinMaxCurve(psVelocityOverLifetime.x);
+                psVelocityOverLifetime.y = FixMinMaxCurve(psVelocityOverLifetime.y);
+                psVelocityOverLifetime.z = FixMinMaxCurve(psVelocityOverLifetime.z);
+                psVelocityOverLifetime.orbitalX = FixMinMaxCurve(psVelocityOverLifetime.orbitalX);
+                psVelocityOverLifetime.orbitalY = FixMinMaxCurve(psVelocityOverLifetime.orbitalY);
+                psVelocityOverLifetime.orbitalZ = FixMinMaxCurve(psVelocityOverLifetime.orbitalZ);
+                psVelocityOverLifetime.orbitalOffsetX = FixMinMaxCurve(psVelocityOverLifetime.orbitalOffsetX);
+                psVelocityOverLifetime.orbitalOffsetY = FixMinMaxCurve(psVelocityOverLifetime.orbitalOffsetY);
+                psVelocityOverLifetime.orbitalOffsetZ = FixMinMaxCurve(psVelocityOverLifetime.orbitalOffsetZ);
+                psVelocityOverLifetime.radial = FixMinMaxCurve(psVelocityOverLifetime.radial);
             }
         }
     }

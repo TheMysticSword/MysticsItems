@@ -28,6 +28,7 @@ namespace MysticsItems.Buffs
                 overlayMaterial = Main.AssetBundle.LoadAsset<Material>("Assets/Items/Marwan's Ash/matMarwanAshBurnOverlayStrong.mat"),
                 fireEffectPrefab = Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Marwan's Ash/AshBurnVFXStrong.prefab")
             };
+            ashBurnEffectParams.fireEffectPrefab.AddComponent<MarwanAshBurn.MysticsItemsBurnEffectOnModdedEnemiesFixer>();
 
             ashDotDef = new DotController.DotDef
             {
