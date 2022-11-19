@@ -25,7 +25,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> critBonus = new ConfigurableValue<float>(
             "Item: Metronome",
             "CritBonus",
-            0.2f,
+            0.5f,
             "How much crit to add for each successful rhythm beat (in %)",
             new System.Collections.Generic.List<string>()
             {
@@ -35,7 +35,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> critBonusPerStack = new ConfigurableValue<float>(
             "Item: Metronome",
             "CritBonusPerStack",
-            0.2f,
+            0.5f,
             "How much crit to add for each successful rhythm beat (in %)",
             new System.Collections.Generic.List<string>()
             {
