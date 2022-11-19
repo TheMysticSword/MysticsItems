@@ -328,7 +328,7 @@ namespace MysticsItems.Items
             // smart time calculation using node path lengths
             if (SceneInfo.instance && SceneInfo.instance.groundNodes)
             {
-                var finalTimeMultiplier = 0.83f;
+                var finalTimeMultiplier = 0.85f;
                 
                 var nodeGraph = SceneInfo.instance.groundNodes;
 
