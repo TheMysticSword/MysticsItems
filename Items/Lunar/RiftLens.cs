@@ -704,6 +704,7 @@ namespace MysticsItems.Items
             {
                 if (purchaseInteraction && purchaseInteraction.lockGameObject)
                 {
+                    /*
                     var name = MysticsRisky2Utils.Utils.TrimCloneFromString(purchaseInteraction.lockGameObject.name);
                     switch (name)
                     {
@@ -716,6 +717,7 @@ namespace MysticsItems.Items
                             }
                             return;
                     }
+                    */
 
                     purchaseInteraction.lockGameObject = null;
                 }
