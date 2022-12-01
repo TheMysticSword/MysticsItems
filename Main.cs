@@ -316,6 +316,7 @@ namespace MysticsItems
             public static ItemDef MysticsItems_Voltmeter;
             public static ItemDef MysticsItems_VyraelCommandments;
             public static ItemDef MysticsItems_GachaponToken;
+            public static ItemDef MysticsItems_Nanomachines;
             public static ItemDef MysticsItems_BuffInTPRange;
         }
 
@@ -345,6 +346,7 @@ namespace MysticsItems
             public static BuffDef MysticsItems_MechanicalArmCharge;
             public static BuffDef MysticsItems_SpotterMarked;
             public static BuffDef MysticsItems_GachaponBonus;
+            public static BuffDef MysticsItems_NanomachineArmor;
             public static BuffDef MysticsItems_BuffInTPRange;
         }
 
@@ -357,6 +359,7 @@ namespace MysticsItems
             public static AchievementDef MysticsItems_MultishopTerminalsOnly;
             public static AchievementDef MysticsItems_ReachHighPoint;
             public static AchievementDef MysticsItems_RepairBrokenSpotter;
+            public static AchievementDef MysticsItems_BlockDamageWithArmor;
         }
     }
 }
