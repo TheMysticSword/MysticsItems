@@ -61,6 +61,13 @@ namespace MysticsItems.Items
             true,
             "Should the Metronome item play sounds?"
         );
+        public static ConfigOptions.ConfigurableValue<bool> critLossEnabled = new ConfigOptions.ConfigurableValue<bool>(
+            ConfigManager.General.config,
+            "Gameplay",
+            "Metronome Crit Loss",
+            false,
+            "Should the Metronome item reduce crit stacks for missing a beat?"
+        );
 
         public override void OnPluginAwake()
         {
@@ -522,7 +529,8 @@ namespace MysticsItems.Items
 
             public void OnSkillActivatedAuthority()
             {
-                if (IsOnBeat() && beatNotPressedYet)
+                var isOnBeat = IsOnBeat();
+                if (isOnBeat && beatNotPressedYet)
                 {
                     critBonus += Rhythm.critBonus + Rhythm.critBonusPerStack * (float)(stack - 1);
                     beatsSinceLastHit = 0;
@@ -531,6 +539,13 @@ namespace MysticsItems.Items
                     if (soundsEnabled)
                         Util.PlayAttackSpeedSound(hitSoundString, gameObject, 1f + critBonus / 60f);
                     MysticsItemsRhythmHUD.OnComboForInstance(this);
+                }
+                if (!isOnBeat && critLossEnabled)
+                {
+                    critBonus -= Rhythm.critBonus + Rhythm.critBonusPerStack * (float)(stack - 1);
+                    body.statsDirty = true;
+                    foreach (var instance in MysticsItemsRhythmHUD.instancesList) if (instance.rhythmBehaviour == this)
+                            instance.UpdateText();
                 }
             }
 
