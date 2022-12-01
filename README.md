@@ -1,5 +1,5 @@
 # Mystic's Items
-Adds 40 new items!  
+Adds 50 new items!  
 
 ![GIF preview of some of the item models](https://i.imgur.com/8OOURv4.gif)  
 ![Table with the info about all the items in the mod](https://i.imgur.com/9KMUL8u.png)  
@@ -79,23 +79,40 @@ Contains assets from [FreePBR.com](https://freepbr.com/)
 Contains assets from [ambientCG.com](https://ambientcg.com/), licensed under CC0 1.0 Universal.
 
 # Changelog
-#### 2.0.20:
-* Super Idol:
-	* Extra Health: ~~+100%~~ ⇒ +60%
-* Treasure Map:
-	* Zone Radius: ~~10m~~ ⇒ 7m
-* Timely Execution:
-	* Buff Duration: ~~9s~~ ⇒ 7s
-* Rift Lens:
-	* Rifts now drop only Common items
-	* Rifts can no longer get locked by Teleporter events and Void Seeds
-	* Made the timer *slightly* more forgiving
-* Puzzle of Chronos:
-	* Difficulty Scaling: ~~+20% (+20% per stack)~~ ⇒ +30% (+30% per stack)
-* Metronome:
-	* Crit Per Beat: ~~+0.2% (+0.2% per stack)~~ ⇒ +0.5% (+0.5% per stack)
-* Fixed Metronome giving +1318927000% in Multiplayer (this time for sure)
-* Fixed Marwan's Light particles being extremely large on certain modded enemies
+#### 2.1.0:
+* **Special thanks to eM-Krow & Heyimnoop for funding the donation goal for this update!**
+* **Added 10 New Items**
+    * New Item: Gachapon Coin
+    * New Item: Inoperative Nanomachines
+    * New Item: Purrfect Headphones
+    * New Item: Stargazer's Records
+    * New Item: Clean Gloves
+    * New Item: Time Dilator
+    * New Item: Charger Upgrade Module
+    * New Equipment: Warning System
+    * New Equipment: Mechanical Arm
+    * New Equipment: From Omar With Love
+    * New Lunar Item: Moonglasses
+    * New Lunar Item: Puzzle of Chronos
+    * New Lunar Equipment: Fragile Mask
+* **Added 4 New Challenges**
+    * New Challenge: 'Tis But A Scratch
+    * New Challenge: Mindblown
+    * New Challenge: So Many Fans!
+    * New Challenge: Pirates of the Cariskean
+* **Gameplay Changes**
+    * Platinum Card:
+        * Discount: ~~100%~~ ⇒ 90%
+* **Misc Changes**
+    * Nuclear Accelerator now slightly tints damage numbers green
+	* Re-enabled BetterUI support
+    * Added (mostly) fun gameplay config options:
+        * Treasure Map Sea Bear Circle - make the Treasure Map zone visible as a 1m-wide circle when nobody has the item!
+        * Hiker's Backpack Double Jump - gain an extra jump while carrying the Hiker's Backpack!
+        * Metronome Crit Loss - lose Metronome buff stacks when using a skill off-beat!
+    * Treasure Map's DropItemForEachPlayer config option was moved to the Gameplay section and renamed to Per-Player Treasure Map Drops
+* **Bug Fixes**
+	* 
   
 (Previous changelogs can be found [here](https://github.com/TheMysticSword/MysticsItems/blob/main/CHANGELOG.md))
 
