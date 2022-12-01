@@ -344,6 +344,7 @@ namespace MysticsItems
             public static BuffDef MysticsItems_MarwanAshBurnStrong;
             public static BuffDef MysticsItems_MechanicalArmCharge;
             public static BuffDef MysticsItems_SpotterMarked;
+            public static BuffDef MysticsItems_GachaponBonus;
             public static BuffDef MysticsItems_BuffInTPRange;
         }
 
