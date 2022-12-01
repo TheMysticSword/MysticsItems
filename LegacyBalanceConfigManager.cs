@@ -21,7 +21,12 @@ namespace MysticsItems
 
             public ConfigurableValue(string section, string key, bool defaultValue, string description = "", List<string> stringsToAffect = null, System.Action<bool> onChanged = null) : base(ConfigManager.Balance.config, section, key, (T)Convert.ChangeType(defaultValue, typeof(T)), description, stringsToAffect, ConfigManager.Balance.ignore.bepinexConfigEntry)
             {
-                ConfigOptions.ConfigurableValue.CreateBool(ConfigManager.Balance.categoryGUID, ConfigManager.Balance.categoryName, ConfigManager.Balance.config, section, key, defaultValue, description: description, stringsToAffect: stringsToAffect, useDefaultValueConfigEntry: ConfigManager.Balance.ignore.bepinexConfigEntry);
+                ConfigOptions.ConfigurableValue.CreateBool(ConfigManager.Balance.categoryGUID, ConfigManager.Balance.categoryName, ConfigManager.Balance.config, section, key, defaultValue, description: description, stringsToAffect: stringsToAffect, useDefaultValueConfigEntry: ConfigManager.Balance.ignore.bepinexConfigEntry, onChanged: onChanged);
+            }
+
+            public ConfigurableValue(string section, string key, string defaultValue, string description = "", List<string> stringsToAffect = null, System.Action<string> onChanged = null) : base(ConfigManager.Balance.config, section, key, (T)Convert.ChangeType(defaultValue, typeof(T)), description, stringsToAffect, ConfigManager.Balance.ignore.bepinexConfigEntry)
+            {
+                ConfigOptions.ConfigurableValue.CreateString(ConfigManager.Balance.categoryGUID, ConfigManager.Balance.categoryName, ConfigManager.Balance.config, section, key, defaultValue, description: description, stringsToAffect: stringsToAffect, useDefaultValueConfigEntry: ConfigManager.Balance.ignore.bepinexConfigEntry, onChanged: onChanged);
             }
         }
     }
