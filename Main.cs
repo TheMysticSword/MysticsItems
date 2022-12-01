@@ -318,6 +318,7 @@ namespace MysticsItems
             public static ItemDef MysticsItems_GachaponToken;
             public static ItemDef MysticsItems_DuplicateItems;
             public static ItemDef MysticsItems_Nanomachines;
+            public static ItemDef MysticsItems_ShieldUpgrade;
             public static ItemDef MysticsItems_BuffInTPRange;
             public static ItemDef MysticsItems_StarBook;
         }
