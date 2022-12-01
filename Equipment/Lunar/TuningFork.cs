@@ -18,17 +18,6 @@ namespace MysticsItems.Equipment
     {
         public static GameObject visualEffect;
 
-        public static ConfigurableValue<float> setPercent = new ConfigurableValue<float>(
-            "Equipment: Ratio Equalizer",
-            "SetPercent",
-            50f,
-            "Set everyone's health to this amount (in %)",
-            new List<string>()
-            {
-                "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_PICKUP",
-                "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_DESC"
-            }
-        );
         public static ConfigurableValue<float> radius = new ConfigurableValue<float>(
             "Equipment: Ratio Equalizer",
             "Radius",
@@ -235,6 +224,8 @@ namespace MysticsItems.Equipment
 
         public override bool OnUse(EquipmentSlot equipmentSlot)
         {
+            if (!equipmentSlot.healthComponent) return false;
+
             EffectData effectData = new EffectData
             {
                 origin = equipmentSlot.characterBody.corePosition,
@@ -249,9 +240,9 @@ namespace MysticsItems.Equipment
                 queryTriggerInteraction = QueryTriggerInteraction.Collide,
                 radius = radius.Value
             }.RefreshCandidates().FilterCandidatesByDistinctHurtBoxEntities().GetHurtBoxes();
-            var newHealthFraction = setPercent / 100f;
-            float hp = Mathf.Clamp01(newHealthFraction);
-            float barrier = Mathf.Clamp01(newHealthFraction - 1f);
+            float myHealthFraction = equipmentSlot.healthComponent.combinedHealthFraction;
+            float hp = Mathf.Clamp01(myHealthFraction);
+            float barrier = Mathf.Clamp01(myHealthFraction - 1f);
             foreach (HurtBox hurtBox in hurtBoxes)
             {
                 HealthComponent healthComponent = hurtBox.healthComponent;
