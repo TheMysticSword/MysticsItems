@@ -321,6 +321,7 @@ namespace MysticsItems
             public static ItemDef MysticsItems_ShieldUpgrade;
             public static ItemDef MysticsItems_BuffInTPRange;
             public static ItemDef MysticsItems_StarBook;
+            public static ItemDef MysticsItems_TimePiece;
         }
 
         public static class Equipment
