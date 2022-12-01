@@ -315,6 +315,7 @@ namespace MysticsItems
             public static ItemDef MysticsItems_TreasureMap;
             public static ItemDef MysticsItems_Voltmeter;
             public static ItemDef MysticsItems_VyraelCommandments;
+            public static ItemDef MysticsItems_GachaponToken;
         }
 
         public static class Equipment
