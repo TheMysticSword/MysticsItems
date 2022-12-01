@@ -359,6 +359,7 @@ namespace MysticsItems
             public static AchievementDef MysticsItems_MultishopTerminalsOnly;
             public static AchievementDef MysticsItems_ReachHighPoint;
             public static AchievementDef MysticsItems_RepairBrokenSpotter;
+            public static AchievementDef MysticsItems_HackLegendaryChest;
             public static AchievementDef MysticsItems_BlockDamageWithArmor;
         }
     }
