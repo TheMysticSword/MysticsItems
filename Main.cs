@@ -319,6 +319,7 @@ namespace MysticsItems
             public static ItemDef MysticsItems_DuplicateItems;
             public static ItemDef MysticsItems_Nanomachines;
             public static ItemDef MysticsItems_BuffInTPRange;
+            public static ItemDef MysticsItems_StarBook;
         }
 
         public static class Equipment
@@ -349,6 +350,7 @@ namespace MysticsItems
             public static BuffDef MysticsItems_GachaponBonus;
             public static BuffDef MysticsItems_NanomachineArmor;
             public static BuffDef MysticsItems_BuffInTPRange;
+            public static BuffDef MysticsItems_StarPickup;
         }
 
         public static class Achievements
