@@ -61,7 +61,7 @@
 
     //[TIER2]
     "ITEM_MYSTICSITEMS_COFFEEBOOSTONITEMPICKUP_NAME": "Кружка экспрессо", // [Yes, it is specifically "expresso" in this item, because it makes you fast and inflicts an Express Boost buff. It's not a misspelling.]
-    "ITEM_MYSTICSITEMS_COFFEEBOOSTONITEMPICKUP_PICKUP": "Получите экспресс-ускорение до следующего этапа при подборе предмета. Складывается {MaxBuffs} раза.",
+    "ITEM_MYSTICSITEMS_COFFEEBOOSTONITEMPICKUP_PICKUP": "Получите экспресс-ускорение при подборе предмета, увеличивающее скорость атаки и передвижения. Складывается {MaxBuffs} раза, сбрасывается в начале каждого этапа.",
     "ITEM_MYSTICSITEMS_COFFEEBOOSTONITEMPICKUP_DESC": "Каждый подобранный предмет даёт <style=cIsUtility>экспресс-ускорение</style>, увеличивающее <style=cIsDamage>скорость атаки</style> и <style=cIsUtility>скорость передвижения</style> на <style=cIsUtility>{BoostPower}%</style> до следующего этапа. Предел ускорения - <style=cIsUtility>{BoostPowerMax}% <style=cStack>(+{BoostPowerMaxPerStack}% за шт.)</style></style>. <style=cIsUtility>Предметы более высокой редкости дают больше экспресс-ускорения за раз.</style>",
     "ITEM_MYSTICSITEMS_COFFEEBOOSTONITEMPICKUP_LORE": "- Давай, давай, давай! Ну же, мы на супер секретной миссии! Надо найти все эти ящики как можно быстрее! Вернуть всё своим владельцам! Всех осчастливить! Ю-ху!\r\n\r\n- Да, мы на СЕКРЕТНОЙ миссии, о которой абсолютно НИКТО не знает, так что торопиться НЕЗАЧЕМ. У нас КУЧА времени. А ты чего вообще на таком позитиве? Что было в том кофе?\r\n\r\n- Короче, помнишь тот энергетик?\r\n\r\n- Ага. Стоп, я ведь сказал тебе выброс-\r\n\r\n- И те шприцы с какой-то жёлтой жижей?\r\n\r\n- Э-э, да, помню? А что?\r\n\r\n- И ту светящуюсю синюю бутылку?\r\n\r\n- Т-ты шутишь...",
 
@@ -111,7 +111,7 @@
 
     "ITEM_MYSTICSITEMS_DRONEWIRES_NAME": "Запасная проводка",
     "ITEM_MYSTICSITEMS_DRONEWIRES_PICKUP": "Вы и ваши дроны испускаете в бою искры, наносящие урон.",
-    "ITEM_MYSTICSITEMS_DRONEWIRES_DESC": "Вы и ваши дроны периодически испускаете <style=cIsDamage>электрические искры</style> в бою. Искры наносят <style=cIsDamage>{Damage}% <style=cStack>(+{DamagePerStack}% за шт.)</style></style> базового урона при контакте с врагом.",
+    "ITEM_MYSTICSITEMS_DRONEWIRES_DESC": "Вы и ваши дроны периодически испускаете <style=cIsDamage>электрические искры</style> в бою. Искры, выброшенные дронами, наносят <style=cIsDamage>{Damage}% <style=cStack>(+{DamagePerStack}% за шт.)</style></style> базового урона при контакте с врагом; искры, выброшенные игроками - <style=cIsDamage>{PlayerDamage}% <style=cStack>(+{PlayerDamagePerStack}% за шт.)</style></style>.",
     "ITEM_MYSTICSITEMS_DRONEWIRES_LORE": "\"Всегда бери больше проводки, чем нужно!\" - вот, что она всегда говорила.\r\n\r\nИ посмотрите, чем это для неё обернулось. Теперь она ведущий инженер одной из бригад UES [УДАЛЕНО], занимается починкой дорогостоящих военных ботов, накапливает массивную механическую армию, которая не побоится убить никого, кто встанет на её пути, будь то лемурианец, безжизненная каменная конструкция или соратник, у которого хватило глупости попытаться остановить это психически неуравновешенное подобие человека.\r\n\r\n...нет, не человека. В ней нет ничего человечного. Только лишь схемы, провода и гениальный дурной ум.",
 
     "ITEM_MYSTICSITEMS_DEATHCEREMONY_NAME": "Церемония погибели",
@@ -125,8 +125,8 @@
     "ITEM_MYSTICSITEMS_VOLTMETER_LORE": "ИНСТРУКЦИЯ ПО ИСПОЛЬЗОВАНИЮ ПРОТОТИПА БВ-1\n\nНе разбирайте БВ ни при каких обстоятельствах, или ваша гарантия аннулируется. В случае возникновения проблемы, обратитесь к производителю (см. стр. 9).\nНе подвергайте воздействию жидкостей.\nНе подвергайте воздействию другого активного БВ.\nНе держите около электронных приборов в течение более 7200 часов.\nСоблюдайте дистанцию 30+ метров во время броска БВ о твёрдый объект, чтобы избежать воздействия взрыва электрического разряда.\n\nСТРАНИЦА 4 - МЕРЫ ПРЕДОСТОРОЖНОСТИ",
 
     "ITEM_MYSTICSITEMS_THOUGHTPROCESSOR_NAME": "Стимулятор мыслей", // [Wordplay on "food processor" and "thought process"]
-    "ITEM_MYSTICSITEMS_THOUGHTPROCESSOR_PICKUP": "Чем меньше у вас здоровья, тем быстрее вы атакуете.",
-    "ITEM_MYSTICSITEMS_THOUGHTPROCESSOR_DESC": "Увеличивает скорость атаки на <style=cIsDamage>{AttackSpeed}% <style=cStack>(+{AttackSpeedPerStack}% за шт.)</style></style> за каждый <style=cIsHealth>1% недостающего здоровья</style> вплоть до <style=cIsDamage>+{AttackSpeedMax}% <style=cStack>(+{AttackSpeedMaxPerStack}% за шт.)</style></style>.",
+    "ITEM_MYSTICSITEMS_THOUGHTPROCESSOR_PICKUP": "Применение навыка со времем восстановления ускоряет восстановление всех остальных навыков.",
+    "ITEM_MYSTICSITEMS_THOUGHTPROCESSOR_DESC": "Применение навыка со временем восстановления сокращает <style=cIsUtility>время восстановления</style> всех других навыков на <style=cIsUtility>{CDR}% <style=cStack>(+{CDR}% за шт.)</style></style> времени восстановления использованного навыка.",
     "ITEM_MYSTICSITEMS_THOUGHTPROCESSOR_LORE": "<style=cMono>Отрывок из аудиозаписи в больнице Вивифика.</style>\r\n\r\n\"...вы хотите сказать... что пациент пронёс алкоголь... напился... вошёл на кухню... попытался поделиться алкогольным напитком с рабочим персоналом... и когда персонал вызвал наш отдел, он выхватил блендер и надел его на голову?\"\r\n\r\n\"Да. Он сказал, цитирую, 'о, самые умные что ль? Вызываете ИХ, а? Да пошли вы [REDACTED], я вас в разы умнее! Сейчас этот котелок будет варить по полной!'\"\r\n\r\n\"...\"\r\n\r\n\"...\"\r\n\r\n\"...после этого он включил блендер... взял нож...\"\r\n\r\n\"...и убил двух членов персонала... крича от боли... пока блендер фаршировал его голову.\"",
 
     "ITEM_MYSTICSITEMS_CRYSTALWORLD_NAME": "Кристаллизованный мир",
@@ -183,8 +183,8 @@
     "EQUIPMENT_MYSTICSITEMS_ARCHAICMASK_LORE": "<style=cMono>\r\nАудиотранскрипция с переносного магнитофона завершена.</style>\r\n\r\nМаска всё ещё горячая, хоть остальная часть тела уже остыла. Неужели он всё ещё борется за свою жизнь?\r\n\r\nМогу ли я... 'возродить' сгусток, поджёгши маску? Это может стать смертельной ошибкой, но это мой единственный шанс обрести союзника.\r\n\r\nНет времени задавать вопросы. Пора действовать...\r\n\r\n[Вспышка огня]\r\n\r\n<style=cMono>Конец расшифровки.</style>\r\n",
 
     "EQUIPMENT_MYSTICSITEMS_PRINTERHACKER_NAME": "Ключ взломщика",
-    "EQUIPMENT_MYSTICSITEMS_PRINTERHACKER_PICKUP": "Бесплатно получить {Amount} копии предмета из 3D-принтера, и затем уничтожить принтер.",
-    "EQUIPMENT_MYSTICSITEMS_PRINTERHACKER_DESC": "<style=cIsUtility>Бесплатно</style> получите <style=cIsUtility>{Amount}</style> копии предмета из 3D-принтера, и затем <style=cIsDamage>уничтожьте</style> принтер, безвозвратно делая его неиспользуемым.",
+    "EQUIPMENT_MYSTICSITEMS_PRINTERHACKER_PICKUP": "Бесплатно получите {Amount} копию(-ии) предмета из 3D-принтера, и затем уничтожьте принтер.",
+    "EQUIPMENT_MYSTICSITEMS_PRINTERHACKER_DESC": "<style=cIsUtility>Бесплатно</style> получите <style=cIsUtility>{Amount}</style> копию(-ии) предмета из 3D-принтера, и затем <style=cIsDamage>уничтожьте</style> принтер, безвозвратно делая его неиспользуемым.",
     "EQUIPMENT_MYSTICSITEMS_PRINTERHACKER_LORE": "\"...безупречная репликация обеспечивается снабжением считывающего модуля одной или более заранее напечатанных копий первоначального предмета. Чем больше, тем лучше.\"\r\n\r\n- Из презентационной речи 3D-принтера от MassDuplix",
 
     "EQUIPMENT_MYSTICSITEMS_MICROPHONE_NAME": "Винтажный микрофон",
@@ -194,7 +194,7 @@
 
     "EQUIPMENT_MYSTICSITEMS_SIRENPOLE_NAME": "Система оповещения",
     "EQUIPMENT_MYSTICSITEMS_SIRENPOLE_PICKUP": "Устанавливает столб сирены, вызывающий эффекты срабатывания предметов \"во время зарядки Телепорта\".",
-    "EQUIPMENT_MYSTICSITEMS_SIRENPOLE_DESC": "Устанавливает столб сирены, <style=cIsUtility>действующий в качестве телепорта, активируюя ваши эффекты, срабатывающие во время события с телепортом</style>, и призывает слабых врагов за каждые {WaveSpawnInterval}% зарядки. Зарядка занимает <style=cIsUtility>{ChargeTime} сек.</style>\r\n\r\nНельзя применить, если уже установлен незаряженный столб сирены.",
+    "EQUIPMENT_MYSTICSITEMS_SIRENPOLE_DESC": "Устанавливает автозаряжающийся столб сирены, <style=cIsUtility>действующий в качестве телепорта, активируюя ваши эффекты, срабатывающие во время события с Телепортом</style>, и призывает слабых врагов за каждые {WaveSpawnInterval}% зарядки. Зарядка занимает <style=cIsUtility>{ChargeTime} сек.</style>\r\n\r\nНельзя применить, если уже установлен незаряженный столб сирены.",
     "EQUIPMENT_MYSTICSITEMS_SIRENPOLE_LORE": "\"Капитан!\" - вскрикнул солдат во весь голос.\r\n\r\nКапитан, не отводя озадаченный взгляд от сирены, на удивление не издававшей никакого слышимого шума несмотря на то, что она была включена, тихо ответил: \"Да?\"\r\n\r\n\"Смотрите!\" - заорал солдат ещё громче и указал пальцем на угрожающую фигуру, возвышающуюся вдали.\r\n\r\nКапитан обернулся, увидел нечто, похожее на самую настоящую ожившую гору, и издал громкое \"ОХ [УДАЛЕНО]ТЬ!\"",
 
     "EQUIPMENT_MYSTICSITEMS_MECHANICALARM_NAME": "Механическая рука",
@@ -209,8 +209,8 @@
 
     //[LUNAR EQUIPMENT]
     "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_NAME": "Уравнитель пропорций",
-    "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_PICKUP": "Приравнивает процент текущего здоровья <color=#FF7F7F>ВСЕХ персонажей поблизости</color> к вашему.",
-    "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_DESC": "Приравнивает процент текущего здоровья всех персонажей в радиусе {Radius}м к вашему.",
+    "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_PICKUP": "Приравните текущий процент здоровья <color=#FF7F7F>ВСЕХ персонажей поблизости</color> к текущему проценту <color=#FF7F7F>вашего</color> здоровья.",
+    "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_DESC": "Приравните текущий процент здоровья всех персонажей в радиусе {Radius}м к <style=cIsUtility>текущему проценту вашего здоровья</style>.",
     "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_LORE": "Брат, твоё изобретательное видение, безусловно, воодушевляет, однако я не могу позволить тебе создавать без моего наблюдения.\r\n\r\nЛюбопытство сподвигло тебя на создание нового соединения. Качество и свойства его определяются пропорциями соединений, составляющих его. Чем более пропорции отклоняются, тем менее устойчивое получается в итоге соединение, тем слабее оно сохраняет форму.\r\n\r\nВижу, твоё создание состоит из... Изобилующего количества каждого простого соединения. Оно вовсе не держит форму, и вовсе не пригодно к творению. Его единственное применение - война.\r\n\r\n... \"Хаос?\"",
 
     "EQUIPMENT_MYSTICSITEMS_GATECHALICE_NAME": "Чаша врат", // [The word "gate" here refers to the teleporters that Mithrix and Providence created. They call them "gates" in the vanilla logbook entries (specifically, A Moment, Fractured (MAP_MYSTERYSPACE_LORE), A Moment, Whole (MAP_LIMBO_LORE), Commencement (MAP_MOON_LORE))]
@@ -230,7 +230,7 @@
     "ACHIEVEMENT_MYSTICSITEMS_REPAIRBROKENSPOTTER_DESCRIPTION": "Принесите топливный элемент спасательной капуслы в сырую корнистую пещеру и почините Повреждённый дрон-корректировщик.",
 
     "ACHIEVEMENT_MYSTICSITEMS_DISCDEATH_NAME": "Искренние извинения.", // [Reference to the "Sincere Apologies." achievement from Nuclear Throne]
-    "ACHIEVEMENT_MYSTICSITEMS_DISCDEATH_DESCRIPTION": "Дайте Пилоранг инженерному дрону, предварительно включив Артефакт хаоса, и...?",
+    "ACHIEVEMENT_MYSTICSITEMS_DISCDEATH_DESCRIPTION": "Дайте Пилоранг Инженерному дрону, предварительно включив Артефакт хаоса, и...?",
 
     "ACHIEVEMENT_MYSTICSITEMS_FINDARCHAICMASK_NAME": "Сожжённые убивать", // [Wordplay on "born to kill" and "burn"]
     "ACHIEVEMENT_MYSTICSITEMS_FINDARCHAICMASK_DESCRIPTION": "Возьмите Легендарную маску на Выжженных акрах за 10 минут до того, как она остынет.",
