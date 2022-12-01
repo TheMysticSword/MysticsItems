@@ -316,6 +316,7 @@ namespace MysticsItems
             public static ItemDef MysticsItems_Voltmeter;
             public static ItemDef MysticsItems_VyraelCommandments;
             public static ItemDef MysticsItems_GachaponToken;
+            public static ItemDef MysticsItems_BuffInTPRange;
         }
 
         public static class Equipment
@@ -343,6 +344,7 @@ namespace MysticsItems
             public static BuffDef MysticsItems_MarwanAshBurnStrong;
             public static BuffDef MysticsItems_MechanicalArmCharge;
             public static BuffDef MysticsItems_SpotterMarked;
+            public static BuffDef MysticsItems_BuffInTPRange;
         }
 
         public static class Achievements
