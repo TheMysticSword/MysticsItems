@@ -76,7 +76,6 @@ namespace MysticsItems
 
             //DebugTools.Init();
 
-            CustomChatMessages.Init();
             DamageNumberTint.Init();
             GenericCostTypes.Init();
             NetworkPickupDiscovery.Init();
