@@ -59,11 +59,13 @@ namespace MysticsItems.Items
                 "ITEM_MYSTICSITEMS_TREASUREMAP_DESC"
             }
         );
-        public static ConfigurableValue<bool> dropItemForEachPlayer = new ConfigurableValue<bool>(
-            "Item: Treasure Map",
-            "DropItemForEachPlayer",
+        public static ConfigOptions.ConfigurableValue<bool> dropItemForEachPlayer = new ConfigOptions.ConfigurableValue<bool>(
+            ConfigManager.General.config,
+            "Gameplay",
+            "Per-Player Treasure Map Drops",
             true,
-            "Should the treasure spot drop an item for each player in multiplayer? If false, only one item is dropped regardless of the player count."
+            "Should the Treasure Map treasure spot drop an item for each player in multiplayer? If false, only one item is dropped regardless of the player count."
+        );
         );
 
         public override void OnPluginAwake()
