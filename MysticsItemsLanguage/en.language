@@ -77,6 +77,7 @@
     "ITEM_MYSTICSITEMS_SPOTTER_NAME": "Faulty Spotter", // [A reference to Sniper's Spotter ability from Risk of Rain 1]
     "ITEM_MYSTICSITEMS_SPOTTER_PICKUP": "Increase critical strike chance against a random enemy by 100%.",
     "ITEM_MYSTICSITEMS_SPOTTER_DESC": "Every <style=cIsUtility>{Interval} seconds</style>, analyze 1 <style=cStack>(+1 per stack)</style> random enemy, increasing <style=cIsDamage>critical strike chance</style> against it <style=cIsDamage>by 100%</style> for <style=cIsUtility>{Duration} seconds</style>.",
+    "ITEM_MYSTICSITEMS_SPOTTER_LORE": "<style=cMono>01101000 01110100 01110100 01110000 01110011 00111010 00101111 00101111 01111001 01101111 01110101 01110100 01110101 00101110 01100010 01100101 00101111 01001011 01000111 00111000 01110101 01000001 01000110 00110010 00111000 01000101 01101110 01100111</style>",
 
     "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_NAME": "Nuclear Accelerator", // [Like a particle accelerator, but "nuclear" to make it sound cool and unique]
     "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_PICKUP": "The faster you move, the more damage you deal.",
