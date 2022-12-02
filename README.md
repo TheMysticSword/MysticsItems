@@ -79,23 +79,8 @@ Contains assets from [FreePBR.com](https://freepbr.com/)
 Contains assets from [ambientCG.com](https://ambientcg.com/), licensed under CC0 1.0 Universal.
 
 # Changelog
-#### 2.0.20:
-* Super Idol:
-	* Extra Health: ~~+100%~~ ⇒ +60%
-* Treasure Map:
-	* Zone Radius: ~~10m~~ ⇒ 7m
-* Timely Execution:
-	* Buff Duration: ~~9s~~ ⇒ 7s
-* Rift Lens:
-	* Rifts now drop only Common items
-	* Rifts can no longer get locked by Teleporter events and Void Seeds
-	* Made the timer *slightly* more forgiving
-* Puzzle of Chronos:
-	* Difficulty Scaling: ~~+20% (+20% per stack)~~ ⇒ +30% (+30% per stack)
-* Metronome:
-	* Crit Per Beat: ~~+0.2% (+0.2% per stack)~~ ⇒ +0.5% (+0.5% per stack)
-* Fixed Metronome giving +1318927000% in Multiplayer (this time for sure)
-* Fixed Marwan's Light particles being extremely large on certain modded enemies
+#### 2.0.21:
+* Added Faulty Spotter lore entry
   
 (Previous changelogs can be found [here](https://github.com/TheMysticSword/MysticsItems/blob/main/CHANGELOG.md))
 

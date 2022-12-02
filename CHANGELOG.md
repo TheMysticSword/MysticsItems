@@ -1,4 +1,6 @@
 # Changelog
+#### 2.0.21:
+* Added Faulty Spotter lore entry
 #### 2.0.20:
 * Super Idol:
 	* Extra Health: ~~+100%~~ ⇒ +60%
