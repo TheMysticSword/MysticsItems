@@ -19,6 +19,7 @@ namespace MysticsItems
 {
     [BepInDependency(R2API.R2API.PluginGUID)]
     [BepInDependency(MysticsRisky2UtilsPlugin.PluginGUID)]
+    [BepInDependency("com.Moffein.ArchaicWisp", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("dev.ontrigger.itemstats", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("aaaa.bubbet.whatamilookingat", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("com.ThinkInvisible.TILER2", BepInDependency.DependencyFlags.SoftDependency)]
