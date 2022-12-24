@@ -98,24 +98,6 @@ namespace MysticsItems
             UpdateFirstLaunchManager.Init();
             FunEvents.Init();
 
-            /* WhatAmILookingAt mod came out so this is useless now
-            if (configGeneral.Bind<bool>("Misc", "PrefixModContent", false, "If true, content from this mod will have [Mystic's Items] written at the start of its name").Value)
-            {
-                On.RoR2.Language.GetLocalizedStringByToken += (orig, self, token) =>
-                {
-                    var result = orig(self, token);
-                    if ((
-                        token.StartsWith("ITEM_MYSTICSITEMS_", false, System.Globalization.CultureInfo.InvariantCulture) ||
-                        token.StartsWith("EQUIPMENT_MYSTICSITEMS_", false, System.Globalization.CultureInfo.InvariantCulture) ||
-                        token.StartsWith("ACHIEVEMENT_MYSTICSITEMS_", false, System.Globalization.CultureInfo.InvariantCulture) ||
-                        token.StartsWith("BUFF_MYSTICSITEMS_", false, System.Globalization.CultureInfo.InvariantCulture)
-                    ) && token.EndsWith("_NAME", false, System.Globalization.CultureInfo.InvariantCulture))
-                        result = "[Mystic's Items] " + result;
-                    return result;
-                };
-            }
-            */
-
             /*
             // Generate item preview table image
             RoR2Application.onLoad += () =>
