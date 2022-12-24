@@ -9,6 +9,7 @@ using MonoMod.Cil;
 using MysticsRisky2Utils;
 using MysticsRisky2Utils.BaseAssetTypes;
 using static MysticsItems.LegacyBalanceConfigManager;
+using System.Collections.Generic;
 
 namespace MysticsItems.Items
 {
@@ -105,6 +106,8 @@ namespace MysticsItems.Items
 
             RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
             On.RoR2.CharacterBody.OnInventoryChanged += CharacterBody_OnInventoryChanged;
+
+            On.RoR2.UI.HealthBar.UpdateBarInfos += HealthBar_UpdateBarInfos;
         }
 
         private void RecalculateStatsAPI_GetStatCoefficients(CharacterBody sender, RecalculateStatsAPI.StatHookEventArgs args)
@@ -132,11 +135,54 @@ namespace MysticsItems.Items
             public void Start()
             {
                 healthComponent = GetComponent<HealthComponent>();
+                if (healthComponent)
+                {
+                    if (!healthComponentsWithUpgradedShields.Contains(healthComponent))
+                        healthComponentsWithUpgradedShields.Add(healthComponent);
+                }
             }
 
             public void FixedUpdate()
             {
                 body.outOfDangerStopwatch += (rechargeBoost + rechargeBoostPerStack * (float)(stack - 1)) / 100f * Time.fixedDeltaTime;
+            }
+
+            public void OnEnable()
+            {
+                if (healthComponent)
+                {
+                    if (!healthComponentsWithUpgradedShields.Contains(healthComponent))
+                        healthComponentsWithUpgradedShields.Add(healthComponent);
+                }
+            }
+
+            public void OnDisable()
+            {
+                if (healthComponent)
+                {
+                    if (healthComponentsWithUpgradedShields.Contains(healthComponent))
+                        healthComponentsWithUpgradedShields.Remove(healthComponent);
+                }
+            }
+        }
+
+        public static List<HealthComponent> healthComponentsWithUpgradedShields = new List<HealthComponent>();
+
+        private void HealthBar_UpdateBarInfos(On.RoR2.UI.HealthBar.orig_UpdateBarInfos orig, RoR2.UI.HealthBar self)
+        {
+            orig(self);
+
+            if (self.source && healthComponentsWithUpgradedShields.Contains(self.source))
+            {
+                ref RoR2.UI.HealthBar.BarInfo shieldBarStyle = ref self.barInfoCollection.shieldBarInfo;
+                Color.RGBToHSV(shieldBarStyle.color, out var shieldHue, out var shieldSat, out var shieldVal);
+                shieldHue += Mathf.Sin(Time.fixedTime * 3.4f) * 0.03f;
+                if (shieldHue < 0f) shieldHue += 1f;
+                if (shieldHue > 1f) shieldHue -= 1f;
+                shieldSat = Mathf.Clamp01(shieldSat - 0.05f + 0.1f * Mathf.Sin(Time.fixedTime * 6f));
+                shieldVal = Mathf.Clamp01(shieldVal * 1.15f);
+                shieldBarStyle.color = Color.HSVToRGB(shieldHue, shieldSat, shieldVal);
+                shieldBarStyle.sizeDelta += 4f;
             }
         }
     }
