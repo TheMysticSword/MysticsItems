@@ -74,31 +74,34 @@ namespace MysticsItems.Items
             {
                 ItemTag.Utility
             };
-            /*
-            itemDef.pickupModelPrefab = PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Voltmeter/Model.prefab"));
-            itemDef.pickupIconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Items/Voltmeter/Icon.png");
-            itemDisplayPrefab = PrepareItemDisplayModel(PrefabAPI.InstantiateClone(itemDef.pickupModelPrefab, itemDef.pickupModelPrefab.name + "Display", false));
+            
+            itemDef.pickupModelPrefab = PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Shield Cell/Model.prefab"));
+            itemDef.pickupIconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Items/Shield Cell/Icon.png");
+            var mat = itemDef.pickupModelPrefab.GetComponentInChildren<Renderer>().sharedMaterial;
+            HopooShaderToMaterial.Standard.Apply(mat);
+            HopooShaderToMaterial.Standard.Emission(mat, 4f, new Color32(68, 100, 191, 255));
+            
+            itemDisplayPrefab = PrepareItemDisplayModel(PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Shield Cell/FollowerModel.prefab")));
             onSetupIDRS += () =>
             {
-                AddDisplayRule("CommandoBody", "Stomach", new Vector3(0.042F, 0.096F, -0.119F), new Vector3(4.394F, 73.472F, 2.074F), new Vector3(0.02F, 0.02F, 0.02F));
-                AddDisplayRule("HuntressBody", "Pelvis", new Vector3(0.077F, -0.096F, 0.09F), new Vector3(358.51F, 111.069F, 197.846F), new Vector3(0.018F, 0.018F, 0.018F));
-                AddDisplayRule("Bandit2Body", "Chest", new Vector3(0.011F, 0.206F, -0.199F), new Vector3(0.762F, 87.312F, 5.102F), new Vector3(0.022F, 0.022F, 0.022F));
-                AddDisplayRule("ToolbotBody", "Chest", new Vector3(0.064F, 1.168F, 3.419F), new Vector3(0F, 270F, 0F), new Vector3(0.214F, 0.214F, 0.214F));
-                AddDisplayRule("EngiBody", "HandR", new Vector3(0.026F, -0.123F, 0.048F), new Vector3(275.324F, 252.038F, 18.986F), new Vector3(0.029F, 0.029F, 0.029F));
-                AddDisplayRule("EngiTurretBody", "Neck", new Vector3(0F, 0.6F, -0.168F), new Vector3(0F, 90F, 0F), new Vector3(0.133F, 0.133F, 0.133F));
-                AddDisplayRule("EngiWalkerTurretBody", "Neck", new Vector3(0F, 0.533F, -0.168F), new Vector3(0F, 90F, 0F), new Vector3(0.133F, 0.133F, 0.133F));
-                AddDisplayRule("MageBody", "Chest", new Vector3(0F, 0.064F, -0.327F), new Vector3(0F, 90F, 7.532F), new Vector3(0.039F, 0.039F, 0.039F));
-                AddDisplayRule("MercBody", "Head", new Vector3(0F, 0.105F, -0.143F), new Vector3(0F, 90F, 19.781F), new Vector3(0.02F, 0.02F, 0.02F));
-                AddDisplayRule("TreebotBody", "PlatformBase", new Vector3(0.537F, -0.273F, 0.135F), new Vector3(7.036F, 343.597F, 322.203F), new Vector3(0.063F, 0.063F, 0.063F));
-                AddDisplayRule("LoaderBody", "MechBase", new Vector3(0F, -0.051F, -0.159F), new Vector3(0F, 90F, 0F), new Vector3(0.037F, 0.037F, 0.037F));
-                AddDisplayRule("CrocoBody", "SpineChest1", new Vector3(-0.951F, 0.633F, -0.312F), new Vector3(4.342F, 131.684F, 70.801F), new Vector3(0.254F, 0.254F, 0.254F));
-                AddDisplayRule("CaptainBody", "HandL", new Vector3(0.009F, 0.167F, 0.045F), new Vector3(270F, 270F, 0F), new Vector3(0.035F, 0.035F, 0.035F));
-                AddDisplayRule("BrotherBody", "UpperArmL", BrotherInfection.red, new Vector3(0.124F, 0.177F, -0.056F), new Vector3(80.946F, 113.634F, 258.867F), new Vector3(0.061F, 0.063F, 0.063F));
-                if (SoftDependencies.SoftDependenciesCore.itemDisplaysSniper) AddDisplayRule("SniperClassicBody", "Chest", new Vector3(0.00102F, 0.07635F, -0.2573F), new Vector3(0F, 90F, 342.5916F), new Vector3(0.04182F, 0.04182F, 0.04182F));
-                AddDisplayRule("RailgunnerBody", "Backpack", new Vector3(0F, 0.4146F, 0.05697F), new Vector3(0F, 90F, 0F), new Vector3(0.02963F, 0.02963F, 0.02963F));
-                AddDisplayRule("VoidSurvivorBody", "Chest", new Vector3(0.09556F, 0.08424F, 0.189F), new Vector3(18.8347F, 291.3285F, 8.91174F), new Vector3(0.0247F, 0.0247F, 0.0247F));
+                AddDisplayRule("CommandoBody", "Chest", new Vector3(-0.00492F, 0.40924F, -0.26316F), new Vector3(4.39399F, 73.47204F, 40.19987F), new Vector3(0.0952F, 0.0952F, 0.0952F));
+                AddDisplayRule("HuntressBody", "Pelvis", new Vector3(0.17969F, -0.0327F, 0.00705F), new Vector3(22.22715F, 119.1057F, 183.4642F), new Vector3(0.07104F, 0.07104F, 0.07104F));
+                AddDisplayRule("Bandit2Body", "MainWeapon", new Vector3(-0.0637F, 0.2521F, -0.0884F), new Vector3(0.88898F, 130.9326F, 5.30513F), new Vector3(0.04724F, 0.04724F, 0.04724F));
+                AddDisplayRule("ToolbotBody", "Chest", new Vector3(-0.26591F, 0.724F, -2.37459F), new Vector3(281.1822F, 354.1078F, 275.9842F), new Vector3(0.94861F, 0.94861F, 0.94861F));
+                AddDisplayRule("EngiBody", "CannonHeadR", new Vector3(-0.18947F, 0.38422F, 0.19438F), new Vector3(86.84415F, 21.33805F, 67.44578F), new Vector3(0.06837F, 0.06837F, 0.06837F));
+                AddDisplayRule("EngiTurretBody", "Head", new Vector3(0F, 1.16552F, -1.53651F), new Vector3(41.18788F, 180F, 180F), new Vector3(0.37516F, 0.37516F, 0.37516F));
+                AddDisplayRule("EngiWalkerTurretBody", "Head", new Vector3(-1.17808F, 0.82513F, -0.45502F), new Vector3(18.10892F, 0F, 270F), new Vector3(0.32643F, 0.32643F, 0.32643F));
+                AddDisplayRule("MageBody", "Chest", new Vector3(0.0076F, 0.06786F, -0.36723F), new Vector3(0F, 90F, 7.532F), new Vector3(0.09947F, 0.09947F, 0.09947F));
+                AddDisplayRule("MercBody", "Chest", new Vector3(0F, 0.19384F, -0.33253F), new Vector3(76.33701F, 180F, 180F), new Vector3(0.0591F, 0.0591F, 0.0591F));
+                AddDisplayRule("TreebotBody", "PlatformBase", new Vector3(-0.67877F, -0.32711F, 0.14521F), new Vector3(342.8023F, 13.54228F, 295.1575F), new Vector3(0.11323F, 0.11323F, 0.11323F));
+                AddDisplayRule("LoaderBody", "MechBase", new Vector3(-0.20239F, -0.154F, -0.16236F), new Vector3(352.0321F, 86.04962F, 348.7805F), new Vector3(0.07898F, 0.07898F, 0.07898F));
+                AddDisplayRule("CrocoBody", "SpineChest2", new Vector3(0.93823F, 0.57234F, -0.45359F), new Vector3(0F, 0F, 0F), new Vector3(0.78285F, 0.78285F, 0.78285F));
+                AddDisplayRule("CaptainBody", "Stomach", new Vector3(-0.38752F, 0.0754F, -0.06176F), new Vector3(331.73F, 2.09717F, 350.4285F), new Vector3(0.07681F, 0.07681F, 0.07681F));
+                AddDisplayRule("BrotherBody", "Pelvis", BrotherInfection.red, new Vector3(0.21854F, 0.02853F, -0.08466F), new Vector3(15.7255F, 37.56055F, 160.5855F), new Vector3(0.09165F, 0.09466F, 0.09466F));
+                if (SoftDependencies.SoftDependenciesCore.itemDisplaysSniper) AddDisplayRule("SniperClassicBody", "Pelvis", new Vector3(-0.28916F, 0.15725F, 0.00001F), new Vector3(0F, 0F, 349.5569F), new Vector3(0.09291F, 0.09291F, 0.09291F));
+                AddDisplayRule("RailgunnerBody", "Pelvis", new Vector3(0.11127F, 0.04029F, 0.06485F), new Vector3(0F, 0F, 165.402F), new Vector3(0.06943F, 0.06943F, 0.06943F));
+                AddDisplayRule("VoidSurvivorBody", "Stomach", new Vector3(0.02735F, -0.00002F, 0.10816F), new Vector3(-0.00002F, 93.88837F, 10.28838F), new Vector3(0.06575F, 0.06575F, 0.06575F));
             };
-            */
 
             RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
             On.RoR2.CharacterBody.OnInventoryChanged += CharacterBody_OnInventoryChanged;
