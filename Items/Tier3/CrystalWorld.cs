@@ -33,7 +33,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> freezeTime = new ConfigurableValue<float>(
             "Item: Crystallized World",
             "FreezeTime",
-            7f,
+            5f,
             "Freeze duration (in seconds)",
             new System.Collections.Generic.List<string>()
             {
