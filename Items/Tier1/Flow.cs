@@ -58,7 +58,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> initialRootSlow = new ConfigurableValue<float>(
             "Item: Constant Flow",
             "InitialRootSlow",
-            75f,
+            80f,
             "How much should rooting effects slow you down (in %)",
             new System.Collections.Generic.List<string>()
             {
@@ -159,19 +159,19 @@ namespace MysticsItems.Items
             }
         }
 
+        public float _itemCount = 0;
+        public bool _rootReplacedWithSlow = false;
 
         private void CharacterBody_RecalculateStats(ILContext il)
         {
             ILCursor c = new ILCursor(il);
-            float itemCount = 0;
-            bool rootReplacedWithSlow = false;
-
+            
             c.Emit(OpCodes.Ldarg, 0);
             c.EmitDelegate<System.Action<CharacterBody>>((body) => {
                 var inventory = body.inventory;
                 if (inventory)
                 {
-                    itemCount = inventory.GetItemCount(itemDef);
+                    _itemCount = inventory.GetItemCount(itemDef);
                 }
             });
 
@@ -200,34 +200,39 @@ namespace MysticsItems.Items
 
             if (ILFound)
             {
+                c.GotoNext(MoveType.After, x => x.MatchOr());
                 c.EmitDelegate<System.Func<bool, bool>>((shouldRoot) => {
-                    rootReplacedWithSlow = false;
-                    if (itemCount > 0f && shouldRoot)
+                    _rootReplacedWithSlow = false;
+                    if (_itemCount > 0f && shouldRoot)
                     {
                         shouldRoot = false;
-                        rootReplacedWithSlow = true;
+                        _rootReplacedWithSlow = true;
                     }
                     return shouldRoot;
                 });
                 c.Emit(OpCodes.Ldarg, 0);
                 c.EmitDelegate<System.Action<CharacterBody>>((body) => {
-                    if (rootReplacedWithSlow)
+                    if (_rootReplacedWithSlow)
                     {
                         var currentRootSlow = initialRootSlow / 100f;
-                        if (itemCount > 1f)
+                        if (_itemCount > 1f)
                         {
-                            currentRootSlow /= rootSlowReductionPerStack / 100f * (itemCount - 1f);
+                            currentRootSlow /= rootSlowReductionPerStack / 100f * (_itemCount - 1f);
                         }
-                        body.moveSpeed /= currentRootSlow;
+                        body.moveSpeed /= 1f + currentRootSlow;
+                        _rootReplacedWithSlow = false;
                     }
                 });
 
                 c.GotoPrev(x => x.MatchLdfld<CharacterBody>(nameof(CharacterBody.levelMoveSpeed)));
                 c.GotoNext(x => x.MatchStloc(locSpeedDivIndex));
                 c.EmitDelegate<System.Func<float, float>>((origSpeedDiv) => {
-                    if (itemCount > 0f)
+                    if (_itemCount > 0f)
                     {
-                        return origSpeedDiv / ((slowReduction + slowReductionPerStack * (itemCount - 1)) / 100f);
+                        var slowExtra = origSpeedDiv - 1f;
+                        if (slowExtra > 0f) {
+                            return 1f + slowExtra / (1f + (slowReduction + slowReductionPerStack * (_itemCount - 1)) / 100f);
+                        }
                     }
                     return origSpeedDiv;
                 });
