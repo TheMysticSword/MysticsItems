@@ -51,13 +51,6 @@ namespace MysticsItems.Items
             true,
             "Should the item increase the limit on Engineer turrets that you can place?"
         );
-        public static ConfigOptions.ConfigurableValue<bool> doubleJumpEnabled = new ConfigOptions.ConfigurableValue<bool>(
-            ConfigManager.General.config,
-            "Gameplay",
-            "Hiker s Backpack Double Jump",
-            false,
-            "Should the Hiker s Backpack item grant an extra jump on the first stack?"
-        );
 
         public override void OnLoad()
         {
@@ -113,15 +106,12 @@ namespace MysticsItems.Items
         private void CharacterBody_RecalculateStats(On.RoR2.CharacterBody.orig_RecalculateStats orig, CharacterBody self)
         {
             orig(self);
-            if (doubleJumpEnabled)
+            if (self.inventory)
             {
-                if (self.inventory)
+                int itemCount = self.inventory.GetItemCount(itemDef);
+                if (itemCount > 0)
                 {
-                    int itemCount = self.inventory.GetItemCount(itemDef);
-                    if (itemCount > 0)
-                    {
-                        self.maxJumpCount += 1;
-                    }
+                    self.maxJumpCount += 1;
                 }
             }
         }
