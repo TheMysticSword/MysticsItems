@@ -1,4 +1,49 @@
 # Changelog
+#### 2.1.0:
+* **Merry Christmas!**  
+![Preview of the update. Artificer with some of the new items in the Bazaar Between Time with snowflake particles.](https://i.imgur.com/lhGjR5A.png)
+* **Special thanks to eM-Krow & Heyimnoop for funding the donation goal for this update!**
+* **Added 10 New Items**
+    * New Item: Gachapon Coin
+    * New Item: Constant Flow
+    * New Item: Ghost Apple
+    * New Item: Inoperative Nanomachines
+    * New Item: Purrfect Headphones
+    * New Item: Stargazer's Records
+    * New Item: Time Dilator
+    * New Item: Charger Upgrade Module
+    * New Item: Snow Ring
+    * New Equipment: Regurgitator
+* **Added 5 New Challenges**
+    * New Challenge: 'Tis But A Scratch
+    * New Challenge: Keep Up The Rhythm
+    * New Challenge: So Many Fans!
+    * New Challenge: Cool It!
+    * New Challenge: Pirates of the Cariskean
+* **Gameplay Changes**
+    * Platinum Card:
+        * Discount: ~~100%~~ ⇒ 75%
+    * Super Idol:
+        * Gold Cap: ~~$1200 (-50% per stack), scales with time~~ ⇒ $800 (-50% per stack), scales with time
+        * Gold cap now scales to higher amounts later into the run to make it harder to reach in loop runs where gold is plentiful.
+    * Hiker's Backpack:
+        * Now gives an extra jump on the first stack
+    * Crystallized World:
+        * Freeze Duration: ~~7s~~ ⇒ 5s
+* **Misc Changes**
+    * Bazaar Between Time now has festive particles during Christmas and New Year celebrations. You can turn them off by disabling Fun Events in the mod settings.
+    * Nuclear Accelerator now slightly tints damage numbers green
+	* Re-enabled BetterUI support
+        * Some info might be wrong or missing, this will be fixed in a later update
+    * Added various gameplay config options:
+        * Treasure Map Sea Bear Circle - make the Treasure Map zone visible as a 1m-wide circle when nobody has the item!
+        * Nuclear Accelerator Alternate - make the Nuclear Accelerator increase damage depending on current velocity instead of current movement speed buff!
+        * Metronome Crit Loss - lose Metronome buff stacks when using a skill off-beat!
+    * Treasure Map's DropItemForEachPlayer config option was moved to the Gameplay section and renamed to Per-Player Treasure Map Drops
+* **Bug Fixes**
+	* Fixed config options for Equipment cooldown, Enigma and Bottled Chaos compatibility bypassing the "Ignore Balance Changes" option, which prevented Equipment cooldowns from updating with mod patches
+* **Known Issues**
+    * Non-English localization strings are outdated. Sorry! This will be fixed later. We just wanted to get the update out ASAP :)
 #### 2.0.20:
 * Super Idol:
 	* Extra Health: ~~+100%~~ ⇒ +60%
