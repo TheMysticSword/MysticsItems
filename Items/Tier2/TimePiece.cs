@@ -18,28 +18,8 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> radius = new ConfigurableValue<float>(
             "Item: Time Dilator",
             "Radius",
-            20f,
+            18f,
             "Effect range (in meters)",
-            new System.Collections.Generic.List<string>()
-            {
-                "ITEM_MYSTICSITEMS_TIMEPIECE_DESC"
-            }
-        );
-        public static ConfigurableValue<float> slow = new ConfigurableValue<float>(
-            "Item: Time Dilator",
-            "Slow",
-            20f,
-            "Enemy slowing effect (in %)",
-            new System.Collections.Generic.List<string>()
-            {
-                "ITEM_MYSTICSITEMS_TIMEPIECE_DESC"
-            }
-        );
-        public static ConfigurableValue<float> slowPerStack = new ConfigurableValue<float>(
-            "Item: Time Dilator",
-            "SlowPerStack",
-            20f,
-            "Enemy slowing effect for each additional stack of this item (in %)",
             new System.Collections.Generic.List<string>()
             {
                 "ITEM_MYSTICSITEMS_TIMEPIECE_DESC"
@@ -66,6 +46,8 @@ namespace MysticsItems.Items
             }
         );
 
+        public static GameObject attachmentPrefab;
+
         public override void OnLoad()
         {
             base.OnLoad();
@@ -77,30 +59,8 @@ namespace MysticsItems.Items
             };
             itemDef.pickupModelPrefab = PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Hourglass/Model.prefab"));
             itemDef.pickupIconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Items/Hourglass/Icon.png");
-            itemDisplayPrefab = PrepareItemDisplayModel(PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Hourglass/FollowerModel.prefab")));
-            onSetupIDRS += () =>
-            {
-                AddDisplayRule("CommandoBody", "LowerArmR", new Vector3(0.001F, 0.274F, -0.078F), new Vector3(7.29F, 186.203F, 0.157F), new Vector3(0.277F, 0.389F, 0.277F));
-                AddDisplayRule("HuntressBody", "HandL", new Vector3(-0.014F, 0.004F, 0.035F), new Vector3(6.909F, 1.748F, 74.816F), new Vector3(0.187F, 0.174F, 0.187F));
-                AddDisplayRule("Bandit2Body", "Stomach", new Vector3(-0.069F, -0.12F, -0.197F), new Vector3(18.152F, 14.491F, 196.624F), new Vector3(0.348F, 0.348F, 0.348F));
-                AddDisplayRule("ToolbotBody", "HandR", new Vector3(-0.059F, 0.587F, 1.939F), new Vector3(356.736F, 85.148F, 90.496F), new Vector3(3.014F, 3.241F, 3.014F));
-                AddDisplayRule("EngiBody", "HandL", new Vector3(0F, 0.104F, 0.042F), new Vector3(3.001F, 0F, 0F), new Vector3(0.259F, 0.259F, 0.259F));
-                AddDisplayRule("EngiTurretBody", "Head", new Vector3(0.026F, 0.602F, -1.541F), new Vector3(22.044F, 48.281F, 206.737F), new Vector3(0.74F, 0.74F, 0.74F));
-                AddDisplayRule("EngiWalkerTurretBody", "Head", new Vector3(-0.248F, 1.434F, -0.84F), new Vector3(300.601F, 223.502F, 297.144F), new Vector3(0.659F, 0.801F, 0.643F));
-                AddDisplayRule("MageBody", "HandL", new Vector3(-0.011F, 0.074F, 0.104F), new Vector3(0F, 0F, 355.462F), new Vector3(0.22F, 0.22F, 0.22F));
-                AddDisplayRule("MercBody", "HandR", new Vector3(0F, 0.112F, 0.103F), new Vector3(14.285F, 0F, 0F), new Vector3(0.427F, 0.427F, 0.427F));
-                AddDisplayRule("TreebotBody", "WeaponPlatform", new Vector3(0F, 0.889F, 0.308F), new Vector3(0F, 0F, 0F), new Vector3(0.846F, 0.846F, 0.846F));
-                AddDisplayRule("LoaderBody", "MechHandL", new Vector3(-0.073F, 0.379F, 0.15F), new Vector3(5.558F, 330.424F, 0F), new Vector3(0.36F, 0.36F, 0.36F));
-                AddDisplayRule("CrocoBody", "HandL", new Vector3(-1.286F, 0.394F, 0.102F), new Vector3(56.075F, 280.047F, 0F), new Vector3(3.614F, 2.545F, 4.003F));
-                AddDisplayRule("CaptainBody", "HandR", new Vector3(-0.086F, 0.125F, 0.016F), new Vector3(14.676F, 274.88F, 359.215F), new Vector3(0.248F, 0.248F, 0.248F));
-                AddDisplayRule("BrotherBody", "HandL", BrotherInfection.green, new Vector3(0.019F, -0.013F, 0.017F), new Vector3(348.105F, 324.594F, 242.165F), new Vector3(0.061F, 0.019F, 0.061F));
-                AddDisplayRule("ScavBody", "HandL", new Vector3(-3.491F, 2.547F, -2.4F), new Vector3(354.216F, 329.486F, 87.688F), new Vector3(7.501F, 7.7F, 7.501F));
-                if (SoftDependencies.SoftDependenciesCore.itemDisplaysSniper) AddDisplayRule("SniperClassicBody", "LowerArmR", new Vector3(-0.00116F, 0.35526F, -0.02252F), new Vector3(12.00797F, 359.9336F, 355.1882F), new Vector3(0.2754F, 0.2754F, 0.2754F));
-                AddDisplayRule("RailgunnerBody", "Pelvis", new Vector3(0.1939F, 0.23069F, 0.00249F), new Vector3(5.45999F, 119.7464F, 17.75949F), new Vector3(0.33522F, 0.33522F, 0.33522F));
-                AddDisplayRule("VoidSurvivorBody", "Head", new Vector3(-0.06693F, -1.12064F, -0.77318F), new Vector3(90F, 0F, 0F), new Vector3(0.5795F, 0.5795F, 0.5795F));
-            };
-
             var mat = itemDef.pickupModelPrefab.GetComponentInChildren<Renderer>().sharedMaterial;
+            HopooShaderToMaterial.Standard.Apply(mat);
             HopooShaderToMaterial.Standard.Emission(mat, 1.4f);
 
             var rotateAroundAxis = itemDef.pickupModelPrefab.transform.Find("mdlHourglass").gameObject.AddComponent<Rewired.ComponentControls.Effects.RotateAroundAxis>();
@@ -108,6 +68,213 @@ namespace MysticsItems.Items
             rotateAroundAxis.rotateAroundAxis = Rewired.ComponentControls.Effects.RotateAroundAxis.RotationAxis.X;
             rotateAroundAxis.slowRotationSpeed = 40f;
             rotateAroundAxis.speed = Rewired.ComponentControls.Effects.RotateAroundAxis.Speed.Slow;
+
+            itemDisplayPrefab = PrepareItemDisplayModel(PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Hourglass/FollowerModel.prefab")));
+            
+            onSetupIDRS += () =>
+            {
+                AddDisplayRule("CommandoBody", "Pelvis", new Vector3(0.22235F, -0.08177F, -0.04821F), new Vector3(354.5442F, 166.3058F, 186.0703F), new Vector3(0.05728F, 0.08044F, 0.05728F));
+                AddDisplayRule("HuntressBody", "Pelvis", new Vector3(-0.28241F, -0.11983F, -0.07156F), new Vector3(11.36557F, 276.8395F, 356.8842F), new Vector3(0.07347F, 0.06837F, 0.07347F));
+                AddDisplayRule("Bandit2Body", "Pelvis", new Vector3(0.17123F, -0.00993F, -0.14942F), new Vector3(8.01832F, 13.47197F, 178.7169F), new Vector3(0.06678F, 0.06678F, 0.06678F));
+                AddDisplayRule("ToolbotBody", "Chest", new Vector3(1.94335F, 1.73306F, 3.82745F), new Vector3(5.94887F, 82.69791F, 5.90234F), new Vector3(0.54848F, 0.58979F, 0.54848F));
+                AddDisplayRule("EngiBody", "Pelvis", new Vector3(0.24825F, -0.01657F, -0.22239F), new Vector3(3.001F, 0F, 0F), new Vector3(0.06117F, 0.06117F, 0.06117F));
+                AddDisplayRule("EngiTurretBody", "Head", itemDef.pickupModelPrefab, new Vector3(0F, 1.56671F, 0F), new Vector3(0F, 0F, 0F), new Vector3(0.35125F, 0.35125F, 0.35125F));
+                AddDisplayRule("EngiWalkerTurretBody", "Head", itemDef.pickupModelPrefab, new Vector3(0F, 2.35769F, -0.55122F), new Vector3(0F, 0F, 0F), new Vector3(0.33011F, 0.33011F, 0.33011F));
+                AddDisplayRule("MageBody", "Pelvis", new Vector3(0.1079F, -0.02925F, -0.18647F), new Vector3(14.08916F, 358.8586F, 355.321F), new Vector3(0.06188F, 0.06188F, 0.06188F));
+                AddDisplayRule("MercBody", "Pelvis", new Vector3(-0.21011F, 0.01699F, -0.17222F), new Vector3(14.285F, 0F, 0F), new Vector3(0.0801F, 0.0801F, 0.0801F));
+                AddDisplayRule("TreebotBody", "HeadBase", new Vector3(0.44547F, -0.25288F, -0.91029F), new Vector3(0F, 0F, 0F), new Vector3(0.14329F, 0.14329F, 0.14329F));
+                AddDisplayRule("LoaderBody", "Pelvis", new Vector3(-0.29147F, 0.10046F, -0.05826F), new Vector3(13.13329F, 330.162F, 13.38464F), new Vector3(0.07853F, 0.07853F, 0.07853F));
+                AddDisplayRule("CrocoBody", "Pelvis", new Vector3(2.82533F, 0.71367F, 0.00819F), new Vector3(338.6312F, 280.047F, 34.43082F), new Vector3(0.65748F, 0.66452F, 0.72824F));
+                AddDisplayRule("CaptainBody", "Pelvis", new Vector3(0.04328F, -0.08768F, -0.23239F), new Vector3(359.5601F, 278.3878F, 336.4643F), new Vector3(0.06622F, 0.06622F, 0.06622F));
+                AddDisplayRule("BrotherBody", "chest", BrotherInfection.green, new Vector3(-0.18058F, 0.21968F, 0.15686F), new Vector3(0F, 47.66693F, 0F), new Vector3(0.0706F, 0.0706F, 0.0706F));
+                AddDisplayRule("ScavBody", "MuzzleEnergyCannon", new Vector3(2.68675F, -3.90626F, -13.5355F), new Vector3(90F, 0F, 0F), new Vector3(1.41172F, 1.41172F, 1.41172F));
+                if (SoftDependencies.SoftDependenciesCore.itemDisplaysSniper) AddDisplayRule("SniperClassicBody", "Stomach", new Vector3(0.19824F, 0.04089F, 0.18457F), new Vector3(2.2335F, 46.63262F, 357.826F), new Vector3(0.06079F, 0.06079F, 0.06079F));
+                AddDisplayRule("RailgunnerBody", "Pelvis", new Vector3(0.21896F, 0.08779F, -0.06242F), new Vector3(5.45999F, 119.7464F, 17.75949F), new Vector3(0.07605F, 0.07605F, 0.07605F));
+                AddDisplayRule("VoidSurvivorBody", "Pelvis", new Vector3(0.22483F, -0.09473F, -0.20079F), new Vector3(353.7015F, 1.64081F, 351.861F), new Vector3(0.06207F, 0.06207F, 0.06207F));
+            };
+
+            On.RoR2.CharacterBody.OnInventoryChanged += CharacterBody_OnInventoryChanged;
+
+            attachmentPrefab = Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Hourglass/TimePieceAttachment.prefab");
+            attachmentPrefab.AddComponent<NetworkIdentity>();
+            var networkedBodyAttachment = attachmentPrefab.AddComponent<NetworkedBodyAttachment>();
+            networkedBodyAttachment.shouldParentToAttachedBody = true;
+            networkedBodyAttachment.forceHostAuthority = false;
+            var teamFilter = attachmentPrefab.AddComponent<TeamFilter>();
+            var slowDownProjectiles = attachmentPrefab.AddComponent<RoR2.Projectile.SlowDownProjectiles>();
+            slowDownProjectiles.teamFilter = teamFilter;
+            slowDownProjectiles.slowDownCoefficient = 0f;
+            attachmentPrefab.AddComponent<MysticsItemsTimePieceAttachmentBehaviour>();
+        }
+
+        private void CharacterBody_OnInventoryChanged(On.RoR2.CharacterBody.orig_OnInventoryChanged orig, CharacterBody self)
+        {
+            orig(self);
+            if (NetworkServer.active)
+                self.AddItemBehavior<MysticsItemsTimePieceBehaviour>(self.inventory.GetItemCount(itemDef));
+        }
+
+        public class MysticsItemsTimePieceAttachmentBehaviour : MonoBehaviour
+        {
+            public Inventory inventory;
+            public RoR2.Projectile.SlowDownProjectiles slowDownProjectiles;
+            public TeamFilter teamFilter;
+
+            public float interval = 0.5f;
+            public float buffTimer;
+
+            public class TimePieceSlowInfo
+            {
+                public List<MysticsItemsTimePieceAttachmentBehaviour> insideAttachments;
+                public List<int> buffCounts;
+            }
+            public static Dictionary<CharacterBody, TimePieceSlowInfo> timePieceSlowInfos = new Dictionary<CharacterBody, TimePieceSlowInfo>();
+            
+            public static void CleanTimePieceSlowInfos()
+            {
+                timePieceSlowInfos = timePieceSlowInfos.Where(x => x.Key != null).ToDictionary(x => x.Key, y => y.Value);
+            }
+
+            public void Start()
+            {
+                slowDownProjectiles = GetComponent<RoR2.Projectile.SlowDownProjectiles>();
+                teamFilter = GetComponent<TeamFilter>();
+                var networkedBodyAttachment = GetComponent<NetworkedBodyAttachment>();
+                if (networkedBodyAttachment)
+                {
+                    if (networkedBodyAttachment.attachedBody)
+                    {
+                        inventory = networkedBodyAttachment.attachedBody.inventory;
+                    }
+                }
+            }
+
+            public void FixedUpdate()
+            {
+                if (inventory)
+                {
+                    var itemCount = inventory.GetItemCount(MysticsItemsContent.Items.MysticsItems_TimePiece);
+                    
+                    transform.localScale = Vector3.one * radius;
+                    if (NetworkServer.active)
+                    {
+                        buffTimer -= Time.fixedDeltaTime;
+                        if (buffTimer <= 0f)
+                        {
+                            buffTimer = interval;
+
+                            var radiusSqr = radius * radius;
+                            var position = transform.position;
+                            var buffDef = MysticsItemsContent.Buffs.MysticsItems_TimePieceSlow;
+                            for (TeamIndex teamIndex = TeamIndex.Neutral; teamIndex < TeamIndex.Count; teamIndex++)
+                            {
+                                if (teamIndex != teamFilter.teamIndex)
+                                {
+                                    foreach (var teamComponent in TeamComponent.GetTeamMembers(teamIndex))
+                                    {
+                                        var enemyBody = teamComponent.GetComponent<CharacterBody>();
+                                        if (enemyBody)
+                                        {
+                                            if (!timePieceSlowInfos.ContainsKey(enemyBody))
+                                            {
+                                                timePieceSlowInfos.Add(enemyBody, new TimePieceSlowInfo
+                                                {
+                                                    insideAttachments = new List<MysticsItemsTimePieceAttachmentBehaviour>(),
+                                                    buffCounts = new List<int>()
+                                                });
+                                            }
+                                            var timePieceSlowInfo = timePieceSlowInfos[enemyBody];
+
+                                            var buffCount = enemyBody.GetBuffCount(buffDef);
+                                            var distance = (teamComponent.transform.position - position).sqrMagnitude;
+                                            if (distance <= radiusSqr)
+                                            {
+                                                if (!timePieceSlowInfo.insideAttachments.Contains(this))
+                                                {
+                                                    timePieceSlowInfo.insideAttachments.Add(this);
+                                                    timePieceSlowInfo.buffCounts.Add(0);
+                                                }
+                                                timePieceSlowInfo.buffCounts[timePieceSlowInfo.insideAttachments.IndexOf(this)] = itemCount;
+
+                                                var difference = timePieceSlowInfo.buffCounts.Max() - buffCount;
+                                                for (var i = 0; i < difference; i++)
+                                                    enemyBody.AddBuff(buffDef);
+                                            }
+                                            else
+                                            {
+                                                if (timePieceSlowInfo.insideAttachments.Contains(this))
+                                                {
+                                                    var index = timePieceSlowInfo.insideAttachments.IndexOf(this);
+                                                    timePieceSlowInfo.buffCounts.RemoveAt(index);
+                                                    timePieceSlowInfo.insideAttachments.RemoveAt(index);
+                                                }
+                                                
+                                                if (timePieceSlowInfo.insideAttachments.Count > 0)
+                                                {
+                                                    var difference = timePieceSlowInfo.buffCounts.Max() - buffCount;
+                                                    for (var i = 0; i < difference; i++)
+                                                        enemyBody.AddBuff(buffDef);
+                                                }
+                                                else
+                                                {
+                                                    for (var i = 0; i < buffCount; i++)
+                                                        enemyBody.RemoveBuff(buffDef);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if (slowDownProjectiles)
+                    {
+                        if (itemCount > 0)
+                        {
+                            slowDownProjectiles.slowDownCoefficient = 1f / (1f + (projectileSlow + projectileSlowPerStack * (float)(itemCount - 1)) / 100f);
+                        }
+                    }
+                }
+            }
+
+            public void OnDestroy()
+            {
+                CleanTimePieceSlowInfos();
+            }
+        }
+
+        public class MysticsItemsTimePieceBehaviour : CharacterBody.ItemBehavior
+        {
+            public GameObject attachment;
+
+            public void Start()
+            {
+                AddAttachmentIfDoesntExist();
+            }
+
+            public void AddAttachmentIfDoesntExist()
+            {
+                if (!attachment && body)
+                {
+                    attachment = Instantiate(attachmentPrefab, body.corePosition, Quaternion.identity);
+                    attachment.GetComponent<TeamFilter>().teamIndex = body.teamComponent.teamIndex;
+                    attachment.GetComponent<NetworkedBodyAttachment>().AttachToGameObjectAndSpawn(gameObject, null);
+                }
+            }
+
+            public void OnEnable()
+            {
+                AddAttachmentIfDoesntExist();
+            }
+
+            public void OnDisable()
+            {
+                if (attachment)
+                {
+                    Destroy(attachment);
+                    attachment = null;
+                }
+            }
         }
     }
 }
