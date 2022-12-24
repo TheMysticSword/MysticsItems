@@ -298,12 +298,14 @@ namespace MysticsItems
             public static ItemDef MysticsItems_Voltmeter;
             public static ItemDef MysticsItems_VyraelCommandments;
             public static ItemDef MysticsItems_GachaponToken;
-            public static ItemDef MysticsItems_DuplicateItems;
             public static ItemDef MysticsItems_Nanomachines;
             public static ItemDef MysticsItems_ShieldUpgrade;
             public static ItemDef MysticsItems_BuffInTPRange;
             public static ItemDef MysticsItems_StarBook;
             public static ItemDef MysticsItems_TimePiece;
+            public static ItemDef MysticsItems_Flow;
+            public static ItemDef MysticsItems_GhostApple;
+            public static ItemDef MysticsItems_GhostAppleWeak;
         }
 
         public static class Equipment
@@ -317,6 +319,7 @@ namespace MysticsItems
             public static EquipmentDef MysticsItems_PrinterHacker;
             public static EquipmentDef MysticsItems_SirenPole;
             public static EquipmentDef MysticsItems_TuningFork;
+            public static EquipmentDef MysticsItems_EquipmentEater;
         }
 
         public static class Buffs
@@ -335,20 +338,7 @@ namespace MysticsItems
             public static BuffDef MysticsItems_NanomachineArmor;
             public static BuffDef MysticsItems_BuffInTPRange;
             public static BuffDef MysticsItems_StarPickup;
-        }
-
-        public static class Achievements
-        {
-            public static AchievementDef MysticsItems_DiscDeath;
-            public static AchievementDef MysticsItems_EscapeMoonAlone;
-            public static AchievementDef MysticsItems_FindArchaicMask;
-            public static AchievementDef MysticsItems_HellSpeedrun;
-            public static AchievementDef MysticsItems_MultishopTerminalsOnly;
-            public static AchievementDef MysticsItems_ReachHighPoint;
-            public static AchievementDef MysticsItems_RepairBrokenSpotter;
-            public static AchievementDef MysticsItems_HackLegendaryChest;
-            public static AchievementDef MysticsItems_ManyAllies;
-            public static AchievementDef MysticsItems_BlockDamageWithArmor;
+            public static BuffDef MysticsItems_TimePieceSlow;
         }
     }
 }
