@@ -23,7 +23,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> goldCap = new ConfigurableValue<float>(
             "Item: Super Idol",
             "GoldCap",
-            1200f,
+            800f,
             "Gold required for full buff power (at starting difficulty level)\r\nFor comparison, a Small Chest costs $25, a Large Chest - $50, a Legendary Chest - $400.",
             new System.Collections.Generic.List<string>()
             {
@@ -382,7 +382,10 @@ namespace MysticsItems.Items
 
         public static float CalculateIdolBonus(CharacterMaster master, int itemCount)
         {
-            return Mathf.Clamp01(master.money / ((goldCap / (float)itemCount) * Stage.instance.entryDifficultyCoefficient));
+            var x = Stage.instance.entryDifficultyCoefficient;
+            var scaledCapMultiplier = x + Mathf.Min(Mathf.Pow(x / 6f, 2f), 40f);
+            var scaledCap = Mathf.Min((goldCap / (float)itemCount) * scaledCapMultiplier, float.MaxValue);
+            return Mathf.Clamp01(master.money / scaledCap);
         }
     }
 }
