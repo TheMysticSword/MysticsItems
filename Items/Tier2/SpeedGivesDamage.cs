@@ -53,6 +53,13 @@ namespace MysticsItems.Items
             true,
             "If true, sprint speed multiplier (x1.45 by default) also increases damage"
         );
+        public static ConfigOptions.ConfigurableValue<bool> alternate = new ConfigOptions.ConfigurableValue<bool>(
+            ConfigManager.General.config,
+            "Gameplay",
+            "Nuclear Accelerator Alternate",
+            false,
+            "Should the Nuclear Accelerator item give the bonus depending on current velocity instead of current movespeed buff?"
+        );
 
         public override void OnLoad()
         {
@@ -100,6 +107,20 @@ namespace MysticsItems.Items
 
             IL.RoR2.CharacterBody.RecalculateStats += CharacterBody_RecalculateStats;
             RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
+
+            GenericGameEvents.OnApplyDamageIncreaseModifiers += GenericGameEvents_OnApplyDamageIncreaseModifiers;
+        }
+
+        private void GenericGameEvents_OnApplyDamageIncreaseModifiers(DamageInfo damageInfo, MysticsRisky2UtilsPlugin.GenericCharacterInfo attackerInfo, MysticsRisky2UtilsPlugin.GenericCharacterInfo victimInfo, ref float damage)
+        {
+            if (attackerInfo.inventory)
+            {
+                var itemCount = attackerInfo.inventory.GetItemCount(itemDef);
+                if (itemCount > 0)
+                {
+
+                }
+            }
         }
 
         private void CharacterBody_RecalculateStats(ILContext il)
@@ -130,7 +151,7 @@ namespace MysticsItems.Items
                 c.Emit(OpCodes.Ldarg, 0);
                 c.EmitDelegate<System.Func<float, CharacterBody, float>>((origDamageMult, body) => {
                     var newDamageMult = origDamageMult;
-                    if (body.inventory)
+                    if (body.inventory && !alternate)
                     {
                         int itemCount = body.inventory.GetItemCount(itemDef);
                         if (itemCount > 0)
@@ -161,8 +182,16 @@ namespace MysticsItems.Items
 
         public static float CalculateDamageBonus(CharacterBody body, int itemCount)
         {
-            float baseMoveSpeed = body.baseMoveSpeed + body.levelMoveSpeed * (body.level - 1f);
-            float moveSpeedIncrease = (body.moveSpeed / baseMoveSpeed / (!sprintCounts ? body.sprintingSpeedMultiplier : 1f)) - 1f;
+            var baseMoveSpeed = body.baseMoveSpeed + body.levelMoveSpeed * (body.level - 1f);
+            
+            if (alternate)
+            {
+                var currentVelocity = (body.characterMotor ? body.characterMotor.velocity : (body.rigidbody ? body.rigidbody.velocity : Vector3.zero)).magnitude;
+                var velocityDifference = (currentVelocity / baseMoveSpeed / (!sprintCounts ? body.sprintingSpeedMultiplier : 1f)) - 1f;
+                return Mathf.Max(velocityDifference * (damage + damagePerStack * (itemCount - 1)), 0f);
+            }
+
+            var moveSpeedIncrease = (body.moveSpeed / baseMoveSpeed / (!sprintCounts ? body.sprintingSpeedMultiplier : 1f)) - 1f;
             return Mathf.Max(moveSpeedIncrease * (damage + damagePerStack * (itemCount - 1)), 0f);
         }
 
