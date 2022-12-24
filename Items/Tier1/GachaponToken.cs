@@ -22,7 +22,8 @@ namespace MysticsItems.Items
             {
                 ItemTag.Damage,
                 ItemTag.Utility,
-                ItemTag.InteractableRelated
+                ItemTag.InteractableRelated,
+                ItemTag.AIBlacklist
             };
             itemDef.pickupModelPrefab = PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Gachapon Token/Model.prefab"));
             itemDef.pickupIconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Items/Gachapon Token/Icon.png");
