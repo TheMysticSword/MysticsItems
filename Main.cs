@@ -29,7 +29,7 @@ namespace MysticsItems
     {
         public const string PluginGUID = "com.themysticsword.mysticsitems";
         public const string PluginName = "MysticsItems";
-        public const string PluginVersion = "2.0.21";
+        public const string PluginVersion = "2.1.0";
 
         internal static BepInEx.Logging.ManualLogSource logger;
         internal static PluginInfo pluginInfo;
@@ -76,7 +76,8 @@ namespace MysticsItems
 
             //DebugTools.Init();
 
-            CustomChatMessages.Init();
+            CustomStats.Init();
+            DamageNumberTint.Init();
             GenericCostTypes.Init();
             NetworkPickupDiscovery.Init();
             SoftDependencies.SoftDependenciesCore.Init();
@@ -96,24 +97,6 @@ namespace MysticsItems
 
             UpdateFirstLaunchManager.Init();
             FunEvents.Init();
-
-            /* WhatAmILookingAt mod came out so this is useless now
-            if (configGeneral.Bind<bool>("Misc", "PrefixModContent", false, "If true, content from this mod will have [Mystic's Items] written at the start of its name").Value)
-            {
-                On.RoR2.Language.GetLocalizedStringByToken += (orig, self, token) =>
-                {
-                    var result = orig(self, token);
-                    if ((
-                        token.StartsWith("ITEM_MYSTICSITEMS_", false, System.Globalization.CultureInfo.InvariantCulture) ||
-                        token.StartsWith("EQUIPMENT_MYSTICSITEMS_", false, System.Globalization.CultureInfo.InvariantCulture) ||
-                        token.StartsWith("ACHIEVEMENT_MYSTICSITEMS_", false, System.Globalization.CultureInfo.InvariantCulture) ||
-                        token.StartsWith("BUFF_MYSTICSITEMS_", false, System.Globalization.CultureInfo.InvariantCulture)
-                    ) && token.EndsWith("_NAME", false, System.Globalization.CultureInfo.InvariantCulture))
-                        result = "[Mystic's Items] " + result;
-                    return result;
-                };
-            }
-            */
 
             /*
             // Generate item preview table image
@@ -314,6 +297,15 @@ namespace MysticsItems
             public static ItemDef MysticsItems_TreasureMap;
             public static ItemDef MysticsItems_Voltmeter;
             public static ItemDef MysticsItems_VyraelCommandments;
+            public static ItemDef MysticsItems_GachaponToken;
+            public static ItemDef MysticsItems_Nanomachines;
+            public static ItemDef MysticsItems_ShieldUpgrade;
+            public static ItemDef MysticsItems_BuffInTPRange;
+            public static ItemDef MysticsItems_StarBook;
+            public static ItemDef MysticsItems_TimePiece;
+            public static ItemDef MysticsItems_Flow;
+            public static ItemDef MysticsItems_GhostApple;
+            public static ItemDef MysticsItems_GhostAppleWeak;
         }
 
         public static class Equipment
@@ -327,6 +319,7 @@ namespace MysticsItems
             public static EquipmentDef MysticsItems_PrinterHacker;
             public static EquipmentDef MysticsItems_SirenPole;
             public static EquipmentDef MysticsItems_TuningFork;
+            public static EquipmentDef MysticsItems_EquipmentEater;
         }
 
         public static class Buffs
@@ -341,17 +334,11 @@ namespace MysticsItems
             public static BuffDef MysticsItems_MarwanAshBurnStrong;
             public static BuffDef MysticsItems_MechanicalArmCharge;
             public static BuffDef MysticsItems_SpotterMarked;
-        }
-
-        public static class Achievements
-        {
-            public static AchievementDef MysticsItems_DiscDeath;
-            public static AchievementDef MysticsItems_EscapeMoonAlone;
-            public static AchievementDef MysticsItems_FindArchaicMask;
-            public static AchievementDef MysticsItems_HellSpeedrun;
-            public static AchievementDef MysticsItems_MultishopTerminalsOnly;
-            public static AchievementDef MysticsItems_ReachHighPoint;
-            public static AchievementDef MysticsItems_RepairBrokenSpotter;
+            public static BuffDef MysticsItems_GachaponBonus;
+            public static BuffDef MysticsItems_NanomachineArmor;
+            public static BuffDef MysticsItems_BuffInTPRange;
+            public static BuffDef MysticsItems_StarPickup;
+            public static BuffDef MysticsItems_TimePieceSlow;
         }
     }
 }

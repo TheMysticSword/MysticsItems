@@ -95,11 +95,25 @@ namespace MysticsItems.Items
             RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
             On.RoR2.GenericSkill.RecalculateMaxStock += GenericSkill_RecalculateMaxStock;
             On.RoR2.CharacterMaster.GetDeployableSameSlotLimit += CharacterMaster_GetDeployableSameSlotLimit;
+            On.RoR2.CharacterBody.RecalculateStats += CharacterBody_RecalculateStats;
 
             /*
             On.RoR2.Skills.SkillCatalog.SetSkillDefs += SkillCatalog_SetSkillDefs;
             On.EntityStates.GenericCharacterMain.PerformInputs += GenericCharacterMain_PerformInputs;
             */
+        }
+
+        private void CharacterBody_RecalculateStats(On.RoR2.CharacterBody.orig_RecalculateStats orig, CharacterBody self)
+        {
+            orig(self);
+            if (self.inventory)
+            {
+                int itemCount = self.inventory.GetItemCount(itemDef);
+                if (itemCount > 0)
+                {
+                    self.maxJumpCount += 1;
+                }
+            }
         }
 
         private void GenericSkill_RecalculateMaxStock(On.RoR2.GenericSkill.orig_RecalculateMaxStock orig, GenericSkill self)

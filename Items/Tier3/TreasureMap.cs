@@ -59,11 +59,20 @@ namespace MysticsItems.Items
                 "ITEM_MYSTICSITEMS_TREASUREMAP_DESC"
             }
         );
-        public static ConfigurableValue<bool> dropItemForEachPlayer = new ConfigurableValue<bool>(
-            "Item: Treasure Map",
-            "DropItemForEachPlayer",
+        public static ConfigOptions.ConfigurableValue<bool> dropItemForEachPlayer = new ConfigOptions.ConfigurableValue<bool>(
+            ConfigManager.General.config,
+            "Gameplay",
+            "Per-Player Treasure Map Drops",
             true,
-            "Should the treasure spot drop an item for each player in multiplayer? If false, only one item is dropped regardless of the player count."
+            "Should the Treasure Map treasure spot drop an item for each player in multiplayer? If false, only one item is dropped regardless of the player count."
+        );
+        public static ConfigOptions.ConfigurableValue<bool> seaBearCircleEnabled = new ConfigOptions.ConfigurableValue<bool>(
+            ConfigManager.General.config,
+            "Gameplay",
+            "Treasure Map Sea Bear Circle",
+            false,
+            "Should the Treasure Map spot appear as a 1m-wide circle when nobody has the item?",
+            onChanged: MysticsItemsTreasureMapZone.ToggleSeaBearCircle
         );
 
         public override void OnPluginAwake()
@@ -87,6 +96,7 @@ namespace MysticsItems.Items
             };
             itemDef.pickupModelPrefab = PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Treasure Map/Model.prefab"));
             itemDef.pickupIconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Items/Treasure Map/Icon.png");
+            MysticsItemsContent.Resources.unlockableDefs.Add(GetUnlockableDef());
             ModelPanelParameters modelPanelParams = itemDef.pickupModelPrefab.GetComponentInChildren<ModelPanelParameters>();
             modelPanelParams.minDistance = 3;
             modelPanelParams.maxDistance = 6;
@@ -278,6 +288,8 @@ namespace MysticsItems.Items
                 holdoutZoneController.onCharged.AddListener(zone => Unearth());
 
                 instance = this;
+
+                ToggleSeaBearCircle(seaBearCircleEnabled);
             }
 
             public void Unearth()
@@ -302,6 +314,18 @@ namespace MysticsItems.Items
                 if (holdoutZoneController && holdoutZoneController.radiusIndicator) holdoutZoneController.radiusIndicator.transform.localScale = Vector3.zero;
 
                 Object.Destroy(gameObject);
+            }
+
+            public static void ToggleSeaBearCircle(bool setEnabled)
+            {
+                if (instance)
+                {
+                    if (instance.holdoutZoneController && instance.holdoutZoneController.radiusIndicator)
+                    {
+                        if (!instance.shouldBeActive)
+                            instance.holdoutZoneController.radiusIndicator.transform.localScale = setEnabled ? Vector3.one : Vector3.zero;
+                    }
+                }
             }
 
             public void FixedUpdate()

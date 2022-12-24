@@ -12,7 +12,6 @@ namespace MysticsItems.SoftDependencies
         internal static void Init()
         {
             var pluginInfos = BepInEx.Bootstrap.Chainloader.PluginInfos;
-            /*
             if (pluginInfos.ContainsKey("com.xoxfaby.BetterUI"))
             {
                 try
@@ -22,7 +21,6 @@ namespace MysticsItems.SoftDependencies
                 }
                 catch (Exception e) { Main.logger.LogError(e); }
             }
-            */
             if (pluginInfos.ContainsKey("dev.ontrigger.itemstats"))
             {
                 try

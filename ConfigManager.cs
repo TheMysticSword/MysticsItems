@@ -271,7 +271,8 @@ namespace MysticsItems
                     onChanged: (newValue) =>
                     {
                         if (equipmentDef) equipmentDef.cooldown = newValue;
-                    }
+                    },
+                    useDefaultValueConfigEntry: ignore.bepinexConfigEntry
                 );
             }
 
@@ -301,7 +302,8 @@ namespace MysticsItems
                                 }
                             }
                         }
-                    }
+                    },
+                    useDefaultValueConfigEntry: ignore.bepinexConfigEntry
                 );
             }
 
@@ -331,7 +333,8 @@ namespace MysticsItems
                                 }
                             }
                         }
-                    }
+                    },
+                    useDefaultValueConfigEntry: ignore.bepinexConfigEntry
                 );
             }
         }

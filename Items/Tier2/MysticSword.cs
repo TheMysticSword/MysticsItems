@@ -212,7 +212,7 @@ namespace MysticsItems.Items
 
             if (!SoftDependencies.SoftDependenciesCore.itemStatsEnabled) On.RoR2.UI.ItemIcon.SetItemIndex += ItemIcon_SetItemIndex;
 
-            GenericGameEvents.BeforeTakeDamage += GenericGameEvents_BeforeTakeDamage;
+            // GenericGameEvents.BeforeTakeDamage += GenericGameEvents_BeforeTakeDamage;
 
             MysticsItemsMysticSwordItemDisplayHelper.materialFlash = LegacyResourcesAPI.Load<Material>("Materials/matHuntressFlashBright");
             MysticsItemsMysticSwordItemDisplayHelper.blinkEffect = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Huntress/HuntressBlinkEffect.prefab").WaitForCompletion();

@@ -2,6 +2,7 @@ using MysticsRisky2Utils;
 using RoR2;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
 namespace MysticsItems
 {
@@ -26,6 +27,37 @@ namespace MysticsItems
                 if (today.Month == 4 && today.Day == 1)
                 {
                     BazaarPrank.Init();
+                }
+                if ((today.Month == 12 && today.Day >= 25) || (today.Month == 1 && today.Day <= 5))
+                {
+                    ChristmasAndNewYear.Init();
+                }
+            }
+        }
+
+        public static class ChristmasAndNewYear
+        {
+            public static GameObject festiveEffectsPrefab;
+
+            public static void Init()
+            {
+                SceneManager.sceneLoaded += SceneManager_sceneLoaded;
+            }
+
+            private static void SceneManager_sceneLoaded(Scene scene, LoadSceneMode mode)
+            {
+                if (scene.name == "bazaar")
+                {
+                    if (festiveEffectsPrefab == null)
+                    {
+                        festiveEffectsPrefab = Main.AssetBundle.LoadAsset<GameObject>("Assets/Mods/Mystic's Items/Effects/FestiveStage.prefab");
+                        foreach (var particleSystem in festiveEffectsPrefab.GetComponentsInChildren<ParticleSystem>())
+                        {
+                            var shape = particleSystem.shape;
+                            shape.radius = 100f;
+                        }
+                    }
+                    Object.Instantiate(festiveEffectsPrefab, Vector3.zero, Quaternion.identity);
                 }
             }
         }

@@ -59,9 +59,28 @@
     "ITEM_MYSTICSITEMS_MARWANASH3_PICKUP": "Deal damage and inflict damage over time to all surrounding enemies on hit.",
     "ITEM_MYSTICSITEMS_MARWANASH3_DESC": "Hitting enemies causes <style=cIsUtility>all enemies in a {Radius}m <style=cStack>(+{RadiusPerLevel}m (+{StackLevelMultiplier}% per stack) per level beyond {UpgradeLevel23})</style> radius</style> to take <style=cIsDamage>{Damage} <style=cStack>(+{DamagePerLevel} (+{StackLevelMultiplier}% per stack) per level)</style></style> damage and lose <style=cIsHealth>{DoTPercent}% <style=cStack>(+{DoTPercentPerLevel}% (+{StackLevelMultiplier}% per stack) per level beyond {UpgradeLevel12})</style></style> of their maximum health every second.",
 
+    "ITEM_MYSTICSITEMS_GACHAPONTOKEN_NAME": "Gachapon Coin",
+    "ITEM_MYSTICSITEMS_GACHAPONTOKEN_PICKUP": "Increase critical strike chance and attack speed for each Shrine of Chance activation until the next stage.",
+    "ITEM_MYSTICSITEMS_GACHAPONTOKEN_DESC": "Increase critical strike chance by <style=cIsDamage>{CritBonus}% <style=cStack>(+{CritBonusPerStack}% per stack)</style></style> and attack speed by <style=cIsDamage>{AttackSpeedBonus}% <style=cStack>(+{AttackSpeedBonusPerStack}% per stack)</style></style> for each <style=cIsUtility>Shrine of Chance</style> activation until the next stage.",
+    "ITEM_MYSTICSITEMS_GACHAPONTOKEN_LORE": "*huff* *puff*\r\n\r\nIs... ugh, is this... One, t-two, three... Okay, it's working, thank God.\r\n\r\n[REDACTED]'s log, day ||||-ty one. I'm at, uh, Sector... uhm... Ugh, forget it. Anyway, I almost died. Got ambushed by these lemurians, the ground beneath me turned into a goddamn golem, and... It hurt. A lot. I- I fled.\r\n\r\nRan into this, uh, statue. Kinda reminded me of life at home, when I was young. I started praying. I started praying for my life. I had tears in my eyes- I was sure I was gonna die. When suddenly, a-a flash of light... A medkit was in my hands- some spare bullets, I...\r\n\r\nUgh, bad time to think about this. Gotta head back to safety. Miracles don't happen twice.",
+
+    "ITEM_MYSTICSITEMS_FLOW_NAME": "Constant Flow",
+    "ITEM_MYSTICSITEMS_FLOW_PICKUP": "Move slightly faster. Slowing effects impact you less. Rooting effects slow you down instead.",
+    "ITEM_MYSTICSITEMS_FLOW_DESC": "Move <style=cIsUtility>{MoveSpeed}% <style=cStack>(+{MoveSpeedPerStack}% per stack)</style></style> faster. Slowing effects are <style=cIsUtility>{SlowReduction}% <style=cStack>(+{SlowReductionPerStack}% per stack)</style></style> weaker against you. Rooting effects <style=cIsUtility>no longer root you</style> and instead slow you down by <style=cIsUtility>{InitialRootSlow}% <style=cStack>(-{RootSlowReductionPerStack}% per stack)</style></style>.",
+
+    "ITEM_MYSTICSITEMS_GHOSTAPPLE_NAME": "Ghost Apple",
+    "ITEM_MYSTICSITEMS_GHOSTAPPLE_PICKUP": "Increase health regeneration for the next {Minutes} minutes.",
+    "ITEM_MYSTICSITEMS_GHOSTAPPLE_DESC": "Increases <style=cIsHealing>health regeneration</style> by <style=cIsHealing>{Regen} HP/s</style> for the next <style=cIsUtility>{Minutes} minutes</style>. On exhaustion, turns into <style=cIsUtility>Apple Branch (always increases regen by {RegenWeak} HP/s <style=cStack>(+{RegenWeak} HP/s per stack)</style>)</style>. <style=cStack>Each stack has its own timer.</style>",
+    "ITEM_MYSTICSITEMS_GHOSTAPPLE_LORE": "\"And now we're approaching a real wonder of nature - an exhibit that breaks all known laws of physics. Scientists still cannot explain this interesting phenomenon.\r\n\r\nAn apple-shaped ice encasing, from a place where ice physically cannot form. Truly, a mystery of ages.\"\r\n\r\n- The History Museum of Earth",
+
+    "ITEM_MYSTICSITEMS_GHOSTAPPLEWEAK_NAME": "Apple Branch",
+    "ITEM_MYSTICSITEMS_GHOSTAPPLEWEAK_PICKUP": "Slight regeneration increase.",
+    "ITEM_MYSTICSITEMS_GHOSTAPPLEWEAK_DESC": "Increases <style=cIsHealing>health regeneration</style> by <style=cIsUtility>{RegenWeak} HP/s <style=cStack>(+{RegenWeak} HP/s per stack)</style></style>.",
+    "ITEM_MYSTICSITEMS_GHOSTAPPLEWEAK_LORE": "- Imperfect. Worthless. Waste of energy. All you do is waste and ruin. Waste time. Waste energy. Waste resource. Waste all what could have been improved. IMPROVED! BY ME!\r\n\r\n- Ugh, stop! I've already apologized! And- hey, I've told you to throw these blue marbles away!\r\n\r\n- ...\r\n\r\n- What are y... Get away from me. Get away. From me.",
+
     //[TIER2]
     "ITEM_MYSTICSITEMS_COFFEEBOOSTONITEMPICKUP_NAME": "Cup of Expresso", // [Yes, it is specifically "expresso" in this item, because it makes you fast and inflicts an Express Boost buff. It's not a misspelling.]
-    "ITEM_MYSTICSITEMS_COFFEEBOOSTONITEMPICKUP_PICKUP": "Gain an express boost until the next stage on item pickup. Stacks {MaxBuffs} times.",
+    "ITEM_MYSTICSITEMS_COFFEEBOOSTONITEMPICKUP_PICKUP": "Gain an express boost on item pickup, increasing your attack and movement speed. Stacks {MaxBuffs} times, resets each stage.",
     "ITEM_MYSTICSITEMS_COFFEEBOOSTONITEMPICKUP_DESC": "Each item pickup gives an <style=cIsUtility>Express Boost</style> that increases <style=cIsDamage>attack speed</style> and <style=cIsUtility>movement speed</style> by <style=cIsUtility>{BoostPower}%</style> until the next stage. Maximum cap of <style=cIsUtility>{BoostPowerMax}% <style=cStack>(+{BoostPowerMaxPerStack}% per stack)</style></style> boost. <style=cIsUtility>Items of higher rarity give more Express Boost stacks at once.</style>",
     "ITEM_MYSTICSITEMS_COFFEEBOOSTONITEMPICKUP_LORE": "- Let's go, let's go, let's go! Come on, we're on a super secret mission! We've gotta find all these crates as soon as possible! Get all the stuff back to their owners! Make people happy! Woo!\r\n\r\n- Yes, we ARE on a super secret mission that NOBODY knows about, so there's NO need to rush. We've got PLENTY of time. Why are you so excited anyway? What was in that coffee?\r\n\r\n- Okay, so, remember that energy drink?\r\n\r\n- Yeah. Wait, didn't I tell you to throw that aw-\r\n\r\n- And those needles with weird yellow stuff in them?\r\n\r\n- Uh, yeah? What about them?\r\n\r\n- And that glowing blue bottle?\r\n\r\n- Y-you can't be serious...",
 
@@ -90,7 +109,7 @@
     "ITEM_MYSTICSITEMS_EXTRASHRINEUSE_LORE": "\"In the past few days, people from all over the world reported sightings of mysterious monoliths appearing for a brief period of time. The credibility of these reports is debatable, as there is no photo or video evidence of the monoliths (the reason being that \"they disappear too quickly\"), however, it's important to notice that each report happened on an individual day. Scientists are debating: is the monolith a sentient entity? Could this be the confirmation of the existence of parallel universes? Or is it just a hoax?\"\n- News report",
 
     "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPEN_NAME": "Platinum Card",
-    "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPEN_PICKUP": "You can buy an additional item at a Multishop Terminal with a discount (once per stage).",
+    "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPEN_PICKUP": "You can buy an additional item at a Multishop Terminal at a {Discount}% discount (once per stage).",
     "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPEN_DESC": "Making a purchase at a Multishop keeps other Multishop Terminals available <style=cIsUtility>1 <style=cStack>(+1 per stack)</style></style> time on each stage and decreases their price by {Discount}%.",
     "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPEN_LORE": "<style=cMono>\n//-- New Messages (1) --//\n\nFrom: UES</style>\n\nThank you for subscribing to the Platinum Card program! Starting from this day, daily offers and discounts are now available for you at every branch of the UES on all planets.\n\nDon't forget to pay the monthly fee. Or else.\n\n<style=cMono>You cannot reply to this conversation.</style>",
 
@@ -102,8 +121,6 @@
     "ITEM_MYSTICSITEMS_RHYTHM_NAME": "Metronome",
     "ITEM_MYSTICSITEMS_RHYTHM_PICKUP": "Use non-Primary skills in rhythm to get extra Critical Strike chance.",
     "ITEM_MYSTICSITEMS_RHYTHM_DESC": "A <style=cIsUtility>rhythm indicator</style> appears over your skills. Using a Secondary, Utility or Special skill in time with rhythm grants <style=cIsDamage>+{CritBonus}% <style=cStack>(+{CritBonusPerStack}% per stack)</style> Critical Strike chance</style> <style=cIsUtility>until the end of the stage</style>.",
-    "ITEM_MYSTICSITEMS_RHYTHM_PICKUP_OLD": "Use a non-Primary skill every {Interval}s to rack up Critical Strike chance. Missing a beat resets the bonus.",
-    "ITEM_MYSTICSITEMS_RHYTHM_DESC_OLD": "A beat plays every <style=cIsUtility>{Interval}s</style>. Using a Secondary, Utility or Special skill in time with beat racks up a <style=cIsUtility>combo</style>, missing a beat <style=cIsHealth>resets the combo</style>. Critical Strike chance is increased by <style=cIsDamage>+{ComboCrit}% <style=cStack>(+{ComboCritPerStack}% per stack)</style></style> multiplied by combo.",
 
     "ITEM_MYSTICSITEMS_ELITEPOTION_NAME": "Failed Experiment",
     "ITEM_MYSTICSITEMS_ELITEPOTION_PICKUP": "Killing an elite enemy spreads its elemental effect on nearby enemies.",
@@ -112,12 +129,45 @@
 
     "ITEM_MYSTICSITEMS_DRONEWIRES_NAME": "Spare Wiring",
     "ITEM_MYSTICSITEMS_DRONEWIRES_PICKUP": "You and your drones emit damaging sparks in combat.",
-    "ITEM_MYSTICSITEMS_DRONEWIRES_DESC": "You and your drones occasionally drop <style=cIsDamage>electric sparks</style> while in combat. The sparks deal <style=cIsDamage>{Damage}% <style=cStack>(+{DamagePerStack}% per stack)</style></style> base damage on contact with an enemy.",
+    "ITEM_MYSTICSITEMS_DRONEWIRES_DESC": "You and your drones occasionally drop <style=cIsDamage>electric sparks</style> while in combat. Sparks dropped by drones deal <style=cIsDamage>{Damage}% <style=cStack>(+{DamagePerStack}% per stack)</style></style> base damage on contact with an enemy, sparks dropped by players - <style=cIsDamage>{PlayerDamage}% <style=cStack>(+{PlayerDamagePerStack}% per stack)</style></style>.",
     "ITEM_MYSTICSITEMS_DRONEWIRES_LORE": "\"Always grab more wire than you need!\" - that's what she always used to say.\r\n\r\nAnd look where that brought her. Now she's the lead engineer of a UES [REDACTED] crew, repairing expensive military bots, amassing a mechanical army not afraid to kill anyone in her way, be it a lemurian, a lifeless rock construct, or a comrade foolish enough to try to stop this psychopathic wreck of a human.\r\n\r\n...no, not a human. There's nothing human in her. Only circuit, wire and a brilliant, ill mind.",
 
     "ITEM_MYSTICSITEMS_DEATHCEREMONY_NAME": "Ceremony of Perdition",
     "ITEM_MYSTICSITEMS_DEATHCEREMONY_PICKUP": "Critical Strikes mark enemies. Marked enemies share damage.",
     "ITEM_MYSTICSITEMS_DEATHCEREMONY_DESC": "Increase Critical Strike chance by <style=cIsDamage>{BaseCrit}%</style>. Critical Strikes mark enemies. When a marked enemy is damaged, all other marked enemies take <style=cIsDamage>{Damage}% <style=cStack>(+{DamagePerStack}% per stack)</style></style> of dealt damage. <style=cIsUtility>The mark lasts {Duration} seconds.</style>",
+
+    "ITEM_MYSTICSITEMS_NANOMACHINES_NAME": "Inoperative Nanomachines",
+    "ITEM_MYSTICSITEMS_NANOMACHINES_PICKUP": "Take less damage when health is between {MinHealth}-{MaxHealth}%.",
+    "ITEM_MYSTICSITEMS_NANOMACHINES_DESC": "Increase <style=cIsUtility>armor by {Armor} <style=cStack>(+{ArmorPerStack} per stack)</style></style> while health is between <style=cIsHealing>{MinHealth}-{MaxHealth}%</style>.",
+    "ITEM_MYSTICSITEMS_NANOMACHINES_LORE": "The crate where these came from has an old faded sticker on it that says:\r\n\r\n\"PERSONAL BARRIER PROTOTYPE (C) 2043 HINON INDUSTRIES\r\n\r\nInstructions: Put batteries into the controller module before usage. Hold the module in a safe close spot (e.g. a pocket). Press on the head of the main module to turn the system on. Press on the head again to turn the system off.\r\n\r\nSafety Measures: Do not eat. Do not feed to anyone. Do not put in fishtanks. Do not put in beehives. Do not give to senators. Do not put on robot vacuums. Do not put near knives. Do not put on robot vacuums with knives.\r\n\r\nNot for sale.\"",
+
+    "ITEM_MYSTICSITEMS_DUPLICATEITEMS_NAME": "Clean Gloves",
+    "ITEM_MYSTICSITEMS_DUPLICATEITEMS_PICKUP": "Chance on Common item pickup to duplicate it.",
+    "ITEM_MYSTICSITEMS_DUPLICATEITEMS_DESC": "Picking up a Common item has a <style=cIsUtility>{Chance}% <style=cStack>(+{ChancePerStack}% per stack)</style></style> chance to give it to you <style=cIsUtility>twice</style>. <style=cIsUtility>Does not affect items from printers and scrappers.</style>",
+    "ITEM_MYSTICSITEMS_DUPLICATEITEMS_LORE": "- STOLEN?!\r\n\r\n- Y-yes.\r\n\r\n- BUT IT WAS- IT'S- MOST OF OUR FAMILY'S WORTH CONSOLIDATED INTO A DIAMOND! WHAT- WHO... H-how?!\r\n\r\n- ...\r\n\r\n- You noticed that in the morning. Right?! Did you call the police?\r\n\r\n- Yes. Yes, of course. That was the first thing I've done as soon as I've noticed that it was gone!\r\n\r\n- And what did they say?\r\n\r\n- No evidence of the thief. No fingerprints, no strands of hair, no smell, nothing.\r\n\r\n- A masterful thief, huh...\r\n\r\n- ...\r\n\r\n- No. No, it can't be. Nobody even knew about the diamond. My grandfather specifically organized a faux theft many years ago to create a public impression that it was gone forever. Nobody should have known that we still had it.\r\n\r\n- ...\r\n\r\n- Hrmph... So. What is our next course of action. What shall we do now? Any ideas?\r\n\r\n- Well... We could sell some of the furniture-\r\n\r\n- Do you think I want to sell any of this?! This is heirloom!\r\n\r\n- But there's no other choice...\r\n\r\n- Oh, I do believe I have a choice. I could either sell our valuable antiques that were passed down throughout the generations, or I could put you to death.\r\n\r\n- Huh?\r\n\r\n- Filthy TRAITOR! YOU took the diamond!\r\n\r\n- What? No, I didn-\r\n\r\n- WHO ELSE could it have been?! You animal! Do you even realize WHAT YOU HAVE DONE?!\r\n\r\n- I SWEAR I DIDN'T TAKE IT!\r\n\r\n- GET BACK HERE!\r\n\r\n- THROW THAT GUN AWAY!\r\n\r\n- GET BACK HERE AND ACCEPT YOUR PUNISHMENT! OUR FAMILY DOES NOT NEED BACKSTABBERS!",
+
+    "ITEM_MYSTICSITEMS_BUFFINTPRANGE_NAME": "Purrfect Headphones",
+    "ITEM_MYSTICSITEMS_BUFFINTPRANGE_PICKUP": "While in the Teleporter range, move faster and take less damage.",
+    "ITEM_MYSTICSITEMS_BUFFINTPRANGE_DESC": "While you are in the Teleporter range, increase <style=cIsUtility>movement speed by {MoveSpeed}% <style=cStack>(+{MoveSpeedPerStack}% per stack)</style></style> and <style=cIsUtility>armor by {Armor} <style=cStack>(+{ArmorPerStack} per stack)</style></style>.",
+    "ITEM_MYSTICSITEMS_BUFFINTPRANGE_LORE": "- Isn't it weird how they wear things that look like our ears?\r\n\r\n- Yeah! Glad I'm not the only one who finds that creepy.\r\n\r\n- And they call these \"cute\", or something?\r\n\r\n- Imagine an alternate universe where we wear accessories with human ears on them.\r\n\r\n- Ewww!\r\n\r\n- Hahaha!\r\n\r\n- Ugh, and the worst part is, we can't even wear these things! They're too uncomfortable!",
+
+    "ITEM_MYSTICSITEMS_STARBOOK_NAME": "Stargazer's Records",
+    "ITEM_MYSTICSITEMS_STARBOOK_PICKUP": "Chance on hit to drop a star. Stars can then be picked up to increase attack speed.",
+    "ITEM_MYSTICSITEMS_STARBOOK_DESC": "<style=cIsDamage>{Chance}% chance</style> on hit to drop a <style=cWorldEvent>star</style> for <style=cIsDamage>{Damage}% <style=cStack>(+{DamagePerStack}% per stack)</style> TOTAL damage</style>. Picking up <style=cWorldEvent>stars</style> increases your <style=cIsUtility>attack speed by {AttackSpeed}% <style=cStack>(+{AttackSpeedPerStack}% per stack)</style></style> for {Duration} seconds.",
+
+    "ITEM_MYSTICSITEMS_TIMEPIECE_NAME": "Time Dilator",
+    "ITEM_MYSTICSITEMS_TIMEPIECE_PICKUP": "Slow down nearby enemies and projectiles.",
+    "ITEM_MYSTICSITEMS_TIMEPIECE_DESC": "All enemies within <style=cIsUtility>{Radius}m</style> move and attack <style=cIsUtility>{Slow}% <style=cStack>(+{SlowPerStack}% per stack)</style> slower</style>. All enemy projectiles within that range also fly <style=cIsUtility>{ProjectileSlow}% <style=cStack>(+{ProjectileSlowPerStack}% per stack)</style> slower</style>.",
+    "ITEM_MYSTICSITEMS_TIMEPIECE_LORE": "Order: Magical Hourglass Thing\r\nTracking Number: 74212***\r\nEstimated Delivery: 10\/05\/2056\r\nShipping Method: High Priority/Volatile\r\nShipping Address: Spaceship in the Sky 1, 6829 That One Planet\r\nShipping Details:\r\nI might have accidentally broken it and caused, uh, a planet's entire... No, no, you don't wanna know, actually. Anyway, sending it back to you. Sorry!",
+
+    "ITEM_MYSTICSITEMS_SNOWRING_NAME": "Snow Ring",
+    "ITEM_MYSTICSITEMS_SNOWRING_PICKUP": "Chance on taking damage to freeze a nearby enemy.",
+    "ITEM_MYSTICSITEMS_SNOWRING_DESC": "<style=cIsUtility>{Chance}%</style> chance on taking damage to <style=cIsUtility>freeze</style> <style=cIsUtility>{Targets} <style=cStack>(+{TargetsPerStack} per stack)</style> random enemies within <style=cIsUtility>{Radius}m <style=cStack>(+{RadiusPerStack}m per stack)</style>.",
+    "ITEM_MYSTICSITEMS_SNOWRING_LORE": "<style=cMono>Audio transcription complete from signal echoes.</style>\r\n\r\nIt's cold. It's... so... cold. Please. Answer me. Somebody. Please...\r\n\r\nEverything around here is out to kill me. Even the weather itself. I haven't been attacked by anything for days now, because everything has died of the cold. I'm barely- I'm barely surviving here on their corpses.\r\n\r\nEven eating is a... hard task here. The very moment I lift my helmet, the sharp gusts of wind start cutting into my skin. I don't even know what I'm gonna die of sooner: hunger, or blood loss. Or maybe... I won't die. If someone hears this. Please. Anyone.\r\n\r\nCan you hear me? Hello?\r\n\r\nI guess not. Gonna sleep, I guess. Hope I can at least wake up tomorrow.\r\n\r\n...\r\n\r\nSomeone. Anyone. Can you hear me?...",
+
+    "ITEM_MYSTICSITEMS_AIRPLANEMODE_NAME": "Airplane Mode",
+    "ITEM_MYSTICSITEMS_AIRPLANEMODE_PICKUP": "While your Utility skill is unavailable, gain high movement speed and an extra jump.",
+    "ITEM_MYSTICSITEMS_AIRPLANEMODE_DESC": "While your <style=cIsUtility>Utility</style> skill is unavailable, gain <style=cIsUtility>+{MoveSpeed}% <style=cStack>(+{MoveSpeedPerStack}% per stack)</style> movement speed</style> and <style=cIsUtility>an extra jump</style>.",
 
     //[TIER3]
     "ITEM_MYSTICSITEMS_VOLTMETER_NAME": "Wireless Voltmeter", // [WV in the lore entry stands for "wireless voltmeter"]
@@ -151,8 +201,8 @@
     "ITEM_MYSTICSITEMS_IDOL_LORE": "'Made of solid gold, you feel richer just holding it.'",
 
     "ITEM_MYSTICSITEMS_BACKPACK_NAME": "Hiker's Backpack",
-    "ITEM_MYSTICSITEMS_BACKPACK_PICKUP": "+{Charges} charge to all skills.",
-    "ITEM_MYSTICSITEMS_BACKPACK_DESC": "Add <style=cIsUtility>+{Charges} maximum charge <style=cStack>(+{ChargesPerStack} per stack)</style></style> to all skills. Reduce skill cooldowns by <style=cIsUtility>{CDR}%</style>.",
+    "ITEM_MYSTICSITEMS_BACKPACK_PICKUP": "+{Charges} charge to all skills. Gain an extra jump.",
+    "ITEM_MYSTICSITEMS_BACKPACK_DESC": "Add <style=cIsUtility>+{Charges} maximum charge <style=cStack>(+{ChargesPerStack} per stack)</style></style> to all skills. Reduce skill cooldowns by <style=cIsUtility>{CDR}%</style>. Gain an <style=cIsUtility>extra jump</style>.",
     "ITEM_MYSTICSITEMS_BACKPACK_LORE": "- ...but now, it's almost like my inner voice is telling me... \"You can't do this.\"\r\n\r\n- Oh, it's a sign of change, my dear.\r\n\r\n- What do you mean by that?\r\n\r\n- That's just how we react to progress. Often, we're not used to change, and we try to go back. That's normal, and you don't have to worry about it. Don't let this feeling take over you, but also don't ignore it.\r\n\r\n- So... Do I just keep going then?\r\n\r\n- Do what you think is the best for you, dear.\r\n\r\n- ... Thanks, Mom.",
 
     "ITEM_MYSTICSITEMS_VYRAELCOMMANDMENTS_NAME": "Ten Commandments of Vyrael", // [Vyrael's developer item]
@@ -162,6 +212,10 @@
     "ITEM_MYSTICSITEMS_JUDGEMENTCUT_NAME": "Devil's Cry",
     "ITEM_MYSTICSITEMS_JUDGEMENTCUT_PICKUP": "Unleash a barrage of slashes every {CritInterval} Critical Strikes.",
     "ITEM_MYSTICSITEMS_JUDGEMENTCUT_DESC": "Increase Critical Strike Chance by <style=cIsDamage>{BaseCrit}%</style>. Every <style=cIsDamage>{CritInterval}</style> Critical Strikes, <style=cIsDamage>unleash a barrage of slashes</style>, dealing <style=cIsDamage>{DamagePerSlash}x{SlashCount}% <style=cStack>(+{DamagePerSlash}x{SlashCountPerStack}% per stack)</style></style> damage to enemies in a <style=cIsUtility>{Radius}m <style=cStack>(+{RadiusPerStack}m per stack)</style></style> radius.",
+
+    "ITEM_MYSTICSITEMS_SHIELDUPGRADE_NAME": "Charger Upgrade Module",
+    "ITEM_MYSTICSITEMS_SHIELDUPGRADE_PICKUP": "Gain a recharging shield. Double your total shield. Shields recharge sooner.",
+    "ITEM_MYSTICSITEMS_SHIELDUPGRADE_DESC": "Gain a <style=cIsHealing>shield</style> equal to <style=cIsHealing>{PassiveShield}%</style> of your maximum health. Increase total shield by <style=cIsUtility>{ShieldBonus}% <style=cStack>(+{ShieldBonusPerStack}% per stack)</style></style>. Shield recharge and other out-of-danger effects start <style=cIsUtility>{RechargeBoost}% <style=cStack>(+{RechargeBoostPerStack}% per stack)</style></style> sooner.",
 
     //[LUNAR ITEMS]
     "ITEM_MYSTICSITEMS_RIFTLENS_NAME": "Rift Lens",
@@ -184,8 +238,8 @@
     "EQUIPMENT_MYSTICSITEMS_ARCHAICMASK_LORE": "<style=cMono>\r\nAudio transcription complete from portable recorder.</style>\r\n\r\nThe mask is still burning hot, but the rest of the body has already cooled down. Is it holding on to its life?\r\n\r\nCan I... 'resurrect' the wisp by applying fire to this mask? This may be a grave mistake, but it's my only chance to get an ally.\r\n\r\nThere's no time for asking questions. Time to find out...\r\n\r\n[Fire bursts]\r\n\r\n<style=cMono>End of requested transcript.</style>\r\n",
 
     "EQUIPMENT_MYSTICSITEMS_PRINTERHACKER_NAME": "Wirehack Wrench",
-    "EQUIPMENT_MYSTICSITEMS_PRINTERHACKER_PICKUP": "Get {Amount} copies of a 3D Printer's item for free, then destroy the printer.",
-    "EQUIPMENT_MYSTICSITEMS_PRINTERHACKER_DESC": "Receive <style=cIsUtility>{Amount}</style> copies of a 3D Printer's item <style=cIsUtility>for free</style>, then <style=cIsDamage>destroy</style> the printer, permanently making it unusable.",
+    "EQUIPMENT_MYSTICSITEMS_PRINTERHACKER_PICKUP": "Get {Amount} copy(-ies) of a 3D Printer's item for free, then destroy the printer.",
+    "EQUIPMENT_MYSTICSITEMS_PRINTERHACKER_DESC": "Receive <style=cIsUtility>{Amount}</style> copy(-ies) of a 3D Printer's item <style=cIsUtility>for free</style>, then <style=cIsDamage>destroy</style> the printer, permanently making it unusable.",
     "EQUIPMENT_MYSTICSITEMS_PRINTERHACKER_LORE": "\"...perfect one-to-one replication is maintained by including one or more pre-printed copies of the original item deep inside the reader module. The more, the better.\"\r\n\r\n- From the MassDuplix 3D Printer presentation speech",
 
     "EQUIPMENT_MYSTICSITEMS_MICROPHONE_NAME": "Vintage Microphone",
@@ -195,7 +249,7 @@
 
     "EQUIPMENT_MYSTICSITEMS_SIRENPOLE_NAME": "Warning System",
     "EQUIPMENT_MYSTICSITEMS_SIRENPOLE_PICKUP": "Deploy a Siren Pole that triggers On-Teleporter item effects.",
-    "EQUIPMENT_MYSTICSITEMS_SIRENPOLE_DESC": "Deploy a Siren Pole that <style=cIsUtility>acts as a Teleporter, triggering any On Teleporter Event effects</style>, and summons weak enemies at every {WaveSpawnInterval}% charged. Takes <style=cIsUtility>{ChargeTime}s</style> to charge.\r\n\r\nCannot be used if an uncharged Siren Pole already exists.",
+    "EQUIPMENT_MYSTICSITEMS_SIRENPOLE_DESC": "Deploy an auto-charging Siren Pole that <style=cIsUtility>acts as a Teleporter, triggering any On Teleporter Event effects</style>, and summons weak enemies at every {WaveSpawnInterval}% charged. Takes <style=cIsUtility>{ChargeTime}s</style> to charge.\r\n\r\nCannot be used if an uncharged Siren Pole already exists.",
     "EQUIPMENT_MYSTICSITEMS_SIRENPOLE_LORE": "\"Captain!\" - screamed the soldier at the top of his lungs.\r\n\r\nThe captain, not turning away his puzzled look from the siren that oddly didn't make any audible noise despite being turned on, calmly replied: \"Yeah?\"\r\n\r\n\"Look!\" - cried the soldier even louder and pointed his finger at a looming figure in the distance.\r\n\r\nThe captain turned around, saw what seemed to be a literal mountain come to life, and let out a strong \"OH [REDACTED]!\"",
 
     "EQUIPMENT_MYSTICSITEMS_MECHANICALARM_NAME": "Mechanical Arm",
@@ -208,15 +262,20 @@
     "EQUIPMENT_MYSTICSITEMS_OMARHACKTOOL_DESC": "Hack a chest or a shrine to reduce its cost to <style=cIsUtility>$0</style>. Limited to <style=cIsUtility>1</style> use per stage, <style=cIsUtility>limit is increased with additional equipment charges</style>.",
     "EQUIPMENT_MYSTICSITEMS_OMARHACKTOOL_LORE": "<style=cMono>ENCRYPTING..\r\nSTART OF THE MESSAGE</style>\r\n\r\n\"Hey son.\r\n\r\nHow are you doing? Hope everything is fine. They deployed your dad on Titan, seems like I will be off quite a bit more. That's why I sent that package to your mom. There are very important things in it for entire family while I am away. Unfortunately, the news of you guys losing the key arrived here. Thing is, it doesn't simply have a password that I can mail and be done with it, it is... More complicated.. That's why your dad had to put together this tool I sent you. Remember! Always keep it private! I don't trust anyone else with this thing, not even to your mom. This tool is an encoder, it can unlock a cryptic lock. I had to sacrifice some space, so a single box will probably drain the whole battery. Anyway, you can use this to open the package I sent you.\r\n\r\nDaddy loves you all and I will come home soon. 36 more days.\r\nTell your mom I miss her.\"\r\n\r\n<style=cMono>END OF MESSAGE</style>",
 
+    "EQUIPMENT_MYSTICSITEMS_EQUIPMENTEATER_NAME": "Regurgitator",
+    "EQUIPMENT_MYSTICSITEMS_EQUIPMENTEATER_PICKUP": "Aim at Equipment to decompose it into Item Scrap.",
+    "EQUIPMENT_MYSTICSITEMS_EQUIPMENTEATER_DESC": "Aim at Equipment to <style=cIsUtility>decompose</style> it into <style=cIsUtility>{Amount}</style> pieces of Item Scrap ({WhiteChance}%/<style=cIsHealing>{GreenChance}%</style>/<style=cIsHealth>{RedChance}%</style>/<style=cShrine>{YellowChance}%</style>).",
+
     //[LUNAR EQUIPMENT]
     "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_NAME": "Ratio Equalizer",
-    "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_PICKUP": "Make the current health percentage of <color=#FF7F7F>ALL nearby characters</color> equal to yours.",
-    "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_DESC": "Make the current health percentage of all characters in a {Radius}m radius equal to yours.",
+    "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_PICKUP": "Set the current health percentage of <color=#FF7F7F>ALL nearby characters</color> to <color=#FF7F7F>your</color> current health percentage.",
+    "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_DESC": "Set the current health percentage of all characters in a {Radius}m radius to <style=cIsUtility>your health percentage</style>.",
     "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_LORE": "Brother, your creative vision is admittedly invigorating, yet I cannot allow you to create without my supervision.\r\n\r\nYour curiousity has inspired you to create a new compound. The quality, and the properties of it are determined by the ratios of the compounds which comprise it. The more the ratios deviate, the more volatile the resulting compound is, the less it maintains form.\r\n\r\nI can see that your creation consists of... An abundance of every single basic component. It holds no form, and cannot be used to create. Its only purpose is war.\r\n\r\n... \"Chaos?\"",
 
     "EQUIPMENT_MYSTICSITEMS_GATECHALICE_NAME": "Gate Chalice", // [The word "gate" here refers to the teleporters that Mithrix and Providence created. They call them "gates" in the vanilla logbook entries (specifically, A Moment, Fractured (MAP_MYSTERYSPACE_LORE), A Moment, Whole (MAP_LIMBO_LORE), Commencement (MAP_MOON_LORE))]
     "EQUIPMENT_MYSTICSITEMS_GATECHALICE_PICKUP": "Instantly teleport to the next stage. You will save some time, <color=#FF7F7F>BUT lose out on items from unopened chests.</color>",
     "EQUIPMENT_MYSTICSITEMS_GATECHALICE_DESC": "Teleports to the next stage. Can be used to save time, <style=cIsUtility>but you risk becoming underpowered from skipping stages with unopened chests</style>.",
+    "EQUIPMENT_MYSTICSITEMS_GATECHALICE_LORE": "No, we do not need such mechanisms, brother. We are fast. We have time. There is no purpose in creating these contraptions you have dubbed \"gates\".\r\n\r\n... not for us? Hmm... \"For them\"?\r\n\r\n... unlike us. Yes. Yes, I suppose you are... correct. Fine. We will construct gates.",
 
     "EQUIPMENT_MYSTICSITEMS_FRAGILEMASK_NAME": "Fragile Mask",
     "EQUIPMENT_MYSTICSITEMS_FRAGILEMASK_PICKUP": "Use to toggle. While active, damage is {DamageMultiplier}x higher, <color=#FF7F7F>BUT you die from any damage</color>.",
@@ -245,6 +304,21 @@
     "ACHIEVEMENT_MYSTICSITEMS_REACHHIGHPOINT_NAME": "The Summit",
     "ACHIEVEMENT_MYSTICSITEMS_REACHHIGHPOINT_DESCRIPTION": "Reach the highest point of Rallypoint Delta.",
 
+    "ACHIEVEMENT_MYSTICSITEMS_BLOCKDAMAGEWITHARMOR_NAME": "'Tis But A Scratch", // [Reference to the meme with the same name]
+    "ACHIEVEMENT_MYSTICSITEMS_BLOCKDAMAGEWITHARMOR_DESCRIPTION": "Using damage-reducing effects, reduce 5.000 damage in total.",
+
+    "ACHIEVEMENT_MYSTICSITEMS_MANYALLIES_NAME": "So Many Fans!",
+    "ACHIEVEMENT_MYSTICSITEMS_MANYALLIES_DESCRIPTION": "Gain 10 non-mechanical non-player allies.",
+
+    "ACHIEVEMENT_MYSTICSITEMS_HACKLEGENDARYCHEST_NAME": "Pirates of the Cariskean", // [Wordplay on "Caribbean" and "risk", as in "risk of rain"]
+    "ACHIEVEMENT_MYSTICSITEMS_HACKLEGENDARYCHEST_DESCRIPTION": "Open a Legendary Chest for free.",
+
+    "ACHIEVEMENT_MYSTICSITEMS_WOOLIERUSH_NAME": "Keep Up The Rhythm",
+    "ACHIEVEMENT_MYSTICSITEMS_WOOLIERUSH_DESCRIPTION": "Reach the final stage without spending more than 5 minutes on any stage.",
+
+    "ACHIEVEMENT_MYSTICSITEMS_FREEZELOCKENEMY_NAME": "Cool It!", // [The phrase for "calm down"]
+    "ACHIEVEMENT_MYSTICSITEMS_FREEZELOCKENEMY_DESCRIPTION": "Keep an enemy frozen for 7 seconds.",
+
     //[BODIES]
     "ARCHWISP_BODY_NAME": "Archaic Wisp",
 
@@ -271,8 +345,8 @@
     "OBJECTIVE_MYSTICSITEMS_CHARGE_TREASUREMAPZONE": "Dig up the <color=#F8EB27>buried Legendary Item</color> ({0}%)",
     "OBJECTIVE_MYSTICSITEMS_CHARGE_TREASUREMAPZONE_OOB": "Find and dig up the <color=#F8EB27>buried Legendary Item</color> ({0}%)",
 
-    "OBJECTIVE_MYSTICSITEMS_CHARGE_SIRENPOLE": "Charge the <color=#EA5821>Siren Pole</color> ({0}%)",
-    "OBJECTIVE_MYSTICSITEMS_CHARGE_SIRENPOLE_OOB": "Enter the <color=#EA5821>Siren Pole charging zone!</color> ({0}%)",
+    "OBJECTIVE_MYSTICSITEMS_CHARGE_SIRENPOLE": "The <color=#EA5821>Siren Pole</color> is charging ({0}%, automatic)",
+    "OBJECTIVE_MYSTICSITEMS_CHARGE_SIRENPOLE_OOB": "The <color=#EA5821>Siren Pole</color> is charging ({0}%, automatic)",
 
     "OBJECTIVE_MYSTICSITEMS_RIFTLENS_FLAVOUR": "Unstable Rifts Detected!",
     "OBJECTIVE_MYSTICSITEMS_RIFTLENS_CLOSE_RIFTS": "Close all <color=#66ADFF>Unstable Rifts</color>! ({0}/{1})",
@@ -323,11 +397,17 @@
     "BUFF_MYSTICSITEMS_MECHANICALARMCHARGE_NAME": "Mechanical Arm Charge",
     "BUFF_MYSTICSITEMS_MECHANICALARMCHARGE_DESC": "Increases damage for the next Mechanical Arm swing",
 
-    "BUFF_MYSTICSITEMS_RHYTHMCOMBO_NAME": "Focused",
-    "BUFF_MYSTICSITEMS_RHYTHMCOMBO_DESC": "Critical Strike chance increased",
-
     "BUFF_MYSTICSITEMS_SPOTTERMARKED_NAME": "Spotted",
     "BUFF_MYSTICSITEMS_SPOTTERMARKED_DESC": "All damage you take becomes Critical",
+
+    "BUFF_MYSTICSITEMS_GACHAPONBONUS_NAME": "Gachapon Bonus",
+    "BUFF_MYSTICSITEMS_GACHAPONBONUS_DESC": "Crit chance and attack speed increased",
+
+    "BUFF_MYSTICSITEMS_NANOMACHINEARMOR_NAME": "Nanomachines Activated",
+    "BUFF_MYSTICSITEMS_NANOMACHINEARMOR_DESC": "Armor increased",
+
+    "BUFF_MYSTICSITEMS_BUFFINTPRANGE_NAME": "Jamming Out",
+    "BUFF_MYSTICSITEMS_BUFFINTPRANGE_DESC": "Movement speed and armor increased",
 
     //[ITEMSTATS]
     "ITEMSTATS_MYSTICSITEMS_POSTFIX_HEALTH": "HP",
@@ -375,9 +455,6 @@
     "MYSTICSITEMS_STATCHANGE_LIST_CRIT": "* {0}% Critical Strike chance",
     "MYSTICSITEMS_STATCHANGE_LIST_ARMOR": "* {0} armor",
 
-    "MYSTICSITEMS_TREASUREMAP_WARNING": "<style=cWorldEvent>Your Treasure Map is beeping. You realize that you forgot to do something.</style>", // [If the player has a Treasure Map, this reminder message will be played after a teleporter is charged if they forget to dig up the legendary item]
-
-    "MYSTICSITEMS_PLAYER_CONVERT": "<style=cEvent>{0}'s {1}{2} became {3}{4}</color>", // [For item upgrades or downgrades. Example: 'TheMysticSword's Marwan's Ash(3) became Marwan's Light(3)']
-    "MYSTICSITEMS_PLAYER_CONVERT_2P": "<style=cEvent>Your {1}{2} became {3}{4}</color>"
+    "MYSTICSITEMS_TREASUREMAP_WARNING": "<style=cWorldEvent>Your Treasure Map is beeping. You realize that you forgot to do something.</style>" // [If the player has a Treasure Map, this reminder message will be played after a teleporter is charged if they forget to dig up the legendary item]
   }
 }

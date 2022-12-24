@@ -19,10 +19,11 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> discount = new ConfigurableValue<float>(
             "Item: Platinum Card",
             "Discount",
-            100f,
+            75f,
             "How much should the price of the terminal decrease on trigger (in %)",
             new System.Collections.Generic.List<string>()
             {
+                "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPEN_PICKUP",
                 "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPEN_DESC"
             }
         );
