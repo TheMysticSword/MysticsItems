@@ -78,7 +78,6 @@ namespace MysticsItems.Items
             {
                 HopooShaderToMaterial.Standard.Apply(model.GetComponentInChildren<Renderer>().sharedMaterial);
                 HopooShaderToMaterial.Standard.Emission(model.GetComponentInChildren<Renderer>().sharedMaterial);
-                model.AddComponent<MysticsItemsNuclearAcceleratorGlow>();
             }
             ApplyToModel(itemDef.pickupModelPrefab);
             ApplyToModel(itemDisplayPrefab);
@@ -107,20 +106,6 @@ namespace MysticsItems.Items
 
             IL.RoR2.CharacterBody.RecalculateStats += CharacterBody_RecalculateStats;
             RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
-
-            GenericGameEvents.OnApplyDamageIncreaseModifiers += GenericGameEvents_OnApplyDamageIncreaseModifiers;
-        }
-
-        private void GenericGameEvents_OnApplyDamageIncreaseModifiers(DamageInfo damageInfo, MysticsRisky2UtilsPlugin.GenericCharacterInfo attackerInfo, MysticsRisky2UtilsPlugin.GenericCharacterInfo victimInfo, ref float damage)
-        {
-            if (attackerInfo.inventory)
-            {
-                var itemCount = attackerInfo.inventory.GetItemCount(itemDef);
-                if (itemCount > 0)
-                {
-
-                }
-            }
         }
 
         private void CharacterBody_RecalculateStats(ILContext il)
@@ -194,120 +179,5 @@ namespace MysticsItems.Items
             var moveSpeedIncrease = (body.moveSpeed / baseMoveSpeed / ((!sprintCounts && body.isSprinting) ? body.sprintingSpeedMultiplier : 1f)) - 1f;
             return Mathf.Max(moveSpeedIncrease * (damage + damagePerStack * (itemCount - 1)), 0f);
         }
-
-        public class MysticsItemsNuclearAcceleratorGlow : MonoBehaviour
-        {
-            public MaterialPropertyBlock materialPropertyBlock;
-            public Renderer renderer;
-            public float stopwatch;
-
-            public void Awake()
-            {
-                renderer = GetComponentInChildren<Renderer>();
-                materialPropertyBlock = new MaterialPropertyBlock();
-            }
-
-            public void Update()
-            {
-                stopwatch += Time.deltaTime;
-
-                float wave = Mathf.Sin(stopwatch * Mathf.PI * 2f);
-                renderer.GetPropertyBlock(materialPropertyBlock);
-                materialPropertyBlock.SetFloat("_EmPower", 1f * (0.75f + wave * 0.25f));
-                float rgb = 0.75f + 0.25f * wave;
-                materialPropertyBlock.SetColor("_EmColor", new Color(rgb, rgb, rgb, 1f));
-                renderer.SetPropertyBlock(materialPropertyBlock);
-            }
-        }
-
-        /*
-        public class MysticsItemsSpeedGivesDamageBehaviour : CharacterBody.ItemBehavior
-        {
-            public List<GameObject> particleHolders;
-            public float charge = 0f;
-            public float chargeDuration = 4f;
-            public float noSprintTimeThreshold = 0.1f;
-            public float noSprintTimeStopwatch = 0f;
-            public float buffRefreshTimer = 0f;
-            public float buffRefreshDuration = 1f;
-            
-            public void Start()
-            {
-                particleHolders = new List<GameObject>();
-
-                ModelLocator component = GetComponent<ModelLocator>();
-                if (component)
-                {
-                    Transform modelTransform = component.modelTransform;
-                    if (modelTransform)
-                    {
-                        CharacterModel characterModel = modelTransform.GetComponent<CharacterModel>();
-                        if (characterModel)
-                        {
-                            foreach (CharacterModel.ParentedPrefabDisplay parentedPrefabDisplay in characterModel.parentedPrefabDisplays.FindAll(x => x.itemIndex == MysticsItemsContent.Items.SpeedGivesDamage.itemIndex))
-                            {
-                                GameObject particleHolder = Object.Instantiate(particleSystemPrefab);
-                                particleHolder.transform.SetParent(parentedPrefabDisplay.instance.transform, false);
-                                particleHolders.Add(particleHolder);
-                            }
-                        }
-                    }
-                }
-            }
-
-            public void OnDestroy()
-            {
-                foreach (GameObject particleHolder in particleHolders) if (particleHolder) Object.Destroy(particleHolder);
-            }
-
-            public void FixedUpdate()
-            {
-                foreach (GameObject particleHolder in particleHolders)
-                {
-                    if (particleHolder)
-                    {
-                        Transform spiralingRadsTransform = particleHolder.transform.Find("Spiraling Rads");
-                        if (spiralingRadsTransform)
-                        {
-                            ParticleSystem.EmissionModule spiralingRadsEmission = spiralingRadsTransform.gameObject.GetComponent<ParticleSystem>().emission;
-                            spiralingRadsEmission.rateOverTimeMultiplier = 30f * Mathf.Clamp01(charge / chargeDuration);
-                        }
-
-                        Transform chargeOverflowTransform = particleHolder.transform.Find("Charge Overflow");
-                        if (chargeOverflowTransform)
-                        {
-                            ParticleSystem.EmissionModule chargeOverflowEmission = chargeOverflowTransform.gameObject.GetComponent<ParticleSystem>().emission;
-                            chargeOverflowEmission.rateOverTimeMultiplier = 40f * (charge >= chargeDuration ? Mathf.Clamp01((body.moveSpeed - (body.baseMoveSpeed + body.levelMoveSpeed * (body.level - 1))) / 3f) : 0f);
-                        }
-                    }
-                }
-
-                if (body.isSprinting)
-                {
-                    charge += Time.fixedDeltaTime;
-                    noSprintTimeStopwatch = 0f;
-                    if (charge >= chargeDuration)
-                    {
-                        if (NetworkServer.active)
-                        {
-                            buffRefreshTimer -= Time.fixedDeltaTime;
-                            if (buffRefreshTimer <= 0f)
-                            {
-                                buffRefreshTimer = buffRefreshDuration;
-                                body.AddTimedBuff(MysticsItemsContent.Buffs.SpeedGivesDamage, 6f * stack);
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    noSprintTimeStopwatch += Time.fixedDeltaTime;
-                    if (noSprintTimeStopwatch >= noSprintTimeThreshold)
-                    {
-                        charge = 0f;
-                    }
-                }
-            }
-        }*/
     }
 }
