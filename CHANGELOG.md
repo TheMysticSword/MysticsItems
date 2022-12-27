@@ -1,4 +1,19 @@
 # Changelog
+#### 2.1.1:
+* Ghost Apple:
+    * Duration: ~~15 minutes~~ ⇒ 20 minutes
+    * Apple Branch renamed to Apple Stem
+* Nuclear Accelerator:
+    * No longer gives bonus damage for sprinting
+* Gachapon Coin:
+    * Now passively gives +0.5% crit chance and +1% attack speed to prevent it from being useless on Commencement
+* Fixed Snow Ring missing from the Enabled Items options
+* Fixed Snow Ring world pickup being massive
+* Fixed all of the new item icons have 4x size when printed/scrapped
+* Fixed "Keep Up The Rhythm" and "Cool It!" challenges not completing
+* Fixed Time Dilator debuff not disappearing from the player if inflicted in Void Fields
+* Banned Snow Ring from enemies
+* Regen-increasing item descriptions now mention that they scale with level
 #### 2.1.0:
 * **Merry Christmas!**  
 ![Preview of the update. Artificer with some of the new items in the Bazaar Between Time with snowflake particles.](https://i.imgur.com/lhGjR5A.png)
