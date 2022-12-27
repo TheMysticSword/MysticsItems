@@ -24,7 +24,7 @@ namespace MysticsItems.Achievements
 		{
 			public float timestamp = 0f;
 			public float timeMax = 300f;
-			public bool eligible = false;
+			public bool eligible = true;
 
 			public override void OnInstall()
 			{
@@ -45,7 +45,6 @@ namespace MysticsItems.Achievements
 				if (eligible && obj.sceneDef && obj.sceneDef.isFinalStage)
 				{
 					Grant();
-					eligible = true;
                 }
                 else
                 {
