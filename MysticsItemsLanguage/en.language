@@ -70,12 +70,12 @@
 
     "ITEM_MYSTICSITEMS_GHOSTAPPLE_NAME": "Ghost Apple",
     "ITEM_MYSTICSITEMS_GHOSTAPPLE_PICKUP": "Increase health regeneration for the next {Minutes} minutes.",
-    "ITEM_MYSTICSITEMS_GHOSTAPPLE_DESC": "Increases <style=cIsHealing>health regeneration</style> by <style=cIsHealing>{Regen} HP/s</style> for the next <style=cIsUtility>{Minutes} minutes</style>. On exhaustion, turns into <style=cIsUtility>Apple Branch (always increases regen by {RegenWeak} HP/s <style=cStack>(+{RegenWeak} HP/s per stack)</style>)</style>. <style=cStack>Each stack has its own timer.</style>",
+    "ITEM_MYSTICSITEMS_GHOSTAPPLE_DESC": "Increases <style=cIsHealing>health regeneration</style> by <style=cIsHealing>{Regen} HP/s <style=cStack>(+20% per level)</style></style> for the next <style=cIsUtility>{Minutes} minutes</style>. On exhaustion, turns into <style=cIsUtility>Apple Stem (always increases regen by {RegenWeak} HP/s <style=cStack>(+{RegenWeak} HP/s per stack, +20% per level)</style>)</style>. <style=cStack>Each stack has its own timer.</style>",
     "ITEM_MYSTICSITEMS_GHOSTAPPLE_LORE": "\"And now we're approaching a real wonder of nature - an exhibit that breaks all known laws of physics. Scientists still cannot explain this interesting phenomenon.\r\n\r\nAn apple-shaped ice encasing, from a place where ice physically cannot form. Truly, a mystery of ages.\"\r\n\r\n- The History Museum of Earth",
 
-    "ITEM_MYSTICSITEMS_GHOSTAPPLEWEAK_NAME": "Apple Branch",
+    "ITEM_MYSTICSITEMS_GHOSTAPPLEWEAK_NAME": "Apple Stem",
     "ITEM_MYSTICSITEMS_GHOSTAPPLEWEAK_PICKUP": "Slight regeneration increase.",
-    "ITEM_MYSTICSITEMS_GHOSTAPPLEWEAK_DESC": "Increases <style=cIsHealing>health regeneration</style> by <style=cIsUtility>{RegenWeak} HP/s <style=cStack>(+{RegenWeak} HP/s per stack)</style></style>.",
+    "ITEM_MYSTICSITEMS_GHOSTAPPLEWEAK_DESC": "Increases <style=cIsHealing>health regeneration</style> by <style=cIsUtility>{RegenWeak} HP/s <style=cStack>(+{RegenWeak} HP/s per stack, +20% per level)</style></style>.",
     "ITEM_MYSTICSITEMS_GHOSTAPPLEWEAK_LORE": "- Imperfect. Worthless. Waste of energy. All you do is waste and ruin. Waste time. Waste energy. Waste resource. Waste all what could have been improved. IMPROVED! BY ME!\r\n\r\n- Ugh, stop! I've already apologized! And- hey, I've told you to throw these blue marbles away!\r\n\r\n- ...\r\n\r\n- What are y... Get away from me. Get away. From me.",
 
     //[TIER2]

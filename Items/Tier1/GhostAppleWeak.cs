@@ -14,7 +14,7 @@ namespace MysticsItems.Items
             "Item: Ghost Apple",
             "RegenWeak",
             0.1f,
-            "Regen increase from Apple Branch (the weaker version of the item)",
+            "Regen increase from Apple Stem (the weaker version of the item)",
             new System.Collections.Generic.List<string>()
             {
                 "ITEM_MYSTICSITEMS_GHOSTAPPLE_DESC",
@@ -72,9 +72,9 @@ namespace MysticsItems.Items
                 ConfigManager.Balance.categoryName,
                 ConfigManager.Balance.config,
                 "Item: Ghost Apple",
-                "Untiered Apple Branch",
+                "Untiered Apple Stem",
                 false,
-                "If enabled, Apply Branch will be untiered instead of white tier, making it unscrappable.",
+                "If enabled, Apple Stem will be untiered instead of white tier, making it unscrappable.",
                 useDefaultValueConfigEntry: ConfigManager.Balance.ignore.bepinexConfigEntry,
                 onChanged: (newValue) =>
                 {
