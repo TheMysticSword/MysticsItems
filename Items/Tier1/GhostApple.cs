@@ -27,7 +27,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> minutes = new ConfigurableValue<float>(
             "Item: Ghost Apple",
             "Minutes",
-            15f,
+            20f,
             "How long should the item last until it turns into the weaker version (in minutes)",
             new System.Collections.Generic.List<string>()
             {
