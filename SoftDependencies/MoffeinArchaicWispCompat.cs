@@ -1,3 +1,5 @@
+using RoR2;
+
 namespace MysticsItems.SoftDependencies
 {
     internal static class MoffeinArchaicWispCompat
@@ -9,8 +11,7 @@ namespace MysticsItems.SoftDependencies
 
         private static void ReplaceArchaicMaskSpawnCard()
         {
-            //Add ArchaicWisps.dll as a softdependency.
-            MysticsItems.Equipment.ArchaicMask.ArchWispSpawnCard = ArchaicWisp.ArchaicWispContent.ArchaicWispCard.Card.spawnCard;
+            MysticsItems.Equipment.ArchaicMask.ArchWispSpawnCard = (CharacterSpawnCard)ArchaicWisp.ArchaicWispContent.ArchaicWispCard.Card.spawnCard;
         }
     }
 }

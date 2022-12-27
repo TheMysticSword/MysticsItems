@@ -14,6 +14,7 @@
 * Fixed Time Dilator debuff not disappearing from the player if inflicted in Void Fields
 * Banned Snow Ring from enemies
 * Regen-increasing item descriptions now mention that they scale with level
+* Added MoffeinArchaicWisp/RiskyMod compatibility for Archaic Mask. Thanks, Moffein!
 #### 2.1.0:
 * **Merry Christmas!**  
 ![Preview of the update. Artificer with some of the new items in the Bazaar Between Time with snowflake particles.](https://i.imgur.com/lhGjR5A.png)

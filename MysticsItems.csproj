@@ -40,6 +40,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="ArchaicWisp">
+      <HintPath>..\..\..\..\Risk of Rain 2\Modding References\ArchaicWisp.dll</HintPath>
+    </Reference>
     <Reference Include="BetterUI">
       <HintPath>..\..\..\..\Risk of Rain 2\Modding References\BetterUI.dll</HintPath>
     </Reference>

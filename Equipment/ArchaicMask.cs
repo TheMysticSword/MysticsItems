@@ -212,7 +212,7 @@ namespace MysticsItems.Equipment
                     HurtBox targetHB = targetInfo.obj.GetComponent<CharacterBody>().mainHurtBox;
                     if (targetHB)
                     {
-                        DirectorSpawnRequest directorSpawnRequest = new DirectorSpawnRequest((SpawnCard)ArchWispSpawncard, new DirectorPlacementRule
+                        DirectorSpawnRequest directorSpawnRequest = new DirectorSpawnRequest((SpawnCard)ArchWispSpawnCard, new DirectorPlacementRule
                         {
                             placementMode = DirectorPlacementRule.PlacementMode.NearestNode,
                             spawnOnTarget = targetHB.transform
@@ -271,7 +271,7 @@ namespace MysticsItems.Equipment
 
         //Adds RiskyMod ally items if they exist. Can be run without having to actually set a softdependency.
         //The items only run their code if the holder is an NPC on the player team, KKA is not active. and RiskyMod ally changes are enabled in the config.
-        private static bool AttemptAddRiskyModAllyItems(Inventory inv)
+        private static void AttemptAddRiskyModAllyItems(Inventory inventory)
         {
             //These 2 are standard, and have a lot of stuff tied to them.
             ItemIndex riskyModAllyMarker = ItemCatalog.FindItemIndex("RiskyModAllyMarkerItem");
