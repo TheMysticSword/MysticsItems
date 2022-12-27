@@ -81,7 +81,9 @@ namespace MysticsItems.Items
             SetItemTierWhenAvailable(ItemTier.Tier2);
             itemDef.tags = new ItemTag[]
             {
-                ItemTag.Utility
+                ItemTag.Utility,
+                ItemTag.AIBlacklist,
+                ItemTag.BrotherBlacklist
             };
             itemDef.pickupModelPrefab = PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Snow Ring/Model.prefab"));
             itemDef.pickupIconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Items/Snow Ring/Icon.png");
