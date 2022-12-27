@@ -54,6 +54,14 @@ namespace MysticsItems.SoftDependencies
                 }
                 catch (Exception e) { Main.logger.LogError(e); }
             }
+            if (pluginInfos.ContainsKey("com.Moffein.ArchaicWisp"))
+            {
+                try
+                {
+                    MoffeinArchaicWispCompat.Init();
+                }
+                catch (Exception e) { Main.logger.LogError(e); }
+            }
 
             itemDisplaysSniper = ConfigOptions.ConfigurableValue.CreateBool(
                 ConfigManager.General.categoryGUID,

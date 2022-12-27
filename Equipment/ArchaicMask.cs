@@ -17,6 +17,7 @@ namespace MysticsItems.Equipment
 {
     public class ArchaicMask : BaseEquipment
     {
+        public static CharacterSpawnCard ArchWispSpawnCard = LegacyResourcesAPI.Load<CharacterSpawnCard>("SpawnCards/CharacterSpawnCards/cscArchWisp");
         public static GameObject crosshairPrefab;
         public static GameObject unlockInteractablePrefab;
         public static GameObject forcedPickupPrefab;
@@ -211,7 +212,7 @@ namespace MysticsItems.Equipment
                     HurtBox targetHB = targetInfo.obj.GetComponent<CharacterBody>().mainHurtBox;
                     if (targetHB)
                     {
-                        DirectorSpawnRequest directorSpawnRequest = new DirectorSpawnRequest((SpawnCard)LegacyResourcesAPI.Load<CharacterSpawnCard>("SpawnCards/CharacterSpawnCards/cscArchWisp"), new DirectorPlacementRule
+                        DirectorSpawnRequest directorSpawnRequest = new DirectorSpawnRequest((SpawnCard)ArchWispSpawncard, new DirectorPlacementRule
                         {
                             placementMode = DirectorPlacementRule.PlacementMode.NearestNode,
                             spawnOnTarget = targetHB.transform
@@ -230,6 +231,7 @@ namespace MysticsItems.Equipment
                             wispMaster.inventory.GiveItem(RoR2Content.Items.BoostAttackSpeed, (int)(wispAttackSpeed.Value - 100f) / 10);
                             wispMaster.GetComponent<RoR2.CharacterAI.BaseAI>().currentEnemy.gameObject = targetHB.healthComponent.gameObject;
                             wispMaster.GetComponent<RoR2.CharacterAI.BaseAI>().currentEnemy.bestHurtBox = targetHB;
+                            AttemptAddRiskyModAllyItems(wispMaster.inventory);
                             summonLimit.Add(wispMasterObject);
                         };
                         DirectorCore.instance.TrySpawnObject(directorSpawnRequest);
@@ -257,6 +259,7 @@ namespace MysticsItems.Equipment
                         wispMaster.inventory.GiveItem(RoR2Content.Items.BoostHp, (int)(wispHealth.Value - 100f) / 10);
                         wispMaster.inventory.GiveItem(RoR2Content.Items.AlienHead, (int)(wispCDR.Value) / 10);
                         wispMaster.inventory.GiveItem(RoR2Content.Items.BoostAttackSpeed, (int)(wispAttackSpeed.Value - 100f) / 10);
+                        AttemptAddRiskyModAllyItems(wispMaster.inventory);
                         summonLimit.Add(wispMasterObject);
                     };
                     DirectorCore.instance.TrySpawnObject(directorSpawnRequest);
@@ -264,6 +267,36 @@ namespace MysticsItems.Equipment
                 }
             }
             return false;
+        }
+
+        //Adds RiskyMod ally items if they exist. Can be run without having to actually set a softdependency.
+        //The items only run their code if the holder is an NPC on the player team, KKA is not active. and RiskyMod ally changes are enabled in the config.
+        private static bool AttemptAddRiskyModAllyItems(Inventory inv)
+        {
+            //These 2 are standard, and have a lot of stuff tied to them.
+            ItemIndex riskyModAllyMarker = ItemCatalog.FindItemIndex("RiskyModAllyMarkerItem");
+            if (riskyModAllyMarker != ItemIndex.None)
+            {
+                inventory.GiveItem(riskyModAllyMarker);
+            }
+            ItemIndex riskyModAllyScaling = ItemCatalog.FindItemIndex("RiskyModAllyScalingItem");
+            if (riskyModAllyScaling != ItemIndex.None)
+            {
+                inventory.GiveItem(riskyModAllyScaling);
+            }
+            
+            //These 2 allow the ally to die to Void Implosions and Grandparent Suns.
+            //Usually expendable/replaceable allies (ex. Beetle Guards) can die to them, while stuff you have to buy (like Drones) don't.
+            ItemIndex riskyModAllyAllowVoidDeath = ItemCatalog.FindItemIndex("RiskyModAllyAllowVoidDeathItem");
+            if (riskyModAllyScaling != ItemIndex.None)
+            {
+                inventory.GiveItem(riskyModAllyAllowVoidDeath);
+            }
+            ItemIndex riskyModAllyAllowOverheatDeath = ItemCatalog.FindItemIndex("RiskyModAllyAllowOverheatDeathItem");
+            if (riskyModAllyScaling != ItemIndex.None)
+            {
+                inventory.GiveItem(riskyModAllyAllowOverheatDeath);
+            }
         }
 
         public class MysticsItemsArchaicMaskUnlockInteraction : NetworkBehaviour, IInteractable
