@@ -162,69 +162,7 @@ namespace MysticsItems.Items
                         if (buffTimer <= 0f)
                         {
                             buffTimer = interval;
-
-                            var radiusSqr = radius * radius;
-                            var position = transform.position;
-                            var buffDef = MysticsItemsContent.Buffs.MysticsItems_TimePieceSlow;
-                            for (TeamIndex teamIndex = TeamIndex.Neutral; teamIndex < TeamIndex.Count; teamIndex++)
-                            {
-                                if (teamIndex != teamFilter.teamIndex)
-                                {
-                                    foreach (var teamComponent in TeamComponent.GetTeamMembers(teamIndex))
-                                    {
-                                        var enemyBody = teamComponent.GetComponent<CharacterBody>();
-                                        if (enemyBody)
-                                        {
-                                            if (!timePieceSlowInfos.ContainsKey(enemyBody))
-                                            {
-                                                timePieceSlowInfos.Add(enemyBody, new TimePieceSlowInfo
-                                                {
-                                                    insideAttachments = new List<MysticsItemsTimePieceAttachmentBehaviour>(),
-                                                    buffCounts = new List<int>()
-                                                });
-                                            }
-                                            var timePieceSlowInfo = timePieceSlowInfos[enemyBody];
-
-                                            var buffCount = enemyBody.GetBuffCount(buffDef);
-                                            var distance = (teamComponent.transform.position - position).sqrMagnitude;
-                                            if (distance <= radiusSqr)
-                                            {
-                                                if (!timePieceSlowInfo.insideAttachments.Contains(this))
-                                                {
-                                                    timePieceSlowInfo.insideAttachments.Add(this);
-                                                    timePieceSlowInfo.buffCounts.Add(0);
-                                                }
-                                                timePieceSlowInfo.buffCounts[timePieceSlowInfo.insideAttachments.IndexOf(this)] = itemCount;
-
-                                                var difference = timePieceSlowInfo.buffCounts.Max() - buffCount;
-                                                for (var i = 0; i < difference; i++)
-                                                    enemyBody.AddBuff(buffDef);
-                                            }
-                                            else
-                                            {
-                                                if (timePieceSlowInfo.insideAttachments.Contains(this))
-                                                {
-                                                    var index = timePieceSlowInfo.insideAttachments.IndexOf(this);
-                                                    timePieceSlowInfo.buffCounts.RemoveAt(index);
-                                                    timePieceSlowInfo.insideAttachments.RemoveAt(index);
-                                                }
-                                                
-                                                if (timePieceSlowInfo.insideAttachments.Count > 0)
-                                                {
-                                                    var difference = timePieceSlowInfo.buffCounts.Max() - buffCount;
-                                                    for (var i = 0; i < difference; i++)
-                                                        enemyBody.AddBuff(buffDef);
-                                                }
-                                                else
-                                                {
-                                                    for (var i = 0; i < buffCount; i++)
-                                                        enemyBody.RemoveBuff(buffDef);
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
+                            RunEffect(itemCount);
                         }
                     }
                     if (slowDownProjectiles)
@@ -237,8 +175,79 @@ namespace MysticsItems.Items
                 }
             }
 
+            public void RunEffect(int itemCount)
+            {
+                var radiusSqr = radius * radius;
+                var position = transform.position;
+                var buffDef = MysticsItemsContent.Buffs.MysticsItems_TimePieceSlow;
+                for (TeamIndex teamIndex = TeamIndex.Neutral; teamIndex < TeamIndex.Count; teamIndex++)
+                {
+                    if (teamIndex != teamFilter.teamIndex)
+                    {
+                        foreach (var teamComponent in TeamComponent.GetTeamMembers(teamIndex))
+                        {
+                            var enemyBody = teamComponent.GetComponent<CharacterBody>();
+                            if (enemyBody)
+                            {
+                                if (!timePieceSlowInfos.ContainsKey(enemyBody))
+                                {
+                                    timePieceSlowInfos.Add(enemyBody, new TimePieceSlowInfo
+                                    {
+                                        insideAttachments = new List<MysticsItemsTimePieceAttachmentBehaviour>(),
+                                        buffCounts = new List<int>()
+                                    });
+                                }
+                                var timePieceSlowInfo = timePieceSlowInfos[enemyBody];
+
+                                var buffCount = enemyBody.GetBuffCount(buffDef);
+                                var distance = (teamComponent.transform.position - position).sqrMagnitude;
+                                if (distance <= radiusSqr)
+                                {
+                                    if (!timePieceSlowInfo.insideAttachments.Contains(this))
+                                    {
+                                        timePieceSlowInfo.insideAttachments.Add(this);
+                                        timePieceSlowInfo.buffCounts.Add(0);
+                                    }
+                                    timePieceSlowInfo.buffCounts[timePieceSlowInfo.insideAttachments.IndexOf(this)] = itemCount;
+
+                                    var difference = timePieceSlowInfo.buffCounts.Max() - buffCount;
+                                    for (var i = 0; i < difference; i++)
+                                        enemyBody.AddBuff(buffDef);
+                                    for (var i = 0; i < -difference; i++)
+                                        enemyBody.RemoveBuff(buffDef);
+                                }
+                                else
+                                {
+                                    if (timePieceSlowInfo.insideAttachments.Contains(this))
+                                    {
+                                        var index = timePieceSlowInfo.insideAttachments.IndexOf(this);
+                                        timePieceSlowInfo.buffCounts.RemoveAt(index);
+                                        timePieceSlowInfo.insideAttachments.RemoveAt(index);
+                                    }
+
+                                    if (timePieceSlowInfo.insideAttachments.Count > 0)
+                                    {
+                                        var difference = timePieceSlowInfo.buffCounts.Max() - buffCount;
+                                        for (var i = 0; i < difference; i++)
+                                            enemyBody.AddBuff(buffDef);
+                                        for (var i = 0; i < -difference; i++)
+                                            enemyBody.RemoveBuff(buffDef);
+                                    }
+                                    else
+                                    {
+                                        for (var i = 0; i < buffCount; i++)
+                                            enemyBody.RemoveBuff(buffDef);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
             public void OnDestroy()
             {
+                RunEffect(0);
                 CleanTimePieceSlowInfos();
             }
         }
