@@ -306,6 +306,7 @@ namespace MysticsItems
             public static ItemDef MysticsItems_Flow;
             public static ItemDef MysticsItems_GhostApple;
             public static ItemDef MysticsItems_GhostAppleWeak;
+            public static ItemDef MysticsItems_SnowRing;
         }
 
         public static class Equipment
