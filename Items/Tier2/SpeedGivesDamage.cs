@@ -49,8 +49,8 @@ namespace MysticsItems.Items
         );
         public static ConfigurableValue<bool> sprintCounts = new ConfigurableValue<bool>(
             "Item: Nuclear Accelerator",
-            "SprintCounts",
-            true,
+            "Sprint Counts",
+            false,
             "If true, sprint speed multiplier (x1.45 by default) also increases damage"
         );
         public static ConfigOptions.ConfigurableValue<bool> alternate = new ConfigOptions.ConfigurableValue<bool>(
@@ -187,11 +187,11 @@ namespace MysticsItems.Items
             if (alternate)
             {
                 var currentVelocity = (body.characterMotor ? body.characterMotor.velocity : (body.rigidbody ? body.rigidbody.velocity : Vector3.zero)).magnitude;
-                var velocityDifference = (currentVelocity / baseMoveSpeed / (!sprintCounts ? body.sprintingSpeedMultiplier : 1f)) - 1f;
+                var velocityDifference = (currentVelocity / baseMoveSpeed / ((!sprintCounts && body.isSprinting) ? body.sprintingSpeedMultiplier : 1f)) - 1f;
                 return Mathf.Max(velocityDifference * (damage + damagePerStack * (itemCount - 1)), 0f);
             }
 
-            var moveSpeedIncrease = (body.moveSpeed / baseMoveSpeed / (!sprintCounts ? body.sprintingSpeedMultiplier : 1f)) - 1f;
+            var moveSpeedIncrease = (body.moveSpeed / baseMoveSpeed / ((!sprintCounts && body.isSprinting) ? body.sprintingSpeedMultiplier : 1f)) - 1f;
             return Mathf.Max(moveSpeedIncrease * (damage + damagePerStack * (itemCount - 1)), 0f);
         }
 
