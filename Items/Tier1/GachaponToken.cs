@@ -13,6 +13,47 @@ namespace MysticsItems.Items
 {
     public class GachaponToken : BaseItem
     {
+        public static ConfigurableValue<float> passiveCritBonus = new ConfigurableValue<float>(
+            "Item: Gachapon Coin",
+            "PassiveCritBonus",
+            0.5f,
+            "Crit chance (in %)",
+            new System.Collections.Generic.List<string>()
+            {
+                "ITEM_MYSTICSITEMS_GACHAPONTOKEN_DESC"
+            }
+        );
+        public static ConfigurableValue<float> passiveCritBonusPerStack = new ConfigurableValue<float>(
+            "Item: Gachapon Coin",
+            "PassiveCritBonusPerStack",
+            0.5f,
+            "Crit chance for each additional stack of this item (in %)",
+            new System.Collections.Generic.List<string>()
+            {
+                "ITEM_MYSTICSITEMS_GACHAPONTOKEN_DESC"
+            }
+        );
+        public static ConfigurableValue<float> passiveAttackSpeedBonus = new ConfigurableValue<float>(
+            "Item: Gachapon Coin",
+            "PassiveAttackSpeedBonus",
+            1f,
+            "Attack speed (in %)",
+            new System.Collections.Generic.List<string>()
+            {
+                "ITEM_MYSTICSITEMS_GACHAPONTOKEN_DESC"
+            }
+        );
+        public static ConfigurableValue<float> passiveAttackSpeedBonusPerStack = new ConfigurableValue<float>(
+            "Item: Gachapon Coin",
+            "PassiveAttackSpeedBonusPerStack",
+            1f,
+            "Attack speed for each additional stack of this item (in %)",
+            new System.Collections.Generic.List<string>()
+            {
+                "ITEM_MYSTICSITEMS_GACHAPONTOKEN_DESC"
+            }
+        );
+
         public override void OnLoad()
         {
             base.OnLoad();
@@ -53,6 +94,7 @@ namespace MysticsItems.Items
             };
 
             ShrineChanceBehavior.onShrineChancePurchaseGlobal += ShrineChanceBehavior_onShrineChancePurchaseGlobal;
+            RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
         }
 
         private void ShrineChanceBehavior_onShrineChancePurchaseGlobal(bool failed, Interactor interactor)
@@ -64,6 +106,19 @@ namespace MysticsItems.Items
                 if (itemCount > 0)
                 {
                     body.AddBuff(MysticsItemsContent.Buffs.MysticsItems_GachaponBonus);
+                }
+            }
+        }
+
+        private void RecalculateStatsAPI_GetStatCoefficients(CharacterBody sender, RecalculateStatsAPI.StatHookEventArgs args)
+        {
+            if (sender.inventory)
+            {
+                var itemCount = sender.inventory.GetItemCount(itemDef);
+                if (itemCount > 0)
+                {
+                    args.critAdd += passiveCritBonus + passiveCritBonusPerStack * (float)(itemCount - 1);
+                    args.attackSpeedMultAdd += (passiveAttackSpeedBonus + passiveAttackSpeedBonusPerStack * (float)(itemCount - 1)) / 100f;
                 }
             }
         }
