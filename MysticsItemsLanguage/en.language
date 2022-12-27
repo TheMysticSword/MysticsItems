@@ -61,7 +61,7 @@
 
     "ITEM_MYSTICSITEMS_GACHAPONTOKEN_NAME": "Gachapon Coin",
     "ITEM_MYSTICSITEMS_GACHAPONTOKEN_PICKUP": "Increase critical strike chance and attack speed for each Shrine of Chance activation until the next stage.",
-    "ITEM_MYSTICSITEMS_GACHAPONTOKEN_DESC": "Increase critical strike chance by <style=cIsDamage>{CritBonus}% <style=cStack>(+{CritBonusPerStack}% per stack)</style></style> and attack speed by <style=cIsDamage>{AttackSpeedBonus}% <style=cStack>(+{AttackSpeedBonusPerStack}% per stack)</style></style> for each <style=cIsUtility>Shrine of Chance</style> activation until the next stage.",
+    "ITEM_MYSTICSITEMS_GACHAPONTOKEN_DESC": "Increase critical strike chance by <style=cIsDamage>{CritBonus}% <style=cStack>(+{CritBonusPerStack}% per stack)</style></style> and attack speed by <style=cIsDamage>{AttackSpeedBonus}% <style=cStack>(+{AttackSpeedBonusPerStack}% per stack)</style></style> for each <style=cIsUtility>Shrine of Chance</style> activation until the next stage. Passively increases critical strike chance by <style=cIsDamage>{PassiveCritBonus}% <style=cStack>(+{PassiveCritBonusPerStack}% per stack)</style></style> and attack speed by <style=cIsDamage>{PassiveAttackSpeedBonus}% <style=cStack>(+{PassiveAttackSpeedBonusPerStack}% per stack)</style></style>.",
     "ITEM_MYSTICSITEMS_GACHAPONTOKEN_LORE": "*huff* *puff*\r\n\r\nIs... ugh, is this... One, t-two, three... Okay, it's working, thank God.\r\n\r\n[REDACTED]'s log, day ||||-ty one. I'm at, uh, Sector... uhm... Ugh, forget it. Anyway, I almost died. Got ambushed by these lemurians, the ground beneath me turned into a goddamn golem, and... It hurt. A lot. I- I fled.\r\n\r\nRan into this, uh, statue. Kinda reminded me of life at home, when I was young. I started praying. I started praying for my life. I had tears in my eyes- I was sure I was gonna die. When suddenly, a-a flash of light... A medkit was in my hands- some spare bullets, I...\r\n\r\nUgh, bad time to think about this. Gotta head back to safety. Miracles don't happen twice.",
 
     "ITEM_MYSTICSITEMS_FLOW_NAME": "Constant Flow",
@@ -96,7 +96,6 @@
     "ITEM_MYSTICSITEMS_SPOTTER_NAME": "Faulty Spotter", // [A reference to Sniper's Spotter ability from Risk of Rain 1]
     "ITEM_MYSTICSITEMS_SPOTTER_PICKUP": "Increase critical strike chance against a random enemy by 100%.",
     "ITEM_MYSTICSITEMS_SPOTTER_DESC": "Every <style=cIsUtility>{Interval} seconds</style>, analyze 1 <style=cStack>(+1 per stack)</style> random enemy, increasing <style=cIsDamage>critical strike chance</style> against it <style=cIsDamage>by 100%</style> for <style=cIsUtility>{Duration} seconds</style>.",
-    "ITEM_MYSTICSITEMS_SPOTTER_LORE": "<style=cMono>01101000 01110100 01110100 01110000 01110011 00111010 00101111 00101111 01111001 01101111 01110101 01110100 01110101 00101110 01100010 01100101 00101111 01001011 01000111 00111000 01110101 01000001 01000110 00110010 00111000 01000101 01101110 01100111</style>",
 
     "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_NAME": "Nuclear Accelerator", // [Like a particle accelerator, but "nuclear" to make it sound cool and unique]
     "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_PICKUP": "The faster you move, the more damage you deal.",
@@ -229,7 +228,7 @@
 
     "ITEM_MYSTICSITEMS_REGENANDDIFFICULTYSPEED_NAME": "Puzzle of Chronos",
     "ITEM_MYSTICSITEMS_REGENANDDIFFICULTYSPEED_PICKUP": "Speed up health regeneration for all allies... <color=#FF7F7F>BUT speed up difficulty scaling.</color>\n",
-    "ITEM_MYSTICSITEMS_REGENANDDIFFICULTYSPEED_DESC": "Increase <style=cIsHealing>base health regeneration by {BaseRegenIncrease} HP/s <style=cStack>(+{BaseRegenIncreasePerStack} HP/s per stack)</style></style> for all allies, scaling with level. Difficulty increase over time is <style=cIsUtility>{TimerSpeedIncrease}% <style=cStack>(+{TimerSpeedIncreasePerStack}% per stack)</style></style> faster.",
+    "ITEM_MYSTICSITEMS_REGENANDDIFFICULTYSPEED_DESC": "Increase <style=cIsHealing>base health regeneration by {BaseRegenIncrease} HP/s <style=cStack>(+{BaseRegenIncreasePerStack} HP/s per stack, +20% per level)</style></style> for all allies. Difficulty increase over time is <style=cIsUtility>{TimerSpeedIncrease}% <style=cStack>(+{TimerSpeedIncreasePerStack}% per stack)</style></style> faster.",
 
     //[EQUIPMENT]
     "EQUIPMENT_MYSTICSITEMS_ARCHAICMASK_NAME": "Legendary Mask",
