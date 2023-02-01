@@ -311,10 +311,10 @@ namespace MysticsItems.Items
 
         private void GenericGameEvents_OnHitEnemy(DamageInfo damageInfo, MysticsRisky2UtilsPlugin.GenericCharacterInfo attackerInfo, MysticsRisky2UtilsPlugin.GenericCharacterInfo victimInfo)
         {
-            if (!damageInfo.rejected && !damageInfo.procChainMask.HasProc(ProcType.LoaderLightning) && attackerInfo.inventory)
+            if (!damageInfo.rejected && damageInfo.procCoefficient > 0f && !damageInfo.procChainMask.HasProc(ProcType.LoaderLightning) && attackerInfo.inventory)
             {
                 var itemCount = attackerInfo.inventory.GetItemCount(itemDef);
-                if (itemCount > 0 && Util.CheckRoll(chance, attackerInfo.master))
+                if (itemCount > 0 && Util.CheckRoll(chance * damageInfo.procCoefficient, attackerInfo.master))
                 {
                     var fireProjectileInfo = new FireProjectileInfo
                     {
