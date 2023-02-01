@@ -87,36 +87,26 @@ namespace MysticsItems.Items
 
             On.RoR2.Inventory.GiveItem_ItemIndex_int += (orig, self, itemIndex, count) =>
             {
-                CharacterBody body = CharacterBody.readOnlyInstancesList.ToList().Find(body2 => body2.inventory == self);
-                if (body && self.GetItemCount(itemDef) > 0)
+                if (NetworkServer.active)
                 {
-                    for (int i = 0; i < count * GetBuffCountFromTier(ItemCatalog.GetItemDef(itemIndex).tier); i++)
+                    var master = self.GetComponent<CharacterMaster>();
+                    if (master)
                     {
-                        if (body.GetBuffCount(MysticsItemsContent.Buffs.MysticsItems_CoffeeBoost) < (maxBuffs + maxBuffsPerStack * (self.GetItemCount(itemDef) - 1)))
+                        var body = master.GetBody();
+                        if (body && self.GetItemCount(itemDef) > 0)
                         {
-                            if (NetworkServer.active)
+                            for (int i = 0; i < count * GetBuffCountFromTier(ItemCatalog.GetItemDef(itemIndex).tier); i++)
                             {
-                                body.AddBuff(MysticsItemsContent.Buffs.MysticsItems_CoffeeBoost);
+                                if (body.GetBuffCount(MysticsItemsContent.Buffs.MysticsItems_CoffeeBoost) < (maxBuffs + maxBuffsPerStack * (self.GetItemCount(itemDef) - 1)))
+                                {
+                                    body.AddBuff(MysticsItemsContent.Buffs.MysticsItems_CoffeeBoost);
+                                }
+                                else break;
                             }
                         }
-                        else break;
                     }
                 }
                 orig(self, itemIndex, count);
-            };
-
-            On.RoR2.Inventory.RemoveItem_ItemIndex_int += (orig, self, itemIndex, count) =>
-            {
-                orig(self, itemIndex, count);
-                if (NetworkServer.active && itemIndex == itemDef.itemIndex && self.GetItemCount(itemIndex) <= 0)
-                {
-                    CharacterBody body = CharacterBody.readOnlyInstancesList.ToList().Find(body2 => body2.inventory == self);
-                    if (body)
-                    {
-                        while (body.GetBuffCount(MysticsItemsContent.Buffs.MysticsItems_CoffeeBoost) > 0)
-                            body.RemoveBuff(MysticsItemsContent.Buffs.MysticsItems_CoffeeBoost);
-                    }
-                }
             };
 
             On.RoR2.Language.GetLocalizedStringByToken += Language_GetLocalizedStringByToken;
