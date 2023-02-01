@@ -99,7 +99,6 @@ namespace MysticsItems.Items
             MysticsItemsContent.Resources.entityStateTypes.Add(typeof(DiscBaseState));
             MysticsItemsContent.Resources.entityStateTypes.Add(typeof(DiscBaseState.Ready));
             MysticsItemsContent.Resources.entityStateTypes.Add(typeof(DiscBaseState.Trigger));
-            MysticsItemsContent.Resources.entityStateTypes.Add(typeof(DiscBaseState.Invincible));
 
             On.RoR2.CharacterBody.Awake += (orig, self) =>
             {
@@ -319,32 +318,7 @@ namespace MysticsItems.Items
                     baseDistance = controller.distance;
                     controller.mustTrigger = false;
                     Util.PlaySound("Play_item_proc_dasherdisc", gameObject);
-                }
 
-                public override void Update()
-                {
-                    base.Update();
-                    controller.distance = Mathf.Lerp(baseDistance, -baseDistance, Mathf.Clamp01(age / duration));
-                    if (isAuthority && age >= duration && controller.body && controller.body.healthComponent && controller.body.healthComponent.alive)
-                    {
-                        outer.SetNextState(new Invincible());
-                    }
-                }
-
-                public float baseDistance;
-
-                public static float duration = 0.2f;
-                public override float DiscSpinBoost => 9f;
-                public override bool DiscLeavesTrail => true;
-                public override bool DiscRotatesAroundCharacter => false;
-            }
-
-            public class Invincible : DiscBaseState
-            {
-                public override void OnEnter()
-                {
-                    base.OnEnter();
-                    controller.mustTrigger = false;
                     if (controller.body)
                     {
                         ModelLocator modelLocator = controller.body.modelLocator;
@@ -359,6 +333,21 @@ namespace MysticsItems.Items
                         }
 
                         if (NetworkServer.active) controller.body.AddTimedBuff(MysticsItemsContent.Buffs.MysticsItems_DasherDiscActive, DasherDisc.duration);
+                    }
+                }
+
+                public override void Update()
+                {
+                    base.Update();
+                    controller.distance = Mathf.Lerp(baseDistance, -baseDistance, Mathf.Clamp01(age / discDashDuration));
+                }
+
+                public override void FixedUpdate()
+                {
+                    base.FixedUpdate();
+                    if (isAuthority && fixedAge >= minDuration && !controller.body.HasBuff(MysticsItemsContent.Buffs.MysticsItems_DasherDiscActive))
+                    {
+                        outer.SetNextState(new Ready());
                     }
                 }
 
@@ -393,17 +382,12 @@ namespace MysticsItems.Items
                     }
                 }
 
-                public override void FixedUpdate()
-                {
-                    base.FixedUpdate();
-                    if (isAuthority && fixedAge >= minDuration && !controller.body.HasBuff(MysticsItemsContent.Buffs.MysticsItems_DasherDiscActive))
-                    {
-                        outer.SetNextState(new Ready());
-                    }
-                }
+                public float baseDistance;
 
                 public static float minDuration = 1f;
+                public static float discDashDuration = 0.2f;
                 public override float DiscSpinBoost => 9f;
+                public override bool DiscLeavesTrail => true;
                 public override bool DiscRotatesAroundCharacter => false;
             }
         }
