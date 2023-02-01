@@ -93,8 +93,7 @@ namespace MysticsItems.Items
         {
             orig(self);
 
-            MysticsItemsGhostAppleBehavior component = self.GetComponent<MysticsItemsGhostAppleBehavior>();
-            if (!component) component = self.gameObject.AddComponent<MysticsItemsGhostAppleBehavior>();
+            MysticsItemsGhostAppleBehavior component = MysticsItemsGhostAppleBehavior.GetForMaster(self);
             if (!component.skipItemCheck)
             {
                 int itemCount = self.inventory.GetItemCount(itemDef);
@@ -115,9 +114,18 @@ namespace MysticsItems.Items
             public bool skipItemCheck = false;
             public int oldItemCount = 0;
 
+            public static Dictionary<CharacterMaster, MysticsItemsGhostAppleBehavior> masterToBehaviourDict = new Dictionary<CharacterMaster, MysticsItemsGhostAppleBehavior>();
+            public static MysticsItemsGhostAppleBehavior GetForMaster(CharacterMaster master)
+            {
+                if (!masterToBehaviourDict.ContainsKey(master))
+                    master.gameObject.AddComponent<MysticsItemsGhostAppleBehavior>();
+                return masterToBehaviourDict[master];
+            }
+
             public void Awake()
             {
                 master = GetComponent<CharacterMaster>();
+                masterToBehaviourDict[master] = this;
             }
 
             public void FixedUpdate()
@@ -152,6 +160,11 @@ namespace MysticsItems.Items
                     }
                     if (i >= timers.Count) break;
                 }
+            }
+
+            public void OnDestroy()
+            {
+                masterToBehaviourDict.Remove(master);
             }
         }
     }

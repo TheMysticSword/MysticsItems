@@ -81,7 +81,7 @@ namespace MysticsItems.Items
         private void CharacterBody_OnInventoryChanged(On.RoR2.CharacterBody.orig_OnInventoryChanged orig, CharacterBody self)
         {
             orig(self);
-            if (!self.inventory.GetComponent<MysticsItemsManuscript>())
+            if (!MysticsItemsManuscript.GetForInventory(self.inventory))
             {
                 self.inventory.gameObject.AddComponent<MysticsItemsManuscript>();
             }
@@ -135,7 +135,7 @@ namespace MysticsItems.Items
             Inventory inventory = sender.inventory;
             if (inventory)
             {
-                MysticsItemsManuscript component = inventory.GetComponent<MysticsItemsManuscript>();
+                MysticsItemsManuscript component = MysticsItemsManuscript.GetForInventory(inventory);
                 if (component)
                 {
                     args.healthMultAdd += statBonus / 100f * component.buffStacks[MysticsItemsManuscript.BuffType.MaxHealth];
@@ -151,7 +151,7 @@ namespace MysticsItems.Items
 
         public void Inventory_GiveItem_ItemIndex_int(On.RoR2.Inventory.orig_GiveItem_ItemIndex_int orig, Inventory self, ItemIndex itemIndex, int count)
         {
-            MysticsItemsManuscript component = self.GetComponent<MysticsItemsManuscript>();
+            MysticsItemsManuscript component = MysticsItemsManuscript.GetForInventory(self);
             if (!component) component = self.gameObject.AddComponent<MysticsItemsManuscript>();
             orig(self, itemIndex, count);
             if (NetworkServer.active && itemIndex == itemDef.itemIndex) for (var i = 0; i < count; i++) component.AddBuff();
@@ -159,7 +159,7 @@ namespace MysticsItems.Items
 
         public void Inventory_RemoveItem_ItemIndex_int(On.RoR2.Inventory.orig_RemoveItem_ItemIndex_int orig, Inventory self, ItemIndex itemIndex, int count)
         {
-            MysticsItemsManuscript component = self.GetComponent<MysticsItemsManuscript>();
+            MysticsItemsManuscript component = MysticsItemsManuscript.GetForInventory(self);
             if (!component) component = self.gameObject.AddComponent<MysticsItemsManuscript>();
             orig(self, itemIndex, count);
             if (NetworkServer.active && itemIndex == itemDef.itemIndex) for (var i = 0; i < count; i++) component.RemoveBuff();
@@ -181,6 +181,16 @@ namespace MysticsItems.Items
             public List<BuffType> buffOrder;
             public Dictionary<BuffType, int> buffStacks;
 
+            public Inventory inventory;
+
+            public static Dictionary<Inventory, MysticsItemsManuscript> inventoryToBehaviourDict = new Dictionary<Inventory, MysticsItemsManuscript>();
+            public static MysticsItemsManuscript GetForInventory(Inventory inventory)
+            {
+                if (!inventoryToBehaviourDict.ContainsKey(inventory))
+                    inventory.gameObject.AddComponent<MysticsItemsManuscript>();
+                return inventoryToBehaviourDict[inventory];
+            }
+
             internal static void Init()
             {
                 buffTypes = ((BuffType[])System.Enum.GetValues(typeof(BuffType))).ToList();
@@ -188,6 +198,9 @@ namespace MysticsItems.Items
 
             public void Awake()
             {
+                inventory = GetComponent<Inventory>();
+                inventoryToBehaviourDict[inventory] = this;
+
                 buffStacks = new Dictionary<BuffType, int>();
                 for (var i = 0; i < buffTypes.Count; i++) buffStacks.Add(buffTypes[i], 0);
                 buffOrder = new List<BuffType>();
@@ -295,6 +308,11 @@ namespace MysticsItems.Items
                 {
                     writer.Write(objID);
                 }
+            }
+
+            public void OnDestroy()
+            {
+                inventoryToBehaviourDict.Remove(inventory);
             }
         }
     }

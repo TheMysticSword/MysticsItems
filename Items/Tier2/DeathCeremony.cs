@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using static MysticsItems.LegacyBalanceConfigManager;
+using System.Linq;
 
 namespace MysticsItems.Items
 {
@@ -204,10 +205,34 @@ namespace MysticsItems.Items
             };
             MysticsItemsContent.Resources.effectPrefabs.Add(damageShareOrbEffect);
 
-            CharacterBody.onBodyStartGlobal += CharacterBody_onBodyStartGlobal;
             GenericGameEvents.OnHitEnemy += GenericGameEvents_OnHitEnemy;
 
             R2API.RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
+
+            Run.onRunStartGlobal += (x) =>
+            {
+                MysticsItemsDeathCeremonyMark.ownerToComponentDict.Clear();
+            };
+            TeamComponent.onJoinTeamGlobal += TeamComponent_onJoinTeamGlobal;
+            TeamComponent.onLeaveTeamGlobal += TeamComponent_onLeaveTeamGlobal;
+        }
+
+        private void TeamComponent_onJoinTeamGlobal(TeamComponent teamComponent, TeamIndex newTeamIndex)
+        {
+            if (MysticsItemsDeathCeremonyMark.ExistsForBody(teamComponent.body))
+            {
+                if (!MysticsItemsDeathCeremonyMark.marksPerTeam.ContainsKey(newTeamIndex))
+                    MysticsItemsDeathCeremonyMark.marksPerTeam[newTeamIndex] = new List<MysticsItemsDeathCeremonyMark>();
+                MysticsItemsDeathCeremonyMark.marksPerTeam[newTeamIndex].Add(MysticsItemsDeathCeremonyMark.GetForBody(teamComponent.body));
+            }
+        }
+
+        private void TeamComponent_onLeaveTeamGlobal(TeamComponent teamComponent, TeamIndex newTeamIndex)
+        {
+            if (MysticsItemsDeathCeremonyMark.ExistsForBody(teamComponent.body) && MysticsItemsDeathCeremonyMark.marksPerTeam.ContainsKey(newTeamIndex))
+            {
+                MysticsItemsDeathCeremonyMark.marksPerTeam[newTeamIndex].Remove(MysticsItemsDeathCeremonyMark.GetForBody(teamComponent.body));
+            }
         }
 
         private void RecalculateStatsAPI_GetStatCoefficients(CharacterBody sender, RecalculateStatsAPI.StatHookEventArgs args)
@@ -223,24 +248,19 @@ namespace MysticsItems.Items
             }
         }
 
-        private void CharacterBody_onBodyStartGlobal(CharacterBody body)
-        {
-            body.gameObject.AddComponent<MysticsItemsDeathCeremonyMark>();
-        }
-
         private void GenericGameEvents_OnHitEnemy(DamageInfo damageInfo, MysticsRisky2UtilsPlugin.GenericCharacterInfo attackerInfo, MysticsRisky2UtilsPlugin.GenericCharacterInfo victimInfo)
         {
             if (!damageInfo.procChainMask.HasProc(ProcType.ChainLightning) && !damageInfo.rejected && attackerInfo.body && attackerInfo.inventory && victimInfo.body)
             {
-                var component = victimInfo.body.GetComponent<MysticsItemsDeathCeremonyMark>();
-                if (component)
+                var itemCount = attackerInfo.inventory.GetItemCount(itemDef);
+                if (itemCount > 0 && damageInfo.procCoefficient > 0f && damageInfo.crit)
                 {
-                    var itemCount = attackerInfo.inventory.GetItemCount(itemDef);
-                    if (itemCount > 0 && damageInfo.procCoefficient > 0f && damageInfo.crit)
-                    {
-                        component.markTimer = duration;
-                    }
-                    foreach (var body in MysticsItemsDeathCeremonyMark.GetMarkedBodiesForTeam(victimInfo.teamIndex))
+                    var mark = MysticsItemsDeathCeremonyMark.GetForBody(victimInfo.body);
+                    mark.markTimer = duration;
+                }
+                if (MysticsItemsDeathCeremonyMark.marksPerTeam.ContainsKey(victimInfo.teamIndex))
+                {
+                    foreach (var body in MysticsItemsDeathCeremonyMark.marksPerTeam[victimInfo.teamIndex].Select(x => x.body))
                     {
                         if (body != victimInfo.body && body.healthComponent && body.healthComponent.alive)
                         {
@@ -272,6 +292,19 @@ namespace MysticsItems.Items
 
         public class MysticsItemsDeathCeremonyMark : MonoBehaviour
         {
+            public static Dictionary<CharacterBody, MysticsItemsDeathCeremonyMark> ownerToComponentDict = new Dictionary<CharacterBody, MysticsItemsDeathCeremonyMark>();
+
+            public static MysticsItemsDeathCeremonyMark GetForBody(CharacterBody owner)
+            {
+                if (!ownerToComponentDict.ContainsKey(owner))
+                    ownerToComponentDict[owner] = owner.gameObject.AddComponent<MysticsItemsDeathCeremonyMark>();
+                return ownerToComponentDict[owner];
+            }
+            public static bool ExistsForBody(CharacterBody owner)
+            {
+                return ownerToComponentDict.ContainsKey(owner);
+            }
+
             private float _markTimer = 0f;
             public float markTimer
             {
@@ -326,14 +359,17 @@ namespace MysticsItems.Items
                 }
             }
 
-            public void OnEnable()
-            {
-                InstanceTracker.Add(this);
-            }
+            public CharacterBody body;
+            public TeamComponent teamComponent;
 
-            public void OnDisable()
+            public void Awake()
             {
-                InstanceTracker.Remove(this);
+                body = GetComponent<CharacterBody>();
+                teamComponent = GetComponent<TeamComponent>();
+
+                if (!marksPerTeam.ContainsKey(teamComponent.teamIndex))
+                    marksPerTeam[teamComponent.teamIndex] = new List<MysticsItemsDeathCeremonyMark>();
+                marksPerTeam[teamComponent.teamIndex].Add(this);
             }
 
             public void FixedUpdate()
@@ -341,19 +377,14 @@ namespace MysticsItems.Items
                 markTimer -= Time.fixedDeltaTime;
             }
 
-            public static List<CharacterBody> GetMarkedBodiesForTeam(TeamIndex teamIndex)
+            public void OnDestroy()
             {
-                var list = new List<CharacterBody>();
-                foreach (var component in InstanceTracker.GetInstancesList<MysticsItemsDeathCeremonyMark>())
-                {
-                    if (TeamComponent.GetObjectTeam(component.gameObject) == teamIndex && component.markTimer > 0f)
-                    {
-                        var body = component.GetComponent<CharacterBody>();
-                        list.Add(body);
-                    }
-                }
-                return list;
+                var teamIndex = teamComponent.teamIndex;
+                if (marksPerTeam.ContainsKey(teamIndex))
+                    marksPerTeam[teamIndex].Remove(this);
             }
+
+            public static Dictionary<TeamIndex, List<MysticsItemsDeathCeremonyMark>> marksPerTeam = new Dictionary<TeamIndex, List<MysticsItemsDeathCeremonyMark>>();
         }
     }
 }

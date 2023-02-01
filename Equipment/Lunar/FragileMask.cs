@@ -119,7 +119,7 @@ namespace MysticsItems.Equipment
         {
             if (damageReport.victimBody)
             {
-                var component = damageReport.victimBody.GetComponent<MysticsItemsFragileMaskBehaviour>();
+                var component = MysticsItemsFragileMaskBehaviour.GetForBody(damageReport.victimBody);
                 if (component && component.maskActive)
                 {
                     if (damageReport.victimBody.healthComponent)
@@ -143,7 +143,7 @@ namespace MysticsItems.Equipment
 
         private void RecalculateStatsAPI_GetStatCoefficients(CharacterBody sender, RecalculateStatsAPI.StatHookEventArgs args)
         {
-            var component = sender.GetComponent<MysticsItemsFragileMaskBehaviour>();
+            var component = MysticsItemsFragileMaskBehaviour.GetForBody(sender);
             if (component && component.maskActive)
             {
                 args.damageMultAdd += damageMultiplier - 1f;
@@ -153,7 +153,7 @@ namespace MysticsItems.Equipment
         private void CharacterBody_RecalculateStats(On.RoR2.CharacterBody.orig_RecalculateStats orig, CharacterBody self)
         {
             orig(self);
-            var component = self.GetComponent<MysticsItemsFragileMaskBehaviour>();
+            var component = MysticsItemsFragileMaskBehaviour.GetForBody(self);
             if (component && component.maskActive)
             {
                 self.isGlass = true;
@@ -163,8 +163,7 @@ namespace MysticsItems.Equipment
         private void CharacterBody_OnInventoryChanged(On.RoR2.CharacterBody.orig_OnInventoryChanged orig, CharacterBody self)
         {
             orig(self);
-            var component = self.GetComponent<MysticsItemsFragileMaskBehaviour>();
-            if (!component) component = self.gameObject.AddComponent<MysticsItemsFragileMaskBehaviour>();
+            var component = MysticsItemsFragileMaskBehaviour.GetForBody(self);
             if (self.previousEquipmentIndex == equipmentDef.equipmentIndex && self.inventory.currentEquipmentIndex != equipmentDef.equipmentIndex)
             {
                 if (component.maskActive)
@@ -183,9 +182,18 @@ namespace MysticsItems.Equipment
             public float maskDisableDelay = 0f;
             public CharacterBody body;
 
+            public static Dictionary<CharacterBody, MysticsItemsFragileMaskBehaviour> bodyToBehaviourDict = new Dictionary<CharacterBody, MysticsItemsFragileMaskBehaviour>();
+            public static MysticsItemsFragileMaskBehaviour GetForBody(CharacterBody body)
+            {
+                if (!bodyToBehaviourDict.ContainsKey(body))
+                    body.gameObject.AddComponent<MysticsItemsFragileMaskBehaviour>();
+                return bodyToBehaviourDict[body];
+            }
+
             public void Awake()
             {
                 body = GetComponent<CharacterBody>();
+                bodyToBehaviourDict[body] = this;
             }
 
             public void SetMaskActive(bool enable)
@@ -266,6 +274,11 @@ namespace MysticsItems.Equipment
                     writer.Write(objID);
                     writer.Write(enable);
                 }
+            }
+            
+            public void OnDestroy()
+            {
+                bodyToBehaviourDict.Remove(body);
             }
         }
 

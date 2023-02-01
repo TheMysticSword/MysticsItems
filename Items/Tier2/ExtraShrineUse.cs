@@ -85,12 +85,17 @@ namespace MysticsItems.Items
             };
         }
 
+        public static int cachedItemCount = 0;
         public static void UpdateAllShrines()
         {
             int itemCount = Util.GetItemCountForTeam(TeamIndex.Player, MysticsItemsContent.Items.MysticsItems_ExtraShrineUse.itemIndex, true);
-            foreach (MysticsItemsExtraShrineUseBehaviour extraShrineUseBehaviour in MysticsItemsExtraShrineUseBehaviour.activeShrines)
+            if (itemCount != cachedItemCount)
             {
-                UpdateShrine(extraShrineUseBehaviour, itemCount);
+                cachedItemCount = itemCount;
+                foreach (MysticsItemsExtraShrineUseBehaviour extraShrineUseBehaviour in MysticsItemsExtraShrineUseBehaviour.activeShrines)
+                {
+                    UpdateShrine(extraShrineUseBehaviour, itemCount);
+                }
             }
         }
 
@@ -114,7 +119,11 @@ namespace MysticsItems.Items
         public static void UpdateShrine(MysticsItemsExtraShrineUseBehaviour self)
         {
             int itemCount = Util.GetItemCountForTeam(TeamIndex.Player, MysticsItemsContent.Items.MysticsItems_ExtraShrineUse.itemIndex, true);
-            UpdateShrine(self, itemCount);
+            if (itemCount != cachedItemCount)
+            {
+                cachedItemCount = itemCount;
+                UpdateShrine(self, itemCount);
+            }
         }
 
         public class MysticsItemsExtraShrineUseBehaviour : MonoBehaviour

@@ -93,7 +93,7 @@ namespace MysticsItems.Items
                     int itemCount = victimInfo.inventory.GetItemCount(itemDef);
                     if (itemCount > 0)
                     {
-                        MysticsItemsLimitedArmorBehavior component = victimInfo.master.gameObject.GetComponent<MysticsItemsLimitedArmorBehavior>();
+                        MysticsItemsLimitedArmorBehavior component = MysticsItemsLimitedArmorBehavior.GetForMaster(victimInfo.master);
                         if (!component) component = victimInfo.master.gameObject.AddComponent<MysticsItemsLimitedArmorBehavior>();
                         if (component.HasAtLeastOneStock()) component.doDamageCheck++;
                     }
@@ -103,7 +103,7 @@ namespace MysticsItems.Items
             {
                 if (damageReport.victimMaster)
                 {
-                    MysticsItemsLimitedArmorBehavior component = damageReport.victimMaster.GetComponent<MysticsItemsLimitedArmorBehavior>();
+                    MysticsItemsLimitedArmorBehavior component = MysticsItemsLimitedArmorBehavior.GetForMaster(damageReport.victimMaster);
                     if (component)
                     {
                         if (component.doDamageCheck > 0)
@@ -157,7 +157,7 @@ namespace MysticsItems.Items
         {
             orig(self);
             
-            MysticsItemsLimitedArmorBehavior component = self.GetComponent<MysticsItemsLimitedArmorBehavior>();
+            MysticsItemsLimitedArmorBehavior component = MysticsItemsLimitedArmorBehavior.GetForMaster(self);
             if (!component) component = self.gameObject.AddComponent<MysticsItemsLimitedArmorBehavior>();
             if (!component.skipItemCheck)
             {
@@ -180,6 +180,27 @@ namespace MysticsItems.Items
             public int oldItemCount = 0;
             public float breakTimer;
             public float breakTimerMax = LimitedArmor.breakTimer;
+
+            public CharacterMaster master;
+
+            public static Dictionary<CharacterMaster, MysticsItemsLimitedArmorBehavior> masterToBehaviourDict = new Dictionary<CharacterMaster, MysticsItemsLimitedArmorBehavior>();
+            public static MysticsItemsLimitedArmorBehavior GetForMaster(CharacterMaster master)
+            {
+                if (!masterToBehaviourDict.ContainsKey(master))
+                    master.gameObject.AddComponent<MysticsItemsLimitedArmorBehavior>();
+                return masterToBehaviourDict[master];
+            }
+
+            public void Awake()
+            {
+                master = GetComponent<CharacterMaster>();
+                masterToBehaviourDict[master] = this;
+            }
+
+            public void OnDestroy()
+            {
+                masterToBehaviourDict.Remove(master);
+            }
 
             public void AddStock()
             {
