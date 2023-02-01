@@ -37,6 +37,18 @@ namespace MysticsItems.Items
                 "ITEM_MYSTICSITEMS_ALLYDEATHREVENGE_DESC"
             }
         );
+        public static ConfigurableValue<float> durationOnEnemies = new ConfigurableValue<float>(
+            "Item: Vendetta",
+            "Duration On Enemies",
+            0.5f,
+            "How long should the buff last when used by enemies (in seconds)"
+        );
+        public static ConfigurableValue<float> durationOnEnemiesPerStack = new ConfigurableValue<float>(
+            "Item: Vendetta",
+            "Duration On Enemies Per Stack",
+            0.125f,
+            "How long should the buff last when used by enemies for each additional stack of this item (in seconds)"
+        );
 
         public override void OnLoad()
         {
@@ -131,7 +143,7 @@ namespace MysticsItems.Items
                             }
                             else
                             {
-                                currentDuration = 0.75f;
+                                currentDuration = durationOnEnemies + durationOnEnemiesPerStack * (itemCount - 1);
                             }
                             teamMember.body.AddTimedBuff(MysticsItemsContent.Buffs.MysticsItems_AllyDeathRevenge, currentDuration);
                         }
