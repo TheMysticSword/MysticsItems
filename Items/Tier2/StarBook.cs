@@ -20,7 +20,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> chance = new ConfigurableValue<float>(
             "Item: Stargazer s Records",
             "Chance",
-            20f,
+            12f,
             "Chance to drop a star on hit (in %)",
             new System.Collections.Generic.List<string>()
             {
