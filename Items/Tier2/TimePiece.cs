@@ -187,7 +187,7 @@ namespace MysticsItems.Items
                         foreach (var teamComponent in TeamComponent.GetTeamMembers(teamIndex))
                         {
                             var enemyBody = teamComponent.GetComponent<CharacterBody>();
-                            if (enemyBody)
+                            if (enemyBody != null && enemyBody.isActiveAndEnabled)
                             {
                                 if (!timePieceSlowInfos.ContainsKey(enemyBody))
                                 {
