@@ -2,6 +2,7 @@ using RoR2;
 using RoR2.Achievements;
 using UnityEngine;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace MysticsItems.Achievements
 {
@@ -26,6 +27,11 @@ namespace MysticsItems.Achievements
 			public float timeMax = 300f;
 			public bool eligible = true;
 
+			public static List<string> finalStages = new List<string>()
+			{
+				"moon2", "moon"
+			};
+
 			public override void OnInstall()
 			{
 				base.OnInstall();
@@ -42,7 +48,7 @@ namespace MysticsItems.Achievements
 
 			public void Stage_onServerStageBegin(Stage obj)
 			{
-				if (eligible && obj.sceneDef && obj.sceneDef.isFinalStage)
+				if (eligible && obj.sceneDef && finalStages.Contains(obj.sceneDef.baseSceneName))
 				{
 					Grant();
                 }
