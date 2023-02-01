@@ -98,7 +98,7 @@ namespace MysticsItems.Items
             {
                 int itemCount = self.inventory.GetItemCount(itemDef);
                 var difference = itemCount - component.oldItemCount;
-                for (var i = 0; i < difference; i++)
+                for (var i = 0; i < System.Math.Abs(difference); i++)
                 {
                     if (difference > 0) component.timers.Add(60f * minutes);
                     else if (component.timers.Count > 0) component.timers.RemoveAt(component.timers.Count - 1);
