@@ -19,7 +19,7 @@ namespace MysticsItems.Achievements
 		{
 			get
 			{
-				return 5000UL;
+				return 10000UL;
 			}
 		}
 	}
