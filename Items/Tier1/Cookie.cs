@@ -55,6 +55,16 @@ namespace MysticsItems.Items
                 "ITEM_MYSTICSITEMS_COOKIE_DESC"
             }
         );
+        public static ConfigurableValue<string> ignoredBuffNames = new ConfigurableValue<string>(
+            "Item: Choc Chip",
+            "Ignored Buff Names",
+            "bdMedkitHeal,bdHiddenInvincibility,bdVoidFogMild,bdVoidFogStrong,bdVoidRaidCrabWardWipeFog",
+            "Which buffs/debuffs should this item NOT affect? Uses internal names of the buffs.",
+            onChanged: (x) =>
+            {
+                if (RoR2Application.loadFinished) UpdateIgnoredBuffDefs();
+            }
+        );
 
         public static List<BuffDef> ignoredBuffDefs = new List<BuffDef>();
         public static List<BuffDef> debuffsTreatedAsBuffs = new List<BuffDef>();
@@ -104,17 +114,26 @@ namespace MysticsItems.Items
 
             RoR2Application.onLoad += () =>
             {
-                ignoredBuffDefs.Add(RoR2Content.Buffs.MedkitHeal);
-                ignoredBuffDefs.Add(RoR2Content.Buffs.HiddenInvincibility);
-                ignoredBuffDefs.Add(RoR2Content.Buffs.VoidFogMild);
-                ignoredBuffDefs.Add(RoR2Content.Buffs.VoidFogStrong);
-                ignoredBuffDefs.Add(DLC1Content.Buffs.VoidRaidCrabWardWipeFog);
+                UpdateIgnoredBuffDefs();
 
                 foreach (var dotDebuff in DotController.dotDefs.Where(x => x.associatedBuff != null).Select(x => x.associatedBuff).Distinct())
                     debuffsTreatedAsBuffs.Add(dotDebuff);
                 foreach (var dotDebuff in DotController.dotDefs.Where(x => x.terminalTimedBuff != null).Select(x => x.terminalTimedBuff).Distinct())
                     debuffsTreatedAsBuffs.Add(dotDebuff);
             };
+        }
+
+        public static void UpdateIgnoredBuffDefs()
+        {
+            ignoredBuffDefs.Clear();
+            foreach (var ignoredBuffName in ignoredBuffNames.Value.Split(','))
+            {
+                var buffIndex = BuffCatalog.FindBuffIndex(ignoredBuffName);
+                if (buffIndex != BuffIndex.None)
+                {
+                    ignoredBuffDefs.Add(BuffCatalog.GetBuffDef(buffIndex));
+                }
+            }
         }
 
         private void DotController_OnDotStackAddedServer(On.RoR2.DotController.orig_OnDotStackAddedServer orig, DotController self, object dotStack)
