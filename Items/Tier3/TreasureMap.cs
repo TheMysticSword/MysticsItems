@@ -59,14 +59,18 @@ namespace MysticsItems.Items
                 "ITEM_MYSTICSITEMS_TREASUREMAP_DESC"
             }
         );
-        public static ConfigOptions.ConfigurableValue<bool> dropItemForEachPlayer = new ConfigOptions.ConfigurableValue<bool>(
+        public static ConfigOptions.ConfigurableValue<bool> dropItemForEachPlayer = ConfigOptions.ConfigurableValue.CreateBool(
+            ConfigManager.General.categoryGUID,
+            ConfigManager.General.categoryName,
             ConfigManager.General.config,
             "Gameplay",
-            "Per-Player Treasure Map Drops",
+            "Treasure Map Per-Player Drops",
             true,
             "Should the Treasure Map treasure spot drop an item for each player in multiplayer? If false, only one item is dropped regardless of the player count."
         );
-        public static ConfigOptions.ConfigurableValue<bool> seaBearCircleEnabled = new ConfigOptions.ConfigurableValue<bool>(
+        public static ConfigOptions.ConfigurableValue<bool> seaBearCircleEnabled = ConfigOptions.ConfigurableValue.CreateBool(
+            ConfigManager.General.categoryGUID,
+            ConfigManager.General.categoryName,
             ConfigManager.General.config,
             "Gameplay",
             "Treasure Map Sea Bear Circle",

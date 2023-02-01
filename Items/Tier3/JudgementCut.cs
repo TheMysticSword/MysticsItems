@@ -94,9 +94,12 @@ namespace MysticsItems.Items
                 "ITEM_MYSTICSITEMS_JUDGEMENTCUT_DESC"
             }
         );
-        public static ConfigurableValue<bool> alternateDamage = new ConfigurableValue<bool>(
-            "Item: Devil s Cry",
-            "AlternateDamage",
+        public static ConfigOptions.ConfigurableValue<bool> alternateDamage = ConfigOptions.ConfigurableValue.CreateBool(
+            ConfigManager.General.categoryGUID,
+            ConfigManager.General.categoryName,
+            ConfigManager.General.config,
+            "Gameplay",
+            "Devil s Cry Alternate Damage",
             false,
             "If true, slash damage will scale with total damage instead of base damage"
         );

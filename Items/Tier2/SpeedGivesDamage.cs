@@ -53,7 +53,9 @@ namespace MysticsItems.Items
             false,
             "If true, sprint speed multiplier (x1.45 by default) also increases damage"
         );
-        public static ConfigOptions.ConfigurableValue<bool> alternate = new ConfigOptions.ConfigurableValue<bool>(
+        public static ConfigOptions.ConfigurableValue<bool> alternate = ConfigOptions.ConfigurableValue.CreateBool(
+            ConfigManager.General.categoryGUID,
+            ConfigManager.General.categoryName,
             ConfigManager.General.config,
             "Gameplay",
             "Nuclear Accelerator Alternate",
