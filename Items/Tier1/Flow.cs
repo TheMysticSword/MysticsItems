@@ -196,11 +196,12 @@ namespace MysticsItems.Items
                 x => x.MatchOr(),
                 x => x.MatchLdloc(out _),
                 x => x.MatchOr()
+            ) && c.TryGotoNext(MoveType.Before,
+                x => x.MatchBrfalse(out _)
             );
 
             if (ILFound)
             {
-                c.GotoNext(MoveType.After, x => x.MatchOr());
                 c.EmitDelegate<System.Func<bool, bool>>((shouldRoot) => {
                     _rootReplacedWithSlow = false;
                     if (_itemCount > 0f && shouldRoot)
