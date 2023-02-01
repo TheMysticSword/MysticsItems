@@ -70,7 +70,7 @@
 
     "ITEM_MYSTICSITEMS_GHOSTAPPLE_NAME": "Ghost Apple",
     "ITEM_MYSTICSITEMS_GHOSTAPPLE_PICKUP": "Increase health regeneration for the next {Minutes} minutes.",
-    "ITEM_MYSTICSITEMS_GHOSTAPPLE_DESC": "Increases <style=cIsHealing>health regeneration</style> by <style=cIsHealing>{Regen} HP/s <style=cStack>(+20% per level)</style></style> for the next <style=cIsUtility>{Minutes} minutes</style>. On exhaustion, turns into <style=cIsUtility>Apple Stem (always increases regen by {RegenWeak} HP/s <style=cStack>(+{RegenWeak} HP/s per stack, +20% per level)</style>)</style>. <style=cStack>Each stack has its own timer.</style>",
+    "ITEM_MYSTICSITEMS_GHOSTAPPLE_DESC": "Increases <style=cIsHealing>health regeneration</style> by <style=cIsHealing>{Regen} HP/s <style=cStack>(+{Regen} HP/s per stack, +20% per level)</style></style> for the next <style=cIsUtility>{Minutes} minutes</style>. On exhaustion, turns into <style=cIsUtility>Apple Stem (always increases regen by {RegenWeak} HP/s <style=cStack>(+{RegenWeak} HP/s per stack, +20% per level)</style>)</style>. <style=cStack>Each stack has its own timer.</style>",
     "ITEM_MYSTICSITEMS_GHOSTAPPLE_LORE": "\"And now we're approaching a real wonder of nature - an exhibit that breaks all known laws of physics. Scientists still cannot explain this interesting phenomenon.\r\n\r\nAn apple-shaped ice encasing, from a place where ice physically cannot form. Truly, a mystery of ages.\"\r\n\r\n- The History Museum of Earth",
 
     "ITEM_MYSTICSITEMS_GHOSTAPPLEWEAK_NAME": "Apple Stem",
@@ -139,11 +139,6 @@
     "ITEM_MYSTICSITEMS_NANOMACHINES_PICKUP": "Take less damage when health is between {MinHealth}-{MaxHealth}%.",
     "ITEM_MYSTICSITEMS_NANOMACHINES_DESC": "Increase <style=cIsUtility>armor by {Armor} <style=cStack>(+{ArmorPerStack} per stack)</style></style> while health is between <style=cIsHealing>{MinHealth}-{MaxHealth}%</style>.",
     "ITEM_MYSTICSITEMS_NANOMACHINES_LORE": "The crate where these came from has an old faded sticker on it that says:\r\n\r\n\"PERSONAL BARRIER PROTOTYPE (C) 2043 HINON INDUSTRIES\r\n\r\nInstructions: Put batteries into the controller module before usage. Hold the module in a safe close spot (e.g. a pocket). Press on the head of the main module to turn the system on. Press on the head again to turn the system off.\r\n\r\nSafety Measures: Do not eat. Do not feed to anyone. Do not put in fishtanks. Do not put in beehives. Do not give to senators. Do not put on robot vacuums. Do not put near knives. Do not put on robot vacuums with knives.\r\n\r\nNot for sale.\"",
-
-    "ITEM_MYSTICSITEMS_DUPLICATEITEMS_NAME": "Clean Gloves",
-    "ITEM_MYSTICSITEMS_DUPLICATEITEMS_PICKUP": "Chance on Common item pickup to duplicate it.",
-    "ITEM_MYSTICSITEMS_DUPLICATEITEMS_DESC": "Picking up a Common item has a <style=cIsUtility>{Chance}% <style=cStack>(+{ChancePerStack}% per stack)</style></style> chance to give it to you <style=cIsUtility>twice</style>. <style=cIsUtility>Does not affect items from printers and scrappers.</style>",
-    "ITEM_MYSTICSITEMS_DUPLICATEITEMS_LORE": "- STOLEN?!\r\n\r\n- Y-yes.\r\n\r\n- BUT IT WAS- IT'S- MOST OF OUR FAMILY'S WORTH CONSOLIDATED INTO A DIAMOND! WHAT- WHO... H-how?!\r\n\r\n- ...\r\n\r\n- You noticed that in the morning. Right?! Did you call the police?\r\n\r\n- Yes. Yes, of course. That was the first thing I've done as soon as I've noticed that it was gone!\r\n\r\n- And what did they say?\r\n\r\n- No evidence of the thief. No fingerprints, no strands of hair, no smell, nothing.\r\n\r\n- A masterful thief, huh...\r\n\r\n- ...\r\n\r\n- No. No, it can't be. Nobody even knew about the diamond. My grandfather specifically organized a faux theft many years ago to create a public impression that it was gone forever. Nobody should have known that we still had it.\r\n\r\n- ...\r\n\r\n- Hrmph... So. What is our next course of action. What shall we do now? Any ideas?\r\n\r\n- Well... We could sell some of the furniture-\r\n\r\n- Do you think I want to sell any of this?! This is heirloom!\r\n\r\n- But there's no other choice...\r\n\r\n- Oh, I do believe I have a choice. I could either sell our valuable antiques that were passed down throughout the generations, or I could put you to death.\r\n\r\n- Huh?\r\n\r\n- Filthy TRAITOR! YOU took the diamond!\r\n\r\n- What? No, I didn-\r\n\r\n- WHO ELSE could it have been?! You animal! Do you even realize WHAT YOU HAVE DONE?!\r\n\r\n- I SWEAR I DIDN'T TAKE IT!\r\n\r\n- GET BACK HERE!\r\n\r\n- THROW THAT GUN AWAY!\r\n\r\n- GET BACK HERE AND ACCEPT YOUR PUNISHMENT! OUR FAMILY DOES NOT NEED BACKSTABBERS!",
 
     "ITEM_MYSTICSITEMS_BUFFINTPRANGE_NAME": "Purrfect Headphones",
     "ITEM_MYSTICSITEMS_BUFFINTPRANGE_PICKUP": "While in the Teleporter range, move faster and take less damage.",
@@ -304,7 +299,7 @@
     "ACHIEVEMENT_MYSTICSITEMS_REACHHIGHPOINT_DESCRIPTION": "Reach the highest point of Rallypoint Delta.",
 
     "ACHIEVEMENT_MYSTICSITEMS_BLOCKDAMAGEWITHARMOR_NAME": "'Tis But A Scratch", // [Reference to the meme with the same name]
-    "ACHIEVEMENT_MYSTICSITEMS_BLOCKDAMAGEWITHARMOR_DESCRIPTION": "Using damage-reducing effects, reduce 5.000 damage in total.",
+    "ACHIEVEMENT_MYSTICSITEMS_BLOCKDAMAGEWITHARMOR_DESCRIPTION": "Using damage-reducing effects, reduce 10.000 damage in total.",
 
     "ACHIEVEMENT_MYSTICSITEMS_MANYALLIES_NAME": "So Many Fans!",
     "ACHIEVEMENT_MYSTICSITEMS_MANYALLIES_DESCRIPTION": "Gain 10 non-mechanical non-player allies.",
