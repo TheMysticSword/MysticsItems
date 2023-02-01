@@ -42,6 +42,15 @@ namespace MysticsItems.Equipment
             4,
             "Total enemy spawn waves while charging"
         );
+        public static ConfigOptions.ConfigurableValue<bool> reenableMountainShrines = ConfigOptions.ConfigurableValue.CreateBool(
+            ConfigManager.General.categoryGUID,
+            ConfigManager.General.categoryName,
+            ConfigManager.General.config,
+            "Gameplay",
+            "Warning System Mountain Shrines",
+            false,
+            "Should the Warning System equipment re-enable Shrines of the Mountain?"
+        );
 
         public override void OnPluginAwake()
         {
@@ -200,6 +209,21 @@ namespace MysticsItems.Equipment
                 orig(self);
             };
 
+            On.RoR2.PurchaseInteraction.OnTeleporterBeginCharging += (orig, self) =>
+            {
+                if (NetworkServer.active)
+                {
+                    foreach (PurchaseInteraction purchaseInteraction in InstanceTracker.GetInstancesList<PurchaseInteraction>())
+                    {
+                        if (purchaseInteraction.setUnavailableOnTeleporterActivated && (purchaseInteraction.available || reenableMountainShrines))
+                        {
+                            purchaseInteraction.gameObject.AddComponent<MysticsItemsSirenPoleTempPurchasableMarker>();
+                        }
+                    }
+                }
+                orig(self);
+            };
+
             On.RoR2.Language.GetLocalizedStringByToken += Language_GetLocalizedStringByToken;
         }
 
@@ -221,6 +245,8 @@ namespace MysticsItems.Equipment
             NetworkServer.Spawn(inst);
             return true;
         }
+
+        public class MysticsItemsSirenPoleTempPurchasableMarker : MonoBehaviour { }
 
         public class MysticsItemsSirenPoleController : MonoBehaviour
         {
@@ -258,9 +284,10 @@ namespace MysticsItems.Equipment
 
                     if (NetworkServer.active && (!TeleporterInteraction.instance || !TeleporterInteraction.instance.isCharged))
                     {
-                        foreach (var purchaseInteraction in InstanceTracker.GetInstancesList<PurchaseInteraction>().Where(x => x.setUnavailableOnTeleporterActivated))
+                        foreach (var purchaseInteraction in InstanceTracker.GetInstancesList<PurchaseInteraction>().Where(x => x.GetComponent<MysticsItemsSirenPoleTempPurchasableMarker>()))
                         {
                             purchaseInteraction.SetAvailable(true);
+                            Destroy(purchaseInteraction.GetComponent<MysticsItemsSirenPoleTempPurchasableMarker>());
                         }
                     }
                 });
