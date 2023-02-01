@@ -119,7 +119,7 @@ namespace MysticsItems.Items
             {
                 foreach (var teamMember in TeamComponent.GetTeamMembers(damageReport.victimTeamIndex))
                 {
-                    if (teamMember.body && teamMember.body.inventory)
+                    if (teamMember.body && teamMember.body.inventory && teamMember.body != damageReport.victimBody)
                     {
                         int itemCount = teamMember.body.inventory.GetItemCount(itemDef);
                         if (itemCount > 0)
