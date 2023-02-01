@@ -50,10 +50,17 @@ namespace MysticsItems.Buffs
                 {
                     if (self.HasBuff(buffDef))
                     {
-                        if (self.skillLocator.primary) self.skillLocator.primary.SetSkillOverride(self, skillDef, GenericSkill.SkillOverridePriority.Replacement);
-                        if (self.skillLocator.secondary) self.skillLocator.secondary.SetSkillOverride(self, skillDef, GenericSkill.SkillOverridePriority.Replacement);
-                        if (self.skillLocator.utility) self.skillLocator.utility.SetSkillOverride(self, skillDef, GenericSkill.SkillOverridePriority.Replacement);
-                        if (self.skillLocator.special) self.skillLocator.special.SetSkillOverride(self, skillDef, GenericSkill.SkillOverridePriority.Replacement);
+                        void ManageSkillSlot(GenericSkill skillSlot)
+                        {
+                            if (!skillSlot.stateMachine.IsInMainState())
+                                skillSlot.stateMachine.SetNextStateToMain();
+                            skillSlot.SetSkillOverride(self, skillDef, GenericSkill.SkillOverridePriority.Replacement);
+                        }
+
+                        if (self.skillLocator.primary) ManageSkillSlot(self.skillLocator.primary);
+                        if (self.skillLocator.secondary) ManageSkillSlot(self.skillLocator.secondary);
+                        if (self.skillLocator.utility) ManageSkillSlot(self.skillLocator.utility);
+                        if (self.skillLocator.special) ManageSkillSlot(self.skillLocator.special);
                     }
                     else
                     {
