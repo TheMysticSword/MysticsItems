@@ -161,10 +161,13 @@ namespace MysticsItems.Items
             {
                 var newIsInTPRange = false;
 
-                var teleporter = TeleporterInteraction.instance;
-                if (teleporter && teleporter.isCharging)
+                foreach (var holdoutZoneController in InstanceTracker.GetInstancesList<HoldoutZoneController>())
                 {
-                    newIsInTPRange = teleporter.holdoutZoneController.IsBodyInChargingRadius(body);
+                    if (holdoutZoneController.isActiveAndEnabled && holdoutZoneController.IsBodyInChargingRadius(body))
+                    {
+                        newIsInTPRange = true;
+                        break;
+                    }
                 }
 
                 isInTPRange = newIsInTPRange;
