@@ -30,7 +30,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> durationPerStack = new ConfigurableValue<float>(
             "Item: Vendetta",
             "DurationPerStack",
-            16f,
+            4f,
             "How long should the buff last for each additional stack of this item (in seconds)",
             new System.Collections.Generic.List<string>()
             {
