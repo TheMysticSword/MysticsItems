@@ -29,8 +29,7 @@ This mod supports ItemStats, Risk of Options and adds item displays for SniperCl
 If you want to add Mystic's Items support for your own mod, read [this document](https://github.com/TheMysticSword/MysticsItems/blob/main/FORMODDERS.md).
 
 ### Languages
-The mod is available in English, Russian, French, Spanish, Simplified Chinese and Portuguese.  
-Turkish translation will be brought back in the future.
+The mod is available in English, Russian, French, Spanish, Simplified Chinese and Portuguese.
 
 ### Donations
 The credits section below includes some of the team members' personal donation links.  
@@ -42,8 +41,9 @@ Please note a few things before making a donation:
 #### Main team
 TheMysticSword ([donations](https://boosty.to/themysticsword)) - Coding, Russian translation  
 Marwan60 - Modelling  
-Omar Faruk - Turkish translation (for version 1.1.13)  
-Vyrael ([donations](https://ko-fi.com/vyrael_)) - French translation  
+Omar Faruk - Turkish translation (up to v1.1.13)  
+Fyrebw ([donations](https://ko-fi.com/fyrebw28545)) - French translation  
+Vyrael ([donations](https://ko-fi.com/vyrael_)) - French translation (up to v2.0.10)  
 RCaled - Spanish translation  
 Acroptf8 - Simplified Chinese translation  
 Olek - Portuguese translation
@@ -79,67 +79,20 @@ Contains assets from [FreePBR.com](https://freepbr.com/)
 Contains assets from [ambientCG.com](https://ambientcg.com/), licensed under CC0 1.0 Universal.
 
 # Changelog
-#### 2.1.1:
-* Ghost Apple:
-    * Duration: ~~15 minutes~~ ⇒ 20 minutes
-    * Apple Branch renamed to Apple Stem
-* Nuclear Accelerator:
-    * No longer gives bonus damage for sprinting
-* Gachapon Coin:
-    * Now passively gives +0.5% crit chance and +1% attack speed to prevent it from being useless on Commencement
-* Fixed Snow Ring missing from the Enabled Items options
-* Fixed Snow Ring world pickup being massive
-* Fixed all of the new item icons have 4x size when printed/scrapped
-* Fixed "Keep Up The Rhythm" and "Cool It!" challenges not completing
-* Fixed Time Dilator debuff not disappearing from the player if inflicted in Void Fields
-* Banned Snow Ring from enemies
-* Regen-increasing item descriptions now mention that they scale with level
-* Added MoffeinArchaicWisp/RiskyMod compatibility for Archaic Mask. Thanks, Moffein!
-#### 2.1.0:
-* **Merry Christmas!**  
-![Preview of the update. Artificer with some of the new items in the Bazaar Between Time with snowflake particles.](https://i.imgur.com/lhGjR5A.png)
-* **Special thanks to eM-Krow & Heyimnoop for funding the donation goal for this update!**
-* **Added 10 New Items**
-    * New Item: Gachapon Coin
-    * New Item: Constant Flow
-    * New Item: Ghost Apple
-    * New Item: Inoperative Nanomachines
-    * New Item: Purrfect Headphones
-    * New Item: Stargazer's Records
-    * New Item: Time Dilator
-    * New Item: Charger Upgrade Module
-    * New Item: Snow Ring
-    * New Equipment: Regurgitator
-* **Added 5 New Challenges**
-    * New Challenge: 'Tis But A Scratch
-    * New Challenge: Keep Up The Rhythm
-    * New Challenge: So Many Fans!
-    * New Challenge: Cool It!
-    * New Challenge: Pirates of the Cariskean
-* **Gameplay Changes**
-    * Platinum Card:
-        * Discount: ~~100%~~ ⇒ 75%
-    * Super Idol:
-        * Gold Cap: ~~$1200 (-50% per stack), scales with time~~ ⇒ $800 (-50% per stack), scales with time
-        * Gold cap now scales to higher amounts later into the run to make it harder to reach in loop runs where gold is plentiful.
-    * Hiker's Backpack:
-        * Now gives an extra jump on the first stack
-    * Crystallized World:
-        * Freeze Duration: ~~7s~~ ⇒ 5s
-* **Misc Changes**
-    * Bazaar Between Time now has festive particles during Christmas and New Year celebrations. You can turn them off by disabling Fun Events in the mod settings.
-    * Nuclear Accelerator now slightly tints damage numbers green
-	* Re-enabled BetterUI support
-        * Some info might be wrong or missing, this will be fixed in a later update
-    * Added various gameplay config options:
-        * Treasure Map Sea Bear Circle - make the Treasure Map zone visible as a 1m-wide circle when nobody has the item!
-        * Nuclear Accelerator Alternate - make the Nuclear Accelerator increase damage depending on current velocity instead of current movement speed buff!
-        * Metronome Crit Loss - lose Metronome buff stacks when using a skill off-beat!
-    * Treasure Map's DropItemForEachPlayer config option was moved to the Gameplay section and renamed to Per-Player Treasure Map Drops
-* **Bug Fixes**
-	* Fixed config options for Equipment cooldown, Enigma and Bottled Chaos compatibility bypassing the "Ignore Balance Changes" option, which prevented Equipment cooldowns from updating with mod patches
-* **Known Issues**
-    * Non-English localization strings are outdated. Sorry! This will be fixed later. We just wanted to get the update out ASAP :)
+#### 2.1.5:
+* Vendetta:
+	* Buff Duration: ~~16s (+16s per stack)~~ ⇒ 16s (+4s per stack)
+	* Buff duration on enemies can now be configured (by default: 0.5s (+0.125s per stack))
+* Choc Chip config now has an Ignored Buff Names option that you can use to select which buffs Choc Chip should not affect
+	* By default, it ignores:
+		* Medkit delayed heal, because it's technically counted as a buff, so Choc Chip would *extend* it instead of shortening
+		* Invincibility, because extending it makes Merc too powerful
+		* All of the Void Fog debuffs, because they are counted as buffs, and therefore would get extended
+* Cup of Expresso buffs are no longer removed when all stacks of the item are gone
+* Treasure Map zone now has a minimum radius of 2.25m to prevent it from being unusable with Focused Convergence stacks
+* Fixed Black Monolith little monoliths around shrines disappearing when the shrines are used up
+* Fixed Keep Up The Rhythm challenge counting as complete when reaching Void Fields
+* Fixed Marwan's Light burn stacking damage on each hit
   
 (Previous changelogs can be found [here](https://github.com/TheMysticSword/MysticsItems/blob/main/CHANGELOG.md))
 

@@ -1,4 +1,44 @@
 # Changelog
+#### 2.1.5:
+* Vendetta:
+	* Buff Duration: ~~16s (+16s per stack)~~ ⇒ 16s (+4s per stack)
+	* Buff duration on enemies can now be configured (by default: 0.5s (+0.125s per stack))
+* Choc Chip config now has an Ignored Buff Names option that you can use to select which buffs Choc Chip should not affect
+	* By default, it ignores:
+		* Medkit delayed heal, because it's technically counted as a buff, so Choc Chip would *extend* it instead of shortening
+		* Invincibility, because extending it makes Merc too powerful
+		* All of the Void Fog debuffs, because they are counted as buffs, and therefore would get extended
+* Cup of Expresso buffs are no longer removed when all stacks of the item are gone
+* Treasure Map zone now has a minimum radius of 2.25m to prevent it from being unusable with Focused Convergence stacks
+* Fixed Black Monolith little monoliths around shrines disappearing when the shrines are used up
+* Fixed Keep Up The Rhythm challenge counting as complete when reaching Void Fields
+* Fixed Marwan's Light burn stacking damage on each hit
+#### 2.1.4:
+* Fixed everything that the last patch broke. Sorry!!
+* Added a config option to revert the previous patch's Warning System fix with Shrines of the Mountain (under Gameplay > Warning System Mountain Shrines)
+* Fixed the "Treasure Map Per-Player Drops", "Treasure Map Sea Bear Circle", "Nuclear Accelerator Alternate" and "Devil's Cry Alternate Damage" Gameplay config options not appearing in the Mod Options
+#### 2.1.3:
+* Updated the French translation. Thanks, Fyrebw! <3
+* Removed the 0.2s delay from the Timely Execution trigger, making it activate immediately on dropping to low HP
+* Crystallized World debuff now "knocks" bosses out of their attack state
+* Purrfect Headphones now works in all kinds of holdout zones instead of only Teleporters
+* Fixed Ghost Apple giving an Apple Stem even if the apple was scrapped beforehand
+* Fixed Marwan's Ash staying active after being scrapped
+* Fixed Warning System re-enabling activated Shrines of the Mountain
+* Slightly optimized certain internal on-damage-taken and on-inventory-changed events. Should make the mod lag the game less?
+* I didn't test any of this, so my condolences if the game doesn't load anymore after this update! -Mystic
+#### 2.1.2:
+* Marwan's Ash:
+    * The burn's damage over time is now capped at 20000% of the owner's base damage per tick, to prevent it from being too powerful against high-health special bosses
+    * Removed burn DoT particles and overlay material
+* Stargazer's Records:
+    * Chance: ~~20%~~ ⇒ 12%
+* "'Tis But A Scratch" challenge now requires reducing 10.000 points of damage instead of 5.000
+* Updated Russian localization files
+* Slightly optimized on-hit events for Marwan's Weapon and Ceremony of Perdition
+* Potentially fixed Marwan's Ash sometimes not upgrading
+* Fixed Stargazer's Records triggering from all kinds of attacks (even with 0 proc coefficient), and also not multiplying the chance by proc coefficient
+* Fixed Stargazer's Records stars not spawning for clients
 #### 2.1.1:
 * Ghost Apple:
     * Duration: ~~15 minutes~~ ⇒ 20 minutes
