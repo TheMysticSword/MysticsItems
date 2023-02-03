@@ -198,6 +198,7 @@ namespace MysticsItems
                 () => contentPack.masterPrefabs.Add(Resources.masterPrefabs.ToArray()),
                 () => contentPack.projectilePrefabs.Add(Resources.projectilePrefabs.ToArray()),
                 () => contentPack.effectDefs.Add(Resources.effectPrefabs.ConvertAll(x => new EffectDef(x)).ToArray()),
+                () => contentPack.networkedObjectPrefabs.Add(Resources.networkedObjectPrefabs.ToArray()),
                 () => contentPack.networkSoundEventDefs.Add(Resources.networkSoundEventDefs.ToArray()),
                 () => contentPack.unlockableDefs.Add(Resources.unlockableDefs.ToArray()),
                 () => contentPack.entityStateTypes.Add(Resources.entityStateTypes.ToArray()),
@@ -253,6 +254,7 @@ namespace MysticsItems
             public static List<GameObject> masterPrefabs = new List<GameObject>();
             public static List<GameObject> projectilePrefabs = new List<GameObject>();
             public static List<GameObject> effectPrefabs = new List<GameObject>();
+            public static List<GameObject> networkedObjectPrefabs = new List<GameObject>();
             public static List<NetworkSoundEventDef> networkSoundEventDefs = new List<NetworkSoundEventDef>();
             public static List<UnlockableDef> unlockableDefs = new List<UnlockableDef>();
             public static List<System.Type> entityStateTypes = new List<System.Type>();
