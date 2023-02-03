@@ -130,6 +130,7 @@ namespace MysticsItems.Items
             holdoutZone.baseChargeDuration = unearthTime;
             holdoutZone.radiusSmoothTime = 1f;
             holdoutZone.radiusIndicator = zonePrefab.transform.Find("Visuals/Sphere").gameObject.GetComponent<Renderer>();
+            holdoutZone.minimumRadius = 2.25f;
             holdoutZone.inBoundsObjectiveToken = "OBJECTIVE_MYSTICSITEMS_CHARGE_TREASUREMAPZONE";
             holdoutZone.outOfBoundsObjectiveToken = "OBJECTIVE_MYSTICSITEMS_CHARGE_TREASUREMAPZONE_OOB";
             holdoutZone.applyHealingNova = true;
