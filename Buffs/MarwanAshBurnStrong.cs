@@ -26,9 +26,8 @@ namespace MysticsItems.Buffs
                 startSound = "Play_item_proc_igniteOnKill_Loop",
                 stopSound = "Stop_item_proc_igniteOnKill_Loop",
                 overlayMaterial = Main.AssetBundle.LoadAsset<Material>("Assets/Items/Marwan's Ash/matMarwanAshBurnOverlayStrong.mat"),
-                fireEffectPrefab = Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Marwan's Ash/AshBurnVFXStrong.prefab")
+                fireEffectPrefab = null
             };
-            ashBurnEffectParams.fireEffectPrefab.AddComponent<MarwanAshBurn.MysticsItemsBurnEffectOnModdedEnemiesFixer>();
 
             ashDotDef = new DotController.DotDef
             {
@@ -39,63 +38,23 @@ namespace MysticsItems.Buffs
             };
             ashDotIndex = DotAPI.RegisterDotDef(ashDotDef, (self, dotStack) =>
             {
-                DotController.DotStack oldDotStack = self.dotStackList.FirstOrDefault(x => x.dotIndex == dotStack.dotIndex);
-                if (oldDotStack != null)
-                {
-                    self.RemoveDotStackAtServer(self.dotStackList.IndexOf(oldDotStack));
-                }
-
-                var itemCount = 1;
-                var attackerLevel = 1f;
                 var damageMultiplier = 1f;
-                var isPlayerTeam = false;
+                var attackerDamage = 1f;
                 if (dotStack.attackerObject)
                 {
-                    var ashHelper = dotStack.attackerObject.GetComponent<Items.MarwanAsh1.MysticsItemsMarwanAshHelper>();
-                    if (ashHelper) itemCount = ashHelper.itemCount;
-
                     var attackerBody = dotStack.attackerObject.GetComponent<CharacterBody>();
                     if (attackerBody)
                     {
-                        attackerLevel = attackerBody.level;
-                        if (attackerBody.damage != 0f)
-                            damageMultiplier = dotStack.damage / attackerBody.damage / ashDotDef.damageCoefficient;
-                        isPlayerTeam = attackerBody.teamComponent.teamIndex == TeamIndex.Player;
+                        attackerDamage = attackerBody.damage;
+                        if (attackerDamage != 0f) damageMultiplier = dotStack.damage / attackerDamage;
                     }
                 }
-                var hpFractionDamage = (Items.MarwanAsh1.dotPercent / 100f + Items.MarwanAsh1.dotPercentPerLevel / 100f * (attackerLevel - (float)Items.MarwanAsh1.upgradeLevel12) * (1f + Items.MarwanAsh1.stackLevelMultiplier / 100f * (float)(itemCount - 1))) * damageMultiplier;
-                if (!isPlayerTeam) hpFractionDamage = Mathf.Min(hpFractionDamage, Items.MarwanAsh1.enemyBurnDamageCap);
-                dotStack.damage = (self.victimHealthComponent ? self.victimHealthComponent.fullCombinedHealth * hpFractionDamage : 0) * ashDotDef.interval;
+                if (self.victimHealthComponent)
+                    dotStack.damage = Mathf.Min(self.victimHealthComponent.fullCombinedHealth * damageMultiplier, attackerDamage * Items.MarwanAsh1.burnDamageMultiplierCap);
+                else
+                    dotStack.damage = 0;
+                dotStack.damage *= ashDotDef.interval;
             });
-
-            On.RoR2.DotController.UpdateDotVisuals += DotController_UpdateDotVisuals;
-        }
-
-        private void DotController_UpdateDotVisuals(On.RoR2.DotController.orig_UpdateDotVisuals orig, DotController self)
-        {
-            orig(self);
-            Items.MarwanAsh1.MysticsItemsMarwanAshHelper ashHelper = self.victimBody ? self.victimBody.GetComponent<Items.MarwanAsh1.MysticsItemsMarwanAshHelper>() : null;
-            if (ashHelper)
-            {
-                if (self.HasDotActive(ashDotIndex))
-                {
-                    if (!ashHelper.burnEffectControllerStrong)
-                    {
-                        ModelLocator modelLocator = self.victimBody.modelLocator;
-                        if (modelLocator && modelLocator.modelTransform)
-                        {
-                            ashHelper.burnEffectControllerStrong = self.victimBody.gameObject.AddComponent<BurnEffectController>();
-                            ashHelper.burnEffectControllerStrong.effectType = ashBurnEffectParams;
-                            ashHelper.burnEffectControllerStrong.target = modelLocator.modelTransform.gameObject;
-                        }
-                    }
-                }
-                else if (ashHelper.burnEffectControllerStrong)
-                {
-                    Object.Destroy(ashHelper.burnEffectControllerStrong);
-                    ashHelper.burnEffectControllerStrong = null;
-                }
-            }
         }
     }
 }

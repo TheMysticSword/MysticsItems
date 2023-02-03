@@ -140,6 +140,8 @@ namespace MysticsItems.Items
         public static float enemyBurnDamageCap = 1.6f;
         public static float enemySpreadRadiusCap = 10f;
 
+        public static float burnDamageMultiplierCap = 8f;
+
         public override void OnLoad()
         {
             base.OnLoad();
@@ -180,7 +182,7 @@ namespace MysticsItems.Items
             CharacterBody.onBodyStartGlobal += CharacterBody_onBodyStartGlobal;
             On.RoR2.CharacterBody.OnInventoryChanged += CharacterBody_OnInventoryChanged;
             GlobalEventManager.onCharacterLevelUp += GlobalEventManager_onCharacterLevelUp;
-
+            
             ashDamageType = DamageAPI.ReserveDamageType();
 
             ashHitVFX = Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Marwan's Ash/Level 1/AshHitVFX.prefab");
@@ -201,22 +203,17 @@ namespace MysticsItems.Items
 
         private void GenericGameEvents_OnHitEnemy(DamageInfo damageInfo, MysticsRisky2UtilsPlugin.GenericCharacterInfo attackerInfo, MysticsRisky2UtilsPlugin.GenericCharacterInfo victimInfo)
         {
-            if (attackerInfo.body && victimInfo.body && attackerInfo.inventory && !damageInfo.rejected)
+            if (attackerInfo.body && victimInfo.body && attackerInfo.inventory && MysticsItemsMarwanAshHelper.HasAnyAsh(attackerInfo.inventory) && !damageInfo.rejected)
             {
                 var isAshDamage = DamageAPI.HasModdedDamageType(damageInfo, ashDamageType);
 
-                var itemCount = 0;
-                var itemLevel = 1;
-                var ashHelper = attackerInfo.body.GetComponent<MysticsItemsMarwanAshHelper>();
-                if (ashHelper)
+                if (MysticsItemsMarwanAshHelper.ownerToComponentDict.ContainsKey(attackerInfo.body))
                 {
-                    itemCount = ashHelper.itemCount;
-                    itemLevel = ashHelper.itemLevel;
-                }
+                    var ashHelper = MysticsItemsMarwanAshHelper.ownerToComponentDict[attackerInfo.body];
+                    var itemCount = ashHelper.itemCount;
+                    var itemLevel = ashHelper.itemLevel;
 
-                if (!isAshDamage && victimInfo.healthComponent && attackerInfo.gameObject && damageInfo.procCoefficient > 0f)
-                {
-                    if (itemCount > 0)
+                    if (!isAshDamage && itemCount > 0 && victimInfo.healthComponent && attackerInfo.gameObject && damageInfo.procCoefficient > 0f)
                     {
                         var _damage = damage + damagePerLevel * (attackerInfo.body.level - 1f) * (1f + stackLevelMultiplier / 100f * (float)(itemCount - 1));
                         if (attackerInfo.teamIndex != TeamIndex.Player) _damage = Mathf.Min(_damage, enemyExtraDamageCap);
@@ -257,33 +254,36 @@ namespace MysticsItems.Items
                             blastAttack.Fire();
                         }
                     }
-                }
-                if (isAshDamage)
-                {
-                    EffectManager.SimpleImpactEffect(ashHitVFX, damageInfo.position, Vector3.Normalize(Random.onUnitSphere), true);
-                    
-                    if (itemLevel >= 2)
+
+                    if (isAshDamage)
                     {
-                        var dotInfo = new InflictDotInfo
+                        EffectManager.SimpleImpactEffect(ashHitVFX, damageInfo.position, Vector3.Normalize(Random.onUnitSphere), true);
+
+                        if (itemLevel >= 2)
                         {
-                            victimObject = victimInfo.gameObject,
-                            attackerObject = attackerInfo.gameObject,
-                            dotIndex = Buffs.MarwanAshBurn.ashDotIndex,
-                            duration = dotDuration,
-                            damageMultiplier = 1f,
-                            totalDamage = null
-                        };
-                        
-                        var strengthenBurnCount = attackerInfo.inventory.GetItemCount(DLC1Content.Items.StrengthenBurn);
-                        if (strengthenBurnCount > 0)
-                        {
-                            dotInfo.dotIndex = Buffs.MarwanAshBurnStrong.ashDotIndex;
-                            var multiplier = 1f + 3f * (float)strengthenBurnCount;
-                            dotInfo.damageMultiplier *= multiplier;
-                            dotInfo.duration *= multiplier;
+                            var dotInfo = new InflictDotInfo
+                            {
+                                victimObject = victimInfo.gameObject,
+                                attackerObject = attackerInfo.gameObject,
+                                dotIndex = DotController.DotIndex.Burn,
+                                duration = dotDuration,
+                                damageMultiplier = 1f,
+                                totalDamage = null,
+                                maxStacksFromAttacker = 1
+                            };
+
+                            StrengthenBurnUtils.CheckDotForUpgrade(attackerInfo.inventory, ref dotInfo);
+                            dotInfo.dotIndex = Buffs.MarwanAshBurn.ashDotIndex;
+                            if (dotInfo.damageMultiplier > 1f)
+                            {
+                                dotInfo.preUpgradeDotIndex = Buffs.MarwanAshBurn.ashDotIndex;
+                                dotInfo.dotIndex = Buffs.MarwanAshBurnStrong.ashDotIndex;
+                            }
+
+                            dotInfo.damageMultiplier *= ashHelper.burnHPFractionDamage;
+
+                            DotController.InflictDot(ref dotInfo);
                         }
-                        
-                        DotController.InflictDot(ref dotInfo);
                     }
                 }
             }
@@ -291,32 +291,55 @@ namespace MysticsItems.Items
 
         private void CharacterBody_onBodyStartGlobal(CharacterBody body)
         {
-            MysticsItemsMarwanAshHelper component = body.gameObject.AddComponent<MysticsItemsMarwanAshHelper>();
-            component.dirty = true;
+            if (NetworkServer.active && body.inventory && MysticsItemsMarwanAshHelper.HasAnyAsh(body.inventory))
+            {
+                var component = MysticsItemsMarwanAshHelper.GetForBody(body);
+                component.dirty = true;
+            }
         }
 
         private void CharacterBody_OnInventoryChanged(On.RoR2.CharacterBody.orig_OnInventoryChanged orig, CharacterBody self)
         {
             orig(self);
-            var component = self.GetComponent<MysticsItemsMarwanAshHelper>();
-            if (component) component.dirty = true;
+            if (NetworkServer.active && MysticsItemsMarwanAshHelper.HasAnyAsh(self.inventory))
+            {
+                var component = MysticsItemsMarwanAshHelper.GetForBody(self);
+                component.dirty = true;
+            }
         }
 
         private void GlobalEventManager_onCharacterLevelUp(CharacterBody body)
         {
-            var component = body.GetComponent<MysticsItemsMarwanAshHelper>();
-            if (component) component.dirty = true;
+            if (NetworkServer.active && body.inventory && MysticsItemsMarwanAshHelper.HasAnyAsh(body.inventory))
+            {
+                var component = MysticsItemsMarwanAshHelper.GetForBody(body);
+                component.dirty = true;
+            }
         }
 
         public class MysticsItemsMarwanAshHelper : MonoBehaviour
         {
+            public static Dictionary<CharacterBody, MysticsItemsMarwanAshHelper> ownerToComponentDict = new Dictionary<CharacterBody, MysticsItemsMarwanAshHelper>();
+
+            public static MysticsItemsMarwanAshHelper GetForBody(CharacterBody owner)
+            {
+                if (!ownerToComponentDict.ContainsKey(owner))
+                    ownerToComponentDict[owner] = owner.gameObject.AddComponent<MysticsItemsMarwanAshHelper>();
+                return ownerToComponentDict[owner];
+            }
+
+            public static bool HasAnyAsh(Inventory inventory)
+            {
+                return inventory.GetItemCount(MysticsItemsContent.Items.MysticsItems_MarwanAsh1) > 0 || inventory.GetItemCount(MysticsItemsContent.Items.MysticsItems_MarwanAsh2) > 0 || inventory.GetItemCount(MysticsItemsContent.Items.MysticsItems_MarwanAsh3) > 0;
+            }
+
             public CharacterBody body;
             
             public bool dirty = false;
             public int itemLevel = 1;
             public int itemCount = 0;
-            public BurnEffectController burnEffectController;
-            public BurnEffectController burnEffectControllerStrong;
+
+            public float burnHPFractionDamage = 0f;
 
             public void Awake()
             {
@@ -340,26 +363,23 @@ namespace MysticsItems.Items
                     var itemCount2 = body.inventory.GetItemCount(MysticsItemsContent.Items.MysticsItems_MarwanAsh2);
                     var itemCount3 = body.inventory.GetItemCount(MysticsItemsContent.Items.MysticsItems_MarwanAsh3);
 
-                    if (itemLevel == 2 && NetworkServer.active)
+                    if (itemLevel == 2 && itemCount1 > 0)
                     {
                         body.inventory.RemoveItem(MysticsItemsContent.Items.MysticsItems_MarwanAsh1, itemCount1);
                         body.inventory.GiveItem(MysticsItemsContent.Items.MysticsItems_MarwanAsh2, itemCount1);
 
-                        if (itemCount1 > 0)
-                        {
-                            CharacterMasterNotificationQueue.PushItemTransformNotification(
-                                body.master,
-                                MysticsItemsContent.Items.MysticsItems_MarwanAsh1.itemIndex,
-                                MysticsItemsContent.Items.MysticsItems_MarwanAsh2.itemIndex,
-                                CharacterMasterNotificationQueue.TransformationType.Default
-                            );
-                            NetworkPickupDiscovery.DiscoverPickup(body.master, level2PickupIndex);
-                        }
+                        CharacterMasterNotificationQueue.PushItemTransformNotification(
+                            body.master,
+                            MysticsItemsContent.Items.MysticsItems_MarwanAsh1.itemIndex,
+                            MysticsItemsContent.Items.MysticsItems_MarwanAsh2.itemIndex,
+                            CharacterMasterNotificationQueue.TransformationType.Default
+                        );
+                        NetworkPickupDiscovery.DiscoverPickup(body.master, level2PickupIndex);
 
                         itemCount2 += itemCount1;
                         itemCount1 = 0;
                     }
-                    if (itemLevel == 3 && NetworkServer.active)
+                    if (itemLevel == 3 && (itemCount1 > 0 || itemCount2 > 0))
                     {
                         body.inventory.RemoveItem(MysticsItemsContent.Items.MysticsItems_MarwanAsh1, itemCount1);
                         body.inventory.RemoveItem(MysticsItemsContent.Items.MysticsItems_MarwanAsh2, itemCount2);
@@ -391,7 +411,19 @@ namespace MysticsItems.Items
                         itemCount2 = 0;
                     }
                     itemCount = itemCount1 + itemCount2 + itemCount3;
+
+                    if (itemLevel >= 2)
+                    {
+                        burnHPFractionDamage = (dotPercent + dotPercentPerLevel * (body.level - (float)upgradeLevel12) * (1f + stackLevelMultiplier / 100f * (float)(itemCount - 1))) / 100f;
+                        if (body.teamComponent && body.teamComponent.teamIndex != TeamIndex.Player)
+                            burnHPFractionDamage = Mathf.Min(burnHPFractionDamage, enemyBurnDamageCap);
+                    }
                 }
+            }
+
+            public void OnDestroy()
+            {
+                if (body) ownerToComponentDict.Remove(body);
             }
         }
     }
