@@ -70,7 +70,8 @@ namespace MysticsItems.Items
             rotateAroundAxis.speed = Rewired.ComponentControls.Effects.RotateAroundAxis.Speed.Slow;
 
             itemDisplayPrefab = PrepareItemDisplayModel(PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Hourglass/FollowerModel.prefab")));
-            
+            itemDisplayPrefabs["spinny"] = PrepareItemDisplayModel(PrefabAPI.InstantiateClone(itemDef.pickupModelPrefab, "MysticsItems_TimePieceSpinnyDisplay"));
+
             onSetupIDRS += () =>
             {
                 AddDisplayRule("CommandoBody", "Pelvis", new Vector3(0.22235F, -0.08177F, -0.04821F), new Vector3(354.5442F, 166.3058F, 186.0703F), new Vector3(0.05728F, 0.08044F, 0.05728F));
@@ -78,8 +79,8 @@ namespace MysticsItems.Items
                 AddDisplayRule("Bandit2Body", "Pelvis", new Vector3(0.17123F, -0.00993F, -0.14942F), new Vector3(8.01832F, 13.47197F, 178.7169F), new Vector3(0.06678F, 0.06678F, 0.06678F));
                 AddDisplayRule("ToolbotBody", "Chest", new Vector3(1.94335F, 1.73306F, 3.82745F), new Vector3(5.94887F, 82.69791F, 5.90234F), new Vector3(0.54848F, 0.58979F, 0.54848F));
                 AddDisplayRule("EngiBody", "Pelvis", new Vector3(0.24825F, -0.01657F, -0.22239F), new Vector3(3.001F, 0F, 0F), new Vector3(0.06117F, 0.06117F, 0.06117F));
-                AddDisplayRule("EngiTurretBody", "Head", itemDef.pickupModelPrefab, new Vector3(0F, 1.56671F, 0F), new Vector3(0F, 0F, 0F), new Vector3(0.35125F, 0.35125F, 0.35125F));
-                AddDisplayRule("EngiWalkerTurretBody", "Head", itemDef.pickupModelPrefab, new Vector3(0F, 2.35769F, -0.55122F), new Vector3(0F, 0F, 0F), new Vector3(0.33011F, 0.33011F, 0.33011F));
+                AddDisplayRule("EngiTurretBody", "Head", itemDisplayPrefabs["spinny"], new Vector3(0F, 1.56671F, 0F), new Vector3(0F, 0F, 0F), new Vector3(0.35125F, 0.35125F, 0.35125F));
+                AddDisplayRule("EngiWalkerTurretBody", "Head", itemDisplayPrefabs["spinny"], new Vector3(0F, 2.35769F, -0.55122F), new Vector3(0F, 0F, 0F), new Vector3(0.33011F, 0.33011F, 0.33011F));
                 AddDisplayRule("MageBody", "Pelvis", new Vector3(0.1079F, -0.02925F, -0.18647F), new Vector3(14.08916F, 358.8586F, 355.321F), new Vector3(0.06188F, 0.06188F, 0.06188F));
                 AddDisplayRule("MercBody", "Pelvis", new Vector3(-0.21011F, 0.01699F, -0.17222F), new Vector3(14.285F, 0F, 0F), new Vector3(0.0801F, 0.0801F, 0.0801F));
                 AddDisplayRule("TreebotBody", "HeadBase", new Vector3(0.44547F, -0.25288F, -0.91029F), new Vector3(0F, 0F, 0F), new Vector3(0.14329F, 0.14329F, 0.14329F));
