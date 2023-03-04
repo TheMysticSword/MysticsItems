@@ -1,4 +1,18 @@
 # Changelog
+#### 2.1.6:
+* Updated Simplified Chinese translation - thank you, Dying_Twilight! <3
+* Marwan's Ash:
+	* Stacking now makes its per-level bonuses stronger by +25% instead of +10%, but is now also hyperbolic and capped up to +100% (like Tougher Times)
+* Nuclear Accelerator:
+	* Damage Per 1% Speed: ~~+0.5% (+0.25% per stack)~~ ⇒ +0.25% (+0.25% per stack)
+* Mystic Sword:
+	* Damage Cap: ~~40% (+40% per stack)~~ ⇒ 40% (+20% per stack)
+* Rift Lens:
+	* Unstable Rifts now fire random bolt projectiles and are guarded by ice walls!
+* Added BetterUI stats for items added in 2.1.0
+* Fixed Black Monolith little displays appearing near shrines when nobody has the item
+* Fixed Black Monolith occasionally not giving extra shrine uses
+* Fixed Time Dilator causing error spam and invisible enemies when used by Engineer Turrets
 #### 2.1.5:
 * Vendetta:
 	* Buff Duration: ~~16s (+16s per stack)~~ ⇒ 16s (+4s per stack)

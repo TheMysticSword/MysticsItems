@@ -45,7 +45,8 @@ Omar Faruk - Turkish translation (up to v1.1.13)
 Fyrebw ([donations](https://ko-fi.com/fyrebw28545)) - French translation  
 Vyrael ([donations](https://ko-fi.com/vyrael_)) - French translation (up to v2.0.10)  
 RCaled - Spanish translation  
-Acroptf8 - Simplified Chinese translation  
+Dying_Twilight - Simplified Chinese translation  
+Acroptf8 - Simplified Chinese translation (up to 2.1.5)  
 Olek - Portuguese translation
 #### External assets
 Contains sounds from [freesound.org](https://freesound.org/):  
@@ -79,20 +80,20 @@ Contains assets from [FreePBR.com](https://freepbr.com/)
 Contains assets from [ambientCG.com](https://ambientcg.com/), licensed under CC0 1.0 Universal.
 
 # Changelog
-#### 2.1.5:
-* Vendetta:
-	* Buff Duration: ~~16s (+16s per stack)~~ ⇒ 16s (+4s per stack)
-	* Buff duration on enemies can now be configured (by default: 0.5s (+0.125s per stack))
-* Choc Chip config now has an Ignored Buff Names option that you can use to select which buffs Choc Chip should not affect
-	* By default, it ignores:
-		* Medkit delayed heal, because it's technically counted as a buff, so Choc Chip would *extend* it instead of shortening
-		* Invincibility, because extending it makes Merc too powerful
-		* All of the Void Fog debuffs, because they are counted as buffs, and therefore would get extended
-* Cup of Expresso buffs are no longer removed when all stacks of the item are gone
-* Treasure Map zone now has a minimum radius of 2.25m to prevent it from being unusable with Focused Convergence stacks
-* Fixed Black Monolith little monoliths around shrines disappearing when the shrines are used up
-* Fixed Keep Up The Rhythm challenge counting as complete when reaching Void Fields
-* Fixed Marwan's Light burn stacking damage on each hit
+#### 2.1.6:
+* Updated Simplified Chinese translation - thank you, Dying_Twilight! <3
+* Marwan's Ash:
+	* Stacking now makes its per-level bonuses stronger by +25% instead of +10%, but is now also hyperbolic and capped up to +100% (like Tougher Times)
+* Nuclear Accelerator:
+	* Damage Per 1% Speed: ~~+0.5% (+0.25% per stack)~~ ⇒ +0.25% (+0.25% per stack)
+* Mystic Sword:
+	* Damage Cap: ~~40% (+40% per stack)~~ ⇒ 40% (+20% per stack)
+* Rift Lens:
+	* Unstable Rifts now fire random bolt projectiles and are guarded by ice walls!
+* Added BetterUI stats for items added in 2.1.0
+* Fixed Black Monolith little displays appearing near shrines when nobody has the item
+* Fixed Black Monolith occasionally not giving extra shrine uses
+* Fixed Time Dilator causing error spam and invisible enemies when used by Engineer Turrets
   
 (Previous changelogs can be found [here](https://github.com/TheMysticSword/MysticsItems/blob/main/CHANGELOG.md))
 
