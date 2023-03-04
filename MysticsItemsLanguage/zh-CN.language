@@ -59,8 +59,28 @@
     "ITEM_MYSTICSITEMS_MARWANASH3_PICKUP": "命中时对周围所有敌人造成伤害。",
     "ITEM_MYSTICSITEMS_MARWANASH3_DESC": "命中时对<style=cIsUtility>{Radius}米范围内的所有敌人<style=cStack>(每高于{UpgradeLevel23}一等级+{RadiusPerLevel}米(每层+{StackLevelMultiplier}%))</style></style>造成<style=cIsDamage>{Damage} <style=cStack>(每一等级+{DamagePerLevel}(每层+{StackLevelMultiplier}%))</style></style>点额外伤害并每秒损失<style=cIsHealth>{DoTPercent}% <style=cStack>(每高于{UpgradeLevel12}一等级+{DoTPercentPerLevel}%(每层+{StackLevelMultiplier}%))</style></style>的最大生命值。",
 
+    "ITEM_MYSTICSITEMS_GACHAPONTOKEN_NAME": "扭蛋硬币",
+    "ITEM_MYSTICSITEMS_GACHAPONTOKEN_PICKUP": "直到下一关卡之前，每激活一次机遇神龛便提升暴击率和攻击速度。",
+    "ITEM_MYSTICSITEMS_GACHAPONTOKEN_DESC": "直到下一关卡之前， 每激活一次 <style=cIsUtility>机遇神龛</style> 便提升 <style=cIsDamage>{CritBonus}% <style=cStack>(每层+{CritBonusPerStack}% )</style>的暴击率 </style>和 <style=cIsDamage>{AttackSpeedBonus}% <style=cStack>(每层+{AttackSpeedBonusPerStack}% )</style>的攻击速度</style>。持有硬币会被动地提升<style=cIsDamage>{PassiveCritBonus}% <style=cStack>(每层+{PassiveCritBonusPerStack}%)</style>的暴击率</style>和 <style=cIsDamage>{PassiveAttackSpeedBonus}% <style=cStack>(每层+{PassiveAttackSpeedBonusPerStack}% )</style>的攻击速度</style>。",
+    "ITEM_MYSTICSITEMS_GACHAPONTOKEN_LORE": "*喘气* *吸气*\r\n\r\n这... 额，这东西... 一，二-二，三... 好了，它在运作了，感谢上帝。\r\n\r\n[已编辑]的日志, 第■十一天。我应该是在，额，扇区... 额... 唉，算了。总之，我差点就死了。先是被利莫里亚伏击，然后我身下的大地又突然变成了该死的石傀儡，我现在很痛，真的。我…我应该逃走。\r\n\r\n我突然碰上了，额，这个雕塑，让我有些回忆起了我小时候在家里的生活。我开始祈祷。我开始为我的生命祈祷。我的眼睛里不知何时充满了泪水——我肯定我马上就要死了。但是突然，闪过一道刺眼的闪光…我的手中多出了一个医疗包，一些备用子弹，我…\r\n\r\n呃，现在不是想这个的时候，我得赶紧回头回到安全地带。奇迹不会发生两次。",
+
+    "ITEM_MYSTICSITEMS_FLOW_NAME": "恒流",
+    "ITEM_MYSTICSITEMS_FLOW_PICKUP": "移动速度变得稍快。减速效果对你的影响更小。定身效果现在对你只会造成减速。",
+    "ITEM_MYSTICSITEMS_FLOW_DESC": "移动速度增加 <style=cIsUtility>{MoveSpeed}% <style=cStack>(每层+{MoveSpeedPerStack}%)</style></style>。减速效果对你的影响减弱<style=cIsUtility>{SlowReduction}% <style=cStack>(每层+{SlowReductionPerStack}%)</style></style>。定身效果<style=cIsUtility>不再使你定身</style> 而是将你减速 <style=cIsUtility>{InitialRootSlow}% <style=cStack>(每层-{RootSlowReductionPerStack}%)</style></style>.",
+
+    "ITEM_MYSTICSITEMS_GHOSTAPPLE_NAME": "幽灵苹果",
+    "ITEM_MYSTICSITEMS_GHOSTAPPLE_PICKUP": "在接下来的{Minutes}分钟里增加生命恢复速度。",
+    "ITEM_MYSTICSITEMS_GHOSTAPPLE_DESC": "在接下来的<style=cIsUtility>{Minutes}分钟</style>内增加<style=cIsHealing>{Regen} HP/s <style=cStack>(每层+{Regen} HP/s，每级+20%)</style></style>的 <style=cIsHealing>生命恢复速度</style> 。耗尽后，变成<style=cIsUtility>苹果茎 (增加 {RegenWeak} HP/s <style=cStack>(每层+{RegenWeak} HP/s， 每级+20%)</style>的生命恢复速度)</style>。<style=cStack>每个幽灵苹果的计时相互独立。</style>",
+    "ITEM_MYSTICSITEMS_GHOSTAPPLE_LORE": "\"现在我们正在走近一个真正的自然奇迹——一个打破了所有已知物理定律的展品。科学家们至今还无法解释这个有趣的现象。\r\n\r\n一个苹果状的冰状物，但是来自于一个从物理意义上来说不可能形成冰的地方，这是一个古老的谜团。\"\r\n\r\n- 地球历史博物馆",
+
+    "ITEM_MYSTICSITEMS_GHOSTAPPLEWEAK_NAME": "苹果茎",
+    "ITEM_MYSTICSITEMS_GHOSTAPPLEWEAK_PICKUP": "略微增加生命恢复速度。",
+    "ITEM_MYSTICSITEMS_GHOSTAPPLEWEAK_DESC": "增加<style=cIsUtility>{RegenWeak} HP/s <style=cStack>(每层+{RegenWeak} HP/s，每级+20%)</style></style>的<style=cIsHealing>生命恢复</style> 。",
+    "ITEM_MYSTICSITEMS_GHOSTAPPLEWEAK_LORE": "- 差劲。没用。浪费能源。你们所做的一切全都是浪费和毁坏。浪费时间。浪费精力。浪费资源。浪费所有本可以被改进的东西。被我！改进的东西！\r\n\r\n- 啊！停下！ 我已经道歉了啊！嘿，我告诉过你要把这些蓝色弹珠扔掉！\r\n\r\n- ...\r\n\r\n- 你们在干？... 离我远点！离我…远…",
+
+
     //[TIER2]
-    "ITEM_MYSTICSITEMS_COFFEEBOOSTONITEMPICKUP_NAME": "拿铁", // [Yes, it is specifically "expresso" in this item, because it makes you fast and inflicts an Express Boost buff. It's not a misspelling.]
+    "ITEM_MYSTICSITEMS_COFFEEBOOSTONITEMPICKUP_NAME": "强劲浓缩咖啡", // [Yes, it is specifically "expresso" in this item, because it makes you fast and inflicts an Express Boost buff. It's not a misspelling.]
     "ITEM_MYSTICSITEMS_COFFEEBOOSTONITEMPICKUP_PICKUP": "拿起物品时增加速度，最多增加{MaxBuffs}次。",
     "ITEM_MYSTICSITEMS_COFFEEBOOSTONITEMPICKUP_DESC": "每拾取一个物品获得<style=cIsUtility>咖啡动力</style>，增加<style=cIsUtility>{BoostPower}%</style>的<style=cIsDamage>攻击速度</style>和<style=cIsUtility>移动速度</style>直到下一关卡。最多增加<style=cIsUtility>{BoostPowerMax}%<style=cStack>(每层+{BoostPowerMaxPerStack}%)</style></style>。<style=cIsUtility>稀有度更高的物品一次增加的增益更多</style>。",
     "ITEM_MYSTICSITEMS_COFFEEBOOSTONITEMPICKUP_LORE": "- 冲，冲，冲！来吧，我们正在执行一项超级秘密任务！我们必须尽快找到所有的板条箱！把所有的东西都还给它们的主人！让他们高兴！呜呼！\r\n\r\n- 是的，我们*正在*执行一项无人知晓的超级秘密任务，所以没有必要匆忙。我们有足够的时间。你为什么这么兴奋？咖啡里有什么？\r\n\r\n- 好吧，还记得那些能量饮料吗？\r\n\r\n- 记得，等等，你不是说你把它们都扔-\r\n\r\n- 还有里面奇怪的针状物？\r\n\r\n- 呃，那这些呢？\r\n\r\n- 那些发光的蓝色瓶子呢？\r\n\r\n- 你认真的吗...",
@@ -83,7 +103,7 @@
     "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_DESC": "增加<style=cIsUtility>{PassiveSpeed}%</style>移动速度。每增加<style=cIsUtility>1%移动速度(来自物品，增益，或者其他)</style>，伤害就增加<style=cIsDamage>{Damage}% <style=cStack>(每层+{DamagePerStack}%)</style></style> 。",
     "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_LORE": "订单：袖珍型核子加速器\r\n订单号： 18******\r\n预计送达日期： 05\/01\/2089\r\n送货模式： 高优先\r\n送货地址： [数据删除]，荒石沙漠，火星\r\n订单详情：\r\n\r\n尺寸紧凑、易于使用，每月只需充电一次 - 非常适合您的工作。\r\n\r\n使用时紧贴小腿效果最佳。是的，把它嵌在小腿上。听起来会很疼，但是，与能让敌人血流成河的辉煌胜利相比，一点点疼痛又算什么呢？我说得对吗\r\n",
 
-    "ITEM_MYSTICSITEMS_EXTRASHRINEUSE_NAME": "黑石", // [A reference to Monoliths from Space Odyssey]
+    "ITEM_MYSTICSITEMS_EXTRASHRINEUSE_NAME": "黑色方尖碑", // [A reference to Monoliths from Space Odyssey]
     "ITEM_MYSTICSITEMS_EXTRASHRINEUSE_PICKUP": "所有的神龛可以多使用一次。",
     "ITEM_MYSTICSITEMS_EXTRASHRINEUSE_DESC": " 所有的神龛使用次数<style=cIsUtility>+1 <style=cStack>(每层+1)</style></style>。",
     "ITEM_MYSTICSITEMS_EXTRASHRINEUSE_LORE": "\"在过去的几天里，来自世界各地的人们报告说，在很短的一段时间内，人们看到了神秘的巨石出现。这些报告的可信度是有争议的，因为没有关于巨石的照片或视频证据(原因是 \"它消失的太快了\")，然而，值得注意的是，每份报告都集中发生在某一天。科学家们正在争论：巨石是一个有知觉的个体吗？这能证实平行宇宙的存在吗？还是说这只是个骗局\"\n- 新闻报道",
@@ -91,7 +111,7 @@
     "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPEN_NAME": "白金会员卡",
     "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPEN_PICKUP": "你在多重商店终端购买时能多购买一次，价格打折(每关一次)。",
     "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPEN_DESC": "在多重商店终端购买物品时保持商店不关闭<style=cIsUtility>1 <style=cStack>(每层+1)</style></style>次，每关可使用一次，购买终端中的物品有{Discount}%的折扣。",
-    "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPEN_LORE": "<style=cMono>\n//-- 新消息 (1) --//\n\n来自： UES</style>\n\n感谢您订阅白金会员卡服务！今日起生效，每个行星的UES分部都将为您提供优惠服务。\n\n每月需要缴费。\n\n<style=cMono>您无需回复此对话</style>",
+    "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPEN_LORE": "<style=cMono>\n//-- 新消息 (1) --//\n\n来自： UES</style>\n\n感谢您订阅白金会员卡服务！今日起生效，每个行星的UES分部都将为您提供优惠服务。\n\n每月需要缴费。\n\n<style=cMono>您无需回复此对话，退订回复TD。</style>",
 
     "ITEM_MYSTICSITEMS_MYSTICSWORD_NAME": "神秘剑", // [TheMysticSword's developer item]
     "ITEM_MYSTICSITEMS_MYSTICSWORD_PICKUP": "击败强大的敌人会永久提升伤害。",
@@ -118,6 +138,36 @@
     "ITEM_MYSTICSITEMS_DEATHCEREMONY_PICKUP": "暴击会标记敌人，被标记的敌人共享受到的伤害。",
     "ITEM_MYSTICSITEMS_DEATHCEREMONY_DESC": "增加<style=cIsDamage>{BaseCrit}%</style>暴击率。 暴击会标记敌人。当被标记的敌人受到伤害时, 其他所有被标记的敌人受到该次伤害的<style=cIsDamage>{Damage}% <style=cStack>(每层+{DamagePerStack}%)</style></style>。<style=cIsUtility>标记持续{Duration}秒。</style>",
 
+    "ITEM_MYSTICSITEMS_NANOMACHINES_NAME": "失灵的纳米机器",
+    "ITEM_MYSTICSITEMS_NANOMACHINES_PICKUP": "当你的生命处于{MinHealth}-{MaxHealth}%之间时，受到更少伤害。",
+    "ITEM_MYSTICSITEMS_NANOMACHINES_DESC": "当你的血量处于<style=cIsHealing>{MinHealth}-{MaxHealth}%</style>之间时，增加<style=cIsUtility>{Armor} <style=cStack>(每层+{ArmorPerStack})</style>点护甲</style>。",
+    "ITEM_MYSTICSITEMS_NANOMACHINES_LORE": "装着这些东西的板条箱上有一张褪色的旧贴条，上面写着：\r\n\r\n\"单兵屏障原型机 (C) 2043 HINON 工业\r\n\r\n说明：使用前将电池放入控制器模块。将模块固定在安全的接近位置（例如口袋）。按下主模块的头部以打开系统。再次按下头部以关闭系统。\r\n\r\n安全警告：不要吃。也不要给任何人吃。不要放在装满水的鱼缸里。不要放入蜂箱。不要给参议员。不要放在机器人吸尘器上。不要放在刀具旁边。更不要放在拿着刀的机器人吸尘器上。\r\n\r\n非卖品\"",
+
+    "ITEM_MYSTICSITEMS_BUFFINTPRANGE_NAME": "绝赞猫猫耳机",
+    "ITEM_MYSTICSITEMS_BUFFINTPRANGE_PICKUP": "当你处在传送器范围内时，你会移动得更快并且受到更少的伤害。",
+    "ITEM_MYSTICSITEMS_BUFFINTPRANGE_DESC": "当你处在传送器范围内时，增加<style=cIsUtility>{MoveSpeed}% <style=cStack>(每层+{MoveSpeedPerStack}%)</style>的移速</style>和<style=cIsUtility>{Armor} <style=cStack>(每层+{ArmorPerStack})</style>的护甲</style>。",
+    "ITEM_MYSTICSITEMS_BUFFINTPRANGE_LORE": "-他们戴着像我们耳朵的东西是不是很奇怪？\r\n\r\n-好耶！很高兴我不是唯一一个觉得这很诡异的猫。\r\n\r\n-他们还觉得这很\"可爱\"，他们是这么说的吗？\r\n\r\n-想象一下，在另一个世界里，我们戴着人类耳朵的配饰。\r\n\r\n-呕！\r\n\r\n-哈哈哈！\r\n\r\n-呃，最糟糕的是，我们甚至都戴不上这些东西！戴着太不舒服了。",
+
+    "ITEM_MYSTICSITEMS_STARBOOK_NAME": "观星者之书",
+    "ITEM_MYSTICSITEMS_STARBOOK_PICKUP": "击中敌人后有概率掉落一颗造成伤害的星星，星星可以被拾取以提高攻击速度。",
+    "ITEM_MYSTICSITEMS_STARBOOK_DESC": "击中敌人后有<style=cIsDamage>{Chance}% 的概率</style> 掉落一颗会造成<style=cIsDamage>总伤害{Damage}% <style=cStack>(每层+{DamagePerStack}% per stack)</style></style>伤害的<style=cWorldEvent>星星</style>。拾取<style=cWorldEvent>星星</style>会增加 <style=cIsUtility>{AttackSpeed}% <style=cStack>(每层+{AttackSpeedPerStack}%)</style>的攻击速度</style>，持续{Duration}秒。",
+
+    "ITEM_MYSTICSITEMS_TIMEPIECE_NAME": "时间扩张器",
+    "ITEM_MYSTICSITEMS_TIMEPIECE_PICKUP": "减速附近的敌人和子弹。",
+    "ITEM_MYSTICSITEMS_TIMEPIECE_DESC": "所有在<style=cIsUtility>{Radius}米</style>范围内的敌人的移动和攻击<style=cIsUtility>减慢{Slow}% <style=cStack>(每层+{SlowPerStack}%)</style></style>。所有此范围内的敌方子弹的飞行速度也会<style=cIsUtility>减慢{ProjectileSlow}% <style=cStack>(每层+{ProjectileSlowPerStack}%)</style></style>。",
+    "ITEM_MYSTICSITEMS_TIMEPIECE_LORE": "订单：神奇沙漏\r\n订单号：74212***\r\n预计送达时间：10\/05\/2056\r\n运输事项：高优先级/易碎品\r\n发货地址：天空中的太空船，行星编号16829\r\n运输注意：\r\n我可能不小心打碎了它，导致了整个星球…额，不，算了，可能实际上你不想知道。不管怎样，现在把它寄还给你。很抱歉！",
+
+    "ITEM_MYSTICSITEMS_SNOWRING_NAME": "雪之环",
+    "ITEM_MYSTICSITEMS_SNOWRING_PICKUP": "在你造成伤害后，有概率冰冻一个附近的敌人。",
+    "ITEM_MYSTICSITEMS_SNOWRING_DESC": "在你造成伤害后，有<style=cIsUtility>{Chance}%</style>概率<style=cIsUtility>冰冻</style> <style=cIsUtility>{Targets}个 <style=cStack>(每层+{TargetsPerStack})</style> 在<style=cIsUtility>{Radius}米 <style=cStack>(每层+{RadiusPerStack}m)</style>范围内的随机敌人。",
+    "ITEM_MYSTICSITEMS_SNOWRING_LORE": "<style=cMono>
+从信号回声完成的音频转录。</style>\r\n\r\n太冷了。这里…太…冷了…拜托，回应我，有没有人…随便谁都行…\r\n\r\n这里的一切都一心要杀死我，甚至是…这该死的天气。好消息是，我已经…好几天没有被任何东西袭击了，因为所有的东西都死于严寒。我只…我只能靠他们的…他们的尸体勉强活下来。\r\n\r\n这么冷…连吃饭都很难做到。就在我举起头盔的那一刻，刺骨的冷风开始刮进我的防护服。我甚至不知道我会死于什么：饥饿？还是失血？或者也许…不行，我不会死的，我不能死在这里。如果有任何人听到了，拜托，有任何一个人都行…\r\n\r\n有人能听见我说话吗？有人吗？\r\n\r\n也是，我想也没有。我想，是时候睡觉了，我很困，希望我还能至少看到明早的太阳。\r\n\r\n...\r\n\r\n有人吗？有人能听见我说话吗？喂？有人吗？...",
+
+    "ITEM_MYSTICSITEMS_AIRPLANEMODE_NAME": "飞行模式",
+    "ITEM_MYSTICSITEMS_AIRPLANEMODE_PICKUP": "当你的辅助技能不可用时，获得可观的移速加成和一次额外的跳跃。",
+    "ITEM_MYSTICSITEMS_AIRPLANEMODE_DESC": "当你的<style=cIsUtility>辅助技能</style>不可用时，获得 <style=cIsUtility>+{MoveSpeed}% <style=cStack>(每层+{MoveSpeedPerStack}%)</style>移速加成</style>和<style=cIsUtility>一次额外的跳跃</style>。",
+
+
     //[TIER3]
     "ITEM_MYSTICSITEMS_VOLTMETER_NAME": "无线电压计", // [WV in the lore entry stands for "wireless voltmeter"]
     "ITEM_MYSTICSITEMS_VOLTMETER_PICKUP": "拥有护盾时，反射受到的伤害给附近的敌人。",
@@ -129,12 +179,12 @@
     "ITEM_MYSTICSITEMS_THOUGHTPROCESSOR_DESC": "使用一个技能会减少你其他技能<style=cIsUtility>{CDR}% <style=cStack>(每层+{CDR}%)</style></style>的<style=cIsUtility>冷却时间</style>。",
     "ITEM_MYSTICSITEMS_THOUGHTPROCESSOR_LORE": "<style=cMono>录音摘自Vivifica医院</style>\r\n\r\n\"...所以你想说...病人偷了一瓶酒...喝醉了...走进厨房...试图与员工分享一些。。。当工作人员给部门打电话时，他抓起搅拌机，把它放在头上？\"\r\n\r\n\"是的。 然后他说 '噢，你认为你很聪明？ 打，嗝，电话给我？好吧，[数据删除]你，我更聪明！！我才是&*@#最聪明的！'\"\r\n\r\n\"...\"\r\n\r\n\"...\"\r\n\r\n\"...然后他打开了开关...拿起了刀...\"\r\n\r\n\"...然后谋杀了两个厨房员工...伴随着痛苦和尖叫...然后搅拌机切碎了他的头。\"",
 
-    "ITEM_MYSTICSITEMS_CRYSTALWORLD_NAME": "水晶球世界",
+    "ITEM_MYSTICSITEMS_CRYSTALWORLD_NAME": "晶化世界",
     "ITEM_MYSTICSITEMS_CRYSTALWORLD_PICKUP": "在传送事件中周期性冻结敌人。",
     "ITEM_MYSTICSITEMS_CRYSTALWORLD_DESC": "在传送事件中定期发射冻结波<style=cIsUtility>冻结</style>附近的所有敌人<style=cIsUtility>{FreezeTime}秒</style>。 免疫冻结的敌人会被施加<style=cIsUtility>结晶化，封锁它们的所有技能并将其定身</style>。使用<style=cIsUtility>{Pulses} <style=cStack>(每层+{PulsesPerStack})</style></style>次。",
     "ITEM_MYSTICSITEMS_CRYSTALWORLD_LORE": "订单：水晶球模型\r\n订单号： 242*****\r\n预计送达日期： 06\/15\/2056\r\n送货模式：高优先/易碎品\r\n送货地址： [数据删除]，地球，亚洲，维亚纳\r\n订单备注：\r\n\r\n我希望你能做得更好。我非常喜欢你的作品。你的音乐...它很棒，独特，杰出。每当你的一首歌开始在我的播放列表中播放时，我都会感到兴奋。谢谢你让我的生活变得更好。这是我的谢意——这是一个三维模型的复制品 [数据删除] 轨道掩护。\r\n",
 
-    "ITEM_MYSTICSITEMS_DASHERDISC_NAME": "及时动作", // [A reference to the Dasher Disc from DISC ROOM.]
+    "ITEM_MYSTICSITEMS_DASHERDISC_NAME": "及时行动", // [A reference to the Dasher Disc from DISC ROOM.]
     "ITEM_MYSTICSITEMS_DASHERDISC_PICKUP": "低生命值时获得短暂无敌，随时间充能。",
     "ITEM_MYSTICSITEMS_DASHERDISC_DESC": "低于<style=cIsHealth>25%生命值</style>时隐去身形，获得<style=cIsUtility>{Duration}秒</style>的无敌效果，增加<style=cIsUtility>{MoveSpeedBuff}%</style>移动速度。充能时间<style=cIsUtility>{Cooldown}秒<style=cStack>(每层-{CooldownReductionPerStack}%)</style></style>.",
     "ITEM_MYSTICSITEMS_DASHERDISC_LORE": "订单：锯盘\r\n订单号： 20******\r\n预计送达日期： 10\/22\/2089\r\n送货模式：高优先级/生化用品\r\n送货地址：木星， Giant Disc\r\n订单备注：\r\n\r\n发现这只圆盘在我们实验室四周游荡，不要在它面前快速移动。\r\n",
@@ -162,6 +212,11 @@
     "ITEM_MYSTICSITEMS_JUDGEMENTCUT_PICKUP": "每{CritInterval}次暴击，触发一次一连串的攻击。",
     "ITEM_MYSTICSITEMS_JUDGEMENTCUT_DESC": "增加<style=cIsDamage>{BaseCrit}%</style>暴击率。每暴击<style=cIsDamage>{CritInterval}</style>次， <style=cIsDamage>发动一连串的攻击</style>， 造成<style=cIsDamage>{DamagePerSlash}x{SlashCount}% <style=cStack>(每层+{DamagePerSlash}x{SlashCountPerStack}%)</style></style>的伤害，攻击半径为<style=cIsUtility>{Radius}米<style=cStack>(每层+{RadiusPerStack}米)</style></style>。",
 
+    "ITEM_MYSTICSITEMS_SHIELDUPGRADE_NAME": "快充模块",
+    "ITEM_MYSTICSITEMS_SHIELDUPGRADE_PICKUP": "获得一个快速充电的护盾，使你的护盾量翻倍，护盾回充的速度加快。",
+    "ITEM_MYSTICSITEMS_SHIELDUPGRADE_DESC": "获得一个等同于你最大生命值<style=cIsHealing>{PassiveShield}%</style>的<style=cIsHealing>护盾</style>。提升<style=cIsUtility>{ShieldBonus}% <style=cStack>(每层+{ShieldBonusPerStack}%)</style>的护盾量</style>。护盾回充以及其他所有的脱离战斗效果提前<style=cIsUtility>{RechargeBoost}% <style=cStack>(每层+{RechargeBoostPerStack}%)</style></style> 生效。",
+
+
     //[LUNAR ITEMS]
     "ITEM_MYSTICSITEMS_RIFTLENS_NAME": "裂隙透镜",
     "ITEM_MYSTICSITEMS_RIFTLENS_PICKUP": "每关包含三个免费的物品... <color=#FF7F7F>但若是不及时关闭就会死亡。</color>\n",
@@ -170,7 +225,7 @@
     "ITEM_MYSTICSITEMS_MOONGLASSES_NAME": "月亮眼镜", // [Wordplay on "sunglasses"]
     "ITEM_MYSTICSITEMS_MOONGLASSES_PICKUP": "增加暴击伤害... <color=#FF7F7F>但是会减少暴击率</color>\n。",
     "ITEM_MYSTICSITEMS_MOONGLASSES_DESC": "增加<style=cIsDamage>{CritDamageIncrease}% <style=cStack>(每层+{CritDamageIncreasePerStack}%)</style></style>暴击伤害， <style=cIsUtility>减半你的暴击率</style>。",
-    "ITEM_MYSTICSITEMS_MOONGLASSES_LORE": "<style=cMono>\r\n========================================\r\n====   MyBabel翻译机器   ====\r\n====     [Version 12.45.1.009 ]   ======\r\n========================================\r\n训练中� <100000000 次循环>\r\n训练中� <1453461 次循环>\r\n完成！\n显示结果？ Y/N\r\nY\r\n================================</style>\r\n我给 [尤拉]眼镜。 尤拉展望未来。\r\n\r\n<他>会给 [尤拉] 奖励。 [尤拉] 把眼镜拿走。 [尤拉] 感到兴奋，工作更努力。\r\n\r\n我放大了镜片的倍数。[尤拉] 展望更远的未来。\r\n\r\n[尤拉] 快速把眼镜拿走。 [尤拉] 不再兴奋。\r\n\r\n<他>走进房间。 [尤拉] 感到恐惧。\r\n\r\n我展望更远的未来。我快速把眼镜拿走。 <他> 在场。我感到恐惧。\r\n<style=cMono>\r\n================================\r\n",
+    "ITEM_MYSTICSITEMS_MOONGLASSES_LORE": "<style=cMono>\r\n========================================\r\n====   MyBabel翻译机器   ====\r\n====     [Version 12.45.1.009 ]   ======\r\n========================================\r\n训练中  <100000000 次循环>\r\n训练中  <1453461 次循环>\r\n完成！\n显示结果？ Y/N\r\nY\r\n================================</style>\r\n我给 [尤拉]眼镜。 尤拉展望未来。\r\n\r\n<他>会给 [尤拉] 奖励。 [尤拉] 把眼镜拿走。 [尤拉] 感到兴奋，工作更努力。\r\n\r\n我放大了镜片的倍数。[尤拉] 展望更远的未来。\r\n\r\n[尤拉] 快速把眼镜拿走。 [尤拉] 不再兴奋。\r\n\r\n<他>走进房间。 [尤拉] 感到恐惧。\r\n\r\n我展望更远的未来。我快速把眼镜拿走。 <他> 在场。我感到恐惧。\r\n<style=cMono>\r\n================================\r\n",
 
     "ITEM_MYSTICSITEMS_REGENANDDIFFICULTYSPEED_NAME": "时空谜题",
     "ITEM_MYSTICSITEMS_REGENANDDIFFICULTYSPEED_PICKUP": "增加所有友方的自然生命恢复速度... <color=#FF7F7F>但是游戏难度增加的更快</color>。\n",
@@ -205,6 +260,11 @@
     "EQUIPMENT_MYSTICSITEMS_OMARHACKTOOL_NAME": "奥马尔的爱", // [Omar Faruk's developer item]
     "EQUIPMENT_MYSTICSITEMS_OMARHACKTOOL_PICKUP": "破解一个箱子或者神龛，每关可使用一次。",
     "EQUIPMENT_MYSTICSITEMS_OMARHACKTOOL_DESC": "破解一个箱子或者神龛，使其花费变为<style=cIsUtility>$0</style>。每关可使用<style=cIsUtility>1</style>次， <style=cIsUtility>使用上限等同于装备的充能次数</style>。",
+    "EQUIPMENT_MYSTICSITEMS_OMARHACKTOOL_LORE": "<style=cMono>加密中...\r\n消息开始解读。</style>\r\n\r\n\"你好，儿子。\r\n\r\n你好吗？希望你那边一切都好。他们把你爸爸部署在TITAN上，看来我会离开得比想象中要更久。这就是我把包裹寄给你妈妈的原因。当我不在的时候，这个包裹对我们整个家庭来说都是非常重要的。唉，但是，你们弄丢了钥匙，问题是，这个包裹不只有一个简单的我可以寄给你们用来打开的密码，它…更复杂…这就是为什么你爸爸必须把我寄给你的工具组装起来。记得！这东西不能外传！这件事我不相信任何人，甚至是你妈妈。这个工具是一个编码器，它可以解锁一个神秘的锁。我不得不牺牲一些空间，所以打开一个盒子可能会耗尽整个电池。无论如何，你可以用这个打开我寄给你的包裹。\r\n\r\n爸爸爱你们，我会很快回来的，只要再过36天。\r\n告诉妈妈，我很想她。\"\r\n\r\n<style=cMono>消息解读结束。</style>",
+
+    "EQUIPMENT_MYSTICSITEMS_EQUIPMENTEATER_NAME": "反刍者",
+    "EQUIPMENT_MYSTICSITEMS_EQUIPMENTEATER_PICKUP": "对装备使用，将其分解为物品碎片。",
+    "EQUIPMENT_MYSTICSITEMS_EQUIPMENTEATER_DESC": "对装备使用，将其<style=cIsUtility>分解</style>为<style=cIsUtility>{Amount}</style>个物品碎片 ({WhiteChance}%/<style=cIsHealing>{GreenChance}%</style>/<style=cIsHealth>{RedChance}%</style>/<style=cShrine>{YellowChance}%</style>)。",
 
     //[LUNAR EQUIPMENT]
     "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_NAME": "比率均衡音叉",
@@ -223,7 +283,7 @@
     "EQUIPMENT_MYSTICSITEMS_FRAGILEMASK_LORE": "\"据传言，几千年前泰坦的古代术士在里姆村的考古发掘现场发现了一个石面具，里面充满了符文力量。这种面具在过去的各种故事中都有描述：传说他们帮助战士作战，这是勇敢的普罗克托故事中的一个关键人物，他寻求强大的力量来保护他的人民，但他犯了一个严重的错误，从禁忌的墓地中拿走了被诅咒的面具。\"\r\n\r\n- 于泰坦历史文化博物馆展出",
 
     //[ACHIEVEMENTS]
-    "ACHIEVEMENT_MYSTICSITEMS_ESCAPEMOONALONE_NAME": "最后生还", // [Reference to "The Last of Us"]
+    "ACHIEVEMENT_MYSTICSITEMS_ESCAPEMOONALONE_NAME": "最后生还者", // [Reference to "The Last of Us"]
     "ACHIEVEMENT_MYSTICSITEMS_ESCAPEMOONALONE_DESCRIPTION": "作为唯一幸存的友方，给予最终boss最后一击。",
 
     "ACHIEVEMENT_MYSTICSITEMS_REPAIRBROKENSPOTTER_NAME": "发现敌情", // [Reference to the "Enemy Spotted" voice command from Counter Strike]
@@ -243,6 +303,22 @@
 
     "ACHIEVEMENT_MYSTICSITEMS_REACHHIGHPOINT_NAME": "巅峰",
     "ACHIEVEMENT_MYSTICSITEMS_REACHHIGHPOINT_DESCRIPTION": "到达达尔塔集结点的最高处。",
+
+    "ACHIEVEMENT_MYSTICSITEMS_BLOCKDAMAGEWITHARMOR_NAME": "只是擦伤", // [Reference to the meme with the same name]
+    "ACHIEVEMENT_MYSTICSITEMS_BLOCKDAMAGEWITHARMOR_DESCRIPTION": "使用伤害减少效果，总共减少10000点伤害。",
+
+    "ACHIEVEMENT_MYSTICSITEMS_MANYALLIES_NAME": "粉丝成群！",
+    "ACHIEVEMENT_MYSTICSITEMS_MANYALLIES_DESCRIPTION": "获得10个非机械非玩家的友军。",
+
+    "ACHIEVEMENT_MYSTICSITEMS_HACKLEGENDARYCHEST_NAME": "雨中加勒比", // [Wordplay on "Caribbean" and "risk", as in "risk of rain"]
+    "ACHIEVEMENT_MYSTICSITEMS_HACKLEGENDARYCHEST_DESCRIPTION": "打开一个传奇宝箱，但是是零元购。",
+
+    "ACHIEVEMENT_MYSTICSITEMS_WOOLIERUSH_NAME": "跟上节奏",
+    "ACHIEVEMENT_MYSTICSITEMS_WOOLIERUSH_DESCRIPTION": "在每个关卡完成时间不到5分钟的前提下，达到最后一关。",
+
+    "ACHIEVEMENT_MYSTICSITEMS_FREEZELOCKENEMY_NAME": "冷静！", // [The phrase for "calm down"]
+    "ACHIEVEMENT_MYSTICSITEMS_FREEZELOCKENEMY_DESCRIPTION": "使一个敌人被冰冻7秒。",
+
 
     //[BODIES]
     "ARCHWISP_BODY_NAME": "远古幽魂",
@@ -322,11 +398,17 @@
     "BUFF_MYSTICSITEMS_MECHANICALARMCHARGE_NAME": "机械臂充能",
     "BUFF_MYSTICSITEMS_MECHANICALARMCHARGE_DESC": "增加下次机械臂挥动的伤害",
 
-    "BUFF_MYSTICSITEMS_RHYTHMCOMBO_NAME": "集中",
-    "BUFF_MYSTICSITEMS_RHYTHMCOMBO_DESC": "暴击率增加",
-
     "BUFF_MYSTICSITEMS_SPOTTERMARKED_NAME": "解析",
     "BUFF_MYSTICSITEMS_SPOTTERMARKED_DESC": "受到的所有攻击都会暴击",
+
+    "BUFF_MYSTICSITEMS_GACHAPONBONUS_NAME": "扭蛋力量",
+    "BUFF_MYSTICSITEMS_GACHAPONBONUS_DESC": "暴击率和攻速提升",
+
+    "BUFF_MYSTICSITEMS_NANOMACHINEARMOR_NAME": "纳米机械激活",
+    "BUFF_MYSTICSITEMS_NANOMACHINEARMOR_DESC": "护甲提升",
+
+    "BUFF_MYSTICSITEMS_BUFFINTPRANGE_NAME": "热舞节拍",
+    "BUFF_MYSTICSITEMS_BUFFINTPRANGE_DESC": "移动速度和护甲提升",
 
     //[ITEMSTATS]
     "ITEMSTATS_MYSTICSITEMS_POSTFIX_HEALTH": "HP",
