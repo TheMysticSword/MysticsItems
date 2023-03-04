@@ -60,7 +60,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> maxDamagePerStack = new ConfigurableValue<float>(
             "Item: Mystic Sword",
             "MaxDamagePerStack",
-            40f,
+            20f,
             "Maximum damage bonus for each additional stack of this item (in %)",
             new System.Collections.Generic.List<string>()
             {
