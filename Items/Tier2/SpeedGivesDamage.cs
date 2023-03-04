@@ -30,7 +30,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> damage = new ConfigurableValue<float>(
             "Item: Nuclear Accelerator",
             "Damage",
-            0.5f,
+            0.25f,
             "Damage increase for every 1% of speed increase (in %)",
             new System.Collections.Generic.List<string>()
             {
