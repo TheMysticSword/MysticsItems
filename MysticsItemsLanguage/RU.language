@@ -427,8 +427,10 @@
     "ITEMSTATS_MYSTICSITEMS_MOVESPEED": "Скорость передвижения",
     "ITEMSTATS_MYSTICSITEMS_PULSES": "Волны", // [Crystallized World's pulses]
     "ITEMSTATS_MYSTICSITEMS_RADIUS": "Радиус",
+    "ITEMSTATS_MYSTICSITEMS_REDUCTION": "Снижение",
     "ITEMSTATS_MYSTICSITEMS_REGEN": "Регенерация здоровья",
     "ITEMSTATS_MYSTICSITEMS_REMAINING": "Осталось", // [For bonuses that have limited uses]
+    "ITEMSTATS_MYSTICSITEMS_SHIELD": "Щит",
     "ITEMSTATS_MYSTICSITEMS_TIME": "Время",
     "ITEMSTATS_MYSTICSITEMS_UNSTABLERIFTS": "Нестабильных разломов на каждом этапе",
     "ITEMSTATS_MYSTICSITEMS_UPTO": "Вплоть до", // [For bonuses that increase something up to a certain value]

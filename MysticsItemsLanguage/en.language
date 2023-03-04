@@ -431,8 +431,10 @@
     "ITEMSTATS_MYSTICSITEMS_MOVESPEED": "Movement Speed",
     "ITEMSTATS_MYSTICSITEMS_PULSES": "Pulses", // [Crystallized World's pulses]
     "ITEMSTATS_MYSTICSITEMS_RADIUS": "Radius",
+    "ITEMSTATS_MYSTICSITEMS_REDUCTION": "Reduction",
     "ITEMSTATS_MYSTICSITEMS_REGEN": "Health Regeneration",
     "ITEMSTATS_MYSTICSITEMS_REMAINING": "Remaining", // [For bonuses that have limited uses]
+    "ITEMSTATS_MYSTICSITEMS_SHIELD": "Shield",
     "ITEMSTATS_MYSTICSITEMS_TIME": "Time",
     "ITEMSTATS_MYSTICSITEMS_UNSTABLERIFTS": "Unstable Rifts Each Level",
     "ITEMSTATS_MYSTICSITEMS_UPTO": "Up to", // [For bonuses that increase something up to a certain value]

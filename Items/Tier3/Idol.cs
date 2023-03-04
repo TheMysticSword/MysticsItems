@@ -380,12 +380,16 @@ namespace MysticsItems.Items
             }
         }
 
-        public static float CalculateIdolBonus(CharacterMaster master, int itemCount)
+        public static float CalculateIdolCap(int itemCount)
         {
             var x = Stage.instance.entryDifficultyCoefficient;
             var scaledCapMultiplier = x + Mathf.Min(Mathf.Pow(x / 6f, 2f), 40f);
-            var scaledCap = Mathf.Min((goldCap / (float)itemCount) * scaledCapMultiplier, float.MaxValue);
-            return Mathf.Clamp01(master.money / scaledCap);
+            return Mathf.Min((goldCap / (float)itemCount) * scaledCapMultiplier, float.MaxValue);
+        }
+
+        public static float CalculateIdolBonus(CharacterMaster master, int itemCount)
+        {
+            return Mathf.Clamp01(master.money / CalculateIdolCap(itemCount));
         }
     }
 }

@@ -226,6 +226,86 @@ namespace MysticsItems.SoftDependencies
                     1f,
                     statFormatter: MarwanAshRadius
                 );
+                // Ghost Apple
+                BetterUI.ItemStats.RegisterStat(
+                    MysticsItemsContent.Items.MysticsItems_GhostApple,
+                    "ITEMSTATS_MYSTICSITEMS_REGEN",
+                    Items.GhostApple.regen,
+                    Items.GhostApple.regen,
+                    statFormatter: BetterUI.ItemStats.StatFormatter.Regen
+                );
+                BetterUI.ItemStats.RegisterStat(
+                    MysticsItemsContent.Items.MysticsItems_GhostAppleWeak,
+                    "ITEMSTATS_MYSTICSITEMS_REGEN",
+                    Items.GhostAppleWeak.regenWeak,
+                    Items.GhostAppleWeak.regenWeak,
+                    statFormatter: BetterUI.ItemStats.StatFormatter.Regen
+                );
+                // Constant Flow
+                BetterUI.ItemStats.RegisterStat(
+                    MysticsItemsContent.Items.MysticsItems_Flow,
+                    "ITEMSTATS_MYSTICSITEMS_MOVESPEED",
+                    Items.Flow.moveSpeed / 100f,
+                    Items.Flow.moveSpeedPerStack / 100f,
+                    statFormatter: BetterUI.ItemStats.StatFormatter.Percent,
+                    itemTag: BetterUI.ItemStats.ItemTag.MovementSpeed
+                );
+                BetterUI.ItemStats.RegisterStat(
+                    MysticsItemsContent.Items.MysticsItems_Flow,
+                    "ITEMSTATS_MYSTICSITEMS_REDUCTION",
+                    -Items.Flow.slowReduction / 100f,
+                    -Items.Flow.slowReductionPerStack / 100f,
+                    statFormatter: BetterUI.ItemStats.StatFormatter.Percent
+                );
+                BetterUI.ItemStats.RegisterStat(
+                    MysticsItemsContent.Items.MysticsItems_Flow,
+                    "ITEMSTATS_MYSTICSITEMS_MOVESPEED",
+                    1f,
+                    1f,
+                    statFormatter: new BetterUI.ItemStats.StatFormatter()
+                    {
+                        suffix = "%",
+                        style = BetterUI.ItemStats.Styles.Health,
+                        statFormatter = (sb, value, master) =>
+                        {
+                            var currentRootSlow = -Items.Flow.initialRootSlow.Value;
+                            if (value > 1f)
+                            {
+                                currentRootSlow /= Items.Flow.rootSlowReductionPerStack * (value - 1f);
+                            }
+                            sb.AppendFormat("{0:0.##}", currentRootSlow);
+                        }
+                    }
+                );
+                // Gachapon Coin
+                BetterUI.ItemStats.RegisterStat(
+                    MysticsItemsContent.Items.MysticsItems_GachaponToken,
+                    "ITEMSTATS_MYSTICSITEMS_CRIT",
+                    Buffs.GachaponBonus.critBonus / 100f,
+                    Buffs.GachaponBonus.critBonusPerStack / 100f,
+                    statFormatter: BetterUI.ItemStats.StatFormatter.Percent
+                );
+                BetterUI.ItemStats.RegisterStat(
+                    MysticsItemsContent.Items.MysticsItems_GachaponToken,
+                    "ITEMSTATS_MYSTICSITEMS_ATTACKSPEED",
+                    Buffs.GachaponBonus.attackSpeedBonus / 100f,
+                    Buffs.GachaponBonus.attackSpeedBonusPerStack / 100f,
+                    statFormatter: BetterUI.ItemStats.StatFormatter.Percent
+                );
+                BetterUI.ItemStats.RegisterStat(
+                    MysticsItemsContent.Items.MysticsItems_GachaponToken,
+                    "ITEMSTATS_MYSTICSITEMS_CRIT",
+                    Items.GachaponToken.passiveCritBonus / 100f,
+                    Items.GachaponToken.passiveCritBonusPerStack / 100f,
+                    statFormatter: BetterUI.ItemStats.StatFormatter.Percent
+                );
+                BetterUI.ItemStats.RegisterStat(
+                    MysticsItemsContent.Items.MysticsItems_GachaponToken,
+                    "ITEMSTATS_MYSTICSITEMS_ATTACKSPEED",
+                    Items.GachaponToken.passiveAttackSpeedBonus / 100f,
+                    Items.GachaponToken.passiveAttackSpeedBonusPerStack / 100f,
+                    statFormatter: BetterUI.ItemStats.StatFormatter.Percent
+                );
 
                 // Tier 2
                 // Vendetta
@@ -329,13 +409,6 @@ namespace MysticsItems.SoftDependencies
                     Items.SpeedGivesDamage.damagePerStack / 100f,
                     statFormatter: BetterUI.ItemStats.StatFormatter.Percent
                 );
-                BetterUI.ItemStats.RegisterStat(
-                    MysticsItemsContent.Items.MysticsItems_SpeedGivesDamage,
-                    "ITEMSTATS_MYSTICSITEMS_DAMAGE",
-                    1f,
-                    1f,
-                    statFormatter: SpeedGivesDamageBonusFormat
-                );
                 BetterUI.ItemStats.RegisterModifier(
                     BetterUI.ItemStats.ItemTag.Damage,
                     MysticsItemsContent.Items.MysticsItems_SpeedGivesDamage,
@@ -367,7 +440,16 @@ namespace MysticsItems.SoftDependencies
                     "ITEMSTATS_MYSTICSITEMS_DAMAGE",
                     Items.DroneWires.damage / 100f,
                     Items.DroneWires.damagePerStack / 100f,
-                    statFormatter: BetterUI.ItemStats.StatFormatter.Percent
+                    statFormatter: BetterUI.ItemStats.StatFormatter.Percent,
+                    itemTag: BetterUI.ItemStats.ItemTag.Damage
+                );
+                BetterUI.ItemStats.RegisterStat(
+                    MysticsItemsContent.Items.MysticsItems_DroneWires,
+                    "ITEMSTATS_MYSTICSITEMS_DAMAGE",
+                    Items.DroneWires.playerDamage / 100f,
+                    Items.DroneWires.playerDamagePerStack / 100f,
+                    statFormatter: BetterUI.ItemStats.StatFormatter.Percent,
+                    itemTag: BetterUI.ItemStats.ItemTag.Damage
                 );
                 // Ceremony of Perdition
                 BetterUI.ItemStats.RegisterStat(
@@ -376,8 +458,64 @@ namespace MysticsItems.SoftDependencies
                     Items.DeathCeremony.damage / 100f,
                     Items.DeathCeremony.damagePerStack / 100f,
                     stackingFormula: BetterUI.ItemStats.HyperbolicStacking,
+                    statFormatter: BetterUI.ItemStats.StatFormatter.Percent
+                );
+                // Purrfect Headphones
+                BetterUI.ItemStats.RegisterStat(
+                    MysticsItemsContent.Items.MysticsItems_BuffInTPRange,
+                    "ITEMSTATS_MYSTICSITEMS_MOVESPEED",
+                    Buffs.BuffInTPRange.moveSpeed / 100f,
+                    Buffs.BuffInTPRange.moveSpeedPerStack / 100f,
+                    statFormatter: BetterUI.ItemStats.StatFormatter.Percent,
+                    itemTag: BetterUI.ItemStats.ItemTag.MovementSpeed
+                );
+                BetterUI.ItemStats.RegisterStat(
+                    MysticsItemsContent.Items.MysticsItems_BuffInTPRange,
+                    "ITEMSTATS_MYSTICSITEMS_ARMOR",
+                    Buffs.BuffInTPRange.armor,
+                    Buffs.BuffInTPRange.armorPerStack,
+                    statFormatter: BetterUI.ItemStats.StatFormatter.Armor
+                );
+                // Inoperative Nanomachines
+                BetterUI.ItemStats.RegisterStat(
+                    MysticsItemsContent.Items.MysticsItems_BuffInTPRange,
+                    "ITEMSTATS_MYSTICSITEMS_ARMOR",
+                    Buffs.NanomachineArmor.armor,
+                    Buffs.NanomachineArmor.armorPerStack,
+                    statFormatter: BetterUI.ItemStats.StatFormatter.Percent
+                );
+                // Snow Ring
+                BetterUI.ItemStats.RegisterStat(
+                    MysticsItemsContent.Items.MysticsItems_BuffInTPRange,
+                    "ITEMSTATS_MYSTICSITEMS_RADIUS",
+                    Items.SnowRing.radius,
+                    Items.SnowRing.radiusPerStack,
+                    statFormatter: BetterUI.ItemStats.StatFormatter.Range
+                );
+                // Stargazer's Records
+                BetterUI.ItemStats.RegisterStat(
+                    MysticsItemsContent.Items.MysticsItems_StarBook,
+                    "ITEMSTATS_MYSTICSITEMS_CHANCE",
+                    Items.StarBook.chance,
+                    0f,
+                    statFormatter: BetterUI.ItemStats.StatFormatter.Chance,
+                    itemTag: BetterUI.ItemStats.ItemTag.Luck
+                );
+                BetterUI.ItemStats.RegisterStat(
+                    MysticsItemsContent.Items.MysticsItems_StarBook,
+                    "ITEMSTATS_MYSTICSITEMS_DAMAGE",
+                    Items.StarBook.damage,
+                    Items.StarBook.damagePerStack,
                     statFormatter: BetterUI.ItemStats.StatFormatter.Percent,
                     itemTag: BetterUI.ItemStats.ItemTag.Damage
+                );
+                // Time Dilator
+                BetterUI.ItemStats.RegisterStat(
+                    MysticsItemsContent.Items.MysticsItems_TimePiece,
+                    "ITEMSTATS_MYSTICSITEMS_MOVESPEED",
+                    Buffs.TimePieceSlow.slow / 100f,
+                    Buffs.TimePieceSlow.slowPerStack / 100f,
+                    statFormatter: BetterUI.ItemStats.StatFormatter.Percent
                 );
 
                 // Tier 3
@@ -458,6 +596,23 @@ namespace MysticsItems.SoftDependencies
                     Items.JudgementCut.radiusPerStack,
                     statFormatter: BetterUI.ItemStats.StatFormatter.Range
                 );
+                // Ten Commandments of Vyrael
+
+                // Charger Upgrade Module
+                BetterUI.ItemStats.RegisterStat(
+                    MysticsItemsContent.Items.MysticsItems_ShieldUpgrade,
+                    "ITEMSTATS_MYSTICSITEMS_SHIELD",
+                    Items.ShieldUpgrade.shieldBonus / 100f,
+                    Items.ShieldUpgrade.shieldBonusPerStack / 100f,
+                    statFormatter: BetterUI.ItemStats.StatFormatter.Percent
+                );
+                BetterUI.ItemStats.RegisterStat(
+                    MysticsItemsContent.Items.MysticsItems_ShieldUpgrade,
+                    "ITEMSTATS_MYSTICSITEMS_REDUCTION",
+                    Items.ShieldUpgrade.rechargeBoost / 100f,
+                    Items.ShieldUpgrade.rechargeBoostPerStack / 100f,
+                    statFormatter: BetterUI.ItemStats.StatFormatter.Percent
+                );
             }
 
             // stacking formulas
@@ -471,7 +626,7 @@ namespace MysticsItems.SoftDependencies
             }
             public static float SuperIdolGoldForMaxBuff(float value, float extraStackValue, int stacks)
             {
-                return (int)(400f / stacks * Stage.instance.entryDifficultyCoefficient);
+                return Items.Idol.CalculateIdolCap(stacks);
             }
             public static float TreasureMapChargeTime(float value, float extraStackValue, int stacks)
             {
