@@ -121,8 +121,8 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> stackLevelMultiplier = new ConfigurableValue<float>(
             "Item: Marwan s Ash/Light/Weapon",
             "StackLevelMultiplier",
-            10f,
-            "Stacking this item increases the per-level scaling of this item's effects by this amount (in %)",
+            25f,
+            "Stacking this item increases the per-level scaling of this item's effects by this amount (in %, hyperbolic)",
             new System.Collections.Generic.List<string>()
             {
                 "ITEM_MYSTICSITEMS_MARWANASH1_DESC",
@@ -215,7 +215,7 @@ namespace MysticsItems.Items
 
                     if (!isAshDamage && itemCount > 0 && victimInfo.healthComponent && attackerInfo.gameObject && damageInfo.procCoefficient > 0f)
                     {
-                        var _damage = damage + damagePerLevel * (attackerInfo.body.level - 1f) * (1f + stackLevelMultiplier / 100f * (float)(itemCount - 1));
+                        var _damage = damage + damagePerLevel * (attackerInfo.body.level - 1f) * ashHelper.levelStackCoefficient;
                         if (attackerInfo.teamIndex != TeamIndex.Player) _damage = Mathf.Min(_damage, enemyExtraDamageCap);
                         var _crit = attackerInfo.body.RollCrit();
                         if (itemLevel < 3)
@@ -235,7 +235,7 @@ namespace MysticsItems.Items
                         }
                         else
                         {
-                            var _radius = radius + radiusPerLevel * (attackerInfo.body.level - (float)upgradeLevel23) * (1f + stackLevelMultiplier / 100f * (float)(itemCount - 1));
+                            var _radius = radius + radiusPerLevel * (attackerInfo.body.level - (float)upgradeLevel23) * ashHelper.levelStackCoefficient;
                             if (attackerInfo.teamIndex != TeamIndex.Player) _radius = Mathf.Min(_radius, enemySpreadRadiusCap);
                             var blastAttack = new BlastAttack
                             {
@@ -338,6 +338,7 @@ namespace MysticsItems.Items
             public bool dirty = false;
             public int itemLevel = 1;
             public int itemCount = 0;
+            public float levelStackCoefficient = 0f;
 
             public float burnHPFractionDamage = 0f;
 
@@ -410,11 +411,13 @@ namespace MysticsItems.Items
                         itemCount1 = 0;
                         itemCount2 = 0;
                     }
+
                     itemCount = itemCount1 + itemCount2 + itemCount3;
+                    levelStackCoefficient = 1f + Util.ConvertAmplificationPercentageIntoReductionPercentage(stackLevelMultiplier * (float)(itemCount - 1)) / 100f;
 
                     if (itemLevel >= 2)
                     {
-                        burnHPFractionDamage = (dotPercent + dotPercentPerLevel * (body.level - (float)upgradeLevel12) * (1f + stackLevelMultiplier / 100f * (float)(itemCount - 1))) / 100f;
+                        burnHPFractionDamage = (dotPercent + dotPercentPerLevel * (body.level - (float)upgradeLevel12) * levelStackCoefficient) / 100f;
                         if (body.teamComponent && body.teamComponent.teamIndex != TeamIndex.Player)
                             burnHPFractionDamage = Mathf.Min(burnHPFractionDamage, enemyBurnDamageCap);
                     }
