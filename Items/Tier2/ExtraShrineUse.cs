@@ -58,6 +58,12 @@ namespace MysticsItems.Items
             MysticsItemsExtraShrineUseBehaviour.displayPrefab = PrefabAPI.InstantiateClone(itemDef.pickupModelPrefab, "MysticsItems_MysteriousMonolithDisplay", false);
             MysticsItemsExtraShrineUseBehaviour.displayPrefab.transform.localScale *= 0.1f;
 
+            On.RoR2.Run.Start += (orig, self) =>
+            {
+                orig(self);
+                cachedItemCount = -1;
+            };
+
             On.RoR2.CharacterBody.OnInventoryChanged += (orig, self) =>
             {
                 orig(self);
@@ -85,7 +91,7 @@ namespace MysticsItems.Items
             };
         }
 
-        public static int cachedItemCount = 0;
+        public static int cachedItemCount = -1;
         public static void UpdateAllShrines()
         {
             int itemCount = Util.GetItemCountForTeam(TeamIndex.Player, MysticsItemsContent.Items.MysticsItems_ExtraShrineUse.itemIndex, true);
@@ -119,9 +125,9 @@ namespace MysticsItems.Items
         public static void UpdateShrine(MysticsItemsExtraShrineUseBehaviour self)
         {
             int itemCount = Util.GetItemCountForTeam(TeamIndex.Player, MysticsItemsContent.Items.MysticsItems_ExtraShrineUse.itemIndex, true);
-            if (itemCount != cachedItemCount)
+            if (itemCount != self.cachedItemCount)
             {
-                cachedItemCount = itemCount;
+                self.cachedItemCount = itemCount;
                 UpdateShrine(self, itemCount);
             }
         }
@@ -131,6 +137,7 @@ namespace MysticsItems.Items
             public int increasedPurchaseCount = 0;
             public GameObject display;
             public static GameObject displayPrefab;
+            public int cachedItemCount = -1;
 
             public void Start()
             {
