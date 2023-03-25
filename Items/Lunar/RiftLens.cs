@@ -292,21 +292,6 @@ namespace MysticsItems.Items
                 MysticsItemsRiftChest.boltPrefabs.Add(Addressables.LoadAssetAsync<GameObject>("RoR2/Base/LunarSkillReplacements/LunarNeedleProjectile.prefab").WaitForCompletion());
                 MysticsItemsRiftChest.boltPrefabs.Add(Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Toolbot/ToolbotGrenadeLauncherProjectile.prefab").WaitForCompletion());
             };
-
-            On.RoR2.Projectile.ProjectileManager.InitializeProjectile += ProjectileManager_InitializeProjectile;
-        }
-
-        private void ProjectileManager_InitializeProjectile(On.RoR2.Projectile.ProjectileManager.orig_InitializeProjectile orig, ProjectileController projectileController, FireProjectileInfo fireProjectileInfo)
-        {
-            orig(projectileController, fireProjectileInfo);
-            if (fireProjectileInfo.owner && fireProjectileInfo.owner.GetComponent<MysticsItemsRiftChest>())
-            {
-                var teamFilter = projectileController.GetComponent<TeamFilter>();
-                if (teamFilter)
-                {
-                    teamFilter.teamIndex = TeamIndex.Monster;
-                }
-            }
         }
 
         public static string[] riftDeathQuoteTokens = (from i in Enumerable.Range(0, 5) select "PLAYER_DEATH_QUOTE_MYSTICSITEMS_RIFTLENS_" + TextSerialization.ToStringInvariant(i)).ToArray();
@@ -716,26 +701,25 @@ namespace MysticsItems.Items
             public float wallAngleDelta = 30f;
             public int wallCount = 3;
             public float wallDistance = 4f;
-            public float wallBaseDamage = 16f;
+            public float wallBaseDamage = 1.3f;
 
             public static GameObject wallPrefab;
 
             public float boltTimer = 0f;
             public float boltInterval = 0.1f;
             public Quaternion boltRotation = Quaternion.identity;
-            public float boltAngleDelta = 20f;
             public int boltCount = 6;
             public int boltCurrentCycleCount = 0;
-            public float boltDistance = 4f;
-            public float boltBaseDamage = 30f;
+            public float boltDistance = 5.5f;
+            public float boltBaseDamage = 1.5f;
             public int boltUpCount = 3;
             public float boltUpAngle = 70f;
-            public GameObject boltPrefab;
-            public float boltPrefabChangeTimer = 0f;
-            public float boltPrefabChangeInterval = 0.999f;
             public float boltSpeedOverride = 24f;
 
             public static List<GameObject> boltPrefabs = new List<GameObject>();
+
+            public CharacterMaster riftShooterMaster;
+            public CharacterBody riftShooterBody;
 
             public void Awake()
             {
@@ -754,6 +738,28 @@ namespace MysticsItems.Items
                 UpdateLock();
             }
 
+            public void Start()
+            {
+                if (NetworkServer.active)
+                {
+                    var directorSpawnRequest = new DirectorSpawnRequest(CharacterMasters.UnstableRiftShooter.characterSpawnCard, new DirectorPlacementRule
+                    {
+                        placementMode = DirectorPlacementRule.PlacementMode.Direct,
+                        position = new Vector3(-9999f, -9999f, -9999f)
+                    }, RoR2Application.rng);
+                    directorSpawnRequest.teamIndexOverride = TeamIndex.Monster;
+                    directorSpawnRequest.ignoreTeamMemberLimit = true;
+                    directorSpawnRequest.onSpawnedServer += (spawnResult) =>
+                    {
+                        if (spawnResult.success && spawnResult.spawnedInstance)
+                        {
+                            riftShooterMaster = spawnResult.spawnedInstance.GetComponent<CharacterMaster>();
+                        }
+                    };
+                    DirectorCore.instance.TrySpawnObject(directorSpawnRequest);
+                }
+            }
+
             public void FixedUpdate()
             {
                 lockUpdateTimer += Time.fixedDeltaTime;
@@ -763,53 +769,52 @@ namespace MysticsItems.Items
                     UpdateLock();
                 }
 
-                if (NetworkServer.active && purchaseInteraction.available)
+                if (NetworkServer.active && purchaseInteraction.available && riftShooterMaster)
                 {
-                    wallTimer -= Time.fixedDeltaTime;
-                    if (wallTimer <= 0f)
+                    if (riftShooterBody == null)
                     {
-                        wallTimer += wallInterval;
-                        var currentWallRotation = wallRotation;
-                        var angleDelta = 360f / wallCount;
-                        for (var i = 0; i < wallCount; i++)
+                        riftShooterBody = riftShooterMaster.GetBody();
+                    }
+
+                    if (riftShooterBody != null)
+                    {
+                        wallTimer -= Time.fixedDeltaTime;
+                        if (wallTimer <= 0f)
                         {
-                            ProjectileManager.instance.FireProjectile(
-                                wallPrefab,
-                                transform.position + currentWallRotation * Vector3.forward * wallDistance,
-                                Util.QuaternionSafeLookRotation(Vector3.up),
-                                gameObject,
-                                wallBaseDamage * (1f + 0.2f * (Run.instance.ambientLevel - 1f)),
-                                0f,
-                                false
-                            );
-                            currentWallRotation *= Quaternion.AngleAxis(angleDelta, Vector3.up);
+                            wallTimer += wallInterval;
+                            var currentWallRotation = wallRotation;
+                            var angleDelta = 360f / wallCount;
+                            for (var i = 0; i < wallCount; i++)
+                            {
+                                ProjectileManager.instance.FireProjectile(
+                                    wallPrefab,
+                                    transform.position + currentWallRotation * Vector3.forward * wallDistance,
+                                    Util.QuaternionSafeLookRotation(Vector3.up),
+                                    riftShooterBody.gameObject,
+                                    riftShooterBody.damage * wallBaseDamage,
+                                    0f,
+                                    false
+                                );
+                                currentWallRotation *= Quaternion.AngleAxis(angleDelta, Vector3.up);
+                            }
+                            wallRotation *= Quaternion.AngleAxis(wallAngleDelta, Vector3.up);
                         }
-                        wallRotation *= Quaternion.AngleAxis(wallAngleDelta, Vector3.up);
-                    }
 
-                    boltPrefabChangeTimer -= Time.fixedDeltaTime;
-                    if (boltPrefabChangeTimer <= 0f)
-                    {
-                        boltPrefabChangeTimer += boltPrefabChangeInterval;
-                        boltPrefab = RoR2Application.rng.NextElementUniform(boltPrefabs);
-                    }
-
-                    boltTimer -= Time.fixedDeltaTime;
-                    if (boltTimer <= 0f)
-                    {
-                        boltTimer += boltInterval;
-                        if (boltPrefab)
+                        boltTimer -= Time.fixedDeltaTime;
+                        if (boltTimer <= 0f)
                         {
+                            boltTimer += boltInterval;
+
                             var currentRotation = boltRotation;
                             var upAngleDelta = boltUpAngle / (float)boltUpCount;
                             for (var i = 0; i < boltUpCount; i++)
                             {
                                 ProjectileManager.instance.FireProjectile(
-                                    boltPrefab,
+                                    RoR2Application.rng.NextElementUniform(boltPrefabs),
                                     transform.position + Vector3.up + currentRotation * Vector3.forward * boltDistance,
                                     currentRotation,
-                                    gameObject,
-                                    boltBaseDamage * (1f + 0.2f * (Run.instance.ambientLevel - 1f)),
+                                    riftShooterBody.gameObject,
+                                    riftShooterBody.damage * boltBaseDamage,
                                     0f,
                                     false,
                                     DamageColorIndex.Default,
@@ -825,7 +830,7 @@ namespace MysticsItems.Items
                             if (boltCurrentCycleCount >= boltCount)
                             {
                                 boltCurrentCycleCount = 0;
-                                boltRotation *= Quaternion.AngleAxis(boltAngleDelta, Vector3.up);
+                                boltRotation *= Quaternion.AngleAxis(RoR2Application.rng.nextNormalizedFloat * 360f, Vector3.up);
                             }
                         }
                     }
