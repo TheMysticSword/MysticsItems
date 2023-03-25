@@ -109,7 +109,7 @@
 
     "ITEM_MYSTICSITEMS_MYSTICSWORD_NAME": "Mystic Sword", // [TheMysticSword's developer item]
     "ITEM_MYSTICSITEMS_MYSTICSWORD_PICKUP": "Tuer des ennemis forts augmente les dégâts de façon permanente.",
-    "ITEM_MYSTICSITEMS_MYSTICSWORD_DESC": "Augmente les dégats de <style=cIsDamage>{Damage}% <style=cStack>(+{DamagePerStack}% par cumul)</style></style> pour chaque ennemi tué avec plus de <style=cIsHealth>{HealthThreshold} vie de base <style=cIsUtility>(avec ou sans multiplicateurs de santé d’élite)</style></style>.",
+    "ITEM_MYSTICSITEMS_MYSTICSWORD_DESC": "Augmente les dégats de <style=cIsDamage>{Damage}%</style> pour chaque ennemi tué avec plus de <style=cIsHealth>{HealthThreshold} vie de base <style=cIsUtility>(avec ou sans multiplicateurs de santé d’élite)</style></style>.",
     "ITEM_MYSTICSITEMS_MYSTICSWORD_LORE": "\"Pommeau orné - pour le style.\r\n\r\nPoignée antidérapante - pour le contrôle.\r\n\r\nGarde angulaire épaisse - pour la puissance.\r\n\r\nLames à un seul tranchant - pour la concentration.\r\n\r\nDeux lames - pour, euh...\"\r\n\r\n\"Ouais, Ouais, j’ai compris, vous aimez votre nouvelle épée à hélices...\"",
 
     "ITEM_MYSTICSITEMS_RHYTHM_NAME": "Métronome",
@@ -271,9 +271,6 @@
 
     "ACHIEVEMENT_MYSTICSITEMS_REPAIRBROKENSPOTTER_NAME": "Ennemi Détecté", // [Reference to the "Enemy Spotted" voice command from Counter Strike]
     "ACHIEVEMENT_MYSTICSITEMS_REPAIRBROKENSPOTTER_DESCRIPTION": "Amenez le réservoire d'essence de la capsule de sauvetage dans une jungle humide et réparez le drone observateur.",
-
-    "ACHIEVEMENT_MYSTICSITEMS_DISCDEATH_NAME": "Sincères condoléances.", // [Reference to the "Sincere Apologies." achievement from Nuclear Throne]
-    "ACHIEVEMENT_MYSTICSITEMS_DISCDEATH_DESCRIPTION": "Donner une scie boomerang à un drone d’équipement avec l’Artefact du Chaos activé, et...?",
 
     "ACHIEVEMENT_MYSTICSITEMS_FINDARCHAICMASK_NAME": "Brûler pour tuer", // [Wordplay on "born to kill" and "burn"]
     "ACHIEVEMENT_MYSTICSITEMS_FINDARCHAICMASK_DESCRIPTION": "Prenez le masque légendaire sur les étendues brûlées en moins de 10 minutes avant qu’il refroidisse.",

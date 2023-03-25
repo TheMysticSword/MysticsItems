@@ -93,7 +93,7 @@
 
     "ITEM_MYSTICSITEMS_MYSTICSWORD_NAME": "Espada Mística", // [TheMysticSword's developer item]
     "ITEM_MYSTICSITEMS_MYSTICSWORD_PICKUP": "Matar inimigos fortes aumenta permanentemente o dano.",
-    "ITEM_MYSTICSITEMS_MYSTICSWORD_DESC": "Aumente o dano em <style=cIsDamage>{Damage}% <style=cStack>(+{DamagePerStack}% por acúmulo)</style></style> para cada abate de um inimigo com mais de <style=cIsHealth>{HealthThreshold} de saúde máxima <style=cIsUtility>(com ou sem multiplicadores de saúde de elite)</style></style> até <style=cIsDamage>{MaxDamage}% <style=cStack>(+{MaxDamagePerStack}% por acúmulo)</style></style>.",
+    "ITEM_MYSTICSITEMS_MYSTICSWORD_DESC": "Aumente o dano em <style=cIsDamage>{Damage}%</style> para cada abate de um inimigo com mais de <style=cIsHealth>{HealthThreshold} de saúde máxima <style=cIsUtility>(com ou sem multiplicadores de saúde de elite)</style></style> até <style=cIsDamage>{MaxDamage}% <style=cStack>(+{MaxDamagePerStack}% por acúmulo)</style></style>.",
     "ITEM_MYSTICSITEMS_MYSTICSWORD_LORE": "\"Pomo ornamentado - para o estilo.\r\n\r\nAperto canelado - para controle.\r\n\r\nGuarda angular grossa - para poder.\r\n\r\nLâminas de um único gume - para concentração.\r\n\r\nDuas lâminas - para, uhh...\"\r\n\r\n\"Ok, ok, entendi, tu *realmente* gostas da tua nova espada de ensaio.\"",
 
     "ITEM_MYSTICSITEMS_RHYTHM_NAME": "Metrônomo",
@@ -225,9 +225,6 @@
 
     "ACHIEVEMENT_MYSTICSITEMS_REPAIRBROKENSPOTTER_NAME": "Inimígo avistado", // [Reference to the "Enemy Spotted" voice command from Counter Strike]
     "ACHIEVEMENT_MYSTICSITEMS_REPAIRBROKENSPOTTER_DESCRIPTION": "Leve a Matriz de Combustível da Cápsula de Fuga para uma selva úmida e repare o Drone Observador Quebrado.",
-
-    "ACHIEVEMENT_MYSTICSITEMS_DISCDEATH_NAME": "Minhas Sinceras Desculpas.", // [Reference to the "Sincere Apologies." achievement from Nuclear Throne]
-    "ACHIEVEMENT_MYSTICSITEMS_DISCDEATH_DESCRIPTION": "Dê um Serramerangue a um Drone de Equipamento com o Artefato do Caos ativado e...?",
 
     "ACHIEVEMENT_MYSTICSITEMS_FINDARCHAICMASK_NAME": "Queime para Matar", // [Wordplay on "born to kill" and "burn"]
     "ACHIEVEMENT_MYSTICSITEMS_FINDARCHAICMASK_DESCRIPTION": "Pegue a Mascára Lendária em Acres Queimados em menos de 10 minutos antes de esfriar.",

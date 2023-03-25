@@ -115,7 +115,7 @@
 
     "ITEM_MYSTICSITEMS_MYSTICSWORD_NAME": "神秘剑", // [TheMysticSword's developer item]
     "ITEM_MYSTICSITEMS_MYSTICSWORD_PICKUP": "击败强大的敌人会永久提升伤害。",
-    "ITEM_MYSTICSITEMS_MYSTICSWORD_DESC": "每次击败超过<style=cIsHealth>{HealthThreshold}点基础生命值<style=cIsUtility>(忽略精英敌人的生命值加成，图鉴中可查看)</style></style>的敌人时，永久增加<style=cIsDamage>{Damage}% <style=cStack>(每层+{DamagePerStack}%)</style></style>伤害，最多增加<style=cIsDamage>{MaxDamage}% <style=cStack>(每层+{MaxDamagePerStack}%)</style></style>。",
+    "ITEM_MYSTICSITEMS_MYSTICSWORD_DESC": "每次击败超过<style=cIsHealth>{HealthThreshold}点基础生命值<style=cIsUtility>(忽略精英敌人的生命值加成，图鉴中可查看)</style></style>的敌人时，永久增加<style=cIsDamage>{Damage}%</style>伤害，最多增加<style=cIsDamage>{MaxDamage}% <style=cStack>(每层+{MaxDamagePerStack}%)</style></style>。",
     "ITEM_MYSTICSITEMS_MYSTICSWORD_LORE": "\"华丽的剑柄 - 为了时尚。\r\n\r\n剑槽 - 更容易控制。\r\n\r\n厚重的护角 - 更有力量感。\r\n\r\n单片的刀刃 - 力量更集中。\r\n\r\n双刃刀尖 - 为了，呃...\"\r\n\r\n\"好吧好吧，我明白了，你 *真的* 很喜欢你的道具剑。\"",
 
     "ITEM_MYSTICSITEMS_RHYTHM_NAME": "节拍器",
@@ -288,9 +288,6 @@
 
     "ACHIEVEMENT_MYSTICSITEMS_REPAIRBROKENSPOTTER_NAME": "发现敌情", // [Reference to the "Enemy Spotted" voice command from Counter Strike]
     "ACHIEVEMENT_MYSTICSITEMS_REPAIRBROKENSPOTTER_DESCRIPTION": "把逃生舱的燃料电池带到破碎林地，修理坏掉的侦察机。",
-
-    "ACHIEVEMENT_MYSTICSITEMS_DISCDEATH_NAME": "诚挚的道歉", // [Reference to the "Sincere Apologies." achievement from Nuclear Throne]
-    "ACHIEVEMENT_MYSTICSITEMS_DISCDEATH_DESCRIPTION": "启用混沌神器时给一个装备无人机装备回旋锯，然后...？",
 
     "ACHIEVEMENT_MYSTICSITEMS_FINDARCHAICMASK_NAME": "在杀戮中燃烧", // [Wordplay on "born to kill" and "burn"]
     "ACHIEVEMENT_MYSTICSITEMS_FINDARCHAICMASK_DESCRIPTION": "10分钟内在枯萎之地找到传奇面具。",

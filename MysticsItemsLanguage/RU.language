@@ -114,7 +114,7 @@
 
     "ITEM_MYSTICSITEMS_MYSTICSWORD_NAME": "Мистический меч", // [TheMysticSword's developer item]
     "ITEM_MYSTICSITEMS_MYSTICSWORD_PICKUP": "Убийство сильных врагов навсегда увеличивает урон.",
-    "ITEM_MYSTICSITEMS_MYSTICSWORD_DESC": "Увеличивает урон на <style=cIsDamage>{Damage}% <style=cStack>(+{DamagePerStack}% за шт.)</style></style> за каждое убийство врага, у которого более <style=cIsHealth>{HealthThreshold} базового здоровья <style=cIsUtility>(вместе с множителями здоровья элитных врагов или без)</style></style> вплоть до <style=cIsDamage>{MaxDamage}% <style=cStack>(+{MaxDamagePerStack}% за шт.)</style></style>.",
+    "ITEM_MYSTICSITEMS_MYSTICSWORD_DESC": "Увеличивает урон на <style=cIsDamage>{Damage}%</style> за каждое убийство врага, у которого более <style=cIsHealth>{HealthThreshold} базового здоровья <style=cIsUtility>(вместе с множителями здоровья элитных врагов или без)</style></style> вплоть до <style=cIsDamage>{MaxDamage}% <style=cStack>(+{MaxDamagePerStack}% за шт.)</style></style>.",
     "ITEM_MYSTICSITEMS_MYSTICSWORD_LORE": "\"Украшеннное навершие - для стиля.\r\n\r\nРифлёная рукоять - для контроля.\r\n\r\nПлотная угловатая гарда - для силы.\r\n\r\nОдносторонне заточенные лезвия - для концентрации.\r\n\r\nДва лезвия - для, э-э...\"\r\n\r\n\"Ладно, ладно, перестань, все уже поняли, тебе *очень* нравится твой новый реквизитный меч.\"",
 
     "ITEM_MYSTICSITEMS_RHYTHM_NAME": "Метроном",
@@ -278,9 +278,6 @@
 
     "ACHIEVEMENT_MYSTICSITEMS_REPAIRBROKENSPOTTER_NAME": "Противник обнаружен", // [Reference to the "Enemy Spotted" voice command from Counter Strike]
     "ACHIEVEMENT_MYSTICSITEMS_REPAIRBROKENSPOTTER_DESCRIPTION": "Принесите топливный элемент спасательной капуслы в сырую корнистую пещеру и почините Повреждённый дрон-корректировщик.",
-
-    "ACHIEVEMENT_MYSTICSITEMS_DISCDEATH_NAME": "Искренние извинения.", // [Reference to the "Sincere Apologies." achievement from Nuclear Throne]
-    "ACHIEVEMENT_MYSTICSITEMS_DISCDEATH_DESCRIPTION": "Дайте Пилоранг Инженерному дрону, предварительно включив Артефакт хаоса, и...?",
 
     "ACHIEVEMENT_MYSTICSITEMS_FINDARCHAICMASK_NAME": "Сожжённые убивать", // [Wordplay on "born to kill" and "burn"]
     "ACHIEVEMENT_MYSTICSITEMS_FINDARCHAICMASK_DESCRIPTION": "Возьмите Легендарную маску на Выжженных акрах за 10 минут до того, как она остынет.",

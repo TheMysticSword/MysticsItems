@@ -95,7 +95,7 @@
 
     "ITEM_MYSTICSITEMS_MYSTICSWORD_NAME": "Mystic Sword", // [TheMysticSword's developer item]
     "ITEM_MYSTICSITEMS_MYSTICSWORD_PICKUP": "Matar enemigos fuertes incrementa permanentemente el daño.",
-    "ITEM_MYSTICSITEMS_MYSTICSWORD_DESC": "Incrementa el daño en un <style=cIsDamage>{Damage}% <style=cStack>(+{DamagePerStack}% por acumulación)</style></style> por cada muerte de un enemigo con mas de <style=cIsHealth>{HealthThreshold} de salud base <style=cIsUtility>(con o sin los multiplicadores de salud de enemigos elite)</style></style> hasta un maximo del <style=cIsDamage>{MaxDamage}% <style=cStack>(+{MaxDamagePerStack}% por acumulación)</style></style>.",
+    "ITEM_MYSTICSITEMS_MYSTICSWORD_DESC": "Incrementa el daño en un <style=cIsDamage>{Damage}%</style> por cada muerte de un enemigo con mas de <style=cIsHealth>{HealthThreshold} de salud base <style=cIsUtility>(con o sin los multiplicadores de salud de enemigos elite)</style></style> hasta un maximo del <style=cIsDamage>{MaxDamage}% <style=cStack>(+{MaxDamagePerStack}% por acumulación)</style></style>.",
     "ITEM_MYSTICSITEMS_MYSTICSWORD_LORE": "\"Pomo ornamentado - para el estilo.\r\n\r\nEmpuñadura acanalada - para el control.\r\n\r\nProtector angular grueso - para el poder.\r\n\r\nCuchillas de un solo filo - para la concentración.\r\n\r\nDos hojas - para, ehh...\"\r\n\r\n\"Bien, bien, entiendo, *realmente* te gusta tu nueva espada de utilería.\"",
 
     "ITEM_MYSTICSITEMS_RHYTHM_NAME": "Metrónomo",
@@ -227,9 +227,6 @@
 
     "ACHIEVEMENT_MYSTICSITEMS_REPAIRBROKENSPOTTER_NAME": "Enemy Spotted", // [Reference to the "Enemy Spotted" voice command from Counter Strike]
     "ACHIEVEMENT_MYSTICSITEMS_REPAIRBROKENSPOTTER_DESCRIPTION": "Lleva la matriz de combustible de la cápsula de escape a la Arboleda desgarrada y repara el Dron Analizador Roto.",
-
-    "ACHIEVEMENT_MYSTICSITEMS_DISCDEATH_NAME": "Sincere Apologies.", // [Reference to the "Sincere Apologies." achievement from Nuclear Throne]
-    "ACHIEVEMENT_MYSTICSITEMS_DISCDEATH_DESCRIPTION": "Activa un Dron de Equipamiento con un Sierramerán mientras el Artefacto del Caos este activo, y ¿...?",
 
     "ACHIEVEMENT_MYSTICSITEMS_FINDARCHAICMASK_NAME": "Burn to Kill", // [Wordplay on "born to kill" and "burn"]
     "ACHIEVEMENT_MYSTICSITEMS_FINDARCHAICMASK_DESCRIPTION": "Toma la Máscara Legendaria en los Acres calcinados en menos de 10 minutos antes de que se enfrié.",

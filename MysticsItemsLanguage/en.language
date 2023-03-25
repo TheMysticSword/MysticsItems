@@ -114,7 +114,7 @@
 
     "ITEM_MYSTICSITEMS_MYSTICSWORD_NAME": "Mystic Sword", // [TheMysticSword's developer item]
     "ITEM_MYSTICSITEMS_MYSTICSWORD_PICKUP": "Killing strong enemies permanently increases damage.",
-    "ITEM_MYSTICSITEMS_MYSTICSWORD_DESC": "Increase damage by <style=cIsDamage>{Damage}% <style=cStack>(+{DamagePerStack}% per stack)</style></style> for each kill of an enemy with more than <style=cIsHealth>{HealthThreshold} base health <style=cIsUtility>(with or without elite health multipliers)</style></style> up to <style=cIsDamage>{MaxDamage}% <style=cStack>(+{MaxDamagePerStack}% per stack)</style></style>.",
+    "ITEM_MYSTICSITEMS_MYSTICSWORD_DESC": "Increase damage by <style=cIsDamage>{Damage}%</style> for each kill of an enemy with more than <style=cIsHealth>{HealthThreshold} base health <style=cIsUtility>(with or without elite health multipliers)</style></style> up to <style=cIsDamage>{MaxDamage}% <style=cStack>(+{MaxDamagePerStack}% per stack)</style></style>.",
     "ITEM_MYSTICSITEMS_MYSTICSWORD_LORE": "\"Ornate pommel - for style.\r\n\r\nFluted grip - for control.\r\n\r\nThick angular guard - for power.\r\n\r\nSingle-edged blades - for concentration.\r\n\r\nTwo blades - for, uhh...\"\r\n\r\n\"Okay, okay, I get it, you *really* like your new prop sword.\"",
 
     "ITEM_MYSTICSITEMS_RHYTHM_NAME": "Metronome",
@@ -282,9 +282,6 @@
 
     "ACHIEVEMENT_MYSTICSITEMS_REPAIRBROKENSPOTTER_NAME": "Enemy Spotted", // [Reference to the "Enemy Spotted" voice command from Counter Strike]
     "ACHIEVEMENT_MYSTICSITEMS_REPAIRBROKENSPOTTER_DESCRIPTION": "Bring the Escape Pod's Fuel Array to a damp rooty jungle and repair the Broken Spotter Drone.",
-
-    "ACHIEVEMENT_MYSTICSITEMS_DISCDEATH_NAME": "Sincere Apologies.", // [Reference to the "Sincere Apologies." achievement from Nuclear Throne]
-    "ACHIEVEMENT_MYSTICSITEMS_DISCDEATH_DESCRIPTION": "Give a Sawmerang to an Equipment Drone with the Artifact of Chaos enabled, and...?",
 
     "ACHIEVEMENT_MYSTICSITEMS_FINDARCHAICMASK_NAME": "Burn to Kill", // [Wordplay on "born to kill" and "burn"]
     "ACHIEVEMENT_MYSTICSITEMS_FINDARCHAICMASK_DESCRIPTION": "Take the Legendary Mask on Scorched Acres in under 10 minutes before it cools off.",
