@@ -350,7 +350,7 @@ namespace MysticsItems.Items
             // smart time calculation using node path lengths
             if (SceneInfo.instance && SceneInfo.instance.groundNodes)
             {
-                var finalTimeMultiplier = 0.85f;
+                var finalTimeMultiplier = 0.97f;
                 
                 var nodeGraph = SceneInfo.instance.groundNodes;
 
@@ -512,12 +512,11 @@ namespace MysticsItems.Items
         {
             public int riftsLeft = 0;
             public int riftsTotal = 0;
-            public float maxCountdown = 150f;
             public float countdownTimer = 150f;
             public bool diedFromTimer = false;
 
             public bool countdownCalculated = false;
-            public float countdownCalculationTimer = 0f;
+            public float countdownCalculationTimer = 0.5f;
             public float countdownCalculationInterval = 4f;
 
             public bool nearNodes = true;
@@ -541,9 +540,7 @@ namespace MysticsItems.Items
             {
                 if (InstanceTracker.GetInstancesList<MysticsItemsRiftChest>().Count <= 0) return false;
                 
-                var newCountdownTime = GetMaxCountdown(body);
-                countdownTimer += newCountdownTime - maxCountdown;
-                maxCountdown = newCountdownTime;
+                countdownTimer = GetMaxCountdown(body);
                 return true;
             }
 
