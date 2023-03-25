@@ -70,8 +70,7 @@ namespace MysticsItems.Items
             SetItemTierWhenAvailable(ItemTier.Tier2);
             itemDef.tags = new ItemTag[]
             {
-                ItemTag.Damage,
-                ItemTag.Utility
+                ItemTag.Damage
             };
             itemDef.pickupModelPrefab = PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Nuclear Accelerator/Model.prefab"));
             itemDef.pickupIconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Items/Nuclear Accelerator/Icon.png");

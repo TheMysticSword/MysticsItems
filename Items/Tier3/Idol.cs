@@ -58,7 +58,8 @@ namespace MysticsItems.Items
             SetItemTierWhenAvailable(ItemTier.Tier3);
             itemDef.tags = new ItemTag[]
             {
-                ItemTag.Healing
+                ItemTag.Healing,
+                ItemTag.Utility
             };
             itemDef.pickupModelPrefab = PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Idol/Model.prefab"));
             itemDef.pickupIconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Items/Idol/Icon.png");

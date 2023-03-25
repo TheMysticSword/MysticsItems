@@ -43,7 +43,7 @@ namespace MysticsItems.Items
             SetItemTierWhenAvailable(ItemTier.Tier1);
             itemDef.tags = new ItemTag[]
             {
-                ItemTag.Utility
+                ItemTag.Healing
             };
             itemDef.pickupModelPrefab = PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Ghost Apple/Model.prefab"));
             itemDef.pickupIconSprite = Main.AssetBundle.LoadAsset<Sprite>("Assets/Items/Ghost Apple/Icon.png");

@@ -107,6 +107,7 @@ namespace MysticsItems.Items
             itemDef.tags = new ItemTag[]
             {
                 ItemTag.Damage,
+                ItemTag.InteractableRelated,
                 ItemTag.CannotCopy,
                 ItemTag.AIBlacklist,
                 ItemTag.BrotherBlacklist

@@ -74,7 +74,6 @@ namespace MysticsItems.Items
             SetItemTierWhenAvailable(ItemTier.Tier3);
             itemDef.tags = new ItemTag[]
             {
-                ItemTag.Damage,
                 ItemTag.Utility,
                 ItemTag.AIBlacklist,
                 ItemTag.CannotCopy

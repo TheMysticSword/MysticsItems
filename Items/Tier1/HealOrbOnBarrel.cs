@@ -56,7 +56,6 @@ namespace MysticsItems.Items
             itemDef.tags = new ItemTag[]
             {
                 ItemTag.Healing,
-                ItemTag.Utility,
                 ItemTag.AIBlacklist,
                 ItemTag.InteractableRelated
             };

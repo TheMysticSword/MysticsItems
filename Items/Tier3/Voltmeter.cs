@@ -65,7 +65,6 @@ namespace MysticsItems.Items
             itemDef.tags = new ItemTag[]
             {
                 ItemTag.Damage,
-                ItemTag.Utility,
                 ItemTag.AIBlacklist,
                 ItemTag.BrotherBlacklist
             };

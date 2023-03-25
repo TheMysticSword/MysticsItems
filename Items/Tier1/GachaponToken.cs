@@ -62,7 +62,6 @@ namespace MysticsItems.Items
             itemDef.tags = new ItemTag[]
             {
                 ItemTag.Damage,
-                ItemTag.Utility,
                 ItemTag.InteractableRelated,
                 ItemTag.AIBlacklist
             };

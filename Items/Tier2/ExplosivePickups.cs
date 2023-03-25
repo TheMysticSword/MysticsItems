@@ -85,7 +85,7 @@ namespace MysticsItems.Items
             SetItemTierWhenAvailable(ItemTier.Tier2);
             itemDef.tags = new ItemTag[]
             {
-                ItemTag.Utility,
+                ItemTag.Damage,
                 ItemTag.OnKillEffect
             };
             itemDef.pickupModelPrefab = PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Contraband Gunpowder/Model.prefab"));
