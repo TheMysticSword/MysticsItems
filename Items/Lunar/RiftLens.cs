@@ -355,7 +355,7 @@ namespace MysticsItems.Items
                 var nodeGraph = SceneInfo.instance.groundNodes;
 
                 var distanceBetweenAllRifts = 0f;
-                var rifts = InstanceTracker.GetInstancesList<MysticsItemsRiftChest>();
+                var rifts = InstanceTracker.GetInstancesList<MysticsItemsRiftChest>().ToList();
                 while (rifts.Count > 1) // we don't do "while (rifts.Count > 0)" because we can't measure the distance to the next rift if there's only one left
                 {
                     var riftStart = rifts[0];
