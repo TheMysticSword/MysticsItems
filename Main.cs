@@ -82,8 +82,6 @@ namespace MysticsItems
             executingAssembly = Assembly.GetExecutingAssembly();
             declaringType = MethodBase.GetCurrentMethod().DeclaringType;
 
-            //DebugTools.Init();
-
             CustomStats.Init();
             DamageNumberTint.Init();
             GenericCostTypes.Init();
@@ -94,8 +92,6 @@ namespace MysticsItems
             MysticsRisky2Utils.ContentManagement.ContentLoadHelper.PluginAwakeLoad<MysticsRisky2Utils.BaseAssetTypes.BaseEquipment>(executingAssembly);
             MysticsRisky2Utils.ContentManagement.ContentLoadHelper.PluginAwakeLoad<MysticsRisky2Utils.BaseAssetTypes.BaseBuff>(executingAssembly);
             MysticsRisky2Utils.ContentManagement.ContentLoadHelper.PluginAwakeLoad<MysticsRisky2Utils.BaseAssetTypes.BaseInteractable>(executingAssembly);
-
-            //LaserTurret.Init();
 
             // Load the content pack
             ContentManager.collectContentPackProviders += (addContentPackProvider) =>
