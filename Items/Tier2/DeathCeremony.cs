@@ -243,7 +243,7 @@ namespace MysticsItems.Items
                 var itemCount = inventory.GetItemCount(itemDef);
                 if (itemCount > 0)
                 {
-                    args.critAdd += baseCrit;
+                    args.critAdd += baseCrit * (ConfigManager.General.initialCritStacking ? itemCount : 1f);
                 }
             }
         }

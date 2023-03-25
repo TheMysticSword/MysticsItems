@@ -45,6 +45,16 @@ namespace MysticsItems
             );
             public static Action<bool> onSecretsToggled;
 
+            public static ConfigOptions.ConfigurableValue<bool> initialCritStacking = ConfigOptions.ConfigurableValue.CreateBool(
+                categoryGUID,
+                categoryName,
+                config,
+                "Gameplay",
+                "Initial Crit Stacking",
+                false,
+                "If enabled, items that give some crit chance on the first stack (Ceremony of Perdition, Devil's Cry, etc.) will give more crit chance on each stack"
+            );
+
             internal static void Init()
             {
                 InitItemAndEquipmentDisabling();
