@@ -18,13 +18,20 @@ using MysticsRisky2Utils;
 namespace MysticsItems
 {
     [BepInDependency(R2API.R2API.PluginGUID)]
+    [BepInDependency(R2API.R2API.PluginGUID + ".damagetype")]
+    [BepInDependency(R2API.R2API.PluginGUID + ".dot")]
+    [BepInDependency(R2API.R2API.PluginGUID + ".language")]
+    [BepInDependency(R2API.R2API.PluginGUID + ".networking")]
+    [BepInDependency(R2API.R2API.PluginGUID + ".orb")]
+    [BepInDependency(R2API.R2API.PluginGUID + ".prefab")]
+    [BepInDependency(R2API.R2API.PluginGUID + ".recalculatestats")]
+    [BepInDependency(R2API.R2API.PluginGUID + ".sound")]
     [BepInDependency(MysticsRisky2UtilsPlugin.PluginGUID)]
     [BepInDependency("com.Moffein.ArchaicWisp", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("dev.ontrigger.itemstats", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("aaaa.bubbet.whatamilookingat", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("com.ThinkInvisible.TILER2", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInPlugin(PluginGUID, PluginName, PluginVersion)]
-    [R2APISubmoduleDependency(nameof(DamageAPI), nameof(DotAPI), nameof(NetworkingAPI), nameof(PrefabAPI), nameof(SoundAPI))]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
     public class MysticsItemsPlugin : BaseUnityPlugin
     {
