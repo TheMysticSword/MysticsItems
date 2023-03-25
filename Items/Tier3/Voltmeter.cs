@@ -118,7 +118,7 @@ namespace MysticsItems.Items
             {
                 if (!damageReport.victim) return;
                 PreDamageShield preDamageShield = damageReport.victim.GetComponent<PreDamageShield>();
-                if (damageReport.victimBody.inventory && damageReport.victimBody.inventory.GetItemCount(itemDef) > 0 && preDamageShield && preDamageShield.value > 0f)
+                if (damageReport.victimBody.inventory && damageReport.victimBody.inventory.GetItemCount(itemDef) > 0 && damageReport.victimBody.inventory.GetItemCount(RoR2Content.Items.InvadingDoppelganger) <= 0 && preDamageShield && preDamageShield.value > 0f)
                 {
                     BullseyeSearch search = new BullseyeSearch
                     {
