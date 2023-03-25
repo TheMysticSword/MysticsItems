@@ -289,7 +289,6 @@ namespace MysticsItems.Items
                 MysticsItemsRiftChest.boltPrefabs.Add(Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Scav/ScavEnergyCannonProjectile.prefab").WaitForCompletion());
                 // MysticsItemsRiftChest.boltPrefabs.Add(Addressables.LoadAssetAsync<GameObject>("RoR2/Base/ElitePoison/UrchinSeekingProjectile.prefab").WaitForCompletion());
                 MysticsItemsRiftChest.boltPrefabs.Add(Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Commando/FMJRamping.prefab").WaitForCompletion());
-                MysticsItemsRiftChest.boltPrefabs.Add(Addressables.LoadAssetAsync<GameObject>("RoR2/Base/LunarSkillReplacements/LunarNeedleProjectile.prefab").WaitForCompletion());
                 MysticsItemsRiftChest.boltPrefabs.Add(Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Toolbot/ToolbotGrenadeLauncherProjectile.prefab").WaitForCompletion());
             };
         }
