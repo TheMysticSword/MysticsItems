@@ -120,33 +120,6 @@ namespace MysticsItems.Items
                 PreDamageShield preDamageShield = damageReport.victim.GetComponent<PreDamageShield>();
                 if (damageReport.victimBody.inventory && damageReport.victimBody.inventory.GetItemCount(itemDef) > 0 && preDamageShield && preDamageShield.value > 0f)
                 {
-                    /*
-                    EffectManager.SpawnEffect(LegacyResourcesAPI.Load<GameObject>("Prefabs/Effects/LightningStakeNova"), new EffectData
-                    {
-                        origin = characterInfo.body.corePosition,
-                        scale = radius,
-                        rotation = Util.QuaternionSafeLookRotation(damageInfo.force)
-                    }, true);
-                    BlastAttack blastAttack = new BlastAttack
-                    {
-                        position = characterInfo.body.corePosition,
-                        baseDamage = damageInfo.damage * (4f + (characterInfo.inventory.GetItemCount(itemIndex) - 1)),
-                        baseForce = damageInfo.force.magnitude,
-                        radius = radius,
-                        attacker = characterInfo.gameObject,
-                        inflictor = null,
-                        teamIndex = characterInfo.teamIndex,
-                        crit = damageInfo.crit,
-                        procChainMask = default(ProcChainMask),
-                        procCoefficient = 0f,
-                        damageColorIndex = DamageColorIndex.Item,
-                        falloffModel = BlastAttack.FalloffModel.None,
-                        damageType = DamageType.AOE,
-                        attackerFiltering = AttackerFiltering.NeverHit // don't explode self with Chaos
-                    };
-                    blastAttack.Fire();
-                    */
-
                     BullseyeSearch search = new BullseyeSearch
                     {
                         searchOrigin = damageReport.victim.transform.position,
