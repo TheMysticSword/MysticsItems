@@ -22,7 +22,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> baseRegenIncrease = new ConfigurableValue<float>(
             "Item: Puzzle of Chronos",
             "BaseRegenIncrease",
-            6f,
+            3.2f,
             "Base regen bonus for all allies (in HP/s)",
             new System.Collections.Generic.List<string>()
             {
@@ -32,7 +32,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> baseRegenIncreasePerStack = new ConfigurableValue<float>(
             "Item: Puzzle of Chronos",
             "BaseRegenIncreasePerStack",
-            6f,
+            3.2f,
             "Base regen bonus for all allies for each additional stack of this item (in HP/s)",
             new System.Collections.Generic.List<string>()
             {

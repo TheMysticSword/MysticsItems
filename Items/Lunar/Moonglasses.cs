@@ -14,7 +14,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> critDamageIncrease = new ConfigurableValue<float>(
             "Item: Moonglasses",
             "CritDamageIncrease",
-            100f,
+            150f,
             "How much more damage should Critical Strikes deal (in %)",
             new System.Collections.Generic.List<string>()
             {
@@ -24,7 +24,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> critDamageIncreasePerStack = new ConfigurableValue<float>(
             "Item: Moonglasses",
             "CritDamageIncreasePerStack",
-            100f,
+            150f,
             "How much more damage should Critical Strikes deal for each additional stack of this item (in %)",
             new System.Collections.Generic.List<string>()
             {

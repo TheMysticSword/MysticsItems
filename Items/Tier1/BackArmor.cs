@@ -17,7 +17,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> armorAdd = new ConfigurableValue<float>(
             "Item: Spine Implant",
             "ArmorAdd",
-            15f,
+            20f,
             "Bonus armor against attacks from the back",
             new System.Collections.Generic.List<string>()
             {
@@ -27,7 +27,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> armorAddPerStack = new ConfigurableValue<float>(
             "Item: Spine Implant",
             "ArmorAddPerStack",
-            15f,
+            20f,
             "Bonus armor against attacks from the back for each additional stack of this item",
             new System.Collections.Generic.List<string>()
             {

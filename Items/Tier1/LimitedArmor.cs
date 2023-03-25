@@ -17,7 +17,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> armor = new ConfigurableValue<float>(
             "Item: Cutesy Bow",
             "Armor",
-            40f,
+            30f,
             "Armor increase from this item",
             new System.Collections.Generic.List<string>()
             {

@@ -261,10 +261,6 @@ namespace MysticsItems.SoftDependencies
                     new ItemStats.Stat.ItemStat(
                         (itemCount, ctx) => Items.MysticSword.maxDamage + Items.MysticSword.maxDamagePerStack * (itemCount - 1),
                         (value, ctx) => GetItemStatsFormattedString("ITEMSTATS_MYSTICSITEMS_UPTO", ItemStats.ValueFormatters.Extensions.FormatPercentage(value: value, scale: 1f, signed: true))
-                    ),
-                    new ItemStats.Stat.ItemStat(
-                        (itemCount, ctx) => Items.MysticSword.damage + Items.MysticSword.damagePerStack * (itemCount - 1),
-                        (value, ctx) => GetItemStatsFormattedString("ITEMSTATS_MYSTICSITEMS_BONUSPERKILL", ItemStats.ValueFormatters.Extensions.FormatPercentage(value: value, scale: 1f, signed: true))
                     )
                 }
             });

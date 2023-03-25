@@ -38,7 +38,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> slowReduction = new ConfigurableValue<float>(
             "Item: Constant Flow",
             "SlowReduction",
-            35f,
+            20f,
             "Slowing effect reduction (in %)",
             new System.Collections.Generic.List<string>()
             {
@@ -48,7 +48,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> slowReductionPerStack = new ConfigurableValue<float>(
             "Item: Constant Flow",
             "SlowReductionPerStack",
-            35f,
+            20f,
             "Slowing effect reduction for each additional stack of this item (in %)",
             new System.Collections.Generic.List<string>()
             {
@@ -58,7 +58,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> initialRootSlow = new ConfigurableValue<float>(
             "Item: Constant Flow",
             "InitialRootSlow",
-            80f,
+            90f,
             "How much should rooting effects slow you down (in %)",
             new System.Collections.Generic.List<string>()
             {
@@ -68,7 +68,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> rootSlowReductionPerStack = new ConfigurableValue<float>(
             "Item: Constant Flow",
             "RootSlowReductionPerStack",
-            15f,
+            10f,
             "Reduction of the slowing effect from roots for each additional stack of this item (in %)",
             new System.Collections.Generic.List<string>()
             {

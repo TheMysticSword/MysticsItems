@@ -386,13 +386,6 @@ namespace MysticsItems.SoftDependencies
                     Items.MysticSword.maxDamagePerStack / 100f,
                     statFormatter: BetterUI.ItemStats.StatFormatter.Percent
                 );
-                BetterUI.ItemStats.RegisterStat(
-                    MysticsItemsContent.Items.MysticsItems_MysticSword,
-                    "ITEMSTATS_MYSTICSITEMS_BONUSPERKILL",
-                    Items.MysticSword.damage / 100f,
-                    Items.MysticSword.damagePerStack / 100f,
-                    statFormatter: BetterUI.ItemStats.StatFormatter.Percent
-                );
                 // Metronome
                 BetterUI.ItemStats.RegisterStat(
                     MysticsItemsContent.Items.MysticsItems_Rhythm,

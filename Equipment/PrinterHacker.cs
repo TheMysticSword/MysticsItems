@@ -19,7 +19,7 @@ namespace MysticsItems.Equipment
         public static ConfigurableValue<int> amount = new ConfigurableValue<int>(
             "Equipment: Wirehack Wrench",
             "Amount",
-            2,
+            1,
             "Amount of items to drop from the hacked printer",
             new System.Collections.Generic.List<string>()
             {

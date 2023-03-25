@@ -13,7 +13,7 @@ namespace MysticsItems.Buffs
         public static ConfigurableValue<float> boostPower = new ConfigurableValue<float>(
             "Item: Cup of Expresso",
             "BoostPower",
-            7f,
+            10f,
             "Movement speed and attack speed increase per Express Boost stack (in %)",
             new System.Collections.Generic.List<string>()
             {

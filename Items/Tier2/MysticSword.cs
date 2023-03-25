@@ -37,16 +37,6 @@ namespace MysticsItems.Items
                 "ITEM_MYSTICSITEMS_MYSTICSWORD_DESC"
             }
         );
-        public static ConfigurableValue<float> damagePerStack = new ConfigurableValue<float>(
-            "Item: Mystic Sword",
-            "DamagePerStack",
-            2f,
-            "Damage bonus for each strong enemy killed for each additional stack of this item (in %)",
-            new System.Collections.Generic.List<string>()
-            {
-                "ITEM_MYSTICSITEMS_MYSTICSWORD_DESC"
-            }
-        );
         public static ConfigurableValue<float> maxDamage = new ConfigurableValue<float>(
             "Item: Mystic Sword",
             "MaxDamage",
@@ -314,7 +304,7 @@ namespace MysticsItems.Items
                                     var damageBonusCap = maxDamage / 100f + maxDamagePerStack / 100f * (float)(itemCount - 1);
                                     if (component && component.damageBonus < damageBonusCap)
                                     {
-                                        component.damageBonus += Mathf.Clamp(damage / 100f + damagePerStack / 100f * (float)(itemCount - 1), 0f, damageBonusCap - component.damageBonus);
+                                        component.damageBonus += Mathf.Clamp(damage / 100f, 0f, damageBonusCap - component.damageBonus);
                                         onKillOrbTargets.Add(teamMemberBody.gameObject);
 
                                         MysticsItemsMysticSwordItemDisplayHelper.TriggerBlinkForBody(teamMemberBody);

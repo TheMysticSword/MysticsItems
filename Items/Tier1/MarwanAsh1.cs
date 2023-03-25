@@ -130,6 +130,15 @@ namespace MysticsItems.Items
                 "ITEM_MYSTICSITEMS_MARWANASH3_DESC"
             }
         );
+        public static ConfigOptions.ConfigurableValue<bool> ignitionTankSynergy = ConfigOptions.ConfigurableValue.CreateBool(
+            ConfigManager.General.categoryGUID,
+            ConfigManager.General.categoryName,
+            ConfigManager.General.config,
+            "Gameplay",
+            "Marwan s Light Ignition Tank",
+            false,
+            "Should the burn debuff from Marwan's Light be upgradable by Ignition Tank (DLC item)?"
+        );
 
         public static DamageAPI.ModdedDamageType ashDamageType;
         public static DamageColorIndex ashDamageColor = DamageColorAPI.RegisterDamageColor(new Color32(96, 245, 250, 255));
@@ -272,7 +281,10 @@ namespace MysticsItems.Items
                                 maxStacksFromAttacker = 1
                             };
 
-                            StrengthenBurnUtils.CheckDotForUpgrade(attackerInfo.inventory, ref dotInfo);
+                            if (ignitionTankSynergy)
+                            {
+                                StrengthenBurnUtils.CheckDotForUpgrade(attackerInfo.inventory, ref dotInfo);
+                            }
                             dotInfo.dotIndex = Buffs.MarwanAshBurn.ashDotIndex;
                             if (dotInfo.damageMultiplier > 1f)
                             {
