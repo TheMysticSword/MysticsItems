@@ -87,6 +87,7 @@ namespace MysticsItems
             GenericCostTypes.Init();
             NetworkPickupDiscovery.Init();
             SoftDependencies.SoftDependenciesCore.Init();
+            TMProEffects.Init();
 
             MysticsRisky2Utils.ContentManagement.ContentLoadHelper.PluginAwakeLoad<MysticsRisky2Utils.BaseAssetTypes.BaseItem>(executingAssembly);
             MysticsRisky2Utils.ContentManagement.ContentLoadHelper.PluginAwakeLoad<MysticsRisky2Utils.BaseAssetTypes.BaseEquipment>(executingAssembly);
