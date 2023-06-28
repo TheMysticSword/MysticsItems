@@ -25,6 +25,16 @@ namespace MysticsItems.Items
                 "ITEM_MYSTICSITEMS_SHIELDUPGRADE_DESC"
             }
         );
+        public static ConfigurableValue<float> passiveShieldPerStack = new ConfigurableValue<float>(
+            "Item: Charger Upgrade Module",
+            "PassiveShieldPerStack",
+            0f,
+            "Passive shield bonus for additional stacks of this item (in %)",
+            new System.Collections.Generic.List<string>()
+            {
+                "ITEM_MYSTICSITEMS_SHIELDUPGRADE_DESC"
+            }
+        );
         public static ConfigurableValue<float> shieldBonus = new ConfigurableValue<float>(
             "Item: Charger Upgrade Module",
             "ShieldBonus",
@@ -116,7 +126,7 @@ namespace MysticsItems.Items
             {
                 var itemCount = sender.inventory.GetItemCount(itemDef);
                 if (itemCount > 0) {
-                    args.baseShieldAdd += sender.maxHealth * sender.cursePenalty * passiveShield / 100f;
+                    args.baseShieldAdd += sender.maxHealth * sender.cursePenalty * (passiveShield + passiveShieldPerStack * (float)(itemCount - 1)) / 100f;
                     args.shieldMultAdd += (shieldBonus + shieldBonusPerStack * (float)(itemCount - 1)) / 100f;
                 }
             }
