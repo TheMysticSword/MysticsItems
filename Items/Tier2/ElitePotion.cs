@@ -59,6 +59,8 @@ namespace MysticsItems.Items
             }
         );
 
+        public const DamageAPI.ModdedDamageType nullModdedDamageType = (DamageAPI.ModdedDamageType)(-1);
+
         public override void OnLoad()
         {
             base.OnLoad();
@@ -211,8 +213,9 @@ namespace MysticsItems.Items
                                     }
                                 }
 
-                                if (spreadEffectInfo.damage != 0 || spreadEffectInfo.damageType != default)
-                                    new BlastAttack
+                                if (spreadEffectInfo.damage != 0 || spreadEffectInfo.damageType != default || spreadEffectInfo.moddedDamageType != nullModdedDamageType)
+                                {
+                                    var blastAttack = new BlastAttack
                                     {
                                         radius = radius,
                                         baseDamage = damageReport.attackerBody.damage * spreadEffectInfo.damage * damageMult,
@@ -225,7 +228,13 @@ namespace MysticsItems.Items
                                         attacker = damageReport.attacker,
                                         teamIndex = damageReport.attackerTeamIndex,
                                         position = damageReport.victimBody.corePosition
-                                    }.Fire();
+                                    };
+                                    if (spreadEffectInfo.moddedDamageType != nullModdedDamageType)
+                                    {
+                                        DamageAPI.AddModdedDamageType(blastAttack, spreadEffectInfo.moddedDamageType);
+                                    }
+                                    blastAttack.Fire();
+                                }
                             }
                         }
                     }
@@ -233,7 +242,7 @@ namespace MysticsItems.Items
             }
         }
 
-        public struct SpreadEffectInfo
+        public class SpreadEffectInfo
         {
             public BuffDef eliteBuffDef;
             public GameObject vfx;
@@ -242,6 +251,7 @@ namespace MysticsItems.Items
             public float damage;
             public float procCoefficient;
             public DamageType damageType;
+            public DamageAPI.ModdedDamageType moddedDamageType = nullModdedDamageType;
             public float vfxScaleMultiplier;
         }
         public static List<SpreadEffectInfo> spreadEffectInfos = new List<SpreadEffectInfo>();
