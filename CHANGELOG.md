@@ -1,3 +1,5 @@
+#### 2.1.9:
+* Added changelog to Thunderstore
 #### 2.1.8:
 * Wirehack Wrench:
     * Cooldown: ~~140s~~ ⇒ 45s
