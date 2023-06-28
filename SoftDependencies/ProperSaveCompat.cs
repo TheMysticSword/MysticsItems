@@ -10,7 +10,7 @@ namespace MysticsItems.SoftDependencies
     {
         internal static void Init()
         {
-            ProperSave.SaveFile.OnGatgherSaveData += SaveFile_OnGatgherSaveData;
+            ProperSave.SaveFile.OnGatherSaveData += SaveFile_OnGatherSaveData;
             ProperSave.Loading.OnLoadingEnded += Loading_OnLoadingEnded;
         }
 
@@ -116,7 +116,7 @@ namespace MysticsItems.SoftDependencies
             }
         }
 
-        private static void SaveFile_OnGatgherSaveData(Dictionary<string, object> obj)
+        private static void SaveFile_OnGatherSaveData(Dictionary<string, object> obj)
         {
             obj.Add("MysticsItems_SaveData", new MysticsItemsSaveData());
         }
