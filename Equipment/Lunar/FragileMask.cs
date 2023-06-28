@@ -1,21 +1,13 @@
-using RoR2;
+using MysticsRisky2Utils;
+using MysticsRisky2Utils.BaseAssetTypes;
 using R2API;
+using R2API.Networking;
+using R2API.Networking.Interfaces;
+using RoR2;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
-using UnityEngine.Rendering.PostProcessing;
-using R2API.Utils;
-using Mono.Cecil.Cil;
-using MonoMod.Cil;
-using System.Reflection;
-using System.Collections.ObjectModel;
-using RoR2.UI;
-using MysticsRisky2Utils;
-using System.Linq;
-using System.Collections.Generic;
-using MysticsRisky2Utils.BaseAssetTypes;
 using static MysticsItems.LegacyBalanceConfigManager;
-using R2API.Networking.Interfaces;
-using R2API.Networking;
 
 namespace MysticsItems.Equipment
 {
@@ -117,7 +109,7 @@ namespace MysticsItems.Equipment
 
         private void GenericGameEvents_OnTakeDamage(DamageReport damageReport)
         {
-            if (damageReport.victimBody)
+            if (damageReport.victimBody && damageReport.damageDealt > 0)
             {
                 var component = MysticsItemsFragileMaskBehaviour.GetForBody(damageReport.victimBody);
                 if (component && component.maskActive)
@@ -134,7 +126,7 @@ namespace MysticsItems.Equipment
         {
             var result = orig(self, token);
             if (token == "EQUIPMENT_MYSTICSITEMS_FRAGILEMASK_DESC")
-                result = Utils.FormatStringByDict(result, new System.Collections.Generic.Dictionary<string, string>()
+                result = Utils.FormatStringByDict(result, new Dictionary<string, string>()
                 {
                     { "BaseDamageBonus", (damageMultiplier * 100f - 100f).ToString(System.Globalization.CultureInfo.InvariantCulture) }
                 });
