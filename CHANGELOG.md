@@ -1,4 +1,11 @@
-# Changelog
+#### 2.1.8:
+* Wirehack Wrench:
+    * Cooldown: ~~140s~~ ⇒ 45s
+* Added a PassiveShieldPerStack config option to Charger Upgrade Module (0% by default)
+* Added an overload for ElitePotion_AddSpreadEffect that takes R2API.ModdedDamageType instead of DamageType
+* Fixed Fragile Mask killing on taking hits that deal 0 damage (e.g. Railgunner Concussion Device)
+* Custom sounds now have a low pass filter at low health, which should also work with Fogbound Lagoon's underwater system
+* Removed unnecessary OrbAPI dependency
 #### 2.1.7:
 * Marwan's Light:
 	* The burn is no longer upgraded by Ignition Tank

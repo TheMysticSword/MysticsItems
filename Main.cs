@@ -1,19 +1,14 @@
 ﻿using BepInEx;
-using RoR2;
+using MysticsRisky2Utils;
 using R2API;
-using R2API.Utils;
 using R2API.Networking;
-using UnityEngine;
-using UnityEngine.Networking;
-using UnityEngine.Rendering.PostProcessing;
-using System.Reflection;
-using System.Collections.Generic;
-using System.Linq;
-using Mono.Cecil.Cil;
-using MonoMod.Cil;
+using R2API.Utils;
+using RoR2;
 using RoR2.ContentManagement;
 using System.Collections;
-using MysticsRisky2Utils;
+using System.Collections.Generic;
+using System.Reflection;
+using UnityEngine;
 
 namespace MysticsItems
 {
@@ -36,7 +31,7 @@ namespace MysticsItems
     {
         public const string PluginGUID = "com.themysticsword.mysticsitems";
         public const string PluginName = "MysticsItems";
-        public const string PluginVersion = "2.1.7";
+        public const string PluginVersion = "2.1.8";
 
         internal static BepInEx.Logging.ManualLogSource logger;
         internal static PluginInfo pluginInfo;
