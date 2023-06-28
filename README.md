@@ -4,12 +4,6 @@ Adds 50 new items!
 ![GIF preview of some of the item models](https://i.imgur.com/8OOURv4.gif)  
 ![Table with the info about all the items in the mod](https://i.imgur.com/iLoWO2n.png)  
 
-### Important notes
-#### Manual installation
-Extract all files from the downloaded archive into a new folder called "TheMysticSword-MysticsItems" in the plugins folder.  
-#### Multiplayer
-Make sure that your config matches with the configs of other players in the lobby.  
-
 ### Discussion & feedback
 Please visit the [Discussion Board on itch.io](https://themysticsword.itch.io/ror2-mystics-items/community)!
 
@@ -19,13 +13,8 @@ Consider providing an output log in your bug report to make the fixing process e
 Make only one issue per bug.  
 You can also report the bug on the [itch.io board](https://itch.io/board/1788781/issue-tracker) if you don't have an account on GitHub but have one on itch.io.
 
-### Configuration
-The mod creates several config files on the first launch:
-* MysticsItems_General.cfg - general mod settings
-* MysticsItems_Balance.cfg - item and equipment value tweaking
-
 ### Mod compatibility
-This mod supports ItemStats, Risk of Options and adds item displays for SniperClassic.  
+This mod supports ItemStats, BetterUI, Risk of Options and adds item displays for SniperClassic.  
 If you want to add Mystic's Items support for your own mod, read [this document](https://github.com/TheMysticSword/MysticsItems/blob/main/FORMODDERS.md).
 
 ### Languages
