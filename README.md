@@ -78,43 +78,5 @@ Sounds from the [Disc Room Game Jam audiopack](https://discroom.com/game-jam-tut
 Multiple sounds made with [sfxia](https://rxi.itch.io/sfxia) by [rxi](https://rxi.itch.io/)  
 Contains assets from [FreePBR.com](https://freepbr.com/)  
 Contains assets from [ambientCG.com](https://ambientcg.com/), licensed under CC0 1.0 Universal.
-
-# Changelog
-#### 2.1.7:
-* Marwan's Light:
-	* The burn is no longer upgraded by Ignition Tank
-		* Can be reverted by setting the new Gameplay config option "Marwan's Light Ignition Tank" to true
-* Mystic Sword:
-	* Damage Per Kill: ~~+2% (+2% per stack)~~ ⇒ +2%
-* Wirehack Wrench:
-	* Items Dropped: ~~2~~ ⇒ 1
-* Spine Implant:
-	* Armor: ~~15 (+15 per stack)~~ ⇒ 20 (+20 per stack)
-* Constant Flow:
-	* Slow Reduction: ~~35% (+35% per stack)~~ ⇒ 20% (+20% per stack)
-	* Initial Root Slow: ~~80%~~ ⇒ 90%
-	* Root Slow Reduction: ~~15% (+15% per stack)~~ ⇒ 10% (+10% per stack)
-* Cutesy Bow:
-	* Armor: ~~40~~ ⇒ 30
-* Cup of Expresso:
-	* Movement and Attack Speed Bonus Per Buff: ~~+7%~~ ⇒ +10%
-* Moonglasses:
-	* Crit Damage: ~~+100% (+100% per stack)~~ ⇒ +150% (+150% per stack)
-* Puzzle of Chronos:
-	* Regeneration: ~~+6 HP/s (+6 HP/s per stack)~~ ⇒ +3.2 HP/s (+3.2 HP/s per stack)
-* Edited some item tags for more accurate Benthic Bloom transformations and effects from tag-related modded items:
-	* Removed Utility tag from Gachapon Token, Ghost Apple, Donut, Vendetta, Contraband Gunpowder, Nuclear Accelerator, Crystallized World, Wireless Voltmeter
-	* Added Healing tag to Ghost Apple
-	* Added Damage tag to Cup of Expresso, Contraband Gunpowder
-	* Added Utility tag to Super Idol
-	* Added InteractableRelated tag to Spare Wiring
-* Deleted "Sincere Apologies." challenge and made Timely Execution unlocked by default
-* Added "Initial Crit Stacking" Gameplay config option, allowing items that give a crit chance on the first stack to also give crit chance on extra stacks
-* Snow Ring and Wireless Voltmeter now cannot be triggered by Vengeance doppelgangers
-* Fixed Snow Ring icon being twice as big when scrapped/printed away
-* Fixed Spikestrip 2.0 mod incompatibility where Rift Lens projectiles were invisible and spammed console errors
-* Fixed Rift Lens giving less time after a respawn
   
-(Previous changelogs can be found [here](https://github.com/TheMysticSword/MysticsItems/blob/main/CHANGELOG.md))
-
 ![](https://i.imgur.com/gBBfdeO.png)
