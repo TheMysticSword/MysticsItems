@@ -31,7 +31,7 @@ namespace MysticsItems.Equipment
         public override void OnLoad()
         {
             equipmentDef.name = "MysticsItems_PrinterHacker";
-            ConfigManager.Balance.CreateEquipmentCooldownOption(equipmentDef, "Equipment: Wirehack Wrench", 140f);
+            ConfigManager.Balance.CreateEquipmentCooldownOption(equipmentDef, "Equipment: Wirehack Wrench", 45f);
             equipmentDef.canDrop = true;
             ConfigManager.Balance.CreateEquipmentEnigmaCompatibleOption(equipmentDef, "Equipment: Wirehack Wrench", false);
             ConfigManager.Balance.CreateEquipmentCanBeRandomlyTriggeredOption(equipmentDef, "Equipment: Wirehack Wrench", false);
