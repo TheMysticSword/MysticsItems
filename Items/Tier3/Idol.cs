@@ -87,8 +87,6 @@ namespace MysticsItems.Items
                 AddDisplayRule("VoidSurvivorBody", "Neck", new Vector3(-0.17193F, 0.12368F, -0.12447F), new Vector3(347.7072F, 40.52266F, 3.19146F), new Vector3(0.06408F, 0.06408F, 0.06408F));
             };
 
-            RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
-
             var mainOverlay = Main.AssetBundle.LoadAsset<Material>("Assets/Items/Idol/matIdolOverlay.mat");
             var progressOverlaySteps = 3;
             var progressPerStep = (float)1 / (float)progressOverlaySteps;
@@ -121,6 +119,8 @@ namespace MysticsItems.Items
                     return false;
                 });
             }
+
+            RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
 
             idolHUDIndicator = Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Idol/IdolHUDIndicator.prefab");
             idolHUDIndicator.AddComponent<HudElement>();
