@@ -51,6 +51,7 @@ namespace MysticsItems.CharacterBodies
             AfterCharacterBodySetup();
             characterBody.baseNameToken = "MYSTICSITEMS_RIFTCHEST_NAME";
             characterBody.subtitleNameToken = "";
+            prefab.AddComponent<MysticsItemsUnstableRiftShooterComponent>();
 
             // state machines
             EntityStateMachine bodyStateMachine = SetUpEntityStateMachine("Body", typeof(EntityStates.Uninitialized), typeof(EntityStates.Uninitialized));
@@ -63,6 +64,14 @@ namespace MysticsItems.CharacterBodies
             CharacterModel characterModel = modelTransform.GetComponent<CharacterModel>();
             characterModel.baseRendererInfos = new CharacterModel.RendererInfo[0];
 			AfterCharacterModelSetUp();
+        }
+
+        public class MysticsItemsUnstableRiftShooterComponent : MonoBehaviour, IOnIncomingDamageServerReceiver
+        {
+            public void OnIncomingDamageServer(DamageInfo damageInfo)
+            {
+                damageInfo.rejected = true;
+            }
         }
     }
 }
