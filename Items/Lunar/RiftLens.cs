@@ -702,7 +702,7 @@ namespace MysticsItems.Items
             public static GameObject wallPrefab;
 
             public float boltTimer = 0f;
-            public float boltInterval = 0.1f;
+            public float boltInterval = 0.2f;
             public Quaternion boltRotation = Quaternion.identity;
             public int boltCount = 6;
             public int boltCurrentCycleCount = 0;
