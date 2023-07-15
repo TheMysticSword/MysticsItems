@@ -351,7 +351,7 @@ namespace MysticsItems.SoftDependencies
                     MysticsItemsContent.Items.MysticsItems_ExplosivePickups,
                     "ITEMSTATS_MYSTICSITEMS_RADIUS",
                     Items.ExplosivePickups.radius,
-                    Items.ExplosivePickups.radiusPerStack / 100f,
+                    Items.ExplosivePickups.radiusPerStack,
                     statFormatter: BetterUI.ItemStats.StatFormatter.Range
                 );
                 BetterUI.ItemStats.RegisterProc(
@@ -475,7 +475,7 @@ namespace MysticsItems.SoftDependencies
                     "ITEMSTATS_MYSTICSITEMS_ARMOR",
                     Buffs.NanomachineArmor.armor,
                     Buffs.NanomachineArmor.armorPerStack,
-                    statFormatter: BetterUI.ItemStats.StatFormatter.Percent
+                    statFormatter: BetterUI.ItemStats.StatFormatter.Armor
                 );
                 // Snow Ring
                 BetterUI.ItemStats.RegisterStat(
@@ -497,8 +497,8 @@ namespace MysticsItems.SoftDependencies
                 BetterUI.ItemStats.RegisterStat(
                     MysticsItemsContent.Items.MysticsItems_StarBook,
                     "ITEMSTATS_MYSTICSITEMS_DAMAGE",
-                    Items.StarBook.damage,
-                    Items.StarBook.damagePerStack,
+                    Items.StarBook.damage / 100f,
+                    Items.StarBook.damagePerStack / 100f,
                     statFormatter: BetterUI.ItemStats.StatFormatter.Percent,
                     itemTag: BetterUI.ItemStats.ItemTag.Damage
                 );
@@ -644,7 +644,7 @@ namespace MysticsItems.SoftDependencies
             };
             public static BetterUI.ItemStats.StatFormatter MarwanAshDamage = new BetterUI.ItemStats.StatFormatter()
             {
-                suffix = "%",
+                suffix = "",
                 style = BetterUI.ItemStats.Styles.Damage,
                 statFormatter = (sb, value, master) =>
                 {
