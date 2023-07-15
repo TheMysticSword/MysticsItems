@@ -1,3 +1,8 @@
+#### 2.1.10:
+* Reduced the frequency of Rift Lens's Unstable Rift projectile firing
+* Reduced the intensity of Super Idol's character glow
+* Fixed Unstable Rifts' "attacker entity" being technically vulnerable
+* Fixed some BetterUI ItemStats calculations being multiplied by 100
 #### 2.1.9:
 * Added changelog to Thunderstore
 #### 2.1.8:

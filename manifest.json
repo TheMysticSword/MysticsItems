@@ -1,6 +1,6 @@
 {
   "name": "MysticsItems",
-  "version_number": "2.1.9",
+  "version_number": "2.1.10",
   "website_url": "https://themysticsword.itch.io/ror2-mystics-items/community",
   "description": "Adds 50 new items!",
   "dependencies": [
@@ -14,6 +14,6 @@
     "RiskofThunder-R2API_RecalculateStats-1.2.0",
     "RiskofThunder-R2API_Sound-1.0.0",
     "RiskofThunder-HookGenPatcher-1.2.3",
-    "TheMysticSword-MysticsRisky2Utils-2.0.9"
+    "TheMysticSword-MysticsRisky2Utils-2.0.12"
   ]
 }
