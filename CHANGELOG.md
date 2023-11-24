@@ -1,3 +1,6 @@
+#### 2.1.11:
+* Added Korean translation (thanks to SAMA0613 & p157157 on github!)
+* Re-added Turkish translation from v1.1.13 (strings from newer versions will be missing)
 #### 2.1.10:
 * Reduced the frequency of Rift Lens's Unstable Rift projectile firing
 * Reduced the intensity of Super Idol's character glow

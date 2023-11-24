@@ -2,42 +2,40 @@
 Adds 50 new items!  
 
 ![GIF preview of some of the item models](https://i.imgur.com/8OOURv4.gif)  
-![Table with the info about all the items in the mod](https://i.imgur.com/iLoWO2n.png)  
+![Table with the info about all the items in the mod](https://i.imgur.com/t1JZrun.png)  
 
-### Discussion & feedback
+## Discussion & feedback
 Please visit the [Discussion Board on itch.io](https://themysticsword.itch.io/ror2-mystics-items/community)!
 
-### Bug reports
+## Bug reports
 If you encounter an issue with the mod (bug, typo, mistranslation, incompatibility with another mod, etc.), report it on the [issue tracker](https://github.com/TheMysticSword/MysticsItems/issues) and make sure that a similar issue isn't open at the moment.  
 Consider providing an output log in your bug report to make the fixing process easier.  
 Make only one issue per bug.  
 You can also report the bug on the [itch.io board](https://itch.io/board/1788781/issue-tracker) if you don't have an account on GitHub but have one on itch.io.
 
-### Mod compatibility
-This mod supports ItemStats, BetterUI, Risk of Options and adds item displays for SniperClassic.  
-If you want to add Mystic's Items support for your own mod, read [this document](https://github.com/TheMysticSword/MysticsItems/blob/main/FORMODDERS.md).
-
-### Languages
-The mod is available in English, Russian, French, Spanish, Simplified Chinese and Portuguese.
-
-### Donations
+## Donations
 The credits section below includes some of the team members' personal donation links.  
 Please note a few things before making a donation:
 * This mod is **completely free** - none of its features require paying money and never will. ​You will not get any special perks, benefits or rewards for donating.​
 * Donations through each link go **specifically to that individual team member** and **not** to the team as a whole.​
 
 # Credits
-#### Main team
-TheMysticSword ([donations](https://boosty.to/themysticsword)) - Coding, Russian translation  
+TheMysticSword ([donations](https://boosty.to/themysticsword)) - Coding  
 Marwan60 - Modelling  
-Omar Faruk - Turkish translation (up to v1.1.13)  
-Fyrebw ([donations](https://ko-fi.com/fyrebw28545)) - French translation  
-Vyrael ([donations](https://ko-fi.com/vyrael_)) - French translation (up to v2.0.10)  
-RCaled - Spanish translation  
-Dying_Twilight - Simplified Chinese translation  
-Acroptf8 - Simplified Chinese translation (up to 2.1.5)  
-Olek - Portuguese translation
-#### External assets
+## Translation Contributions
+Turkish - Omar Faruk  
+French - Fyrebw ([donations](https://ko-fi.com/fyrebw28545)), Vyrael ([donations](https://ko-fi.com/vyrael_))  
+Spanish - RCaled  
+Simplified Chinese - Dying_Twilight, Acroptf8  
+Portuguese - Olek  
+Korean - p157157, SAMA0613  
+## External assets
+Contains assets from [FreePBR.com](https://freepbr.com/)  
+Contains assets from [ambientCG.com](https://ambientcg.com/), licensed under CC0 1.0 Universal.  
+Contains [Kitty-ear Headphones](https://booth.pm/ja/items/2654114) model by [Riisi](https://riisipuuro.com/)  
+Contains sounds from the [Disc Room Game Jam audiopack](https://discroom.com/game-jam-tutorial-audio.zip) by [doseone](https://doseone.bandcamp.com/)  
+Multiple sounds were made with [sfxia](https://rxi.itch.io/sfxia) by [rxi](https://rxi.itch.io/)  
+  
 Contains sounds from [freesound.org](https://freesound.org/):  
 ["tim ring tone sharp.wav"](https://freesound.org/people/martian/sounds/19308/) by [Martin Chappell (martian)](https://freesound.org/people/martian/)  
 ["Fireworks Crackle"](https://freesound.org/people/16FThumaF/sounds/505264/) by [16FThumaF](https://freesound.org/people/16FThumaF/)  
@@ -62,10 +60,5 @@ Contains sounds from [freesound.org](https://freesound.org/):
 ["44_Espada_Clavandose.wav (Sword Clash)"](https://freesound.org/people/Atrius1/sounds/470175/) by [Atrius1](https://freesound.org/people/Atrius1/)  
 ["High Voltage Sparks 3x"](https://freesound.org/people/Kinoton/sounds/499690/) by [Kinoton](https://freesound.org/people/Kinoton/)  
 ["Zap.ogg"](https://freesound.org/people/egomassive/sounds/536741/) by [egomassive](https://freesound.org/people/egomassive/)  
-  
-Sounds from the [Disc Room Game Jam audiopack](https://discroom.com/game-jam-tutorial-audio.zip) by [doseone](https://doseone.bandcamp.com/)  
-Multiple sounds made with [sfxia](https://rxi.itch.io/sfxia) by [rxi](https://rxi.itch.io/)  
-Contains assets from [FreePBR.com](https://freepbr.com/)  
-Contains assets from [ambientCG.com](https://ambientcg.com/), licensed under CC0 1.0 Universal.
   
 ![](https://i.imgur.com/gBBfdeO.png)
