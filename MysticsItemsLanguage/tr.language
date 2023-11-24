@@ -1,0 +1,151 @@
+{
+  "tr": {
+    //[ITEMS]
+
+    //[NOTIER]
+    "ITEM_MYSTICSITEMS_RIFTLENSDEBUFF_NAME": "Çatlak Acısı",
+
+    "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPENCONSUMED_NAME": "Platin Kart (Tüketilmiş)",
+    "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPENCONSUMED_PICKUP": "Bir sonraki aşamada şarj olur.",
+
+    //[TIER1]
+    "ITEM_MYSTICSITEMS_HEALORBONBARREL_NAME": "Simit",
+    "ITEM_MYSTICSITEMS_HEALORBONBARREL_PICKUP": "Etkileşime girmek bir şifa küresi oluşturur.",
+    "ITEM_MYSTICSITEMS_HEALORBONBARREL_DESC": "Etkileşime girmek <style=cIsHealing>{FlatHealing}</style> buna ek olarak <style=cIsHealing>maksimum sağlığın</style> <style=cIsHealing>{FractionalHealing}% <style=cStack>(birikim başına +{FractionalHealingPerStack}%)</style></style> kadar iyileştiren bir <style=cIsHealing>şifa küresi</style> oluşturur.",
+    "ITEM_MYSTICSITEMS_HEALORBONBARREL_LORE": "- Simitlerin neden ortasında bir delik olduğunu biliyor musun?\n\n- Çünkü, uh... hiçbir fikrim yok.\n\n- Zihnin için al sana biraz vitamin\n\n- ... senden nefret ediyorum.",
+
+    "ITEM_MYSTICSITEMS_SCRATCHTICKET_NAME": "Kazı Kazan Bileti",
+    "ITEM_MYSTICSITEMS_SCRATCHTICKET_PICKUP": "Şansa dayalı etkilerin şansını biraz artırır.",
+    "ITEM_MYSTICSITEMS_SCRATCHTICKET_DESC": "Şansa bağlı etkiler <style=cIsUtility>+{ChanceBonus}% <style=cStack>(birikim başına +{ChanceBonusPerStack}%)</style></style> ihtimalle tetiklenir. %1'den daha az tetikleme şansı olan etkiler üzerinde çalışmaz.",
+    "ITEM_MYSTICSITEMS_SCRATCHTICKET_LORE": "<style=cMono>\n//--TELEFON GÖRÜŞMESİNİ YENİDEN OYNATILIYOR #731 --//</style>\n\n- Günaydın. Kimin aradığını sorabilir miyim?\n\n- Günaydın! Bu, Yedi Yıldız'dan Carl Shade. 100.000 dolarlık piyangoyu kazandığın için seni tebrik etmek için arıyorum!\n\n- Vay, ne sürpriz ama!\n\n- Daha önce hiç piyango kazandınız mı?\n\n- Hayır.\n\n- Eh, her şeyin bir ilki vardır! Şimdi size ne yapmanız gerektiğini anlatacağım: ödülünüzü alabilmek için arkadaki üç rakam da dahil olmak üzere kredi kartı bilgilerinize ihtiyacımız var.\n\n- [ÇAĞRININ BU BÖLÜMÜ GİZLİLİK İÇİN KESİLMİŞTİR]\n\n- Tamamdır!\n\n- ...\n\n- ...\n\n- Hmm, henüz bir şey almadım. Rakamlar doğru mu?\n\n<style=cMono>\n//--KONUŞMANIN SONU --//</style>",
+
+    "ITEM_MYSTICSITEMS_BACKARMOR_NAME": "Omurga Nakli",
+    "ITEM_MYSTICSITEMS_BACKARMOR_PICKUP": "Arkadan gelen saldırılardan daha az hasar.",
+    "ITEM_MYSTICSITEMS_BACKARMOR_DESC": "Arkadan yapılan saldırılar için <style=cIsUtility>{ArmorAdd} <style=cStack>(birikim başına +{ArmorAddPerStack})</style></style> kadar zırh kazanılır.",
+    "ITEM_MYSTICSITEMS_BACKARMOR_LORE": "<style=cMono>\n//--BİR TV YAYININDAN ALINTI --//</style>\n\nSON DAKİKA: Merkez Binası'nda bir dakikadan kısa bir süre önce büyük bir yangın çıktı. Şu anda binanın yakınındayız. İtfaiye- BİRİSİ PENCEREDEN ATLADI! HEY NE YAPIYORSUN SEN?! KAMERAYI ÇEVİR ÇABUK!\n\nAman Tanrım.\nBekle... onlar... yaşıyorlar mı? Ve onlara doğru koşan o kişi kim?\nPekala, bunu biraz araştırmamız GEREKİYOR.\n\nMuhabir: Efendim, iyi misiniz?\n\nKişi 1: Evet, her şey yolunda.\n\n2. Kişi: \"Her şey yolunda\" da NE [ÇIKARILMIŞ] ANLAMA GELİYOR? 90 kat yükseklikten düştün, [ÇIKARILMIŞ] TV'desiniz ve rastgele \"her şey yolunda\" ile yanıt veriyorsunuz! Neler oluyor?!\n\nKişi 1: Şey, kesinlikle bir yangında ölmüyorum değil mi şuan. Pencere açıktı. Ve yeni omurga nakillerimi test etmem gerekiyordu. Bu yüzden noktaları birleştirdim ve yaptığımı yaptım.\n\nKişi 2: Beni endişelendirdin, [ÇIKARILMIŞ]! Bunu bir daha asla yapma!",
+
+    //[TIER2]
+    "ITEM_MYSTICSITEMS_COFFEEBOOSTONITEMPICKUP_NAME": "Bir Fincan Expresso",
+    "ITEM_MYSTICSITEMS_COFFEEBOOSTONITEMPICKUP_PICKUP": "Eşya toplamada bir sonraki aşamaya kadar bir destek kazanın. {MaxBuffs} kez biriktirilebilir.",
+    "ITEM_MYSTICSITEMS_COFFEEBOOSTONITEMPICKUP_DESC": "Her eşya alışında <style=cIsDamage>saldırı hızını</style> ve <style=cIsUtility>hareket hızını</style> bir sonraki aşamaya kadar <style=cIsUtility>{BoostPower}%</style> <style=cIsUtility>yükseltir</style>. Maksimum <style=cIsUtility>{BoostPowerMax}% <style=cStack>(birikim başına +{BoostPowerMaxPerStack}%)</style> kadar yükseltir</style>. <style=cIsUtility>Daha yüksek nadirliğe sahip öğeler, aynı anda daha fazla birikim verir.</style>",
+
+    "ITEM_MYSTICSITEMS_EXPLOSIVEPICKUPS_NAME": "Kaçak Barut",
+    "ITEM_MYSTICSITEMS_EXPLOSIVEPICKUPS_PICKUP": "Buluntuları toplarken patlamalar oluşturur.",
+    "ITEM_MYSTICSITEMS_EXPLOSIVEPICKUPS_DESC": "Düşmanlar ölünce %{FlaskDropChance} şansla barut çömlekleri düşürür. Buluntuları toplamak (şifalı küreler, hazine, toz şişeler vb.) <style=cIsDamage>{Radius} metre <style=cStack>(birikim başına +{RadiusPerStack}m)</style></style> alanında <style=cIsDamage>{Damage}% <style=cStack>(birikim başına +{DamagePerStack}%)</style></style> temel hasar veren bir patlama yapar.",
+    "ITEM_MYSTICSITEMS_EXPLOSIVEPICKUPS_LORE": "<style=cMono>\n//--UES KONTAK IŞIĞI DEPOLAMA 4 ODASINDAN OTOMATİK AKTARMA --//</style>\n\nBak sonunda kim geldi. Ne seni bu kadar uzun tuttu?\n\nÜzgünüm, gelirken anahtar kartını düşürdüm, geri dönmek zorunda kaldım ve...\n\nNe? Özel bir operasyondayız ve bir şeyleri kaybetmene izin mi veriyorsun?!\n\n...\n\nUmarım ekipmanımızı kaybetmemişsindir.\n\nEvet, merak etme, her şeyim var. Mekanik örümcekler, paraşütler, cephane, barut...\n\nKusursuz. Bütün bu kasaları görüyor musun?\n\nBuradaki her şey bizim olacak, değil mi?\n\nHer. Bir. Tanesi hemde. Planımızı unutma: Makineleri deponun etrafına saklarız, sonra 1407A odasını \"ödünç alırız\" ve varıştan beş dakika öncesine kadar normal yolcular gibi davranırız, sonra örümcekleri açarız ve ganimetler ile kaçarız.\n\nAnladım. Sandık Yağmuru Operasyonu başlasın!",
+
+    "ITEM_MYSTICSITEMS_ALLYDEATHREVENGE_NAME": "Amansız Kan Davası",
+    "ITEM_MYSTICSITEMS_ALLYDEATHREVENGE_PICKUP": "Bir müttefik öldüğünde saldırı hızını ve hasarı geçici olarak artırır.",
+    "ITEM_MYSTICSITEMS_ALLYDEATHREVENGE_DESC": "Bir müttefikik öldüğünde <style=cIsUtility>{Duration} saniyeliğine <style=cStack>(birikim başına +{DurationPerStack} saniye )</style></style> <style=cIsDamage>saldırı hızını</style> <style=cIsDamage>{AttackSpeed}%</style> ve <style=cIsDamage>hasarı</style> <style=cIsDamage>{Damage}%</style> kadar artırır.",
+
+    "ITEM_MYSTICSITEMS_SPOTTER_NAME": "Hata Bulucu",
+    "ITEM_MYSTICSITEMS_SPOTTER_PICKUP": "Rastgele bir düşmana karşı kritik vuruş şansını %100 arttırır.",
+    "ITEM_MYSTICSITEMS_SPOTTER_DESC": "Her <style=cIsUtility>{Interval} saniyede</style>, 1 <style=cStack>(birikim başına +1)</style> rastgele bir düşmanı tarar, o düşmana karşı <style=cIsDamage>Kritik vuruş şansını</style> <style=cIsDamage>100% kadar</style> <style=cIsUtility>{Duration} saniyeliğine</style> artırır.",
+
+    "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_NAME": "Nükleer Hızlandırıcı",
+
+    "ITEM_MYSTICSITEMS_EXTRASHRINEUSE_NAME": "Gizemli Dikili Taş",
+    "ITEM_MYSTICSITEMS_EXTRASHRINEUSE_PICKUP": "Tüm Mabedler bir kez daha kullanılabilir.",
+    "ITEM_MYSTICSITEMS_EXTRASHRINEUSE_DESC": "Tüm Mabedler <style=cIsUtility>+1 <style=cStack>(birikim başına +1)</style></style> kez daha kullanılabilir.",
+    "ITEM_MYSTICSITEMS_EXTRASHRINEUSE_LORE": "\"Geçtiğimiz birkaç gün içinde, dünyanın her yerinden insanlar, kısa bir süre için ortaya çıkan gizemli Dikili Taşların görüldüğünü bildirdi. Dikili Taşlara ilişkin fotoğraf veya video kanıtı bulunmadığından (bunun nedeni \"çok hızlı bir şekilde ortadan kaybolmaları\") bu raporların güvenilirliği tartışmalıdır, ancak her raporun belirli bir günde gerçekleştiğine dikkat etmek önemlidir. Bilim adamları tartışıyorlar: Dikili Taş duyarlı bir varlık mı? Bu paralel evrenlerin varlığının teyidi olabilir mi? Yoksa sadece bir aldatmaca mı?\"\n- Haber raporu",
+
+    "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPEN_NAME": "Platin Kart",
+    "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPEN_PICKUP": "Kalan Çok Mağazalı Terminaller, satın alımdan sonra kullanılabilir durumda kalır.",
+    "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPEN_DESC": "Çoklu dükkanda yapılan alımlar her aşamada <style=cIsUtility>1 <style=cStack>(birikim başına +1)</style></style> kez daha alıma izin verir.",
+    "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPEN_LORE": "<style=cMono>\n//-- Yeni Mesajlar (1) --//\n\nKimden: UES</style>\n\nPlatin Kart programına abone olduğunuz için teşekkür ederiz! Bugünden itibaren tüm gezegenlerde UES'in her şubesinde günlük teklifler ve indirimler sizleri bekliyor.\n\nAylık ücreti ödemeyi unutmayın. Yoksa...\n\n<style=cMono>Bu konuşmaya cevap veremezsiniz.</style>",
+
+    //[TIER3]
+    "ITEM_MYSTICSITEMS_VOLTMETER_NAME": "Kablosuz Voltmetre",
+    "ITEM_MYSTICSITEMS_VOLTMETER_PICKUP": "Kalkan etkinken alınan hasarı yakındaki düşmanlara yansıtın.",
+    "ITEM_MYSTICSITEMS_VOLTMETER_DESC": "Maksimum sağlığınızın <style=cIsHealing>%{PassiveShield}</style>'üne eşit bir <style=cIsHealing>kalkan</style> kazanın. <style=cIsUtility>kalkanınız</style> etkinken vurulmak, yakındaki düşmanları <style=cIsDamage>{Radius}m</style> yarıçapında alınan hasarın <style=cIsDamage>%{Damage} <style=cStack>( birikim başına %+{DamagePerStack})</style></style> ile çarpmanıza neden olur.",
+    "ITEM_MYSTICSITEMS_VOLTMETER_LORE": "WV-1 PROTOTİP KULLANIM KILAVUZU\n\nWV'yi hiçbir koşulda sökmeyin, aksi takdirde garantiniz geçersiz olur. Bir sorun olması durumunda üreticiyle iletişime geçin (bkz. s. 9).\nSıvılara maruz bırakmayın.\nBaşka bir aktif WV'ye maruz bırakmayın.\nElektronik cihazların yakınında 7200 saatten fazla tutmayın.\nBoşaltma patlamasına yakalanmamak için WV'yi katı bir cisme atarken 30+ metre mesafeyi koruyun .\n\nSAYFA 4 - GÜVENLİK ÖNLEMLERİ",
+
+    "ITEM_MYSTICSITEMS_THOUGHTPROCESSOR_NAME": "Düşünce İşlemcisi",
+    "ITEM_MYSTICSITEMS_THOUGHTPROCESSOR_PICKUP": "Her beceri kullanımı, diğer becerilerin bekleme süresini azaltır.",
+    "ITEM_MYSTICSITEMS_THOUGHTPROCESSOR_DESC": "Bekleme süresi olan becerilerinizden birini her kullandığınızda, diğer tüm becerilerin <style=cIsUtility>bekleme süresi</style> <style=cIsUtility>%{CDR} <style=cStack>(birikim başına +%{CDR}) azalır </style></style>.",
+    "ITEM_MYSTICSITEMS_THOUGHTPROCESSOR_LORE": "Sipariş: Minzz Blender 14-QS\r\nTakip Numarası: 359*****\r\nTahmini Teslimat: 02\/06\/2056\r\nNakliye Yöntemi: Yüksek Öncelik\r\nNakliye Adresi: Cooper's Repair, Highground , Venus\r\nNakliye Ayrıntıları:\r\n\r\nBütün bunları posta yoluyla yaptığım için üzgünüm. Hemen açıklayacağım. Muhtemelen paketten gelen uğultu sesini fark etmişsinizdir. Kırık bir karıştırıcıdan dolayı ve artık kapanmıyorda. Kendi başıma tamir etmeye çalıştım ama sonra, uh... bir el kesme kazası oldu. Şu an hastanedeyim. Sırf bu sebepten dolayı uzun bir süre bizzat gelemeyeceğim.\r\n",
+
+    "ITEM_MYSTICSITEMS_CRYSTALWORLD_NAME": "Kristalize Dünya",
+    "ITEM_MYSTICSITEMS_CRYSTALWORLD_PICKUP": "Işınlayıcı etkinliği sırasında tüm düşmanları periyodik olarak dondurur.",
+    "ITEM_MYSTICSITEMS_CRYSTALWORLD_DESC": "Işınlayıcı etkinliği sırasında yakındaki tüm düşmanları <style=dIsUtility>{FreezeTime} saniye</style> boyunca <style=cIs Utility>dondurun</style>. <style=cIsUtility>{Pulses} <style=cStack>(birikim başına +{PulsesPerStack})</style></style> kez oluşur.",
+    "ITEM_MYSTICSITEMS_CRYSTALWORLD_LORE": "Sipariş: Kristal Top Modeli\r\nTakip Numarası: 242*****\r\nTahmini Teslimat: 06\/15\/2056\r\nNakliye Yöntemi: Yüksek Öncelikli/Kırılgan\r\nNakliye Adresi: [ÇIKARILDI] , Viyana, Avusturya, Dünya\r\nNakliye Ayrıntıları:\r\n\r\nUmarım iyisinizdir. Çalışmalarınızın büyük bir hayranıyım. Müziğiniz... harika, benzersiz, olağanüstü. şarkılarından biri çalma listemde her çalmaya başladığında heyecanlanıyor. Hayatımı çok daha iyi hale getirdiğin için teşekkür ederim. İşte takdirimin simgesi - [ÇIKARILMIŞ] şarkı kapağının üç boyutlu bir kopyası.\r\n",
+
+    "ITEM_MYSTICSITEMS_DASHERDISC_NAME": "Dakik İcraat",
+    "ITEM_MYSTICSITEMS_DASHERDISC_PICKUP": "Düşük sağlığa ulaştıktan sonra kısa süreliğine yenilmezlik kazanın. Zamanla şarj olur.",
+    "ITEM_MYSTICSITEMS_DASHERDISC_DESC": "<style=cIsHealth>%25 sağlığın</style> altına düşmek, cisimsiz olmanıza ve <style=cIsUtility>{Duration} saniye</style> boyunca yenilmezlik kazanmanıza neden olur. Her <style=cIsUtility>{Cooldown} <style=cStack>(birikim başına -%{CooldownReductionPerStack})</style></style> saniyede bir şarj olur.",
+    "ITEM_MYSTICSITEMS_DASHERDISC_LORE": "Sipariş: Dasher Disk\r\nTakip Numarası: 20******\r\nTahmini Teslimat: 10\/22\/2089\r\nNakliye Yöntemi: Yüksek Öncelikli/Biyolojik\r\nNakliye Adresi: Dev Disk, Jüpiter\r\nNakliye Ayrıntıları:\r\n\r\nLaboratuvarımızda dolaşırken bunu buldum. AYNI ORTAMDAYKEN HIZLI HAREKET ETMEYİN\r\n",
+
+    "ITEM_MYSTICSITEMS_TREASUREMAP_NAME": "Hazine Haritası",
+    "ITEM_MYSTICSITEMS_TREASUREMAP_PICKUP": "Her aşama, Efsanevi Sandığ bulunduran bir hazine noktası içerir.",
+    "ITEM_MYSTICSITEMS_TREASUREMAP_DESC": "Her etapta gömülü bir <style=cIsUtility>Efsanevi Sandık</style> bulunan {Radius} metrelik bir <style=cIsUtility>hazine yeri</style> bulunur. <style=cIsUtility>{UnearthTime}s <style=cStack>(birikim başına -%{ReductionPerStack})</style></style> için hazine noktasında durmak sandığı ortaya çıkarır.",
+    "ITEM_MYSTICSITEMS_TREASUREMAP_LORE": "<style=cMono>> OS YÜKLENDİ\n> OTOMATİK YÜRÜTME \"TOPSECRET\"\n> [||||||||||] %100\n> ERİŞİM REDDİ\n> ŞİFRE GİR\n> * *****12\n> ERİŞİM VERİLDİ\n> BORON YILDIZ SİSTEMİNDE HAZİNE ÖNLEĞİ\n> RA 21H 32M 29S | ARALIK -15° 14' 5\"\n> İLGİLİ KOORDİNATLARI YENİDEN HESAPLA? E/H\n> _</style>",
+
+    //[LUNAR ITEMS]
+    "ITEM_MYSTICSITEMS_RIFTLENS_NAME": "Çatlak Lens",
+
+    "ITEM_MYSTICSITEMS_MOONGLASSES_NAME": "Ay Gözlüğü",
+    "ITEM_MYSTICSITEMS_MOONGLASSES_PICKUP": "Kritik Vuruş hasarını artırın... <color=#FF7F7F>AMA Critical Strike şansını azaltın.</color>\n",
+    "ITEM_MYSTICSITEMS_MOONGLASSES_DESC": "Kritik vuruş hasarını <style=cIsDamage>%{CritDamageIncrease} <style=cStack>(birikim başına +%{CritDamageIncreasePerStack})</style></style> arttırır. <style=cIsUtility>%50 <style=cStack>(birikim başına +%50)</style></style> ile Kritik Vuruş şansını azaltır.",
+
+    //[EQUIPMENT]
+    "EQUIPMENT_MYSTICSITEMS_ARCHAICMASK_NAME": "Efsanevi Maske",
+    "EQUIPMENT_MYSTICSITEMS_ARCHAICMASK_PICKUP": "Yaşlı bir Işık Topu size yardıma gelir. {Duration} saniye sürer.",
+    "EQUIPMENT_MYSTICSITEMS_ARCHAICMASK_DESC": "<style=cIsDamage>%{WispDamage} hasar</style>, <style=cIsHealing>%{WispHealth} sağlık</style> ve <style=cIsUtility>%{WispCDR} bekleme süresinde azalma</style> ile bir <style=cIsDamage>Yaşlı Işık Topu</style> size yardıma gelir. {Duration} saniye sürer.",
+    "EQUIPMENT_MYSTICSITEMS_ARCHAICMASK_LORE": "<style=cMono>\r\nSes transkripsiyonu taşınabilir kayıt cihazından tamamlandı.</style>\r\n\r\nMaske hala yanıyor, ancak vücudun geri kalanı zaten soğudu. Hayatına devam ediyor mu?\r\n\r\nBu maskeye ateş uygulayarak periyi 'diriltebilir miyim'? Bu büyük bir hata olabilir ama bir müttefik bulmak için tek şansım bu.\r\n\r\nSoru sormak için vakit yok. Öğrenme zamanı...\r\n\r\n[Yangın patlamaları]\r\n\r\n<style=cMono>İstenen konuşma metninin sonu.</style>\r\n",
+
+    "EQUIPMENT_MYSTICSITEMS_PRINTERHACKER_NAME": "Tel Kesme Anahtarı",
+    "EQUIPMENT_MYSTICSITEMS_PRINTERHACKER_PICKUP": "Bir 3D Yazıcıdan ücretsiz olarak bir ürün alın, ardından yazıcıyı yok edin.",
+    "EQUIPMENT_MYSTICSITEMS_PRINTERHACKER_DESC": "Bir 3D Yazıcıdan <style=cIsUtility>ücretsiz</style> bir öğe alın, sonra yazıcıyı imha edin.",
+
+    "EQUIPMENT_MYSTICSITEMS_MICROPHONE_NAME": "Eski Mikrofon",
+    "EQUIPMENT_MYSTICSITEMS_MICROPHONE_PICKUP": "Önünüzdeki düşmanları sağır edin, hareket hızlarını, zırhlarını azaltın ve bekleme sürelerini artırın.",
+    "EQUIPMENT_MYSTICSITEMS_MICROPHONE_DESC": "<style=cIsUtility>{Duration} saniye</style> için önünüzdeki düşmanları <style=cIsDamage>sağır</style> eder, hareket hızlarını <style=cIsUtility>%{MoveSpeedReduction}</style>, zırhlarını <style=cIsDamage>{ArmorReduction}</style> azaltır ve yeteneklerinin bekleme sürelerini <style=cIsUtility>%{AttackSpeedReduction}</style> arttırır.",
+
+    //[LUNAR EQUIPMENT]
+    "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_NAME": "Oran Dengeleyici",
+    "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_PICKUP": "<color=#FF7F7F>Yakındaki TÜM karakterlerin</color> mevcut sağlık oranını ortalar.\n",
+    "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_DESC": "{Radius}m yarıçapındaki tüm karakterlerin mevcut sağlık oranının ortalamasını alın.",
+
+    "EQUIPMENT_MYSTICSITEMS_GATECHALICE_NAME": "Kapı Kadehi",
+
+    //[ACHIEVEMENTS]
+    "ACHIEVEMENT_MYSTICSITEMS_ESCAPEMOONALONE_NAME": "Sonuncumuz",
+    "ACHIEVEMENT_MYSTICSITEMS_ESCAPEMOONALONE_DESCRIPTION": "Yaşayan tek oyuncu olarak aydan kaç.",
+
+    "ACHIEVEMENT_MYSTICSITEMS_REPAIRBROKENSPOTTER_NAME": "Düşman Tespit Edildi",
+    "ACHIEVEMENT_MYSTICSITEMS_REPAIRBROKENSPOTTER_DESCRIPTION": "Bir Kaçış Podunun Yakıt Dizisi ile bozuk Hata Bulucu'yu onarın.",
+
+    "ACHIEVEMENT_MYSTICSITEMS_FINDARCHAICMASK_NAME": "Öldürmek için Yak",
+    "ACHIEVEMENT_MYSTICSITEMS_FINDARCHAICMASK_DESCRIPTION": "Soğumadan önce Kavrulmuş Arazi'deki Efsanevi Maskeyi alın.",
+
+    "ACHIEVEMENT_MYSTICSITEMS_MULTISHOPTERMINALSONLY_NAME": "Akıllı Alışverişçi",
+    "ACHIEVEMENT_MYSTICSITEMS_MULTISHOPTERMINALSONLY_DESCRIPTION": "Yalnızca Multishop Terminalleri satın alarak 5 aşamayı tamamlayın.",
+
+    //[BODIES]
+    "ARCHWISP_BODY_NAME": "Yaşlı Işık Topu",
+
+    //[INTERACTABLES]
+    "MYSTICSITEMS_RIFTCHEST_NAME": "Çatlak Sandığı",
+    "MYSTICSITEMS_RIFTCHEST_CONTEXT": "Çatlak Sandığını Aç",
+
+    "MYSTICSITEMS_BROKENSPOTTER_NAME": "Bozuk Hata Bulucu",
+    "MYSTICSITEMS_BROKENSPOTTER_CONTEXT": "Tamir",
+
+    "MYSTICSITEMS_ARCHAICMASK_CONTEXT": "Efsanevi Maskeyi Al",
+
+    "MYSTICSITEMS_SHRINE_LEGENDARY_NAME": "Efsanenin Mabedi",
+    "MYSTICSITEMS_SHRINE_LEGENDARY_CONTEXT": "Efsanenin Mabedine Sun",
+    "MYSTICSITEMS_SHRINE_LEGENDARY_USE_MESSAGE_2P": "<style=cShrine>Efsanenin vücut bulmuş hali oldun.</color>",
+    "MYSTICSITEMS_SHRINE_LEGENDARY_USE_MESSAGE": "<style=cShrine>{0} efsanenin vücut bulmuş hali oldu.</color>",
+
+    //[COSTTYPES]
+    "COST_MYSTICSITEMS_RIFTLENSDEBUFF_FORMAT": "{0} Çatlak Ağrısı",
+
+    //[OBJECTIVES]
+    "MYSTICSITEMS_OBJECTIVE_CHARGE_TREASUREMAPZONE": "<color=#F8EB27>Efsanevi Sandığı</color> ({0}%) bulun ve ortaya çıkarın",
+    "MYSTICSITEMS_OBJECTIVE_CHARGE_TREASUREMAPZONE_OOB": "<color=#F8EB27>Efsanevi Sandığı</color> ({0}%) bulun ve ortaya çıkarın",
+
+    //[CUSTOM]
+    "MYSTICSITEMS_EMPTY_FORMAT": "{0}"
+  }
+}
