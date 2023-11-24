@@ -1,0 +1,452 @@
+{
+  "ko": {
+    //[ITEMS]
+
+    //[NOTIER]
+    "ITEM_MYSTICSITEMS_RIFTLENSDEBUFF_NAME": "균열 비전",
+    "ITEM_MYSTICSITEMS_RIFTLENSDEBUFF_PICKUP": "불안정한 균열을 볼 수 있습니다... <color=#FF7F7F>하지만 제시간에 모두 닫지 못하면 죽게 됩니다!",
+    "ITEM_MYSTICSITEMS_RIFTLENSDEBUFF_DESC": "불안정한 균열을 볼 수 있습니다... <color=#FF7F7F>하지만 제시간에 모두 닫지 못하면 죽게 됩니다!",
+
+    "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPENCONSUMED_NAME": "플래티넘 카드 (소모)",
+    "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPENCONSUMED_PICKUP": "다음 스테이지에서 재충전됩니다.",
+    "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPENCONSUMED_DESC": "다음 스테이지에서 재충전됩니다.",
+
+    //[TIER1]
+    "ITEM_MYSTICSITEMS_HEALORBONBARREL_NAME": "도넛", // ["Food for thought" in the lore entry is a wordplay on donuts as a kind of food and "food for thought" as a metaphorical phrase]
+    "ITEM_MYSTICSITEMS_HEALORBONBARREL_PICKUP": "상호작용 가능 개체를 활성화하면 치유 구체가 생성됩니다.",
+    "ITEM_MYSTICSITEMS_HEALORBONBARREL_DESC": "상호작용을 활성화 하면 <style=cIsHealing>회복 구슬</style>이 나타납니다. <style=cIsHealing>체력</style>을 <style=cIsHealing>{FlatHealing} </style> + <style=cIsHealing>최대 체력</style>의 <style=cIsHealing>{FractionalHealing}% <style=cStack>(중첩당 +{FractionalHealingPerStack}%)</style></style> 만큼 <style=cIsHealing> <style=cIsHealing>회복</style>합니다</style>.",
+    "ITEM_MYSTICSITEMS_HEALORBONBARREL_LORE": "- 도넛에 가운데 구멍이 있는 이유를 아세요?\n\n- 왜냐하면... 전혀 모르니까요.\n\n- 생각해 볼 만한 내용입니다.\n\n- ... 난 네가 싫어.",
+
+    "ITEM_MYSTICSITEMS_SCRATCHTICKET_NAME": "스크래치 복권",
+    "ITEM_MYSTICSITEMS_SCRATCHTICKET_PICKUP": "확률 기반 효과의 발생 확률을 약간 증가시킵니다.",
+    "ITEM_MYSTICSITEMS_SCRATCHTICKET_DESC": "확률 기반 효과는 <style=cIsUtility>+{ChanceBonus}% <style=cStack>(중첩당 +{ChanceBonusPerStack}%)</style></style>의 확률로 발동합니다. 발동 확률이 1% 미만인 효과에는 효과가 적용되지 않습니다.",
+    "ITEM_MYSTICSITEMS_SCRATCHTICKET_LORE": "<style=cMono>\n//--전화 통화 다시 듣기 #731 --//</style>\n\n- 좋은 아침입니다. 누구신지 여쭤봐도 될까요?\n\n- 좋은 아침입니다! 스타 세븐의 칼 쉐이드입니다. 100.000 복권 당첨을 축하하기 위해 전화를 드렸습니다!\n\n- 와, 정말요?\n\n- 복권에 당첨된 적이 있나요?\n\n- 오, 어... 아니요.\n\n- 모든 일에는 처음이 있잖아요! 경품을 받으시려면 신용카드 뒷면에 있는 세 개의 숫자를 포함한 신용카드 정보가 필요합니다.\n\n- 이 통화 내용은 개인정보 보호를 위해 삭제되었습니다.\n\n- 알겠습니다!\n\n- ...\n\n- ...\n\n- 아직 아무것도 받지 못했습니다. 숫자가 맞나요?\n\n<style=cMono>\n//--대화 종료 --//</style>",
+
+    "ITEM_MYSTICSITEMS_BACKARMOR_NAME": "척추 임플란트",
+    "ITEM_MYSTICSITEMS_BACKARMOR_PICKUP": "후방 공격으로 인한 피해가 줄어듭니다.",
+    "ITEM_MYSTICSITEMS_BACKARMOR_DESC": "후방 공격에 대한 <style=cIsUtility>방어력이 {ArmorAdd} <style=cStack>(중첩당 +{ArmorAddPerStack})</style></style> 증가합니다.",
+    "ITEM_MYSTICSITEMS_BACKARMOR_LORE": "<style=cMono>\n//--TV 방송에서 발췌--//</style>\n\n속보: 1분 전에 센트럴 빌딩에서 대규모 화재가 발생했습니다. 현재 건물 근처에 있습니다. 소방관- 누군가 창문에서 뛰어내렸어요! 이봐, 뭐 하는 거야?! 카메라 돌려!\n\n오, 세상에.\n잠깐만요... 그들이... 살아있어요? 그들을 향해 달려오는 저 사람은 누구죠?\n좋아, 우리는 조사가 필요해.\n\n기자: 선생님, 괜찮으세요?\n\n사람 1: 네, 괜찮습니다.\n\n사람 2: \"모두 괜찮다\"는 게 무슨 뜻인가요? 90층 높이에서 떨어졌는데, [삐-삐-] TV에 나오는데 아무렇지도 않게 \"괜찮습니다\"라고 대답하는 거잖아요! 무슨 일이에요?!\n\n사람 1 : 글쎄요, 저는 불에 타 죽지 않을 것입니다. 창문이 열려 있었다. 그리고 새로운 척추 임플란트를 테스트해야 했습니다. 그래서 나는 점들을 연결하고 내가 한 일을했다.\n\n사람 2: 날 걱정하게 했잖아, 이 [삐-]아! 다시는 그러지 마세요!",
+
+    "ITEM_MYSTICSITEMS_MANUSCRIPT_NAME": "원고",
+    "ITEM_MYSTICSITEMS_MANUSCRIPT_PICKUP": "무작위 능력치가 {StatBonus}% 증가됩니다.",
+    "ITEM_MYSTICSITEMS_MANUSCRIPT_DESC": "무작위 능력치 <style=cIsUtility>1개</style><style=cStack>(중첩당+1)</style>가(<style=cIsHealing>최대 체력</style>/<style=cIsHealing>체력 회복</style>/<style=cIsDamage>데미지</style>/<style=cIsUtility>이동 속도</style>/<style=cIsDamage>공격 속도</style>/<style=cIsDamage>치명타 확률</style>/<style=cIsUtility>방어력</style>)<style=cIsUtility>{StatBonus}%</style>증가합니다.",
+    "ITEM_MYSTICSITEMS_MANUSCRIPT_LORE": "<style=cMono>of***er *********** 의 클래스 Z-3 육군 헬멧 오디오 녹취가 완료되었습니다.</style>\r\n\r\nZ-3 Ra-2: 말도 안 돼, 이건 그냥 휴지 조각이야 [정적 소음] 임무 #[알아들을 수 없는 중얼거림]\r\n\r\nZ-3 LE0-5: [치-직...] 행성 [치-직...] 경계 중 [치-직...]\r\n\r\nZ-3 Ra-2: 네, 위험한 짐승, [치-직...], [치-직...], ㄱ[치-직...], 탈주자, <mark=#ff0000ff>IMPS, 이 행성은 그렇게 적은 보수를 받기엔 너무 위험하고... \"[알아들을 수 없는 중얼거림]\"\r\n\r\nZ-3 LE0-5: Ra[치-직...]\r\n\r\nZ-3 Ra-2: [치-직...]\r\n\r\nZ-3 LE0-5: [치-직...]\r\n\r\nZ-3 Ra-2: [알아들을 수 없는 중얼거림]\r\n\r\nZ-3 LE0-5: [치-직...]\r\n\r\n[출처를 알 수 없는 소리]\r\n\r\n<style=cMono>--녹음 종료--</style>\r\n\r\n헬멧은 쌍안경과 위치추적기 없이 치명적인 손상을 입은 채 발견되었습니다.",
+
+    "ITEM_MYSTICSITEMS_LIMITEDARMOR_NAME": "귀여운 리본", // [Hair bow]
+    "ITEM_MYSTICSITEMS_LIMITEDARMOR_PICKUP": "{Hits} 번의 피해를 줄입니다.",
+    "ITEM_MYSTICSITEMS_LIMITEDARMOR_DESC": " <style=cIsUtility>{Hits} 히트 <style=cStack>(중첩당 +{Hits} 히트)</style></style>동안 <style=cIsUtility>방어력{Armor}</style> 이 증가합니다. 소진 시 항상 <style=cIsUtility>방어력</style>이 증가하는 <style=cIsUtility> 닳은 리본 ({BrokenArmor} <style=cStack>(중첩당 +{BrokenArmor})</style>)</style>로 변합니다.",
+    "ITEM_MYSTICSITEMS_LIMITEDARMOR_LORE": "-6월의 현재 상황은 어떤가요?\r\n\r\n- 오, 믿기지 않으실 거예요! 미지의 영역으로 떠나는 구출 임무에 [삐- 삐-]가 직접 초대를 받았어요! 하지만 아무한테도 말하지 마세요. 비밀이에요, 히히히.\r\n\r\n- 뭐야?! 말도 안 돼!\r\n\r\n- 그렇죠? 그녀는 항상 UES에서 일하는 것을 꿈꿔왔습니다. 이제 그녀의 꿈이 실현된 셈이죠!\r\n\r\n- 정말 기뻐요!\r\n\r\n- UES에서 첨단 기술도 제공해주셔서 아무것도 살 필요가 없었어요. 여행에 필요한 코코아 몇 박스를 사다 주긴 했죠. 그녀가 좋아하더군요. 오, 저기 봐요! 새 장비를 입고 사진을 몇 장 찍었어요.\r\n\r\n- 이 모든 것을 공짜로 준다고요?! UES는 직원들을 정말 아끼는군요?\r\n",
+
+    "ITEM_MYSTICSITEMS_LIMITEDARMORBROKEN_NAME": "닳은 리본",
+    "ITEM_MYSTICSITEMS_LIMITEDARMORBROKEN_PICKUP": "<style=cIsUtility>방어력</style>이 약간 증가 됩니다.",
+    "ITEM_MYSTICSITEMS_LIMITEDARMORBROKEN_DESC": "<style=cIsUtility>방어력</style>이 <style=cIsUtility>{BrokenArmor} <style=cStack>(중첩당 +{BrokenArmor})</style></style> 증가합니다.",
+    "ITEM_MYSTICSITEMS_LIMITEDARMORBROKEN_LORE": "- 대위님 긴급한 상황입니다. 준 마쉬 일병과 방금 교신이 끊겼습니다. 레이더가 갑자기 그녀의 위치추적기를 놓쳤습니다.\r\n\r\n- 소위.. 이건 긴급한 상황은 아니다.\r\n\r\n- 대...대위님?\r\n\r\n- ...\r\n\r\n- 대위님, 왜 급한 일이 아닌가요?\r\n\r\n- 그녀는 슈트를 충전하는 것을 잊었다. 기억하는 즉시 로케이터가 다시 온라인 상태가 될거야.\r\n\r\n- 대위님, 위치추적기는 최대 360일 동안 작동합니다. 우린 21일 동안 여기 있었어요. 우리가 심하게 과소 충전한 게 아니라면.....\r\n\r\n- 조용히 해!!!!!!!!!!! 소위!! 그녀가 알아낼 거다.\r\n\r\n-대위님.. 우린....-\r\n\r\n- 조용!!!!! 소위!!!, 통신실로 돌아가 당장!!!!!!!!!!!!!!\r\n",
+
+    "ITEM_MYSTICSITEMS_COOKIE_NAME": "초코칩", // [It's a chocolate chip cookie]
+    "ITEM_MYSTICSITEMS_COOKIE_PICKUP": "버프는 더 오래 지속되고 디버프는 더 짧게 지속됩니다.",
+    "ITEM_MYSTICSITEMS_COOKIE_DESC": "버프 상태 효과의 지속 시간을 <style=cIsUtility>{BuffDuration}s <style=cStack>(중첩당 +{BuffDurationPerStack}s)</style></style> 늘립니다. 디버프 상태 효과의 지속 시간을 <style=cIsUtility>{DebuffDuration}s <style=cStack>(중첩당 +{DebuffDuration}s)</style></style> 줄입니다. 1초 미만으로 줄일 수 없습니다.",
+    "ITEM_MYSTICSITEMS_COOKIE_LORE": "<style=cMono>\r\n라디오 메시지 수신 중...</style>\r\n\r\n\"...으, 내가 왜 이런 짓을 했지? 내가 왜 먹었지? 그냥 왜? 당연히 상했겠지! 이 망할 행성에 몇 년이나 있었잖아! 하지만 너무 맛있어 보였고 배가 너무 고팠어! ...응? 누구야? 오, 정말 미안해! 실수로 버튼을 눌렀어요! 오버!\"",
+
+    "ITEM_MYSTICSITEMS_MARWANASH1_NAME": "마르완의 재", // [Marwan's developer item]
+    "ITEM_MYSTICSITEMS_MARWANASH1_PICKUP": "적중 시 추가 피해를 입힙니다. Upgrades at level {UpgradeLevel12}.",
+    "ITEM_MYSTICSITEMS_MARWANASH1_DESC": "적을 타격하면 추가로 <style=cIsDamage>{Damage} <style=cStack>(레벨당 +{DamagePerLevel} (중첩당 +{StackLevelMultiplier}%))</style></style>의 피해를 줍니다. <style=cIsUtility>{UpgradeLevel12}레벨에 업그레이드 합니다. </style>",
+
+    "ITEM_MYSTICSITEMS_MARWANASH2_NAME": "마르완의 빛",
+    "ITEM_MYSTICSITEMS_MARWANASH2_PICKUP": "적중시 추가 피해를 입히고 공격 시 지속 피해를 입힙니다. {UpgradeLevel23} 레벨에서 업그레이드됩니다.",
+    "ITEM_MYSTICSITEMS_MARWANASH2_DESC": "적을 타격하면 <style=cIsDamage>{Damage} <style=cStack>(레벨당 +{DamagePerLevel} (중첩당 +{StackLevelMultiplier}%))</style></style> 피해를 입히고, 매 초마다 <style=cIsHealing>최대 체력</style>이 <style=cIsHealth>{DoTPercent}% <style=cStack>(레벨당 +{DoTPercentPerLevel}% (중첩당 +{StackLevelMultiplier}%), 업그레이드 레벨 {UpgradeLevel12} 이상부터)</style></style>감소합니다. <style=cIsUtility>{UpgradeLevel23}레벨에 업그레이드 합니다.</style>",
+
+    "ITEM_MYSTICSITEMS_MARWANASH3_NAME": "마르완의 무기",
+    "ITEM_MYSTICSITEMS_MARWANASH3_PICKUP": "적중 시 주변 모든 적에게 피해를 입히고 지속 피해를 입힙니다.",
+    "ITEM_MYSTICSITEMS_MARWANASH3_DESC": "적을 공격하면 주변 <style=cIsUtility> 반경 {Radius}m <style=cStack>(레벨당 +{RadiusPerLevel}m (중첩당 +{StackLevelMultiplier}% ) {UpgradeLevel23}레벨 이상 당)</style>의 모든 적에게<style=cIsDamage>{Damage} <style=cStack>(레벨당 +{DamagePerLevel} (중첩당 +{StackLevelMultiplier}%))</style></style>의 피해를 입히고, 매 초마다 <style=cIsHealing>최대 체력</style>이<style=cIsHealth>{DoTPercent}% <style=cStack>(레벨당 +{DoTPercentPerLevel}% (중첩당 +{StackLevelMultiplier}%) {UpgradeLevel12}레벨 이상 당)</style></style>감소합니다.",
+
+    "ITEM_MYSTICSITEMS_GACHAPONTOKEN_NAME": "가챠 코인",
+    "ITEM_MYSTICSITEMS_GACHAPONTOKEN_PICKUP": "다음 스테이지까지 각각의 '확률의 성소' 활성화마다 <style=cIsDamage>치명타 확률</style>과 <style=cIsDamage>공격 속도</style>가 증가합니다.",
+    "ITEM_MYSTICSITEMS_GACHAPONTOKEN_DESC": "다음 스테이지까지 <style=cIsUtility>확률의 성소</style>를 활성화할 때 마다 <style=cIsDamage>치명타 확률</style>을 <style=cIsDamage>{CritBonus}% <style=cStack>(중첩당 +{CritBonusPerStack}%)</style></style>증가하고, <style=cIsDamage>공격 속도</style>는 <style=cIsDamage>{AttackSpeedBonus}% <style=cStack>(중첩당 +{AttackSpeedBonusPerStack}%)</style></style>씩 증가합니다. 또한 지속적으로 <style=cIsDamage>치명타 확률</style>을 <style=cIsDamage>{PassiveCritBonus}% <style=cStack>(중첩당 +{PassiveCritBonusPerStack}%)</style></style> 증가시키며, <style=cIsDamage>공격 속도</style>는 <style=cIsDamage>{PassiveAttackSpeedBonus}% <style=cStack>(중첩당 +{PassiveAttackSpeedBonusPerStack}%)</style></style> 증가합니다.",
+    "ITEM_MYSTICSITEMS_GACHAPONTOKEN_LORE": "쓰~~~읍 후~~~~~~~\r\n\r\n이거... 어, 이거... 하나, 둘, 셋... 좋아, 작동해서 다행이야\r\n\r\n[삐--]의 일지, 첫째 날 ||||. 전 섹터에... 어... 어... 잊어버려요. 어쨌든 죽을 뻔했어요 여우원숭이한테 습격당해서 내 밑의 땅이 망할 골렘으로 변해버렸고... 아팠어 아주 많이요... 그래서 도망쳤어....\r\n\r\n이 조각상을 만났어요. 어렸을 때 집에서의 삶이 떠올랐어요. 기도를 시작했어요. 제 목숨을 위해 기도하기 시작했죠 눈물이 났어요 죽을 것 같았거든요 갑자기 번쩍하는 빛이... 제 손에 구급상자와 여분의 총알이 들려왔어요. \r\n\r\n이런 생각을 할 때가 아니네요. 안전한 곳으로 돌아가야겠어. 기적은 두 번 일어나지 않습니다.",
+
+    "ITEM_MYSTICSITEMS_FLOW_NAME": "일관된 흐름",
+    "ITEM_MYSTICSITEMS_FLOW_PICKUP": "<style=cIsUtility>이동 속도</style>가 살짝 빨라집니다. 느려지는 효과를 덜 받습니다. 뿌리 효과에 걸리면 이동 속도가 느려집니다.",
+    "ITEM_MYSTICSITEMS_FLOW_DESC": "<style=cIsUtility>이동속도가 {MoveSpeed}% <style=cStack>(중첩당 +{MoveSpeedPerStack}%)</style></style>만큼 빨라집니다. 둔화 효과는 <style=cIsUtility>{SlowReduction}% <style=cStack>(중첩당 +{SlowReductionPerStack}%)</style></style>만큼 줄어듭니다. 루팅 효과는 <style=cIsUtility>더 이상 자신을 루팅 하지 않고, 대신 이동 속도를 {InitialRootSlow}% <style=cStack>(중첩당 -{RootSlowReductionPerStack}%)</style></style>감소합니다.",
+
+    "ITEM_MYSTICSITEMS_GHOSTAPPLE_NAME": "유령 사과",
+    "ITEM_MYSTICSITEMS_GHOSTAPPLE_PICKUP": "다음 {Minutes} 분 동안 <style=cIsHealing>체력 회복</style>을 증가시킵니다.",
+    "ITEM_MYSTICSITEMS_GHOSTAPPLE_DESC": " <style=cIsUtility>{Minutes} 분</style> 동안 <style=cIsHealing>체력 회복</style>을 <style=cIsHealing>{Regen} HP/s <style=cStack>(중첩당 +{Regen} HP/s, 레벨당 +20%)</style></style> 증가시킵니다. 소진 시 <style=cIsUtility>사과 줄기</style> (항상 <style=cIsHealing>체력 회복</style>을 {RegenWeak} HP/s <style=cStack>(중첩당 +{RegenWeak} HP/s, 레벨당 +20%)</style> 증가합니다.)로 변합니다. <style=cStack>각 중첩은 자체 타이머를 가지고 있습니다.</style>",
+    "ITEM_MYSTICSITEMS_GHOSTAPPLE_LORE": "\"이제 우리는 알려진 모든 물리학 법칙을 깨는 자연의 경이로움에 다가서고 있습니다. 과학자들은 여전히 이 흥미로운 현상을 설명하지 못하고 있습니다.\r\n\r\n물리적으로 얼음이 형성될 수 없는 곳에서 사과 모양의 얼음으로 둘러싸인 곳입니다. 정말 오랜 세월의 수수께끼입니다.\"\r\n\r\n- 지구 역사 박물관",
+
+    "ITEM_MYSTICSITEMS_GHOSTAPPLEWEAK_NAME": "사과 줄기",
+    "ITEM_MYSTICSITEMS_GHOSTAPPLEWEAK_PICKUP": "약간의 <style=cIsHealing>체력 회복</style>이 증가합니다.",
+    "ITEM_MYSTICSITEMS_GHOSTAPPLEWEAK_DESC": "<style=cIsHealing>체력 회복</style>을 <style=cIsUtility>{RegenWeak} HP/s <style=cStack>(중첩당 +{RegenWeak} HP/s, 레벨 당 +20%)</style></style>으로 증가시킵니다.",
+    "ITEM_MYSTICSITEMS_GHOSTAPPLEWEAK_LORE": "- 불완전하다. 쓸모없는. 에너지 낭비. 당신이 하는 일은 낭비와 파멸뿐입니다. 시간 낭비. 에너지 낭비. 자원 낭비. 개선할 수 있었던 모든 것을 낭비합니다. 개선! 나에 의해!\r\n\r\n- 으, 그만! 이미 사과했어! 그리고 이봐요, 이 파란 구슬은 버리라고 했잖아요!\r\n\r\n- ...\r\n\r\n- 너 뭐야... 저리 가 저리 가 나한테서 멀리 떨어져",
+
+    //[TIER2]
+    "ITEM_MYSTICSITEMS_COFFEEBOOSTONITEMPICKUP_NAME": "익스프레소 한 잔", // [Yes, it is specifically "expresso" in this item, because it makes you fast and inflicts an Express Boost buff. It's not a misspelling.]
+    "ITEM_MYSTICSITEMS_COFFEEBOOSTONITEMPICKUP_PICKUP": "아이템 획득 시 익스프레스 부스트를 받아 <style=cIsDamage>공격 속도</style>와 <style=cIsUtility>이동 속도</style>가 증가합니다. 최대 {MaxBuffs}회 중첩되며 다음 스테이지로 넘어가면 초기화됩니다.",
+    "ITEM_MYSTICSITEMS_COFFEEBOOSTONITEMPICKUP_DESC": "각 아이템 획득 시 <style=cIsUtility>익스프레스 부스트</style>를 제공하며, 다음 스테이지까지 <style=cIsDamage>공격 속도</style>와 <style=cIsUtility>이동 속도</style>를 <style=cIsUtility>{BoostPower}%</style> 증가시킵니다. 최대 증가치는 <style=cIsUtility>{BoostPowerMax}% <style=cStack>(중첩당 +{BoostPowerMaxPerStack}%)</style></style>입니다. <style=cIsUtility> 희귀도가 높은 아이템일수록 더 많은 중첩을 얻습니다.</style>",
+    "ITEM_MYSTICSITEMS_COFFEEBOOSTONITEMPICKUP_LORE": "- 가자, 가자, 가자! 어서, 우린 엄청난 비밀 임무를 수행 중이야! 최대한 빨리 이 상자들을 모두 찾아야 해! 모든 물건을 주인에게 돌려줘요! 사람들을 행복하게 해줘요! 우!\r\n\r\n- 예, 우리는 아무도 모르는 극비 임무를 수행하고 있으므로 서두를 필요가 없습니다. 시간이 충분하니까요. 근데 왜 그렇게 흥분하세요? 그 커피에 뭐가 들어 있었어요?\r\n\r\n- 에너지 드링크 기억하시나요?\r\n\r\n- 그래 잠깐, 내가 그거 던지라고 하지 않았나요?\r\n\r\n- 그리고 이상한 노란색 물질이 들어있는 바늘은요?\r\n\r\n- 어, 그래요? 저들은 어때요?\r\n\r\n- 그리고 저 빛나는 파란색 병은요?\r\n\r\n- 농담하시는 거죠?",
+
+    "ITEM_MYSTICSITEMS_EXPLOSIVEPICKUPS_NAME": "밀수 화약",
+    "ITEM_MYSTICSITEMS_EXPLOSIVEPICKUPS_PICKUP": "픽업 아이템을 수집할 때 폭발을 일으킵니다.",
+    "ITEM_MYSTICSITEMS_EXPLOSIVEPICKUPS_DESC": "처치시 <style=cIsUtility>{FlaskDropChance}%</style>확률로 밀수 화약을 떨굽니다. 밀수 화약외 기타 수집품(치유 구슬, 보물, 탄약 팩, 화약병 등)을 얻으면, 반경 <style=cIsDamage>{Radius}m <style=cStack>(중첩당 +{RadiusPerStack}m)</style></style> 폭발이 발생하며, 기본 피해의 <style=cIsDamage>{Damage}% <style=cStack>(중첩당 +{DamagePerStack}%)</style></style>피해를 입힙니다.",
+    "ITEM_MYSTICSITEMS_EXPLOSIVEPICKUPS_LORE": "<style=cMono>\n//--자동-UES 컨택트 라이트의 보관실 4에서 녹취--//</style>\n\n드디어 누가 왔는지 보세요. 왜 이렇게 오래 걸렸어요?\n\n죄송해요, 오는 길에 키카드를 떨어뜨려서 다시 돌아가는 바람에....\n\n뭐야? 특수 작전 중인데 물건을 잃어버렸다고?!\n\n...\n\n장비를 잃어버리지 않았으면 좋겠네요..\n\n네, 걱정 마세요 제가 다 준비했으니까요. 기계 거미, 낙하산, 탄약, 화약...\n\n완벽합니다. 이 상자들이 다 보이시나요?\n\n여기 있는 모든 것은 우리 거죠?\n\n창고 주변에 기계를 숨긴 다음 1407A호를 '빌려' 도착 5분 전까지 일반 승객처럼 행동한 다음 거미줄을 켜고 전리품을 들고 탈출하는 계획입니다.\n\n알겠습니다. 상자 비 작전을 시작하세요!",
+
+    "ITEM_MYSTICSITEMS_ALLYDEATHREVENGE_NAME": "복수",
+    "ITEM_MYSTICSITEMS_ALLYDEATHREVENGE_PICKUP": "아군이 적에게 사망하면 <style=cIsDamage>공격 속도와 공격력</style>이 일시적으로 증가합니다.",
+    "ITEM_MYSTICSITEMS_ALLYDEATHREVENGE_DESC": "아군이 적에 의해 <style=cDeath>사망</style>할 때, <style=cIsUtility>{Duration}s <style=cStack>(중첩당 +{DurationPerStack}s)</style></style> 동안 <style=cIsDamage>공격 속도</style>와 <style=cIsDamage>데미지</style>를 <style=cIsDamage>{Damage}%</style> 증가시킵니다. ",
+
+    "ITEM_MYSTICSITEMS_SPOTTER_NAME": "고장난 감시자", // [A reference to Sniper's Spotter ability from Risk of Rain 1]
+    "ITEM_MYSTICSITEMS_SPOTTER_PICKUP": "무작위 적에 대한 <style=cIsDamage>치명타 확률</style>이 100% 증가합니다.",
+    "ITEM_MYSTICSITEMS_SPOTTER_DESC": "매 <style=cIsUtility>{Interval} 초</style>, 무작위 적 1명<style=cStack>(중첩당 +1)</style>을 분석하고, <style=cIsUtility>{Duration} 초</style> 동안 해당 적에 대한 <style=cIsDamage>치명타 확률</style>을 <style=cIsDamage>100%</style> 증가합니다.",
+
+    "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_NAME": "핵 가속기", // [Like a particle accelerator, but "nuclear" to make it sound cool and unique]
+    "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_PICKUP": "<style=cIsUtility>이동 속도</style>가 빠를수록 더 많은 피해를 입힙니다.",
+    "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_DESC": "<style=cIsUtility>이동 속도를 {PassiveSpeed}%</style> 증가시킵니다. <style=cIsUtility>이동 속도가 1% </style> 증가할 때마다 <style=cIsDamage>{Damage}% <style=cStack>(중첩당 +{DamagePerStack}%)</style>데미지가 증가합니다.</style> (아이템, 버프 등에서의 이동 속도 증가 기준)",
+    "ITEM_MYSTICSITEMS_SPEEDGIVESDAMAGE_LORE": "주문: 포켓 사이즈 입자 가속기\r\n추적 번호: 18******\r\n예상 배송일: 05/01/2089\r\n배송 방법: 우선 배송\r\n배송지 주소: [삐--], 흉터 사막, 화성\r\n배송 세부 정보:\r\n\r\n컴팩트한 크기에 사용이 간편하고 한 달에 한 번만 충전하면 되므로 업무에 적합합니다.\r\n\r\n종아리에 붙일 때 가장 효율적입니다. 그래, 그냥 꽂아 물론 아프긴 하겠지만 죽은 적들의 피가 흐르는 강 위에서 영광스러운 승리를 거두는 것에 비하면 약간의 피가 무슨 소용이겠어요?\r\n",
+
+    "ITEM_MYSTICSITEMS_EXTRASHRINEUSE_NAME": "검은 모노리스", // [A reference to Monoliths from Space Odyssey]
+    "ITEM_MYSTICSITEMS_EXTRASHRINEUSE_PICKUP": "모든 성소를 한 번 더 사용할 수 있습니다.",
+    "ITEM_MYSTICSITEMS_EXTRASHRINEUSE_DESC": "모든 성소를 <style=cIsUtility>+1 <style=cStack>(중첩당 +1)</style></style> 번 더 사용할 수 있습니다.",
+    "ITEM_MYSTICSITEMS_EXTRASHRINEUSE_LORE": "\"지난 며칠 동안 전 세계 사람들이 짧은 시간 동안 나타나는 신비한 기둥을 목격했다고 보고했습니다. 모노리스에 대한 사진이나 동영상 증거가 없기 때문에(그 이유는 \"너무 빨리 사라지기 때문\") 이러한 보고의 신빙성은 논란의 여지가 있지만, 각 보고가 개별적인 날에 일어났다는 점에 주목하는 것이 중요합니다. 과학자들은 이 모노리스가 지각 있는 존재일까요? 평행 우주의 존재가 확인된 것일까요? 아니면 그냥 사기일까요?\"\n- 뉴스 보고서",
+
+    "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPEN_NAME": "플래티넘 카드",
+    "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPEN_PICKUP": "멀티샵에서 {Discount}% 할인된 가격으로 추가 아이템을 구매할 수 있습니다 (스테이지당 1회).",
+    "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPEN_DESC": "멀티샵에서 구매를 할 경우, 각 스테이지에서 다른 멀티샵을 <style=cIsUtility>1 <style=cStack>(중첩당 +1)</style></style> 번 더 사용할 수 있고, 가격을 {Discount}% 만큼 할인합니다.",
+    "ITEM_MYSTICSITEMS_KEEPSHOPTERMINALOPEN_LORE": "<style=cMono>\n//-- 새로운 메시지 (1) --//\n\n발신자: UES</style>\n\n플래티넘 카드 프로그램에 가입해 주셔서 감사합니다! 오늘부터 모든 행성에 있는 UES의 모든 지점에서 매일 다양한 혜택과 할인을 받으실 수 있습니다.\n\n-월 사용료를 결제하는 것을 잊지 마세요. 그렇지 않으면....\n\n<style=cMono>이 대화에는 답글을 달 수 없습니다.</style>",
+
+    "ITEM_MYSTICSITEMS_MYSTICSWORD_NAME": "신비로운 검", // [TheMysticSword's developer item]
+    "ITEM_MYSTICSITEMS_MYSTICSWORD_PICKUP": "강력한 적을 처치하면 영구적으로 피해량이 증가합니다.",
+    "ITEM_MYSTICSITEMS_MYSTICSWORD_DESC": "<style=cIsHealth>{HealthThreshold} 이상의 <style=cIsHealing>기본 체력</style>을 가진 적을 처치 할때 마다 <style=cIsUtility>(엘리트 체력 배율 유무 상관 없이)</style></style> 데미지가 <style=cIsDamage>{Damage}%</style> 증가하며, 최대 <style=cIsDamage>{MaxDamage}% <style=cStack>(중첩당 +{MaxDamagePerStack}%)</style></style>까지 증가합니다.",
+    "ITEM_MYSTICSITEMS_MYSTICSWORD_LORE": "\"화려한 자루 - 스타일을 위한.\r\n\r\n주름진 손잡이 - 컨트롤을 위한.\r\n\r\n두꺼운 각진 가드 - 힘을 위해\r\n\r\n단일 날 - 집중력을 위한\r\n\r\n두 개의 칼날 - 어, 어...\"\r\n\r\n\"알았어요, 알았어요, 새 소품 검이 정말 마음에 드신다는 거 알겠어요.\"",
+
+    "ITEM_MYSTICSITEMS_RHYTHM_NAME": "메트로놈",
+    "ITEM_MYSTICSITEMS_RHYTHM_PICKUP": "주 스킬이 아닌 스킬을 리듬에 맞춰 사용하면 추가 <style=cIsDamage>치명타 확률</style>을 얻을 수 있습니다.",
+    "ITEM_MYSTICSITEMS_RHYTHM_DESC": "스킬창 위에 <style=cIsUtility>리듬 표시기</style>가 나타납니다. 리듬에 맞춰 보조, 유틸리티 또는 특수 기술을 사용하면 <style=cIsUtility>스테이지가 끝날 때까지</style> <style=cIsDamage>치명타 확률</style>이 <style=cIsDamage>+{CritBonus}% <style=cStack>(중첩당 +{CritBonusPerStack}%)</style></style>증가합니다.",
+
+    "ITEM_MYSTICSITEMS_ELITEPOTION_NAME": "실험 실패",
+    "ITEM_MYSTICSITEMS_ELITEPOTION_PICKUP": "엘리트 적을 처치하면 주변 적들에게 엘리트 적의 원소 효과가 퍼집니다.",
+    "ITEM_MYSTICSITEMS_ELITEPOTION_DESC": "엘리트 적을 처치하면 반경 <style=cIsUtility>{Radius}m <style=cStack>(중첩당 +{RadiusPerStack}m)</style></style> 모든 적들에게 해당 엘리트 적의 원소 효과를 <style=cIsUtility>{Duration}s <style=cStack>(중첩당 +{DurationPerStack}s)</style></style> 초 동안 부여합니다.",
+    "ITEM_MYSTICSITEMS_ELITEPOTION_LORE": "<style=cMono>디지털 잡지 복원 완료. 지금 읽으시겠습니까? 예/아니오\r\n\r\n> 예</style>\r\n\r\n<style=cMono>00134></style> 연구팀은 마침내 '엘리트' 여우원숭이 한 마리를 사살하는 데 성공했고, 사체를 연구실로 가져왔습니다. 여우원숭이는 원래 뿔이 나지 않지만, 이 녀석은 뿔이 나 있습니다. 여우원숭이의 일반적인 보라색 피부와 달리 피부가 붉은색이며 유난히 뜨겁습니다. 매우 흥미롭네요.\r\n\r\n<style=cMono>00135></style> 제작진이 다른 한 마리를 데려왔습니다. 다른 여우원숭이의 피부는 뜨거웠지만, 이 여우원숭이는 만지면 차가웠습니다. 얼음 가시가 머리에서 자라나 마치 누군가 의도적으로 만든 것처럼 완벽한 모양의 '왕관'을 형성하고 있습니다. 좀 더 자세히 살펴봐야겠습니다.\r\n\r\n<style=cMono>00192></style> 믿을 수 없군요. 여우원숭이 문헌을 광범위하게 연구한 결과, 여우원숭이들이 숭배하는 다양한 '신'이 있으며, 우리 군대에 대한 보복을 돕고 있다는 결론에 도달했습니다. 어쩌면 내가 이 힘을 추출할 수 있을지도 모르지. 다행히도 나는 아직 냉동고에 있는 엘리트 여우원숭이들의 시체를 가지고 있다.\r\n\r\n<style=cMono>00204></style> 피. \"수액\". 당연하지! 왜 진작 생각하지 못했을까? 거기서 '신성한 힘'을 추출할 수 있겠지, 적어도 그 일부분은...\r\n\r\n<style=cMono>00205></style> 샘플을 섞으면 어떻게 되나요?\r\n\r\n<style=cMono>> 더 이상 항목을 찾을 수 없습니다. 프로그램을 종료하시겠습니까? 예/아니오\r\n\r\n> _</style>\r\n\r\n",
+
+    "ITEM_MYSTICSITEMS_DRONEWIRES_NAME": "예비 배선",
+    "ITEM_MYSTICSITEMS_DRONEWIRES_PICKUP": "플레이어와 드론은 전투 중에 피해를 주는 불꽃을 방출합니다.",
+    "ITEM_MYSTICSITEMS_DRONEWIRES_DESC": "플레이어와 드론은 전투 중에 가끔 <style=cIsDamage>전기 스파크</style>를 떨어뜨립니다. 드론이 떨어뜨리는 불꽃은 적에게 닿으면 기본 데미지의 <style=cIsDamage>{Damage}% <style=cStack>(중첩당 +{DamagePerStack}%)</style></style>의 피해를 입히고, 플레이어가 떨어뜨리는 불꽃은 <style=cIsDamage>{PlayerDamage}% <style=cStack>(중첩당 +{PlayerDamagePerStack}%)</style></style>의 피해를 입힙니다.",
+
+    "ITEM_MYSTICSITEMS_DEATHCEREMONY_NAME": "파멸의 의식",
+    "ITEM_MYSTICSITEMS_DEATHCEREMONY_PICKUP": "<style=cIsDamage>치명타 피해</style>는 적에게 표식을 남기고, 표식이 있는 적들은 피해를 공유합니다.",
+    "ITEM_MYSTICSITEMS_DEATHCEREMONY_DESC": "<style=cIsDamage>치명타 확률</style>을 <style=cIsDamage>{BaseCrit}%</style> 증가시킵니다. <style=cIsUtility>{Duration}</style>초 동안 <style=cIsDamage>치명타 피해</style>는 적에게 표시를 남기고, 표시된 적이 피해를 입으면 표식이 있는 다른 모든 적이 피해량의 <style=cIsDamage>{Damage}% <style=cStack>(중첩당 +{DamagePerStack}%)</style></style>만큼 피해를 받습니다.",
+
+    "ITEM_MYSTICSITEMS_NANOMACHINES_NAME": "작동하지 않는 나노머신",
+    "ITEM_MYSTICSITEMS_NANOMACHINES_PICKUP": "<style=cIsHealing>체력이 {MinHealth}{MaxHealth}%</style>사이일 때 피해를 덜 받습니다.",
+    "ITEM_MYSTICSITEMS_NANOMACHINES_DESC": "<style=cIsHealing>체력이 {MinHealth}{MaxHealth}%</style> 범위 내에 있는 동안 <style=cIsUtility>방어력을 {Armor} <style=cStack>(중첩당 +{ArmorPerStack})</style></style> 증가시킵니다.",
+    "ITEM_MYSTICSITEMS_NANOMACHINES_LORE": "이 제품이 들어 있는 상자에는 오래되어 색이 바랜 스티커가 붙어 있습니다:\r\n\r\n\"개인용 장벽 프로토타입 (C) 2043 하이논 인더스트리즈\r\n\r\n지침: 사용하기 전에 배터리를 컨트롤러 모듈에 넣습니다. 모듈을 안전하고 가까운 곳(예: 주머니)에 보관합니다. 메인 모듈의 헤드를 눌러 시스템을 켭니다. 헤드를 다시 누르면 시스템이 꺼집니다.\r\n\r\n안전 조치: 먹지 마세요. 다른 사람에게 먹이지 마세요. 어항에 넣지 마세요. 벌통에 넣지 마세요. 상원 의원에게 주지 마세요. 로봇 청소기를 사용하지 마세요. 칼 근처에 두지 마세요. 칼이 있는 로봇 청소기를 사용하지 마세요.\r\n\r\n\"비매품\"",
+
+    "ITEM_MYSTICSITEMS_BUFFINTPRANGE_NAME": "완벽한 헤드폰",
+    "ITEM_MYSTICSITEMS_BUFFINTPRANGE_PICKUP": "텔레포터 범위 내에 있는 동안에는 더 빠르게 이동하고 피해를 덜 받습니다.",
+    "ITEM_MYSTICSITEMS_BUFFINTPRANGE_DESC": "텔레포터 범위 내에 있을 때, <style=cIsUtility>이동 속도를 {MoveSpeed}% <style=cStack>(중첩당 +{MoveSpeedPerStack}%)</style></style> 증가시키고 <style=cIsUtility> 방어력을 {Armor} <style=cStack>(중첩당 +{ArmorPerStack})</style></style> 증가시킵니다.",
+    "ITEM_MYSTICSITEMS_BUFFINTPRANGE_LORE": "- 우리 귀처럼 생긴 것을 착용하는 것이 이상하지 않나요?\r\n\r\n- 예! 저만 소름 끼치는 게 아니라니 다행이네요.\r\n\r\n- 이걸 '귀엽다'고 부르나요?\r\n\r\n- 사람의 귀가 달린 액세서리를 착용하는 대체 우주를 상상해 보세요.\r\n\r\n- 으아아아아아!\r\n\r\n- 하하하!\r\n\r\n- 더 최악인 건 이걸 입지도 못한다는 거예요! 너무 불편해요!",
+
+    "ITEM_MYSTICSITEMS_STARBOOK_NAME": "천문학자의 기록",
+    "ITEM_MYSTICSITEMS_STARBOOK_PICKUP": "적중 시 별을 떨어뜨립니다. <style=cWorldEvent>별</style>을 획득시 <style=cIsDamage>공격속도</style>가 증가합니다.",
+    "ITEM_MYSTICSITEMS_STARBOOK_DESC": "적중 시 <style=cIsDamage>{Chance}% 확률</style>로 <style=cWorldEvent>별</style>을 떨어뜨려, 총 피해량의 <style=cIsDamage>{Damage}% <style=cStack>(중첩당 +{DamagePerStack}%)</style></style>를 피해 입힙니다. <style=cWorldEvent>별</style>을 획득하면 {Duration} 초 동안 <style=cIsUtility>공격 속도가 {AttackSpeed}% <style=cStack>(중첩당 +{AttackSpeedPerStack}%)</style></style> 증가합니다.",
+
+    "ITEM_MYSTICSITEMS_TIMEPIECE_NAME": "시간 확장기",
+    "ITEM_MYSTICSITEMS_TIMEPIECE_PICKUP": "주변의 적과 투사체의 이동 속도를 늦춥니다.",
+    "ITEM_MYSTICSITEMS_TIMEPIECE_DESC": "반경 <style=cIsUtility>{Radius}m</style> 내의 모든 적은 <style=cIsUtility>{Slow}% <style=cStack>(중첩당 +{SlowPerStack}%)</style></style> 느리게 이동하고 공격합니다. 해당 범위 내의 모든 적 투사체도 <style=cIsUtility>{ProjectileSlow}% <style=cStack>(중첩당 +{ProjectileSlowPerStack}%)</style></style> 느리게 날아갑니다.",
+    "ITEM_MYSTICSITEMS_TIMEPIECE_LORE": "주문: 마법의 모래시계 물건\r\n추적 번호: 74212***\r\n예상 배송일: 10/05/2056\r\n배송 방법: 높은 우선순위/변동성\r\n배송 주소: 하늘의 우주선 1, 6829 저 하나의 행성\r\n배송 세부 정보:\r\n실수로 부러뜨려서 행성 전체가... 아냐, 알고 싶지 않을걸? 어쨌든 다시 돌려보낼게요 미안해요!",
+
+    "ITEM_MYSTICSITEMS_SNOWRING_NAME": "눈의 반지",
+    "ITEM_MYSTICSITEMS_SNOWRING_PICKUP": "피해를 입으면 일정 확률로 근처의 적을 얼려버립니다.",
+    "ITEM_MYSTICSITEMS_SNOWRING_DESC": "피해를 입으면 <style=cIsUtility>{Chance}%</style>확률로 반경 <style=cIsUtility>{Radius}m <style=cStack>(중첩당 +{RadiusPerStack}m)</style> 이내의 적 <style=cIsUtility>{Targets}</style>명<style=cStack>(중첩당 +{TargetsPerStack}명)</style>을 <style=cIsUtility>얼려 버립니다</style>.",
+    "ITEM_MYSTICSITEMS_SNOWRING_LORE": "<style=cMono>신호 에코를 통한 오디오 녹음 완료.</style>\r\n\r\n추워요 너무... 추워요. 제발 대답해 누구라도 제발...\r\n\r\n주변의 모든 것이 저를 죽이려고 합니다. 날씨 자체도요. 추위로 모든 것이 죽었기 때문에 며칠 동안 아무것도 공격하지 않았습니다. 저는 시체 위에서 간신히 살아가고 있어요.\r\n\r\n이곳에서는 먹는 것조차... 힘든 일입니다. 헬멧을 벗는 순간 날카로운 돌풍이 제 살갗을 파고들기 시작합니다. 배고픔과 출혈 중 무엇으로 더 빨리 죽을지 모르겠습니다. 아니면... 죽지 않을지도 모르죠. 누가 이걸 들으면 제발 누구라도...\r\n\r\n내 말 들려요? 여보세요?\r\n\r\n아닌 것 같네요... 잠 좀 자야겠어.... 내일이라도 일어날 수 있길 바라야지....\r\n\r\n...\r\n\r\n누군가... 누구 없어요? 내 말 들려요?....",
+
+    "ITEM_MYSTICSITEMS_AIRPLANEMODE_NAME": "비행기 모드",
+    "ITEM_MYSTICSITEMS_AIRPLANEMODE_PICKUP": "유틸리티 스킬을 사용할 수 없는 동안 빠른 <style=cIsUtility>이동 속도와 추가 점프를 얻을 수 있습니다.</style>",
+    "ITEM_MYSTICSITEMS_AIRPLANEMODE_DESC": "<style=cIsUtility>유틸리티</style> 스킬을 사용할 수 없는 동안,<style=cIsUtility> 이동 속도를 +{MoveSpeed}% <style=cStack>(중첩당 +{MoveSpeedPerStack}%)</style>얻고, 추가 점프 횟수</style>를 얻습니다.",
+
+    //[TIER3]
+    "ITEM_MYSTICSITEMS_VOLTMETER_NAME": "무선 전압계", // [WV in the lore entry stands for "wireless voltmeter"]
+    "ITEM_MYSTICSITEMS_VOLTMETER_PICKUP": "보호막이 활성화되어 있는 동안 받은 피해를 주변 적에게 반사합니다.",
+    "ITEM_MYSTICSITEMS_VOLTMETER_DESC": "<style=cIsHealing>최대 체력 의{PassiveShield}%</style>에 해당하는 <style=cIsUtility>보호막</style>를 얻습니다. <style=cIsUtility>보호막</style>이 활성화된 상태에서 공격을 받으면 반경 <style=cIsDamage>{Radius}m</style> 범위 내에 모든 적에게 받은 피해량의 <style=cIsDamage>{Damage}% <style=cStack>(중첩당 +{DamagePerStack}%)</style></style>만큼 <style=cIsUtility>전기충격</style>을 가합니다.",
+    "ITEM_MYSTICSITEMS_VOLTMETER_LORE": "무선 전압계-1 프로토타입 사용 설명서\n\n어떤 상황에서도 무선 전압계를 분해하지 마십시오. 그렇지 않으면 보증이 무효화됩니다. 문제가 발생하면 제조업체에 문의하세요.(9페이지 참조)\n액체에 노출되지 않도록 주의하세요.\n다른 동작 중인 무선 전압계에 노출되지 않도록 합니다.\n전자 기기 근처에서 7200시간 이상 사용하지 마세요.\n무선 전압계를 단단한 물체에 던질 때는 방전 폭발에 걸리지 않도록 30미터 이상 거리를 유지하세요.\n\n4페이지 - 안전 조치",
+
+    "ITEM_MYSTICSITEMS_THOUGHTPROCESSOR_NAME": "사고 프로세서", // [Wordplay on "food processor" and "thought process"]
+    "ITEM_MYSTICSITEMS_THOUGHTPROCESSOR_PICKUP": "<style=cIsUtility>재사용 대기 시간</style>이 있는 스킬을 사용하면 다른 모든 스킬의 <style=cIsUtility>재사용 대기 시간</style>이 <style=cIsHealth>감소합니다.</style>",
+    "ITEM_MYSTICSITEMS_THOUGHTPROCESSOR_DESC": "<style=cIsUtility>재사용 대기 시간</style>이 있는 스킬을 사용하면 다른 모든 스킬의 <style=cIsUtility>재사용 대기 시간</style>이 사용된 스킬의 <style=cIsUtility>재사용 대기 시간</style>의 <style=cIsUtility>{CDR}% <style=cStack>(중첩당 +{CDR}%)</style></style> 만큼 감소합니다.",
+    "ITEM_MYSTICSITEMS_THOUGHTPROCESSOR_LORE": "<style=cMono>비비피카 병원의 오디오 녹음에서 발췌한 내용입니다.</style>\r\n\r\n\"...그러니까 환자가 술병을 몰래 가져와서... 취해서... 주방에 들어가서... 직원들과 나눠 마시려고 했는데... 직원이 부서에 전화하자 믹서기를 낚아채서 자기 머리에 얹었다는 건가요?\"\r\n\r\n\"네. 그가 말했죠. '오, 당신이 그렇게 똑똑하다고 생각해요? 나한테 그런 말을 해? 내가 더 똑똑하니까요'라고 대답했죠. 이 훌륭한 싱크탱크가 '흥분할 거야!' 라고요.\"\r\n\r\n\"...\"\r\n\r\n\"...\"\r\n\r\n\"...그리고는 전원을 켜고... 칼을 꺼냈어요...\"\r\n\r\n\"... 믹서기가 자신의 머리를 다지는 동안 고통스럽게 비명을 지르면서 주방 직원 두 명을 살해했습니다.\"",
+
+    "ITEM_MYSTICSITEMS_CRYSTALWORLD_NAME": "결정화된 세계",
+    "ITEM_MYSTICSITEMS_CRYSTALWORLD_PICKUP": "텔레포터 이벤트가 진행되는 동안 주기적으로 모든 적을 얼립니다.",
+    "ITEM_MYSTICSITEMS_CRYSTALWORLD_DESC": "텔레포터 이벤트 진행되는 동안 주변의 모든 적이 <style=cIsUtility>{FreezeTime}초</style> 동안 <style=cIsUtility>빙결 됩니다.</style> <style=cIsUtility>빙결</style>에 면역인 적들은 <style=cIsUtility>결정화</style> 되며 모든 스킬과 이동이 <style=cDeath>제한</style>됩니다. 발생 횟수는 <style=cIsUtility>{Pulses}<style=cStack>(중첩당 +{PulsesPerStack})</style></style>번 발생 합니다.",
+    "ITEM_MYSTICSITEMS_CRYSTALWORLD_LORE": "주문: 수정 구슬 모델\r\n추적 번호: 242*****\r\n예상 배송일: 06/15/2056\r\n배송 방법: 높은 우선순위/취약\r\n배송 주소: [삐--], 비엔나, 오스트리아, 지구\r\n배송 세부 정보:\r\n\r\n잘 지내시죠?? 저는 당신 작품의 열렬한 팬이에요. 당신의 음악은... 환상적이고 독특하고 뛰어납니다. 제 재생 목록에서 당신의 트랙이 재생되기 시작할 때마다 흥분을 느낍니다. 제 삶을 훨씬 더 좋게 만들어 주셔서 감사합니다. 감사의 표시로 [삐--] 트랙 커버의 3차원 복제품을 선물로 드립니다.\r\n",
+
+    "ITEM_MYSTICSITEMS_DASHERDISC_NAME": "살인 톱니바퀴", // [A reference to the Dasher Disc from DISC ROOM.]
+    "ITEM_MYSTICSITEMS_DASHERDISC_PICKUP": "<style=cIsHealing>체력</style>이 낮아지면 잠시 동안 <style=cShrine>무적 상태</style>가 됩니다. 시간이 지나면 재충전됩니다.",
+    "ITEM_MYSTICSITEMS_DASHERDISC_DESC": "현재 <style=cIsHealing>체력</style>이 <style=cIsHealth>25% </style> 미만으로 떨어지면 <style=cIsUtility>{Duration} 초</style> 동안 <style=cShrine>무적 상태</style>가 되고 <style=cIsUtility>이동 속도</style>가 <style=cIsUtility>{MoveSpeedBuff}%</style> 증가합니다. 재충전 시간은 <style=cIsUtility>{Cooldown} 초 <style=cStack>(중첩당 -{CooldownReductionPerStack}%)</style></style>마다 충전됩니다.",
+    "ITEM_MYSTICSITEMS_DASHERDISC_LORE": "주문:살인 톱니바퀴\r\n추적 번호: 20******\r\n예상 배송일: 10/22/2089\r\n배송 방법: 높은 우선순위/생물학적\r\n배송지 주소: 자이언트 디스크, 목성\r\n배송 세부 정보:\r\n\r\n연구실 주변을 배회하는 이 녀석을 발견했습니다. 그 앞에서 재빨리 움직이지 마세요.\r\n",
+
+    "ITEM_MYSTICSITEMS_TREASUREMAP_NAME": "보물 지도", // [RA & DEC in the lore entry are "right ascension" and "declination". That section describes the space coordinates to the hidden treasure cache.]
+    "ITEM_MYSTICSITEMS_TREASUREMAP_PICKUP": "각 스테이지에는 발굴하는 데 시간이 걸리는 전설 아이템이 묻혀 있는 보물 지점이 있습니다.",
+    "ITEM_MYSTICSITEMS_TREASUREMAP_DESC": "각 스테이지에는 <style=cIsHealth>전설 아이템</style>이 묻혀있는 반경 {Radius}m <style=cIsUtility>보물 지점</style>이 있습니다. 보물 지점 안에 <style=cIsUtility>{UnearthTime} 초 <style=cStack>(중첩당 -{ReductionPerStack}%)</style></style> 동안 서 있으면 아이템을 발굴합니다.",
+    "ITEM_MYSTICSITEMS_TREASUREMAP_LORE": "<style=cMono>> OS 로드 완료\n> 자동 실행 \"일급비밀\"\n> [||||||||||] 100%\n> 액세스 거부됨\n> 비밀번호 입력\n> ******12\n> 액세스 권한 부여됨\n> 보론 별 시스템의 보물 은닉처\n> RA 21H 32M 29S | DEC -15° 14' 5\"\n> 상대 좌표를 다시 계산하시겠습니까? 예/아니오\n> _</style>",
+
+    "ITEM_MYSTICSITEMS_IDOL_NAME": "반짝이는 우상", // [The lore entry is a reference to the Golden Idol from Slay the Spire]
+    "ITEM_MYSTICSITEMS_IDOL_PICKUP": "현재 골드에 따라 <style=cIsHealing>체력</style>과 <style=cIsUtility>방어력</style>이 증가합니다.",
+    "ITEM_MYSTICSITEMS_IDOL_DESC": "현재 골드에 따라 <style=cIsHealth>체력을 최대 {HealthBonus}%</style>까지 증가시키고 <style=cIsUtility>방어력을 최대 {ArmorBonus}</style>까지 증가시킵니다. <style=cIsUtility>(시간에 따라 최대 {GoldCap}$ <style=cStack>(중첩당 -50%)</style>까지 증가)</style>.",
+    "ITEM_MYSTICSITEMS_IDOL_LORE": "'순금으로 제작되어 손에 쥐는 것만으로도 풍요로움을 느낄 수 있습니다.'",
+
+    "ITEM_MYSTICSITEMS_BACKPACK_NAME": "등산 배낭",
+    "ITEM_MYSTICSITEMS_BACKPACK_PICKUP": "모든 스킬에 +{Charges} 충전되고, 추가 점프 횟수를 얻습니다.",
+    "ITEM_MYSTICSITEMS_BACKPACK_DESC": "모든 스킬이 <style=cIsUtility>+{Charges} 추가 충전<style=cStack>(중첩당 +{ChargesPerStack})</style></style>을 합니다. <style=cIsUtility>스킬 재사용 대기 시간이 {CDR}% <style=cIsHealth>감소</style>하고, 추가 점프 횟수</style>를 얻습니다.",
+    "ITEM_MYSTICSITEMS_BACKPACK_LORE": "- ...하지만 지금은 내면의 목소리가 내게 말하는 것 같습니다... \"이렇게 하면 안 됩니다.\"\r\n\r\n- 오, 이건 변화의 신호예요.\r\n\r\n- 그게 무슨 뜻이죠?\r\n\r\n- 이것이 바로 우리가 진보에 반응하는 방식입니다. 우리는 종종 변화에 익숙하지 않아서 과거로 돌아가려고 합니다. 이는 정상이므로 걱정할 필요가 없습니다. 이런 감정에 사로잡히지 말고, 그렇다고 무시하지도 마세요.\r\n\r\n- 그럼... 계속 진행해도 되나요?\r\n\r\n- 자신에게 최선이라고 생각되는 일을 하세요. \r\n\r\n- ... 고마워요, 엄마.",
+
+    "ITEM_MYSTICSITEMS_VYRAELCOMMANDMENTS_NAME": "바리엘의 십계명", // [Vyrael's developer item]
+    "ITEM_MYSTICSITEMS_VYRAELCOMMANDMENTS_PICKUP": "10회 적중할 때마다 모든 <style=cIsDamage>'적중'</style> 효과를 발동합니다.",
+    "ITEM_MYSTICSITEMS_VYRAELCOMMANDMENTS_DESC": "<style=cIsDamage>적중</style><style=cIsUtility>10회</style>마다 모든 적중 효과를 발동합니다. <style=cIsUtility>중첩이 추가될 때마다 이러한 효과가 다시 발동합니다.</style>",
+
+    "ITEM_MYSTICSITEMS_JUDGEMENTCUT_NAME": "악마의 울음",
+    "ITEM_MYSTICSITEMS_JUDGEMENTCUT_PICKUP": "<style=cIsDamage>치명타 공격</style> {CritInterval}마다 연속 베기 공격을 발동합니다.",
+    "ITEM_MYSTICSITEMS_JUDGEMENTCUT_DESC": "<style=cIsDamage>치명타 확률</style>이 <style=cIsDamage>{BaseCrit}%</style>만큼 증가합니다. 매 <style=cIsDamage>{CritInterval}</style> <style=cIsDamage>치명타</style>마다, 반경 <style=cIsUtility>{Radius}m <style=cStack>(중첩당 +{RadiusPerStack}m)</style></style> 범위 내의 적에게 <style=cIsDamage>연속 베기 공격을 발동하여</style>, <style=cIsDamage>{DamagePerSlash}x{SlashCount}% <style=cStack>(중첩당 +{DamagePerSlash}x{SlashCountPerStack}%)</style></style> 피해를 입힙니다. ",
+
+    "ITEM_MYSTICSITEMS_SHIELDUPGRADE_NAME": "충전 업그레이드 모듈",
+    "ITEM_MYSTICSITEMS_SHIELDUPGRADE_PICKUP": "<style=cIsUtility>보호막</style>을 얻습니다. <style=cIsUtility>보호막 최대치</style>가 두 배로 증가합니다. <style=cIsUtility>보호막</style>이 더 빨리 재충전됩니다.",
+    "ITEM_MYSTICSITEMS_SHIELDUPGRADE_DESC": "<style=cIsHealing>최대 체력의 {PassiveShield}%</style>에 해당하는 <style=cIsUtility>보호막</style>을 얻습니다. <style=cIsUtility>총 보호막이 {ShieldBonus}% <style=cStack>(중첩당 +{ShieldBonusPerStack}%)</style></style> 증가하고, <style=cIsUtility>보호막</style> 재충전 및 기타 위험에서 벗어나는 효과가 <style=cIsUtility>{RechargeBoost}% <style=cStack>(중첩당 +{RechargeBoostPerStack}%)</style></style> 더 빨리 시작됩니다.",
+
+    //[LUNAR ITEMS]
+    "ITEM_MYSTICSITEMS_RIFTLENS_NAME": "균열 렌즈",
+    "ITEM_MYSTICSITEMS_RIFTLENS_PICKUP": "각 스테이지에서 무료 아이템을 얻을 수 있는 균열이 생기지만.... <color=#FF7F7F>제때 균열을 닫지 못하면 죽게 됩니다.",
+    "ITEM_MYSTICSITEMS_RIFTLENS_DESC": "매 스테이지에는 <style=cIsDamage>{BaseRifts} <style=cStack>(중첩당 +{RiftsPerStack})</style></style> 개의 무료 아이템을 얻을 수 있는 균열이 생기지만, 제 시간에 모든 균열을 닫지 못하면 <style=cDeath>죽음</style>을 초래합니다.",
+
+    "ITEM_MYSTICSITEMS_MOONGLASSES_NAME": "문글라스", // [Wordplay on "sunglasses"]
+    "ITEM_MYSTICSITEMS_MOONGLASSES_PICKUP": "<style=cIsDamage>치명타 피해</style>를 증가시키지만, <style=cIsDamage>치명타 확률</style>이 <color=#FF7F7F>반으로 줄어 듭니다.",
+    "ITEM_MYSTICSITEMS_MOONGLASSES_DESC": "<style=cIsDamage>치명타 피해</style>를 <style=cIsDamage>{CritDamageIncrease}% <style=cStack>(중첩당 +{CritDamageIncreasePerStack}%)</style></style> 증가 되지만, <style=cIsUtility>중첩마다 <style=cIsDamage>치명타 확률</style>도 절반으로 <style=cIsHealth>감소됩니다.</style></style>",
+    "ITEM_MYSTICSITEMS_MOONGLASSES_LORE": "<style=cMono>\r\n========================================\r\n==== MyBabel Machine Translator ====\r\n==== [Version 12.45.1.009 ] ======\r\n========================================\r\n훈련� <100000000 사이클>\r\n훈련� <1453461 사이클>\r\n완료했습니다!\n결과를 표시하시겠습니까? 예/아니오\r\nY\r\n================================</style>\r\n나는 [요라]에게 안경을 줬어요. 요라는 미래를 봅니다.\r\n\r\n<그>가 [요라]를 칭찬합니다. [요라]가 안경을 치웁니다. [요라]는 흥분을 느끼고 두 배로 열심히 일합니다.\r\n\r\n렌즈의 강도를 증폭시킵니다. [요라]는 미래를 더 멀리 내다봅니다.\r\n\r\n[요라]가 재빨리 안경을 치워버린다. [요라]의 흥분이 가라앉는다.\r\n\r\n<그>가 방으로 들어온다. [요라]가 공포를 느낀다.\r\n\r\n나는 먼 미래를 바라본다. 나는 재빨리 안경을 치웠다. <그>가 존재한다. 나는 두려움을 느낀다.\r\n<style=cMono>\r\n================================\r\n",
+
+    "ITEM_MYSTICSITEMS_REGENANDDIFFICULTYSPEED_NAME": "크로노스의 루빅큐브",
+    "ITEM_MYSTICSITEMS_REGENANDDIFFICULTYSPEED_PICKUP": "모든 아군의 <style=cIsHealing>체력 회복</style> 속도를 증가되지만.... <color=#FF7F7F>난이도 상승 속도도 증가합니다.",
+    "ITEM_MYSTICSITEMS_REGENANDDIFFICULTYSPEED_DESC": "모든 아군의 <style=cIsHealing>기본 체력 회복량을 {BaseRegenIncrease} HP/s <style=cStack>(중첩당 +{BaseRegenIncreasePerStack} HP/s, 레벨 당 +20%)</style></style> 증가되지만, 시간이 지남에 따라 난이도 상승 속도가 {TimerSpeedIncrease}% <style=cStack>(중첩당 +{TimerSpeedIncreasePerStack}%)</style></style> 더 빨라집니다.",
+
+    //[EQUIPMENT]
+    "EQUIPMENT_MYSTICSITEMS_ARCHAICMASK_NAME": "전설의 가면",
+    "EQUIPMENT_MYSTICSITEMS_ARCHAICMASK_PICKUP": "{Duration}초 동안 고풍스러운 위습을 소환합니다.",
+    "EQUIPMENT_MYSTICSITEMS_ARCHAICMASK_DESC": "<style=cIsDamage>{Duration}초</style> 동안 <style=cIsDamage>데미지 {WispDamage}%</style>, <style=cIsHealing>체력 {WispHealth}%</style>, <style=cIsUtility>재사용 대기 시간 감소 {WispCDR}%</style>, <style=cIsDamage>공격 속도 {WispAttackSpeed}%</style>의 능력을 가진 <style=cIsDamage>고풍스러운 위습</style>을 소환합니다.",
+    "EQUIPMENT_MYSTICSITEMS_ARCHAICMASK_LORE": "<style=cMono>\r\n휴대용 레코더에서 오디오 녹음이 완료되었습니다.</style>\r\n\r\n마스크는 여전히 뜨겁지만 몸의 나머지 부분은 이미 식었습니다. 마스크가 생명을 유지하고 있나요?\r\n\r\n제가... 이 마스크에 불을 붙여 위즈를 '부활'시킬 수 있을까요? 큰 실수일지도 모르지만 동료를 구할 수 있는 유일한 기회예요.\r\n\r\n질문할 시간이 없습니다. 알아볼 시간입니다...\r\n\r\n[화재 폭발]\r\n\r\n<style=cMono>요청된 기록이 끝났습니다.</style>\r\n",
+
+    "EQUIPMENT_MYSTICSITEMS_PRINTERHACKER_NAME": "와이어해킹 렌치",
+    "EQUIPMENT_MYSTICSITEMS_PRINTERHACKER_PICKUP": "3D 프린터에서 {Amount}개의 아이템을 무료로 얻고, 그 후 프린터가 파괴됩니다.",
+    "EQUIPMENT_MYSTICSITEMS_PRINTERHACKER_DESC": "3D 프린터에서 <style=cIsUtility>{Amount}</style>개의 아이템을 <style=cIsUtility>무료</style>로 얻은 후에는 프린터가 <style=cIsDamage>파괴</style>되어 영구적으로 <style=cDeath>사용을 불가능하게 만듭니다.</style>",
+    "EQUIPMENT_MYSTICSITEMS_PRINTERHACKER_LORE": "\"...리더 모듈 내부에 원본 항목의 사전 인쇄된 사본을 하나 이상 포함시킴으로써 완벽한 일대일 복제가 유지됩니다. 많을수록 좋습니다.\"\r\n\r\n- MassDuplix 3D 프린터 발표 연설 중에서",
+
+    "EQUIPMENT_MYSTICSITEMS_MICROPHONE_NAME": "오래된 마이크로폰",
+    "EQUIPMENT_MYSTICSITEMS_MICROPHONE_PICKUP": "전방의 적을 귀머거리로 만들어 능력치를 크게 <style=cIsHealth>감소시킵니다.</style> 공중에서 사용하면 플레이어가 뒤로 밀립니다.",
+    "EQUIPMENT_MYSTICSITEMS_MICROPHONE_DESC": "<style=cIsUtility>{Duration}초</style> 동안<style=cIsDamage>전방의 적</style>들을 귀머거리로 만들어, <style=cIsUtility>이동 속도 {MoveSpeedReduction}%</style>, <style=cIsUtility>방어력 {ArmorReduction}</style>, <style=cIsDamage>공격 속도 {AttackSpeedReduction}%</style>, <style=cIsDamage>피해량 {DamageReduction}%</style> 만큼 <style=cIsHealth>감소 시킵니다.</style> <style=cIsUtility>공중에서 사용하면 <style=cIsDamage>플레이어</style>가 뒤로 밀립니다.</style>",
+    "EQUIPMENT_MYSTICSITEMS_MICROPHONE_LORE": "- 왜 아직도 이런 일을 하나요?\r\n\r\n- 뭘요?\r\n\r\n- 이 모든... 라이브... 콘서트... 것들...\r\n\r\n- 라이브 콘서트 안 좋아해요, 지미? 왜 진작 말 안 했어?\r\n\r\n- 아뇨, 정말 좋아요! 정말이에요. 왜 가상으로 하지 않는지 이해가 안 돼요. 노래가 너무 좋아요. 가상 무대에서도 큰 인기를 끌 거예요!\r\n\r\n- 오호호호! 과찬이십니다, 젊은 친구! 아뇨, 전 명성을 얻으려고 이 일을 하는 게 아니에요. 제가 평생 해온 일이기 때문에 이 일을 하는 거예요. 그리고 가상 현실 콘서트로 넘어가는 것은 저 같은 늙은이에게는 너무 큰 변화입니다. 허..허.. \"과거에 갇혔다\"고 말할 수 있습니다.\r\n\r\n- ...이해합니다. 하지만... 정말 변화를 위해 새로운 것을 시도하고 싶지 않으세요? 고집불통인 자신을 괴롭히기 위해 VR 콘서트 한 번 해보려고요? 그 할머니에게 당신이 변화할 수 있다는 것을 보여주기 위해? 누가 보스인지 보여주기 위해? 그냥 \"예\"라고 말하세요! 모든 설정을 도와드리겠습니다!\r\n\r\n- 흠... 있잖아... 네 말이 맞을지도 몰라 그래! 해보자! 가자!\r\n\r\n- 정말?!\r\n\r\n- 하하하, 말도 안 돼요! 농담이었어요!\r\n",
+
+    "EQUIPMENT_MYSTICSITEMS_SIRENPOLE_NAME": "경고 시스템",
+    "EQUIPMENT_MYSTICSITEMS_SIRENPOLE_PICKUP": "텔레포터 아이템 효과를 발동하는 사이렌 기둥을 배치합니다.",
+    "EQUIPMENT_MYSTICSITEMS_SIRENPOLE_DESC": "<style=cIsUtility>텔레포터 이벤트 효과</style>를 발동하는 자동 충전 사이렌 기둥을 배치합니다. {WaveSpawnInterval}% 충전될 때마다 약한 적들을 소환합니다. 충전 하는데 <style=cIsUtility>{ChargeTime}초</style>가 걸립니다. \r\n\r\n 충전되지 않은 사이렌 기둥이 이미 존재하면 사용할 수 없습니다.",
+    "EQUIPMENT_MYSTICSITEMS_SIRENPOLE_LORE": "\"대장님!!\" - 병사는 목이 터져라 소리를 질렀습니다.\r\n\r\n대장은 사이렌이 켜져 있는데도 이상하게도 소리가 나지 않는 사이렌에 의아한 표정을 거두지 않고 침착하게 대답했습니다: \"응??\"\r\n\r\n\"저기 보세요!\" - 병사는 더 큰 소리로 울면서 저 멀리 어렴풋이 보이는 형체를 손가락으로 가리켰습니다.\r\n\r\n대장은 돌아서서 말 그대로 산처럼 보이는 것이 살아나는 것을 보고 강하게 소리를 질렀습니다. \"오우... [삐-----------------]!\"",
+
+    "EQUIPMENT_MYSTICSITEMS_MECHANICALARM_NAME": "기계식 팔",
+    "EQUIPMENT_MYSTICSITEMS_MECHANICALARM_PICKUP": "앞으로 휘둘러 장비 재사용 대기시간 동안 <style=cIsDamage>치명타 공격</style> 마다 더 많은 피해를 입힙니다.",
+    "EQUIPMENT_MYSTICSITEMS_MECHANICALARM_DESC": "이 장비를 가지고 있으면 <style=cIsDamage>치명타 확률</style>이 <style=cIsDamage>{BaseCrit}%</style> 증가합니다. \r\n\r\n사용시 기계식 팔이 앞으로 휘두르며 <style=cIsDamage>{Damage}% 데미지</style> + 장비가 <style=cIsUtility>재사용 대기 시간</style> 일 때 <style=cIsDamage>치명타</style>마다 <style=cIsDamage>{DamageBonusPerCharge}%</style> 추가 피해를 줍니다.",
+    "EQUIPMENT_MYSTICSITEMS_MECHANICALARM_LORE": "UES 환불 요청 #793045\r\n\r\n환불: 701***** 로봇 코스프레 의상 게임쇼 주사위 - 4,000 크레딧\r\n합계: 3,600 크레딧이 지갑으로 환불됩니다.\r\n\r\n이유: 패키지가 배송되지 않았습니다.\r\n참고 사항:\r\n팔이 없습니다. 또한 3년 및 6년 전에 각각 작성된 이 배송에 대한 이전 두 건의 환불 요청에 대해 왜 답변하지 않으셨는지 알고 싶습니다..",
+
+    "EQUIPMENT_MYSTICSITEMS_OMARHACKTOOL_NAME": "사랑을 담은 오마르의 편지", // [Omar Faruk's developer item]
+    "EQUIPMENT_MYSTICSITEMS_OMARHACKTOOL_PICKUP": "스테이지당 한 번, 상자나 성소를 해킹하여 무료로 만들 수 있습니다.",
+    "EQUIPMENT_MYSTICSITEMS_OMARHACKTOOL_DESC": "상자 또는 성소을 해킹하여 비용을 <style=cIsUtility>$0</style>으로 감소합니다. 스테이지 마다 <style=cIsUtility>1</style>회 사용 가능하며 <style=cIsUtility>추가 장비 충전</style>으로 사용 횟수를 늘릴 수 있습니다.",
+    "EQUIPMENT_MYSTICSITEMS_OMARHACKTOOL_LORE": "<style=cMono>암호화 중...\r\n메시지 시작</style>\r\n\r\n\"안녕 아들?\r\n\r\n어떻게 지내? 잘 지냈으면 좋겠다. 네 아빠가 타이탄에 배치돼서 좀 더 쉬게 될 것 같아. 그래서 네 엄마한테 소포를 보낸 거야. 내가 없는 동안 온 가족을 위해 아주 중요한 물건이 들어있단다. 불행히도 너희가 열쇠를 잃어버렸다는 소식이 전해졌어. 문제는 단순히 메일로 전송하고 끝낼 수 있는 비밀번호가 있는 것이 아니라... 더 복잡해.... 그래서 너희 아빠가 내가 보낸 이 도구를 만들어야만 했단다. 기억해! 항상 비밀로 해! 난 누구에게도 이걸 맡기지 않아 네 엄마도 마찬가지야 이 도구는 암호를 풀 수 있는 인코더야. 공간을 좀 희생해야 했기 때문에 상자 하나만 사용하면 배터리가 다 소모될 거야... 어쨌든 이걸로 내가 보낸 소포를 열 수 있을거야..\r\n\r\n아빠는 너희 모두를 사랑하고 곧 집에 갈 거야. 36일 남았어.\r\n엄마에게 보고 싶다고 전해줘..\"\r\n\r\n<style=cMono>메시지 종료</style>",
+
+    "EQUIPMENT_MYSTICSITEMS_EQUIPMENTEATER_NAME": "역류자",
+    "EQUIPMENT_MYSTICSITEMS_EQUIPMENTEATER_PICKUP": "장비 아이템에 사용하면 아이템 조각으로 분해 됩니다.",
+    "EQUIPMENT_MYSTICSITEMS_EQUIPMENTEATER_DESC": "장비 아이템에 사용하면 <style=cIsUtility>분해</style>되며, <style=cIsUtility>{Amount}개</style>의 재활용 아이템 ({WhiteChance}%/<style=cIsHealing>{GreenChance}%</style>/<style=cIsHealth>{RedChance}%</style>/<style=cShrine>{YellowChance}%</style>)을 얻습니다.",
+
+    //[LUNAR EQUIPMENT]
+    "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_NAME": "소리굽쇠",
+    "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_PICKUP": "<color=#FF7F7F>모든 케릭터의 현재 <style=cIsHealing>체력 비율</style>은 <color=#FF7F7F>당신의 현재 <style=cIsHealing>체력 비율</style>과 같아집니다.",
+    "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_DESC": "<style=cIsUtility>반경{Radius}m</style> 안의 모든 케릭터의 현재 <style=cIsHealing>체력 비율</style>은 <style=cIsUtility>당신의 현재 <style=cIsHealing>체력 비율</style>과 같아집니다</style>.",
+    "EQUIPMENT_MYSTICSITEMS_TUNINGFORK_LORE": "형제여, 당신의 창의적인 비전은 분명 고무적이지만 제 감독 없이 창작하는 것은 허락할 수 없습니다.\r\n\r\n호기심이 새로운 화합물을 만드는 데 영감을 주었습니다. 화합물의 품질과 특성은 화합물을 구성하는 화합물의 비율에 따라 결정됩니다. 비율의 편차가 클수록 결과물인 화합물의 휘발성이 커지고 형태가 유지되지 않습니다.\r\n\r\n당신의 작품은 다음과 같이 구성되어 있습니다. 모든 기본 구성 요소가 풍부합니다. 형태는 없으며 창조에 사용할 수도 없다. 유일한 목적은 전쟁뿐이다.\r\n\r\n... \"혼돈?\"",
+
+    "EQUIPMENT_MYSTICSITEMS_GATECHALICE_NAME": "게이트 성배", // [The word "gate" here refers to the teleporters that Mithrix and Providence created. They call them "gates" in the vanilla logbook entries (specifically, A Moment, Fractured (MAP_MYSTERYSPACE_LORE), A Moment, Whole (MAP_LIMBO_LORE), Commencement (MAP_MOON_LORE))]
+    "EQUIPMENT_MYSTICSITEMS_GATECHALICE_PICKUP": "사용 즉시 다음 스테이지로 순간이동 됩니다. 시간을 절약할 수 있지만, <color=#FF7F7F>구매하지 않은 상자의 아이템은 얻을 수 없습니다.",
+    "EQUIPMENT_MYSTICSITEMS_GATECHALICE_DESC": "다음 스테이지로 순간이동 됩니다. 사용하면 시간을 절약할 수 있지만, <color=#FF7F7F>상자를 열지 않은 상태로 넘어가게 되면 많이 약할 수 있습니다.",
+    "EQUIPMENT_MYSTICSITEMS_GATECHALICE_LORE": "아니요, 그런 메커니즘은 필요 없어요, 형제여. 우리는 빠릅니다. 우리에겐 시간이 있다. 당신이 '게이트'라고 부른 이 장치들을 만들 목적은 없습니다.\r\n\r\n... 우린 안 돼요? 흠... \"그들을 위해\"?\r\n\r\n... 우리와는 달리. 그래요 네, 맞아요... 맞아요. 좋아.. 성문을 만들자...!",
+
+    "EQUIPMENT_MYSTICSITEMS_FRAGILEMASK_NAME": "연약한 마스크",
+    "EQUIPMENT_MYSTICSITEMS_FRAGILEMASK_PICKUP": "사용하면 상태를 전환할 수 있습니다. 사용하게되면, <style=cIsDamage>데미지</style>는 {DamageMultiplier}배 증가하지만, <color=#FF7F7F>어떠한 데미지이건 데미지를 입게 되면 죽게 됩니다..",
+    "EQUIPMENT_MYSTICSITEMS_FRAGILEMASK_DESC": "사용하면 상태를 전환할 수 있습니다. 사용하게되면, <style=cIsDamage>기본 데미지가 {BaseDamageBonus}% 증가합니다.</style> 하지만, <style=cDeath>어떠한 데미지이건 데미지를 입게 되면 죽게 됩니다.</style>.",
+    "EQUIPMENT_MYSTICSITEMS_FRAGILEMASK_LORE": "\"수천 년 전 타이탄의 고대 흑마법사들이 룬의 힘을 불어넣은 것으로 추정되는 돌 가면으로, 림 마을의 고고학 발굴 현장에서 발견되었습니다. 전설에 따르면 이 가면은 전투에서 전사들을 도왔다고 전해지며, 동족을 지키기 위해 강력한 힘을 추구했지만 금지된 무덤에서 저주받은 가면을 가져가는 중대한 실수를 저지른 대담한 프록터 이야기에서 중요한 물건으로 등장합니다.\"\r\n\r\n- 타이탄 역사 문화 박물관 전시",
+
+    //[ACHIEVEMENTS]
+    "ACHIEVEMENT_MYSTICSITEMS_ESCAPEMOONALONE_NAME": "라스트 오브 어스", // [Reference to "The Last of Us"]
+    "ACHIEVEMENT_MYSTICSITEMS_ESCAPEMOONALONE_DESCRIPTION": "팀에서 유일하게 살아남은 아군으로서 최종 보스에게 치명타를 가하세요.",
+
+    "ACHIEVEMENT_MYSTICSITEMS_REPAIRBROKENSPOTTER_NAME": "적 발견됨", // [Reference to the "Enemy Spotted" voice command from Counter Strike]
+    "ACHIEVEMENT_MYSTICSITEMS_REPAIRBROKENSPOTTER_DESCRIPTION": "탈출 포드의 연료 배열을 축축한 풀이 우거진 정글로 가져가서 고장난 감시 드론을 수리하세요.",
+
+    "ACHIEVEMENT_MYSTICSITEMS_FINDARCHAICMASK_NAME": "태워죽이기", // [Wordplay on "born to kill" and "burn"]
+    "ACHIEVEMENT_MYSTICSITEMS_FINDARCHAICMASK_DESCRIPTION": "Scorched Acres에서 전설 마스크가 식기 전에 10분 이내에 가져가세요.",
+
+    "ACHIEVEMENT_MYSTICSITEMS_MULTISHOPTERMINALSONLY_NAME": "스마트 쇼핑객",
+    "ACHIEVEMENT_MYSTICSITEMS_MULTISHOPTERMINALSONLY_DESCRIPTION": "6단계까지는 멀티샵 터미널을 제외한 다른 곳에서 골드를 소비하지 마세요. 희생의 유물이 활성화되어 있는 동안에는 완료할 수 없습니다.",
+
+    "ACHIEVEMENT_MYSTICSITEMS_HELLSPEEDRUN_NAME": "더위 극복", // [Reference to the "Beat the Heat" level in A Hat in Time]
+    "ACHIEVEMENT_MYSTICSITEMS_HELLSPEEDRUN_DESCRIPTION": "심연의 깊은곳을 3분 이내에 완료하세요.",
+
+    "ACHIEVEMENT_MYSTICSITEMS_REACHHIGHPOINT_NAME": "정상",
+    "ACHIEVEMENT_MYSTICSITEMS_REACHHIGHPOINT_DESCRIPTION": "델타 집결지의 가장 높은 지점에 도달하세요.",
+
+    "ACHIEVEMENT_MYSTICSITEMS_BLOCKDAMAGEWITHARMOR_NAME": "'스크래치일 뿐입니다.", // [Reference to the meme with the same name]
+    "ACHIEVEMENT_MYSTICSITEMS_BLOCKDAMAGEWITHARMOR_DESCRIPTION": "피해 감소 효과를 사용하여 총 피해량을 10,000 감소시킵니다.",
+
+    "ACHIEVEMENT_MYSTICSITEMS_MANYALLIES_NAME": "수많은 팬!",
+    "ACHIEVEMENT_MYSTICSITEMS_MANYALLIES_DESCRIPTION": "기계와 플레이어가 아닌 아군 10명을 얻습니다.",
+
+    "ACHIEVEMENT_MYSTICSITEMS_HACKLEGENDARYCHEST_NAME": "캐리스크안의 해적", // [Wordplay on "Caribbean" and "risk", as in "risk of rain"]
+    "ACHIEVEMENT_MYSTICSITEMS_HACKLEGENDARYCHEST_DESCRIPTION": "전설 상자를 무료로 열어보세요.",
+
+    "ACHIEVEMENT_MYSTICSITEMS_WOOLIERUSH_NAME": "리듬 유지",
+    "ACHIEVEMENT_MYSTICSITEMS_WOOLIERUSH_DESCRIPTION": "어떤 스테이지에서든 5분을 넘기지 않고 최종 스테이지에 도달하세요.",
+
+    "ACHIEVEMENT_MYSTICSITEMS_FREEZELOCKENEMY_NAME": "쿨하게!", // [The phrase for "calm down"]
+    "ACHIEVEMENT_MYSTICSITEMS_FREEZELOCKENEMY_DESCRIPTION": "적을 7초 동안 얼린 상태로 유지합니다.",
+
+    //[BODIES]
+    "ARCHWISP_BODY_NAME": "고풍스로운 위습",
+
+    //[INTERACTABLES]
+    "MYSTICSITEMS_RIFTCHEST_NAME": "불안정한 균열",
+    "MYSTICSITEMS_RIFTCHEST_CONTEXT": "불안정한 균열 닫기",
+
+    "MYSTICSITEMS_BROKENSPOTTER_NAME": "부서진 감시자 드론",
+    "MYSTICSITEMS_BROKENSPOTTER_CONTEXT": "수리",
+
+    "MYSTICSITEMS_ARCHAICMASK_CONTEXT": "전설 마스크 획득",
+
+    "MYSTICSITEMS_SIRENPOLE_NAME": "사이렌 경고",
+
+    "MYSTICSITEMS_SHRINE_LEGENDARY_NAME": "전설의 성소 [Mystic's Items]",
+    "MYSTICSITEMS_SHRINE_LEGENDARY_CONTEXT": "전설의 성소에 제물 바치기",
+    "MYSTICSITEMS_SHRINE_LEGENDARY_USE_MESSAGE_2P": "<style=cShrine>당신은 전설의 화신이 되었습니다.",
+    "MYSTICSITEMS_SHRINE_LEGENDARY_USE_MESSAGE": "<style=cShrine>{0} 는 전설의 화신이 되었습니다.",
+
+    //[COSTTYPES]
+    "COST_MYSTICSITEMS_RIFTLENSDEBUFF_FORMAT": "{0}균열 비전",
+
+    //[OBJECTIVES]
+    "OBJECTIVE_MYSTICSITEMS_CHARGE_TREASUREMAPZONE": "묻힌 <color=#F8EB27>전설 아이템 발굴 ({0}%)",
+    "OBJECTIVE_MYSTICSITEMS_CHARGE_TREASUREMAPZONE_OOB": "묻혀 있는<color=#F8EB27>전설 아이템을 발굴하세요. ({0}%)",
+
+    "OBJECTIVE_MYSTICSITEMS_CHARGE_SIRENPOLE": "<color=#EA5821>사이렌 이 충전 중입니다.({0}%, automatic)",
+    "OBJECTIVE_MYSTICSITEMS_CHARGE_SIRENPOLE_OOB": "<color=#EA5821>사이렌이 충전 중입니다. ({0}%, automatic)",
+
+    "OBJECTIVE_MYSTICSITEMS_RIFTLENS_FLAVOUR": "불안정한 균열이 감지되었습니다!",
+    "OBJECTIVE_MYSTICSITEMS_RIFTLENS_CLOSE_RIFTS": "모든<color=#66ADFF>불안정한 균열 닫기! ({0}/{1})",
+
+    //[SKILLS]
+    "SKILL_MYSTICSITEMS_CRYSTALLIZED_NAME": "결정화됨",
+    "SKILL_MYSTICSITEMS_CRYSTALLIZED_DESCRIPTION": "<color=#FF7F7F>스킬을 사용할 수 없습니다.",
+
+    //[DEATH QUOTES]
+    "PLAYER_DEATH_QUOTE_MYSTICSITEMS_RIFTLENS_0_2P": "시간 다 됐어요!",
+    "PLAYER_DEATH_QUOTE_MYSTICSITEMS_RIFTLENS_0": "{0} 시간이 부족 했습니다.",
+    "PLAYER_DEATH_QUOTE_MYSTICSITEMS_RIFTLENS_1_2P": "압박감을 감당할 수 없었습니다.",
+    "PLAYER_DEATH_QUOTE_MYSTICSITEMS_RIFTLENS_1": "{0} 압박감을 감당할 수 없었습니다.",
+    "PLAYER_DEATH_QUOTE_MYSTICSITEMS_RIFTLENS_2_2P": "균열로 인해 몸이 심하게 변형되었습니다.",
+    "PLAYER_DEATH_QUOTE_MYSTICSITEMS_RIFTLENS_2": "{0} 의 몸은 균열로 인해 심하게 변형되었습니다.",
+    "PLAYER_DEATH_QUOTE_MYSTICSITEMS_RIFTLENS_3_2P": "다른 세계의 힘이 당신을 압도합니다.",
+    "PLAYER_DEATH_QUOTE_MYSTICSITEMS_RIFTLENS_3": "압도적인 이계의 힘 {0}.",
+    "PLAYER_DEATH_QUOTE_MYSTICSITEMS_RIFTLENS_4_2P": "당신의 욕심은 당신의 몰락을 가져왔습니다.",
+    "PLAYER_DEATH_QUOTE_MYSTICSITEMS_RIFTLENS_4": "{0} 의 탐욕이 몰락으로 이어졌습니다.",
+    "PLAYER_DEATH_QUOTE_MYSTICSITEMS_RIFTLENS_5_2P": "균열이 붕괴됩니다.",
+    "PLAYER_DEATH_QUOTE_MYSTICSITEMS_RIFTLENS_5": "균열이 붕괴되어 {0} 사망했습니다.",
+
+    //[BUFFS]
+    "BUFF_MYSTICSITEMS_ALLYDEATHREVENGE_NAME": "복수",
+    "BUFF_MYSTICSITEMS_ALLYDEATHREVENGE_DESC": "공격 속도와 공격력 증가",
+
+    "BUFF_MYSTICSITEMS_COFFEEBOOST_NAME": "익스프레스 부스트",
+    "BUFF_MYSTICSITEMS_COFFEEBOOST_DESC": "더 빠른 공격속도와 이동속도",
+
+    "BUFF_MYSTICSITEMS_CRYSTALLIZED_NAME": "결정화됨",
+    "BUFF_MYSTICSITEMS_CRYSTALLIZED_DESC": "<color=#FF7F7F>스킬을 사용할 수 없습니다.",
+
+    "BUFF_MYSTICSITEMS_DASHERDISCACTIVE_NAME": "무형",
+    "BUFF_MYSTICSITEMS_DASHERDISCACTIVE_DESC": "피해를 받지 않음",
+
+    "BUFF_MYSTICSITEMS_DASHERDISCCOOLDOWN_NAME": "살인 톱니바퀴 재사용 대기시간",
+    "BUFF_MYSTICSITEMS_DASHERDISCCOOLDOWN_DESC": "살인 톱니바퀴를 트리거할 수 없음",
+
+    "BUFF_MYSTICSITEMS_DEAFENED_NAME": "귀머거리",
+    "BUFF_MYSTICSITEMS_DEAFENED_DESC": "공격 속도, 이동 속도, 방어력, 공격력 감소",
+
+    "BUFF_MYSTICSITEMS_MARWANASHBURN_NAME": "마르완의 빛",
+    "BUFF_MYSTICSITEMS_MARWANASHBURN_DESC": "매초마다 체력의 일부가 손실됩니다.",
+
+    "BUFF_MYSTICSITEMS_MARWANASHBURNSTRONG_NAME": "마르완의 빛",
+    "BUFF_MYSTICSITEMS_MARWANASHBURNSTRONG_DESC": "매초마다 체력의 일부가 손실됩니다.",
+
+    "BUFF_MYSTICSITEMS_MECHANICALARMCHARGE_NAME": "기계식 팔 충전",
+    "BUFF_MYSTICSITEMS_MECHANICALARMCHARGE_DESC": "다음 기계 팔 스윙의 공격력이 증가합니다.",
+
+    "BUFF_MYSTICSITEMS_SPOTTERMARKED_NAME": "감시자",
+    "BUFF_MYSTICSITEMS_SPOTTERMARKED_DESC": "받는 모든 피해가 치명타가 됩니다.",
+
+    "BUFF_MYSTICSITEMS_GACHAPONBONUS_NAME": "가차 보너스",
+    "BUFF_MYSTICSITEMS_GACHAPONBONUS_DESC": "치명타 확률 및 공격 속도 증가",
+
+    "BUFF_MYSTICSITEMS_NANOMACHINEARMOR_NAME": "나노머신 활성화됨",
+    "BUFF_MYSTICSITEMS_NANOMACHINEARMOR_DESC": "방어력 증가",
+
+    "BUFF_MYSTICSITEMS_BUFFINTPRANGE_NAME": "신나게 노래 듣기~!",
+    "BUFF_MYSTICSITEMS_BUFFINTPRANGE_DESC": "이동 속도와 방어력 증가",
+
+    //[ITEMSTATS]
+    "ITEMSTATS_MYSTICSITEMS_POSTFIX_HEALTH": "체력",
+    "ITEMSTATS_MYSTICSITEMS_POSTFIX_HEALTHPERSECOND": "체력/초",
+    "ITEMSTATS_MYSTICSITEMS_POSTFIX_METERS": "미터",
+    "ITEMSTATS_MYSTICSITEMS_POSTFIX_SECONDS": "초",
+
+    "ITEMSTATS_MYSTICSITEMS_ARMOR": "방어",
+    "ITEMSTATS_MYSTICSITEMS_ATTACKSPEED": "공격속도",
+    "ITEMSTATS_MYSTICSITEMS_BONUSPERKILL": "처치당 보너스",
+    "ITEMSTATS_MYSTICSITEMS_CHARGES": "충전",
+    "ITEMSTATS_MYSTICSITEMS_CRIT": "치명타 확률",
+    "ITEMSTATS_MYSTICSITEMS_CRITDAMAGE": "치명타 데미지",
+    "ITEMSTATS_MYSTICSITEMS_CRITPERBUFFSTACK": "버프 중첩당 치명타",
+    "ITEMSTATS_MYSTICSITEMS_CHANCE": "확률",
+    "ITEMSTATS_MYSTICSITEMS_COOLDOWN": "쿨다운",
+    "ITEMSTATS_MYSTICSITEMS_DAMAGE": "데미지",
+    "ITEMSTATS_MYSTICSITEMS_DAMAGEPERSPEEDINCREASE": "속도증가 1%당 데미지",
+    "ITEMSTATS_MYSTICSITEMS_DIFFICULTYSPEED": "난이도 증가 속도",
+    "ITEMSTATS_MYSTICSITEMS_DURATION": "지속",
+    "ITEMSTATS_MYSTICSITEMS_GOLDFORMAXBUFF": "최대 버프 골드",
+    "ITEMSTATS_MYSTICSITEMS_HEALING": "회복",
+    "ITEMSTATS_MYSTICSITEMS_MAXATTACKSPEEDBONUS": "최대 공격속도 보너스",
+    "ITEMSTATS_MYSTICSITEMS_MAXBUFFSTACKS": "최대 버프 스택 수",
+    "ITEMSTATS_MYSTICSITEMS_MAXHEALTH": "최대 체력",
+    "ITEMSTATS_MYSTICSITEMS_MAXMOVESPEEDBONUS": "최대 이동속도 보너스",
+    "ITEMSTATS_MYSTICSITEMS_MOVESPEED": "이동속도",
+    "ITEMSTATS_MYSTICSITEMS_PULSES": "Pulses", // [Crystallized World's pulses]
+    "ITEMSTATS_MYSTICSITEMS_RADIUS": "반경",
+    "ITEMSTATS_MYSTICSITEMS_REDUCTION": "감소",
+    "ITEMSTATS_MYSTICSITEMS_REGEN": "체력 회복",
+    "ITEMSTATS_MYSTICSITEMS_REMAINING": "남은", // [For bonuses that have limited uses]
+    "ITEMSTATS_MYSTICSITEMS_SHIELD": "방어막",
+    "ITEMSTATS_MYSTICSITEMS_TIME": "시간",
+    "ITEMSTATS_MYSTICSITEMS_UNSTABLERIFTS": "각 레벨의 불안정한 균열",
+    "ITEMSTATS_MYSTICSITEMS_UPTO": "최대", // [For bonuses that increase something up to a certain value]
+
+    "ITEMSTATS_MYSTICSITEMS_FORMAT": "{0}: {1}", // [{0} 는 능력치 이름, {1} 은 능력치. 예를 들어, 척추 임플란트의 경우 '방어력: +15'로 표시됩니다.]
+
+    //[MISC]
+    "MYSTICSITEMS_STATCHANGE_LIST_HEADER": "현재 능력치 변경 사항:",
+    "MYSTICSITEMS_STATCHANGE_LIST_MAXHEALTH": "* {0}% 최대 체력",
+    "MYSTICSITEMS_STATCHANGE_LIST_REGEN": "* {0}% 체력 회복",
+    "MYSTICSITEMS_STATCHANGE_LIST_DAMAGE": "* {0}% 데미지",
+    "MYSTICSITEMS_STATCHANGE_LIST_MOVESPEED": "* {0}% 이동속도",
+    "MYSTICSITEMS_STATCHANGE_LIST_ATTACKSPEED": "* {0}% 공격속도",
+    "MYSTICSITEMS_STATCHANGE_LIST_CRIT": "* {0}% 치명타 확률",
+    "MYSTICSITEMS_STATCHANGE_LIST_ARMOR": "* {0} 방어력",
+
+    "MYSTICSITEMS_TREASUREMAP_WARNING": "<style=cWorldEvent>보물 지도에서 신호음이 울립니다. 당신은 당신이 뭔가를 하는 것을 잊었다는 것을 깨닫습니다.</style>" // [If the player has a Treasure Map, this reminder message will be played after a teleporter is charged if they forget to dig up the legendary item]
+  }
+}
