@@ -33,7 +33,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> healthBonus = new ConfigurableValue<float>(
             "Item: Super Idol",
             "HealthBonus",
-            60f,
+            50f,
             "Extra maximum HP at full buff power (in %)",
             new System.Collections.Generic.List<string>()
             {
@@ -43,7 +43,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> armorBonus = new ConfigurableValue<float>(
             "Item: Super Idol",
             "ArmorBonus",
-            60f,
+            50f,
             "Extra armor at full buff power",
             new System.Collections.Generic.List<string>()
             {
