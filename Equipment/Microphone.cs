@@ -79,6 +79,7 @@ namespace MysticsItems.Equipment
                 AddDisplayRule("ScavBody", "HandL", new Vector3(0.469F, 2.35F, -0.273F), new Vector3(305.162F, 137.483F, 278.565F), new Vector3(0.883F, 0.883F, 0.883F));
                 AddDisplayRule("EquipmentDroneBody", "GunBarrelBase", new Vector3(0F, 0F, 1.453F), new Vector3(0F, 90F, 0F), new Vector3(0.265F, 0.265F, 0.265F));
                 if (SoftDependencies.SoftDependenciesCore.itemDisplaysSniper) AddDisplayRule("SniperClassicBody", "Head", new Vector3(-0.12632F, 0.03962F, -0.03585F), new Vector3(339.427F, 188.6309F, 0F), new Vector3(0.03139F, 0.03139F, 0.03139F));
+                if (SoftDependencies.SoftDependenciesCore.itemDisplaysDeputy) AddDisplayRule("DeputyBody", "RevolverR", new Vector3(0.02909F, 0.39396F, -0.01866F), new Vector3(0F, 0F, 0F), new Vector3(0.01138F, 0.01138F, 0.01138F));
                 AddDisplayRule("RailgunnerBody", "GunScope", new Vector3(0F, 0.18265F, 0.3376F), new Vector3(0F, 270F, 243.3805F), new Vector3(0.02478F, 0.02478F, 0.02478F));
                 AddDisplayRule("VoidSurvivorBody", "Chest", new Vector3(0.11444F, 0.29135F, 0.09171F), new Vector3(30.82122F, 341.6345F, 328.628F), new Vector3(0.03418F, 0.03418F, 0.03418F));
             };

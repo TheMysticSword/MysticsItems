@@ -117,6 +117,7 @@ namespace MysticsItems.Items
                 AddDisplayRule("BrotherBody", "ThighL", BrotherInfection.blue, new Vector3(0.07921F, -0.00948F, 0.04758F), new Vector3(68.71732F, 228.1228F, 69.86813F), new Vector3(0.09518F, 0.04176F, 0.09524F));
                 AddDisplayRule("ScavBody", "Base", new Vector3(-14.92595F, 3.65256F, 0.84163F), new Vector3(90F, 0F, 0F), new Vector3(4F, 4F, 4F));
                 if (SoftDependencies.SoftDependenciesCore.itemDisplaysSniper) AddDisplayRule("SniperClassicBody", "Base", new Vector3(-0.5431F, 0.93526F, 0.49732F), new Vector3(10.681F, 0.007F, 0.071F), new Vector3(1F, 1F, 1F));
+                if (SoftDependencies.SoftDependenciesCore.itemDisplaysDeputy) AddDisplayRule("DeputyBody", "BaseBone", new Vector3(0.35681F, -0.32688F, 0.36211F), new Vector3(0F, 0F, 0F), new Vector3(0.48018F, 0.48018F, 0.48018F));
                 AddDisplayRule("RailgunnerBody", "Base", new Vector3(-0.59444F, -0.29985F, 0.26853F), new Vector3(90F, 0F, 0F), new Vector3(1F, 1F, 1F));
                 AddDisplayRule("VoidSurvivorBody", "Base", new Vector3(-0.41662F, 0.33464F, -0.26613F), new Vector3(90F, 0F, 0F), new Vector3(1F, 1F, 1F));
             };

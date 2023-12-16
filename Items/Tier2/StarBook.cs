@@ -121,6 +121,7 @@ namespace MysticsItems.Items
                 AddDisplayRule("BrotherBody", "ThighR", new Vector3(0.30045F, -0.16571F, -0.02125F), new Vector3(3.68902F, 339.9096F, 134.1321F), new Vector3(0.11827F, 0.03684F, 0.11827F));
                 AddDisplayRule("ScavBody", "Head", new Vector3(-3.15235F, 1.98803F, -4.28275F), new Vector3(304.0492F, 230.9892F, 190.2168F), new Vector3(0.70357F, 0.70357F, 0.70357F));
                 if (SoftDependencies.SoftDependenciesCore.itemDisplaysSniper) AddDisplayRule("SniperClassicBody", "Pelvis", new Vector3(0.27172F, 0.08232F, -0.06273F), new Vector3(358.4292F, 121.2072F, 339.9804F), new Vector3(0.03388F, 0.03388F, 0.03388F));
+                if (SoftDependencies.SoftDependenciesCore.itemDisplaysDeputy) AddDisplayRule("DeputyBody", "Pelvis", new Vector3(0.08353F, -0.0004F, -0.05345F), new Vector3(7.60901F, 152.449F, 181.1016F), new Vector3(0.03191F, 0.03191F, 0.03191F));
                 AddDisplayRule("RailgunnerBody", "Pelvis", new Vector3(0.17538F, 0.15436F, -0.01521F), new Vector3(5.45999F, 119.7464F, 17.75949F), new Vector3(0.0379F, 0.0379F, 0.0379F));
                 AddDisplayRule("VoidSurvivorBody", "Stomach", new Vector3(0.10394F, -0.04523F, 0.19263F), new Vector3(5.30274F, 0F, 0F), new Vector3(0.03269F, 0.03269F, 0.03269F));
             };

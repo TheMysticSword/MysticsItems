@@ -173,6 +173,15 @@ namespace MysticsItems.Items
                 transformLocation = "VoidSurvivorArmature/ROOT/base/Stomach/Chest/Shoulder.l/Upperarm.l/Forearm.l/Hand/Index1",
                 childName = "IndexFinger1L"
             });
+            if (SoftDependencies.SoftDependenciesCore.itemDisplaysDeputy)
+            {
+                ChildLocatorAdditions.list.Add(new ChildLocatorAdditions.Addition
+                {
+                    modelName = "mdlDeputy",
+                    transformLocation = "Rig/ROOT/base/Stomach/Stomach.1/Chest/Clavicle.L/Upper_arm.L/Lower_arm.L/Hand.L/Index.L",
+                    childName = "IndexFingerL"
+                });
+            }
             itemDisplayPrefab = PrepareItemDisplayModel(PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Snow Ring/FollowerModel.prefab")));
             onSetupIDRS += () =>
             {
@@ -193,6 +202,7 @@ namespace MysticsItems.Items
                 AddDisplayRule("BrotherBody", "Finger1.1.R", BrotherInfection.green, new Vector3(-0.00005F, 0.0355F, -0.00034F), new Vector3(0F, 97.04736F, 326.1438F), new Vector3(0.02588F, 0.02588F, 0.02588F));
                 AddDisplayRule("ScavBody", "Finger11L", new Vector3(-0.02125F, 0.00004F, -0.13491F), new Vector3(0F, 278.9842F, 0F), new Vector3(0.60882F, 0.60882F, 0.60882F));
                 if (SoftDependencies.SoftDependenciesCore.itemDisplaysSniper) AddDisplayRule("SniperClassicBody", "GunBarrel", new Vector3(0F, -0.00006F, 0.35967F), new Vector3(270F, 0F, 0F), new Vector3(0.05727F, 0.05727F, 0.05727F));
+                if (SoftDependencies.SoftDependenciesCore.itemDisplaysDeputy) AddDisplayRule("DeputyBody", "IndexFingerL", new Vector3(0.00147F, 0.02022F, -0.00053F), new Vector3(357.1624F, 0F, 0F), new Vector3(0.02675F, 0.02675F, 0.02675F));
                 AddDisplayRule("RailgunnerBody", "Finger1.1.R", new Vector3(0.00121F, 0.00881F, 0.00222F), new Vector3(346.2775F, 29.66737F, 359.7971F), new Vector3(0.02708F, 0.02708F, 0.02708F));
                 AddDisplayRule("VoidSurvivorBody", "IndexFinger1L", new Vector3(-0.00893F, 0.04544F, -0.00622F), new Vector3(0F, 55.2822F, 0F), new Vector3(0.04782F, 0.04782F, 0.04782F));
             };

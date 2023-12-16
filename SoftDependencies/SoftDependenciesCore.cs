@@ -8,6 +8,7 @@ namespace MysticsItems.SoftDependencies
     {
         internal static bool itemStatsEnabled = false;
         internal static bool itemDisplaysSniper = false;
+        internal static bool itemDisplaysDeputy = false;
 
         internal static void Init()
         {
@@ -73,6 +74,17 @@ namespace MysticsItems.SoftDependencies
                 "Make this mod's items show up on the Sniper added by the SniperClassic mod",
                 restartRequired: true
             ) && BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("com.Moffein.SniperClassic");
+
+            itemDisplaysDeputy = ConfigOptions.ConfigurableValue.CreateBool(
+                ConfigManager.General.categoryGUID,
+                ConfigManager.General.categoryName,
+                ConfigManager.General.config,
+                "Mod Compatibility",
+                "Deputy Item Displays",
+                true,
+                "Make this mod's items show up on the modded character Deputy",
+                restartRequired: true
+            ) && BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("com.Bog.Deputy");
         }
     }
 }
