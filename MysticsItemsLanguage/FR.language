@@ -437,7 +437,7 @@
     "MYSTICSITEMS_STATCHANGE_LIST_ARMOR": "* {0} armure",
 
     "MYSTICSITEMS_PLAYER_CONVERT": "<style=cEvent>{0} {1}{2} devient {3}{4}</color>", // [For item upgrades or downgrades. Example: 'TheMysticSword's Marwan's Ash(3) became Marwan's Light(3)']
-    "MYSTICSITEMS_PLAYER_CONVERT_2P": "<style=cEvent>Votre {1}{2} devient {3}{4}</color>"
+    "MYSTICSITEMS_PLAYER_CONVERT_2P": "<style=cEvent>Votre {1}{2} devient {3}{4}</color>",
     "MYSTICSITEMS_TREASUREMAP_WARNING": "<style=cWorldEvent>Votre carte au trésor sonne. Vous réalisez que vous avez oublié de faire quelque chose.</style>" // [If the player has a Treasure Map, this reminder message will be played after a teleporter is charged if they forget to dig up the legendary item]
   }
 }
