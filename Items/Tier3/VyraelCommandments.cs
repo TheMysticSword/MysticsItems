@@ -16,10 +16,13 @@ namespace MysticsItems.Items
             "Item: Ten Commandments of Vyrael",
             "Hits",
             10,
-            "Hits required for triggering this item's effect. (Note: the number of hits won't be changed in the item's description.)"
+            "Hits required for triggering this item's effect",
+            new System.Collections.Generic.List<string>()
+            {
+                "ITEM_MYSTICSITEMS_VYRAELCOMMANDMENTS_PICKUP",
+                "ITEM_MYSTICSITEMS_VYRAELCOMMANDMENTS_DESC"
+            }
         );
-
-        public static float chanceIncreaseOnProc = 5000f;
 
         public static GameObject procVFX;
 
@@ -79,8 +82,6 @@ namespace MysticsItems.Items
 
             CharacterBody.onBodyStartGlobal += CharacterBody_onBodyStartGlobal;
             GenericGameEvents.OnHitEnemy += GenericGameEvents_OnHitEnemy;
-            On.RoR2.Util.CheckRoll_float_CharacterMaster += Util_CheckRoll_float_CharacterMaster;
-            On.RoR2.GlobalEventManager.OnCharacterDeath += GlobalEventManager_OnCharacterDeath;
         }
 
         private void CharacterBody_onBodyStartGlobal(CharacterBody body)
@@ -90,7 +91,7 @@ namespace MysticsItems.Items
 
         private void GenericGameEvents_OnHitEnemy(DamageInfo damageInfo, MysticsRisky2UtilsPlugin.GenericCharacterInfo attackerInfo, MysticsRisky2UtilsPlugin.GenericCharacterInfo victimInfo)
         {
-            if (!damageInfo.rejected && damageInfo.procCoefficient > 0f && !damageInfo.procChainMask.HasProc(ProcType.ChainLightning) && attackerInfo.body && attackerInfo.inventory)
+            if (!damageInfo.rejected && damageInfo.procCoefficient > 0f && attackerInfo.body && attackerInfo.inventory)
             {
                 var itemCount = attackerInfo.inventory.GetItemCount(itemDef);
                 if (itemCount > 0)
@@ -99,18 +100,14 @@ namespace MysticsItems.Items
                     if (!component) component = attackerInfo.body.gameObject.AddComponent<MysticsItemsVyraelCommandmentsHelper>();
                     if (component.bonusActive <= 0)
                     {
-                        component.hitCount += damageInfo.procCoefficient;
+                        component.hitCount += 1;
                         if (component.hitCount >= (float)hits)
                         {
                             component.hitCount -= (float)hits;
                             component.bonusActive++;
 
-                            attackerInfo.body.crit /= chanceIncreaseOnProc;
-
                             for (var i = 0; i < itemCount; i++)
                                 GlobalEventManager.instance.OnHitEnemy(damageInfo, victimInfo.gameObject);
-
-                            attackerInfo.body.crit *= chanceIncreaseOnProc;
 
                             component.bonusActive--;
                             component.playEffect = true;
@@ -120,43 +117,11 @@ namespace MysticsItems.Items
             }
         }
 
-        private bool Util_CheckRoll_float_CharacterMaster(On.RoR2.Util.orig_CheckRoll_float_CharacterMaster orig, float percentChance, CharacterMaster master)
-        {
-            if (master && master.hasBody)
-            {
-                var body = master.GetBody();
-                var component = body.GetComponent<MysticsItemsVyraelCommandmentsHelper>();
-                if (component && component.bonusActive > 0 && !component.onKillSkip) percentChance *= chanceIncreaseOnProc;
-            }
-            return orig(percentChance, master);
-        }
-
-        private void GlobalEventManager_OnCharacterDeath(On.RoR2.GlobalEventManager.orig_OnCharacterDeath orig, GlobalEventManager self, DamageReport damageReport)
-        {
-            MysticsItemsVyraelCommandmentsHelper component = null;
-            bool skippingOnKills = false;
-            if (damageReport.attackerBody)
-            {
-                component = damageReport.attackerBody.GetComponent<MysticsItemsVyraelCommandmentsHelper>();
-                if (component && component.bonusActive > 0)
-                {
-                    component.onKillSkip = true;
-                    skippingOnKills = true;
-                }
-            }
-            orig(self, damageReport);
-            if (skippingOnKills)
-            {
-                component.onKillSkip = false;
-            }
-        }
-
         public class MysticsItemsVyraelCommandmentsHelper : MonoBehaviour
         {
             public float hitCount = 0;
             public int bonusActive = 0;
             public bool playEffect = false;
-            public bool onKillSkip = false;
         }
 
         public class MysticsItemsVyraelCommandmentsEffect : MonoBehaviour
