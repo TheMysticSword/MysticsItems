@@ -83,6 +83,14 @@ namespace MysticsItems.Items
         public static GameObject starProjectilePrefab;
         public static GameObject starProjectileGhostPrefab;
 
+        public override void OnPluginAwake()
+        {
+            base.OnPluginAwake();
+            starPrefab = Utils.CreateBlankPrefab("MysticsItems_FallenStar", true);
+            starProjectilePrefab = Utils.CreateBlankPrefab("MysticsItems_StarProjectile", true);
+            starProjectilePrefab.GetComponent<NetworkIdentity>().localPlayerAuthority = true;
+        }
+
         public override void OnLoad()
         {
             base.OnLoad();
@@ -119,8 +127,9 @@ namespace MysticsItems.Items
 
             HopooShaderToMaterial.Standard.Apply(itemDef.pickupModelPrefab.GetComponentInChildren<Renderer>().sharedMaterial);
             HopooShaderToMaterial.Standard.Emission(itemDef.pickupModelPrefab.GetComponentInChildren<Renderer>().sharedMaterial, 1.5f, new Color32(25, 180, 171, 255));
-            
-            starPrefab = Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Star Book/Star.prefab");
+
+            Utils.CopyChildren(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Star Book/Star.prefab"), starPrefab);
+            starPrefab.AddComponent<NetworkTransform>();
             HopooShaderToMaterial.Standard.Apply(starPrefab.GetComponentInChildren<Renderer>().sharedMaterial);
             HopooShaderToMaterial.Standard.Emission(starPrefab.GetComponentInChildren<Renderer>().sharedMaterial, 1f, new Color32(25, 180, 171, 255));
 
@@ -177,9 +186,8 @@ namespace MysticsItems.Items
 
             starProjectileGhostPrefab = Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Star Book/StarProjectileGhost.prefab");
             var ghostController = starProjectileGhostPrefab.AddComponent<ProjectileGhostController>();
-            
-            starProjectilePrefab = Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Star Book/StarProjectile.prefab");
-            starProjectilePrefab.AddComponent<NetworkIdentity>().localPlayerAuthority = true;
+
+            Utils.CopyChildren(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Star Book/StarProjectile.prefab"), starProjectilePrefab);
             starProjectilePrefab.AddComponent<TeamFilter>();
             var projectileController = starProjectilePrefab.AddComponent<ProjectileController>();
             projectileController.ghostPrefab = starProjectileGhostPrefab;
@@ -218,7 +226,6 @@ namespace MysticsItems.Items
             shakeEmitter.amplitudeTimeDecay = true;
             shakeEmitter.scaleShakeRadiusWithLocalScale = false;
 
-            MysticsItemsContent.Resources.networkedObjectPrefabs.Add(starPrefab);
             projectileImpactExplosion.spawnObjectPrefab = starPrefab;
             projectileImpactExplosion.spawnOffset = Vector3.up * 0.5f;
 
