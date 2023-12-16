@@ -30,7 +30,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<int> critInterval = new ConfigurableValue<int>(
             "Item: Devil s Cry",
             "CritInterval",
-            9,
+            5,
             "Every X crits, this item will trigger",
             new System.Collections.Generic.List<string>()
             {
