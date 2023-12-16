@@ -19,7 +19,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> passiveShield = new ConfigurableValue<float>(
             "Item: Wireless Voltmeter",
             "PassiveShield",
-            12f,
+            10f,
             "Passive shield bonus for the first stack of this item (in %)",
             new System.Collections.Generic.List<string>()
             {
@@ -29,7 +29,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> damage = new ConfigurableValue<float>(
             "Item: Wireless Voltmeter",
             "Damage",
-            1600f,
+            300f,
             "Reflected damage multiplier (in %)",
             new System.Collections.Generic.List<string>()
             {
@@ -39,7 +39,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> damagePerStack = new ConfigurableValue<float>(
             "Item: Wireless Voltmeter",
             "DamagePerStack",
-            800f,
+            300f,
             "Reflected damage multiplier for each additional stack of this item (in %)",
             new System.Collections.Generic.List<string>()
             {
@@ -61,7 +61,7 @@ namespace MysticsItems.Items
         {
             base.OnLoad();
             itemDef.name = "MysticsItems_Voltmeter";
-            SetItemTierWhenAvailable(ItemTier.Tier3);
+            SetItemTierWhenAvailable(ItemTier.Tier2);
             itemDef.tags = new ItemTag[]
             {
                 ItemTag.Damage,
@@ -97,6 +97,7 @@ namespace MysticsItems.Items
                 AddDisplayRule("CaptainBody", "HandL", new Vector3(0.009F, 0.167F, 0.045F), new Vector3(270F, 270F, 0F), new Vector3(0.035F, 0.035F, 0.035F));
                 AddDisplayRule("BrotherBody", "UpperArmL", BrotherInfection.red, new Vector3(0.124F, 0.177F, -0.056F), new Vector3(80.946F, 113.634F, 258.867F), new Vector3(0.061F, 0.063F, 0.063F));
                 if (SoftDependencies.SoftDependenciesCore.itemDisplaysSniper) AddDisplayRule("SniperClassicBody", "Chest", new Vector3(0.00102F, 0.07635F, -0.2573F), new Vector3(0F, 90F, 342.5916F), new Vector3(0.04182F, 0.04182F, 0.04182F));
+                if (SoftDependencies.SoftDependenciesCore.itemDisplaysDeputy) AddDisplayRule("DeputyBody", "Head", new Vector3(0F, 0.06944F, -0.0919F), new Vector3(0F, 90F, 322.808F), new Vector3(0.02498F, 0.02498F, 0.02498F));
                 AddDisplayRule("RailgunnerBody", "Backpack", new Vector3(0F, 0.4146F, 0.05697F), new Vector3(0F, 90F, 0F), new Vector3(0.02963F, 0.02963F, 0.02963F));
                 AddDisplayRule("VoidSurvivorBody", "Chest", new Vector3(0.09556F, 0.08424F, 0.189F), new Vector3(18.8347F, 291.3285F, 8.91174F), new Vector3(0.0247F, 0.0247F, 0.0247F));
             };
