@@ -30,6 +30,7 @@ namespace MysticsItems.Items
             MysticsItemsContent.Resources.unlockableDefs.Add(GetUnlockableDef());
 
             itemDisplayPrefab = PrepareItemDisplayModel(PrepareModel(Main.AssetBundle.LoadAsset<GameObject>("Assets/Items/Cat Ear Headphones/DisplayModel.prefab")));
+            itemDisplayPrefab.AddComponent<MysticsItemsBuffInTPRangeItemDisplayHelper>();
             onSetupIDRS += () =>
             {
                 AddDisplayRule("CommandoBody", "Head", new Vector3(-0.00816F, 0.38568F, 0.02439F), new Vector3(5.07642F, 0F, 0F), new Vector3(0.85862F, 0.85862F, 0.85862F));
