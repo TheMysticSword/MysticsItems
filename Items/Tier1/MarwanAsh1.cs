@@ -212,7 +212,7 @@ namespace MysticsItems.Items
 
         private void GenericGameEvents_OnHitEnemy(DamageInfo damageInfo, MysticsRisky2UtilsPlugin.GenericCharacterInfo attackerInfo, MysticsRisky2UtilsPlugin.GenericCharacterInfo victimInfo)
         {
-            if (attackerInfo.body && victimInfo.body && attackerInfo.inventory && MysticsItemsMarwanAshHelper.HasAnyAsh(attackerInfo.inventory) && !damageInfo.rejected)
+            if (!damageInfo.rejected && damageInfo.damage > 0 && attackerInfo.body && victimInfo.body && attackerInfo.inventory && MysticsItemsMarwanAshHelper.HasAnyAsh(attackerInfo.inventory))
             {
                 var isAshDamage = DamageAPI.HasModdedDamageType(damageInfo, ashDamageType);
 
