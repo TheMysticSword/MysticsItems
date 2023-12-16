@@ -199,8 +199,8 @@
     "ITEM_MYSTICSITEMS_BACKPACK_LORE": "- ...하지만 지금은 내면의 목소리가 내게 말하는 것 같습니다... \"이렇게 하면 안 됩니다.\"\r\n\r\n- 오, 이건 변화의 신호예요.\r\n\r\n- 그게 무슨 뜻이죠?\r\n\r\n- 이것이 바로 우리가 진보에 반응하는 방식입니다. 우리는 종종 변화에 익숙하지 않아서 과거로 돌아가려고 합니다. 이는 정상이므로 걱정할 필요가 없습니다. 이런 감정에 사로잡히지 말고, 그렇다고 무시하지도 마세요.\r\n\r\n- 그럼... 계속 진행해도 되나요?\r\n\r\n- 자신에게 최선이라고 생각되는 일을 하세요. \r\n\r\n- ... 고마워요, 엄마.",
 
     "ITEM_MYSTICSITEMS_VYRAELCOMMANDMENTS_NAME": "바리엘의 십계명", // [Vyrael's developer item]
-    "ITEM_MYSTICSITEMS_VYRAELCOMMANDMENTS_PICKUP": "10회 적중할 때마다 모든 <style=cIsDamage>'적중'</style> 효과를 발동합니다.",
-    "ITEM_MYSTICSITEMS_VYRAELCOMMANDMENTS_DESC": "<style=cIsDamage>적중</style><style=cIsUtility>10회</style>마다 모든 적중 효과를 발동합니다. <style=cIsUtility>중첩이 추가될 때마다 이러한 효과가 다시 발동합니다.</style>",
+    "ITEM_MYSTICSITEMS_VYRAELCOMMANDMENTS_PICKUP_OLD": "10회 적중할 때마다 모든 <style=cIsDamage>'적중'</style> 효과를 발동합니다.",
+    "ITEM_MYSTICSITEMS_VYRAELCOMMANDMENTS_DESC_OLD": "<style=cIsDamage>적중</style><style=cIsUtility>10회</style>마다 모든 적중 효과를 발동합니다. <style=cIsUtility>중첩이 추가될 때마다 이러한 효과가 다시 발동합니다.</style>",
 
     "ITEM_MYSTICSITEMS_JUDGEMENTCUT_NAME": "악마의 울음",
     "ITEM_MYSTICSITEMS_JUDGEMENTCUT_PICKUP": "<style=cIsDamage>치명타 공격</style> {CritInterval}마다 연속 베기 공격을 발동합니다.",

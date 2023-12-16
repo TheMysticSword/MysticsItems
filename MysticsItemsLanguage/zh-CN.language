@@ -204,8 +204,8 @@
     "ITEM_MYSTICSITEMS_BACKPACK_LORE": "- ...但现在，我内心的声音似乎在告诉我... \"你不能这么做。\"\r\n\r\n- 哦，这是变化的迹象，亲爱的。\r\n\r\n- 这是什么意思？\r\n\r\n- 这就是我们对改变的反应。通常，我们不习惯改变，我们试图回到过去。这很正常，你不用担心。不要让这种感觉占据了你，但也不要忽视它。\r\n\r\n- 所以...我要继续前进吗？\r\n\r\n- 做你认为正确的事，亲爱的。\r\n\r\n- ... 谢谢你，妈妈。",
 
     "ITEM_MYSTICSITEMS_VYRAELCOMMANDMENTS_NAME": "维雷尔的十条戒律", // [Vyrael's developer item]
-    "ITEM_MYSTICSITEMS_VYRAELCOMMANDMENTS_PICKUP": "每10次攻击，触发所有“击中时触发”效果",
-    "ITEM_MYSTICSITEMS_VYRAELCOMMANDMENTS_DESC": "每<style=cIsUtility>10次击中</style>，触发所有<style=cIsDamage>击中时触发</style>效果。 <style=cIsUtility>每个堆叠会额外触发一次该效果</style>。",
+    "ITEM_MYSTICSITEMS_VYRAELCOMMANDMENTS_PICKUP_OLD": "每10次攻击，触发所有“击中时触发”效果",
+    "ITEM_MYSTICSITEMS_VYRAELCOMMANDMENTS_DESC_OLD": "每<style=cIsUtility>10次击中</style>，触发所有<style=cIsDamage>击中时触发</style>效果。 <style=cIsUtility>每个堆叠会额外触发一次该效果</style>。",
 
     "ITEM_MYSTICSITEMS_JUDGEMENTCUT_NAME": "鬼泣",
     "ITEM_MYSTICSITEMS_JUDGEMENTCUT_PICKUP": "每{CritInterval}次暴击，触发一次一连串的攻击。",

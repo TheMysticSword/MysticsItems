@@ -155,8 +155,8 @@
     "ITEM_MYSTICSITEMS_BACKPACK_LORE": "- ...pero ahora, es casi como si mi voz interior me dijera... \"No puedes hacer esto.\"\r\n\r\n- Oh, es un signo de cambio, cariño.\r\n\r\n- ¿Qué quieres decir con eso?\r\n\r\n- Es como reaccionamos al progreso. Muy seguido, no nos encontramos acostumbrados al cambio, e intentamos regresar. Eso es normal, y no tienes que preocuparte por ello. No dejes que ese sentimiento se apodere de ti, pero tampoco lo ignores.\r\n\r\n- Así que... ¿Simplemente sigo adelante?\r\n\r\n- Has lo que creas que es mejor para ti, cariño.\r\n\r\n- ... Gracias, Mamá.",
 
     "ITEM_MYSTICSITEMS_VYRAELCOMMANDMENTS_NAME": "Diez Mandamientos de Vyrael", // [Vyrael's developer item]
-    "ITEM_MYSTICSITEMS_VYRAELCOMMANDMENTS_PICKUP": "Activa todos los efectos que se activan al atacar enemigos cada 10 ataques.",
-    "ITEM_MYSTICSITEMS_VYRAELCOMMANDMENTS_DESC": "Activa todos los efectos que se <style=cIsDamage>activan al atacar enemigos</style> cada <style=cIsUtility>10 ataques</style>. <style=cIsUtility>Cada acumulación adicional activa los efectos una vez más.</style>",
+    "ITEM_MYSTICSITEMS_VYRAELCOMMANDMENTS_PICKUP_OLD": "Activa todos los efectos que se activan al atacar enemigos cada 10 ataques.",
+    "ITEM_MYSTICSITEMS_VYRAELCOMMANDMENTS_DESC_OLD": "Activa todos los efectos que se <style=cIsDamage>activan al atacar enemigos</style> cada <style=cIsUtility>10 ataques</style>. <style=cIsUtility>Cada acumulación adicional activa los efectos una vez más.</style>",
 
     "ITEM_MYSTICSITEMS_JUDGEMENTCUT_NAME": "Llanto del Demonio",
     "ITEM_MYSTICSITEMS_JUDGEMENTCUT_PICKUP": "Desata una a oleada de tajos cada {CritInterval} Golpes Críticos.",

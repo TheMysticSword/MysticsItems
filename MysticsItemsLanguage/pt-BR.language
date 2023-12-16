@@ -153,8 +153,8 @@
     "ITEM_MYSTICSITEMS_BACKPACK_LORE": "- ...mas agora, é quase como se minha voz interior estivesse me dizendo... \"Não podes fazer isso.\"\r\n\r\n- Oh, é um sinal de mudança, minha querida.\r\n\r\n- O que queres dizer com isso?\r\n\r\n- É assim que nós reagimos ao progresso. Muitas vezes, não estamos acostumados a mudar, e tentamos voltar. Isso é normal, e você não precisa se preocupar com isso. Não deixe esse sentimento tomar conta de você, mas também não o ignore.\r\n\r\n- É só continuar então?\r\n\r\n- Faça o que achar melhor para você, querida.\r\n\r\n- ... Obrigado, mãe.",
 
     "ITEM_MYSTICSITEMS_VYRAELCOMMANDMENTS_NAME": "Dez Mandamentos de Vyrael", // [Vyrael's developer item]
-    "ITEM_MYSTICSITEMS_VYRAELCOMMANDMENTS_PICKUP": "Aciona todos os efeitos 'On-Hit' a cada 10 acertos.",
-    "ITEM_MYSTICSITEMS_VYRAELCOMMANDMENTS_DESC": "Ative todos os seus efeitos <style=cIsDamage>On-Hit</style> a cada <style=cIsUtility>10 acertos</style>. <style=cIsUtility>Cada acúmulo adicional ativa esses efeitos novamente.</style>",
+    "ITEM_MYSTICSITEMS_VYRAELCOMMANDMENTS_PICKUP_OLD": "Aciona todos os efeitos 'On-Hit' a cada 10 acertos.",
+    "ITEM_MYSTICSITEMS_VYRAELCOMMANDMENTS_DESC_OLD": "Ative todos os seus efeitos <style=cIsDamage>On-Hit</style> a cada <style=cIsUtility>10 acertos</style>. <style=cIsUtility>Cada acúmulo adicional ativa esses efeitos novamente.</style>",
 
     "ITEM_MYSTICSITEMS_JUDGEMENTCUT_NAME": "Grito do Diabo",
     "ITEM_MYSTICSITEMS_JUDGEMENTCUT_PICKUP": "Libere uma enxurrada de cortes a cada {CritInterval} Acertos Críticos.",

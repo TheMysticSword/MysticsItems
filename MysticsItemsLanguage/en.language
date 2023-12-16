@@ -200,8 +200,8 @@
     "ITEM_MYSTICSITEMS_BACKPACK_LORE": "- ...but now, it's almost like my inner voice is telling me... \"You can't do this.\"\r\n\r\n- Oh, it's a sign of change, my dear.\r\n\r\n- What do you mean by that?\r\n\r\n- That's just how we react to progress. Often, we're not used to change, and we try to go back. That's normal, and you don't have to worry about it. Don't let this feeling take over you, but also don't ignore it.\r\n\r\n- So... Do I just keep going then?\r\n\r\n- Do what you think is the best for you, dear.\r\n\r\n- ... Thanks, Mom.",
 
     "ITEM_MYSTICSITEMS_VYRAELCOMMANDMENTS_NAME": "Ten Commandments of Vyrael", // [Vyrael's developer item]
-    "ITEM_MYSTICSITEMS_VYRAELCOMMANDMENTS_PICKUP": "Trigger all 'On-Hit' effects every 10 hits.",
-    "ITEM_MYSTICSITEMS_VYRAELCOMMANDMENTS_DESC": "Trigger all of your <style=cIsDamage>On-Hit</style> effects every <style=cIsUtility>10 hits</style>. <style=cIsUtility>Each additional stack triggers these effects again.</style>",
+    "ITEM_MYSTICSITEMS_VYRAELCOMMANDMENTS_PICKUP": "Every {Hits} hits, attempt to trigger 'On-Hit' effects an additional time.",
+    "ITEM_MYSTICSITEMS_VYRAELCOMMANDMENTS_DESC": "Every <style=cIsUtility>{Hits}</style> hits, attempt to trigger your <style=cIsDamage>On-Hit</style> effects <style=cIsUtility>1 <style=cStack>(+1 per stack)</style></style> additional time.",
 
     "ITEM_MYSTICSITEMS_JUDGEMENTCUT_NAME": "Devil's Cry",
     "ITEM_MYSTICSITEMS_JUDGEMENTCUT_PICKUP": "Unleash a barrage of slashes every {CritInterval} Critical Strikes.",

@@ -196,8 +196,8 @@
     "ITEM_MYSTICSITEMS_BACKPACK_LORE": "- ...но теперь, будто мой внутренний голос говорит мне... \"У тебя ничего не получится.\"\r\n\r\n- Это признак изменений, дорогая моя.\r\n\r\n- Что ты этим имеешь в виду?\r\n\r\n- Так мы реагируем на прогресс. Порой нам трудно привыкнуть к изменениям, и мы пытаемся вернуть всё, как было. Это нормально, и тебе не следует волноваться об этом. Не давай этому чувству взять над тобой верх, но и не игнорируй его.\r\n\r\n- Значит... Мне просто надо идти вперёд?\r\n\r\n- Делай то, что считаешь верным, дорогая.\r\n\r\n- ... Спасибо, мама.",
 
     "ITEM_MYSTICSITEMS_VYRAELCOMMANDMENTS_NAME": "Десять заповедей Вираэля", // [Vyrael's developer item]
-    "ITEM_MYSTICSITEMS_VYRAELCOMMANDMENTS_PICKUP": "Каждый 10 удар гарантированно активирует эффекты, срабатывающие при попадании.",
-    "ITEM_MYSTICSITEMS_VYRAELCOMMANDMENTS_DESC": "Каждый <style=cIsUtility>10 удар</style> гарантированно активирует эффекты, срабатывающие <style=cIsDamage>при попадании</style>. <style=cIsUtility>Каждая дополнительная копия предмета активирует эти эффекты ещё раз.</style>",
+    "ITEM_MYSTICSITEMS_VYRAELCOMMANDMENTS_PICKUP": "За каждые {Hits} ударов эффекты, срабатывающие при попадании, попытаются сработать один дополнительный раз.",
+    "ITEM_MYSTICSITEMS_VYRAELCOMMANDMENTS_DESC": "За каждые <style=cIsUtility>{Hits}</style> ударов эффекты, срабатывающие <style=cIsDamage>при попадании</style>, попытаются сработать <style=cIsUtility>1 <style=cStack>(+1 за шт.)</style></style> дополнительный раз.",
 
     "ITEM_MYSTICSITEMS_JUDGEMENTCUT_NAME": "Слёзы дьявола",
     "ITEM_MYSTICSITEMS_JUDGEMENTCUT_PICKUP": "Каждый раз, как вы наносите {CritInterval} критических ударов, на врагов обрушивается шквал рубящих ударов.",

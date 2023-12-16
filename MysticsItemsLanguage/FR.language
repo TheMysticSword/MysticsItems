@@ -194,8 +194,8 @@
     "ITEM_MYSTICSITEMS_BACKPACK_DESC": "Ajoute <style=cIsUtility>+{Charges} charges maximum <style=cStack>(+{ChargesPerStack} par cumul)</style></style> à toutes les compétences. Réduit le temps de rechargement des compétences de <style=cIsUtility>{CDR}%</style>.",
 
     "ITEM_MYSTICSITEMS_VYRAELCOMMANDMENTS_NAME": "Les dix commandements de Vyrael", // [Vyrael's developer item]
-    "ITEM_MYSTICSITEMS_VYRAELCOMMANDMENTS_PICKUP": "Déclenchez tous les effets 'Sur-Coup' tous les 10 coups.",
-    "ITEM_MYSTICSITEMS_VYRAELCOMMANDMENTS_DESC": "Déclencher tous vos effets <style=cIsDamage>Sur-Coup</style> tous les <style=cIsUtility>10 coups</style>. <style=cIsUtility>Chaque exemplaire supplémentaire déclenche à nouveau ces effets.</style>",
+    "ITEM_MYSTICSITEMS_VYRAELCOMMANDMENTS_PICKUP_OLD": "Déclenchez tous les effets 'Sur-Coup' tous les 10 coups.",
+    "ITEM_MYSTICSITEMS_VYRAELCOMMANDMENTS_DESC_OLD": "Déclencher tous vos effets <style=cIsDamage>Sur-Coup</style> tous les <style=cIsUtility>10 coups</style>. <style=cIsUtility>Chaque exemplaire supplémentaire déclenche à nouveau ces effets.</style>",
 
     "ITEM_MYSTICSITEMS_JUDGEMENTCUT_NAME": "Cri du Diable",
     "ITEM_MYSTICSITEMS_JUDGEMENTCUT_PICKUP": "Déchaîne un déluge de lames à chaque {CritInterval} coup critique.",
