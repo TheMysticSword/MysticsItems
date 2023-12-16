@@ -37,13 +37,20 @@ namespace MysticsItems.Achievements
 				base.OnInstall();
 				Stage.onServerStageBegin += Stage_onServerStageBegin;
 				Stage.onServerStageComplete += Stage_onServerStageComplete;
+                Run.onRunStartGlobal += Run_onRunStartGlobal;
 			}
 
-			public override void OnUninstall()
+            private void Run_onRunStartGlobal(Run obj)
+            {
+				eligible = true;
+            }
+
+            public override void OnUninstall()
 			{
 				base.OnUninstall();
 				Stage.onServerStageBegin -= Stage_onServerStageBegin;
 				Stage.onServerStageComplete -= Stage_onServerStageComplete;
+				Run.onRunStartGlobal -= Run_onRunStartGlobal;
 			}
 
 			public void Stage_onServerStageBegin(Stage obj)

@@ -29,9 +29,15 @@ namespace MysticsItems.Achievements
 				public override void OnInstall()
 				{
 					base.OnInstall();
+                    Run.onRunStartGlobal += Run_onRunStartGlobal;
                     GlobalEventManager.OnInteractionsGlobal += GlobalEventManager_OnInteractionsGlobal;
                     Stage.onServerStageBegin += Stage_onServerStageBegin;
 				}
+
+                private void Run_onRunStartGlobal(Run obj)
+                {
+					eligible = true;
+                }
 
                 private void Stage_onServerStageBegin(Stage obj)
                 {
@@ -59,6 +65,7 @@ namespace MysticsItems.Achievements
 				{
 					base.OnUninstall();
 					GlobalEventManager.OnInteractionsGlobal -= GlobalEventManager_OnInteractionsGlobal;
+					Stage.onServerStageBegin -= Stage_onServerStageBegin;
 					Stage.onServerStageBegin -= Stage_onServerStageBegin;
 				}
 			}
