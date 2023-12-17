@@ -160,7 +160,7 @@
     "ITEM_MYSTICSITEMS_SNOWRING_NAME": "雪之环",
     "ITEM_MYSTICSITEMS_SNOWRING_PICKUP": "在你造成伤害后，有概率冰冻一个附近的敌人。",
     "ITEM_MYSTICSITEMS_SNOWRING_DESC": "在你造成伤害后，有<style=cIsUtility>{Chance}%</style>概率<style=cIsUtility>冰冻</style> <style=cIsUtility>{Targets}个 <style=cStack>(每层+{TargetsPerStack})</style> 在<style=cIsUtility>{Radius}米 <style=cStack>(每层+{RadiusPerStack}m)</style>范围内的随机敌人。",
-    "ITEM_MYSTICSITEMS_SNOWRING_LORE": "<style=cMono>从信号回声完成的音频转录。</style>\\r\\n\\r\\n太冷了。这里…太…冷了…拜托，回应我，有没有人…随便谁都行…\\r\\n\\r\\n这里的一切都一心要杀死我，甚至是…这该死的天气。好消息是，我已经…好几天没有被任何东西袭击了，因为所有的东西都死于严寒。我只…我只能靠他们的…他们的尸体勉强活下来。\\r\\n\\r\\n这么冷…连吃饭都很难做到。就在我举起头盔的那一刻，刺骨的冷风开始刮进我的防护服。我甚至不知道我会死于什么：饥饿？还是失血？或者也许…不行，我不会死的，我不能死在这里。如果有任何人听到了，拜托，有任何一个人都行…\\r\\n\\r\\n有人能听见我说话吗？有人吗？\\r\\n\\r\\n也是，我想也没有。我想，是时候睡觉了，我很困，希望我还能至少看到明早的太阳。\\r\\n\\r\\n...\\r\\n\\r\\n有人吗？有人能听见我说话吗？喂？有人吗？...\",": null,
+    "ITEM_MYSTICSITEMS_SNOWRING_LORE": "<style=cMono>从信号回声完成的音频转录。</style>\r\n\r\n太冷了。这里…太…冷了…拜托，回应我，有没有人…随便谁都行…\r\n\r\n这里的一切都一心要杀死我，甚至是…这该死的天气。好消息是，我已经…好几天没有被任何东西袭击了，因为所有的东西都死于严寒。我只…我只能靠他们的…他们的尸体勉强活下来。\r\n\r\n这么冷…连吃饭都很难做到。就在我举起头盔的那一刻，刺骨的冷风开始刮进我的防护服。我甚至不知道我会死于什么：饥饿？还是失血？或者也许…不行，我不会死的，我不能死在这里。如果有任何人听到了，拜托，有任何一个人都行…\r\n\r\n有人能听见我说话吗？有人吗？\r\n\r\n也是，我想也没有。我想，是时候睡觉了，我很困，希望我还能至少看到明早的太阳。\r\n\r\n...\r\n\r\n有人吗？有人能听见我说话吗？喂？有人吗？...",
 
     "ITEM_MYSTICSITEMS_AIRPLANEMODE_NAME": "飞行模式",
     "ITEM_MYSTICSITEMS_AIRPLANEMODE_PICKUP": "当你的辅助技能不可用时，获得可观的移速加成和一次额外的跳跃。",
