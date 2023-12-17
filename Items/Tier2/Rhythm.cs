@@ -54,14 +54,18 @@ namespace MysticsItems.Items
             0.105f,
             "How late can you press to score a hit (in seconds)"
         );
-        public static ConfigOptions.ConfigurableValue<bool> soundsEnabled = new ConfigOptions.ConfigurableValue<bool>(
+        public static ConfigOptions.ConfigurableValue<bool> soundsEnabled = ConfigOptions.ConfigurableValue.CreateBool(
+            ConfigManager.General.categoryGUID,
+            ConfigManager.General.categoryName,
             ConfigManager.General.config,
             "Effects",
             "Metronome SFX",
             true,
             "Should the Metronome item play sounds?"
         );
-        public static ConfigOptions.ConfigurableValue<bool> critLossEnabled = new ConfigOptions.ConfigurableValue<bool>(
+        public static ConfigOptions.ConfigurableValue<bool> critLossEnabled = ConfigOptions.ConfigurableValue.CreateBool(
+            ConfigManager.General.categoryGUID,
+            ConfigManager.General.categoryName,
             ConfigManager.General.config,
             "Gameplay",
             "Metronome Crit Loss",
