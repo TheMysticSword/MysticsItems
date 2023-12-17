@@ -1,3 +1,27 @@
+#### 2.1.12:
+* Wireless Voltmeter:
+    * Moved from Legendary to Uncommon tier
+    * Passive Shield: ~~12%~~ ⇒ 10%
+    * Damage Reflection: ~~1600% (+800% per stack)~~ ⇒ 300% (+300% per stack)
+* Ten Commandments of Vyrael:
+    * Effect adjusted: 10th hit no longer guarantees 'On-Hit' effects, and only triggers an 'On-Hit' event an additional time, as if the enemy was immediately struck for the 11th time
+    * The hit count is no longer affected by proc coefficient
+* Super Idol:
+    * Health Increase: ~~+60%~~ ⇒ +50%
+    * Armor Increase: ~~+60~~ ⇒ +50
+* Devil's Cry:
+    * Effect Trigger Interval: ~~every 9 crits~~ ⇒ every 5 crits
+* Moonglasses:
+    * Bonus Crit Damage: ~~+150% (+150% per stack)~~ ⇒ +400% (+400% per stack)
+        * The previous bonus caused the crit damage to average out to less than normal. For example, if the player had 100% crit chance and picked up one pair of Moonglasses, their average crit damage would become: `(2 + 1.5) / 2 = 1.75x`, which is lower than the usual 2x from crits. That made the item beneficial only after regaining full crit again, which caused the item's effect to be boring and reliant on luck in finding crit-increasing items. This new change makes the item increase the player's average damage with 1 stack while retaining the downside of making on-crit effects trigger half as often.
+* Added item displays for Deputy (https://thunderstore.io/package/Bog/Deputy/)
+* Added a tip in Manuscript's description to hover over the item in-game to check current stat bonuses
+* Fixed Smart Shopper and Beat the Heat challenges becoming impossible to complete after failing until a game restart
+* Fixed Marwan's Ash triggering on zero-damage hits (e.g. Railgunner Concussion Device, Bell Totem from Aetherium)
+* Fixed Purrfect Headphones not showing soundwaves around its item model when the buff is active
+* Fixed Metronome's "Disable Sound" and "Crit Loss" options not appearing in the Risk of Options menu
+* Potentially fixed Stargazer's Records star pickups being invisible for clients in co-op
+* Adjusted the volume of some sound effects
 #### 2.1.11:
 * Added Korean translation (thanks to SAMA0613 & p157157 on github!)
 * Re-added Turkish translation from v1.1.13 (strings from newer versions will be missing)
