@@ -2,7 +2,7 @@
 Adds 50 new items!  
 
 ![GIF preview of some of the item models](https://i.imgur.com/8OOURv4.gif)  
-![Table with the info about all the items in the mod](https://i.imgur.com/t1JZrun.png)  
+![Table with the info about all the items in the mod](https://i.imgur.com/RnTuMRJ.png)  
 
 ## Discussion & feedback
 Please visit the [Discussion Board on itch.io](https://themysticsword.itch.io/ror2-mystics-items/community)!
