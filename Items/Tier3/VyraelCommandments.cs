@@ -26,7 +26,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> procCoefficient = new ConfigurableValue<float>(
             "Item: Ten Commandments of Vyrael",
             "Proc Coefficient",
-            1f,
+            2f,
             "The proc coefficient of this item's 'simulated hit'"
         );
 
