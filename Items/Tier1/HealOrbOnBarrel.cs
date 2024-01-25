@@ -92,6 +92,7 @@ namespace MysticsItems.Items
                     AddDisplayRule("SniperClassicBody", "AntennaR", new Vector3(0.01191F, 0.78284F, 0.00313F), new Vector3(0F, 0F, 0F), new Vector3(0.11502F, 0.11502F, 0.11502F));
                 }
                 if (SoftDependencies.SoftDependenciesCore.itemDisplaysDeputy) AddDisplayRule("DeputyBody", "Hat", new Vector3(0F, -0.00339F, 0.03205F), new Vector3(17.31186F, 0F, 0F), new Vector3(0.46246F, 0.15224F, 0.46246F));
+                if (SoftDependencies.SoftDependenciesCore.itemDisplaysChirr) AddDisplayRule("ChirrBody", "Neck", new Vector3(0F, 0.23362F, 0.06386F), new Vector3(332.1304F, 0F, 0F), new Vector3(0.5184F, 0.5184F, 0.5184F));
                 AddDisplayRule("RailgunnerBody", "Head", new Vector3(0F, 0.19007F, -0.03365F), new Vector3(0F, 0F, 0F), new Vector3(0.15172F, 0.15172F, 0.15172F));
                 AddDisplayRule("VoidSurvivorBody", "Head", new Vector3(0.00001F, 0.16656F, 0.00005F), new Vector3(0F, 0F, 0F), new Vector3(0.17803F, 0.17803F, 0.17803F));
             };

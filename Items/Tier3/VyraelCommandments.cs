@@ -71,6 +71,7 @@ namespace MysticsItems.Items
                     AddDisplayRule("DeputyBody", "RevolverL", new Vector3(-0.0223F, 0.26196F, -0.00821F), new Vector3(0F, 90F, 0F), new Vector3(0.06024F, 0.06024F, 0.06024F));
                     AddDisplayRule("DeputyBody", "RevolverR", new Vector3(0.0223F, 0.26196F, -0.00821F), new Vector3(0F, 270F, 0F), new Vector3(0.06024F, 0.06024F, 0.06024F));
                 }
+                if (SoftDependencies.SoftDependenciesCore.itemDisplaysChirr) AddDisplayRule("ChirrBody", "FootR", new Vector3(-0.00004F, -0.68936F, -0.1178F), new Vector3(0F, 0F, 0F), new Vector3(0.19722F, 0.19722F, 0.19722F));
                 AddDisplayRule("RailgunnerBody", "TopRail", new Vector3(0.00006F, 0.68001F, 0.05789F), new Vector3(0F, 0F, 0F), new Vector3(0.06583F, 0.06583F, 0.06583F));
                 AddDisplayRule("VoidSurvivorBody", "ForeArmL", new Vector3(0.05651F, 0.30521F, 0.01208F), new Vector3(354.2681F, 80.14155F, 0F), new Vector3(0.08341F, 0.08341F, 0.08341F));
             };

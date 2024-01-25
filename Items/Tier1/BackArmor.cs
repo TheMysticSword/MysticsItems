@@ -106,6 +106,12 @@ namespace MysticsItems.Items
                     AddDisplayRule("DeputyBody", "Chest", new Vector3(0F, 0.01501F, -0.04467F), new Vector3(355.0068F, 0F, 0F), new Vector3(0.04098F, 0.04098F, 0.04098F));
                     AddDisplayRule("DeputyBody", "Chest", new Vector3(0F, -0.08272F, -0.0652F), new Vector3(12.62407F, 0F, 0F), new Vector3(0.04098F, 0.04098F, 0.04098F));
                 }
+                if (SoftDependencies.SoftDependenciesCore.itemDisplaysChirr)
+                {
+                    AddDisplayRule("ChirrBody", "Chest", new Vector3(0F, 0.52361F, 0.56757F), new Vector3(0F, 0F, 0F), new Vector3(0.10792F, 0.10792F, 0.10792F));
+                    AddDisplayRule("ChirrBody", "Chest", new Vector3(0F, 0.2536F, 0.56917F), new Vector3(13.70626F, 0F, 0F), new Vector3(0.10792F, 0.10792F, 0.10792F));
+                    AddDisplayRule("ChirrBody", "Stomach", new Vector3(0F, 0.17103F, 0.44392F), new Vector3(25.61153F, 0F, 0F), new Vector3(0.10792F, 0.10792F, 0.10792F));
+                }
                 AddDisplayRule("RailgunnerBody", "Chest", new Vector3(0.14927F, -0.02711F, -0.03746F), new Vector3(350.0041F, 286.6287F, 24.46263F), new Vector3(0.04727F, 0.04727F, 0.04727F));
                 AddDisplayRule("RailgunnerBody", "Chest", new Vector3(0.06252F, -0.16893F, 0.00153F), new Vector3(337.6357F, 295.3051F, 9.23716F), new Vector3(0.07072F, 0.07072F, 0.07072F));
                 AddDisplayRule("VoidSurvivorBody", "Chest", new Vector3(0.00001F, 0.13311F, -0.21931F), new Vector3(8.98278F, 0F, 0F), new Vector3(0.0644F, 0.0644F, 0.0644F));

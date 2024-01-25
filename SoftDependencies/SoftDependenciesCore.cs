@@ -9,6 +9,7 @@ namespace MysticsItems.SoftDependencies
         internal static bool itemStatsEnabled = false;
         internal static bool itemDisplaysSniper = false;
         internal static bool itemDisplaysDeputy = false;
+        internal static bool itemDisplaysChirr = false;
 
         internal static void Init()
         {
@@ -85,6 +86,17 @@ namespace MysticsItems.SoftDependencies
                 "Make this mod's items show up on the modded character Deputy",
                 restartRequired: true
             ) && BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("com.Bog.Deputy");
+
+            itemDisplaysChirr = ConfigOptions.ConfigurableValue.CreateBool(
+                ConfigManager.General.categoryGUID,
+                ConfigManager.General.categoryName,
+                ConfigManager.General.config,
+                "Mod Compatibility",
+                "Chirr Item Displays",
+                true,
+                "Make this mod's items show up on Chirr added by the Starstorm 2 mod",
+                restartRequired: true
+            ) && BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("com.TeamMoonstorm.Starstorm2");
         }
     }
 }
