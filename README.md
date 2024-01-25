@@ -5,7 +5,7 @@ Adds 50 new items!
 ![Table with the info about all the items in the mod](https://i.imgur.com/RnTuMRJ.png)  
 
 ## Discussion & feedback
-Please visit the [Discussion Board on itch.io](https://themysticsword.itch.io/ror2-mystics-items/community)!
+You can create a post on the [Discussion Board on itch.io](https://themysticsword.itch.io/ror2-mystics-items/community)!
 
 ## Bug reports
 If you encounter an issue with the mod (bug, typo, mistranslation, incompatibility with another mod, etc.), report it on the [issue tracker](https://github.com/TheMysticSword/MysticsItems/issues) and make sure that a similar issue isn't open at the moment.  
