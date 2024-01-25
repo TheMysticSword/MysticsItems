@@ -13,14 +13,15 @@
 * Treasure Map:
     * Unearth Time: ~~60s~~ ⇒ 120s
 * Ten Commandments of Vyrael:
-    * The additional 'On-Hit' event now has a 1.0 proc coefficient instead of inheriting the proc coefficient of the triggering hit
-        * This change should make the item more of a sidegrade to 57 Leaf Clover, significantly benefitting attacks with low proc coefficient
+    * The additional 'On-Hit' event now has a 2.0 proc coefficient instead of inheriting the proc coefficient of the triggering hit
+        * This change should make the item more of a sidegrade to 57 Leaf Clover, significantly benefitting frequent attacks with low proc coefficient
 * Rift Lens:
     * Rift Count: ~~3 (+1 per stack)~~ ⇒ 2 (+1 per stack)
 * Puzzle of Chronos:
     * Health Regen: ~~3.2 HP/s (+3.2 HP/s per stack) ⇒ 3 HP/s (+3 HP/s per stack)
 * Added item displays for Chirr from Starstorm 2
 * Fixed Snow Ring and Wireless Voltmeter being able to hit the same enemy multiple times if it has more than 1 bullseye hitbox (e.g. Magma Worm)
+* Updated Korean translation
 #### 2.1.12:
 * Wireless Voltmeter:
     * Moved from Legendary to Uncommon tier
