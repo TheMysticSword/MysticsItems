@@ -126,7 +126,7 @@ namespace MysticsItems
                                     var origColors = cachedMeshInfo[charInfo.materialReferenceIndex].colors32;
                                     var destVerts = textInfo.meshInfo[charInfo.materialReferenceIndex].vertices;
                                     var destColors = textInfo.meshInfo[charInfo.materialReferenceIndex].colors32;
-                                    var charOffset = new Vector3(rng.RangeFloat(-16f, 16f), rng.RangeFloat(-16f, 16f), 0f) * aprilFoolsOffset * charInfo.scale;
+                                    var charOffset = new Vector3(rng.RangeFloat(-8f, 8f), rng.RangeFloat(-8f, 8f), 0f) * aprilFoolsOffset * charInfo.scale;
                                     for (var j = 0; j <= 3; j++)
                                     {
                                         destVerts[charInfo.vertexIndex + j] = origVerts[charInfo.vertexIndex + j] + charOffset;
