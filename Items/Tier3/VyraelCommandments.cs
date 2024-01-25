@@ -23,6 +23,12 @@ namespace MysticsItems.Items
                 "ITEM_MYSTICSITEMS_VYRAELCOMMANDMENTS_DESC"
             }
         );
+        public static ConfigurableValue<float> procCoefficient = new ConfigurableValue<float>(
+            "Item: Ten Commandments of Vyrael",
+            "Proc Coefficient",
+            1f,
+            "The proc coefficient of this item's 'simulated hit'"
+        );
 
         public static GameObject procVFX;
 
@@ -112,8 +118,28 @@ namespace MysticsItems.Items
                             component.hitCount -= (float)hits;
                             component.bonusActive++;
 
+                            var simulatedDamageInfo = new DamageInfo
+                            {
+                                attacker = damageInfo.attacker,
+                                canRejectForce = damageInfo.canRejectForce,
+                                crit = damageInfo.crit,
+                                damage = damageInfo.damage,
+                                damageColorIndex = damageInfo.damageColorIndex,
+                                damageType = damageInfo.damageType,
+                                dotIndex = damageInfo.dotIndex,
+                                force = damageInfo.force,
+                                inflictor = damageInfo.inflictor,
+                                position = damageInfo.position,
+                                procChainMask = damageInfo.procChainMask,
+                                procCoefficient = procCoefficient,
+                                rejected = false
+                            };
+                            for (DamageAPI.ModdedDamageType i = 0; i < (DamageAPI.ModdedDamageType)DamageAPI.ModdedDamageTypeCount; i++)
+                                if (damageInfo.HasModdedDamageType(i))
+                                    simulatedDamageInfo.AddModdedDamageType(i);
+
                             for (var i = 0; i < itemCount; i++)
-                                GlobalEventManager.instance.OnHitEnemy(damageInfo, victimInfo.gameObject);
+                                GlobalEventManager.instance.OnHitEnemy(simulatedDamageInfo, victimInfo.gameObject);
 
                             component.bonusActive--;
                             component.playEffect = true;
