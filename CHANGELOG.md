@@ -18,7 +18,7 @@
 * Rift Lens:
     * Rift Count: ~~3 (+1 per stack)~~ ⇒ 2 (+1 per stack)
 * Puzzle of Chronos:
-    * Health Regen: ~~3.2 HP/s (+3.2 HP/s per stack) ⇒ 3 HP/s (+3 HP/s per stack)
+    * Health Regen: ~~3.2 HP/s (+3.2 HP/s per stack)~~ ⇒ 3 HP/s (+3 HP/s per stack)
 * Added item displays for Chirr from Starstorm 2
 * Fixed Snow Ring and Wireless Voltmeter being able to hit the same enemy multiple times if it has more than 1 bullseye hitbox (e.g. Magma Worm)
 * Updated Korean translation
