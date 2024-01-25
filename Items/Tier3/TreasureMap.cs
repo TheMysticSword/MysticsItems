@@ -32,7 +32,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> unearthTime = new ConfigurableValue<float>(
             "Item: Treasure Map",
             "UnearthTime",
-            60f,
+            120f,
             "How long to stay in the treasure zone to unearth the legendary item (in seconds)",
             new System.Collections.Generic.List<string>()
             {

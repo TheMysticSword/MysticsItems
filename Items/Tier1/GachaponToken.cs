@@ -16,7 +16,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> passiveCritBonus = new ConfigurableValue<float>(
             "Item: Gachapon Coin",
             "PassiveCritBonus",
-            0.5f,
+            1f,
             "Crit chance (in %)",
             new System.Collections.Generic.List<string>()
             {
@@ -26,7 +26,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> passiveCritBonusPerStack = new ConfigurableValue<float>(
             "Item: Gachapon Coin",
             "PassiveCritBonusPerStack",
-            0.5f,
+            1f,
             "Crit chance for each additional stack of this item (in %)",
             new System.Collections.Generic.List<string>()
             {

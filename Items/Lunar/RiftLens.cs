@@ -34,7 +34,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<int> baseRifts = new ConfigurableValue<int>(
             "Item: Rift Lens",
             "BaseRifts",
-            3,
+            2,
             "How many rifts should spawn",
             new System.Collections.Generic.List<string>()
             {

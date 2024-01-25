@@ -18,7 +18,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> damage = new ConfigurableValue<float>(
             "Item: Marwan s Ash/Light/Weapon",
             "Damage",
-            4f,
+            2f,
             "Base damage",
             new System.Collections.Generic.List<string>()
             {
@@ -30,7 +30,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> damagePerLevel = new ConfigurableValue<float>(
             "Item: Marwan s Ash/Light/Weapon",
             "DamagePerLevel",
-            0.8f,
+            0.4f,
             "Base damage for each additional level of the owner",
             new System.Collections.Generic.List<string>()
             {
@@ -59,7 +59,7 @@ namespace MysticsItems.Items
         public static ConfigurableValue<float> dotPercentPerLevel = new ConfigurableValue<float>(
             "Item: Marwan s Ash/Light/Weapon",
             "DoTPercentPerLevel",
-            0.02f,
+            0.04f,
             "How much health should the afflicted enemies lose every second on item level 2 for each additional level of the owner (in %)",
             new System.Collections.Generic.List<string>()
             {
@@ -139,6 +139,12 @@ namespace MysticsItems.Items
             false,
             "Should the burn debuff from Marwan's Light be upgradable by Ignition Tank (DLC item)?"
         );
+        public static ConfigurableValue<float> burnDamageMultiplierCap = new ConfigurableValue<float>(
+            "Item: Marwan s Ash/Light/Weapon",
+            "BurnDamageMultiplierCap",
+            1000f,
+            "The maximum amount of base damage that the DoT effect can deal per second (in %)"
+        );
 
         public static DamageAPI.ModdedDamageType ashDamageType;
         public static DamageColorIndex ashDamageColor = DamageColorAPI.RegisterDamageColor(new Color32(96, 245, 250, 255));
@@ -148,8 +154,6 @@ namespace MysticsItems.Items
         public static float enemyExtraDamageCap = 4f;
         public static float enemyBurnDamageCap = 1.6f;
         public static float enemySpreadRadiusCap = 10f;
-
-        public static float burnDamageMultiplierCap = 8f;
 
         public override void OnLoad()
         {

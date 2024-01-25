@@ -50,7 +50,7 @@ namespace MysticsItems.Buffs
                     }
                 }
                 if (self.victimHealthComponent)
-                    dotStack.damage = Mathf.Min(self.victimHealthComponent.fullCombinedHealth * damageMultiplier, attackerDamage * Items.MarwanAsh1.burnDamageMultiplierCap);
+                    dotStack.damage = Mathf.Min(self.victimHealthComponent.fullCombinedHealth * damageMultiplier, attackerDamage * Items.MarwanAsh1.burnDamageMultiplierCap / 100f);
                 else
                     dotStack.damage = 0;
                 dotStack.damage *= ashDotDef.interval;
