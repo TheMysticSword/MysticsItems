@@ -457,6 +457,7 @@ namespace MysticsItems.Items
                         bullseyeSearch.searchDirection = ray.direction;
                         bullseyeSearch.viewer = body;
                         bullseyeSearch.maxDistanceFilter = 200f;
+                        bullseyeSearch.filterByDistinctEntity = true;
                         bullseyeSearch.RefreshCandidates();
                         bullseyeSearch.FilterOutGameObject(body.gameObject);
                         List<HurtBox> enemies = bullseyeSearch.GetResults().ToList();

@@ -132,6 +132,7 @@ namespace MysticsItems.Items
                     search.filterByLoS = false;
                     search.sortMode = BullseyeSearch.SortMode.Distance;
                     search.maxDistanceFilter = radius;
+                    search.filterByDistinctEntity = true;
                     search.RefreshCandidates();
 
                     bool crit = damageReport.victimBody.RollCrit();

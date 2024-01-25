@@ -258,6 +258,7 @@ namespace MysticsItems.Items
                     search.filterByLoS = false;
                     search.sortMode = BullseyeSearch.SortMode.Distance;
                     search.maxDistanceFilter = radius + radiusPerStack * (float)(itemCount - 1);
+                    search.filterByDistinctEntity = true;
                     search.RefreshCandidates();
                     var results = search.GetResults().Where(x =>
                     {
