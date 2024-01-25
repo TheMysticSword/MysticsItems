@@ -1,3 +1,26 @@
+#### 2.1.13:
+* Gachapon Coin:
+    * Passive Crit Bonus: ~~0.5% (+0.5% per stack)~~ ⇒ 1% (+1% per stack)
+* Marwan's Ash:
+    * Damage: ~~4 (+0.8 per level)~~ ⇒ 2 (+0.4 per level)
+* Marwan's Light:
+    * DoT Damage: ~~0.2% (+0.02% per level beyond 17)~~ ⇒ 0.2% (+0.04% per level beyond 17)
+    * DoT Damage Cap: 800% of base damage ⇒ 1000% of base damage
+        * Can now be configured
+* Spare Wiring:
+    * Spark Damage (from drones): ~~200% (+160% per stack)~~ ⇒ 125% (+100% per stack)
+    * Spark Damage (from players): ~~40% (+32% per stack)~~ ⇒ 50% (+40% per stack)
+* Treasure Map:
+    * Unearth Time: ~~60s~~ ⇒ 120s
+* Ten Commandments of Vyrael:
+    * The additional 'On-Hit' event now has a 1.0 proc coefficient instead of inheriting the proc coefficient of the triggering hit
+        * This change should make the item more of a sidegrade to 57 Leaf Clover, significantly benefitting attacks with low proc coefficient
+* Rift Lens:
+    * Rift Count: ~~3 (+1 per stack)~~ ⇒ 2 (+1 per stack)
+* Puzzle of Chronos:
+    * Health Regen: ~~3.2 HP/s (+3.2 HP/s per stack) ⇒ 3 HP/s (+3 HP/s per stack)
+* Added item displays for Chirr from Starstorm 2
+* Fixed Snow Ring and Wireless Voltmeter being able to hit the same enemy multiple times if it has more than 1 bullseye hitbox (e.g. Magma Worm)
 #### 2.1.12:
 * Wireless Voltmeter:
     * Moved from Legendary to Uncommon tier
