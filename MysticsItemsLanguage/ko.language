@@ -29,8 +29,8 @@
 
     "ITEM_MYSTICSITEMS_MANUSCRIPT_NAME": "원고",
     "ITEM_MYSTICSITEMS_MANUSCRIPT_PICKUP": "무작위 능력치가 {StatBonus}% 증가됩니다.",
-    "ITEM_MYSTICSITEMS_MANUSCRIPT_DESC": "무작위 능력치 <style=cIsUtility>1개</style><style=cStack>(중첩당+1)</style>가(<style=cIsHealing>최대 체력</style>/<style=cIsHealing>체력 회복</style>/<style=cIsDamage>데미지</style>/<style=cIsUtility>이동 속도</style>/<style=cIsDamage>공격 속도</style>/<style=cIsDamage>치명타 확률</style>/<style=cIsUtility>방어력</style>)<style=cIsUtility>{StatBonus}%</style>증가합니다.",
-    "ITEM_MYSTICSITEMS_MANUSCRIPT_LORE": "<style=cMono>of***er *********** 의 클래스 Z-3 육군 헬멧 오디오 녹취가 완료되었습니다.</style>\r\n\r\nZ-3 Ra-2: 말도 안 돼, 이건 그냥 휴지 조각이야 [정적 소음] 임무 #[알아들을 수 없는 중얼거림]\r\n\r\nZ-3 LE0-5: [치-직...] 행성 [치-직...] 경계 중 [치-직...]\r\n\r\nZ-3 Ra-2: 네, 위험한 짐승, [치-직...], [치-직...], ㄱ[치-직...], 탈주자, <mark=#ff0000ff>IMPS, 이 행성은 그렇게 적은 보수를 받기엔 너무 위험하고... \"[알아들을 수 없는 중얼거림]\"\r\n\r\nZ-3 LE0-5: Ra[치-직...]\r\n\r\nZ-3 Ra-2: [치-직...]\r\n\r\nZ-3 LE0-5: [치-직...]\r\n\r\nZ-3 Ra-2: [알아들을 수 없는 중얼거림]\r\n\r\nZ-3 LE0-5: [치-직...]\r\n\r\n[출처를 알 수 없는 소리]\r\n\r\n<style=cMono>--녹음 종료--</style>\r\n\r\n헬멧은 쌍안경과 위치추적기 없이 치명적인 손상을 입은 채 발견되었습니다.",
+    "ITEM_MYSTICSITEMS_MANUSCRIPT_DESC": "무작위 능력치 (<style=cIsHealing>최대 체력</style>/<style=cIsHealing>체력 회복</style>/<style=cIsDamage>데미지</style>/<style=cIsDamage>치명타 확률</style>/<style=cIsDamage>공격 속도</style>/<style=cIsUtility>이동 속도</style>/<style=cIsUtility>방어력</style>) <style=cIsUtility>1개</style><style=cStack>(중첩당+1)</style>가<style=cIsUtility>{StatBonus}%</style>증가합니다.",
+    "ITEM_MYSTICSITEMS_MANUSCRIPT_LORE": "<style=cMono>of***er *********** 의 클래스 Z-3 육군 헬멧 오디오 녹취가 완료되었습니다.</style>\r\n\r\nZ-3 Ra-2: 말도 안 돼, 이건 그냥 휴지 조각이야 [정적 소음] 임무 #[알아들을 수 없는 중얼거림]\r\n\r\nZ-3 LE0-5: [치-직...] 행성 [치-직...] 경계 중 [치-직...]\r\n\r\nZ-3 Ra-2: 네, 위험한 짐승, [치-직...], [치-직...], ㄱ[치-직...], 탈주자, <mark=#ff0000ff>IMPS</mark>, 이 행성은 그렇게 적은 보수를 받기엔 너무 위험하고... \"[알아들을 수 없는 중얼거림]\"\r\n\r\nZ-3 LE0-5: Ra[치-직...]\r\n\r\nZ-3 Ra-2: [치-직...]\r\n\r\nZ-3 LE0-5: [치-직...]\r\n\r\nZ-3 Ra-2: [알아들을 수 없는 중얼거림]\r\n\r\nZ-3 LE0-5: [치-직...]\r\n\r\n[출처를 알 수 없는 소리]\r\n\r\n<style=cMono>--녹음 종료--</style>\r\n\r\n헬멧은 쌍안경과 위치추적기 없이 치명적인 손상을 입은 채 발견되었습니다.",
 
     "ITEM_MYSTICSITEMS_LIMITEDARMOR_NAME": "귀여운 리본", // [Hair bow]
     "ITEM_MYSTICSITEMS_LIMITEDARMOR_PICKUP": "{Hits} 번의 피해를 줄입니다.",
@@ -135,8 +135,8 @@
     "ITEM_MYSTICSITEMS_DEATHCEREMONY_DESC": "<style=cIsDamage>치명타 확률</style>을 <style=cIsDamage>{BaseCrit}%</style> 증가시킵니다. <style=cIsUtility>{Duration}</style>초 동안 <style=cIsDamage>치명타 피해</style>는 적에게 표시를 남기고, 표시된 적이 피해를 입으면 표식이 있는 다른 모든 적이 피해량의 <style=cIsDamage>{Damage}% <style=cStack>(중첩당 +{DamagePerStack}%)</style></style>만큼 피해를 받습니다.",
 
     "ITEM_MYSTICSITEMS_NANOMACHINES_NAME": "작동하지 않는 나노머신",
-    "ITEM_MYSTICSITEMS_NANOMACHINES_PICKUP": "<style=cIsHealing>체력이 {MinHealth}{MaxHealth}%</style>사이일 때 피해를 덜 받습니다.",
-    "ITEM_MYSTICSITEMS_NANOMACHINES_DESC": "<style=cIsHealing>체력이 {MinHealth}{MaxHealth}%</style> 범위 내에 있는 동안 <style=cIsUtility>방어력을 {Armor} <style=cStack>(중첩당 +{ArmorPerStack})</style></style> 증가시킵니다.",
+    "ITEM_MYSTICSITEMS_NANOMACHINES_PICKUP": "<style=cIsHealing>체력이 {MinHealth}~{MaxHealth}%</style>사이일 때 피해를 덜 받습니다.",
+    "ITEM_MYSTICSITEMS_NANOMACHINES_DESC": "<style=cIsHealing>체력이 {MinHealth}~{MaxHealth}%</style> 범위 내에 있는 동안 <style=cIsUtility>방어력을 {Armor} <style=cStack>(중첩당 +{ArmorPerStack})</style></style> 증가시킵니다.",
     "ITEM_MYSTICSITEMS_NANOMACHINES_LORE": "이 제품이 들어 있는 상자에는 오래되어 색이 바랜 스티커가 붙어 있습니다:\r\n\r\n\"개인용 장벽 프로토타입 (C) 2043 하이논 인더스트리즈\r\n\r\n지침: 사용하기 전에 배터리를 컨트롤러 모듈에 넣습니다. 모듈을 안전하고 가까운 곳(예: 주머니)에 보관합니다. 메인 모듈의 헤드를 눌러 시스템을 켭니다. 헤드를 다시 누르면 시스템이 꺼집니다.\r\n\r\n안전 조치: 먹지 마세요. 다른 사람에게 먹이지 마세요. 어항에 넣지 마세요. 벌통에 넣지 마세요. 상원 의원에게 주지 마세요. 로봇 청소기를 사용하지 마세요. 칼 근처에 두지 마세요. 칼이 있는 로봇 청소기를 사용하지 마세요.\r\n\r\n\"비매품\"",
 
     "ITEM_MYSTICSITEMS_BUFFINTPRANGE_NAME": "완벽한 헤드폰",
@@ -199,8 +199,8 @@
     "ITEM_MYSTICSITEMS_BACKPACK_LORE": "- ...하지만 지금은 내면의 목소리가 내게 말하는 것 같습니다... \"이렇게 하면 안 됩니다.\"\r\n\r\n- 오, 이건 변화의 신호예요.\r\n\r\n- 그게 무슨 뜻이죠?\r\n\r\n- 이것이 바로 우리가 진보에 반응하는 방식입니다. 우리는 종종 변화에 익숙하지 않아서 과거로 돌아가려고 합니다. 이는 정상이므로 걱정할 필요가 없습니다. 이런 감정에 사로잡히지 말고, 그렇다고 무시하지도 마세요.\r\n\r\n- 그럼... 계속 진행해도 되나요?\r\n\r\n- 자신에게 최선이라고 생각되는 일을 하세요. \r\n\r\n- ... 고마워요, 엄마.",
 
     "ITEM_MYSTICSITEMS_VYRAELCOMMANDMENTS_NAME": "바리엘의 십계명", // [Vyrael's developer item]
-    "ITEM_MYSTICSITEMS_VYRAELCOMMANDMENTS_PICKUP_OLD": "10회 적중할 때마다 모든 <style=cIsDamage>'적중'</style> 효과를 발동합니다.",
-    "ITEM_MYSTICSITEMS_VYRAELCOMMANDMENTS_DESC_OLD": "<style=cIsDamage>적중</style><style=cIsUtility>10회</style>마다 모든 적중 효과를 발동합니다. <style=cIsUtility>중첩이 추가될 때마다 이러한 효과가 다시 발동합니다.</style>",
+    "ITEM_MYSTICSITEMS_VYRAELCOMMANDMENTS_PICKUP": "10회 적중할 때마다 모든 <style=cIsDamage>'적중'</style> 효과를 발동합니다.",
+    "ITEM_MYSTICSITEMS_VYRAELCOMMANDMENTS_DESC": "<style=cIsDamage>적중</style><style=cIsUtility>10회</style>마다 모든 적중 효과를 발동합니다. <style=cIsUtility>중첩이 추가될 때마다 이러한 효과가 다시 발동합니다.</style>",
 
     "ITEM_MYSTICSITEMS_JUDGEMENTCUT_NAME": "악마의 울음",
     "ITEM_MYSTICSITEMS_JUDGEMENTCUT_PICKUP": "<style=cIsDamage>치명타 공격</style> {CritInterval}마다 연속 베기 공격을 발동합니다.",
@@ -242,7 +242,7 @@
 
     "EQUIPMENT_MYSTICSITEMS_SIRENPOLE_NAME": "경고 시스템",
     "EQUIPMENT_MYSTICSITEMS_SIRENPOLE_PICKUP": "텔레포터 아이템 효과를 발동하는 사이렌 기둥을 배치합니다.",
-    "EQUIPMENT_MYSTICSITEMS_SIRENPOLE_DESC": "<style=cIsUtility>텔레포터 이벤트 효과</style>를 발동하는 자동 충전 사이렌 기둥을 배치합니다. {WaveSpawnInterval}% 충전될 때마다 약한 적들을 소환합니다. 충전 하는데 <style=cIsUtility>{ChargeTime}초</style>가 걸립니다. \r\n\r\n 충전되지 않은 사이렌 기둥이 이미 존재하면 사용할 수 없습니다.",
+    "EQUIPMENT_MYSTICSITEMS_SIRENPOLE_DESC": "<style=cIsUtility>텔레포터 이벤트 효과</style>를 발동하는 자동 충전 사이렌 기둥을 배치합니다. {WaveSpawnInterval}% 충전될 때마다 약한 적들을 소환되며, 충전 하는데 <style=cIsUtility>{ChargeTime}초</style>가 걸립니다. \r\n\r\n 충전되지 않은 사이렌 기둥이 이미 존재하면 사용할 수 없습니다.",
     "EQUIPMENT_MYSTICSITEMS_SIRENPOLE_LORE": "\"대장님!!\" - 병사는 목이 터져라 소리를 질렀습니다.\r\n\r\n대장은 사이렌이 켜져 있는데도 이상하게도 소리가 나지 않는 사이렌에 의아한 표정을 거두지 않고 침착하게 대답했습니다: \"응??\"\r\n\r\n\"저기 보세요!\" - 병사는 더 큰 소리로 울면서 저 멀리 어렴풋이 보이는 형체를 손가락으로 가리켰습니다.\r\n\r\n대장은 돌아서서 말 그대로 산처럼 보이는 것이 살아나는 것을 보고 강하게 소리를 질렀습니다. \"오우... [삐-----------------]!\"",
 
     "EQUIPMENT_MYSTICSITEMS_MECHANICALARM_NAME": "기계식 팔",
