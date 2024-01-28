@@ -1,3 +1,5 @@
+#### 2.1.14:
+* Fixed certain null object reference checks
 #### 2.1.13:
 * Gachapon Coin:
     * Passive Crit Bonus: ~~0.5% (+0.5% per stack)~~ ⇒ 1% (+1% per stack)

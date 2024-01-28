@@ -33,7 +33,10 @@ namespace MysticsItems.Buffs
         private void FireSeekingArrow_OnEnter(On.EntityStates.Huntress.HuntressWeapon.FireSeekingArrow.orig_OnEnter orig, EntityStates.Huntress.HuntressWeapon.FireSeekingArrow self)
         {
             orig(self);
-            if (self.initialOrbTarget?.healthComponent?.body?.HasBuff(buffDef) == true)
+            if (self.initialOrbTarget &&
+                self.initialOrbTarget.healthComponent &&
+                self.initialOrbTarget.healthComponent.body &&
+                self.initialOrbTarget.healthComponent.body.HasBuff(buffDef))
             {
                 self.isCrit = true;
             }

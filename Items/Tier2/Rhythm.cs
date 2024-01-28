@@ -278,9 +278,9 @@ namespace MysticsItems.Items
             {
                 UpdateText();
 
-                if (soundsEnabled && rhythmBehaviour && hud?.cameraRigController?.viewer?.localUser != null)
+                if (soundsEnabled && rhythmBehaviour && hud && hud.cameraRigController && hud.cameraRigController.viewer && hud.cameraRigController.viewer.localUser != null && hud.cameraRigController.targetBody)
                 {
-                    Util.PlayAttackSpeedSound(MysticsItemsRhythmBehaviour.hitSoundString, hud.cameraRigController.targetBody?.gameObject, 1f + rhythmBehaviour.critBonus / 20f);
+                    Util.PlayAttackSpeedSound(MysticsItemsRhythmBehaviour.hitSoundString, hud.cameraRigController.targetBody.gameObject, 1f + rhythmBehaviour.critBonus / 20f);
                 }
 
                 currentComboAnimationType = ComboAnimationType.Hit;
@@ -296,9 +296,9 @@ namespace MysticsItems.Items
 
             public void OnTick()
             {
-                if (soundsEnabled && rhythmBehaviour && rhythmBehaviour.beatsSinceLastHit <= 5 && hud?.cameraRigController?.viewer?.localUser != null)
+                if (soundsEnabled && rhythmBehaviour && rhythmBehaviour.beatsSinceLastHit <= 5 && hud && hud.cameraRigController && hud.cameraRigController.viewer && hud.cameraRigController.viewer.localUser != null && hud.cameraRigController.targetBody)
                 {
-                    Util.PlayAttackSpeedSound(MysticsItemsRhythmBehaviour.prepareSoundString, hud.cameraRigController.targetBody?.gameObject, 1f + rhythmBehaviour.critBonus / 20f);
+                    Util.PlayAttackSpeedSound(MysticsItemsRhythmBehaviour.prepareSoundString, hud.cameraRigController.targetBody.gameObject, 1f + rhythmBehaviour.critBonus / 20f);
                 }
                 if (currentComboAnimationType != ComboAnimationType.Hit)
                 {
